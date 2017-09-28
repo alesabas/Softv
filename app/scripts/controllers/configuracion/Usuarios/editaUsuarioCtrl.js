@@ -115,4 +115,5 @@ angular
     vm.eliminarelacion = eliminarelacion;
     vm.muestraplazas = muestraplazas;
     vm.Guardar=Guardar;
+    vm.oculta=false;
   });

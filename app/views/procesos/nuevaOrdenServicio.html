@@ -103,7 +103,7 @@
               <small><b># Orden:</b></small>
             </div>
             <div class="col-md-3">
-              <input type="text" placeholder="# Orden" class="form-control input-sm" ng-model="$ctrl.clv_orden" disabled>
+              <input type="text" placeholder="# Orden" name="numeroorden" class="form-control input-sm" ng-model="$ctrl.clv_orden" disabled>
             </div>
             <div class="col-md-4">
 
@@ -114,14 +114,18 @@
             </div>
             <div class="col-md-3" style="margin-left: -20px;">
               <div>
-                <button title="Buscar cliente" type="button" ng-click="$ctrl.buscarCliente()" class="btn ink-reaction btn-floating-action btn-sm btn-default"
+                <button title="Buscar cliente" type="button" ng-click="$ctrl.buscarCliente()" 
+                name="buscarcliente"
+                class="btn ink-reaction btn-floating-action btn-sm btn-default"
                   ng-disabled="$ctrl.block"><i class="fa fa-search"></i></button>
               </div>
             </div>
           </div>
         </div>
         <div class="col-md-2">
-          <input type="text" class="form-control input-sm" placeholder="# Folio de bitácora" ng-model="$ctrl.bitacora" disabled>
+          <input type="text" class="form-control input-sm"
+          name="foliobitacora"
+           placeholder="# Folio de bitácora" ng-model="$ctrl.bitacora" disabled>
         </div>
         <div class="col-md-5">
           <div class="col-md-12">
@@ -166,10 +170,10 @@
             <div class="card wrapper scrollDiv2" style="background: #DDEAE9">
               <p style="font-size: 10px;" class="text-center"><span ng-repeat="x in $ctrl.servicios">{{ x.Servicio }} <br></span></p>
             </div>
-            <label class="text-left radio-inline radio-styled"><input type="radio" ng-checked="$ctrl.datosCli.ESHOTEL"  ng-disabled="true" >
+            <label class="text-left radio-inline radio-styled"><input name="tipocliente" type="radio" ng-checked="$ctrl.datosCli.ESHOTEL"  ng-disabled="true" >
 					<span>Es Hotel</span>
 				</label>
-            <label class="text-left radio-inline radio-styled"><input type="radio"  ng-checked="$ctrl.datosCli.SOLOINTERNET" ng-disabled="true" >
+            <label class="text-left radio-inline radio-styled"><input type="radio" name="tipocliente"  ng-checked="$ctrl.datosCli.SOLOINTERNET" ng-disabled="true" >
 					<span>Solo Internet</span>
 				</label>
           </div>
@@ -181,7 +185,8 @@
             <tr>
               <td> <label for="regular13" class=" control-label">Solicitud</label></td>
               <td>
-                <input type="text" class="form-control input-sm" ng-model="$ctrl.Fec_Sol" style="font-size:12px;" ng-disabled="$ctrl.blockSolicitud"
+                <input type="text" class="form-control input-sm" 
+                ng-model="$ctrl.Fec_Sol" style="font-size:12px;" name="fsolicitud" ng-disabled="$ctrl.blockSolicitud"
                   placeholder="DD/MM/YYYY" ui-mask="99/99/9999">
 
               </td>
@@ -189,8 +194,10 @@
             <tr ng-class="(QuejaForm.fejecucion.$valid==false  )?'input-yellow':'input-normal'">
               <td> <label for="regular13" class=" control-label">Ejecución</label></td>
               <td>
-                <input type="text" name='fejecucion' class="form-control input-sm" ng-model="$ctrl.Fec_Eje" style="font-size:12px;" ng-disabled="$ctrl.blockEjecucion"
-                  placeholder="" ui-mask="99/99/9999" ng-required="!$ctrl.blockEjecucion" model-view-value="true" validate-on="dirty"
+                <input type="text" name='fejecucion' class="form-control input-sm"
+                 ng-model="$ctrl.Fec_Eje" style="font-size:12px;" ng-disabled="$ctrl.blockEjecucion"
+                  placeholder="" ui-mask="99/99/9999" ng-required="!$ctrl.blockEjecucion" 
+                  model-view-value="true" validate-on="dirty"
                   required-message="' La Fecha es obligatoria.'">
 
               </td>
@@ -210,7 +217,9 @@
                 <label for="regular13" class=" control-label">Visita 2</label>
               </td>
               <td>
-                <input type="text" class="form-control input-sm" ng-model="$ctrl.Visita2" model-view-value="true" style="font-size:12px;"
+                <input type="text" class="form-control input-sm" ng-model="$ctrl.Visita2"
+                
+                 model-view-value="true" style="font-size:12px;"
                   ng-disabled="$ctrl.blockVista2" placeholder="" ui-mask="99/99/9999" name="fechavisita2" ng-required="!$ctrl.blockVista2"
                   validate-on="dirty" required-message="'La fecha es obligatoria.'">
               </td>
@@ -220,7 +229,10 @@
                 <label for="regular13" class=" control-label">Ejecución real</label>
               </td>
               <td>
-                <input type="text" class="form-control input-sm" ng-model="$ctrl.datosOrden.FechaEjecucionReal" style="font-size:12px;" ng-disabled="$ctrl.blockEjecucionReal"
+                <input type="text" class="form-control input-sm" 
+                ng-model="$ctrl.datosOrden.FechaEjecucionReal" style="font-size:12px;"
+                name="ejecucionreal"
+                 ng-disabled="$ctrl.blockEjecucionReal"
                   placeholder="DD/MM/YYYY" ui-mask="99/99/9999">
               </td>
             </tr>
@@ -294,16 +306,19 @@
           <div class="col-md-6">
             <small><b>Técnico:</b></small>
             <select name="tecnico"
-            ng-class="(QuejaForm.tecnico.$valid==false  )?'input-yellow':'input-normal'"
-             class="form-control input-sm" ng-model="$ctrl.selectedTecnico" ng-options="v.NOMBRE for v in $ctrl.tecnico track by v.CLV_TECNICO"
-              validate-on="dirty" required-message="'Error!, Este campo es obligatorio.'" ng-required="!$ctrl.blockTecnico"
+            ng-class="(QuejaForm.tecnico.$valid==false  )?'input-yellow':'input-normal'"            
+             class="form-control input-sm"
+              ng-model="$ctrl.selectedTecnico" 
+              ng-options="v.NOMBRE for v in $ctrl.tecnico track by v.CLV_TECNICO"
+              validate-on="dirty" required-message="'Error!, Este campo es obligatorio.'"
+               ng-required="!$ctrl.blockTecnico"
               ng-disabled="$ctrl.blockTecnico">
 					<option value=""  selected>Seleccione el técnico</option>
 				</select>
           </div>
           <div class="col-md-6">
             <small><b>Observaciones:</b></small>
-            <textarea type="text" class="form-control input-sm" ng-model="$ctrl.observaciones"></textarea>
+            <textarea type="text" name="observaciones" class="form-control input-sm" ng-model="$ctrl.observaciones"></textarea>
           </div>
           <div class="col-md-12">
             <button title="Agregar un servicio nuevo" type="button" class="btn btn-success btn-xs" ng-click="$ctrl.agregar()" ng-disabled="$ctrl.block">Agregar servicio</button>

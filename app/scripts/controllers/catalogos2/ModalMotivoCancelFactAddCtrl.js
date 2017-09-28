@@ -1,9 +1,6 @@
 angular
 .module('softvApp')
-.controller('ModalCajaFormAddCtrl', function(CatalogosFactory, $uibModalInstance, ngNotify, $state,$uibModal){
-
-
-    
+.controller('ModalMotivoCancelFactAddCtrl', function(CatalogosFactory, $uibModalInstance, ngNotify, $state){
 
 
     function cancel() {
@@ -11,7 +8,7 @@ angular
     }
 
 var vm = this;
-vm.Titulo = 'Nuevo Registro';
+vm.Titulo = 'Nuevo Motivo de Cancelacion de Factura';
 vm.Icono = 'fa fa-plus';
 vm.cancel = cancel;
 

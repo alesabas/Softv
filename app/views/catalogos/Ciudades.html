@@ -14,6 +14,11 @@
                 <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">Catálogo Ciudades</a>
             </small>
         </header>
+        <div class="tools">
+			<div class="btn-group">
+			    <button type="button" class="btn btn-primary btn-sm" ng-click="$ctrl.OpenAddCiudad()" title="Crear una ciudad nueva">NUEVA CIUDAD</button>
+            </div>
+        </div>
     </div>
     <div class="card-body">
         <div class="row">
@@ -27,7 +32,6 @@
                 <div class="col-md-7">
                 </div>
                 <div class="col-md-2" style="text-align:right">
-				    <button type="button" class="btn btn-primary btn-sm" ng-click="$ctrl.OpenAddCiudad()" title="Crear una ciudad nueva">NUEVA CIUDAD</button>
 			    </div>
 			</div>
         </div>
@@ -47,10 +51,10 @@
 							<td class="text-center" colspan="4">SIN REGISTROS</td>
 						</tr>
                         <tr dir-paginate="X in $ctrl.CiudadLista|filter:$SearchCiudad|itemsPerPage:7" ng-show="$ctrl.ConRegistros">
-                            <td>{{ X.IdMunicipio }}</td>
+                            <td>{{ X.Clv_Ciudad }}</td>
                             <td>{{ X.Nombre }}</td>
-                            <td><button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.OpenUpdateCiudad(X.IdMunicipio)" title="Editar Ciudad"><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
-                            <td><button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.OpenDeleteCiudad(X)" title="Eliminar Ciudad"><i class="fa fa-trash"></i> ELIMINAR</button></td>
+                            <td><button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.OpenUpdateCiudad(X.Clv_Ciudad)" title="Editar Ciudad"><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
+                            <td><button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.OpenDeleteCiudad(X.Clv_Ciudad)" title="Eliminar Ciudad"><i class="fa fa-trash"></i> ELIMINAR</button></td>
                         </tr>
                     </tbody>
                 </table>

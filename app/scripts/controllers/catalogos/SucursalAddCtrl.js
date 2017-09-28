@@ -1,67 +1,63 @@
 'use strict';
 
 angular
-    .module('softvApp')
-    .controller('SucursalAddCtrl', function (CatalogosFactory, ngNotify, $rootScope, $state, atencionFactory) {
+  .module('softvApp')
+  .controller('SucursalAddCtrl', function (CatalogosFactory, ngNotify, $rootScope, $state, atencionFactory) {
 
 
-        function initData() {
+    function initData() {
+      atencionFactory.getPlazas()
+        .then(function (data) {
+          console.log(data.GetMuestra_Compania_RelUsuarioListResult);
+          vm.plazas = data.GetMuestra_Compania_RelUsuarioListResult;
+        });
+    }
 
 
-            atencionFactory.getPlazas().then(function (data) {
-                console.log(data.GetMuestra_Compania_RelUsuarioListResult);
-                vm.plazas = data.GetMuestra_Compania_RelUsuarioListResult;
-                
-            });
+
+
+    function SaveSucursal() {
+
+      var SUCURSALESobj = {};
+      SUCURSALESobj.Clv_Sucursal = 0;
+      SUCURSALESobj.Nombre = vm.descripcion;
+      SUCURSALESobj.IP = vm.ip;
+      SUCURSALESobj.Impresora = vm.impresoraff;
+      SUCURSALESobj.Clv_Equivalente = '';
+      SUCURSALESobj.Serie = vm.serie;
+      SUCURSALESobj.UltimoFolioUsado = vm.folio;
+      SUCURSALESobj.idcompania = (vm.plazas === undefined) ? 0 : vm.plaza.id_compania;
+      SUCURSALESobj.Matriz = (vm.Matriz === true) ? 1 : 0;
+      SUCURSALESobj.Impresora_contratos = vm.contratos;
+      SUCURSALESobj.Impresora_tarjetas = vm.tarjetas;
+      SUCURSALESobj.Impresora_Tickets = vm.tickets;
+      SUCURSALESobj.Calle = vm.calle;
+      SUCURSALESobj.Numero = vm.numero;
+      SUCURSALESobj.Colonia = vm.colonia;
+      SUCURSALESobj.CP = vm.cp;
+      SUCURSALESobj.Municipio = vm.municipio;
+      SUCURSALESobj.Ciudad = vm.ciudad;
+      SUCURSALESobj.Telefono = vm.telefono;
+      SUCURSALESobj.Horario = vm.atencion;
+      SUCURSALESobj.Referencia = vm.referencia;
+      SUCURSALESobj.Contacto = vm.contacto;
+      SUCURSALESobj.Email = vm.email;
+      CatalogosFactory.AddSucursal(SUCURSALESobj).then(function (data) {
+        console.log(data);
+        if (data.AddSUCURSALESResult > 0) {
+          ngNotify.set('Se añadió una sucursal correctamente.', 'success');
+          $state.go('home.catalogos.sucursales');
+        } else {
+          ngNotify.set('sucedió  un error  al añadir una neva sucursal.', 'warn');
 
         }
-         
+      });
+    }
 
+    var vm = this;
+    vm.Titulo = 'Sucursal Nueva';
+    vm.SaveSucursal = SaveSucursal;
+    vm.blockreturn = true;
+    initData();
 
-
-        function SaveSucursal() {
-            
-            var SUCURSALESobj = {};
-            SUCURSALESobj.Clv_Sucursal = vm.Clv_Sucursal;
-            SUCURSALESobj.Nombre = vm.Nombre;
-            SUCURSALESobj.IP = vm.IP;
-            SUCURSALESobj.Impresora = vm.Impresora;
-            SUCURSALESobj.Clv_Equivalente = vm.Clv_Equivalente;
-            SUCURSALESobj.Serie = vm.Serie;
-            SUCURSALESobj.UltimoFolioUsado = vm.UltimoFolioUsado;
-            SUCURSALESobj.Clv_Equivalente = "null";
-            SUCURSALESobj.idcompania = (vm.plazas == undefined) ? 0 : vm.Plaza.id_compania;
-            SUCURSALESobj.Matriz = (vm.Matriz=='S') ? 1:0 ;
-            SUCURSALESobj.Impresora_contratos = vm.Impresora_contratos;
-            SUCURSALESobj.Impresora_tarjetas = vm.Impresora_tarjetas;
-            SUCURSALESobj.Impresora_Tickets = vm.Impresora_Tickets;
-            SUCURSALESobj.Calle = vm.Calle;
-            SUCURSALESobj.Numero = vm.Numero;
-            SUCURSALESobj.Colonia = vm.Colonia;
-            SUCURSALESobj.CP = vm.CP;
-            SUCURSALESobj.Municipio = vm.Municipio;
-            SUCURSALESobj.Ciudad = vm.Ciudad;
-            SUCURSALESobj.Telefono = vm.Telefono;
-            SUCURSALESobj.Horario = vm.Horario;
-            SUCURSALESobj.Referencia = vm.Referencia;
-            SUCURSALESobj.Contacto = vm.Contacto;
-            SUCURSALESobj.Email = vm.Email;
-            CatalogosFactory.AddSucursal(SUCURSALESobj).then(function (data) {
-                console.log(data);
-                if (data.AddSucursalResult > 0) {
-                    ngNotify.set('CORRECTO, se añadió una sucursal nueva.', 'success');
-                    $state.go('home.catalogos.sucursales');
-                } else {
-                    ngNotify.set('ERROR, al añadir una sucursal nuevo.', 'warn');
-                    $state.go('home.catalogos.sucursales');
-                }
-            });
-        }
-
-        var vm = this;
-        vm.Titulo = 'Sucursal Nueva';
-        vm.SaveSucursal = SaveSucursal;
-        vm.blockreturn = true;
-        initData();
-
-    });
+  });

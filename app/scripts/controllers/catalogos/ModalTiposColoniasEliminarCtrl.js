@@ -13,7 +13,7 @@ angular
         }
 
         function DeleteTipoColonia(){
-            CatalogosFactory.DeleteTipo_Colonias1_New(vm.IdTipoColonia).then(function(data){;
+            CatalogosFactory.DeleteTipo_Colonias1_New(vm.IdTipoColonia).then(function(data){
                 if(data.DeleteTipo_Colonias1_NewResult == -1){
                     ngNotify.set('CORRECTO, se eliminó el tipo de colonia.', 'success');
                     $state.reload('home.catalogos.tipos_colonias');

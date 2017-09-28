@@ -1,0 +1,12 @@
+<div class="modal-header">
+        <button class="close" type="button" aria-label="close" ng-click="ctrl.cancel()">x</button>
+        <h4 class="modal-title"><i class="fa fa-exclamation-triangle"></i> Eliminar registro - {{ ctrl.ClaveMotivo }}</h4>
+    </div>
+    <div class="modal-body">
+        <p>¿Realmente desea eliminar el registro?</p>
+        <p><b>Nombre Motivo:</b> {{ ctrl.Motivo }}</p>
+    </div>
+    <div class="modal-footer">
+            <td><button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.DeleteMotivo()" title="Elimina motivo "><i class="fa fa-trash"></i> ELIMINAR</button></td>
+        <button class="btn bnt-default btn-sm" type="button" ng-click="ctrl.cancel()" title="Salir">Cancelar</button>
+    </div>

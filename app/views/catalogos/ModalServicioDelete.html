@@ -1,0 +1,12 @@
+<div class="modal-header">
+    <button class="close" type="button" aria-label="close" ng-click="ctrl.cancel()">x</button>
+    <h4 class="modal-title"><i class="fa fa-exclamation-triangle"></i> Eliminar registro - {{ ctrl.Clv_Servicio }}</h4>
+</div>
+<div class="modal-body">
+    <p><b>¿Realmente desea eliminar el servicio?</b></p>
+    <p><b>Nombre Servicio?:</b> {{ ctrl.Servicio }}</p>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-danger btn-sm" type="button" ng-click="ctrl.DeleteServicio()" title="Eliminar Servicio">Eliminar</button>
+    <button class="btn bnt-default btn-sm" type="button" ng-click="ctrl.cancel()" title="Salir">Cancelar</button>
+</div>

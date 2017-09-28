@@ -2,14 +2,14 @@
 <div class="card animated fadeIn" style="margin-top:20px;">
     <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
         <header>
-            <strong style="font-weight:bold; border:none; margin-left:10px;">{{ $ctrl.Titulo }} {{ $ctrl.IdDistribuidor}}</strong>
+            <strong style="font-weight:bold; border:none; margin-left:10px;">{{ $ctrl.Titulo }}</strong>
             <br>
             <small class="text-muted" style="font-size:14px; margin-left:10px;">
-                <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">{{ $ctrl.Titulo }} {{ $ctrl.IdDistribuidor}}</a>
+                <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">Catálogos</a>
             </small>
         </header>
         <div class="tools">
-            <button type="submit" class="btn btn-primary btn-sm" title="Guardar Distribuidor">Guardar</button>
+            <button type="submit" ng-show="!$ctrl.block" class="btn btn-primary btn-sm" title="Guardar Distribuidor">Guardar</button>
 			<button type="button" class="btn btn-default-bright btn-sm" ui-sref="home.catalogos.distribuidores" title="Cancelar cambios">Cancelar</button>
 		</div>
     </div>
@@ -181,23 +181,29 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="col-md-3">
-                            <p><b><small>Número:</small></b></p>
+                            <p><b><small>Número Interior:</small></b></p>
+                        </div>
+                        <div class="col-md-3">
+                            <p><b><small>Número Exterior:</small></b></p>
                         </div>
                         <div class="col-md-3">
                             <p><b><small>CP:</small></b></p>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <p><b><small>Colonia:</small></b></p>
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="col-md-3">
-                            <input name="InpNumeroDC" type="text" class="form-control input-sm" ng-model="$ctrl.NumeroDC"  maxlength="6" validate-on="dirty" required required-message="'Obligatorio'">
+                            <input name="InpNumeroDC" type="text" class="form-control input-sm" ng-model="$ctrl.NumeroInDC"  maxlength="6" validate-on="dirty" required required-message="'Obligatorio'">
+                        </div>
+                        <div class="col-md-3">
+                            <input name="InpNumeroDC" type="text" class="form-control input-sm" ng-model="$ctrl.NumeroEXDC"  maxlength="6" validate-on="dirty" required required-message="'Obligatorio'">
                         </div>
                         <div class="col-md-3">
                             <input name="InpCPDC" type="text" class="form-control input-sm" ng-model="$ctrl.CPDC"  maxlength="5" ng-pattern="/^\d{5}$/" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa 5 dígitos.'">
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <input name="InpColoniaDC" type="text" class="form-control input-sm" ng-model="$ctrl.ColoniaDC" validate-on="dirty" required required-message="'Obligatorio'">
                         </div>
                     </div>
@@ -235,130 +241,76 @@
                 <uib-tab-heading>
                     Datos de Contacto
                 </uib-tab-heading>
-                <br>
-                <b>Responsable General</b>
-                <hr style="border:1px dotted;">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="col-md-3">
-                            <b><small>Nombre:</small></b>
-                        </div>
-                        <div class="col-md-3">
-                            <b><small>Teléfono:</small></b>
-                        </div>
-                        <div class="col-md-3">
-                            <b><small>Teléfono Celular:</small></b>
-                        </div>
-                        <div class="col-md-3">
-                            <b><small>Email:</small></b>
-                        </div>
-                        <div class="col-md-3">
-                            <input type="text" name="InpNombreRG" class="form-control input-sm" ng-model="$ctrl.NombreRG" validate-on="dirty" required required-message="'Obligatorio'">
-                        </div>
-                        <div class="col-md-3">
-                            <input type="text" name="InpTelefonoRG" class="form-control input-sm" ng-model="$ctrl.TelefonoRG" maxlength="8" ng-pattern="/^\d{8}$/" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa 8 dígitos.'">
-                        </div>
-                        <div class="col-md-3">
-                            <input type="text" name="InpCelularRG" class="form-control input-sm" ng-model="$ctrl.CelularRG" maxlength="13" ng-pattern="/^\d{13}$/" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa 13 dígitos.'">
-                        </div>
-                        <div class="col-md-3">
-                            <input type="email" name="InpEmailRG" class="form-control input-sm" ng-model="$ctrl.EmailRG" ng-pattern="/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa un correo válido.'">
-                        </div>
+
+                <div class="row"> 
+                    <p>Responsable General </p>
+                    <div class="col-md-5">
+                         <div class="col-md-12">
+                              <div class="col-md-5">
+                                <b>Nombre</b>
+                              </div>
+                              <div class="col-md-7">
+                                 <input type="text" class="form-control input-sm" name="" ng-model="$ctrl.nombrecont">
+                              </div>
+                         </div>
+                         <div class="col-md-12">
+                              <div class="col-md-5">
+                                <b>Teléfono</b>
+                              </div>
+                              <div class="col-md-7">
+                                 <input type="text" class="form-control input-sm" name="" ng-model="$ctrl.telefonocont">
+                              </div>
+                         </div>
+                         <div class="col-md-12">
+                              <div class="col-md-5">
+                                <b>Celular</b>
+                              </div>
+                              <div class="col-md-7">
+                                 <input type="text" class="form-control input-sm" name="" ng-model="$ctrl.celularcont">
+                              </div>
+                         </div>
+
+                         <div class="col-md-12">
+                              <div class="col-md-5">
+                                <b>Email:</b>
+                              </div>
+                              <div class="col-md-7">
+                                 <input type="text" class="form-control input-sm" name="" ng-model="$ctrl.emailcont">
+                              </div>
+                         </div>
+
+                         <div class="col-md-12">
+                              <div class="col-md-5">
+                                <b>Responsable Comercial:</b>
+                              </div>
+                              <div class="col-md-7">
+                                 <input type="text" class="form-control input-sm" name="" ng-model="$ctrl.respcomcont">
+                              </div>
+                         </div>
+
+                         <div class="col-md-12">
+                              <div class="col-md-5">
+                                <b>Responsable de operaciones:</b>
+                              </div>
+                              <div class="col-md-7">
+                                 <input type="text" class="form-control input-sm" name="" ng-model="$ctrl.respopcont">
+                              </div>
+                         </div>
+
+                          <div class="col-md-12">
+                              <div class="col-md-5">
+                                <b>Responsable de atención:</b>
+                              </div>
+                              <div class="col-md-7">
+                                 <input type="text" class="form-control input-sm" name="" ng-model="$ctrl.resatencont">
+                              </div>
+                         </div>
+
+
                     </div>
                 </div>
-                <br>
-                <b>Responsable Comercial</b>
-                <hr style="border:1px dotted;" />
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="col-md-3">
-                            <b><small>Nombre:</small></b>
-                        </div>
-                        <div class="col-md-3">
-                            <b><small>Teléfono:</small></b>
-                        </div>
-                        <div class="col-md-3">
-                            <b><small>Teléfono Celular:</small></b>
-                        </div>
-                        <div class="col-md-3">
-                            <b><small>Email:</small></b>
-                        </div>
-                        <div class="col-md-3">
-                            <input type="text" name="InpNombreRC" class="form-control input-sm" ng-model="$ctrl.NombreRC" validate-on="dirty" required required-message="'Obligatorio'">
-                        </div>
-                        <div class="col-md-3">
-                            <input type="text" name="InpTelefonoRC" class="form-control input-sm" ng-model="$ctrl.TelefonoRC" maxlength="8" ng-pattern="/^\d{8}$/" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa 8 dígitos.'">
-                        </div>
-                        <div class="col-md-3">
-                            <input type="text" name="InpCelularRC" class="form-control input-sm" ng-model="$ctrl.CelularRC" maxlength="13" ng-pattern="/^\d{13}$/" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa 13 dígitos.'">
-                        </div>
-                        <div class="col-md-3">
-                            <input type="email" name="InpEmailRC" class="form-control input-sm" ng-model="$ctrl.EmailRC" ng-pattern="/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa un correo válido.'">
-                        </div>
-                    </div>
-                </div>
-                <br>
-                <b>Responsable Operaciones</b>
-                <hr style="border:1px dotted;" />
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="col-md-3">
-                            <b><small>Nombre:</small></b>
-                        </div>
-                        <div class="col-md-3">
-                            <b><small>Teléfono:</small></b>
-                        </div>
-                        <div class="col-md-3">
-                            <b><small>Teléfono Celular:</small></b>
-                        </div>
-                        <div class="col-md-3">
-                            <b><small>Email:</small></b>
-                        </div>
-                        <div class="col-md-3">
-                            <input type="text" name="InpNombreRO" class="form-control input-sm" ng-model="$ctrl.NombreRO" validate-on="dirty" required required-message="'Obligatorio'">
-                        </div>
-                        <div class="col-md-3">
-                            <input type="text" name="InpTelefonoRO" class="form-control input-sm" ng-model="$ctrl.TelefonoRO" maxlength="8" ng-pattern="/^\d{8}$/" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa 8 dígitos.'">
-                        </div>
-                        <div class="col-md-3">
-                            <input type="text" name="InpCelularRO" class="form-control input-sm" ng-model="$ctrl.CelularRO" maxlength="13" ng-pattern="/^\d{13}$/" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa 13 dígitos.'">
-                        </div>
-                        <div class="col-md-3">
-                            <input type="email" name="InpEmailRO" class="form-control input-sm" ng-model="$ctrl.EmailRO" ng-pattern="/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa un correo válido.'">
-                        </div>
-                    </div>
-                </div>
-                <br>
-                <b>Responsable de Atencion</b>
-                <hr style="border:1px dotted;" />
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="col-md-3">
-                            <b><small>Nombre:</small></b>
-                        </div>
-                        <div class="col-md-3">
-                            <b><small>Teléfono:</small></b>
-                        </div>
-                        <div class="col-md-3">
-                            <b><small>Teléfono Celular:</small></b>
-                        </div>
-                        <div class="col-md-3">
-                            <b><small>Email:</small></b>
-                        </div>
-                        <div class="col-md-3">
-                            <input type="text" name="InpNombreRA" class="form-control input-sm" ng-model="$ctrl.NombreRA" validate-on="dirty" required required-message="'Obligatorio'">
-                        </div>
-                        <div class="col-md-3">
-                            <input type="text" name="InpTelefonoRA" class="form-control input-sm" ng-model="$ctrl.TelefonoRA" maxlength="8" ng-pattern="/^\d{8}$/" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa 8 dígitos.'">
-                        </div>
-                        <div class="col-md-3">
-                            <input type="text" name="InpCelularRA" class="form-control input-sm" ng-model="$ctrl.CelularRA" maxlength="13" ng-pattern="/^\d{13}$/" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa 13 dígitos.'">
-                        </div>
-                        <div class="col-md-3">
-                            <input type="email" name="InpEmailRA" class="form-control input-sm" ng-model="$ctrl.EmailRA" ng-pattern="/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa un correo válido.'">
-                        </div>
-                    </div>
-                </div>
+
+              
                 <footer>
                     <p class="text-right"></p>
                 </footer>

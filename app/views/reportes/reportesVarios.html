@@ -1,9 +1,9 @@
 <style type="text/css">
-
-
 	.custom{
-    	height:36px;
+    	height:31px;
     	font-size: 13px;
+    	padding:0px;
+    	padding-left:20px;
     }
 
 </style>
@@ -514,7 +514,7 @@
 				<div class="content table-responsive table-full-width">
 					<form class="form-inline">
 						<div>
-								<label> Servicios de Internet </label>
+								<label> Servicios </label>
 						</div>
 						<div style="padding-left: 30px">
 							<input type="text" ng-model="$ctrl.search" class="form-control" placeholder="buscar servicio..."><i class="fa fa-search" aria-hidden="true"></i>
@@ -575,75 +575,6 @@
 				</div>
 			</div>
 
-
-
-		    <!-- S E R V I C I O S   D I G I T A L -->
-			<div id="panelServiciosDigital" class="col-md-12" style="padding-left: 25px; padding-right: 25px; padding-top: 25px"  ng-hide="$ctrl.pserviciosDigital">
-				<div class="content table-responsive table-full-width">
-					<form class="form-inline">
-						<div>
-								<label> Servicios de Digital </label>
-						</div>
-						<div style="padding-left: 30px">
-
-							<input type="text" ng-model="$ctrl.search" class="form-control" placeholder="buscar servicio..."><i class="fa fa-search" aria-hidden="true"></i>
-
-						</div>
-						<br>
-
-
-						<div class="col-md-5 p-t-5" align="right">
-							<label class="checkbox-inline checkbox-styled">
-							<input type="checkbox" id="todosServD"
-	                                           ng-model="$ctrl.serviciosDigitalTodo"
-	                                           ng-click="$ctrl.serviciosDigitalPadre()"
-		                                       class=" filled-in chk-col-amber" >
-							<span>Seleccionar todos los servicios</span>
-							</label>
-		                </div>
-						<div class="col-md-7" align="left">
-
-						</div>
-					</form>
-	               <table class="table table-striped">
-	                            <thead>
-	                                <tr>
-	                                    <th ng-click="sort('upc')">
-	                                        Id
-	                                        <span class="glyphicon sort-icon" ng-show="$ctrl.sortKey=='id'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-	                                    </th>
-	                                    <th ng-click="sort('proveedor')">
-	                                        Nombre
-	                                        <span class="glyphicon sort-icon" ng-show="$ctrl.sortKey=='proveedor'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-	                                    </th>
-	                                </tr>
-	                            </thead>
-	                            <tbody>
-	                                <tr dir-paginate="dig in $ctrl.ServDigitalTable|orderBy:sortKey:reverse|filter:$ctrl.search|itemsPerPage:5">                                  
-										<td>
-											<label class="checkbox-inline checkbox-styled">  
-												<input type="checkbox"									      
-												        ng-model="dig.selected"
-												        ng-click="$ctrl.serviciosDigitalHijo(dig)"/>	
-												         <span> </span>
-											 </label>   
-										</td>
-
-	                                    <td>{{dig.Descripcion}}</td>
-	                                </tr>
-	                            </tbody>      
-					</table>
-	                <dir-pagination-controls max-size="5"
-	                                            direction-links="true"
-	                                            boundary-links="true">
-	                </dir-pagination-controls>
-
-					<div class="col-md-6    col-md-offset-3">
-		                		<button class="btn btn-success" ng-click="$ctrl.showTipoClientes()">Aceptar</button>
-								<button class="btn btn-default" ng-click="$ctrl.cleanArray(); $ctrl.showOpcion();">Cancelar</button>
-					</div>
-				</div>
-			</div>
 
 
 			<!-- T I P O S   D E   C L I E N T E -->
@@ -714,6 +645,7 @@
 			</div>
 
 
+
 		    <!-- P E R I O D O S -->
 			<div id="panelPeriodos" class="col-md-12" style="padding-left: 25px; padding-right: 25px; padding-top: 25px"  ng-hide="$ctrl.pperiodos">
 				<div class="content table-responsive table-full-width">
@@ -727,7 +659,6 @@
 
 						</div>
 						<br>
-
 
 						<div class="col-md-5 p-t-5" align="right">
 							<label class="checkbox-inline checkbox-styled">
@@ -791,8 +722,6 @@
 								<label> Seleccione los rangos de fecha </label>
 						</div>
 						<br>
-
-
 						<div class="col-md-6	col-md-offset-3">
 							<div align="left">
 							    <label for="fechaInicial">Fecha inicial: </label>
@@ -813,8 +742,6 @@
 			                    </select> 					
 		                    </div>
 						</div>
-
-
 					</form>
 
 					<div class="col-md-6    col-md-offset-3" align="left" style="padding-top: 30px;">
@@ -848,7 +775,6 @@
 							</div>
 						</div>
 					</form>
-
 					<div class="col-md-6    col-md-offset-3"  style="padding-top: 30px">
 		                		<button class="btn btn-success" ng-click="$ctrl.showCalles()">Aceptar</button>
 								<button class="btn btn-default" ng-click="$ctrl.cleanArray(); $ctrl.showOpcion();">Cancelar</button>
@@ -924,6 +850,7 @@
 					</div>
 				</div>
 			</div>
+
 
 
 		    <!-- S T A T U S -->
@@ -1051,8 +978,6 @@
 
 		                		</div>
 
-
-
 		            		</div>
 
 						</div>
@@ -1072,7 +997,6 @@
 				<iframe ng-src="{{$ctrl.reporteUrl}}" style="position:absolute;top:0px;width:98%;height:100%;" frameborder= 0>			
         		</iframe>
 			</div>
-
 
 
 		</div>

@@ -35,30 +35,88 @@
 					<div class="panel-body">
 						<uib-tabset active="active">
 
-							<uib-tab index="0" heading="">
-								<uib-tab-heading><i class="md md-content-paste"></i> Contrato</uib-tab-heading>
+							<uib-tab index="0">
+								<uib-tab-heading><i class="md md-receipt"></i> Detalle</uib-tab-heading>
 								<br/>
-								<div class="row">
-									<div class="col-md-4">
+								<form angular-validator-submit="$ctrl.bucarUsuario()" name="DetalleForm" novalidate angular-validator>
+									<div class="col-md-6">
+										<div class="col-md-12">
+											<div class="col-md-6 ">
+												<strong>Plaza</strong>
+												<select id="idplaza" 
+												  	ng-change="$ctrl.cambioPlaza()" 
+												  	class="form-control input-sm" 
+													  name="plaza"
+												  	ng-model="$ctrl.selectedPlaza" 
+												  	ng-options="v.razon_social for v in $ctrl.plazas track by v.id_compania">
+  													<option value="">Selecciona</option>
+  												</select>
+											</div>
+											<div class="col-md-6 ">
+												<strong>Tipo de Servicio</strong>
+												<select 
+													class="form-control input-sm" 
+													ng-model="$ctrl.selectedServicio" 
+													name="tiposervicio"
+												  	ng-change="$ctrl.cambioServicio()"
+												  	ng-options="v.Concepto for v in $ctrl.servicios track by v.Clv_TipSerPrincipal">
+  													<option value="">Selecciona</option>
+  												</select>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="col-md-6">
 										<strong>Contrato</strong>
 										<input type="text" class="form-control input-sm" name="contrato" ng-model="$ctrl.contrato" placeholder="Contrato">
 										<button type="button" class="btn btn-sm btn-info" ng-click="$ctrl.buscarContrato()"><i class="fa fa-search"></i> Buscar</button>
 									</div>
-									<div class="col-md-4 ">
+									<div class="col-md-6">
 										<strong># Llamada</strong>
 										<input type="number" class="form-control input-sm" ng-model="$ctrl.reporte" name="reporte" placeholder="Llamada">
 										<button type="button" class="btn btn-sm btn-info" ng-click="$ctrl.buscarReporte()"><i class="fa fa-search"></i> Buscar</button>
 									</div>
-								</div>
-								<br/>
-								<br/>
-								<br/>
-								<div class="note">
-									<strong>El número de contrato</strong> está formado por 2 grupos de números con un guion intermedio p.e. (1234-1)
-								</div>
-								<footer>
-									<p class="text-right"></p>
-								</footer>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="row">
+											<div class="col-md-10">
+												<strong>Ver Por</strong><br>
+												<label class="checkbox-inline checkbox-styled">
+													<input type="checkbox" 
+														ng-model="$ctrl.conReporte" 
+														name="conreporte"
+														ng-change="$ctrl.cambiaConReporte()" />
+														<span>Llamadas que generaron reporte</span>
+												</label><br>
+												<label class="checkbox-inline checkbox-styled">
+													<input type="checkbox"
+													name="sinreporte"
+														ng-model="$ctrl.sinReporte"
+														ng-change="$ctrl.cambiaSinReporte()"/>
+														<span>Llamadas sin reporte</span>
+												</label><br>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-10 ">
+												<strong>Usuario</strong>
+												<select class="form-control input-sm"
+													id="idusuario"
+													ng-model="$ctrl.selectedUsuario"
+													name="usuario"
+													ng-change="$ctrl.bucarUsuario()"
+													ng-options="v.NOMBRE for v in $ctrl.usuarios track by v.Clave">
+													<option value="">Selecciona</option>
+												</select>
+											</div>
+										</div>
+									</div>
+									<footer>
+										<p class="text-right">
+											<button type="submit" class="btn btn-sm btn-info"><i class="fa fa-search"></i> Buscar</button>
+										</p>
+									</footer>
+								</form>
 							</uib-tab>
 
 							<uib-tab index="1">
@@ -68,15 +126,15 @@
 									<div class="col-md-12">
 										<div class="col-md-3">
 											<strong>Nombre</strong>
-											<input type="text" class="form-control" ng-model="$ctrl.nombre">
+											<input type="text" class="form-control" name="nombre" ng-model="$ctrl.nombre">
 										</div>
 										<div class="col-md-3">
 											<strong>Apellido Paterno</strong>
-											<input type="text" class="form-control" ng-model="$ctrl.paterno">
+											<input type="text" class="form-control" name="apaterno" ng-model="$ctrl.paterno">
 										</div>
 										<div class="col-md-3">
 											<strong>Apellido Materno</strong>
-											<input type="text" class="form-control" ng-model="$ctrl.materno">
+											<input type="text" class="form-control" name="materno" ng-model="$ctrl.materno">
 										</div>
 									</div>
 									<div class="note">
@@ -109,11 +167,15 @@
 									<div class="col-md-12">
 										<div class="col-md-5">
 											<strong>Calle</strong>
-											<input type="text" placeholder="Ingresa el nombre de la calle" class="form-control input-sm" ng-model="$ctrl.calle">
+											<input type="text" placeholder="Ingresa el nombre de la calle"
+											name="calle"
+											 class="form-control input-sm" ng-model="$ctrl.calle">
 										</div>
 										<div class="col-md-2">
 											<strong>Número</strong>
-											<input type="number" class="form-control  input-sm" ng-model="$ctrl.numero">
+											<input type="number" class="form-control"
+											name="numero"
+											class=" input-sm" ng-model="$ctrl.numero">
 										</div>
 										<div class=" col-md-2 text-right">
 											<button type="submit" class="btn btn-sm btn-info">
@@ -125,74 +187,7 @@
 								</form>
 							</uib-tab>
 
-							<uib-tab index="3">
-								<uib-tab-heading><i class="md md-receipt"></i> Detalle</uib-tab-heading>
-								<br/>
-								<form angular-validator-submit="$ctrl.bucarUsuario()" name="DetalleForm" novalidate angular-validator>
-									<div class="col-md-6">
-										<div class="row">
-											<div class="col-md-10 ">
-												<label class="form-control">Plaza</label>
-												<select id="idplaza" 
-												  	ng-change="$ctrl.cambioPlaza()" 
-												  	class="form-control input-sm" 
-												  	ng-model="$ctrl.selectedPlaza" 
-												  	ng-options="v.razon_social for v in $ctrl.plazas track by v.id_compania">
-  													<option value="">Selecciona</option>
-  												</select>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-md-10 ">
-												<strong>Tipo de Servicio</strong>
-												<select 
-													class="form-control input-sm" 
-													ng-model="$ctrl.selectedServicio" 
-												  	ng-change="$ctrl.cambioServicio()"
-												  	ng-options="v.Concepto for v in $ctrl.servicios track by v.Clv_TipSerPrincipal">
-  													<option value="">Selecciona</option>
-  												</select>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="row">
-											<div class="col-md-10">
-												<strong>Ver Por</strong><br>
-												<label class="checkbox-inline checkbox-styled">
-													<input type="checkbox" 
-														ng-model="$ctrl.conReporte" 
-														ng-change="$ctrl.cambiaConReporte()" />
-														<span>Llamadas que generaron reporte</span>
-												</label><br>
-												<label class="checkbox-inline checkbox-styled">
-													<input type="checkbox"
-														ng-model="$ctrl.sinReporte"
-														ng-change="$ctrl.cambiaSinReporte()"/>
-														<span>Llamadas sin reporte</span>
-												</label><br>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-md-10 ">
-												<strong>Usuario</strong>
-												<select class="form-control input-sm"
-													id="idusuario"
-													ng-model="$ctrl.selectedUsuario"
-													ng-change="$ctrl.bucarUsuario()"
-													ng-options="v.NOMBRE for v in $ctrl.usuarios track by v.Clave">
-													<option value="">Selecciona</option>
-												</select>
-											</div>
-										</div>
-									</div>
-									<footer>
-										<p class="text-right">
-											<button type="submit" class="btn btn-sm btn-info"><i class="fa fa-search"></i> Buscar</button>
-										</p>
-									</footer>
-								</form>
-							</uib-tab>
+							
 
 						</uib-tabset>
 					</div>

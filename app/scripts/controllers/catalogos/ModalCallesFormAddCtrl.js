@@ -5,45 +5,49 @@ angular
     .controller('ModalCalleFormAddCtrl', function(CatalogosFactory, $uibModalInstance, ngNotify, $state){
 
         function initData(){
-            CatalogosFactory.GetEstadoList2_web().then(function(data){
-                vm.EstadoList = data.GetEstadoList2_webResult;
+            CatalogosFactory.GetEstados_NewList().then(function(data){
+                vm.EstadoList = data.GetEstados_NewListResult;
             });
         }
 
         function GetMunicipio(){
             if(vm.Estado != undefined){
-                CatalogosFactory.GetEstadosRelMun(vm.Estado.IdEstado).then(function(data){
-                    vm.MunicipioList = data.GetEstadosRelMunResult;
-                    vm.LocalidadList = null;
-                    vm.ColoniaList = null;
+                var RelEstMun = {
+                    'clv_estado' : vm.Estado.Clv_Estado,
+                    'idcompania' : 1//Delete
+                };
+                CatalogosFactory.GetMuestraCiudadesEstadoList(RelEstMun).then(function(data){
+                    vm.MunicipioList = data.GetMuestraCiudadesEstadoListResult;
                 });
             }else{
                 vm.MunicipioList = null;
-                vm.LocalidadList = null;
-                vm.ColoniaList = null;
             }
+            vm.LocalidadList = null;
+            vm.ColoniaList = null;
+            vm.CalleList = null;
         }
         
         function GetLocalidad(){
             if(vm.Municipio != undefined){
-                CatalogosFactory.GetLocalidadRelMun(vm.Municipio.Municipio.IdMunicipio).then(function(data){
-                    vm.LocalidadList = data.GetLocalidadRelMunResult;
-                    vm.ColoniaList = null;
+                CatalogosFactory.GetMuestraLocalidadCiudadList(vm.Municipio.Clv_Ciudad).then(function(data){
+                    vm.LocalidadList = data.GetMuestraLocalidadCiudadListResult;
                 });
             }else{
                 vm.LocalidadList = null;
-                vm.ColoniaList = null;
             }
+            vm.ColoniaList = null;
+            vm.CalleList = null;
         }
         
         function GetColonia(){
-             if(vm.Localidad != undefined){
-                CatalogosFactory.GetColoniaRelLoc(vm.Localidad.IdLocalidad).then(function(data){
-                    vm.ColoniaList = data.GetColoniaRelLocResult;
+            if(vm.Localidad != undefined){
+                CatalogosFactory.GetMuestraColoniaLocalidadList(vm.Localidad.Clv_Localidad).then(function(data){
+                    vm.ColoniaList = data.GetMuestraColoniaLocalidadListResult;
                 });
             }else{
                 vm.ColoniaList = null;
             }
+            vm.CalleList = null;
         }
 
         function AddRelCalle(){
@@ -52,19 +56,19 @@ angular
                vm.Localidad != undefined && vm.Localidad != 0 &&
                vm.Colonia != undefined && vm.Colonia != 0){
                 var RelCalle = {};
-                RelCalle.IdEstado = vm.Estado.IdEstado;
-                RelCalle.IdMunicipio = vm.Municipio.Municipio.IdMunicipio;
-                RelCalle.IdLocalidad = vm.Localidad.Localidad.IdLocalidad;
-                RelCalle.IdColonia = vm.Colonia.Colonia.IdColonia;
+                RelCalle.IdEstado = vm.Estado.Clv_Estado;
+                RelCalle.IdMunicipio = vm.Municipio.Clv_Ciudad;
+                RelCalle.IdLocalidad = vm.Localidad.Clv_Localidad;
+                RelCalle.IdColonia = vm.Colonia.CLV_COLONIA;
                 var RelCalleView = {};
-                RelCalleView.IdEstado = vm.Estado.IdEstado;
-                RelCalleView.IdMunicipio = vm.Municipio.Municipio.IdMunicipio;
-                RelCalleView.IdLocalidad = vm.Localidad.Localidad.IdLocalidad;
-                RelCalleView.IdColonia = vm.Colonia.Colonia.IdColonia;
+                RelCalleView.IdEstado = vm.Estado.Clv_Estado;
+                RelCalleView.IdMunicipio = vm.Municipio.Clv_Ciudad;
+                RelCalleView.IdLocalidad = vm.Localidad.Clv_Localidad;
+                RelCalleView.IdColonia = vm.Colonia.CLV_COLONIA;
                 RelCalleView.Estado = vm.Estado.Nombre;
-                RelCalleView.Municipio = vm.Municipio.Municipio.Nombre;
-                RelCalleView.Localidad = vm.Localidad.Localidad.Nombre;
-                RelCalleView.Colonia = vm.Colonia.Colonia.Nombre;
+                RelCalleView.Municipio = vm.Municipio.Nombre;
+                RelCalleView.Localidad = vm.Localidad.NOMBRE;
+                RelCalleView.Colonia = vm.Colonia.Nombre;
                 if(ExistsRelCalle(RelCalle.IdEstado, RelCalle.IdMunicipio, RelCalle.IdLocalidad, RelCalle.IdColonia) == false){
                     vm.RelCalleList.push(RelCalle);
                     vm.RelCalleViewList.push(RelCalleView);

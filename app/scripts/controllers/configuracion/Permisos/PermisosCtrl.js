@@ -7,6 +7,7 @@ angular
 		function GetRolList() {
 			rolFactory.GetRolList().then(function(data) {
 				vm.Roles = data.GetRolListResult;
+				vm.Rol=data.GetRolListResult[0];
 				GetModuleList();
 			});
 		}

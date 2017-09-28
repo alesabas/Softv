@@ -1,6 +1,6 @@
 <style type="text/css">
     .table-scroll {
-        height:150px;
+        height:140px;
         overflow:auto;  
         margin-top:20px;
     }
@@ -14,33 +14,33 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="col-md-12">
-                    <p><b><small>Nombre de la calle</small></b></p>
+                    <b><small>Nombre de la calle</small></b>
                 </div>
                 <div class="col-md-12">
-                    <input name="InpCalle" type="text" class="form-control input-sm" ng-model="ctrl.Calle" validate-on="dirty" required required-message="'Obligatorio'">
+                    <input name="InpCalle" type="text" class="form-control input-sm" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" ng-model="ctrl.Calle" validate-on="dirty" required required-message="'Obligatorio'">
                 </div>
             </div>
         </div>
         <br>
-        <p>Relación de la calle con las colonias</p>
+        <b>Relación de la calle con las colonias</b>
         <hr style="border:1px dotted;">
         <div class="row">
             <div class="col-md-12">
                 <div class="col-md-6">
-                    <p><b><small>Estado:</small></b></p>
+                    <b><small>Estado:</small></b>
                 </div>
                 <div class="col-md-6">
-                    <p><b><small>Ciudad:</small></b></p>
+                    <b><small>Ciudad:</small></b>
                 </div>
             </div>
             <div class="col-md-12">
                 <div class="col-md-6">
-                    <select name="SltEstado" class="form-control input-sm" ng-model="ctrl.Estado" ng-options="E.Nombre for E in ctrl.EstadoList track by E.IdEstado" ng-change="ctrl.GetMunicipio()">
+                    <select name="SltEstado" class="form-control input-sm" ng-model="ctrl.Estado" ng-options="E.Nombre for E in ctrl.EstadoList track by E.Clv_Estado" ng-change="ctrl.GetMunicipio()">
                         <option value="">Selecciona</option>
                     </select>
                 </div>
                 <div class="col-md-6">
-                    <select name="SltCiudad" class="form-control input-sm" ng-model="ctrl.Municipio" ng-options="M.Municipio.Nombre for M in ctrl.MunicipioList track by M.Municipio.IdMunicipio" ng-change="ctrl.GetLocalidad()">
+                    <select name="SltCiudad" class="form-control input-sm" ng-model="ctrl.Municipio" ng-options="M.Nombre for M in ctrl.MunicipioList track by M.Clv_Ciudad" ng-change="ctrl.GetLocalidad()">
                         <option value="">Selecciona</option>
                     </select>
                 </div>
@@ -50,20 +50,20 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="col-md-6">
-                    <p><b><small>Localidad:</small></b></p>
+                    <b><small>Localidad:</small></b>
                 </div>
                 <div class="col-md-6">
-                    <p><b><small>Colonia:</small></b></p>
+                    <b><small>Colonia:</small></b>
                 </div>
             </div>
             <div class="col-md-12">
                 <div class="col-md-6">
-                    <select name="InpLocalidad" class="form-control input-sm" ng-model="ctrl.Localidad" ng-options="L.Localidad.Nombre for L in ctrl.LocalidadList track by L.Localidad.IdLocalidad" ng-change="ctrl.GetColonia()">
+                    <select name="InpLocalidad" class="form-control input-sm" ng-model="ctrl.Localidad" ng-options="L.NOMBRE for L in ctrl.LocalidadList track by L.Clv_Localidad" ng-change="ctrl.GetColonia()">
                         <option value="">Selecciona</option>
                     </select>
                 </div>
                 <div class="col-md-6">
-                    <select name="SltColonia" class="form-control input-sm" ng-model="ctrl.Colonia" ng-options="C.Colonia.Nombre for C in ctrl.ColoniaList track by C.Colonia.IdColonia">
+                    <select name="SltColonia" class="form-control input-sm" ng-model="ctrl.Colonia" ng-options="C.Nombre for C in ctrl.ColoniaList track by C.CLV_COLONIA">
                         <option value="">Selecciona</option>
                     </select>
                 </div>
@@ -77,7 +77,6 @@
                 </div>
             </div>
         </div>
-        <br>
         <div class="row">
             <div class="col-md-12">
                 <div class="col-md-12 table-scroll">
@@ -101,7 +100,6 @@
                             </tr>
                         </tbody>
                     </table>
-                    <br>
                 </div>
             </div>
         </div>

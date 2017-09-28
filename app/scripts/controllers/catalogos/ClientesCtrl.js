@@ -5,19 +5,20 @@ angular
     .controller('ClientesCtrl', function(CatalogosFactory, $localStorage){
 
         function initData(){
-            /*CatalogosFactory.GetEstadoList2_web().then(function(data){
-                vm.EstadoList = data.GetEstadoList2_webResult;
-            });*/
             CatalogosFactory.GetPlazaList($localStorage.currentUser.idUsuario).then(function(data){
                 vm.PlazaList = data.GetPlazaListResult;
             });
+
+            CatalogosFactory.GetEstados_NewList().then(function(data){
+                vm.EstadoList = data.GetEstados_NewListResult;
+            });
+
             GetClienteList();
         }
 
         function GetClienteList(){
             var lstCliente = {};
             CatalogosFactory.GetClientesFiltosNew(lstCliente).then(function(data){
-                console.log(data);
                 vm.ClienteList = data.GetClientesFiltosNewResult.Entities;
                 if (vm.ClienteList.length == 0) {
 					vm.SinRegistros = true;
@@ -43,20 +44,6 @@ angular
 					vm.ConRegistros = true;
 				}
             });
-        }
-
-        function GetEstado(){
-            if(vm.Plaza != undefined){
-                CatalogosFactory.GetMuestraEstadosCompaniaList(vm.Plaza.id_compania).then(function(data){
-                    vm.EstadoList = data.GetMuestraEstadosCompaniaListResult;
-                });
-            }else{
-                vm.EstadoList = null;
-            }
-            vm.CiudadMunicipioList = null;
-            vm.LocalidadList = null;
-            vm.ColoniaList = null;
-            vm.CalleList = null;
         }
 
         function GetCiudadMunicipio(){
@@ -164,7 +151,6 @@ angular
 
         var vm = this;
         vm.SearchContrato = SearchContrato;
-        vm.GetEstado = GetEstado;
         vm.GetCiudadMunicipio = GetCiudadMunicipio;
         vm.GetLocalidad = GetLocalidad;
         vm.GetColonia = GetColonia;

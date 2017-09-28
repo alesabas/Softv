@@ -1,0 +1,85 @@
+<div class="card animated fadeIn" style="margin-top:20px;">
+  <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+    <header>
+      <strong style="font-weight:bold; border:none; margin-left:10px;">Catálogo de trabajos</strong>
+      <br>
+      <small class="text-muted" style="font-size:14px; margin-left:10px;">
+                    <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a> > <a href="#" class="paginaActiva">Area técnica</a>
+                </small>
+    </header>
+    <div class="tools">
+      <td><button type="button" class="btn btn-primary btn-sm" ui-sref="home.areaTecnica.nuevoservicio" title="Nuevo Cluster "><i class="fa fa-plus"></i> NUEVO</button></td>
+
+    </div>
+  </div>
+  <div class="card-body">
+
+    <div class="col-md-12">
+      <div class="col-md-3">
+        <select class="form-control input-sm" name="servicio" ng-change="$ctrl.obtentrabajos()"
+         ng-options="item as item.Concepto for item in $ctrl.servicios track by item.Clv_TipSerPrincipal"
+          ng-model="$ctrl.servicio">
+                   <option value="">Seleccionar</option>
+                </select>
+      </div>
+      <div class="col-md-2">
+        <input type="text" class="form-control input-sm" placeholder="Trabajo" ng-model="$ctrl.trabajo" name="trabajo">
+      </div>
+      <div class="col-md-1">
+        <button class="btn btn-info btn-sm"> <i class="fa fa-search"></i> buscar</button>
+      </div>
+      <div class="col-md-2">
+        <input type="text" class="form-control input-sm" placeholder="Descripcion" ng-model="$ctrl.descripcion" name="descripcion">
+      </div>
+
+      <div class="col-md-1">
+        <button class="btn btn-info btn-sm"> <i class="fa fa-search"></i> buscar</button>
+      </div>
+    </div>
+
+  </div>
+  <br>
+  <div class="col-md-12">
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th><b>Id</b></th>
+          <th><b>Clave</b></th>
+          <th><b>Descripcion</b></th>
+          <th><b>Tipo</b></th>
+          <th><b>Acciones</b></th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr dir-paginate="X in $ctrl.trabajos|itemsPerPage:7">
+          <td>{{ X.clv_trabajo}}</td>
+          <td>{{ X.trabajo }}</td>
+          <td>{{ X.descripcion }}</td>
+          <td>{{ X.tipo }}</td>
+
+          <td>
+            <td><button type="button" class="btn btn-info btn-xs" 
+            ui-sref="home.areaTecnica.detalleservicio({ id: X.clv_trabajo})"
+            title="Consultar Cluster"><i class="fa fa-eye"></i> CONSULTA</button>
+              <button type="button" class="btn btn-warning btn-xs" 
+              ui-sref="home.areaTecnica.editaservicio({ id: X.clv_trabajo})"
+               title="Editar Cluster "><i class="fa fa-pencil-square-o"></i> EDITAR</button>
+              <button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.EliminaCluster(X)" title="Elimina Cluster "><i class="fa fa-trash"></i> ELIMINAR</button></td>
+
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+    <br>
+    <div style="margin-top:-40px;">
+      <dir-pagination-controls max-size="7" direction-links="true" boundary-links="true">
+      </dir-pagination-controls>
+    </div>
+    <br>
+
+  </div>
+</div>
+</div>

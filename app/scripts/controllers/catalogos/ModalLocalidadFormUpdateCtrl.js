@@ -2,107 +2,128 @@
 
 angular
     .module('softvApp')
-    .controller('ModalLocalidadFormUpdateCtrl', function(CatalogosFactory, $uibModalInstance, ngNotify, $state, IdLocalidad){
+    .controller('ModalLocalidadFormUpdateCtrl', function(CatalogosFactory, $uibModalInstance, ngNotify, $state, IdLocalidad, $localStorage){
 
         function initData(){
-            CatalogosFactory.GetDeepLocalidad(IdLocalidad).then(function(data){
-                var LocalidadResult = data.GetDeepLocalidadResult;
-                vm.IdLocalidad = LocalidadResult.IdLocalidad;
+            var ObjCiudad = {
+                'Clv_Ciudad': 0,
+                'Nombre': '',
+                'Op': 2
+            };
+            CatalogosFactory.GetBuscaCiudades(ObjCiudad).then(function(data){
+                vm.CiudadLista = data.GetBuscaCiudadesResult;
+            });
+            CatalogosFactory.GetDeepLocalidades_New(IdLocalidad).then(function(data){
+                var LocalidadResult = data.GetDeepLocalidades_NewResult;
+                vm.IdLocalidad = LocalidadResult.Clv_Localidad;
                 vm.Localidad = LocalidadResult.Nombre;
-                var RelEstMun = LocalidadResult.RelLocalidadMunEst;
-                for(var i = 0; RelEstMun.length > i; i ++){
-                    var EstMun = {};
-                    EstMun.IdLocalidad = vm.IdLocalidad;
-                    EstMun.IdEstado = RelEstMun[i].IdEstado;
-                    EstMun.IdMunicipio = RelEstMun[i].IdMunicipio;
-                    var EstMunView = {};
-                    EstMunView.IdEstado = RelEstMun[i].IdEstado;
-                    EstMunView.IdMunicipio = RelEstMun[i].IdMunicipio;
-                    EstMunView.Estado = RelEstMun[i].NomEstado;
-                    EstMunView.Municipio = RelEstMun[i].NomMunicipio;
-                    vm.EstMunList.push(EstMun);
-                    vm.EstMunViewList.push(EstMunView);
-                }
+                GetRelLocalidad();
             });
 
-            CatalogosFactory.GetEstadoList2_web().then(function(data){
-                vm.EstadoList = data.GetEstadoList2_webResult;
-            });
         }
 
-        function GetCiudadMunicipio(){
-            if(vm.Estado != undefined){
-                CatalogosFactory.GetEstadosRelMun(vm.Estado.IdEstado).then(function(data){
-                    vm.CiudadMunicipioList = data.GetEstadosRelMunResult;
-                });
-            }else{
-                vm.CiudadMunicipioList = null;
-            }
+        function GetRelLocalidad(){
+            var ObjRel = {
+                'clv_usuario': $localStorage.currentUser.idUsuario,
+                'clv_localidad': vm.IdLocalidad,
+                'clv_ciudad': 0,
+                'opcion': 1
+            };
+            CatalogosFactory.GetRelCiudadLocalidadList(ObjRel).then(function(data){
+                vm.RelLocalidadList = data.GetRelCiudadLocalidadListResult;
+            });
         }
 
         function AddEstMun(){
-            if(vm.Estado != undefined && vm.Estado != 0 &&
-               vm.Ciudad != undefined && vm.Ciudad != 0){
-                var EstMun = {};
-                EstMun.IdLocalidad = vm.IdLocalidad;
-                EstMun.IdEstado = vm.Estado.IdEstado;
-                EstMun.IdMunicipio = vm.Ciudad.Municipio.IdMunicipio;
-                var EstMunView = {};
-                EstMunView.IdEstado = vm.Estado.IdEstado;
-                EstMunView.IdMunicipio = vm.Ciudad.Municipio.IdMunicipio;
-                EstMunView.Estado = vm.Estado.Nombre;
-                EstMunView.Municipio = vm.Ciudad.Municipio.Nombre;
-                if(ExistsEstMun(EstMun.IdEstado, EstMun.IdMunicipio) == false){
-                    vm.EstMunList.push(EstMun);
-                    vm.EstMunViewList.push(EstMunView);
+            if(vm.Ciudad != undefined && vm.Ciudad != 0){
+                if(ExistsEstMun(vm.Ciudad.Clv_Ciudad) == false){
+                    var objSPRelCiudadLocalidad = {
+                        'clv_usuario':  $localStorage.currentUser.idUsuario,
+                        'clv_localidad': vm.IdLocalidad,
+                        'clv_ciudad': vm.Ciudad.Clv_Ciudad,
+                        'opcion': 2
+                    };
+                    CatalogosFactory.AddSPRelCiudadLocalidad(objSPRelCiudadLocalidad).then(function(data){
+                        if(data.AddSPRelCiudadLocalidadResult == -1){
+                            ngNotify.set('CORRECTO, se agregó una relación.', 'success');
+                            GetRelLocalidad()
+                        }else{
+                            ngNotify.set('ERROR, al agregar una relación.', 'warn');
+                            GetRelLocalidad()
+                        }
+                    });
                 }else{
                     ngNotify.set('ERROR, Ya existe esta relación.', 'warn');
                 }
             }else{
-                ngNotify.set('ERROR, Selecciona un estado y una ciudad.', 'warn');
+                ngNotify.set('ERROR, Selecciona una ciudad.', 'warn');
             }
         }
 
-        function ExistsEstMun(IdEstado, IdMunicipio){
+        function ExistsEstMun(IdMunicipio){
             var ResultExists = 0;
-            for(var i = 0; vm.EstMunList.length > i; i ++){
-                if(vm.EstMunList[i].IdEstado == IdEstado && vm.EstMunList[i].IdMunicipio == IdMunicipio){
+            for(var i = 0; vm.RelLocalidadList.length > i; i ++){
+                if(vm.RelLocalidadList[i].clv_ciudad == IdMunicipio){
                     ResultExists = ResultExists + 1
                 }
             }
             return (ResultExists > 0)? true : false;
         }
 
-        function DeleteEstMun(IdEstado, IdMunicipio){
-            for(var i = 0; vm.EstMunList.length > i; i ++){
-                if(vm.EstMunList[i].IdEstado == IdEstado && vm.EstMunList[i].IdMunicipio == IdMunicipio){
-                    vm.EstMunList.splice(i, 1);
-                    vm.EstMunViewList.splice(i, 1);
+        function DeleteEstMun(IdMunicipio){
+            var ObjValidate = {
+                'clv_localidad': vm.IdLocalidad,
+                'clv_ciudad': IdMunicipio
+            };
+            CatalogosFactory.GetDeepValidaEliminaRelLocalidadCiudad(ObjValidate).then(function(data){
+                var MsjError = data.GetDeepValidaEliminaRelLocalidadCiudadResult.error; 
+                if(MsjError == null){
+                    var ObjRel = {
+                        'clv_usuario': $localStorage.currentUser.idUsuario,
+                        'clv_localidad': vm.IdLocalidad,
+                        'clv_ciudad': IdMunicipio,
+                        'opcion': 3
+                    };
+                    CatalogosFactory.DeleteSPRelCiudadLocalidad(ObjRel).then(function(data){
+                        ngNotify.set('CORRECTO, se eliminó la relación.', 'success');
+                        GetRelLocalidad()
+                    });
+                }else{
+                    ngNotify.set('ERROR, ' + MsjError, 'warn');
                 }
-            }
+            });
         }
 
         function SaveLocalidad(){
-            if(vm.EstMunList.length > 0){
-                var lstRelLocalidad = {};
-                var RelLocalidadMunEstAdd = {};
-                lstRelLocalidad.IdLocalidad = vm.IdLocalidad;
-                lstRelLocalidad.Nombre = vm.Localidad;
-                RelLocalidadMunEstAdd = vm.EstMunList;
-                CatalogosFactory.UpdateRellocalidadL(lstRelLocalidad, RelLocalidadMunEstAdd).then(function(data){
-                    if(data.UpdateRellocalidadLResult == -1){
-                        ngNotify.set('CORRECTO, se guardó la localidad.', 'success');
-                        $state.reload('home.catalogos.localidades');
-				        cancel();
-                    }else{
-                        ngNotify.set('ERROR, al guardar la localidad.', 'warn');
-                        $state.reload('home.catalogos.localidades');
-                        cancel();
-                    }
-                });
-            }else{
-                ngNotify.set('ERROR, Para guardar la localidad, se tiene que ingresar mínimo una relación.', 'warn');
-            }
+            var objValidaNombreLocalidad = {
+                'nombre': vm.Localidad,
+                'mismoNombre': 0,
+                'clv_localidad': vm.IdLocalidad
+            };
+            CatalogosFactory.AddValidaNombreLocalidad(objValidaNombreLocalidad).then(function(data){
+                if(data.AddValidaNombreLocalidadResult == 0){
+                    var objLocalidades_New = {
+                        'Clv_Localidad': vm.IdLocalidad,
+                        'Nombre': vm.Localidad,
+                        'opcion': 1,
+                        'clvnuevo': vm.IdLocalidad
+                    };
+                    CatalogosFactory.UpdateLocalidades_New(objLocalidades_New).then(function(data){
+                        console.log(data);
+                        if(data.UpdateLocalidades_NewResult == -1){
+                            ngNotify.set('CORRECTO, se guardó la localidad.', 'success');
+                            $state.reload('home.catalogos.localidades');
+                            cancel();
+                        }else{
+                            ngNotify.set('ERROR, al guardar la localidad.', 'warn');
+                            $state.reload('home.catalogos.localidades');
+                            cancel();
+                        }
+                    });
+                }else if(data.AddValidaNombreLocalidadResult == 1){
+                    ngNotify.set('ERROR, ya existe una Localidad con el mis nombre.', 'warn');
+                }
+            });
         }
 
         function cancel() {
@@ -110,15 +131,12 @@ angular
         }
 
         var vm = this;
-        
-        vm.EstMunList = [];
-        vm.EstMunViewList = [];
         vm.Titulo = 'Editar Registro - ';
         vm.Icono = 'fa fa-pencil-square-o';
+        vm.ShowUpdate = true;
         vm.SaveLocalidad = SaveLocalidad;
         vm.AddEstMun = AddEstMun;
         vm.DeleteEstMun = DeleteEstMun;
-        vm.GetCiudadMunicipio = GetCiudadMunicipio;
         vm.cancel = cancel;
         initData();
 

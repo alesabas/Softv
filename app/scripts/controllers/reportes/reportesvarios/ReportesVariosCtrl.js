@@ -7,7 +7,9 @@ angular.module('softvApp')
         this.$onInit = function () {
             reportesVariosFactory.mostrarTipServ().then(function (data) {
                 vm.tipoServicios = data.GetTipServicioListResult;
-                vm.ServicioDigitalInternet = data.GetTipServicioListResult[1];
+                vm.ServicioDigitalInternet = data.GetTipServicioListResult[0];
+                servicioSeleccionado = data.GetTipServicioListResult[0].Clv_TipSer;
+                vm.principales = true;           
             });
 
             reportesVariosFactory.mostrarMotivoCan().then(function (data) {
@@ -21,9 +23,7 @@ angular.module('softvApp')
 
             vm.ordenRadio = '1';
             ListaDistribuidores();
-
         }
-
 
         //------------------Distribuidores -------------------------------
 
@@ -317,7 +317,7 @@ angular.module('softvApp')
             else if (banderas.banderaLocalidad == 0) {
                 Localidades = [];
 
-                reportesVariosFactory.mostrarLocalidadByCiudad(clv_usuario, Ciudades).then(function (data) {
+                reportesVariosFactory.mostrarLocalidadByCiudad(clv_usuario, Plazas,  Ciudades, Estados).then(function (data) {
                     LocalidadesTodos = data.GetLocalidadesbyCiudadResult;
                     for (var i = 0; i < LocalidadesTodos.length; i++) {
                         vm.LocalidadesTable[i].selected = true;
@@ -387,7 +387,7 @@ angular.module('softvApp')
             else if (banderas.banderaColonia == 0) {
                 Colonias = [];
 
-                reportesVariosFactory.mostrarColonia(clv_usuario, banderas.banderaLocalidad, Ciudades, Localidades).then(function (data) {
+                reportesVariosFactory.mostrarColonia(clv_usuario, banderas.banderaLocalidad, Plazas, Estados,  Ciudades, Localidades).then(function (data) {
                     ColoniasTodos = data.GetColoniasBy_Ciudad_LocalidadResult;
 
                     for (var i = 0; i < ColoniasTodos.length; i++) {
@@ -460,10 +460,9 @@ angular.module('softvApp')
             else if (sinter == 0) {
                 ServiciosInternet = [];
 
-                reportesVariosFactory.mostrarServInternet().then(function (data) {
+                reportesVariosFactory.mostrarServicio(clv_usuario, servicioSeleccionado, Plazas,  banderas.banderaTodoSeleccionado).then(function (data) {
 
-
-                    ServiciosInternetTodos = data.GetServInternetListResult;
+                    ServiciosInternetTodos = data.GetServiciosListResult;
                     for (var i = 0; i < ServiciosInternetTodos.length; i++) {
                         vm.ServInternetTable[i].selected = true;
                         AddToArray(ServiciosInternet, ServiciosInternetTodos[i]);
@@ -510,76 +509,7 @@ angular.module('softvApp')
 
 
 
-        //------------------- Serv Digital
-
-        function ExisteServicioDigital(id) {
-            var result = $.grep(ServiciosDigital, function (obj) { return obj.Clv_Servicio == id; });
-            if (result.length == 0) {
-                return false;
-            } else {
-                return true;
-            }
-        }
-
-
-        function serviciosDigitalPadre() {
-
-            if (sdig == 1) {
-                sdig = 0;
-                ServiciosDigital = [];
-                for (var i = 0; i < vm.ServDigitalTable.length; i++) {
-                    vm.ServDigitalTable[i].selected = false;
-                }
-            }
-            else if (sdig == 0) {
-                ServiciosDigital = [];
-                reportesVariosFactory.mostrarServDigital().then(function (data) {
-                    ServiciosDigitalTodos = data.GetServDigitalListResult;
-                    for (var i = 0; i < ServiciosDigitalTodos.length; i++) {
-                        vm.ServDigitalTable[i].selected = true;
-                        AddToArray(ServiciosDigital, ServiciosDigitalTodos[i]);
-                    }
-                });
-                sdig = 1;
-            }
-        }
-
-
-
-        function serviciosDigitalHijo(obj) {
-            if (sdig == 1) {
-
-                vm.serviciosDigitalTodo = false;
-                if (ExisteServicioDigital(obj.Clv_Servicio)) {
-                    DeleteFromArray(ServiciosDigital, 'Clv_Servicio', obj.Clv_Servicio);
-                }
-                sdig = 0;
-            }
-            else {
-                AddServiciosDigital(obj);
-            }
-
-        }
-
-
-
-        function AddServiciosDigital(obj) {
-            if (sdig == 1) {
-                sdig = 0;
-                ServiciosDigital = [];
-                AddToArray(ServiciosDigital, obj);
-            }
-            else if (sdig == 0) {
-                if (ExisteServicioDigital(obj.Clv_Servicio)) {
-                    DeleteFromArray(ServiciosDigital, 'Clv_Servicio', obj.Clv_Servicio);
-                }
-                else {
-                    AddToArray(ServiciosDigital, obj);
-                }
-            }
-        }
-
-
+        
         //------------------- Tipo Clientes
 
 
@@ -648,7 +578,6 @@ angular.module('softvApp')
                 }
             }
         }
-
 
 
         //-------------------Periodo
@@ -746,7 +675,7 @@ angular.module('softvApp')
             }
             else if (banderas.banderaCalle == 0) {
                 Calles = [];
-                reportesVariosFactory.mostrarCalle(clv_usuario, banderas.banderaLocalidad, banderas.banderaColonia, Distribuidores, Ciudades, Localidades, Colonias).then(function (data) {
+                reportesVariosFactory.mostrarCalle(clv_usuario, banderas.banderaLocalidad, banderas.banderaColonia, Distribuidores, Ciudades, Localidades, Colonias, Plazas, Estados).then(function (data) {
                     CallesTodos = data.GetCallesBy_Ciudad_Localidad_ColoniaResult;
 
                     for (var i = 0; i < CallesTodos.length; i++) {
@@ -826,11 +755,15 @@ angular.module('softvApp')
         }
 
         vm.cambiaServicio = function (tipServ) {
+            
             servicioSeleccionado = tipServ.Clv_TipSer;
+        
             if (servicioSeleccionado == 3) {
+             
                 vm.soloInternet_esconde = true;
                 vm.principales = false;
-            } else if (servicioSeleccionado == 2) {
+            } else if (servicioSeleccionado == 2 || servicioSeleccionado == 1) {
+            
                 vm.soloInternet_esconde = false;
                 vm.principales = true;
             }
@@ -844,7 +777,7 @@ angular.module('softvApp')
             objPrincipal = {}; objRangoFechas = {};
             estatusCliente = {}; objParametros = {};
             objParametros.conectado = 0, objParametros.Fuera = 0, objParametros.Susp = 0, objParametros.Insta = 0,
-                objParametros.Desconect = 0, objParametros.DescTmp = 0, objParametros.baja = 0;
+            objParametros.Desconect = 0, objParametros.DescTmp = 0, objParametros.baja = 0;
             vm.anioC = { value: 2010 };
             vm.anioC2 = { value: 2010 };
 
@@ -854,7 +787,7 @@ angular.module('softvApp')
 
             Distribuidores = []; Plazas = []; Estados = []; Ciudades = [];
             Localidades = []; Colonias = []; Calles = []; Periodos = [];
-            ServiciosInternet = []; ServiciosDigital = []; TipoClientes = []; Motcan = [];
+            ServiciosInternet = []; TipoClientes = []; Motcan = [];
             Motcan2 = []; DistribuidoresTodos = []; PlazasTodos = []; EstadosTodos = [];
             CiudadesTodos = []; LocalidadesTodos = []; ColoniasTodos = []; CallesTodos = [];
             PeriodosTodos = []; ServiciosInternetTodos = []; ServiciosDigitalTodos = []; TipoClientesTodos = [];
@@ -891,7 +824,7 @@ angular.module('softvApp')
             vm.localidadTodo = false;
             vm.coloniaTodo = false;
             vm.serviciosInternetTodo = false;
-            vm.serviciosDigitalTodo = false;
+          
             vm.tipoTodo = false;
             vm.periodoTodo = false;
             vm.calleTodo = false;
@@ -933,7 +866,7 @@ angular.module('softvApp')
             vm.plocalidades = true;
             vm.pcolonias = true;
             vm.pserviciosInternet = true;
-            vm.pserviciosDigital = true;
+         
             vm.ptipoclientes = true;
             vm.pperiodos = true;
             vm.prangosfecha = true;
@@ -1113,6 +1046,7 @@ angular.module('softvApp')
 
         // 7.- SERVICIOS
         function showServiciosDI() {
+        
             if ((Colonias.length == 0) && banderas.banderaTodoSeleccionado == 0) {
                 ngNotify.set('Seleccione al menos una colonia', { type: 'error' });
             }
@@ -1125,13 +1059,16 @@ angular.module('softvApp')
                 vm.plocalidades = true;
                 vm.pcolonias = true;
 
+                vm.pserviciosInternet = false;
+                    ListaServiciosInternet();
+                /*
                 if (servicioSeleccionado == 3) {
                     vm.pserviciosDigital = false;
                     ListaServiciosDigital();
                 } else if (servicioSeleccionado == 2) {
                     vm.pserviciosInternet = false;
                     ListaServiciosInternet();
-                }
+                }*/
             }
         }
 
@@ -1141,7 +1078,7 @@ angular.module('softvApp')
 
             if (reporteSeleccionado != 12) {
 
-                if (((servicioSeleccionado == 3) && (ServiciosDigital.length == 0)) || ((servicioSeleccionado == 2) && (ServiciosInternet.length == 0))) {
+                if ((servicioSeleccionado == 2) && (ServiciosInternet.length == 0)) {
 
                     ngNotify.set('Seleccione al menos un servicio', {
                         type: 'error'
@@ -1154,7 +1091,7 @@ angular.module('softvApp')
                     vm.plocalidades = true;
                     vm.pcolonias = true;
                     vm.pserviciosInternet = true;
-                    vm.pserviciosDigital = true;
+                 //   vm.pserviciosDigital = true;
                     vm.ptipoclientes = false;
                     ListaTipoClientes();
                 }
@@ -1183,7 +1120,7 @@ angular.module('softvApp')
                     vm.plocalidades = true;
                     vm.pcolonias = true;
                     vm.pserviciosInternet = true;
-                    vm.pserviciosDigital = true;
+                   
                     vm.ptipoclientes = true;
                     vm.pperiodos = false;
                     ListaPeriodos();
@@ -1196,7 +1133,7 @@ angular.module('softvApp')
                 vm.plocalidades = true;
                 vm.pcolonias = true;
                 vm.pserviciosInternet = true;
-                vm.pserviciosDigital = true;
+             
                 vm.ptipoclientes = true;
                 vm.pperiodos = false;
                 ListaPeriodos();
@@ -1230,7 +1167,7 @@ angular.module('softvApp')
                     vm.plocalidades = true;
                     vm.pcolonias = true;
                     vm.pserviciosInternet = true;
-                    vm.pserviciosDigital = true;
+                   
                     vm.ptipoclientes = true;
                     vm.pperiodos = true;
                     vm.prangosfecha = false;
@@ -1286,7 +1223,7 @@ angular.module('softvApp')
                     vm.plocalidades = true;
                     vm.pcolonias = true;
                     vm.pserviciosInternet = true;
-                    vm.pserviciosDigital = true;
+                
                     vm.ptipoclientes = true;
                     vm.pperiodos = true;
                     vm.prangosfecha = true;
@@ -1324,7 +1261,7 @@ angular.module('softvApp')
                         vm.plocalidades = true;
                         vm.pcolonias = true;
                         vm.pserviciosInternet = true;
-                        vm.pserviciosDigital = true;
+                       
                         vm.ptipoclientes = true;
                         vm.pperiodos = true;
                         vm.prangosfecha = true;
@@ -1370,7 +1307,7 @@ angular.module('softvApp')
             vm.plocalidades = true;
             vm.pcolonias = true;
             vm.pserviciosInternet = true;
-            vm.pserviciosDigital = true;
+            
             vm.ptipoclientes = true;
             vm.pperiodos = true;
             vm.prangosfecha = true;
@@ -1443,7 +1380,7 @@ angular.module('softvApp')
             vm.plocalidades = true;
             vm.pcolonias = true;
             vm.pserviciosInternet = true;
-            vm.pserviciosDigital = true;
+           
             vm.ptipoclientes = true;
             vm.pperiodos = true;
             vm.prangosfecha = true;
@@ -1456,14 +1393,12 @@ angular.module('softvApp')
         }
 
 
-
         function ListaPlazas() {
             reportesVariosFactory.mostrarPlazaByDistribuidor(clv_usuario, Distribuidores).then(function (data) {
                 vm.PlazasTable = data.GetPlazasByDistribuidorResult;
                 PlazasTodos = data.GetPlazasByDistribuidorResult;
             });
         }
-
 
         function ListaEstados() {
             //enviar solo array Plazas
@@ -1472,49 +1407,39 @@ angular.module('softvApp')
             });
         }
 
-
         function ListaCiudades() {
             //enviar array Plazas y Estados
             reportesVariosFactory.mostrarCiudad(Plazas, Estados).then(function (data) {
                 vm.CiudadesTable = data.GetCiudadesBy_PlazasEstadoResult;
-
             });
         }
 
-
         function ListaLocalidades() {
-            reportesVariosFactory.mostrarLocalidadByCiudad(clv_usuario, Ciudades).then(function (data) {
+            reportesVariosFactory.mostrarLocalidadByCiudad(clv_usuario, Plazas, Ciudades, Estados).then(function (data) {
                 vm.LocalidadesTable = data.GetLocalidadesbyCiudadResult;
             });
         }
 
         function ListaColonias() {
-            reportesVariosFactory.mostrarColonia(clv_usuario, banderas.banderaLocalidad, Ciudades, Localidades).then(function (data) {
+         
+            reportesVariosFactory.mostrarColonia(clv_usuario, banderas.banderaLocalidad, Plazas, Estados, Ciudades, Localidades).then(function (data) {
                 vm.ColoniasTable = data.GetColoniasBy_Ciudad_LocalidadResult;
             });
         }
 
         function ListaCalles() {
-            reportesVariosFactory.mostrarCalle(clv_usuario, banderas.banderaLocalidad, banderas.banderaColonia, Distribuidores, Ciudades, Localidades, Colonias).then(function (data) {
+
+            reportesVariosFactory.mostrarCalle(clv_usuario, banderas.banderaLocalidad, banderas.banderaColonia, Distribuidores, Ciudades, Localidades, Colonias, Plazas, Estados).then(function (data) {
                 vm.CallesTable = data.GetCallesBy_Ciudad_Localidad_ColoniaResult;
             });
         }
 
+        function ListaServiciosInternet() {     
 
-
-        function ListaServiciosInternet() {
-            reportesVariosFactory.mostrarServInternet().then(function (data) {
-                vm.ServInternetTable = data.GetServInternetListResult;
+            reportesVariosFactory.mostrarServicio(clv_usuario, servicioSeleccionado, Plazas, banderas.banderaTodoSeleccionado).then(function (data) {
+                vm.ServInternetTable = data.GetServiciosListResult;
             });
         }
-
-
-        function ListaServiciosDigital() {
-            reportesVariosFactory.mostrarServDigital().then(function (data) {
-                vm.ServDigitalTable = data.GetServDigitalListResult;
-            });
-        }
-
 
         function ListaTipoClientes() {
             reportesVariosFactory.mostrarTipoCliente().then(function (data) {
@@ -1522,14 +1447,12 @@ angular.module('softvApp')
             });
         }
 
-
         function ListaPeriodos() {
             reportesVariosFactory.mostrarPeriodo().then(function (data) {
                 vm.PeriodosTable = data.GetPeriodosRepVarListResult;
                 PeriodosTodos = data.GetPeriodosRepVarListResult;
             });
         }
-
 
 
         function crearObjParametros() {
@@ -1638,31 +1561,27 @@ angular.module('softvApp')
         }
 
 
-
         //----------- REPORTES EN PDF
         function muestraDistribuidores() {
             var Servicios = [];
             crearObjParametros();
-
+            /*
             if (servicioSeleccionado == 3) {
                 Servicios = ServiciosDigital;
             } else if (servicioSeleccionado == 2) {
                 Servicios = ServiciosInternet;
-            }
-
+            }*/
+            Servicios = ServiciosInternet;
+            
             if (banderas.banderaLocalidad == 1) { Localidades = []; }
             if (banderas.banderaColonia == 1) { Colonias = []; }
-
             if (banderas.banderaCalle == 1) { Calles = []; }
-
 
             crearXml(Servicios);
         }
 
 
-
         function crearXml(Servicios) {
-
             reportesVariosFactory.getXml(objPrincipal, objParametros, objRangoFechas, estatusCliente, Distribuidores, Plazas, Estados,
                 Ciudades, Localidades, Colonias, Servicios, TipoClientes, Periodos, Calles).then(function (data) {
 
@@ -1682,17 +1601,16 @@ angular.module('softvApp')
                     calleF = data.GetCreateXmlBeforeReportResult[13];//   
 
                     realizaReporte();
-                });
+            });
         }
 
 
 
-
         function realizaReporte() {
-
-            var elOrden = objPrincipal.Orden;
+           
+            var elOrden = parseInt(objPrincipal.Orden);
             var laBaja = objParametros.baja;
-            var servSelec = servicioSeleccionado;
+            var servSelec = servicioSeleccionado; // cable 1 | internet 2 | digital 3
 
             reportesVariosFactory.creaReporte(reporteSeleccionado, servSelec, clv_usuario, elOrden, laBaja,
                 OtrosFiltrosXml, distribuidoresXML, CompaniasXml, CiudadesXml, CalleXml,
@@ -1700,126 +1618,208 @@ angular.module('softvApp')
 
                     var urlReporte = "";
 
-                    if (reporteSeleccionado == 13)  // 13 ciudad
-                    {
-                        if (elOrden == 1) {
-                            if (laBaja == 0)//cualquiera SIN bajas
-                            {
-                                urlReporte = data.GetReporteDig_12Result; // url = "ReportesVarios/Reporte_Digital_12"; 
-                            }
-                            else if (laBaja == 1) //cualquiera CON bajas
-                            {
-                                urlReporte = data.GetReporteDig_13Result; // url = "ReportesVarios/Reporte_Digital_13"; 
-                            }
-                        }
-                        else if (elOrden == 2) {
-                            if (laBaja == 0)//cualquiera SIN bajas
-                            {
-                                urlReporte = data.GetReporteDig_15Result; // url = "ReportesVarios/Reporte_Digital_15";
-                            }
-                            if (laBaja == 1)  //cualquiera CON bajas
-                            {
-                                urlReporte = data.GetReporteDig_14Result; // url = "ReportesVarios/Reporte_Digital_14"; 
-                            }
-                        }
-                    }
-                    else if (reporteSeleccionado == 14) // 14 resumen por colonia y status
-                    {
-                        urlReporte = data.GetReporteDig_5Result;// url = "ReportesVarios/Reporte_Digital_5";
-                    }
-                    else if ((reporteSeleccionado != 13) && (reporteSeleccionado != 14)) {
-                        if (servSelec == 3) // ---------------- S E R V I C I O   D I G I T A L
-                        {   //Contrato | Colonia y Calle; Orden = 1 | 2              
-                            if ((reporteSeleccionado == 1) || (reporteSeleccionado == 2) || (reporteSeleccionado == 7)) //1 desconectados, 2 suspendidos, 7 por pagar 
-                            {
-                                urlReporte = data.GetReporteDig_1Result;// url = "ReportesVarios/Reporte_Digital_1"; 
-                            }
-                            else if (reporteSeleccionado == 12)// 12 paquetes de cortesía
-                            {
-                                urlReporte = data.GetReporteDig_4Result; //url = "ReportesVarios/Reporte_Digital_4";
-                            }
-                            if (elOrden == 1) //Contrato
-                            {
-                                if ((reporteSeleccionado == 3) || (reporteSeleccionado == 10))//3 al corriente, 10 por instalar
-                                {
-                                    urlReporte = data.GetReporteDig_2Result; //url = "ReportesVarios/Reporte_Digital_2"; 
-                                }
-                                else if (reporteSeleccionado == 4) // 4 adelantados
-                                {
-                                    urlReporte = data.GetReporteDig_3Result;//url = "ReportesVarios/Reporte_Digital_3"; 
-                                }
-
-                                else if (reporteSeleccionado == 9) //9 cancelaciones
-                                {
-
-                                    urlReporte = data.GetReporteDig_6Result; //url = "ReportesVarios/Reporte_Digital_6"; 
-                                }
-                                else if ((reporteSeleccionado == 5) || (reporteSeleccionado == 8) || (reporteSeleccionado == 11))//5 contrataciones principales8 instalaciones, 11 fueras de área
-                                {
-
-                                    urlReporte = data.GetReporteDig_16Result; //url = "ReportesVarios/Reporte_Digital_16"; 
-                                }
-
-                                else if (reporteSeleccionado == 6)// 6 contrataciones
-                                {
-                                    urlReporte = data.GetReporteDig_7Result; //url = "ReportesVarios/Reporte_Digital_7"; 
-                                }
-                            }
-                            else if (elOrden == 2) // Colonia y calle
-                            {
-                                if ((reporteSeleccionado == 3) || (reporteSeleccionado == 10))//3 al corriente, 10 por instalar
-                                {
-                                    urlReporte = data.GetReporteDig_8Result; //url = "ReportesVarios/Reporte_Digital_8"; 
-                                }
-                                else if (reporteSeleccionado == 4)// 4 adelantados
-                                {
-                                    urlReporte = data.GetReporteDig_9Result; //url = "ReportesVarios/Reporte_Digital_9"; 
-                                }
-                                else if ((reporteSeleccionado == 5) || (reporteSeleccionado == 8) || (reporteSeleccionado == 9) || (reporteSeleccionado == 11))//5 contrataciones principales, 8 instalaciones, 9 cancelaciones, 11 fueras de área
-                                {
-                                    urlReporte = data.GetReporteDig_11Result; //url = "ReportesVarios/Reporte_Digital_11"; 
-                                }
-                                else if (reporteSeleccionado == 6)// 6 contrataciones
-                                {
-                                    urlReporte = data.GetReporteDig_10Result;//url = "ReportesVarios/Reporte_Digital_10"; 
-                                }
-                            }
-                        }
-                        else if (servSelec == 2)// ---------------- S E R V I C I O   I N T E R N E T
+                    //INICIO REPORTE ciudad TV CABLE
+                    if (servSelec == 1)
+                    {                                            
+                        //Contrato | Colonia y Calle; Orden = 1 | 2                   
+                        if ((reporteSeleccionado == 1) || (reporteSeleccionado == 2)) //1 desconectados, 2 suspendidos
                         {
-                            //Contrato | Colonia y Calle; Orden = 1 | 2                   
-                            if ((reporteSeleccionado == 1) || (reporteSeleccionado == 2)) //1 desconectados, 2 suspendidos
-                            {
-                                urlReporte = data.GetReporteInt_1Result;//url = "ReportesVarios/Reporte_Internet_1"; 
+                            urlReporte = data.GetReporteInt_1Result;//url = "ReportesVarios/Reporte_Internet_1"; 
+                        }
+                        else if (reporteSeleccionado == 7)// 7 por pagar
+                        {
+                            urlReporte = data.GetReporteInt_2Result; //url = "ReportesVarios/Reporte_Internet_2"; 
+                        }
+                        else if (reporteSeleccionado === 12)// 12 paquetes de cortesía
+                        {
+                             urlReporte = data.GetReporteInt_7Result; //url = "ReportesVarios/Reporte_Internet_7";  
+                        }
+                        else if (reporteSeleccionado == 14) // 14 resumen por colonia y status
+                        {
+                            urlReporte = data.GetReporteDig_5Result;// url = "ReportesVarios/Reporte_Digital_5";
+                        }
+                        //---------------------
+                        else if (reporteSeleccionado === 13)  // 13 ciudad
+                        {
+                            if (elOrden === 1) {
+                               
+                                if (laBaja == 0)//cualquiera SIN bajas
+                                {
+                                    urlReporte = data.GetReporteDig_12Result; // url = "ReportesVarios/Reporte_Digital_12"; 
+                                }
+                                else if (laBaja == 1) //cualquiera CON bajas
+                                {
+                                    urlReporte = data.GetReporteDig_13Result; // url = "ReportesVarios/Reporte_Digital_13"; 
+                                }
+
                             }
-                            else if (reporteSeleccionado == 7)// 7 por pagar
-                            {
-                                urlReporte = data.GetReporteInt_2Result; //url = "ReportesVarios/Reporte_Internet_2"; 
+                            else if (elOrden === 2) {
+                                
+                                if (laBaja == 0)//cualquiera SIN bajas
+                                {
+                                    urlReporte = data.GetReporteDig_15Result; // url = "ReportesVarios/Reporte_Digital_15";
+                                }
+                                if (laBaja == 1)  //cualquiera CON bajas
+                                {
+                                    urlReporte = data.GetReporteDig_14Result; // url = "ReportesVarios/Reporte_Digital_14"; 
+                                }
+
                             }
-                            else if (reporteSeleccionado == 12)// 12 paquetes de cortesía
-                            {
-                                urlReporte = data.GetReporteInt_7Result; //url = "ReportesVarios/Reporte_Internet_7"; 
-                            }
+                        }
+
+                        else if ((reporteSeleccionado == 3) || (reporteSeleccionado == 4) || (reporteSeleccionado == 10))//3 al corriente, 4 adelantados, 10 por instalar
+                        {   
+                            
                             if (elOrden == 1) //Contrato
                             {
-                                if ((reporteSeleccionado == 3) || (reporteSeleccionado == 4) || (reporteSeleccionado == 10))//3 al corriente, 4 adelantados, 10 por instalar
+                                urlReporte = data.GetReporteInt_3Result;//url = "ReportesVarios/Reporte_Internet_3"; 
+                            } 
+                            else if (elOrden === 2) //Colonia y calle
+                            {
+                                urlReporte = data.GetReporteInt_4Result; //url = 'ReportesVarios/Reporte_Internet_4'; 
+                            }
+
+                        } 
+                        else if ((reporteSeleccionado === 6) || (reporteSeleccionado === 8) || (reporteSeleccionado === 9) || (reporteSeleccionado === 11))//6 contrataciones, 8 instalaciones, 9 cancelaciones, 11 fueras de área
+                        {
+                           
+                            if (elOrden == 1) //Contrato
+                            {
+                                urlReporte = data.GetReporteInt_5Result; //url = "ReportesVarios/Reporte_Internet_5";  //url = 'ReportesVarios/Reporte_Internet_5'; 
+                            }
+                             else if (elOrden === 2) //Colonia y calle
+                            {     
+                                urlReporte = data.GetReporteInt_6Result; //url = "ReportesVarios/Reporte_Internet_6";        
+                            }                                               
+                        } 
+
+                    } 
+                 
+                    if (servSelec != 1)
+                    {
+                        if (reporteSeleccionado == 13)  // 13 ciudad
+                        {
+                            if (elOrden == 1) {
+                                if (laBaja == 0)//cualquiera SIN bajas
                                 {
-                                    urlReporte = data.GetReporteInt_3Result;//url = "ReportesVarios/Reporte_Internet_3"; 
+                                    urlReporte = data.GetReporteDig_12Result; // url = "ReportesVarios/Reporte_Digital_12"; 
                                 }
-                                else if ((reporteSeleccionado == 6) || (reporteSeleccionado == 8) || (reporteSeleccionado == 9) || (reporteSeleccionado == 11))//6 contrataciones, 8 instalaciones, 9 cancelaciones, 11 fueras de área
+                                else if (laBaja == 1) //cualquiera CON bajas
                                 {
-                                    urlReporte = data.GetReporteInt_5Result; //url = "ReportesVarios/Reporte_Internet_5"; 
+                                    urlReporte = data.GetReporteDig_13Result; // url = "ReportesVarios/Reporte_Digital_13"; 
                                 }
                             }
-                            else if (elOrden == 2) //Colonia y calle
-                            {
-                                if ((reporteSeleccionado == 3) || (reporteSeleccionado == 4) || (reporteSeleccionado == 10))//3 al corriente, 4 adelantados, 10 por instalar
+                            else if (elOrden == 2) {
+                                if (laBaja == 0)//cualquiera SIN bajas
                                 {
-                                    urlReporte = data.GetReporteInt_4Result; //url = "ReportesVarios/Reporte_Internet_4"; 
+                                    urlReporte = data.GetReporteDig_15Result; // url = "ReportesVarios/Reporte_Digital_15";
                                 }
-                                else if ((reporteSeleccionado == 6) || (reporteSeleccionado == 8) || (reporteSeleccionado == 9) || (reporteSeleccionado == 11))//6 contrataciones, 8 instalaciones, 9 cancelaciones, 11 fueras de área
+                                if (laBaja == 1)  //cualquiera CON bajas
                                 {
-                                    urlReporte = data.GetReporteInt_6Result; //url = "ReportesVarios/Reporte_Internet_6"; 
+                                    urlReporte = data.GetReporteDig_14Result; // url = "ReportesVarios/Reporte_Digital_14"; 
+                                }
+                            }
+                        }
+                        else if (reporteSeleccionado == 14) // 14 resumen por colonia y status
+                        {
+                            urlReporte = data.GetReporteDig_5Result;// url = "ReportesVarios/Reporte_Digital_5";
+                        }
+                        else if ((reporteSeleccionado != 13) && (reporteSeleccionado != 14)) {
+                            if (servSelec == 3) // ---------------- S E R V I C I O   D I G I T A L
+                            {
+                                
+                            //Contrato | Colonia y Calle; Orden = 1 | 2              
+                                if ((reporteSeleccionado == 1) || (reporteSeleccionado == 2) || (reporteSeleccionado == 7)) //1 desconectados, 2 suspendidos, 7 por pagar 
+                                {
+                                    urlReporte = data.GetReporteDig_1Result;// url = "ReportesVarios/Reporte_Digital_1"; 
+                                }
+                                else if (reporteSeleccionado == 12)// 12 paquetes de cortesía
+                                {
+                                    urlReporte = data.GetReporteDig_4Result; //url = "ReportesVarios/Reporte_Digital_4";
+                                }
+                                if (elOrden == 1) //Contrato
+                                {
+                                    if ((reporteSeleccionado == 3) || (reporteSeleccionado == 10))//3 al corriente, 10 por instalar
+                                    {
+                                        urlReporte = data.GetReporteDig_2Result; //url = "ReportesVarios/Reporte_Digital_2"; 
+                                    }
+                                    else if (reporteSeleccionado == 4) // 4 adelantados
+                                    {
+                                        urlReporte = data.GetReporteDig_3Result;//url = "ReportesVarios/Reporte_Digital_3"; 
+                                    }
+
+                                    else if (reporteSeleccionado == 9) //9 cancelaciones
+                                    {
+
+                                        urlReporte = data.GetReporteDig_6Result; //url = "ReportesVarios/Reporte_Digital_6"; 
+                                    }
+                                    else if ((reporteSeleccionado == 5) || (reporteSeleccionado == 8) || (reporteSeleccionado == 11))//5 contrataciones principales8 instalaciones, 11 fueras de área
+                                    {
+
+                                        urlReporte = data.GetReporteDig_16Result; //url = "ReportesVarios/Reporte_Digital_16"; 
+                                    }
+
+                                    else if (reporteSeleccionado == 6)// 6 contrataciones
+                                    {
+                                        urlReporte = data.GetReporteDig_7Result; //url = "ReportesVarios/Reporte_Digital_7"; 
+                                    }
+                                }
+                                else if (elOrden == 2) // Colonia y calle
+                                {
+                                    if ((reporteSeleccionado == 3) || (reporteSeleccionado == 10))//3 al corriente, 10 por instalar
+                                    {
+                                        urlReporte = data.GetReporteDig_8Result; //url = "ReportesVarios/Reporte_Digital_8"; 
+                                    }
+                                    else if (reporteSeleccionado == 4)// 4 adelantados
+                                    {
+                                        urlReporte = data.GetReporteDig_9Result; //url = "ReportesVarios/Reporte_Digital_9"; 
+                                    }
+                                    else if ((reporteSeleccionado == 5) || (reporteSeleccionado == 8) || (reporteSeleccionado == 9) || (reporteSeleccionado == 11))//5 contrataciones principales, 8 instalaciones, 9 cancelaciones, 11 fueras de área
+                                    {
+                                        urlReporte = data.GetReporteDig_11Result; //url = "ReportesVarios/Reporte_Digital_11"; 
+                                    }
+                                    else if (reporteSeleccionado == 6)// 6 contrataciones
+                                    {
+                                        urlReporte = data.GetReporteDig_10Result;//url = "ReportesVarios/Reporte_Digital_10"; 
+                                    }
+                                }
+                            }
+                            else if (servSelec == 2)// ---------------- S E R V I C I O   I N T E R N E T
+                            {                                
+                                //Contrato | Colonia y Calle; Orden = 1 | 2                   
+                                if ((reporteSeleccionado == 1) || (reporteSeleccionado == 2)) //1 desconectados, 2 suspendidos
+                                {
+                                    urlReporte = data.GetReporteInt_1Result;//url = "ReportesVarios/Reporte_Internet_1"; 
+                                }
+                                else if (reporteSeleccionado == 7)// 7 por pagar
+                                {
+                                    urlReporte = data.GetReporteInt_2Result; //url = "ReportesVarios/Reporte_Internet_2"; 
+                                }
+                                else if (reporteSeleccionado == 12)// 12 paquetes de cortesía
+                                {
+                                    urlReporte = data.GetReporteInt_7Result; //url = "ReportesVarios/Reporte_Internet_7"; 
+                                }
+                                if (elOrden == 1) //Contrato
+                                {
+                                    if ((reporteSeleccionado == 3) || (reporteSeleccionado == 4) || (reporteSeleccionado == 10))//3 al corriente, 4 adelantados, 10 por instalar
+                                    {
+                                        urlReporte = data.GetReporteInt_3Result;//url = "ReportesVarios/Reporte_Internet_3"; 
+                                    }
+                                    else if ((reporteSeleccionado == 6) || (reporteSeleccionado == 8) || (reporteSeleccionado == 9) || (reporteSeleccionado == 11))//6 contrataciones, 8 instalaciones, 9 cancelaciones, 11 fueras de área
+                                    {
+                                        urlReporte = data.GetReporteInt_5Result; //url = "ReportesVarios/Reporte_Internet_5"; 
+                                    }
+                                }
+                                else if (elOrden == 2) //Colonia y calle
+                                {
+                                    if ((reporteSeleccionado == 3) || (reporteSeleccionado == 4) || (reporteSeleccionado == 10))//3 al corriente, 4 adelantados, 10 por instalar
+                                    {
+                                        urlReporte = data.GetReporteInt_4Result; //url = "ReportesVarios/Reporte_Internet_4"; 
+                                    }
+                                    else if ((reporteSeleccionado == 6) || (reporteSeleccionado == 8) || (reporteSeleccionado == 9) || (reporteSeleccionado == 11))//6 contrataciones, 8 instalaciones, 9 cancelaciones, 11 fueras de área
+                                    {
+                                        urlReporte = data.GetReporteInt_6Result; //url = "ReportesVarios/Reporte_Internet_6"; 
+                                    }
                                 }
                             }
                         }
@@ -1862,10 +1862,10 @@ angular.module('softvApp')
         vm.serviciosInternetPadre = serviciosInternetPadre;
         vm.serviciosInternetHijo = serviciosInternetHijo;
         vm.AddServiciosInternet = AddServiciosInternet;
-        vm.ExisteServicioDigital = ServiciosDigital;
+       /* vm.ExisteServicioDigital = ServiciosDigital;
         vm.serviciosDigitalPadre = serviciosDigitalPadre;
         vm.serviciosDigitalHijo = serviciosDigitalHijo;
-        vm.AddServiciosDigital = AddServiciosDigital;
+        vm.AddServiciosDigital = AddServiciosDigital;*/
         vm.ExisteTipoClientes = ExisteTipoClientes;
         vm.tipoClientesPadre = tipoClientesPadre;
         vm.tipoClientesHijo = tipoClientesHijo;
@@ -1891,9 +1891,9 @@ angular.module('softvApp')
 
         var clv_usuario = $localStorage.currentUser.idUsuario; //siste,
         var pla = 0, est = 0, coloni = 0, sinter = 0, sdig = 0, tipo = 0, peri = 0;
-        var servicioSeleccionado = 3;
+        var servicioSeleccionado;
         var reporteSeleccionado = 1; //value del reporte seleccionado
-        var principales = false; //se muestra para digital
+       // var principales = false; //se muestra para digital
 
         var objPrincipal = {}, objRangoFechas = {}, estatusCliente = {}, objParametros = {};
         var Distribuidores = [];
@@ -2012,7 +2012,7 @@ angular.module('softvApp')
         vm.ListaColonias = ListaColonias;
         vm.ListaCalles = ListaCalles;
         vm.ListaServiciosInternet = ListaServiciosInternet;
-        vm.ListaServiciosDigital = ListaServiciosDigital;
+        //vm.ListaServiciosDigital = ListaServiciosDigital;
         vm.ListaTipoClientes = ListaTipoClientes;
         vm.ListaPeriodos = ListaPlazas;
         vm.crearObjParametros = crearObjParametros;

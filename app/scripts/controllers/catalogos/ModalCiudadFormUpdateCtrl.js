@@ -5,88 +5,88 @@ angular
     .controller('ModalCiudadFormUpdateCtrl', function(CatalogosFactory, $uibModalInstance, ngNotify, $state, IdMunicipio){
 
         function initData(){
-            CatalogosFactory.GetEstadoList2_web().then(function(data){
-                vm.EstadoList = data.GetEstadoList2_webResult;
-            });
-
-            CatalogosFactory.GetDeepMunicipio(IdMunicipio).then(function(data){
-                var Ciudad = data.GetDeepMunicipioResult;
-                vm.IdCiudad = Ciudad.IdMunicipio;
+            CatalogosFactory.GetMuestraCiudadById(IdMunicipio).then(function(data){
+                var Ciudad = data.GetMuestraCiudadByIdResult[0];
+                vm.IdCiudad = Ciudad.Clv_Ciudad;
                 vm.Ciudad = Ciudad.Nombre;
-                var Rel = Ciudad.RelMunicipioEst;
-                for(var i = 0; Rel.length > i; i ++){
-                    var RelEst = {};
-                    RelEst.IdMunicipio = vm.IdCiudad
-                    RelEst.IdEstado = Rel[i].Estado.IdEstado;
-                    var RelEstView = {};
-                    RelEstView.IdMunicipio = vm.IdCiudad
-                    RelEstView.IdEstado = Rel[i].Estado.IdEstado;
-                    RelEstView.Estado = Rel[i].Estado.Nombre;
-                    vm.RelEstList.push(RelEst);
-                    vm.RelEstViewList.push(RelEstView);
-                }
+            });
+            GetRelEstMun(IdMunicipio);
+            GetEstadoList(IdMunicipio);
+        }
+
+        function GetEstadoList(IdMunicipio){
+            CatalogosFactory.GetRelEstadoCiudad_NewList(IdMunicipio).then(function(data){
+                vm.EstadoList = data.GetRelEstadoCiudad_NewListResult;
+            });
+        }
+
+        function GetRelEstMun(IdMunicipio){
+            var ObjMunicipio = {
+                'Op': 3,
+                'Clv_Ciudad': IdMunicipio 
+            };
+            CatalogosFactory.GetMuestraRelEdoCd(ObjMunicipio).then(function(data){
+                vm.RelEstList = data.GetMuestraRelEdoCdResult;
             });
         }
 
         function AddRelEst(){
-            if(vm.Estado != undefined && vm.Estado != 0){
-                var RelEst = {};
-                RelEst.IdMunicipio = vm.IdCiudad;
-                RelEst.IdEstado = vm.Estado.IdEstado;
-                var RelEstView = {};
-                RelEstView.IdMunicipio = vm.IdCiudad;
-                RelEstView.IdEstado = vm.Estado.IdEstado;
-                RelEstView.Estado = vm.Estado.Nombre;
-                if(ExistsRelEst(RelEst.IdEstado) == false){
-                    vm.RelEstList.push(RelEst);
-                    vm.RelEstViewList.push(RelEstView);
+            var objRelEstadoCiudad_New = {
+                'Clv_Ciudad': vm.IdCiudad,
+                'Clv_Estado': vm.Estado.Clv_Estado,
+                'Op': 1
+            };
+            CatalogosFactory.AddRelEstadoCiudad_New(objRelEstadoCiudad_New).then(function(data){
+                if(data.AddRelEstadoCiudad_NewResult == -1){
+                    ngNotify.set('CORRECTO, se agregó la relación.', 'success');
+                    GetRelEstMun(vm.IdCiudad);
+                    GetEstadoList(vm.IdCiudad);
                 }else{
-                    ngNotify.set('ERROR, Ya existe esta relación.', 'warn');
+                    GetRelEstMun(vm.IdCiudad);
+                    ngNotify.set('ERROR, al agregar la relación.', 'warn');
+                    $state.reload('home.catalogos.ciudades');
+                    cancel();
                 }
-            }else{
-                ngNotify.set('ERROR, Selecciona un estado.', 'warn');
-            }
+            });
         }
 
-        function ExistsRelEst(IdEstado){
-            var ResultExists = 0;
-            for(var i = 0; vm.RelEstList.length > i; i ++){
-                if(vm.RelEstList[i].IdEstado == IdEstado){
-                    ResultExists = ResultExists + 1
+        function DeleteRelEst(Clv_Estado){
+            var ObjMunicipio = {
+                "Op": 2,
+                "Clv_Estado": Clv_Estado,
+                "Clv_Ciudad": vm.IdCiudad
+            };
+            CatalogosFactory.DeleteRelEstadoCiudad_New(ObjMunicipio).then(function(data){
+                if(data.DeleteRelEstadoCiudad_NewResult == -1){
+                    ngNotify.set('CORRECTO, se eliminó la relación.', 'success');
+                    GetRelEstMun(vm.IdCiudad);
+                    GetEstadoList(vm.IdCiudad);
+                }else{
+                    GetRelEstMun(vm.IdCiudad);
+                    ngNotify.set('ERROR, al eliminar la relación.', 'warn');
+                    $state.reload('home.catalogos.ciudades');
+                    cancel();
                 }
-            }
-            return (ResultExists > 0)? true : false;
-        }
-
-        function DeleteRelEst(IdEstado){
-            for(var i = 0; vm.RelEstList.length > i; i ++){
-                if(vm.RelEstList[i].IdEstado == IdEstado){
-                    vm.RelEstList.splice(i, 1);
-                    vm.RelEstViewList.splice(i, 1);
-                }
-            }
+            })
         }
 
         function SaveCiudad(){
-            if(vm.RelEstList.length > 0){
-                var lstRelEstado = {};
-                lstRelEstado.IdMunicipio = vm.IdCiudad;
-                lstRelEstado.Nombre = vm.Ciudad;
-                var RelMunicipioEstAdd = vm.RelEstList;
-                CatalogosFactory.UpdateRelEstMunL(lstRelEstado, RelMunicipioEstAdd).then(function(data){
-                    if(data.UpdateRelEstMunLResult == -1){
-                        ngNotify.set('CORRECTO, se guardó la ciudad.', 'success');
-                        $state.reload('home.catalogos.ciudades');
-                        cancel();
-                    }else{
-                        ngNotify.set('ERROR, al guardar la ciudad.', 'warn');
-                        $state.reload('home.catalogos.ciudades');
-                        cancel();
-                    }
-                });
-            }else{
-                 ngNotify.set('ERROR, Para la ciudad, se tiene que ingresar mínimo una relación.', 'warn');
-            }
+            var objCiudades_New = {
+                'Nombre': vm.Ciudad,
+                'Clv_Ciudad': vm.IdCiudad
+            };
+            CatalogosFactory.UpdateCiudades_New(objCiudades_New).then(function(data){
+                if(data.UpdateCiudades_NewResult == -1){
+                    ngNotify.set('CORRECTO, se guardó la ciudad.', 'success');
+                    $state.reload('home.catalogos.ciudades');
+                    cancel();
+                }else{
+                    GetRelEstMun(vm.IdCiudad);
+                    ngNotify.set('ERROR, al guardar la ciudad.', 'warn');
+                    $state.reload('home.catalogos.ciudades');
+                    cancel();
+                }
+            });
         }
         
         function cancel() {
@@ -96,7 +96,7 @@ angular
         var vm = this;
         vm.Titulo = 'Editar Registro - ';
         vm.Icono = 'fa fa-pencil-square-o';
-        vm.RelEstList = [];
+        vm.ShowEdit = true;
         vm.RelEstViewList = [];
         vm.AddRelEst = AddRelEst;
         vm.DeleteRelEst = DeleteRelEst;

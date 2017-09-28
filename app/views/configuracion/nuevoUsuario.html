@@ -24,7 +24,7 @@
             <div class="row">
               <label><b>Clave</b></label>
               <input type="text" style="text-transform: uppercase" class="form-control input-sm" name="Clave" required-message="'Este campo es obligatorio'"
-                ng-required="true" validate-on="dirty" ng-model="$ctrl.Clave" placeholder="Nombre de la encuesta">
+                ng-required="true" validate-on="dirty" ng-model="$ctrl.Clave" placeholder="Clave de 4 letras">
 
             </div>
             <div class="row">
@@ -52,13 +52,13 @@
             validate-on="dirty" ng-model="$ctrl.NombreEnc" placeholder="Nombre de la encuesta">
 
         </div>-->
-            <div class="row">
+            <div class="row" ng-show="$ctrl.oculta">
               <label><b>Pasaporte</b></label>
               <input type="password" class="form-control input-sm" name="pass1" required-message="'Este campo es obligatorio'" ng-required="true"
                 validate-on="dirty" ng-model="$ctrl.pass1">
 
             </div>
-            <div class="row">
+            <div class="row" ng-show="$ctrl.oculta">
               <label><b> valida Pasaporte</b></label>
               <input type="password" class="form-control input-sm" name="pass2" required-message="'Este campo es obligatorio'" ng-required="true"
                 validate-on="dirty" ng-model="$ctrl.pass2">

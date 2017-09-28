@@ -1,0 +1,172 @@
+<style type="text/css">
+    .table-scroll {
+        height:150px;
+        overflow:auto;  
+        margin-top:20px;
+    }
+</style>
+<form name="FormColonia" angular-validator-submit="$ctrl.SaveColonia()" novalidate angular-validator>
+    <div class="card animated fadeIn fast" style="margin-top:20px;">
+        <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+            <header>
+                <strong style="font-weight:bold; border:none; margin-left:10px;">{{ $ctrl.Titulo }} {{ $ctrl.Clv_Colonia }}</strong>
+                <br />
+                <small class="text-muted" style="font-size:14px; margin-left:10px;"> <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">Catálogos</a></small>
+            </header>
+            <div class="tools">
+                <button type="submit" class="btn btn-primary btn-sm" title="Guardar Distribuidor">Guardar</button>
+			    <button type="button" class="btn btn-default-bright btn-sm" ui-sref="home.catalogos.colonias" title="Cancelar cambios">Cancelar</button>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <b><small>Nombre de la colonia</small></b>
+                    </div>
+                    <div class="col-md-3">
+                        <b><small>Tipo de Colonia:</small></b>
+                    </div>
+                    <div class="col-md-2">
+                        <b><small>Código Postal:</small></b>
+                    </div>
+                    <div class="col-md-3">
+                        <b><small>Fecha de entrga:</small></b>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <input name="InpColonia" type="text" class="form-control input-sm" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" ng-model="$ctrl.Colonia" validate-on="dirty" required required-message="'Obligatorio'">
+                    </div>
+                    <div class="col-md-3">
+                        <select name="SlcTipoColonia" class="form-control input-sm" ng-model="$ctrl.TipoColonia" ng-options="TC.Concepto for TC in $ctrl.TipoColoniaList track by TC.Clave" validate-on="dirty" required required-message="'Obligatorio'">
+                            <option value="">Selecciona</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <input name="InpCP" type="text" class="form-control input-sm" ng-model="$ctrl.CP" maxlength="5" ng-pattern="/^\d{5}$/" validator="$ctrl.CP > 0" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa 5 dígitos.'">
+                    </div>
+                    <div class="col-md-3">
+                        <input type="date" name="InpFechaEntrega" class="form-control input-sm" ng-model="$ctrl.FechaEntrega" validate-on="dirty" required required-message="'Obligatorio'">
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-7">
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <p class="text-danger">Relación de la Colonia con las Localidades</p>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-4">
+                                <b><small>Estado:</small></b>
+                            </div>
+                            <div class="col-md-4">
+                                <b><small>Ciudad:</small></b>
+                            </div>
+                            <div class="col-md-4">
+                                <b><small>Localidad:</small></b>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-4">
+                                <select name="SlcEstado" class="form-control input-sm" ng-model="$ctrl.Estado" ng-options="E.Nombre for E in $ctrl.EstadoList track by E.Clv_Estado" ng-change="$ctrl.GetCiudadList()" validate-on="dirty">
+                                    <option value="">Selecciona</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <select name="InpCiudad" class="form-control input-sm" ng-model="$ctrl.Ciudad" ng-options="C.Nombre for C in $ctrl.CiudadList track by C.Clv_Ciudad" ng-change="$ctrl.GetLocalidadList()" validate-on="dirty">
+                                    <option value="">Selecciona</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <select name="SlcLocalidad" class="form-control input-sm" ng-model="$ctrl.Localidad" ng-options="L.Nombre for L in $ctrl.LocalidadList track by L.Clv_Localidad" validate-on="dirty">
+                                    <option value="">Selecciona</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <br>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-4 text-right">
+                                <b><small>Código Postal:</small></b>
+                            </div>
+                            <div class="col-md-4">
+                                <input name="InpCPRel" type="text" class="form-control input-sm" ng-model="$ctrl.CPRel" maxlength="5" ng-pattern="/^\d{5}$/" validate-on="dirty" invalid-message="'Inválido, Ingresa 5 dígitos.'">
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <button type="button" class="btn btn-success btn-xs" title="Agregar Relación">Agregar</button>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-12 table-scroll">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th><b>Localidad</b></th>
+                                            <th><b>Ciudad</b></th>
+                                            <th><b>CP</b></th>
+                                            <th><b>Acciones</b></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="X in ctrl.RelColViewList">
+                                            <td>{{ X.TipServ }}</td>
+                                            <td>{{ X.TipServ }}</td>
+                                            <td>{{ X.TipServ }}</td>
+                                            <td><button type="button" class="btn btn-danger btn-xs" title="Eliminar Ciudad">Eliminar</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <p class="text-danger">Relación de la Colonia con los Tipos de Servicio</p>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-8">
+                                <b><small>Tipo de Servicio</small></b>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-8">
+                                <select name="SltServicios" class="form-control input-sm" ng-model="$ctrl.TipoServicio" ng-options="T.Concepto for T in ctrl.TipoServicioList track by T.ClvTipSer">
+                                    <option value="">Selecciona</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <button type="button" class="btn btn-success btn-xs" title="Agregar Relación">Agregar</button>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-12 table-scroll">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th><b>Tipo Servicio</b></th>
+                                            <th><b>Acciones</b></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="X in ctrl.RelColViewList">
+                                            <td>{{ X.TipServ }}</td>
+                                            <td><button type="button" class="btn btn-danger btn-xs" title="Eliminar Ciudad">Eliminar</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

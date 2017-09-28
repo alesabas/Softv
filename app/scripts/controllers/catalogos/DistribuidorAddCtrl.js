@@ -1,67 +1,63 @@
 'use strict';
 
 angular
-    .module('softvApp')
-    .controller('DistribuidorAddCtrl', function(CatalogosFactory, ngNotify, $state){
+  .module('softvApp')
+  .controller('DistribuidorAddCtrl', function (CatalogosFactory, distribuidorFactory, ngNotify, $state) {
 
-        function SaveDistribuidor(){
-            var DistribuidorObj = {};
-            DistribuidorObj.Nombre = vm.Nombre;
-            DistribuidorObj.RFC = vm.RFC;
-            DistribuidorObj.NumEx = vm.NumExt;
-            DistribuidorObj.NumIn = vm.NumInt;
-            DistribuidorObj.CP = vm.CP;
-            DistribuidorObj.EntreCalles = vm.Calles;
-            DistribuidorObj.Calle = vm.Calle;
-            DistribuidorObj.Colonia = vm.Colonia;
-            DistribuidorObj.Localidad = vm.Localidad;
-            DistribuidorObj.Municipio = vm.Municipio;
-            DistribuidorObj.Estado = vm.Estado;
-            DistribuidorObj.Pais = vm.Pais;
-            DistribuidorObj.Telefono = vm.Telefono;
-            DistribuidorObj.Email = vm.Email;
-            DistribuidorObj.Telefono2 = vm.Telefono2;
-            DistribuidorObj.ImportePagare = vm.Pagare;
-            DistribuidorObj.IdAsociado = 1;
-            DistribuidorObj.NombreResGral = vm.NombreRG;
-            DistribuidorObj.TelResGral = vm.TelefonoRG;
-            DistribuidorObj.CelResGral = vm.CelularRG;
-            DistribuidorObj.EmailResGral = vm.EmailRG;
-            DistribuidorObj.NombreResCom = vm.NombreRC;
-            DistribuidorObj.TelResCom = vm.TelefonoRC;
-            DistribuidorObj.CelResCom = vm.CelularRC;
-            DistribuidorObj.EmailResCom = vm.EmailRC;
-            DistribuidorObj.NombreResOpe = vm.NombreRO;
-            DistribuidorObj.TelResOpe = vm.TelefonoRO;
-            DistribuidorObj.CelResOpe = vm.CelularRO;
-            DistribuidorObj.EmailResOpe = vm.EmailRO;
-            DistribuidorObj.NombreResAte = vm.NombreRA;
-            DistribuidorObj.TelResAte = vm.TelefonoRA;
-            DistribuidorObj.CelResAte = vm.CelularRA;
-            DistribuidorObj.EmailResAte = vm.EmailRA;
-            DistribuidorObj.NombreCon = vm.NombreDC;
-            DistribuidorObj.EstadoCon = vm.EstadoDC;
-            DistribuidorObj.MunicipioCon = vm.MunicipoDC;
-            DistribuidorObj.LocalidadCon = vm.LocalidadDC;
-            DistribuidorObj.ColoniaCon = vm.ColoniaDC;
-            DistribuidorObj.CalleCon = vm.CalleDC;
-            DistribuidorObj.NumeroCon = vm.NumeroDC;
-            DistribuidorObj.CPCon = vm.CPDC;
-            CatalogosFactory.AddDistribuidor(DistribuidorObj).then(function(data){
-                if(data.AddDistribuidorResult > 0){
-                    ngNotify.set('CORRECTO, se añadió un distribuidor nuevo.', 'success');
-                    $state.go('home.catalogos.distribuidores');
-                }else{
-                    ngNotify.set('ERROR, al añadir un distribuidor nuevo.', 'warn');
-                    $state.go('home.catalogos.distribuidores');
-                }
-            });
-        }
+    function SaveDistribuidor() {      
+      var Parametros = {
+        'Clv_Plaza': 0,
+        'Nombre': vm.Nombre,
+        'RFC': vm.RFC,
+        'Calle': vm.Calle,
+        'NumEx': vm.NumExt,
+        'NumIn': vm.NumInt,
+        'Colonia': vm.Colonia,
+        'CP': vm.CP,
+        'Localidad': vm.Localidad,
+        'Estado': vm.Estado,
+        'EntreCalles': vm.Calles,
+        'Telefono': vm.Telefono,
+        'Fax': '',
+        'Email': vm.Email,
+        'Municipio': vm.Municipio,
+        'Pais': vm.Pais,
+        'lada1': '',
+        'lada2': '',
+        'Telefono2': vm.Telefono2,
+        'NombreContacto': vm.nombrecont,
+        'TiposDistribuidor': 0,
+        'TelefonoContacto': vm.telefonocont,
+        'celularContacto': vm.celularcont,
+        'emailContacto': vm.emailcont,
+        'responsablecomercial': vm.respcomcont,
+        'responsableOperaciones': vm.respopcont,
+        'responsableAtencion': vm.resatencont,
+        'Nombrecomercial': vm.NombreDC,
+        'Callecomercial': vm.CalleDC,
+        'NumIntComercial': vm.NumeroInDC,
+        'NumExtcomercial': vm.NumeroEXDC,
+        'CPcomercial': vm.CPDC,
+        'ColoniaComercial': vm.ColoniaDC,
+        'EntrecallesComercial': '',
+        'LocalidadComercial': vm.LocalidadDC,
+        'municipioComercial': vm.MunicipoDC,
+        'estadoComercial': vm.EstadoDC
+      };
+      console.log(Parametros);
+      distribuidorFactory.AddPlaza_DistribuidoresNew(Parametros)
+        .then(function (data) {
+          ngNotify.set('Se ha guardado  el distribuidor correctamente', 'success');          
+          $state.go('home.catalogos.distribuidores');
+        });
 
-        var vm = this;
-        vm.Titulo = 'Nuevo Registro';
-        vm.Icono = 'fa fa-plus'
-        vm.ValidateRFC = /^[A-Z]{4}\d{6}[A-Z]{3}$|^[A-Z]{4}\d{6}\d{3}$|^[A-Z]{4}\d{6}[A-Z]{2}\d{1}$|^[A-Z]{4}\d{6}[A-Z]{1}\d{2}$|^[A-Z]{4}\d{6}\d{2}[A-Z]{1}$|^[A-Z]{4}\d{6}\d{1}[A-Z]{2}$|^[A-Z]{4}\d{6}\d{1}[A-Z]{1}\d{1}$|^[A-Z]{4}\d{6}[A-Z]{1}\d{1}[A-Z]{1}$/;
-        vm.SaveDistribuidor = SaveDistribuidor;
+    }
 
-    });
+
+    var vm = this;
+    vm.Titulo = 'Nuevo Registro';
+    vm.Icono = 'fa fa-plus';
+    vm.ValidateRFC = /^[A-Z]{4}\d{6}[A-Z]{3}$|^[A-Z]{4}\d{6}\d{3}$|^[A-Z]{4}\d{6}[A-Z]{2}\d{1}$|^[A-Z]{4}\d{6}[A-Z]{1}\d{2}$|^[A-Z]{4}\d{6}\d{2}[A-Z]{1}$|^[A-Z]{4}\d{6}\d{1}[A-Z]{2}$|^[A-Z]{4}\d{6}\d{1}[A-Z]{1}\d{1}$|^[A-Z]{4}\d{6}[A-Z]{1}\d{1}[A-Z]{1}$/;
+    vm.SaveDistribuidor = SaveDistribuidor;
+    vm.block = false;
+  });

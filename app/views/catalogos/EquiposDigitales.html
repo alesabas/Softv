@@ -1,0 +1,112 @@
+<style type="text/css">
+    .scrollDiv {
+        height: 500px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+</style>
+<div class="card animated fadeIn" style="margin-top:20px;">
+    <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+        <header>
+            <strong style="font-weight:bold; border:none; margin-left:10px;">Catálogo Tipos de Aparatos </strong>
+            <br>
+            <small class="text-muted" style="font-size:14px; margin-left:10px;">
+                <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a> > <a href="#" class="paginaActiva">Catálogo Tipos de Aparatos</a>
+            </small>
+        </header>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-10" style="font-weight:bold;">
+                Buscar Aparato Por:
+            </div>
+            <td><button type="submit"  class="btn btn-danger btn-xs" ui-sref="home.dashboard" title="Salir "><i class=" glyphicon glyphicon-log-out"></i> SALIR</button></td>
+            <td><button type="button" class="btn btn-primary btn-xs" ng-click="$ctrl.OpenDetalleAparato()" title="Consultar aparato"><i class="fa fa-eye"></i> CONSULTA</button></td>
+            <br>
+            <br>
+            <div class="col-md-15">
+
+                <div class="col-md-12" style="text-align:right">
+                    <div>
+                        <div class="col-md-2" style="text-align:left">
+                            <select name="SltPlaza" class="form-control input-sm" ng-model="$ctrl.Plaza" ng-change="$ctrl.buscar(4)" aria-placeholder="Seleccione la plaza"
+                                ng-options="P.razon_social for P in $ctrl.plazas track by item.id_compania">
+                                <option value="">Selecciona la Plaza</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-1" style="text-align:right">
+                        <input type="text" name="InpSearchSucursal" class="form-control input-sm" ng-model="$ctrl.clave" placeholder="Mac">
+                    </div>
+                    <div class="col-md-1" style="text-align:right">
+                            <button type="button"  class="btn btn-warning btn-xs" ng-click="$ctrl.buscar(0);" title="Buscar por clave "><i class="glyphicon glyphicon-search"></i> BUSCAR</button>
+                    </div>
+                    <div class="col-md-1" style="text-align:right">
+                        <input type="text" name="InpSearchSucursal2" class="form-control input-sm" ng-model="$ctrl.Caja" placeholder="Contrato">
+                    </div>
+                    <div class="col-md-1" style="text-align:right">
+                            <button type="button"  class="btn btn-warning btn-xs" ng-click="$ctrl.buscar(1);" title="Buscar por nombre "><i class="glyphicon glyphicon-search"></i> BUSCAR</button>
+                    </div>
+                    <div class="col-md-2" style="text-align:right">
+                        <input type="text" name="InpSearchSucursal2" class="form-control input-sm" ng-model="$ctrl.Caja" placeholder="Nombre del Cliente">
+                    
+                    </div>
+                    <div class="col-md-1" style="text-align:right">
+                            <button type="button"  class="btn btn-warning btn-xs" ng-click="$ctrl.buscar(2);" title="Buscar por nombre "><i class="glyphicon glyphicon-search"></i> BUSCAR</button>
+                    </div>
+                    <div class="col-md-1" style="text-align:right">
+                        <input type="text" name="InpSearchSucursal2" class="form-control input-sm" ng-model="$ctrl.Caja" placeholder="Colonia">
+                    
+                    </div>
+                    <div class="col-md-1" style="text-align:right">
+                            <button type="button"  class="btn btn-warning btn-xs" ng-click="$ctrl.buscar(3);" title="Buscar por nombre "><i class="glyphicon glyphicon-search"></i> BUSCAR</button>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <br>
+    <div class="col-md-12">
+        <div class="col-md-10">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th width="20%" class="text-center"><b>Contrato</b></th>
+                        <th width="20%" class="text-center"><b>Nombre</b></th>
+                        <th width="20%" class="text-center"><b>Colonia</b></th>
+                        <th width="20%" class="text-center"><b>Mac_CableModem</b></th>
+                        <th width="30%" class="text-center" colspan="2"><b>Acciones</b></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-show="$ctrl.SinRegistros">
+                        <td class="text-center" colspan="5">SIN REGISTROS</td>
+                    </tr>
+                    <tr dir-paginate="X in $ctrl.SucursalList|itemsPerPage:7" ng-show="$ctrl.ConRegistros">
+                        <td>{{ X.Contrato}}</td>
+                        <td>{{ X.Nombre }}</td>`
+                        <td>{{ X.Colonia }}</td>
+                        <td>{{ X.Mac }}</td>
+                        <td>
+                               
+                                <td><button type="button" class="btn btn-primary btn-xs" ng-click="$ctrl.OpenDetalleCaja()" title="Consultar caja"><i class="fa fa-eye"></i> CONSULTA</button></td>
+                                
+                        </td>
+                    </tr>
+
+                </tbody>
+               
+            </table>
+            <br>
+            <div style="margin-top:-40px;">
+                <dir-pagination-controls max-size="7" direction-links="true" boundary-links="true" ng-if="$ctrl.SucursalList.length > 0">
+                </dir-pagination-controls>
+            </div>
+            <br>
+        </div>
+    </div>
+</div>
+</div>

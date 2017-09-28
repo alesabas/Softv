@@ -169,7 +169,7 @@
                                             Plaza:
                                         </div>
                                         <div class="col-md-10">
-                                            <select type="text" name="SltPlaza" class="form-control input-sm" ng-model="$ctrl.Plaza" ng-options="P.razon_social for P in $ctrl.PlazaList track by P.id_compania" ng-change="$ctrl.GetEstado()" validate-on="dirty" required required-message="'Obligatorio'">
+                                            <select type="text" name="SltPlaza" class="form-control input-sm" ng-model="$ctrl.Plaza" ng-options="P.razon_social for P in $ctrl.PlazaList track by P.id_compania" validate-on="dirty" required required-message="'Obligatorio'">
                                                 <option value="">Selecciona</option>
                                             </select>
                                         </div>
@@ -193,14 +193,12 @@
                     <tr>
                         <th><b><small>ID</small></b></th>
                         <th><b><small>Nombre completo</small></b></th>
-                        <th><b><small>Calle</small></b></th>
-                        <th><b><small>Número</small></b></th>
-                        <th><b><small>Número Int</small></b></th>
+                        <th><b><small>Domicilio</small></b></th>
                         <th><b><small>Colonia</small></b></th>
                         <th><b><small>Ciudad</small></b></th>
                         <th><b><small>Teléfono</small></b></th>
-                        <th width="9%"><b><small>¿Solo internet?</small></b></th>
-                        <th width="8%"><b><small>Acciones</small></b></th>
+                        <th><b><small>¿Internet?</small></b></th>
+                        <th><b><small>Acciones</small></b></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -213,9 +211,7 @@
                         <td ng-if="X.SegundoNombre != null && X.Apellido_Materno == null"><small>{{ X.Nombre + ' ' + X.SegundoNombre + ' ' + X.Apellido_Paterno }}</small></td>
                         <td ng-if="X.SegundoNombre == null && X.Apellido_Materno != null"><small>{{ X.Nombre + ' ' + X.Apellido_Paterno + ' ' + X.Apellido_Materno }}</small></td>
                         <td ng-if="X.SegundoNombre == null && X.Apellido_Materno == null"><small>{{ X.Nombre + ' ' + X.Apellido_Paterno }}</small></td>
-                        <td><small>{{ X.Calle }}</small></td>
-                        <td><small>{{ X.NUMERO }}</small></td>
-                        <td><small>{{ X.NumInt }}</small></td>
+                        <td><small>{{ X.Calle }} #{{ X.NUMERO }} {{ X.NumInt }}</small></td>
                         <td><small>{{ X.Col }}</small></td>
                         <td><small>{{ X.Cd_Mun }}</small></td>
                         <td><small>{{ X.TELEFONO }}</small></td>

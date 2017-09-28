@@ -93,5 +93,6 @@ angular
     vm.blockrelaciones=true;
     vm.titulo='Nuevo usuario';
     vm.blocksave = false;
+    vm.oculta=true;
   
   });

@@ -1,67 +1,77 @@
 <style type="text/css">
-	.scrollDiv {
-		height: 500px;
-		overflow: auto;
-		overflow-x: hidden;
-	}
+  .scrollDiv {
+    height: 500px;
+    overflow: auto;
+    overflow-x: hidden;
+  }
+
 </style>
 <div class="card animated fadeIn" style="margin-top:20px;">
-    <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
-        <header>
-            <strong style="font-weight:bold; border:none; margin-left:10px;">Catálogo Plazas</strong>
-			<br>
-            <small class="text-muted" style="font-size:14px; margin-left:10px;">
+  <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+    <header>
+      <strong style="font-weight:bold; border:none; margin-left:10px;">Catálogo Plazas</strong>
+      <br>
+      <small class="text-muted" style="font-size:14px; margin-left:10px;">
                 <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">Catálogo Plazas</a>
             </small>
-        </header>
+    </header>
+    <div class="tools">
+      <div class="btn-group">
+        <button type="button" class="btn btn-primary btn-sm" ui-sref="home.catalogos.plaza_nueva" title="Crear una plaza nueva">NUEVA PLAZA</button>
+      </div>
     </div>
-    <div class="card-body">
-        <div class="row">
-			<div class="col-md-12">
-                <div class="col-md-3" style="text-align:right">
-                    <div class="input-group">
-                        <input type="text" name="InpSearchPlaza" class="form-control input-sm" ng-model="$ctrl.SearchPlaza" placeholder="Buscar Plaza">
-                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                    </div>
-                </div>
-                <div class="col-md-7">
-                </div>
-                <div class="col-md-2" style="text-align:right">
-                    <button type="button" class="btn btn-primary btn-sm" ui-sref="home.catalogos.plaza_nueva" title="Crear una plaza nueva">NUEVA PLAZA</button>
-			    </div>
-			</div>
-        </div>  
-        <br>
-        <div class="col-md-12">
-            <div class="col-md-12">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th width="10%"><b>Id</b></th>
-                            <th width="70%"><b>Nombre de la plaza</b></th>
-                            <th width="10%"><b>Acciones</b></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-show="$ctrl.SinRegistros">
-							<td class="text-center" colspan="4">SIN REGISTROS</td>
-						</tr>
-                        <tr dir-paginate="X in $ctrl.PlazaList|filter:$ctrl.SearchPlaza|itemsPerPage:7" ng-show="$ctrl.ConRegistros">
-                            <td>{{ X.id_compania }}</td>
-                            <td>{{ X.razon_social }}</td>
-                            <td>
-                                <button type="button" class="btn btn-warning btn-xs" ui-sref="home.catalogos.plaza_editar({ id: X.IdPlaza })" title="Editar Plaza"><i class="fa fa-pencil-square-o"></i> EDITAR</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <br>
-                <div style="margin-top:-40px;">
-					<dir-pagination-controls max-size="7" direction-links="true" boundary-links="true" ng-if="$ctrl.PlazaList.length > 0">
-					</dir-pagination-controls>
-				</div>
-                <br>
-            </div>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="col-md-3" style="text-align:right">
+          <select class="form-control" name="dis" ng-model="$ctrl.distribuidor" ng-options="item as item.Nombre for item in $ctrl.distribuidores track by item.Clv_Plaza">
+                    <option value="">Selecciona distribuidor</option>
+           </select>
+          <!--  -->
         </div>
+        <div class="col-md-3" style="text-align:right">
+          <div class="input-group">
+            <input type="text" name="InpSearchPlaza" class="form-control input-sm" ng-model="$ctrl.SearchPlaza" placeholder="Buscar Plaza">
+            <span class="input-group-addon"><i class="fa fa-search"></i></span>
+          </div>
+        </div>
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-2" style="text-align:right">
+        </div>
+      </div>
     </div>
+    <br>
+    <div class="col-md-12">
+      <div class="col-md-12">
+        <table class="table">
+          <thead>
+            <tr>
+              <th ><b>Id</b></th>
+              <th ><b>Nombre de la plaza</b></th>
+              <th ><b>Acciones</b></th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr dir-paginate="X in $ctrl.plazas|filter:$ctrl.SearchPlaza|itemsPerPage:7">
+              <td>{{ X.id_compania }}</td>
+              <td>{{ X.razon_social }}</td>
+              <td>
+                  <button type="button" class="btn btn-info btn-xs" ui-sref="home.catalogos.plaza_detalle({ id:X.id_compania })" title="consultar Plaza"><i class="fa fa-pencil-square-o"></i> CONSULTAR</button>
+                <button type="button" class="btn btn-warning btn-xs" ui-sref="home.catalogos.plaza_editar({ id:X.id_compania })" title="Editar Plaza"><i class="fa fa-pencil-square-o"></i> EDITAR</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
+        <div style="margin-top:-40px;">
+          <dir-pagination-controls max-size="7" direction-links="true" boundary-links="true">
+          </dir-pagination-controls>
+        </div>
+        <br>
+      </div>
+    </div>
+  </div>
 </div>

@@ -17,9 +17,15 @@ angular
 			$window.location.reload();
 		}
 
+		function changepassword(){
+
+			$state.go('home.configuracion.changepassword');
+		}
+
 
 
 		var vm = this;
 		vm.logout = logout;
+		vm.changepassword=changepassword;
 		initialData();
 	});

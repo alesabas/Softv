@@ -1,0 +1,33 @@
+<style type="text/css">
+    .table-scroll {
+        height: 150px;
+        overflow: auto;
+        margin-top: 20px;
+    }
+</style>
+
+<form name="FormMotivo" novalidate angular-validator autocomplete="off">
+    <div class="modal-header">
+        <button class="close" type="button" aria-label="close" title="Salir" ng-click="ctrl.cancel()">x</button>
+        <h4 class="modal-title"><i ng-class="ctrl.Icono"></i> {{ ctrl.Titulo }}</h4>
+    </div>
+    <fieldset ng-disabled="ctrl.blockForm">
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-5">
+                </div>
+                <div class="col-md-8">
+                    <div>
+                        <p><b><small>Descripcion:</small></b></p>
+                        <input name="InpSerie" type="text" class="form-control input-sm" ng-model="$ctrl.Serie" validate-on="dirty">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-xs" ng-click="ctrl.cancel()" title="Salir"><i class="glyphicon glyphicon-log-out"></i> SALIR</button>
+        <button type="button" ng-disabled="ctrl.blocksave" class="btn btn-info btn-xs" ng-click="$ctrl.Cancel()" title="Guardar Dato"><i class=" glyphicon glyphicon-floppy-disk"></i> GUARDAR</button>
+
+    </div>
+</form>

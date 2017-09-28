@@ -1,0 +1,169 @@
+<form name="FormTap" angular-validator-submit="$ctrl.save()" novalidate angular-validator autocomplete="off">
+  <div class="card animated fadeIn" style="margin-top:20px;">
+    <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+      <header>
+        <strong style="font-weight:bold; border:none; margin-left:10px;">{{$ctrl.titulo}}</strong>
+        <br>
+        <small class="text-muted" style="font-size:14px; margin-left:10px;">
+                    <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a> > <a href="#" class="paginaActiva">Area técnica</a>
+                </small>
+      </header>
+      <div class="tools">
+        <button type="submit" class="btn btn-primary btn-sm" ng-disabled="$ctrl.blocksave"> <i class="fa fa-save"></i> Guardar</button>
+        <button type="button" class="btn btn-default btn-sm" ui-sref="home.areaTecnica.servicio">CANCELAR</button>
+
+      </div>
+    </div>
+    <div class="card-body">
+
+      <div class="col-md-12">
+        <div class="col-md-6">
+          <fieldset ng-disabled="$ctrl.blockform">
+            <div class="col-md-12">
+              <b>Servicio</b>
+              <select class="form-control input-sm" validate-on="dirty" 
+              ng-disabled="$ctrl.blockservicio"
+              required required-message="'Este campo es obligatorio.'" name="servicio"
+                ng-change="$ctrl.obtentrabajos()" ng-options="item as item.Concepto for item in $ctrl.servicios track by item.Clv_TipSerPrincipal"
+                ng-model="$ctrl.servicio">
+                   <option value="">Seleccionar</option>
+                </select>
+            </div>
+
+            <div class="col-md-6">
+              <b>Clave:</b>
+              <input type="text" class="form-control " validate-on="dirty" required required-message="'Este campo es obligatorio.'" ng-model="$ctrl.clave"
+                name="clave">
+            </div>
+
+            <div class="col-md-6">
+              <b>Individual $:</b>
+              <input type="number" validate-on="dirty" required required-message="'Este campo es obligatorio.'" class="form-control " ng-model="$ctrl.individual"
+                name="individual">
+            </div>
+
+            <div class="col-md-12">
+              <b>Descripcion:</b>
+              <input type="text" validate-on="dirty" required required-message="'Este campo es obligatorio.'" class="form-control " ng-model="$ctrl.descripcion"
+                name="descripcion">
+            </div>
+
+            <div class="col-md-12">
+              <br>
+              <br>
+              <div class="col-md-6">
+                <b>Tipo:</b>
+                <label class="radio-inline radio-styled radio-warning">
+		<input type="radio" value="O" name="tipo" ng-change="$ctrl.showimputable=false"  ng-model="$ctrl.tipo"><span>Servicio</span>
+
+		</label>
+                <label class="radio-inline radio-styled radio-warning">
+		<input type="radio"  value="Q" name="tipo" ng-change="$ctrl.showimputable=true;" ng-model="$ctrl.tipo"><span>Queja</span>
+		</label>
+              </div>
+              <div class="col-md-6" ng-if="$ctrl.showimputable">
+                <b>Imputable  a: </b>
+                <select name="imputable" ng-model="$ctrl.imputable" ng-required="$ctrl.tipo==='Q'" name="imputable" ng-options="item as item.descripcion for item in $ctrl.imputables track by item.idimputable"
+                  class="form-control">
+                  <option value="">selecciona</option>
+              </select>
+              </div>
+            </div>
+          </fieldset>
+          <div class="col-md-12">
+            
+            <br>
+            <div class="col-md-6">
+              <label class="checkbox-inline checkbox-styled checkbox-success">
+                                                        <input type="checkbox"
+                                                        name="descarga"
+                                                        ng-disabled="$ctrl.proceso"
+                                                        ng-change="$ctrl.bloquearmaterial()"
+                                                         ng-model="$ctrl.descarga" >
+                                                        <span>se cobra la descarga de material</span>
+													</label>
+            </div>
+            <div class="col-md-6">
+              <label class="checkbox-inline checkbox-styled checkbox-success">
+														<input type="checkbox"
+                            ng-disabled="$ctrl.descarga"
+                            name="proceso"
+                           ng-model="$ctrl.proceso">
+                          <span>Se relaciona con el proceso automático de cablemodems o aparatos digitales</span>
+													</label>
+            </div>
+
+          </div>
+
+
+
+        </div>
+
+        <div class="col-md-6">
+          <fieldset ng-disabled="$ctrl.blockmateriales">
+            <div class="col-md-12">
+              <b>Clasificación de materila:</b>
+              <select name="clasificacion" class="form-control" ng-change="$ctrl.obtenarticulos()" ng-options="item as item.concepto for item in $ctrl.articulosacom track by item.clvtipo"
+                ng-model="$ctrl.clasificacion">
+           <option value="">Selecciona </option>
+
+          </select>
+            </div>
+            <div class="col-md-6">
+              <b>Descripción del artículo:</b>
+              <select name="descripcionart" class="form-control" ng-options="item as item.concepto for item in $ctrl.articulos track by item.clave"
+                ng-model="$ctrl.descripcionart">
+           <option value="">Selecciona </option>
+
+          </select>
+            </div>
+
+            <div class="col-md-3">
+              <b>Cantidad:</b>
+              <input type="number" class="form-control" ng-model="$ctrl.cantidad" name="cantidad">
+
+            </div>
+            <div class="col-md-3">
+              <br>
+              <button type="button" class="btn btn-success btn-sm" ng-click="$ctrl.agregarelacion()">agregar</button>
+
+            </div>
+
+            <div class="col-md-12" style="margin-top:15px;">
+              <table class="table ">
+                <thead>
+                  <th># Material</th>
+                  <th>Material</th>
+                  <th>Tipo Material</th>
+                  <th>Cantidad</th>
+                  <th>Opciones</th>
+                  <thead>
+                    <tbody>
+                      <tr ng-repeat="x in $ctrl.relaciones">
+                        <td>{{x.clvmaterial}}</td>
+                        <td>{{x.concepto}}</td>
+                        <td>{{x.descripcion}}</td>
+                        <td>{{x.cantidad}}</td>
+                        <td>
+                          <button type="button" class="btn ink-reaction btn-floating-action btn-xs btn-danger"><i class="fa fa-trash"></i></button>
+
+                        </td>
+                      </tr>
+
+
+                    </tbody>
+              </table>
+
+            </div>
+          </fieldset>
+        </div>
+
+
+      </div>
+
+    </div>
+
+
+  </div>
+  </div>
+</form>

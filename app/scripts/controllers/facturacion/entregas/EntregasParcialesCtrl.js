@@ -1,7 +1,18 @@
 'use strict';
 angular
 	.module('softvApp')
-	.controller('EntregasParcialesCtrl', function($state, $uibModal, globalService, $rootScope, entregasFactory, $filter, ngNotify) {
+	.controller('EntregasParcialesCtrl', function($state,generalesSistemaFactory, $uibModal, globalService, $rootScope, entregasFactory, $filter, ngNotify) {
+		
+		this.$onInit = function () {
+      generalesSistemaFactory.GetvalidaAccesoFacturacion().then(function (data) {
+        if (data.GetvalidaAccesoFacturacionResult === 0) {
+          $state.go('home.dashboard');
+          ngNotify.set('Su máquina no esta registrada como una caja, por tal motivo no tiene acceso a facturación', 'warn');
+        }
+      });
+
+    };
+		
 		function initialData() {
 			entregasFactory.getPlazas().then(function(data) {
 				vm.plazas = data.GetMuestraPlazasProcesosListResult;

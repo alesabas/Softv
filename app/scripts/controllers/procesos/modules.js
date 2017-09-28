@@ -140,7 +140,7 @@ angular
         controllerAs: '$ctrl'
       },
       {
-        name: 'home.procesos.devolucionAlmacen',
+        name: 'home.procesos.devolucion',
         data: {
           pageTitle: 'SOFTV | DETALLE REPORTE'
         },

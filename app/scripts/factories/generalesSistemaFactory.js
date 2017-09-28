@@ -17,8 +17,322 @@ angular
       GetspEliminaRangosCobroMaterial: '/Configuracion/GetspEliminaRangosCobroMaterial',
       GetModificaPromocionesGeneral: '/Configuracion/GetModificaPromocionesGeneral',
       GetGeneralesPrincipalGuardar: '/Configuracion/GetGeneralesPrincipalGuardar',
-
+      GetChangePassword: '/Configuracion/GetChangePassword',
+      GetGeneralDistribuidor: '/Configuracion/GetGeneralDistribuidor',
+      GetMuestra_tecnicosDepartamentos: '/Configuracion/GetMuestra_tecnicosDepartamentos',
+      GetMuestra_TecnicosByFamili: '/Configuracion/GetMuestra_TecnicosByFamili',
+      GetConPuestos: '/Configuracion/GetConPuestos',
+      GetConsultatecnicosReporte: '/Configuracion/GetConsultatecnicosReporte',
+      GetNueGeneralMsjTickets: '/Configuracion/GetNueGeneralMsjTickets',
+      GetNueRelOrdenesTecnicos: '/Configuracion/GetNueRelOrdenesTecnicos',
+      GetNueRel_Tecnicos_Quejas: '/Configuracion/GetNueRel_Tecnicos_Quejas',
+      GetBorRelOrdenesTecnicos: '/Configuracion/GetBorRelOrdenesTecnicos',
+      GetBorRel_Tecnicos_Quejas: '/Configuracion/GetBorRel_Tecnicos_Quejas',
+      GetNUEBonificacionCajeras: '/Configuracion/GetNUEBonificacionCajeras',
+      GetvalidaAccesoFacturacion:'/Configuracion/GetvalidaAccesoFacturacion'
     };
+
+   factory.GetvalidaAccesoFacturacion = function () {
+      var deferred = $q.defer();
+      var Parametros = {
+        'op': 0,
+        'ip': $localStorage.currentUser.maquina
+      };
+      console.log($localStorage.currentUser);
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.GetvalidaAccesoFacturacion, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response.data);
+      });
+
+      return deferred.promise;
+    };
+
+
+
+
+    factory.GetNUEBonificacionCajeras = function (IdCompania, BonificacionMax) {
+      var deferred = $q.defer();
+      var Parametros = {
+        'IdCompania': IdCompania,
+        'BonificacionMax': BonificacionMax
+      };
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.GetNUEBonificacionCajeras, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response.data);
+      });
+
+      return deferred.promise;
+    };
+
+
+
+
+    factory.GetBorRel_Tecnicos_Quejas = function (IdCompania, Clave_Familia, Clave_Tecnico) {
+      var deferred = $q.defer();
+      var Parametros = {
+        'Clave_Familia': Clave_Familia,
+        'IdCompania': IdCompania,
+        'Clave_Tecnico': Clave_Tecnico
+      };
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.GetBorRel_Tecnicos_Quejas, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response.data);
+      });
+
+      return deferred.promise;
+    };
+
+
+
+
+    factory.GetBorRelOrdenesTecnicos = function (IdCompania, Clv_Puesto, Clv_Tecnico) {
+      var deferred = $q.defer();
+      var Parametros = {
+        'Clv_Puesto': Clv_Puesto,
+        'IdCompania': IdCompania,
+        'Clv_Tecnico': Clv_Tecnico
+      };
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.GetBorRelOrdenesTecnicos, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response.data);
+      });
+
+      return deferred.promise;
+    };
+
+
+
+
+    factory.GetNueRel_Tecnicos_Quejas = function (IdCompania, Clv_Puesto, Clv_Tecnico) {
+      var deferred = $q.defer();
+      var Parametros = {
+        'Clv_Puesto': Clv_Puesto,
+        'IdCompania': IdCompania,
+        'Clv_Tecnico': Clv_Tecnico
+      };
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.GetNueRel_Tecnicos_Quejas, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response.data);
+      });
+
+      return deferred.promise;
+    };
+
+
+
+
+
+
+
+    factory.GetNueRelOrdenesTecnicos = function (IdCompania, Clv_Puesto, Clv_Tecnico) {
+      var deferred = $q.defer();
+      var Parametros = {
+        'Clv_Puesto': Clv_Puesto,
+        'IdCompania': IdCompania,
+        'Clv_Tecnico': Clv_Tecnico
+      };
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.GetNueRelOrdenesTecnicos, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response.data);
+      });
+
+      return deferred.promise;
+    };
+
+
+
+
+
+    factory.GetNueGeneralMsjTickets = function (idcompania, mensaje, activo) {
+      var deferred = $q.defer();
+      var Parametros = {
+        'mensaje': mensaje,
+        'idcompania': idcompania,
+        'activo': activo
+      };
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.GetNueGeneralMsjTickets, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response.data);
+      });
+
+      return deferred.promise;
+    };
+
+
+
+    factory.GetConsultatecnicosReporte = function (op, idcompania) {
+      var deferred = $q.defer();
+      var Parametros = {
+        'op': op,
+        'idcompania': idcompania
+      };
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.GetConsultatecnicosReporte, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response.data);
+      });
+
+      return deferred.promise;
+    };
+
+
+    factory.GetConPuestos = function (idcompania) {
+      var deferred = $q.defer();
+      var Parametros = {
+        'idcompania': idcompania
+      };
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.GetConPuestos, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response.data);
+      });
+
+      return deferred.promise;
+    };
+
+    factory.GetMuestra_TecnicosByFamili = function (op, clv_puesto, idcompania) {
+      var deferred = $q.defer();
+      var Parametros = {
+        'op': op,
+        'clv_puesto': clv_puesto,
+        'idcompania': idcompania
+      };
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.GetMuestra_TecnicosByFamili, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response.data);
+      });
+
+      return deferred.promise;
+    };
+
+
+
+
+    factory.GetMuestra_tecnicosDepartamentos = function (op) {
+      var deferred = $q.defer();
+      var Parametros = {
+        'op': op
+      };
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.GetMuestra_tecnicosDepartamentos, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response.data);
+      });
+
+      return deferred.promise;
+    };
+
+
+    factory.GetGeneralDistribuidor = function (clave) {
+      var deferred = $q.defer();
+      var Parametros = {
+        'clave': clave
+      };
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.GetGeneralDistribuidor, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response.data);
+      });
+
+      return deferred.promise;
+    };
+
+
+
+
+
+    factory.GetChangePassword = function (passwordant, passwordnue) {
+      var deferred = $q.defer();
+      var Parametros = {
+        'pswanterior': passwordant,
+        'pswnueva': passwordnue,
+        'usuario': $localStorage.currentUser.usuario,
+        'op': 0
+      };
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.GetChangePassword, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response.data);
+      });
+
+      return deferred.promise;
+    };
+
+
+
 
     factory.GetGeneralesPrincipalGuardar = function (obj) {
       var deferred = $q.defer();
@@ -327,7 +641,6 @@ angular
       }).catch(function (response) {
         deferred.reject(response.data);
       });
-
       return deferred.promise;
     };
 
@@ -348,7 +661,6 @@ angular
       }).catch(function (response) {
         deferred.reject(response.data);
       });
-
       return deferred.promise;
     };
 

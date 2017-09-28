@@ -7,6 +7,11 @@
                 <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">Catálogo Servicios</a>
             </small>
         </header>
+        <div class="tools">
+			<div class="btn-group">
+                <button type="button" class="btn btn-primary btn-sm" ui-sref="home.catalogos.servicio_nuevo({ id: $ctrl.TipoServicio.Clv_TipSerPrincipal })" ng-disabled="$ctrl.TipoServicio == undefined" title="Crear una Servcio Nuevo">NUEVO SERVICIO</button>
+			</div>
+        </div>
     </div>
     <div class="card-body">
         <div class="row">
@@ -17,10 +22,12 @@
                         <span class="input-group-addon"><i class="fa fa-search"></i></span>
                     </div>
                 </div>
-                <div class="col-md-7">
+                <div class="col-md-6">
                 </div>
-                <div class="col-md-2" style="text-align:right">
-				    <button type="button" class="btn btn-primary btn-sm" ui-sref="home.catalogos.servicio_nuevo" title="Crear una Servcio Nuevo">NUEVO SERVICIO</button>
+                <div class="col-md-3" style="text-align:right">
+                    <select name="SlcTipoServicio" class="form-control input-sm" ng-model="$ctrl.TipoServicio" ng-options="T.Concepto for T in $ctrl.TipoServicioList track by T.Clv_TipSerPrincipal" ng-change="$ctrl.GetServiciosList()">
+                        <option value="">Selecciona</option>
+                    </select>
 			    </div>
 			</div>
         </div>
@@ -41,10 +48,10 @@
 							<td class="text-center" colspan="5">SIN REGISTROS</td>
 						</tr>
                         <tr dir-paginate="X in $ctrl.ServicioList|filter:$ctrl.SearchServicio|itemsPerPage:7" ng-show="$ctrl.ConRegistros">
-                            <td>{{ X.IdServicio }}</td>
-                            <td>{{ X.IdServicio }}</td>
-                            <td>{{ X.Nombre }}</td>
-                            <td><button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.OpenUpdateServicio(X.IdServicio)" title="Editar Servicio"><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
+                            <td>{{ X.Clv_Servicio }}</td>
+                            <td>{{ X.Clv_Txt }}</td>
+                            <td>{{ X.Descripcion }}</td>
+                            <td><button type="button" class="btn btn-warning btn-xs" ui-sref="home.catalogos.servicio_editar({ id: X.Clv_Servicio })" title="Editar Servicio"><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
                             <td><button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.OpenDeleteServicio(X)" title="Eliminar Servicio"><i class="fa fa-trash"></i> ELIMINAR</button></td>
                         </tr>
                     </tbody>

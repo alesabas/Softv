@@ -1,6 +1,9 @@
 angular
 .module('softvApp')
-.controller('ModalCajaFormUpdateCtrl', function(CatalogosFactory, $uibModalInstance, ngNotify, $state){
+.controller('ModalAparatoFormDetalleCtrl', function(CatalogosFactory, $uibModalInstance, ngNotify, $state,$uibModal){
+
+
+    
 
 
     function cancel() {
@@ -8,7 +11,9 @@ angular
     }
 
 var vm = this;
-vm.Titulo = 'Editar Registro';
+vm.Titulo = 'Detalle ';
 vm.Icono = 'fa fa-plus';
 vm.cancel = cancel;
+vm.blockForm=true;
+
 });

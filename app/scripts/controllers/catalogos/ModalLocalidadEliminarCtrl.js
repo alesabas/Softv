@@ -5,8 +5,13 @@ angular
     .controller('ModalLocalidadEliminarCtrl', function(CatalogosFactory, $uibModalInstance, ngNotify, $state, LocalidadObj){
 
         function DeleteLocalidad(){
-            CatalogosFactory.DeleteLocalidad(vm.IdLocalidad).then(function(data){
-                if(data.DeleteLocalidadResult > 1){
+            var ObjLocalidad = {
+                'opcion': 2,
+                'Nombre': '',
+                'clvnuevo': vm.IdLocalidad,
+            };
+            CatalogosFactory.DeleteLocalidades_New(ObjLocalidad).then(function(data){
+                if(data.DeleteLocalidades_NewResult == 0){
                     ngNotify.set('CORRECTO, se eliminó la localida.', 'success');
                     $state.reload('home.catalogos.localidades');
 				    cancel();
@@ -21,7 +26,7 @@ angular
         }
 
         var vm = this;
-        vm.IdLocalidad = LocalidadObj.IdLocalidad;
+        vm.IdLocalidad = LocalidadObj.Clv_Localidad;
         vm.Localidad = LocalidadObj.Nombre;
         vm.DeleteLocalidad = DeleteLocalidad;
         vm.cancel = cancel;

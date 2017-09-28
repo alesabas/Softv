@@ -58,27 +58,23 @@ angular
                 vm.NumExt = DatosCliente.NUMERO;
                 vm.NumInt = DatosCliente.NumInt;
                 vm.CodigoPos = DatosCliente.CP;
-
                 for (var b = 0; b < vm.TipoCobroList.length; b++) {
                     if(vm.TipoCobroList[b].CLV_TIPOCLIENTE == vm.IdTipoCliente) {
                         vm.TipoCobro = vm.TipoCobroList[b];
                         vm.NombreTipoCobro = vm.TipoCobroList[b].DESCRIPCION;
                     }
                 }
-
                 if(vm.EsPersonaFisica == true){
                     vm.TipoPersona = "F";
                 }else if(vm.EsPersonaFisica == false){
                     vm.TipoPersona = "M";
                 }
-
                 for(var b = 0; b < vm.PlazaList.length; b++){
                     if(vm.PlazaList[b].id_compania == vm.IdPlaza){
                         vm.Plaza = vm.PlazaList[b];
                         vm.NombrePlaza = vm.PlazaList[b].razon_social;
                     }
                 }
-
                 CatalogosFactory.GetMuestraEstadosCompaniaList(vm.IdPlaza).then(function(data){
                     vm.EstadoList = data.GetMuestraEstadosCompaniaListResult;
                     for (var b = 0; b < vm.EstadoList.length; b++) {
@@ -229,7 +225,6 @@ angular
         function ValidateFechaVen(dateStr) {
             if(dateStr != undefined){
                 if(dateStr.length == 4){
-                    //get
                     var P1 = String(dateStr[0]) + String(dateStr[1]);
                     var P2 = String(dateStr[2]) + String(dateStr[3]);
                     if(parseInt(P1) <= 12 && parseInt(P1) > 0 && parseInt(P2) >= 17){

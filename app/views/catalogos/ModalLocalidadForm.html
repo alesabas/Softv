@@ -19,11 +19,52 @@
             </div>
             <div class="col-md-12">
                 <div class="col-md-12">
-                    <input type="text" name="InpLocalidad" class="form-control input-sm" ng-model="ctrl.Localidad" validate-on="dirty" required required-message="'Obligatorio'">
+                    <input type="text" name="InpLocalidad" class="form-control input-sm" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" ng-model="ctrl.Localidad" validate-on="dirty" required required-message="'Obligatorio'">
                 </div>
             </div>
         </div>
         <br>
+        <div class="row" ng-show="ctrl.ShowUpdate">
+            <div class="col-md-12">
+                <div class="col-md-8">
+                    <p><b><small>Ciudad:</small></b></p>
+                </div>
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-8">
+                    <select name="SltCiudad" class="form-control input-sm" ng-model="ctrl.Ciudad" ng-options="C.Nombre for C in ctrl.CiudadLista track by C.Clv_Ciudad">
+                        <option value="">Selecciona</option>
+                    </select>
+                </div>
+                <div class="col-md-4 text-center">
+                    <button type="button" class="btn btn-success btn-sm" title="Agregar Relación Estado y Ciudad" ng-click="ctrl.AddEstMun()">Agregar</button>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row" ng-show="ctrl.ShowUpdate">
+            <div class="col-md-12">
+                <div class="col-md-12 table-scroll">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th width="10%"><b>Clave</b></th>
+                                <th width="80%"><b>Ciudad</b></th>
+                                <th width="10%"><b>Acciones</b></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="X in ctrl.RelLocalidadList">
+                                <td>{{ X.clv_ciudad }}</td>
+                                <td>{{ X.Nombre }}</td>
+                                <td><button type="button" class="btn btn-danger btn-xs" title="Eliminar Ciudad" ng-click="ctrl.DeleteEstMun(X.clv_ciudad)">Eliminar</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--
         <div class="row">
             <div class="col-md-12">
                 <div class="col-md-5">
@@ -38,17 +79,17 @@
             </div>
             <div class="col-md-12">
                 <div class="col-md-5">
-                    <select name="SltEstado" class="form-control input-sm" ng-model="ctrl.Estado" ng-options="E.Nombre for E in ctrl.EstadoList track by E.IdEstado" ng-change="ctrl.GetCiudadMunicipio()">
+                    <select name="SltEstado" class="form-control input-sm" ng-model="ctrl.Estado" ng-options="E.Nombre for E in ctrl.EstadoList track by E.Clv_Estado" ng-change="ctrl.GetCiudadMunicipio()">
                         <option value="">Selecciona</option>
                     </select>
                 </div>
                 <div class="col-md-5">
-                    <select name="SltCiudad" class="form-control input-sm" ng-model="ctrl.Ciudad" ng-options="C.Municipio.Nombre for C in ctrl.CiudadMunicipioList track by C.Municipio.IdMunicipio">
+                    <select name="SltCiudad" class="form-control input-sm" ng-model="ctrl.Ciudad" ng-options="C.Nombre for C in ctrl.CiudadMunicipioList track by C.Clv_Ciudad">
                         <option value="">Selecciona</option>
                     </select>
                 </div>
                 <div class="col-md-2">
-                    <button type="button" class="btn btn-success bt-sm" title="Agregar Relación Estado y Ciudad" ng-click="ctrl.AddEstMun()">Agregar</button>
+                    <button type="button" class="btn btn-success btn-sm" title="Agregar Relación Estado y Ciudad" ng-click="ctrl.AddEstMun()">Agregar</button>
                 </div>
             </div>
         </div>
@@ -74,7 +115,7 @@
                     </table>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
     <div class="modal-footer">
         <button type="submit" class="btn btn-primary btn-sm" title="Guardar Localidad">Guardar</button>

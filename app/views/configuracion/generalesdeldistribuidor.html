@@ -1,15 +1,283 @@
+<style>
+  .dualmultiselect label {
+    margin: 10px;
+  }
+
+  .dualmultiselect .btn {
+    margin: 10px;
+  }
+
+  .dualmultiselect .pool {
+    border: 1px solid #999;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 5px;
+    height: 200px;
+    overflow-y: scroll;
+  }
+
+  .dualmultiselect .pool ul {
+    list-style: none;
+    padding-left: 0px;
+  }
+
+  .dualmultiselect .pool ul li {
+    width: 50%;
+    padding: 1px 8px 4px 4px;
+    border-bottom: 1px dotted #CFCFCF;
+  }
+
+  .dualmultiselect .pool ul li a:hover {
+    text-decoration: none;
+  }
+</style>
 <div class="card animated fadeIn fast" style="margin-top:20px;">
   <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
     <header>
       <strong style="font-weight:bold; border:none; margin-left:10px;">Generales del sistema por distribuidor </strong>
       <br /><small class="text-muted" style="font-size:14px; margin-left:10px;"> <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Configuración</a>><a href="#" class="paginaActiva">usuarios</a></small>
-
     </header>
     <div class="tools">
-   
     </div>
   </div>
   <div class="card-body">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="col-md-1 col-md-offset-8">
+          <b>Plaza:</b>
+        </div>
+        <div class="col-md-3">
+          <select name="SlcPlaza"
+          ng-change="$ctrl.ObtenDetalle()"
+           ng-options="item as item.razon_social for item in $ctrl.plazas track by item.id_compania"
+            class="form-control input-sm" ng-model="$ctrl.Plaza">
+            <option value="">Selecciona</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="col-md-12">
+          <uib-tabset active="active">
+            <!--<uib-tab index="0">
+                <uib-tab-heading>
+                    Servicios de Televisión
+                </uib-tab-heading>
+                <form name="FormCargaTrabajo" angular-validator-submit="ctrl.CargaTrabajo()" novalidate angular-validator autocomplete="off">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="col-md-12">
+                        <h4 class="text-primary">Servicios de Televisión</h4>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="col-md-4 col-md-offset-4">
+                        <div class="col-md-12">
+                          <h5><b>Carga de trabajo</b></h5>
+                        </div>
+                        <div class="col-md-12">
+                          <div class="col-md-4 col-md-offset-1" style="text-align:right;">
+                            <b>General:</b>
+                            <br>
+                          </div>
+                          <div class="col-md-5">
+                            <input type="number" name="InpGeneral" class="form-control input-sm" ng-model="$ctrl.General" validate-on="dirty" required required-message="'Obligatorio'">
+                            <br>
+                          </div>
+                          <div class="col-md-4 col-md-offset-1" style="text-align:right;">
+                            <b>Instalación:</b>
+                          </div>
+                          <div class="col-md-5">
+                            <input type="number" name="InpInstalacion" class="form-control input-sm" ng-model="$ctrl.Instalacion" validate-on="dirty" required required-message="'Obligatorio'">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="col-md-3 col-md-offset-2" style="text-align:right;">
+                        <br>
+                        <b>Impresora Reconexiones:</b>
+                      </div>
+                      <div class="col-md-3">
+                        <br>
+                        <input type="text" name="InpImpresora" class="form-control input-sm" ng-model="$ctrl.Impresora" validate-on="dirty" required required-message="'Obligatorio'">
+                      </div>
+                    </div>
+                    <div class="col-md-4 col-md-offset-8">
+                      <br>
+                      <button type="submit" class="btn btn-success btn-sm">Guardar</button>
+                    </div>
+                  </div>
+                </form>
+                <footer>
+                    <p class="text-right"></p>
+                </footer>
+            </uib-tab>-->
 
+           <uib-tab index="0">
+                <uib-tab-heading>
+                    Ordenes y Reportes
+                </uib-tab-heading>
+                <br>
+                <div class="row">
+                  <div clas="col-md-12">
+                    <div class="col-md-4 col-md-offset-4">
+                      <div class="col-md-3">
+                        <b>Departamento:</b>
+                        <br>
+                      </div>
+                      <div class="col-md-9">
+                        <select name="SlcDepatamento" ng-change="$ctrl.obtentecnicos()" class="form-control input-sm" ng-options="item as item.puesto for item in $ctrl.departamentos track by item.clv_puesto"   ng-model="$ctrl.Depatamento">
+                          <option value="">Selecciona</option>
+                        </select>
+                        <br>
+                      </div>
+                    </div>
+                    <div class="col-md-4 col-md-offset-4">
+                      <div class="col-md-3">
+                        <b>Técnico:</b>
+                      </div>
+                      <div class="col-md-9">
+                        <select name="SlcTecnico" class="form-control input-sm" ng-model="$ctrl.Tecnico">
+                          <option value="">Selecciona</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-4 col-md-offset-4">
+                      <br>
+                      <div class="col-md-4">
+                        <p class="text-muted">Selecciona un rubro:</p>
+                      </div>
+                      <div class="col-md-4">
+                        <button class="btn btn-success btn-xs"> + Ordenes</button>
+                      </div>
+                      <div class="col-md-4">
+                        
+                        <button class="btn btn-success btn-xs"> + Reportes</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="dualmultiselect">
+                      <div class="row">
+                        <div class="col-lg-5 col-md-5 col-sm-5 col-md-offset-1">
+                          <h4 class="text-primary"><b>Técnicos a mostrar en Ordenes</b></h4>
+                          <div class="pool">
+                            <ul>
+                              <li ng-repeat="X in $ctrl.tecnicosordenes">                            
+                                  
+                                   
+                                      <a href=""><b>{{ X.tecnico }}</b></a>
+                                   
+                                   
+                                      <button type="button" class="btn ink-reaction  btn-xs btn-danger" ng-click="$ctrl.eliminaOrdenes(x.clv_tecnico)"> Eliminar</button>
+                                 
+                                
+                               
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                        
+                        <div class="col-lg-5 col-md-5 col-sm-2">
+                          <h4 class="text-primary"><b>Técnicos a mostrar en Reportes</b></h4>                
+                          <div class="pool">
+                            <ul>
+                              <li ng-repeat="X in $ctrl.Lista">            
+                                  
+                                    <a href=""><b>{{ X.tecnico }}</b></a>   
+                                  
+                                    <button type="button" class="btn ink-reaction  btn-xs btn-danger" ng-click="$ctrl.eliminaQuejas(x.clv_tecnico)"> Eliminar</button>
+                                 
+                               
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                        
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <footer>
+                    <p class="text-right"></p>
+                </footer>
+            </uib-tab>
+
+            <uib-tab index="1">
+                <uib-tab-heading>
+                    Mensaje de Tickets
+                </uib-tab-heading>
+                <form name="FormMesajeTicket" angular-validator-submit="$ctrl.guardamensaje()" novalidate angular-validator autocomplete="off">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="col-md-12">
+                        <h4 class="text-primary">Mensaje de Tickets</h4>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="col-md-4 col-md-offset-4">
+                        <b>Mensaje:</b>
+                      </div>
+                      <div class="col-md-4 col-md-offset-4">
+                        <textarea name="TxaMensaje" rows="5" class="form-control input-sm" ng-model="$ctrl.mensajeticket" validate-on="dirty" required required-message="'Obligatorio'">
+                        </textarea>
+                        <br>
+                      </div>
+                      <div class="col-md-4 col-md-offset-4">
+                        <label class="checkbox-inline checkbox-styled">
+                            <input type="checkbox" name="CbxActivo" ng-model="$ctrl.mensajeactivo"><span>Activo:</span>
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="col-md-4 col-md-offset-8">
+                        <br>
+                        <button type="submit" class="btn btn-success btn-sm">Guardar</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                <footer>
+                    <p class="text-right"></p>
+                </footer>
+            </uib-tab>
+            
+            <uib-tab index="2">
+                <uib-tab-heading>
+                    Bonificaciones
+                </uib-tab-heading>
+                <form name="FormBonificaion" angular-validator-submit="$ctrl.guardaBonificacion()" novalidate angular-validator autocomplete="off">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="col-md-12">
+                        <h4 class="text-primary">Bonificaciones</h4>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="col-md-3 col-md-offset-3" style="text-align:right;">
+                        <b>Bonificacion máxima permitida:</b>
+                      </div>
+                      <div class="col-md-3">
+                        <input type="number" name="InpBonificacion" class="form-control input-sm" ng-model="$ctrl.bonificacion" validate-on="dirty" required required-message="'Obligatorio'">
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="col-md-4 col-md-offset-8">
+                        <br>
+                        <button type="submit" class="btn btn-success btn-sm">Guardar</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                <footer>
+                    <p class="text-right"></p>
+                </footer>
+            </uib-tab>
+          </uib-tabset>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

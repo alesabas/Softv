@@ -2,18 +2,20 @@
 
 angular
     .module('softvApp')
-    .controller('DistribuidoresCtrl', function(CatalogosFactory, $uibModal){
+    .controller('DistribuidoresCtrl', function(distribuidorFactory, $uibModal){
 
         function initData(){
-            CatalogosFactory.GetDistribuidorList().then(function(data){
-                vm.DistribuidoresList = data.GetDistribuidorListResult;
+            distribuidorFactory.Getplaza(0,"").then(function(data){
+                console.log(data.GetPlaza_DistribuidoresNewResult);
+                vm.distribuidores=data.GetPlaza_DistribuidoresNewResult;
+               /* vm.DistribuidoresList = data.GetDistribuidorListResult;
                 if (vm.DistribuidoresList.length == 0) {
 					vm.SinRegistros = true;
 					vm.ConRegistros = false;
 				} else {
 					vm.SinRegistros = false;
 					vm.ConRegistros = true;
-				}
+				}*/
             });
         }
 

@@ -150,6 +150,23 @@ angular
         templateUrl: 'views/configuracion/RolesWeb.html',
         controller: 'RolesWebCtrl',
         controllerAs: '$ctrl'
+      },
+
+      {
+        name: 'home.configuracion.changepassword',
+        data: {
+          pageTitle: 'SAC | CONFIGURACION',
+          permissions: {
+           
+            options: {
+              reload: false
+            }
+          }
+        },
+        url: '/configuracion/changepassword',
+        templateUrl: 'views/configuracion/changepassword.html',
+        controller: 'changePasswordCtrl',
+        controllerAs: '$ctrl'
       }
 
 

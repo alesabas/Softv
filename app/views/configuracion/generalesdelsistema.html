@@ -25,7 +25,8 @@
                 <div class="col-md-12">
                   <br>
                   <b>Periodo:</b>
-                  <select name="periodo" ng-model="$ctrl.Periodo" class="form-control input-sm">
+                  <select name="periodo" ng-model="$ctrl.Periodo" ng-options="item as item.Descripcion for item in $ctrl.periodos track by item.Clv_periodo"
+                    class="form-control input-sm" ng-change="$ctrl.detalleperiodo()">
                      <option value="">selecciona periodo</option>
                  </select>
 
@@ -39,7 +40,7 @@
                       Desde el dia :
                     </div>
                     <div class="col-md-6">
-                      <input type="number" class="form-control input-sm" ng-model="$ctrl.dia1" name="dia1">
+                      <input type="number" class="form-control input-sm" ng-model="$ctrl.periodoCorte.diaInicial" name="dia1">
                     </div>
 
                   </div>
@@ -48,7 +49,7 @@
                       Hasta el dia :
                     </div>
                     <div class="col-md-6">
-                      <input type="number" class="form-control input-sm" ng-model="$ctrl.dia2" name="dia2">
+                      <input type="number" class="form-control input-sm" ng-model="$ctrl.periodoCorte.diaFinal" name="dia2">
                     </div>
 
                   </div>
@@ -64,7 +65,7 @@
                     <b>Proceso de desconexión :</b>
                   </div>
                   <div class="col-md-6">
-                    <input type="number" class="form-control input-sm" ng-model="$ctrl.desconexion" name="desconexion">
+                    <input type="number" class="form-control input-sm" ng-model="$ctrl.periodoCorte.diaCorte" name="desconexion">
                   </div>
                 </div>
 
@@ -73,7 +74,7 @@
                     <b>Dias limite para puntos :</b>
                   </div>
                   <div class="col-md-6">
-                    <input type="number" class="form-control input-sm" ng-model="$ctrl.prontopago" name="prontopago">
+                    <input type="number" class="form-control input-sm" ng-model="$ctrl.periodoCorte.diasPPP" name="prontopago">
                   </div>
 
                 </div>
@@ -83,7 +84,7 @@
                     <b>Dias limite para puntos de antiguedad:</b>
                   </div>
                   <div class="col-md-6">
-                    <input type="number" class="form-control input-sm" ng-model="$ctrl.prontopagoantiguedad" name="prontopagoantiguedad">
+                    <input type="number" class="form-control input-sm" ng-model="$ctrl.periodoCorte.diasPA" name="prontopagoantiguedad">
                   </div>
 
                 </div>
@@ -104,14 +105,14 @@
             <div class="col-md-12">
               <div class="col-md-5 col-md-offset-3">
 
-                <b class="text-center">Impuestos</b>
+                <h4 class="text-danger text-center">Impuestos</h4>
                 <div class="col-md-12">
                   <br>
                   <div class="col-md-6">
                     <label>I.V.A %</label>
                   </div>
                   <div class="col-md-6">
-                    <input type="number" class="form-control input-sm" name="iva" ng-model="$ctrl.iva">
+                    <input type="number" class="form-control input-sm" name="iva" ng-model="$ctrl.impuestos.IVA">
 
                   </div>
                 </div>
@@ -120,7 +121,7 @@
                   <br>
                   <div class="col-md-6">
                     <label class="checkbox-inline checkbox-styled checkbox-info">
-														<input type="checkbox" checked="habilitaieps" ng-model="$ctr.habilitaIEPS"><span>Habilitar IEPS</span>
+														<input type="checkbox"  ng-model="$ctrl.impuestos.siIEPS"><span>Habilitar IEPS</span>
 													</label>
                   </div>
                   <div class="col-md-6">
@@ -133,11 +134,11 @@
                 <div class="col-md-12">
                   <br>
                   <div class="col-md-6">
-                    IEPS %<input type="number" name="ieps" ng-model="$ctrl.IEPS" class="form-control input-sm">
+                    IEPS %<input type="number" name="ieps" ng-model="" class="form-control input-sm">
                   </div>
                   <div class="col-md-6">
                     <br>
-                    <input type="text" name="totalieps" ng-model="$ctrl.totalieps" class="form-control input-sm">
+                    <input type="text" name="totalieps" ng-disabled="true" ng-model="$ctrl.impuestos.IEPS" class="form-control input-sm">
                   </div>
 
                 </div>
@@ -147,13 +148,14 @@
                     Cta.IEPS
                   </div>
                   <div class="col-md-6">
-                    <input type="text" name="ctaieps" ng-model="$ctrl.ctaieps" class="form-control input-sm">
+                    <input type="text" name="ctaieps" ng-model="$ctrl.impuestos.Cta_IEPS" class="form-control input-sm">
                   </div>
                 </div>
-                <div class="col-md-12">
-                  <br>
-                  <button class="btn btn-success btn-sm" type="submit">Guardar</button>
-                </div>
+
+              </div>
+              <div class="col-md-12 text-right">
+
+                <button class="btn btn-success btn-sm" type="submit">Guardar</button>
               </div>
             </div>
 
@@ -176,15 +178,21 @@
                 <div class="col-md-12">
                   <div class="col-md-12">
                     Rango Inicial
-                    <input type="number" class="form-control input-sm " name="rangoinicial" ng-model="$ctrl.rangoinicial">
+                    <input type="number" required-message="'Este campo es obligatorio'" ng-required="true" validate-on="dirty" class="form-control input-sm "
+                      min="0" name="rangoinicial" ng-model="$ctrl.rangoinicial">
                   </div>
                   <div class="col-md-12">
                     Rango Final
-                    <input type="number" class="form-control input-sm " name="rangofinal" ng-model="$ctrl.rangofinal">
+                    <input type="number" required-message="'Este campo es obligatorio'" ng-required="true" validate-on="dirty" class="form-control input-sm "
+                      name="rangofinal" ng-model="$ctrl.rangofinal">
                   </div>
                   <div class="col-md-12">
                     Num. max. de pagos diferidos
-                    <input type="number" class="form-control input-sm " name="pagosdiferidos" ng-model="$ctrl.pagosdiferidos">
+                    <input type="number" required-message="'Este campo es obligatorio'" ng-required="true" validate-on="dirty" class="form-control input-sm "
+                      name="pagosdiferidos" ng-model="$ctrl.pagosdiferidos">
+                  </div>
+                  <div class="col-md-12 text-right">
+                    <button class="btn btn-sm btn-success" type="submit">Aceptar</button>
                   </div>
 
                 </div>
@@ -201,34 +209,28 @@
                     <th>Opciones</th>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td><button class="btn btn-xs btn-danger"> <i class="fa fa-trash"></i> Eliminar</button></td>
+                    <tr ng-repeat="x in $ctrl.rangos">
+                      <td>{{x.inicio}}</td>
+                      <td>{{x.final}}</td>
+                      <td>{{x.maximo}}</td>
+                      <td><button class="btn btn-xs btn-danger" type="button" ng-click="$ctrl.eliminarango(x.id)" type="buttton"> <i class="fa fa-trash"></i> Eliminar</button></td>
                     </tr>
                   </tbody>
                 </table>
 
               </div>
               <div class="col-md-12 text-right">
-                <button class="btn btn-sm btn-success" type="submit">Aceptar</button>
+
               </div>
             </div>
           </form>
 
         </uib-tab>
+
         <uib-tab index="3" heading="">
 
           <uib-tab-heading>
-            <i class="glyphicon glyphicon-tags"></i>  Promociones
-          </uib-tab-heading>
-
-        </uib-tab>
-        <uib-tab index="4" heading="">
-
-          <uib-tab-heading>
-            <i class="glyphicon glyphicon-home"></i>   Datos de la empresa
+            <i class="glyphicon glyphicon-home"></i> Datos de la empresa
           </uib-tab-heading>
 
           <form angular-validator-submit="$ctrl.Guardarinfoempresa()" name="ImpuestoForm" novalidate angular-validator>
@@ -242,7 +244,8 @@
                     <label><b>Empresa</b></label>
                   </div>
                   <div class="col-md-6">
-                    <input type="text" class="form-control input-sm" name="empresa" ng-model="$ctrl.empresa">
+                    <input type="text" required-message="'Este campo es obligatorio'" ng-required="true" validate-on="dirty" class="form-control input-sm"
+                      name="empresa" ng-model="$ctrl.GetGeneralesPrincipal.nombre">
                   </div>
                 </div>
                 <div class="col-md-12">
@@ -250,7 +253,8 @@
                     <label><b>Dirección</b></label>
                   </div>
                   <div class="col-md-6">
-                    <input type="text" class="form-control input-sm" name="direccion" ng-model="$ctrl.direccion">
+                    <input type="text" required-message="'Este campo es obligatorio'" ng-required="true" validate-on="dirty" class="form-control input-sm"
+                      name="direccion" ng-model="$ctrl.GetGeneralesPrincipal.direccion">
                   </div>
                 </div>
                 <div class="col-md-12">
@@ -258,7 +262,8 @@
                     <label><b>Numero exterior</b></label>
                   </div>
                   <div class="col-md-6">
-                    <input type="number" class="form-control input-sm" name="numeroexterior" ng-model="$ctrl.numeroexterior">
+                    <input type="number" required-message="'Este campo es obligatorio'" ng-required="true" validate-on="dirty" class="form-control input-sm"
+                      name="numeroexterior" ng-model="$ctrl.GetGeneralesPrincipal.numexterior">
                   </div>
                 </div>
 
@@ -267,7 +272,8 @@
                     <label><b>Numero Interior</b></label>
                   </div>
                   <div class="col-md-6">
-                    <input type="number" class="form-control input-sm" name="numeroint" ng-model="$ctrl.numeroint">
+                    <input type="number" required-message="'Este campo es obligatorio'" ng-required="true" validate-on="dirty" class="form-control input-sm"
+                      name="numeroint" ng-model="$ctrl.GetGeneralesPrincipal.numinterior">
                   </div>
                 </div>
 
@@ -276,7 +282,8 @@
                     <label><b>Colonia</b></label>
                   </div>
                   <div class="col-md-6">
-                    <input type="text" class="form-control input-sm" name="colonia" ng-model="$ctrl.colonia">
+                    <input type="text" required-message="'Este campo es obligatorio'" ng-required="true" validate-on="dirty" class="form-control input-sm"
+                      name="colonia" ng-model="$ctrl.GetGeneralesPrincipal.colonia">
                   </div>
                 </div>
 
@@ -291,7 +298,8 @@
                     <label><b>Código postal</b></label>
                   </div>
                   <div class="col-md-6">
-                    <input type="text" class="form-control input-sm" name="cp" ng-model="$ctrl.cp">
+                    <input type="text" required-message="'Este campo es obligatorio'" ng-required="true" validate-on="dirty" class="form-control input-sm"
+                      name="cp" ng-model="$ctrl.GetGeneralesPrincipal.cp">
                   </div>
                 </div>
 
@@ -300,7 +308,8 @@
                     <label><b>Ciudad</b></label>
                   </div>
                   <div class="col-md-6">
-                    <input type="text" class="form-control input-sm" name="ciudad" ng-model="$ctrl.ciudad">
+                    <input type="text" required-message="'Este campo es obligatorio'" ng-required="true" validate-on="dirty" class="form-control input-sm"
+                      name="ciudad" ng-model="$ctrl.GetGeneralesPrincipal.ciudad">
                   </div>
                 </div>
 
@@ -309,7 +318,8 @@
                     <label><b>Estado</b></label>
                   </div>
                   <div class="col-md-6">
-                    <input type="text" class="form-control input-sm" name="estado" ng-model="$ctrl.estado">
+                    <input type="text" required-message="'Este campo es obligatorio'" ng-required="true" validate-on="dirty" class="form-control input-sm"
+                      name="estado" ng-model="$ctrl.GetGeneralesPrincipal.estado">
                   </div>
                 </div>
 
@@ -318,7 +328,8 @@
                     <label><b>RFC</b></label>
                   </div>
                   <div class="col-md-6">
-                    <input type="text" class="form-control input-sm" name="estado" ng-model="$ctrl.rfc">
+                    <input type="text" required-message="'Este campo es obligatorio'" ng-required="true" validate-on="dirty" class="form-control input-sm"
+                      name="rfc" ng-model="$ctrl.GetGeneralesPrincipal.rfc">
                   </div>
                 </div>
 
@@ -327,7 +338,8 @@
                     <label><b>Teléfono</b></label>
                   </div>
                   <div class="col-md-6">
-                    <input type="text" class="form-control input-sm" name="telefono" ng-model="$ctrl.telefono">
+                    <input type="text" required-message="'Este campo es obligatorio'" ng-required="true" validate-on="dirty" class="form-control input-sm"
+                      name="telefono" ng-model="$ctrl.GetGeneralesPrincipal.telefonos">
                   </div>
                 </div>
 
@@ -341,11 +353,69 @@
           </form>
 
         </uib-tab>
-        <uib-tab index="5" heading="">
+        <uib-tab index="4" heading="">
           <uib-tab-heading>
-            <i class="glyphicon glyphicon-wrench"></i> Configuración de Edo. Cuenta
+            <i class="glyphicon glyphicon-wrench"></i> Preferencias
           </uib-tab-heading>
-        <input colorpicker ng-model="hexPicker.color" type="text">
+
+          <div class="col-md-12" style="margin-top:40px;">
+            <div class="col-md-6">
+             
+              <div class="col-md-8">
+                <label>Nombre del sistema</label>
+                <input type="text" class="form-control input-sm" placeholder="Ingresa el nombre que aparecerá en reportes y sistema">
+              </div>
+
+              <div class="col-md-8">
+                <label>Titulo de login</label>
+                <input type="text" class="form-control input-sm" placeholder="Titulo login">
+              </div>
+
+              <div class="col-md-8">
+                <label>Titulo de menú</label>
+                <input type="text" class="form-control input-sm" placeholder="Titulo que aparecerá en el login">
+              </div>
+
+               <div class="col-md-8">
+                <label>Mensaje de Inicio</label>
+                <input type="text" class="form-control input-sm" placeholder="Este mensaje aparecera en la pantalla inicial">
+              </div>
+
+            </div>
+            <div class="col-md-6">
+              <table class="table">
+                <thead>
+                  <th>Parametro</th>
+                  <th>Logo</th>
+                  <th>Opciones</th>
+                </thead>
+                <tbody>
+                  <tr>
+                   <td>Logo login</td>
+                   <td></td>
+                   <td></td>
+                  </tr>
+                  <tr>
+                   <td>Logo menu</td>
+                   <td></td>
+                   <td></td>
+                  </tr>
+                  <tr>
+                   <td>Logo reportes</td>
+                   <td></td>
+                   <td></td>
+                  </tr>
+                </tbody>
+
+              </table>
+
+            </div>
+
+
+          </div>
+
+
+          <input colorpicker ng-model="hexPicker.color" type="text">
         </uib-tab>
       </uib-tabset>
 

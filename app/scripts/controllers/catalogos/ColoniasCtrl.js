@@ -5,8 +5,8 @@ angular
     .controller('ColoniasCtrl', function($uibModal, CatalogosFactory){
 
         function initData(){
-            CatalogosFactory.GetColoniaList().then(function(data){
-                vm.ColoniaList = data.GetColoniaListResult;
+            CatalogosFactory.GetColonias_NewList().then(function(data){
+                vm.ColoniaList = data.GetColonias_NewListResult;
                 if (vm.ColoniaList.length == 0) {
 					vm.SinRegistros = true;
 					vm.ConRegistros = false;

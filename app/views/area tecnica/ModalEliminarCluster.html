@@ -1,0 +1,12 @@
+<div class="modal-header">
+    <button class="close" type="button" aria-label="close" ng-click="ctrl.cancel()">x</button>
+    <h4 class="modal-title"><i class="fa fa-exclamation-triangle"></i> Eliminar Cluster - {{ ctrl.IdCluster }}</h4>
+</div>
+<div class="modal-body">
+    <p>¿Realmente desea eliminar el registro?</p>
+    <p><b>Nombre Cluster:</b> {{ ctrl.Cluster }}</p>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-danger btn-sm" type="button" ng-click="ctrl.DeleteCluster()" title="Eliminar Cluster">Eliminar</button>
+    <button class="btn bnt-default btn-sm" type="button" ng-click="ctrl.cancel()" title="Salir">Cancelar</button>
+</div>

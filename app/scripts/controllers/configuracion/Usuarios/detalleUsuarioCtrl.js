@@ -56,4 +56,5 @@ angular
     vm.blockrelaciones = true;
     vm.titulo = 'Detalle de usuario';
     vm.blocksave = true;
+    vm.oculta=false;
   });

@@ -16,38 +16,40 @@
                 <p><b>Nombre de la ciudad:</b></p>
             </div>
             <div class="col-md-12">
-                <input type="text" name="InpCiudad" class="form-control input-sm" ng-model="ctrl.Ciudad" validate-on="dirty" required required-message="'Obligatorio'">
+                <input type="text" name="InpCiudad" class="form-control input-sm" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" ng-model="ctrl.Ciudad" validate-on="dirty" required required-message="'Obligatorio'">
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12" ng-show="ctrl.ShowEdit">
                 <br>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12" ng-show="ctrl.ShowEdit">
                 <p><b>Estado(s):</b></p>
             </div>
-            <div class="col-md-9">
-                <select name="SltEstado" class="form-control input-sm" ng-model="ctrl.Estado" ng-options="E.Nombre for E in ctrl.EstadoList track by E.IdEstado">
+            <div class="col-md-9" ng-show="ctrl.ShowEdit">
+                <select name="SltEstado" class="form-control input-sm" ng-model="ctrl.Estado" ng-options="E.Nombre for E in ctrl.EstadoList track by E.Clv_Estado">
                     <option value="">Selecciona</option>
                 </select>
             </div>
-            <div class="col-md-3" style="text-align:right">
-                <button type="button" class="btn btn-success bt-sm" title="Agregar Relación Estado" ng-click="ctrl.AddRelEst()">Agregar</button>
+            <div class="col-md-3" style="text-align:right" ng-show="ctrl.ShowEdit">
+                <button type="button" class="btn btn-success btn-sm" title="Agregar Relación Estado" ng-click="ctrl.AddRelEst()">Agregar</button>
             </div>
         </div>
         <br>
-        <div class="row">
+        <div class="row" ng-show="ctrl.ShowEdit">
             <div class="col-md-12">
                 <div class="col-md-12 table-scroll">
                     <table class="table">
                         <thead>
                             <tr>
-                                <th width="80%"><b>Estado</b></th>
+                                <th width="10%"><b>Id</b></th>
+                                <th width="70%"><b>Estado</b></th>
                                 <th width="20%"><b>Acciones</b></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="X in ctrl.RelEstViewList">
-                                <td>{{ X.Estado }}</td>
-                                <td><button type="button" class="btn btn-danger btn-xs" title="Eliminar Estado" ng-click="ctrl.DeleteRelEst(X.IdEstado, X.IdMunicipio)">Eliminar</button></td>
+                            <tr ng-repeat="X in ctrl.RelEstList">
+                                <td>{{ X.Clv_Estado }}</td>
+                                <td>{{ X.Nombre }}</td>
+                                <td><button type="button" class="btn btn-danger btn-xs" title="Eliminar Estado" ng-click="ctrl.DeleteRelEst(X.Clv_Estado)">Eliminar</button></td>
                             </tr>
                         </tbody>
                     </table>
