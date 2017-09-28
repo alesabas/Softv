@@ -64,6 +64,23 @@
             });          
         });
       });
+
+
+      //Lleno los servicios instalados del cliente
+      var parametros={
+        'contrato': items.contrato,
+        'Clv_TipSer': items.servicio.clv_tipser,
+        'Op': 14
+      };
+
+      console.log(parametros);
+
+      ordenesFactory.MuestraServiciosDelCli_porOpcion(parametros).then(function (data) {
+        vm.serviciosActuales=data.GetMuestraServiciosDelCli_porOpcionListResult;
+        
+      });
+
+
       ordenesFactory.GetMUESTRAIPAQU_porSOL(items.clv_detalle_orden, items.clv_orden).then(function (data) {
         vm.cableModems2 = data.GetMUESTRAIPAQU_porSOLResult;
         vm.cableModems2.forEach(function (item) {
@@ -87,6 +104,7 @@
 
 
     function transfer(element, action) {
+      console.log(element);
      
       var AddIPAQ = false;
       var AddIPAQUD = false;
@@ -130,8 +148,8 @@
         'objIPAQU': {
           'Clave': items.clv_detalle_orden,
           'Clv_Orden': items.clv_orden,
-          'Contratonet': element.CONTRATONET,
-          'Clv_UnicaNet': element.unicaNet,
+          'Contratonet': 0,
+          'Clv_UnicaNet': element.clv_unicanet,
           'Op': 0,
           'Status': vm.status
         }
@@ -141,8 +159,8 @@
       var objaddIpaqud = {
         'Clave': items.clv_detalle_orden,
         'Clv_Orden': items.clv_orden,
-        'Contratonet': element.CONTRATONET,
-        'Clv_UnicaNet': element.unicaNet,
+        'Contratonet': 0,
+        'Clv_UnicaNet': element.clv_unicanet,
         'Op': 0,
         'Status': vm.status
       }
@@ -151,8 +169,8 @@
       var Motcan = {
         'Clv_Orden': items.clv_orden,
         'Clv_TipSer': items.servicio.clv_tipser,
-        'ContratoNet': element.CONTRATONET,
-        'Clv_UnicaNet': element.unicaNet,
+        'ContratoNet': 0,
+        'Clv_UnicaNet': element.clv_unicanet,
         'Op': 0
       };
 
@@ -160,8 +178,8 @@
       var ObjdelIPAQ = {
         'Clave': items.clv_detalle_orden,
         'Clv_Orden': items.clv_orden,
-        'Contratonet': element.CONTRATONET,
-        'Clv_UnicaNet': element.unicaNet,
+        'Contratonet': 0,
+        'Clv_UnicaNet': element.clv_unicanet,
         'Op': 0
       };
 

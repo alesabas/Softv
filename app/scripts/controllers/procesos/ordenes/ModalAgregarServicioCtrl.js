@@ -103,7 +103,7 @@
                 controllerAs: 'ctrl',
                 backdrop: 'static',
                 keyboard: false,
-                size: 'md',
+                size: 'lg',
                 resolve: {
                   items: function () {
                     return items;

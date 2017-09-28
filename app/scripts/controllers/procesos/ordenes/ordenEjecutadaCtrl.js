@@ -94,7 +94,8 @@
           row.Descripcion.toLowerCase().includes('riapar') ||
           row.Descripcion.toLowerCase().includes('retca') ||
           row.Descripcion.toLowerCase().includes('rradi') ||
-          row.Descripcion.toLowerCase().includes('rrout')) {
+          row.Descripcion.toLowerCase().includes('rrout') ||
+          row.Descripcion.toLowerCase().includes('rapag')) {
           cuantosRetiro = cuantosRetiro + 1;
           if (row.recibi == true) {
             recibidos = recibidos + 1;
