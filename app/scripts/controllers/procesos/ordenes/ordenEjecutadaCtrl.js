@@ -378,7 +378,7 @@
         x.Descripcion.toLowerCase().includes('riapar') ||
         x.Descripcion.toLowerCase().includes('retca') ||
         x.Descripcion.toLowerCase().includes('rradi') ||
-        x.Descripcion.toLowerCase().includes('rrout')
+        x.Descripcion.toLowerCase().includes('rrout') ||  x.Descripcion.toLowerCase().includes('rapag')
       ) {
 
         vm.TrabajoRetiro = true;
@@ -538,7 +538,8 @@
           row.Descripcion.toLowerCase().includes('riapar') ||
           row.Descripcion.toLowerCase().includes('retca') ||
           row.Descripcion.toLowerCase().includes('rradi') ||
-          row.Descripcion.toLowerCase().includes('rrout')) {         
+          row.Descripcion.toLowerCase().includes('rrout') ||
+          row.Descripcion.toLowerCase().includes('rapag')) {         
           if (row.recibi == false) {
             ApaNoEntregados.push(row);
           }

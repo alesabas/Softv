@@ -508,7 +508,8 @@
           x.Descripcion.toLowerCase().includes('rantx') ||
           x.Descripcion.toLowerCase().includes('retca') ||
           x.Descripcion.toLowerCase().includes('rradi') ||
-          x.Descripcion.toLowerCase().includes('rrout')
+          x.Descripcion.toLowerCase().includes('rrout')||
+          x.Descripcion.toLowerCase().includes('rapag')          
         ) {
           vm.NOM = x.Descripcion.split(' ');
 
