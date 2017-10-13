@@ -5,8 +5,8 @@ angular
     .controller('CallesCtrl', function(CatalogosFactory, $uibModal){
 
         function initData(){
-            CatalogosFactory.GetCalleList().then(function(data){
-                vm.CalleList = data.GetCalleListResult;
+            CatalogosFactory.GetCalles_NewList().then(function(data){
+                vm.CalleList = data.GetCalles_NewListResult;
                 if (vm.CalleList.length == 0) {
 					vm.SinRegistros = true;
 					vm.ConRegistros = false;
@@ -53,31 +53,9 @@ angular
             });
         }
 
-        function OpenDeleteCalle(CalleObj){
-            var CalleObj = CalleObj;
-            var modalInstance = $uibModal.open({
-                animation: true,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: 'views/catalogos/ModalCalleEliminar.html',
-                controller: 'ModalCalleEliminarCtrl',
-                controllerAs: 'ctrl',
-                backdrop: 'static',
-                keyboard: false,
-                class: 'modal-backdrop fade',
-                size: 'sm',
-                resolve: {
-                    CalleObj: function () {
-                        return CalleObj;
-                    }
-                }
-            });
-        }
-
         var vm = this;
         vm.OpenAddCalle = OpenAddCalle;
         vm.OpenUpdateCalle = OpenUpdateCalle;
-        vm.OpenDeleteCalle = OpenDeleteCalle;
         initData();
         
     });

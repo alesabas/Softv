@@ -96,7 +96,8 @@ angular
         var vm = this;
         vm.Titulo = 'Editar Registro - ';
         vm.Icono = 'fa fa-pencil-square-o';
-        vm.ShowEdit = true;
+        vm.ShowEdit = false;
+        vm.ShowAdd = false;
         vm.RelEstViewList = [];
         vm.AddRelEst = AddRelEst;
         vm.DeleteRelEst = DeleteRelEst;

@@ -11,12 +11,11 @@
         <strong style="font-weight:bold; border:none; margin-left:10px;">Catálogo Motivos de Cancelacion de Factura</strong>
         <br>
         <small class="text-muted" style="font-size:14px; margin-left:10px;">
-                    <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a> > <a href="#" class="paginaActiva">Catálogo Motivos de Cancelacion de Factura</a>
-                </small>
+            <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a> > <a href="#" class="paginaActiva">Catálogo Motivos de Cancelacion de Factura</a>
+        </small>
       </header>
       <div class="tools">
         <td><button type="button" class="btn btn-primary btn-xs" ng-click="$ctrl.AddMotivoF()" title="Nuevo motivo "><i class="fa fa-plus"></i> NUEVO</button></td>
-       
     </div>
     </div>
     <div class="card-body">
@@ -24,57 +23,46 @@
         <div class="col-md-10" style="font-weight:bold;">
           Buscar Motivo por:
         </div>
-  
-  
         <br>
         <div class="col-md-15">
-  
           <div class="col-md-12" style="text-align:right">
             <div class="col-md-2" style="text-align:right">
-  
             </div>
             <div class="col-md-2" style="text-align:right">
               <input type="text" name="InpSearchSucursal" class="form-control input-sm" ng-model="$ctrl.clave" placeholder="Clave">
             </div>
             <div class="col-md-1" style="text-align:right">
-              <button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.buscar(0);" title="Buscar por clave "><i class="glyphicon glyphicon-search"></i> BUSCAR</button>
+              <button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.GetMotivoCancelacionFList(0);" title="Buscar por clave "><i class="glyphicon glyphicon-search"></i> BUSCAR</button>
             </div>
             <div class="col-md-2" style="text-align:right">
               <input type="text" name="InpSearchSucursal2" class="form-control input-sm" ng-model="$ctrl.descripcion" placeholder="Motivo de cancelacion ">
             </div>
             <div class="col-md-1" style="text-align:right">
-              <button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.buscar(1);" title="Buscar por motivo de cancelacion "><i class="glyphicon glyphicon-search"></i> BUSCAR</button>
+              <button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.GetMotivoCancelacionFList(1);" title="Buscar por motivo de cancelacion "><i class="glyphicon glyphicon-search"></i> BUSCAR</button>
             </div>
-  
           </div>
         </div>
-  
-  
       </div>
     </div>
     <br>
     <div class="col-md-12">
-      <div class="col-md-10">
+      <div class="col-md-12">
         <table class="table">
           <thead>
             <tr>
               <th width="10%" style="text-align:center"><b>Clave</b></th>
-              <th width="70%" style="text-align:center"><b>Descripcion</b></th>
-              <th width="20%" colspan="4"><b>Acciones</b></th>
+              <th width="60%" style="text-align:center"><b>Descripcion</b></th>
+              <th width="30%" colspan="3"><b>Acciones</b></th>
             </tr>
           </thead>
           <tbody>
-  
-            <tr dir-paginate="X in $ctrl.suscursales|itemsPerPage:7">
-              <td>{{ X.Clv_Motivo}}</td>
-              <td>{{ X.Descripccion }}</td>
-              <td>
-                    <td><button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.UpdateMotivoF()" title="Editar motivo "><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
-                    <td><button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.EliminaMotivoF()" title="Elimina motivo "><i class="fa fa-trash"></i> ELIMINAR</button></td> 
-  
-              </td>
+            <tr dir-paginate="X in $ctrl.MotivoCancelacionFList|itemsPerPage:7">
+              <td>{{ X.Clv_motivo}}</td>
+              <td>{{ X.Descripcion }}</td>
+              <td><button type="button" class="btn btn-info btn-xs" ng-click="$ctrl.DetalleMotivoF(X.Clv_motivo)" title="Consultar motivo "><i class="fa fa-eye"></i> CONSULTAR</button></td>
+              <td><button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.UpdateMotivoF(X.Clv_motivo)" title="Editar motivo "><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
+              <td><button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.EliminaMotivoF(X.Clv_motivo)" title="Elimina motivo "><i class="fa fa-trash"></i> ELIMINAR</button></td>
             </tr>
-  
           </tbody>
         </table>
         <br>

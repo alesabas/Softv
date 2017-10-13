@@ -329,6 +329,7 @@
   <script src="scripts/controllers/catalogos/ClientesCtrl.js"></script>
   <script src="scripts/controllers/catalogos/ClienteNuevoCtrl.js"></script>
   <script src="scripts/controllers/catalogos/ClienteEditarCtrl.js"></script>
+  <script src="scripts/controllers/catalogos/ModalAddRefClienteCtrl.js"></script>
   <script src="scripts/controllers/catalogos/ModalEditarRefClienteCtrl.js"></script>
   <script src="scripts/controllers/catalogos/ModalEliminarRefClienteCtrl.js"></script>
   <script src="scripts/controllers/catalogos/ModalEstadoFormAddCtrl.js"></script>
@@ -341,7 +342,6 @@
   <script src="scripts/controllers/catalogos/PlazaAddCtrl.js"></script>
   <script src="scripts/controllers/catalogos/PlazaUpdateCtrl.js"></script>
   <script src="scripts/controllers/catalogos/PlazaDetalleCtrl.js"></script>
-
   <script src="scripts/controllers/catalogos/LocalidadesCtrl.js"></script>
   <script src="scripts/controllers/catalogos/ModalLocalidadFormAddCtrl.js"></script>
   <script src="scripts/controllers/catalogos/ModalLocalidadFormUpdateCtrl.js"></script>
@@ -365,12 +365,17 @@
   <script src="scripts/controllers/catalogos/ServiciosCtrl.js"></script>
   <script src="scripts/controllers/catalogos/ServicioAddCtrl.js"></script>
   <script src="scripts/controllers/catalogos/ServicioUpdateCtrl.js"></script>
-
   <script src="scripts/controllers/catalogos/ModalServicioDeleteCtrl.js"></script>
   <script src="scripts/controllers/catalogos/ModalConfiguracionAddCtrl.js"></script>
-
   <script src="scripts/controllers/catalogos/ModalConceptoDeleteCtrl.js"></script>
   <script src="scripts/controllers/catalogos/ModalConceptoUpDateCtrl.js"></script>
+  <script src="scripts/controllers/catalogos/BancosCtrl.js"></script>
+  <script src="scripts/controllers/catalogos/ModalBancoFormAddCtrl.js"></script>
+  <script src="scripts/controllers/catalogos/ModalBancoFormUpdateCtrl.js"></script>
+  <script src="scripts/controllers/catalogos/ModalBancoDeleteCtrl.js"></script>
+  <script src="scripts/controllers/catalogos/ModalServicioClienteAddCtrl.js"></script>
+  <script src="scripts/controllers/catalogos/ModalServicioClienteDeleteCtrl.js"></script>
+  <script src="scripts/controllers/catalogos/ModalDescuentoServicioCtrl.js"></script>
   <!-- Agregados06/09 Sucursales -->
 
   <script src="scripts/factories/distribuidorFactory.js"></script>
@@ -405,7 +410,7 @@
 
   <script src="scripts/controllers/catalogos2/MotivosDeCancelacionCtrl.js"></script>
   <script src="scripts/controllers/catalogos2/modules.js"></script>
-  <script src="scripts/controllers/area tecnica/modules.js"></script>
+
   <script src="scripts/controllers/catalogos2/ModalMotivoAddCtrl.js"></script>
   <script src="scripts/controllers/catalogos2/ModalMotivoDetalleCtrl.js"></script>
   <script src="scripts/controllers/catalogos2/ModalMotivoUpdateCtrl.js"></script>
@@ -413,36 +418,54 @@
   <script src="scripts/controllers/catalogos2/MotivosDeCancelacionFacturaCtrl.js"></script>
   <script src="scripts/controllers/catalogos2/ModalMotivoCancelFactAddCtrl.js"></script>
   <script src="scripts/controllers/catalogos2/ModalMotivoCancelFactUpdateCtrl.js"></script>
+  <script src="scripts/controllers/catalogos2/ModalMotivoCancelFactDeleteCtrl.js"></script>
   <script src="scripts/controllers/catalogos2/MotivosReImpresionFacturaCtrl.js"></script>
   <script src="scripts/controllers/catalogos2/ModalMotivoReimpFactAddCtrl.js"></script>
   <script src="scripts/controllers/catalogos2/ModalMotivoReimpFactUpdateCtrl.js"></script>
+  <script src="scripts/controllers/catalogos2/ModalMotivoReimpFactDetalleCtrl.js"></script>
+  <script src="scripts/controllers/catalogos2/ModalMotivoCancelFactDetalleCtrl.js"></script>
   <script src="scripts/controllers/catalogos2/ModalMotivoReimpDeleteCtrl.js"></script>
-  <script src="scripts/controllers/area tecnica/ClusterCtrl.js"></script>
-  <script src="scripts/controllers/area tecnica/ModalDeleteClusterCtrl.js"></script>
-  <script src="scripts/controllers/area tecnica/ModalAddClusterCtrl.js"></script>
-  <script src="scripts/controllers/area tecnica/ModalUpdateClusterCtrl.js"></script>
-  <script src="scripts/controllers/area tecnica/ModalDetalleClusterCtrl.js"></script>
-  <script src="scripts/controllers/area tecnica/SectoresCtrl.js"></script>
-  <script src="scripts/controllers/area tecnica/ModalAddSectorCtrl.js"></script>
-  <script src="scripts/controllers/area tecnica/ModalDetalleSectorCtrl.js"></script>
-  <script src="scripts/controllers/area tecnica/ModalUpdateSectorCtrl.js"></script>
-  <script src="scripts/controllers/area tecnica/ModalDeleteSectorCtrl.js"></script>
-  <script src="scripts/controllers/area tecnica/PostesCtrl.js"></script>
-  <script src="scripts/controllers/area tecnica/TapsCtrl.js"></script>
-  <script src="scripts/controllers/area tecnica/ModalAddTapsCtrl.js"></script>
-  <script src="scripts/controllers/area tecnica/AddTapsCtrl.js"></script>
-  <script src="scripts/controllers/area tecnica/UpdateTapsCtrl.js"></script>
-  <script src="scripts/controllers/area tecnica/servicioClienteCtrl.js"></script>
-  <script src="scripts/controllers/area tecnica/nuevoservicioCtrl.js"></script>
-  <script src="scripts/controllers/area tecnica/detalleservicioCtrl.js"></script>
-  <script src="scripts/controllers/area tecnica/editaservicioCtrl.js"></script>
-  
+  <script src="scripts/controllers/procesos/agenda/agendaUpdateCtrl.js"></script>
+  <script src="scripts/controllers/procesos/agenda/agendaDetalleCtrl.js"></script>
+  <script src="scripts/controllers/procesos/agenda/agendaCtrl.js"></script>
+
+  <!--Area tecnica-->
+  <script src="scripts/controllers/areatecnica/modules.js"></script>
+  <script src="scripts/controllers/areatecnica/ClusterCtrl.js"></script>
+  <script src="scripts/controllers/areatecnica/ModalDeleteClusterCtrl.js"></script>
+  <script src="scripts/controllers/areatecnica/ModalAddClusterCtrl.js"></script>
+  <script src="scripts/controllers/areatecnica/ModalUpdateClusterCtrl.js"></script>
+  <script src="scripts/controllers/areatecnica/ModalDetalleClusterCtrl.js"></script>
+  <script src="scripts/controllers/areatecnica/SectoresCtrl.js"></script>
+  <script src="scripts/controllers/areatecnica/ModalAddSectorCtrl.js"></script>
+  <script src="scripts/controllers/areatecnica/ModalDetalleSectorCtrl.js"></script>
+  <script src="scripts/controllers/areatecnica/ModalUpdateSectorCtrl.js"></script>
+  <script src="scripts/controllers/areatecnica/ModalDeleteSectorCtrl.js"></script>
+  <script src="scripts/controllers/areatecnica/PostesCtrl.js"></script>
+  <script src="scripts/controllers/areatecnica/TapsCtrl.js"></script>
+  <script src="scripts/controllers/areatecnica/AddTapsCtrl.js"></script>
+  <script src="scripts/controllers/areatecnica/DetalletapCtrl.js"></script>
+  <script src="scripts/controllers/areatecnica/servicioClienteCtrl.js"></script>
+  <script src="scripts/controllers/areatecnica/nuevoservicioCtrl.js"></script>
+  <script src="scripts/controllers/areatecnica/detalleservicioCtrl.js"></script>
+  <script src="scripts/controllers/areatecnica/editaservicioCtrl.js"></script>
+  <script src="scripts/controllers/areatecnica/ModalUpdatePosteCtrl.js"></script>
+  <script src="scripts/controllers/areatecnica/ModalAddhubCtrl.js"></script>
+  <script src="scripts/controllers/areatecnica/nuevoNapCtrl.js"></script>
 
 
+
+  <script src="scripts/controllers/areatecnica/UpdateTapCtrl.js"></script>
+  <script src="scripts/controllers/areatecnica/oltCtrl.js"></script>
+  <script src="scripts/controllers/areatecnica/hubCtrl.js"></script>
+  <script src="scripts/controllers/areatecnica/napCtrl.js"></script>
   <script src="scripts/factories/tapFactory.js"></script>
   <script src="scripts/factories/clusterFactory.js"></script>
   <script src="scripts/factories/trabajosFactory.js"></script>
   <script src="scripts/factories/areaTecnicaFactory.js"></script>
+  <script src="scripts/factories/agendaFactory.js"></script>
+
+
   <!-- endbuild -->
 </body>
 

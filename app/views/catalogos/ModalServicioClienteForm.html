@@ -1,0 +1,39 @@
+<form name="FormAddServicioCliente" angular-validator-submit="ctrl.AddServicioCliente()" novalidate angular-validator autocomplete="off">
+    <div class="modal-header">
+        <button class="close" type="button" aria-label="close" ng-click="ctrl.cancel()">x</button>
+        <h4 class="modal-title"><i ng-class="ctrl.Icono"></i> {{ ctrl.Titulo }} {{ ctrl.IdCalle }}</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <b><small>Tipo Servicio:</small></b>
+                </div>
+                <div class="col-md-12">
+                    <select name="SlcTipoServicio" class="form-control input-sm" ng-model="ctrl.TipoServicio" ng-options="T.Concepto for T in ctrl.TipoServicioList track by T.Clv_TipSerPrincipal" ng-change="ctrl.GetServiciosList()" validate-on="dirty" required required-message="'Obligatorio'">
+                        <option value="">Selecciona</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <br>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <b><small>Servicio:</small></b>
+                </div>
+                <div class="col-md-12">
+                    <select name="Servicio" class="form-control input-sm" ng-model="ctrl.Servicio" ng-options="S.Descripcion for S in ctrl.ServicioList track by S.Clv_Servicio" validate-on="dirty" required required-message="'Obligatorio'">
+                        <option value="">Selecciona</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary btn-sm" title="Guardar Calle" ng-disabled="ctrl.DisableAdd">Guardar</button>
+        <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.cancel()" title="Salir">Cancelar</button>
+    </div>
+</form>

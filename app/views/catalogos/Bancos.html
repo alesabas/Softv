@@ -1,0 +1,63 @@
+<div class="card animated fadeIn" style="margin-top:20px;">
+    <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+        <header>
+            <strong style="font-weight:bold; border:none; margin-left:10px;">Catálogo Bancos</strong>
+			<br>
+            <small class="text-muted" style="font-size:14px; margin-left:10px;">
+                <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">Catálogo Bancos</a>
+            </small>
+        </header>
+        <div class="tools">
+			<div class="btn-group">
+				<button type="button" class="btn btn-primary btn-sm" ng-click="$ctrl.OpenAddBanco()" title="Crear un Banco Nuevo">NUEVO BANCO</button>
+			</div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+			<div class="col-md-12">
+                <div class="col-md-3" style="text-align:right">
+                    <div class="input-group">
+                        <input type="text" name="InpSearchBanco" class="form-control input-sm" ng-model="$ctrl.SearchBanco" placeholder="Buscar Banco">
+                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                </div>
+                <div class="col-md-2" style="text-align:right">
+			    </div>
+			</div>
+        </div>
+        <br>
+        <div class="col-md-12">
+            <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th width="10%"><b>Id</b></th>
+                            <th width="70%"><b>Nombre del Banco</b></th>
+                            <th colspan="2" width="20%"><b>Acciones</b></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-show="$ctrl.SinRegistros">
+							<td class="text-center" colspan="4">SIN REGISTROS</td>
+						</tr>
+                        <tr dir-paginate="X in $ctrl.BancoList|filter:$ctrl.SearchBanco|itemsPerPage:7" ng-show="$ctrl.ConRegistros">
+                            <td>{{ X.IdBanco }}</td>
+                            <td>{{ X.Nombre }}</td>
+                            <td><button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.OpenUpdateBanco(X.IdBanco)" title="Editar Banco"><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
+                            <td><button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.OpenDeleteBanco(X)" title="Eliminar Banco"><i class="fa fa-pencil-square-o"></i> ELIMINAR</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br>
+                <div style="margin-top:-40px;">
+					<dir-pagination-controls max-size="7" direction-links="true" boundary-links="true" ng-if="$ctrl.BancoList.length > 0">
+					</dir-pagination-controls>
+				</div>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>

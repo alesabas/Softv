@@ -17,67 +17,58 @@
                     <b><small>Nombre de la calle</small></b>
                 </div>
                 <div class="col-md-12">
-                    <input name="InpCalle" type="text" class="form-control input-sm" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" ng-model="ctrl.Calle" validate-on="dirty" required required-message="'Obligatorio'">
+                    <input name="InpCalle" type="text" class="form-control input-sm" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" ng-model="ctrl.Calle" validate-on="dirty" required required-message="'Obligatorio'" ng-disabled="ctrl.DisableAdd">
                 </div>
             </div>
         </div>
-        <br>
-        <b>Relación de la calle con las colonias</b>
-        <hr style="border:1px dotted;">
-        <div class="row">
+        <h4  class="text-primary"><b>Relación de la Calle con las Colonias</b></h4>
+        <div class="row" >
             <div class="col-md-12">
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <b><small>Estado:</small></b>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <b><small>Ciudad:</small></b>
                 </div>
-            </div>
-            <div class="col-md-12">
-                <div class="col-md-6">
-                    <select name="SltEstado" class="form-control input-sm" ng-model="ctrl.Estado" ng-options="E.Nombre for E in ctrl.EstadoList track by E.Clv_Estado" ng-change="ctrl.GetMunicipio()">
-                        <option value="">Selecciona</option>
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <select name="SltCiudad" class="form-control input-sm" ng-model="ctrl.Municipio" ng-options="M.Nombre for M in ctrl.MunicipioList track by M.Clv_Ciudad" ng-change="ctrl.GetLocalidad()">
-                        <option value="">Selecciona</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <b><small>Localidad:</small></b>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <b><small>Colonia:</small></b>
                 </div>
             </div>
             <div class="col-md-12">
-                <div class="col-md-6">
-                    <select name="InpLocalidad" class="form-control input-sm" ng-model="ctrl.Localidad" ng-options="L.NOMBRE for L in ctrl.LocalidadList track by L.Clv_Localidad" ng-change="ctrl.GetColonia()">
+                <div class="col-md-3">
+                    <select name="SltEstado" class="form-control input-sm" ng-model="ctrl.Estado" ng-options="E.Nombre for E in ctrl.EstadoList track by E.Clv_Estado" ng-change="ctrl.GetCiudadList()" ng-disabled="ctrl.Disable">
                         <option value="">Selecciona</option>
                     </select>
                 </div>
-                <div class="col-md-6">
-                    <select name="SltColonia" class="form-control input-sm" ng-model="ctrl.Colonia" ng-options="C.Nombre for C in ctrl.ColoniaList track by C.CLV_COLONIA">
+                <div class="col-md-3">
+                    <select name="SltCiudad" class="form-control input-sm" ng-model="ctrl.Municipio" ng-options="M.Nombre for M in ctrl.CiudadList track by M.Clv_Ciudad" ng-change="ctrl.GetLocalidadList()" ng-disabled="ctrl.Disable">
+                        <option value="">Selecciona</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select name="InpLocalidad" class="form-control input-sm" ng-model="ctrl.Localidad" ng-options="L.NOMBRE for L in ctrl.LocalidadList track by L.Clv_Localidad" ng-change="ctrl.GetColoniaList()" ng-disabled="ctrl.Disable">
+                        <option value="">Selecciona</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select name="SltColonia" class="form-control input-sm" ng-model="ctrl.Colonia" ng-options="C.Nombre for C in ctrl.ColoniaList track by C.CLV_COLONIA" ng-disabled="ctrl.Disable">
                         <option value="">Selecciona</option>
                     </select>
                 </div>
             </div>
         </div>
         <br>
-        <div class="row">
+        <div class="row" >
             <div class="col-md-12">
                 <div class="col-md-12" style="text-align:right">
-                    <button type="button" class="btn btn-success btn-sm" title="Agregar Relacion" ng-click="ctrl.AddRelCalle()">Agregar</button>
+                    <button type="button" class="btn btn-success btn-xs" title="Agregar Relacion" ng-click="ctrl.AddRelCalle()" ng-disabled="(ctrl.Estado == undefined || ctrl.Estado == '') || (ctrl.Municipio == undefined || ctrl.Municipio == '') || (ctrl.Localidad == undefined || ctrl.Localidad == '') || (ctrl.Colonia == undefined || ctrl.Colonia == '')">Agregar</button>
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row" >
             <div class="col-md-12">
                 <div class="col-md-12 table-scroll">
                     <table class="table">
@@ -91,11 +82,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="X in ctrl.RelCalleViewList">
-                                <td>{{ X.Estado }}</td>
-                                <td>{{ X.Municipio }}</td>
-                                <td>{{ X.Localidad }}</td>
-                                <td>{{ X.Colonia }}</td>
+                            <tr ng-repeat="X in ctrl.RelCalleList">
+                                <td>{{ X.estado }}</td>
+                                <td>{{ X.ciudad }}</td>
+                                <td>{{ X.localidad }}</td>
+                                <td>{{ X.colonia }}</td>
                                 <td><button type="button" class="btn btn-danger btn-xs" title="Eliminar Relación" ng-click="ctrl.DeleteRelCalle(X)">Eliminar</button></td>
                             </tr>
                         </tbody>
@@ -105,7 +96,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="submit" class="btn btn-primary btn-sm" title="Guardar Calle">Guardar</button>
+        <button type="submit" class="btn btn-primary btn-sm" title="Guardar Calle" ng-disabled="ctrl.DisableAdd">Guardar</button>
         <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.cancel()" title="Salir">Cancelar</button>
     </div>
 </form>

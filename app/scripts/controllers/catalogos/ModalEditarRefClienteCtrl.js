@@ -33,6 +33,8 @@ angular
         }
 
         var vm = this;
+        vm.Icono = 'fa fa-pencil-square-o';
+        vm.Titulo = 'Editar Referencia Personal - # ';
         vm.IdReferencia = ObjRefCliente.id_referencia;
         vm.IdContrato = ObjRefCliente.contrato;
         vm.NombreRef = ObjRefCliente.nombre;

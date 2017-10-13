@@ -12,6 +12,7 @@ angular
 
         function GetServicio(){
             CatalogosFactory.GetDeepServicios_New(Clv_Servicio).then(function(data){
+                console.log(data);
                 var Servicio = data.GetDeepServicios_NewResult;
                 if(Servicio != null){
                     vm.Clv_Servicio = Servicio.Clv_Servicio;

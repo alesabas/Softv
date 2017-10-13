@@ -42,8 +42,8 @@
                     <thead>
                         <tr>
                             <th width="10%"><b>Id</b></th>
-                            <th width="70%"><b>Nombre de la Calle</b></th>
-                            <th width="20%" colspan="2"><b>Acciones</b></th>
+                            <th width="80%"><b>Nombre de la Calle</b></th>
+                            <th width="10%"><b>Acciones</b></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -51,10 +51,9 @@
 							<td class="text-center" colspan="4">SIN REGISTROS</td>
 						</tr>
                         <tr dir-paginate="X in $ctrl.CalleList|filter:$ctrl.SearchCalle|itemsPerPage:7" ng-show="$ctrl.ConRegistros">
-                            <td>{{ X.IdCalle }}</td>
-                            <td>{{ X.Nombre }}</td>
-                            <td><button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.OpenUpdateCalle(X.IdCalle)" title="Editar Calle"><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
-                            <td><button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.OpenDeleteCalle(X)" title="Eliminar Calle"><i class="fa fa-trash"></i> ELIMINAR</button></td>
+                            <td>{{ X.Clv_Calle }}</td>
+                            <td>{{ X.NOMBRE }}</td>
+                            <td><button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.OpenUpdateCalle(X.Clv_Calle)" title="Editar Calle"><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
                         </tr>
                     </tbody>
                 </table>

@@ -15,7 +15,7 @@ angular
                     'Clv_TipoCliente': vm.CLV_TIPOCLIENTE
                 };
                 CatalogosFactory.DeleteREL_TARIFADOS_SERVICIOS_New(ObjConcepto).then(function(data){
-                    if(data.DeleteREL_TARIFADOS_SERVICIOS_NewResult == 1){
+                    if(data.DeleteREL_TARIFADOS_SERVICIOS_NewResult > 0){
                         ngNotify.set('CORRECTO, se eliminó el concepto.', 'success');
                         $rootScope.$emit('LoadConceptos', vm.Clv_Servicio);
                         cancel();

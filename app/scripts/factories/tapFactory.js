@@ -9,18 +9,53 @@ angular.module('softvApp')
       GetMuestraColoniaSec: '/AreaTecnica/GetMuestraColoniaSec',
       GetMUESTRAPostes: '/AreaTecnica/GetMUESTRAPostes',
       GetINSERTATap: '/AreaTecnica/GetINSERTATap',
-      GetMuestraCalleSec:'/AreaTecnica/GetMuestraCalleSec'
-
+      GetMuestraCalleSec: '/AreaTecnica/GetMuestraCalleSec',
+      GetMODIFICATap: '/AreaTecnica/GetMODIFICATap'
     };
 
 
-      factory.GetMuestraCalleSec = function (Clv_Sector,Clv_Colonia,Clv_Calle,Op) {
+     factory.GetMODIFICATap = function (obj) {
       var deferred = $q.defer();
       var params = {
-        'Clv_SectorId': Clv_Sector,
-        'Clv_Colonia':Clv_Colonia,
-        'Clv_Calle':Clv_Calle,
-        'Op':Op
+        'TapEntity': {
+          'IdTap':obj.IdTap,
+          'clv_sector': obj.clv_sector,
+          'clv_colonia': obj.clv_colonia,
+          'clv_calle': obj.clv_calle,
+          'Ingenieria': obj.Ingenieria,
+          'Salidas': obj.Salidas,
+          'NoCasas': obj.NoCasas,
+          'NoNegocios': obj.NoNegocios,
+          'NoLotes': obj.NoLotes,
+          'NoServicios': obj.NoServicios,
+          'FrenteANumero': obj.FrenteANumero,
+          'clv_cluster': obj.clv_cluster,
+          'clv_poste': obj.clv_poste
+        }
+
+
+      };
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.GetMODIFICATap, params, config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+
+    factory.GetMuestraCalleSec = function (Clv_Sector, Clv_Colonia, Clv_Calle, Op) {
+      var deferred = $q.defer();
+      var params = {
+        'Clv_Sector': Clv_Sector,
+        'Clv_Colonia': Clv_Colonia,
+        'Clv_Calle': Clv_Calle,
+        'Op': Op
       };
       var config = {
         headers: {
@@ -50,7 +85,8 @@ angular.module('softvApp')
           'NoLotes': obj.NoLotes,
           'NoServicios': obj.NoServicios,
           'FrenteANumero': obj.FrenteANumero,
-          'clv_cluster': obj.clv_cluster
+          'clv_cluster': obj.clv_cluster,
+          'clv_poste': obj.clv_poste
         }
 
 

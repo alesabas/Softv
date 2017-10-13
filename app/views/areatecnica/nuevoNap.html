@@ -1,0 +1,139 @@
+<style type="text/css">
+  .table-scroll {
+    height: 150px;
+    overflow: auto;
+    margin-top: 20px;
+  }
+
+</style>
+
+<form name="FormTap" angular-validator-submit="$ctrl.SaveTap()" novalidate angular-validator autocomplete="off">
+  <div class="card" style="margin-top:10px;">
+    <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+      <header>
+        <strong style="font-weight:bold; border:none; margin-left:10px;">{{$ctrl.Titulo}}</strong>
+        <br /><small class="text-muted" style="font-size:14px; margin-left:10px;"> <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">Nuevo Taps</a></small>
+
+      </header>
+      <div class="tools">
+
+        <button title="Guardar encuesta" class="btn btn-primary btn-sm" type="submit" ng-disabled="$ctrl.blocksave"><i class="fa fa-save" aria-hidden="true"></i> Guardar</button>
+        <button title="Cancelar cambios" class="btn btn-default btn-sm" type="button" ui-sref="home.areatecnica.nap">Cancelar</button>
+
+      </div>
+    </div>
+
+    <div class="card-body">
+   <fieldset ng-disabled="$ctrl.blockForm">
+      <div class="col-md-12">
+        <div class="col-md-6">
+          <h4 class="text-center text-primary">Clave técnica</h4>
+
+          <div class="col-md-12">
+            <b><small>Cluster:</small></b>
+            <select class="form-control input-sm" name="cluster" 
+            validate-on="dirty" required  required-message="'Este campo es obligatorio.'"  ng-model="$ctrl.cluster" ng-options="item as item.Clv_txt for item in $ctrl.clusters track by item.Clv_cluster"
+              ng-change="$ctrl.getsectores()" ng-disabled="$ctrl.block"  >
+                <option value="">selecciona</option>
+                 </select>
+          </div>
+          <div class="col-md-12">
+            <b><small>Sector:</small></b>
+
+            <select class="form-control input-sm" name="sector" validate-on="dirty" ng-model="$ctrl.sector" ng-options="item as item.Descripcion for item in $ctrl.sectores track by item.Clv_Sector"
+              ng-change="$ctrl.getcolonias()" ng-disabled="$ctrl.block" required-message="'Este campo es obligatorio.'" required>
+                <option value="">selecciona</option>
+              </select>
+
+          </div>
+
+          <div class="col-md-12">
+            <b><small>Poste:</small></b>
+            <select class="form-control input-sm" name="poste" validate-on="dirty" ng-model="$ctrl.poste" ng-options="item as item.Descripcion for item in $ctrl.postes track by item.id"
+              ng-disabled="$ctrl.block" required-message="'Este campo es obligatorio.'" required>
+             <option value="">selecciona</option>
+            </select>
+
+          </div>
+
+          <div class="col-md-12">
+
+
+            <div class="col-md-6">
+              <b><small>Tap:</small></b>
+              <input type="text" name="tap" class="form-control input-sm" ng-model="$ctrl.tap" placeholder="tap">
+            </div>
+            <div class="col-md-6">
+              <b><small>Salidas:</small></b>
+              <input type="text" name="salida" class="form-control input-sm" ng-model="$ctrl.salida" placeholder="salida">
+            </div>
+          </div>
+
+
+
+        </div>
+
+        <div class="col-md-6">
+          <h4 class="text-center text-primary">Datos del Tap</h4>
+          <div class="col-md-12">
+            <b><small>Colonia:</small></b>
+            <select class="form-control input-sm" name="colonia" 
+            validate-on="dirty" required-message="'Este campo es obligatorio.'" required
+             ng-model="$ctrl.colonia" ng-options="item as item.Nombre for item in $ctrl.colonias track by item.IdColonia"
+              ng-change="$ctrl.getcalles()" ng-disabled="$ctrl.block" >
+               <option value="">selecciona Colonia</option>
+            </select>
+
+          </div>
+
+          <div class="col-md-12">
+            <b><small>Calle:</small></b>
+            <select class="form-control input-sm" name="calle" validate-on="dirty" ng-model="$ctrl.calle" ng-options="v.Nombre for v in $ctrl.calles track by v.IdCalle"
+              ng-disabled="$ctrl.block" required-message="'Este campo es obligatorio.'" required>
+            <option value="">selecciona Calle</option>
+                </select>
+          </div>
+
+          <div class="col-md-6">
+            <b><small>No. Casas:</small></b>
+            <input type="number" name="casas" class="form-control input-sm" 
+            validate-on="dirty" required-message="'Este campo es obligatorio.'" required
+            ng-model="$ctrl.casas" placeholder="Num ">
+          </div>
+          <div class="col-md-6">
+            <b><small>No. Negocios:</small></b>
+            <input type="number" name="negocios" 
+            validate-on="dirty" required-message="'Este campo es obligatorio.'" required
+            class="form-control input-sm" ng-model="$ctrl.negocios" placeholder="# ">
+
+          </div>
+
+          <div class="col-md-6">
+            <b><small>No. Lotes:</small></b>
+            <input type="number" name="Lotes"
+            validate-on="dirty" required-message="'Este campo es obligatorio.'" required
+             class="form-control input-sm" ng-model="$ctrl.lotes" placeholder="# ">
+
+          </div>
+
+          <div class="col-md-6">
+            <b><small>No. servicios:</small></b>
+            <input type="number" name="servicios"
+            validate-on="dirty" required-message="'Este campo es obligatorio.'" required
+             class="form-control input-sm" ng-model="$ctrl.servicios" placeholder="# ">
+
+          </div>
+
+          <div class="col-md-6">
+            <b><small>Frente al número:</small></b>
+            <input type="text" name="frente" 
+            validate-on="dirty" required-message="'Este campo es obligatorio.'" required
+            class="form-control input-sm" ng-model="$ctrl.frente" placeholder="# ">
+          </div>
+
+        </div>
+
+      </div>
+      </fieldset>
+    </div>
+</form>

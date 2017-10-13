@@ -6,16 +6,8 @@ angular
 
         function initData(){
             CatalogosFactory.GetTipo_Colonias1_NewList().then(function(data){
-                console.log(data);
                 vm.TipoColoniaList = data.GetTipo_Colonias1_NewListResult;
             });
-            /*CatalogosFactory.GetTipServList().then(function(data){
-                vm.TipoServicioList = data.GetTipServListResult;
-            });
-
-            CatalogosFactory.GetEstadoList2_web().then(function(data){
-                vm.EstadoList = data.GetEstadoList2_webResult;
-            });*/
         }
 
         function SaveColonia(){
@@ -25,19 +17,14 @@ angular
                 'clv_colonia': 0
             };
             CatalogosFactory.AddValidaNombreColonia(objValidaNombreColonia).then(function(data){
-                console.log(data);
                 if(data.AddValidaNombreColoniaResult == 0){
-                    console.log('ok');
                     var objColonias_New = {
-                        'CP': vm.CP,
                         'Clv_Tipo': vm.TipoColonia.Clave,
                         'FechaEntrega': vm.FechaEntrega,
                         'Nombre': vm.Colonia,
                         'Op': 0
                     };
-                    console.log(objColonias_New);
                     CatalogosFactory.AddColonias_New(objColonias_New).then(function(data){
-                        console.log(data);
                         var Clv_Colonia = data.AddColonias_NewResult;
                         if(Clv_Colonia > 0){
                             ngNotify.set('CORRECTO, se añadió una colonia nueva.', 'success');
@@ -53,34 +40,9 @@ angular
             });
         }
 
-        function GetCiudadMunicipio(){
-            if(vm.Estado != undefined){
-                CatalogosFactory.GetEstadosRelMun(vm.Estado.IdEstado).then(function(data){
-                    vm.CiudadMunicipioList = data.GetEstadosRelMunResult;
-                    vm.LocalidadList = null;
-                });
-            }else{
-                vm.CiudadMunicipioList = null;
-                vm.LocalidadList = null;
-            }
-        }
-
-        function GetLocalidad(){
-            if(vm.Ciudad != undefined){
-                CatalogosFactory.GetLocalidadRelMun(vm.Ciudad.Municipio.IdMunicipio).then(function(data){
-                    console.log(data);
-                    vm.LocalidadList = data.GetLocalidadRelMunResult;
-                });
-            }else{
-                vm.LocalidadList = null;
-            }
-        }
-
-
         var vm = this;
         vm.Titulo = 'Nueva Colonia';
-        vm.GetCiudadMunicipio = GetCiudadMunicipio;
-        vm.GetLocalidad = GetLocalidad;
+        vm.Disable = true;
         vm.SaveColonia = SaveColonia;
         initData();
 

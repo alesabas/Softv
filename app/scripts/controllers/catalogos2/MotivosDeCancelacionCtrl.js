@@ -3,8 +3,29 @@
 angular
   .module('softvApp')
   .controller('MotivosDeCancelacionCtrl', function (CatalogosFactory, atencionFactory,$uibModal) {
+  
+    function initData(){
+      var OjbMotivo = {
+          'Clv_MOTCAN': 0,
+          'MOTCAN': 0,
+          'op': 3
+        };
+        CatalogosFactory.GetBuscaMotivoCancelacion(OjbMotivo).then(function(data){
+          vm.MotivoCancelacionList = data.GetBuscaMotivoCancelacionResult;
+        });
+    }
 
-   
+    function GetListMotivo(Opc){
+      var OjbMotivo = {
+        'Clv_MOTCAN': (Opc == 0)? (vm.clave != undefined)? vm.clave:0 :0,
+        'MOTCAN': (Opc == 1)? (vm.descripcion != undefined)? vm.descripcion:0 :0,
+        'op': Opc
+      };
+      CatalogosFactory.GetBuscaMotivoCancelacion(OjbMotivo).then(function(data){
+        vm.MotivoCancelacionList = data.GetBuscaMotivoCancelacionResult;
+      });
+    }
+    
     function AddMotivo() {
         var modalInstance = $uibModal.open({
           animation: true,
@@ -19,7 +40,8 @@ angular
           size: 'md'
         });
       }
-      function DetalleMotivo() {
+
+      function DetalleMotivo(Clv_motivo) {
         var modalInstance = $uibModal.open({
           animation: true,
           ariaLabelledBy: 'modal-title',
@@ -30,11 +52,17 @@ angular
           backdrop: 'static',
           keyboard: false,
           class: 'modal-backdrop fade',
-          size: 'md'
+          size: 'md',
+          resolve: {
+              Clv_motivo: function () {
+                  return Clv_motivo;
+              }
+          }
         });
       }
 
-      function UpdateMotivo() {
+      function UpdateMotivo(Clv_motivo) {
+        var Clv_motivo = Clv_motivo;
         var modalInstance = $uibModal.open({
           animation: true,
           ariaLabelledBy: 'modal-title',
@@ -45,11 +73,17 @@ angular
           backdrop: 'static',
           keyboard: false,
           class: 'modal-backdrop fade',
-          size: 'md'
+          size: 'md',
+          resolve: {
+              Clv_motivo: function () {
+                  return Clv_motivo;
+              }
+          }
         });
       }
       
-      function EliminaMotivo() {
+      function EliminaMotivo(Clv_motivo) {
+        var Clv_motivo = Clv_motivo;
         var modalInstance = $uibModal.open({
           animation: true,
           ariaLabelledBy: 'modal-title',
@@ -60,19 +94,21 @@ angular
           backdrop: 'static',
           keyboard: false,
           class: 'modal-backdrop fade',
-          size: 'sm'
+          size: 'sm',
+          resolve: {
+              Clv_motivo: function () {
+                  return Clv_motivo;
+              }
+          }
         });
       }
-      
 
-
-
-
-
-    var vm = this;
-    vm.AddMotivo = AddMotivo;
-    vm.DetalleMotivo = DetalleMotivo;
-    vm.UpdateMotivo = UpdateMotivo;
-    vm.EliminaMotivo = EliminaMotivo;
+      var vm = this;
+      vm.GetListMotivo = GetListMotivo;
+      vm.AddMotivo = AddMotivo;
+      vm.DetalleMotivo = DetalleMotivo;
+      vm.UpdateMotivo = UpdateMotivo;
+      vm.EliminaMotivo = EliminaMotivo;
+      initData();
 
   });

@@ -148,6 +148,36 @@ angular
         templateUrl: 'views/procesos/DevolucionAlmacen.html',
         controller: 'DevolucionAlmacenCtrl',
         controllerAs: '$ctrl'
+      },
+      {
+        name: 'home.procesos.agenda',
+        data: {
+          pageTitle: 'SOFTV | AGENDA'
+        },
+        url: '/agenda',
+        templateUrl: 'views/procesos/agenda.html',
+        controller: 'agendaCtrl',
+        controllerAs: '$ctrl'
+      },
+      {
+        name: 'home.procesos.agendaDetalle',
+        data: {
+          pageTitle: 'SOFTV | DETALLE AGENDA',
+        },
+        url: '/agenda/detalle',
+        templateUrl: 'views/procesos/agendaDetalle.html',
+        controller: 'agendaDetalleCtrl',
+        controllerAs: '$ctrl'
+      },
+      {
+        name: 'home.procesos.agendaEditar',
+        data: {
+          pageTitle: 'SOFTV | EDITAR AGENDA',
+        },
+        url: '/agenda/editar',
+        templateUrl: 'views/procesos/agendaUpdate.html',
+        controller: 'agendaUpdateCtrl',
+        controllerAs: '$ctrl'
       }
     ];
     states.forEach(function (state) {

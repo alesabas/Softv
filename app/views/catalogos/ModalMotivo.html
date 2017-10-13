@@ -5,40 +5,34 @@
         margin-top: 20px;
     }
 </style>
-
-<form name="FormMotivo"  novalidate angular-validator autocomplete="off">
+<form name="FormMotivo" angular-validator-submit="ctrl.SaveMotivo()" novalidate angular-validator autocomplete="off">
     <div class="modal-header">
         <button class="close" type="button" aria-label="close" title="Salir" ng-click="ctrl.cancel()">x</button>
         <h4 class="modal-title"><i ng-class="ctrl.Icono"></i> {{ ctrl.Titulo }}</h4>
     </div>
     <fieldset ng-disabled="ctrl.blockForm">
-    <div class="modal-body">   
-    <div class="row">
-        <div class="col-md-5">
-            <div >
-                <p ><b><small>Clave:</small></b>
-                <input name="InpClave"   type="number" class="form-control input-sm" ng-model="$ctrl.Clave" validate-on="dirty" required required-message="'Obligatorio'">
-            </p>
+        <div class="modal-body">   
+        <div class="row">
+            <div class="col-md-5">
+                <div >
+                    <p ><b><small>Clave:</small></b>
+                    <input name="InpClave" type="number" class="form-control input-sm" ng-model="ctrl.Clave" ng-disabled="ctrl.Disable">
+                </p>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div>
+                    <p><b><small>Motivo  :</small></b></p>
+                    <input name="InpDescripcion" type="text" class="form-control input-sm" ng-model="ctrl.Descripcion"  validate-on="dirty" required required-message="'Obligatorio'">
+                </div>
             </div>
         </div>
-        <div class="col-md-8">
-                <div >
-                    <p><b><small>Motivo  :</small></b></p>
-                    <input name="InpSerie" type="text" class="form-control input-sm" ng-model="$ctrl.Serie" validate-on="dirty">
-                </div>
-               
-             
-            </div>
-        
-    </div>
-    
-    <br>
-    
-    </div>
-</fieldset>
+        <br>
+        </div>
+    </fieldset>
     <div class="modal-footer">
-            <button type="button" class="btn btn-default btn-xs" ng-click="ctrl.cancel()" title="Salir"><i class="glyphicon glyphicon-log-out"></i> SALIR</button>
-            <button type="button" ng-disabled="ctrl.blocksave" class="btn btn-info btn-xs" ng-click="$ctrl.Cancel()" title="Guardar Dato"><i class="	glyphicon glyphicon-floppy-disk"></i> GUARDAR</button>
-            <button type="button" ng-disabled="ctrl.blockdelete"  class="btn btn-danger btn-xs" ng-click="$ctrl.Cancel()" title="Eliminar Dato "><i class="glyphicon glyphicon-trash"></i> ELIMINAR</button>
+        <button type="button" class="btn btn-default btn-xs" ng-click="ctrl.cancel()" title="Salir"><i class="glyphicon glyphicon-log-out"></i> SALIR</button>
+        <button type="submit" ng-disabled="ctrl.blocksave" class="btn btn-info btn-xs" title="Guardar Dato"><i class="	glyphicon glyphicon-floppy-disk"></i> GUARDAR</button>
+        <button type="button" ng-disabled="ctrl.blockdelete"  class="btn btn-danger btn-xs" ng-click="ctrl.EliminaMotivo()" title="Eliminar Dato "><i class="glyphicon glyphicon-trash"></i> ELIMINAR</button>
     </div>
 </form>

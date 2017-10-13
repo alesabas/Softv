@@ -170,6 +170,7 @@
     }
 
     function SelecionaNodo(node, $parentNode){
+      console.log('ok',node, $parentNode);
       vm.selectednode=node;
       vm.parentNode=$parentNode;
 

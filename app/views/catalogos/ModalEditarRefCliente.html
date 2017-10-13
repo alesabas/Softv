@@ -1,6 +1,6 @@
 <div class="modal-header">
     <button class="close" type="button" aria-label="close" ng-click="ctrl.cancel()">x</button>
-    <h4 class="modal-title"><i class="fa fa-pencil-square-o"></i> Editar Referencia Personal - #{{ ctrl.IdReferencia }}</h4>
+    <h4 class="modal-title"><i class="{{ ctrl.Icono }}"></i> {{ ctrl.Titulo }} {{ ctrl.IdReferencia }}</h4>
 </div>
 <form name="FormUpdateRefPersonal" angular-validator-submit="ctrl.UpdateRefPersonal()" novalidate angular-validator autocomplete="off">
     <div class="modal-body">
@@ -19,7 +19,7 @@
                     <input type="text" name="InpNombreRef" class="form-control input-sm" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" ng-model="ctrl.NombreRef" validate-on="dirty" required required-message="'Obligatorio'">
                 </div>
                 <div class="col-md-4">
-                    <input type="text" name="InpTelefonoRef" class="form-control input-sm" ng-model="ctrl.TelefonoRef" maxlength="10" ng-pattern="/^\d{8}$|^\d{10}$/" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa minimo 8 dígitos.'">
+                    <input type="text" name="InpTelefonoRef" class="form-control input-sm" ng-model="ctrl.TelefonoRef" maxlength="10" ng-pattern="/^\d{10}$/" validate-on="dirty" validator="ctrl.TelefonoRef > 0" required required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa minimo 10 dígitos.'">
                 </div>
                 <div class="col-md-4">
                     <input type="email" name="InpEmailRef" class="form-control input-sm" ng-model="ctrl.EmailRef" ng-pattern="/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido'">

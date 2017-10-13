@@ -20,7 +20,7 @@
   </div>
   <div class="card-body">
     <div class="row">
-      <div class="col-md-10" style="font-weight:bold;">
+      <div class="col-md-12" style="font-weight:bold;">
         Buscar Motivo por:
       </div>
 
@@ -36,13 +36,13 @@
             <input type="text" name="InpSearchSucursal" class="form-control input-sm" ng-model="$ctrl.clave" placeholder="Clave">
           </div>
           <div class="col-md-1" style="text-align:right">
-            <button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.buscar(0);" title="Buscar por nombre "><i class="glyphicon glyphicon-search"></i> BUSCAR</button>
+            <button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.GetMotivoReimpresionFList(0);" title="Buscar por nombre "><i class="glyphicon glyphicon-search"></i> BUSCAR</button>
           </div>
           <div class="col-md-2" style="text-align:right">
             <input type="text" name="InpSearchSucursal2" class="form-control input-sm" ng-model="$ctrl.descripcion" placeholder="Motivo de Reimpresion">
           </div>
           <div class="col-md-1" style="text-align:right">
-            <button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.buscar(1);" title="Buscar por nombre "><i class="glyphicon glyphicon-search"></i> BUSCAR</button>
+            <button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.GetMotivoReimpresionFList(1);" title="Buscar por nombre "><i class="glyphicon glyphicon-search"></i> BUSCAR</button>
           </div>
 
         </div>
@@ -53,24 +53,23 @@
   </div>
   <br>
   <div class="col-md-12">
-    <div class="col-md-10">
+    <div class="col-md-12">
       <table class="table">
         <thead>
           <tr>
             <th width="10%" style="text-align:center"><b>Clave</b></th>
-            <th width="70%" style="text-align:center"><b>Descripcion</b></th>
-            <th width="20%" colspan="4"><b>Acciones</b></th>
+            <th width="60%" style="text-align:center"><b>Descripcion</b></th>
+            <th width="30%" colspan="3"><b>Acciones</b></th>
           </tr>
         </thead>
         <tbody>
 
-          <tr dir-paginate="X in $ctrl.suscursales|itemsPerPage:7">
-            <td>{{ X.Clv_Motivo}}</td>
-            <td>{{ X.Motivo_Descripcion }}</td>
-            <td>
-                <td><button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.UpdateMotivoReimpFact()" title="Editar motivo "><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
-                <td><button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.EliminarMotivoReimpFact()" title="Elimina motivo "><i class="fa fa-trash"></i> ELIMINAR</button></td>
-            </td>
+          <tr dir-paginate="X in $ctrl.MotivoReimpresionFList|itemsPerPage:7">
+            <td>{{ X.Clv_motivo}}</td>
+            <td>{{ X.Descripcion }}</td>
+            <td><button type="button" class="btn btn-info btn-xs" ng-click="$ctrl.DetalleMotivoReimpFact(X.Clv_motivo)" title="Consultar motivo "><i class="fa fa-eye"></i> CONSULTAR</button></td>
+            <td><button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.UpdateMotivoReimpFact(X.Clv_motivo)" title="Editar motivo "><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
+            <td><button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.EliminarMotivoReimpFact(X.Clv_motivo)" title="Elimina motivo "><i class="fa fa-trash"></i> ELIMINAR</button></td>
           </tr>
 
         </tbody>

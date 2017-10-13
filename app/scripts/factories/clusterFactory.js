@@ -12,7 +12,7 @@ angular.module('softvApp')
 
     factory.GetQuitarEliminarRelClusterSector = function (opcion, clv_cluster, clv_sector) {
       var deferred = $q.defer();
-      var params = {
+      var Parametros = {
         'opcion': opcion,
         'clv_cluster': clv_cluster,
         'clv_sector': clv_sector,
@@ -23,7 +23,7 @@ angular.module('softvApp')
           'Authorization': $localStorage.currentUser.token
         }
       };
-      $http.post(globalService.getUrl() + paths.GetQuitarEliminarRelClusterSector, params, config).then(function (response) {
+      $http.post(globalService.getUrl() + paths.GetQuitarEliminarRelClusterSector, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
         deferred.reject(response);
@@ -36,7 +36,7 @@ angular.module('softvApp')
 
     factory.GetInsertUpdateCluster = function (opcion, clave, descripcion, clv_cluster) {
       var deferred = $q.defer();
-      var params = {
+      var Parametros = {
         'opcion': opcion,
         'clave': clave,
         'descripcion': descripcion,
@@ -47,7 +47,7 @@ angular.module('softvApp')
           'Authorization': $localStorage.currentUser.token
         }
       };
-      $http.post(globalService.getUrl() + paths.GetInsertUpdateCluster, params, config).then(function (response) {
+      $http.post(globalService.getUrl() + paths.GetInsertUpdateCluster, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
         deferred.reject(response);
@@ -57,7 +57,7 @@ angular.module('softvApp')
 
     factory.GetMuestraRelClusterSector = function (clv_cluster, opcion) {
       var deferred = $q.defer();
-      var params = {
+      var Parametros = {
         'clv_cluster': clv_cluster,
         'opcion': opcion,
 
@@ -67,7 +67,7 @@ angular.module('softvApp')
           'Authorization': $localStorage.currentUser.token
         }
       };
-      $http.post(globalService.getUrl() + paths.GetMuestraRelClusterSector, params, config).then(function (response) {
+      $http.post(globalService.getUrl() + paths.GetMuestraRelClusterSector, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
         deferred.reject(response);
@@ -79,7 +79,7 @@ angular.module('softvApp')
 
     factory.GetMuestraCluster = function (obj) {
       var deferred = $q.defer();
-      var params = {
+      var Parametros = {
         'opcion': obj.opcion,
         'clave': obj.clave,
         'descripcion': obj.descripcion,
@@ -90,7 +90,8 @@ angular.module('softvApp')
           'Authorization': $localStorage.currentUser.token
         }
       };
-      $http.post(globalService.getUrl() + paths.GetMuestraCluster, params, config).then(function (response) {
+     console.log(JSON.stringify(Parametros));
+      $http.post(globalService.getUrl() + paths.GetMuestraCluster, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
         deferred.reject(response);

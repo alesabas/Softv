@@ -20,6 +20,7 @@ angular
             vm.Servicio1List = '';
             vm.Servicio2List = '';
             vm.ObjSerRelComEstCiu = '';
+            vm.ShowRel = false;
         }
 
         function GetSerRelComEstCiu1(ObjRelComEstCiu1){
@@ -34,10 +35,10 @@ angular
                 vm.Servicio1List = data.GetDameServiciosRelComEdoCd_PorServicio1_NewListResult;
                 vm.Servicio1 = vm.Servicio1List[0];
             });
-    
             CatalogosFactory.GetDameServiciosRelComEdoCd_PorServicio2_NewList(vm.ObjSerRelComEstCiu).then(function(data){
                 vm.Servicio2List = data.GetDameServiciosRelComEdoCd_PorServicio2_NewListResult;
             });
+            vm.ShowRel = true;
         }
 
         function AddServicioPlaza(){
@@ -112,6 +113,7 @@ angular
         
         var vm = this;
         vm.cancel = cancel;
+        vm.ShowRel = false;
         vm.Clv_Servicio = Clv_Servicio;
         vm.GetRelComEstCiu = GetRelComEstCiu;
         vm.GetSerRelComEstCiu1 = GetSerRelComEstCiu1;

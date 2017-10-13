@@ -1,0 +1,12 @@
+<div class="modal-header">
+    <button class="close" type="button" aria-label="close" ng-click="ctrl.cancel()">x</button>
+    <h4 class="modal-title"><i class="fa fa-exclamation-triangle"></i> Eliminar Banco - {{ ctrl.IdBanco }}</h4>
+</div>
+<div class="modal-body">
+    <p>¿Realmente desea eliminar el banco?</p>
+    <p><b>Nombre Estado:</b> {{ ctrl.Banco }}</p>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-danger btn-sm" type="button" ng-click="ctrl.DeleteBanco()" title="Eliminar Banco">Eliminar</button>
+    <button class="btn bnt-default btn-sm" type="button" ng-click="ctrl.cancel()" title="Salir">Cancelar</button>
+</div>

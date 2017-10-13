@@ -448,6 +448,21 @@ angular
                 controller: 'TiposServicosCtrl',
                 controllerAs: '$ctrl'
             },
+            {
+                name: 'home.catalogos.bancos',
+                data: {
+                    pageTitle: 'SOFTV | CATÁLOGO BANCOS',
+                    permissions: {
+                        options: {
+                            reload: false
+                        }
+                    }
+                },
+                url: '/catalogo/bancos',
+                templateUrl: 'views/catalogos/Bancos.html',
+                controller: 'BancosCtrl',
+                controllerAs: '$ctrl'
+            }
         ];
         states.forEach(function (state) {
             $stateProvider.state(state);

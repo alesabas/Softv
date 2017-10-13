@@ -1,0 +1,86 @@
+<style type="text/css">
+  .table-scroll {
+    height: 150px;
+    overflow: auto;
+    margin-top: 20px;
+  }
+
+</style>
+
+<form name="FormSector" novalidate angular-validator autocomplete="off">
+  <div class="modal-header">
+    <button class="close" type="button" aria-label="close" title="Salir" ng-click="ctrl.cancel()">x</button>
+    <h4 class="modal-title"><i ng-class="ctrl.Icono"></i> {{ ctrl.Titulo }} {{ ctrl.IdSector }}</h4>
+  </div>
+  <fieldset ng-disabled="ctrl.blockForm">
+    <div class="modal-body">
+      <div class="row">       
+        <div class="col-md-5">
+
+          <b><small>Clave:</small></b>
+          <input name="Clv_Txt" type="text" class="form-control input-sm" ng-model="ctrl.Clv_Txt" validate-on="dirty" required required-message="'Obligatorio'">
+          </p>
+
+        </div>
+        <div class="col-md-7">
+          <b><small>Descripcion  :</small></b>
+          <input name="Descripcion" type="text" class="form-control input-sm" ng-model="ctrl.Descripcion" validate-on="dirty" required
+            required-message="'Obligatorio'">
+
+        </div>
+      </div>
+      <br>
+      <fieldset ng-disabled="ctrl.blockForm2">
+        <b>Relación de Colonias</b>
+        <hr>
+
+        <div class="row">
+          <div class="col-md-8">
+            <div>
+              <div class="col-md-3">
+                <b><small>Nombre :</small></b>
+              </div>
+              <div class="col-md-5">
+                <select name="SltColonia" class="form-control input-sm" ng-model="ctrl.Colonia" aria-placeholder="Seleccione la colonia"
+                  ng-options="item as item.Nombre for item in ctrl.colonias track by item.IdColonia">
+                                       <option value="">Selecciona colonia</option>
+                                    
+                                    </select>
+              </div>
+              <div class="col-md-3">
+                <button type="button" class="btn btn-info btn-xs" ng-click="ctrl.NuevaRelacionSecColonia()" title="Agregar Relacion"><i class="	glyphicon glyphicon-plus"></i> AGREGAR</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-md-8">
+            <table class="table">
+              <thead>
+                <tr>
+
+                  <th  style="text-align:center"><b>Colonia(s)</b></th>
+                  <th  style="text-align:center"><b>Accion</b></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="X in ctrl.RelColonias">
+
+                  <td  style="text-align:center">{{ X.Nombre }}</td>
+                  <td  style="text-align:center"><button type="button" ng-disabled="ctrl.blockdelete" class="btn btn-danger btn-xs" ng-click="ctrl.BorrarRelacionSecColonia()"
+                      title="Eliminar Relacion "><i class="glyphicon glyphicon-trash"></i> ELIMINAR</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+    </div>
+    </fieldset>
+  </fieldset>
+  <div class="modal-footer">
+
+    <button type="button" ng-disabled="ctrl.blocksave" class="btn btn-info btn-sm" ng-click="ctrl.AddSector()" title="Guardar Registro"><i class="	glyphicon glyphicon-floppy-disk"></i>GUARDAR</button>
+    <button type="button" class="btn btn-default-bright btn-sm" ng-click="ctrl.cancel()">cancelar</button>
+  </div>
+</form>

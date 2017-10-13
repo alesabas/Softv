@@ -4,12 +4,26 @@ angular
     .controller('ServicioAddCtrl', function(CatalogosFactory, ngNotify, $uibModal, $state, $stateParams, $rootScope){
 
         function initData(){
-            CatalogosFactory.GetMUESTRATRABAJOS_NewList(vm.Clv_TipSer).then(function(data){
-                vm.TrabajoList = data.GetMUESTRATRABAJOS_NewListResult;
-            });
+            CatalogosFactory.GetDeepTipServ_New(vm.Clv_TipSer).then(function(data){
+                var TipoServicioResult = data.GetDeepTipServ_NewResult;
+                if(TipoServicioResult != null){
+                    if(TipoServicioResult.Habilitar == 0){
+                        vm.Clv_TipSer = TipoServicioResult.Clv_TipSer;
+                        CatalogosFactory.GetMUESTRATRABAJOS_NewList(vm.Clv_TipSer).then(function(data){
+                            vm.TrabajoList = data.GetMUESTRATRABAJOS_NewListResult;
+                        });
 
-            CatalogosFactory.GetTipoClienteList_WebSoftvnew().then(function(data){
-                vm.TipoCobroList = data.GetTipoClienteList_WebSoftvnewResult;
+                        CatalogosFactory.GetTipoClienteList_WebSoftvnew().then(function(data){
+                            vm.TipoCobroList = data.GetTipoClienteList_WebSoftvnewResult;
+                        });
+                    }else{
+                        ngNotify.set('ERROR, el tipo se servicio que seleccionó no es válido.', 'warn');
+                        $state.go('home.catalogos.servicios');
+                    }
+                }else{
+                    ngNotify.set('ERROR, el tipo se servicio que seleccionó no es válido.', 'warn');
+                    $state.go('home.catalogos.servicios');
+                }
             });
         }
 
@@ -40,13 +54,19 @@ angular
                                 };
                                 CatalogosFactory.UpdateGUARDARel_Trabajos_NoCobroMensual(objGUARDARel_Trabajos_NoCobroMensual).then(function(data){
                                     if(data.UpdateGUARDARel_Trabajos_NoCobroMensualResult == -1){
-                                        if(vm.Clv_TipSer == 1){
-                                            ngNotify.set('CORRECTO, se añadió un servicio nuevo.', 'success');
-                                            $state.go('home.catalogos.servicios');
-                                        }else if(vm.Clv_TipSer == 2){
+                                        if(vm.Clv_TipSer == 2){
                                             SaveServicio2(Clv_Servicio);
                                         }else if(vm.Clv_TipSer == 3){
-                                            SaveServicio3();
+                                            SaveServicio3(Clv_Servicio);
+                                        }else{
+                                            if(vm.CobroMensual == 'Y' || vm.Principal == 'Y'){
+                                                vm.Clv_Servicio = Clv_Servicio;
+                                                vm.Disable = true;
+                                                ngNotify.set('CORRECTO, se añadió un servicio nuevo.', 'success');
+                                            }else{
+                                                ngNotify.set('CORRECTO, se añadió un servicio nuevo.', 'success');
+                                                $state.go('home.catalogos.servicios');
+                                            }
                                         }
                                     }else{
                                         ngNotify.set('ERROR, al agregar un trabajo.', 'warn');
@@ -54,13 +74,19 @@ angular
                                     }
                                 });
                             }else{
-                                if(vm.Clv_TipSer == 1){
-                                    ngNotify.set('CORRECTO, se añadió un servicio nuevo.', 'success');
-                                    $state.go('home.catalogos.servicios');
-                                }else if(vm.Clv_TipSer == 2){
+                                if(vm.Clv_TipSer == 2){
                                     SaveServicio2(Clv_Servicio);
                                 }else if(vm.Clv_TipSer == 3){
-                                    SaveServicio3();
+                                    SaveServicio3(Clv_Servicio);
+                                }else{
+                                    if(vm.CobroMensual == 'Y' || vm.Principal == 'Y'){
+                                        vm.Clv_Servicio = Clv_Servicio;
+                                        vm.Disable = true;
+                                        ngNotify.set('CORRECTO, se añadió un servicio nuevo.', 'success');
+                                    }else{
+                                        ngNotify.set('CORRECTO, se añadió un servicio nuevo.', 'success');
+                                        $state.go('home.catalogos.servicios');
+                                    }
                                 }
                             }
                         }else{
@@ -87,8 +113,14 @@ angular
                     }
                     CatalogosFactory.AddNueAplicaSoloInternet(objNueAplicaSoloInternet).then(function(data){
                         if(data.AddNueAplicaSoloInternetResult == -1){
-                            ngNotify.set('CORRECTO, se añadió un servicio nuevo.', 'success');
-                            $state.go('home.catalogos.servicios');
+                            if(vm.CobroMensual == 'Y' || vm.Principal == 'Y'){
+                                vm.Clv_Servicio = Clv_Servicio;
+                                vm.Disable = true;
+                                ngNotify.set('CORRECTO, se añadió un servicio nuevo.', 'success');
+                            }else{
+                                ngNotify.set('CORRECTO, se añadió un servicio nuevo.', 'success');
+                                $state.go('home.catalogos.servicios');
+                            }
                         }else{
                             ngNotify.set('ERROR, al añadir un servicio nuevo.', 'warn');
                             $state.go('home.catalogos.servicios');
@@ -97,8 +129,14 @@ angular
                 }else if(ValildaInternetResult == 1){
                     CatalogosFactory.DeleteBorAplicaSoloInternet(Clv_Servicio).then(function(data){
                         if(data.DeleteBorAplicaSoloInternetResult == -1){
-                            ngNotify.set('CORRECTO, se añadió un servicio nuevo.', 'success');
-                            $state.go('home.catalogos.servicios');
+                            if(vm.CobroMensual == 'Y' || vm.Principal == 'Y'){
+                                vm.Clv_Servicio = Clv_Servicio;
+                                vm.Disable = true;
+                                ngNotify.set('CORRECTO, se añadió un servicio nuevo.', 'success');
+                            }else{
+                                ngNotify.set('CORRECTO, se añadió un servicio nuevo.', 'success');
+                                $state.go('home.catalogos.servicios');
+                            }
                         }else{
                             ngNotify.set('ERROR, al añadir un servicio nuevo.', 'warn');
                             $state.go('home.catalogos.servicios');
@@ -111,15 +149,22 @@ angular
             });
         }
 
-        function SaveServicio3(){
+        function SaveServicio3(Clv_Servicio){
+            console.log(Clv_Servicio);
             var objNUEVOClv_Equi = {
                 'Clv_txt': vm.Clave,
                 'Clv_Equivalente': vm.ClaveEquivalente
             };
             CatalogosFactory.UpdateNUEVOClv_Equi(objNUEVOClv_Equi).then(function(data){
                 if(data.UpdateNUEVOClv_EquiResult == 1){
-                    ngNotify.set('CORRECTO, se añadió un servicio nuevo.', 'success');
-                    $state.go('home.catalogos.servicios');
+                    if(vm.CobroMensual == 'Y' || vm.Principal == 'Y'){
+                        vm.Clv_Servicio = Clv_Servicio;
+                        vm.Disable = true;
+                        ngNotify.set('CORRECTO, se añadió un servicio nuevo.', 'success');
+                    }else{
+                        ngNotify.set('CORRECTO, se añadió un servicio nuevo.', 'success');
+                        $state.go('home.catalogos.servicios');
+                    }
                 }else{
                     ngNotify.set('ERROR, al agregar clave equivalente al servicio nuevo.', 'warn');
                     $state.go('home.catalogos.servicios');
@@ -163,6 +208,119 @@ angular
             });
         }
 
+        function OpenAddConcepto(Clv_TipoCobro, Clv_Servicio){
+            var ObjServicio = {
+                'Clv_Servicio': Clv_Servicio,
+                'Clv_TipoCobro': Clv_TipoCobro
+            };
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'views/catalogos/ModalConceptoForm.html',
+                controller: 'ModalConceptoAddCtrl',
+                controllerAs: 'ctrl',
+                backdrop: 'static',
+                keyboard: false,
+                class: 'modal-backdrop fade',
+                size: 'md',
+                resolve: {
+                    ObjServicio: function () {
+                        return ObjServicio;
+                    }
+                }
+            });
+        }
+
+        function OpenUpdateConcepto(CLV_LLAVE, CLV_TIPOCLIENTE, CONCEPTO){
+            var ObjConcepto = {
+                'CLV_LLAVE': CLV_LLAVE,
+                'CLV_TIPOCLIENTE': CLV_TIPOCLIENTE,
+                'CONCEPTO': CONCEPTO
+            };
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'views/catalogos/ModalConceptoForm.html',
+                controller: 'ModalConceptoUpdateCtrl',
+                controllerAs: 'ctrl',
+                backdrop: 'static',
+                keyboard: false,
+                class: 'modal-backdrop fade',
+                size: 'md',
+                resolve: {
+                    ObjConcepto: function () {
+                        return ObjConcepto;
+                    }
+                }
+            });
+        }
+
+        function OpenDeleteConcepto(ObjConcepto, CLV_TIPOCLIENTE){
+            var ObjConcepto = {
+                'ObjConcepto': ObjConcepto,
+                'CLV_TIPOCLIENTE': CLV_TIPOCLIENTE
+            };
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'views/catalogos/ModalConceptoDelete.html',
+                controller: 'ModalConceptoDeleteCtrl',
+                controllerAs: 'ctrl',
+                backdrop: 'static',
+                keyboard: false,
+                class: 'modal-backdrop fade',
+                size: 'md',
+                resolve: {
+                    ObjConcepto: function () {
+                        return ObjConcepto;
+                    }
+                }
+            });
+        }
+
+        $rootScope.$on('LoadConceptos', function(e, Clv_Servicio){
+            GetTarifa(Clv_Servicio);
+        });
+
+        function GetTarifa(){
+            if(vm.TipoCobro != undefined){
+                var ObjTarifa = {
+                    'CLV_SERVICIO': vm.Clv_Servicio, 
+                    'OP': 0, 
+                    'Clv_TipoCliente': vm.TipoCobro.CLV_TIPOCLIENTE
+                };
+                CatalogosFactory.GetREL_TARIFADOS_SERVICIOS_NewList(ObjTarifa).then(function(data){
+                    vm.TarifaList = data.GetREL_TARIFADOS_SERVICIOS_NewListResult;
+                });
+            }else{
+
+            }  
+        }
+
+        function OpenConfigurar(){
+            var Clv_Servicio = vm.Clv_Servicio;
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'views/catalogos/ModalConfiguracionForm.html',
+                controller: 'ModalConfiguracionAddCtrl',
+                controllerAs: 'ctrl',
+                backdrop: 'static',
+                keyboard: false,
+                class: 'modal-backdrop fade',
+                size: 'lg',
+                resolve: {
+                    Clv_Servicio: function () {
+                        return Clv_Servicio;
+                    }
+                }
+            });
+        }
+
         function SetTipoCobro(){
             if(vm.CobroMensual == 'Y'){
                 vm.ShowCobroMensual = true;
@@ -194,27 +352,6 @@ angular
                 vm.ShowOrden = false;
             }
         }
-        
-        function OpenAddConcepto(Clv_TipoCobro){
-            var Clv_TipoCobro = Clv_TipoCobro;
-            var modalInstance = $uibModal.open({
-                animation: true,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: 'views/catalogos/ModalConceptoForm.html',
-                controller: 'ModalConceptoAddCtrl',
-                controllerAs: 'ctrl',
-                backdrop: 'static',
-                keyboard: false,
-                class: 'modal-backdrop fade',
-                size: 'md',
-                resolve: {
-                    Clv_TipoCobro: function () {
-                        return Clv_TipoCobro;
-                    }
-                }
-            });
-        }
 
         var vm = this;
         vm.Titulo = 'Servicio Nuevo';
@@ -227,6 +364,10 @@ angular
         vm.SetTipoCobro = SetTipoCobro;
         vm.SetOrden = SetOrden;
         vm.OpenAddConcepto = OpenAddConcepto;
+        vm.OpenUpdateConcepto = OpenUpdateConcepto;
+        vm.OpenDeleteConcepto = OpenDeleteConcepto;
         vm.SaveServicios = SaveServicios;
+        vm.GetTarifa = GetTarifa;
+        vm.OpenConfigurar = OpenConfigurar;
         initData();
     });

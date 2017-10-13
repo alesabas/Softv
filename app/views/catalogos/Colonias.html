@@ -23,6 +23,11 @@
     <div class="card-body">
         <div class="row">
 			<div class="col-md-12">
+                <!--<div class="col-md-3" style="text-align:right">
+                    <select name="SlcPlaza" class="form-control input-sm" ng-model="$ctrl.Plaza" ng-options="P.razon_social for P in $ctrl.PlazaList track by P.id_compania" ng-change="$ctrl.GetColoniaList()" validate-on="dirty" required required-message="'Obligatorio'" ng-disabled="$ctrl.BlockInput">
+                        <option value="">Selecciona</option>
+                    </select>
+                </div>-->
                 <div class="col-md-3" style="text-align:right">
                     <div class="input-group">
                         <input type="text" name="InpSearchColonia" class="form-control input-sm" ng-model="$ctrl.SearchColonia" placeholder="Buscar Colonia">
@@ -53,7 +58,7 @@
                         <tr dir-paginate="X in $ctrl.ColoniaList|filter:$ctrl.SearchColonia|itemsPerPage:7" ng-show="$ctrl.ConRegistros">
                             <td>{{ X.Clv_Colonia }}</td>
                             <td>{{ X.Nombre }}</td>
-                            <td><button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.OpenUpdateColonia()" title="Editar Colonia"><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
+                            <td><button type="button" class="btn btn-warning btn-xs" ui-sref="home.catalogos.colonia_editar({ id: X.Clv_Colonia })" title="Editar Colonia"><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
                         </tr>
                     </tbody>
                 </table>

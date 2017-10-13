@@ -21,20 +21,22 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="col-md-4">
+                    <div class="col-md-offset-1 col-md-4">
                         <b><small>Nombre de la colonia</small></b>
                     </div>
                     <div class="col-md-3">
                         <b><small>Tipo de Colonia:</small></b>
                     </div>
+                    <!--
                     <div class="col-md-2">
                         <b><small>Código Postal:</small></b>
                     </div>
+                    -->
                     <div class="col-md-3">
                         <b><small>Fecha de entrga:</small></b>
                     </div>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-offset-1 col-md-12">
                     <div class="col-md-4">
                         <input name="InpColonia" type="text" class="form-control input-sm" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" ng-model="$ctrl.Colonia" validate-on="dirty" required required-message="'Obligatorio'">
                     </div>
@@ -43,9 +45,11 @@
                             <option value="">Selecciona</option>
                         </select>
                     </div>
+                    <!--
                     <div class="col-md-2">
                         <input name="InpCP" type="text" class="form-control input-sm" ng-model="$ctrl.CP" maxlength="5" ng-pattern="/^\d{5}$/" validator="$ctrl.CP > 0" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa 5 dígitos.'">
                     </div>
+                    -->
                     <div class="col-md-3">
                         <input type="date" name="InpFechaEntrega" class="form-control input-sm" ng-model="$ctrl.FechaEntrega" validate-on="dirty" required required-message="'Obligatorio'">
                     </div>
@@ -73,17 +77,17 @@
                         </div>
                         <div class="col-md-12">
                             <div class="col-md-4">
-                                <select name="SlcEstado" class="form-control input-sm" ng-model="$ctrl.Estado" ng-options="E.Nombre for E in $ctrl.EstadoList track by E.Clv_Estado" ng-change="$ctrl.GetCiudadList()" validate-on="dirty">
+                                <select name="SlcEstado" class="form-control input-sm" ng-model="$ctrl.Estado" ng-options="E.Nombre for E in $ctrl.EstadoList track by E.Clv_Estado" ng-change="$ctrl.GetCiudadList()" validate-on="dirty" ng-disabled="$ctrl.Disable">
                                     <option value="">Selecciona</option>
                                 </select>
                             </div>
                             <div class="col-md-4">
-                                <select name="InpCiudad" class="form-control input-sm" ng-model="$ctrl.Ciudad" ng-options="C.Nombre for C in $ctrl.CiudadList track by C.Clv_Ciudad" ng-change="$ctrl.GetLocalidadList()" validate-on="dirty">
+                                <select name="InpCiudad" class="form-control input-sm" ng-model="$ctrl.Ciudad" ng-options="C.Nombre for C in $ctrl.CiudadList track by C.Clv_Ciudad" ng-change="$ctrl.GetLocalidadList()" validate-on="dirty" ng-disabled="$ctrl.Disable">
                                     <option value="">Selecciona</option>
                                 </select>
                             </div>
                             <div class="col-md-4">
-                                <select name="SlcLocalidad" class="form-control input-sm" ng-model="$ctrl.Localidad" ng-options="L.Nombre for L in $ctrl.LocalidadList track by L.Clv_Localidad" validate-on="dirty">
+                                <select name="SlcLocalidad" class="form-control input-sm" ng-model="$ctrl.Localidad" ng-options="L.Nombre for L in $ctrl.LocalidadList track by L.Clv_Localidad" validate-on="dirty" ng-disabled="$ctrl.Disable">
                                     <option value="">Selecciona</option>
                                 </select>
                             </div>
@@ -96,10 +100,10 @@
                                 <b><small>Código Postal:</small></b>
                             </div>
                             <div class="col-md-4">
-                                <input name="InpCPRel" type="text" class="form-control input-sm" ng-model="$ctrl.CPRel" maxlength="5" ng-pattern="/^\d{5}$/" validate-on="dirty" invalid-message="'Inválido, Ingresa 5 dígitos.'">
+                                <input name="InpCPRel" type="text" class="form-control input-sm" ng-model="$ctrl.CPRel" ui-mask="99999" ng-disabled="$ctrl.Disable" invalid-message="'Inválido, Ingresa 5 dígitos.'">
                             </div>
                             <div class="col-md-4 text-center">
-                                <button type="button" class="btn btn-success btn-xs" title="Agregar Relación">Agregar</button>
+                                <button type="button" class="btn btn-success btn-xs" title="Agregar Relación" ng-click="$ctrl.AddRelEstCiuLocCol()" ng-disabled="($ctrl.CPRel == null || $ctrl.CPRel == 0) || ($ctrl.Estado == undefined || $ctrl.Estado == '') || ($ctrl.Ciudad == undefined || $ctrl.Ciudad == '') || ($ctrl.Localidad == undefined || $ctrl.Localidad == '')">Agregar</button>
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -107,63 +111,120 @@
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th><b>Localidad</b></th>
-                                            <th><b>Ciudad</b></th>
-                                            <th><b>CP</b></th>
-                                            <th><b>Acciones</b></th>
+                                            <th width="30%"><b>Localidad</b></th>
+                                            <th width="30%"><b>Ciudad</b></th>
+                                            <th width="10%"><b>CP</b></th>
+                                            <th width="20%" class="text-center" colspan="2"><b>Acciones</b></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr ng-repeat="X in ctrl.RelColViewList">
-                                            <td>{{ X.TipServ }}</td>
-                                            <td>{{ X.TipServ }}</td>
-                                            <td>{{ X.TipServ }}</td>
-                                            <td><button type="button" class="btn btn-danger btn-xs" title="Eliminar Ciudad">Eliminar</button></td>
+                                        <tr ng-repeat="X in $ctrl.RelColLocList">
+                                            <td>{{ X.Localidad }}</td>
+                                            <td>{{ X.Ciudad }}</td>
+                                            <td>{{ X.CodigoPostal }}</td>
+                                            <td><button type="button" class="btn btn-warning btn-xs" title="Seleccionar" ng-click="$ctrl.SetRelCol(X)">Seleccionar</button></td>
+                                            <td><button type="button" class="btn btn-danger btn-xs" title="Eliminar Ciudad" ng-click="$ctrl.DeleteRelEstCiuLocCol(X)">Eliminar</button></td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-5">
-                        <div class="col-md-12">
-                            <div class="col-md-12">
-                                <p class="text-danger">Relación de la Colonia con los Tipos de Servicio</p>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="col-md-8">
-                                <b><small>Tipo de Servicio</small></b>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="col-md-8">
-                                <select name="SltServicios" class="form-control input-sm" ng-model="$ctrl.TipoServicio" ng-options="T.Concepto for T in ctrl.TipoServicioList track by T.ClvTipSer">
-                                    <option value="">Selecciona</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <button type="button" class="btn btn-success btn-xs" title="Agregar Relación">Agregar</button>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="col-md-12 table-scroll">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th><b>Tipo Servicio</b></th>
-                                            <th><b>Acciones</b></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat="X in ctrl.RelColViewList">
-                                            <td>{{ X.TipServ }}</td>
-                                            <td><button type="button" class="btn btn-danger btn-xs" title="Eliminar Ciudad">Eliminar</button></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                    <div class="col-md-5" ng-show="$ctrl.ShowRel">
+                        <uib-tabset active="active">
+                            <uib-tab index="0">
+                                <uib-tab-heading>
+                                    Tipos de Servicio
+                                </uib-tab-heading>
+                                    <div class="col-md-12">
+                                        <div class="col-md-12">
+                                            <p class="text-danger">Relación de la Colonia con los Tipos de Servicio</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="col-md-8">
+                                            <b><small>Tipo de Servicios</small></b>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="col-md-8">
+                                            <select name="SltServicios" class="form-control input-sm" ng-model="$ctrl.TipoServicio" ng-options="TS.Concepto for TS in $ctrl.TipoServicioList track by TS.Clv_TipSer">
+                                                <option value="">Selecciona</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <button type="button" class="btn btn-success btn-xs" title="Agregar Relación" ng-disabled="$ctrl.TipoServicio == undefined || $ctrl.ObjRelCol == null" ng-click="$ctrl.AddRelColSer()">Agregar</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="col-md-12 table-scroll">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th width="75%"><b>Tipo Servicio</b></th>
+                                                        <th width="25%"><b>Acciones</b></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="X in $ctrl.RelColSerList">
+                                                        <td>{{ X.Concepto }}</td>
+                                                        <td><button type="button" class="btn btn-danger btn-xs" title="Eliminar Relació con el servicio" ng-click="$ctrl.DeleteRelColSer(X)">Eliminar</button></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                <footer>
+                                    <p class="text-right"></p>
+                                </footer>
+                            </uib-tab>
+                            <uib-tab index="1">
+                                <uib-tab-heading>
+                                    Medios
+                                </uib-tab-heading>
+                                    <div class="col-md-12">
+                                        <div class="col-md-12">
+                                            <p class="text-danger">Relación de la Colonia con los Medios</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="col-md-8">
+                                            <b><small>Medio</small></b>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="col-md-8">
+                                            <select name="SltMedio" class="form-control input-sm" ng-model="$ctrl.Medio" ng-options="TM.Descripcion for TM in $ctrl.MedioList track by TM.IdMedio">
+                                                <option value="">Selecciona</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <button type="button" class="btn btn-success btn-xs" title="Agregar Medio" ng-disabled="$ctrl.Medio == undefined || $ctrl.ObjRelCol == null" ng-click="$ctrl.AddRelColMed()">Agregar</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="col-md-12 table-scroll">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th width="75%"><b>Medio</b></th>
+                                                        <th width="25%"><b>Acciones</b></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="X in $ctrl.RelColMesList">
+                                                        <td>{{ X.Descripcion }}</td>
+                                                        <td><button type="button" class="btn btn-danger btn-xs" title="Eliminar Relació con el medio" ng-click="$ctrl.DeleteRelColMed(X)">Eliminar</button></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                <footer>
+                                    <p class="text-right"></p>
+                                </footer>
+                            </uib-tab>
+                        </uib-tabset>
                     </div>
                 </div>
             </div>

@@ -18,23 +18,23 @@
             <div class="col-md-12">
                 <input type="text" name="InpCiudad" class="form-control input-sm" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" ng-model="ctrl.Ciudad" validate-on="dirty" required required-message="'Obligatorio'">
             </div>
-            <div class="col-md-12" ng-show="ctrl.ShowEdit">
+            <div class="col-md-12" ng-disabled="ctrl.DisableUpdate">
                 <br>
             </div>
-            <div class="col-md-12" ng-show="ctrl.ShowEdit">
+            <div class="col-md-12" ng-disabled="ctrl.DisableUpdate">
                 <p><b>Estado(s):</b></p>
             </div>
-            <div class="col-md-9" ng-show="ctrl.ShowEdit">
-                <select name="SltEstado" class="form-control input-sm" ng-model="ctrl.Estado" ng-options="E.Nombre for E in ctrl.EstadoList track by E.Clv_Estado">
+            <div class="col-md-9" ng-disabled="ctrl.DisableUpdate">
+                <select name="SltEstado" class="form-control input-sm" ng-model="ctrl.Estado" ng-options="E.Nombre for E in ctrl.EstadoList track by E.Clv_Estado" ng-disabled="ctrl.ShowEdit">
                     <option value="">Selecciona</option>
                 </select>
             </div>
-            <div class="col-md-3" style="text-align:right" ng-show="ctrl.ShowEdit">
-                <button type="button" class="btn btn-success btn-sm" title="Agregar Relación Estado" ng-click="ctrl.AddRelEst()">Agregar</button>
+            <div class="col-md-3" style="text-align:right" ng-disabled="ctrl.DisableUpdate">
+                <button type="button" class="btn btn-success btn-sm" title="Agregar Relación Estado" ng-click="ctrl.AddRelEst()" ng-disabled="ctrl.ShowEdit">Agregar</button>
             </div>
         </div>
         <br>
-        <div class="row" ng-show="ctrl.ShowEdit">
+        <div class="row" ng-disabled="ctrl.DisableUpdate">
             <div class="col-md-12">
                 <div class="col-md-12 table-scroll">
                     <table class="table">
@@ -58,7 +58,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="submit" class="btn btn-primary btn-sm" title="Guardar ciudad">Guardar</button>
+        <button type="submit" class="btn btn-primary btn-sm" title="Guardar ciudad" ng-disabled="ctrl.ShowAdd">Guardar</button>
         <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.cancel()" title="Salir">Cancelar</button>
     </div>
 </form>

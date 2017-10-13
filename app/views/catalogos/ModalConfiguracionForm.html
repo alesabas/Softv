@@ -31,19 +31,11 @@
             <div class="col-md-1">
                 <b>Servicio:</b>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" ng-show="ctrl.ShowRel">
                 <select name="SlcServicio1" class="form-control input-sm" ng-model="ctrl.Servicio1" ng-options="S.Descripcion for S in ctrl.Servicio1List track by S.Clv_Servicio">
                     <option value="">Selecciona</option>
                 </select>
             </div>
-            <!--
-            <div class="col-md-1">
-                
-            </div>
-            <div class="col-md-2">
-                
-            </div>
-            -->
         </div>
         <div class="col-md-12">
             <div class="col-md-6">
@@ -62,13 +54,13 @@
                             <td><small style="font-size:10px">{{ X.NomEstado }}</small></td>
                             <td><small style="font-size:10px">{{ X.NomCiudad }}</small></td>
                             <td>
-                                <button type="button" class="btn btn-warning btn-xs" title="Eliminar Ciudad" ng-click="ctrl.GetSerRelComEstCiu1(X)"><i class="fa fa-check"></i></button>
+                                <button type="button" class="btn btn-warning btn-xs" title="Seleccionar" ng-click="ctrl.GetSerRelComEstCiu1(X)"><i class="fa fa-check"></i></button>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="col-md-4 table-scroll">
+            <div class="col-md-4 table-scroll" ng-show="ctrl.ShowRel">
                 <table class="table">
                     <thead>
                         <tr>
@@ -82,7 +74,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="col-md-2" style="text-align:center">
+            <div class="col-md-2" style="text-align:center" ng-show="ctrl.ShowRel">
                 <div class="col-md-12">
                 <button type="button" class="btn btn-success btn-xs" title="Agrega a la plaza seleccionada" ng-click="ctrl.AddServicioPlaza()" ng-disabled="ctrl.Servicio1 == undefined || ctrl.Distribuidor == undefined">Agregar</button>
                 </div>
@@ -104,78 +96,10 @@
                 <div class="col-md-12">
                 <button type="button" class="btn btn-danger btn-xs" title="Elimina de todas las plazas" ng-click="ctrl.DeleteServicioPlazaTodas()">Eliminar<br/>de todas las<br/>Plazas</button>
                 </div>
-                <!--<button class="btn btn-danger btn-sm">Eliminar<br>de todas<br>las plazas</button>-->
             </div>
         </div>
     </div>
-    <!--
-    
-
-
-    <div class="row">
-        <div class="col-md-12">
-            <div class="col-md-6">
-                <div class="col-md-12">
-                    <p><b>Áreas de presencia del distribuidor</b></p>
-                </div>
-                <div class="col-md-12">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th><b>Plaza</b></th>
-                                <th><b>Estado</b></th>
-                                <th><b>Municipio</b></th>
-                                <th><b></b></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="X in $ctrl.RelEstMunViewList">
-                                <td>{{ X.Estado }}</td>
-                                <td>{{ X.Municipio }}</td>
-                                <td>{{ X.Municipio }}</td>
-                                <td><button type="button" class="btn btn-danger btn-xs" title="Eliminar Ciudad" ng-click="$ctrl.DeleteRelEstMun(X)">Eliminar</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="col-md-12">
-                    <div class="col-md-6">
-                        <b>Servicio:</b>
-                    </div>
-                    <div class="col-md-6">
-                        <select name="SlcServicio" class="form-control input-sm" ng-model="ctrl.Servicio" ng-options="S.Nombre for S in ctrl.ServicioList track by S.clv_plaza">S                            <option value="">Selecciona</option>
-                            <option value="">Selecciona</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th><b>Servicio</b></th>
-                                <th><b></b></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="X in $ctrl.RelEstMunViewList">
-                                <td>{{ X.Estado }}</td>
-                                <td><button type="button" class="btn btn-danger btn-xs" title="Eliminar Ciudad" ng-click="$ctrl.DeleteRelEstMun(X)">Eliminar</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="col-md-12">
-                </div>
-            </div>
-        </div>
-    </div>
-    -->
 </div>
 <div class="modal-footer">
-    <button class="btn btn-primary btn-sm" type="button" ng-click="ctrl.DeleteServicio()" title="Guardar Configuración">Guardar</button>
     <button class="btn bnt-default btn-sm" type="button" ng-click="ctrl.cancel()" title="Salir">Cancelar</button>
 </div>

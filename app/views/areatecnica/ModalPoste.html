@@ -1,0 +1,20 @@
+<form name="FormPoste" angular-validator-submit="ctrl.SaveEstado()" novalidate angular-validator autocomplete="off">
+        <div class="modal-header">
+            <button class="close" type="button" aria-label="close" ng-click="ctrl.cancel()">x</button>
+            <h4 class="modal-title"><i ng-class="ctrl.Icono"></i> {{ ctrl.Titulo }} {{ ctrl.ID }}</h4>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <p><b>Descripcion:</b></p>
+                </div>
+                <div class="col-md-12">
+                    <input type="text" name="InpEstado" class="form-control input-sm"   ng-model="ctrl.descripcion" validate-on="dirty" required required-message="'Obligatorio'">
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm" ng-click="ctrl.AddPoste()" title="Salir">GUARDAR</button>
+            <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.cancel()" title="Salir">CANCELAR</button>
+        </div>
+    </form>

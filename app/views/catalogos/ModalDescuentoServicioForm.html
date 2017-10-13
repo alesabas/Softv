@@ -1,0 +1,23 @@
+<form name="FormAddDescuentoServicio" angular-validator-submit="ctrl.AddDescuentoServicio()" novalidate angular-validator autocomplete="off">
+    <div class="modal-header">
+        <button class="close" type="button" aria-label="close" ng-click="ctrl.cancel()">x</button>
+        <h4 class="modal-title"></i> Descuento Cliente</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-7">
+                    <small><b>Descuento(Pesos):</b> $</small>
+                </div>
+                <div class="col-md-5">
+                    <input type="number" name="InpDescuento" class="form-control input-sm" ng-model="ctrl.Descuento" min="0" validator="ctrl.Descuento > 0" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido.'">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary btn-sm" title="Guardar Descuento" >Guardar</button>
+        <button type="button" class="btn btn-danger btn-sm" title="Eliminar Descuento" ng-click="ctrl.DeleteDescuentoServicio()" ng-disabled="ctrl.ConDescuento">Eliminar</button>
+        <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.cancel()" title="Salir">Cancelar</button>
+    </div>
+</form>

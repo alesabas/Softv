@@ -1,0 +1,112 @@
+<style type="text/css">
+    .scrollDiv {
+        height: 100px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .wrapper {
+        height: 140px;
+        overflow: auto;
+    }
+
+    .form-control {
+        height: 37px;
+        border-bottom-color: rgba(12, 12, 12, 0.12);
+        background: transparent;
+        color: #0c0c0c;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+</style>
+
+<div class="card" style="margin-top:20px; padding-bottom:30px;">
+    <div class="card-head style-default" style="padding-top:10px; padding-left:10px;">
+        <header>
+            <strong style="font-weight:bold; border:none; margin-left:10px;">{{$ctrl.Titulo}}</strong>
+            <br />
+            <small class="text-muted" style="font-size:14px; margin-left:10px;"> <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">Editar Agenda</a></small>
+        </header>
+        <div class="tools">
+                <div class="btn-group">
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="$ctrl.Save();" title="Guardar Cambios "><i class="glyphicon glyphicon-eye"></i> GUARDAR</button>
+                        <button type="button" class="btn btn-default btn-sm" ng-click="$ctrl.Cancel();" title="Cancelar "><i class="glyphicon glyphicon-eye"></i> CANCELAR</button>
+                   
+                </div>
+        </div>
+    </div>
+    
+    <br>
+    <div class="card-body">
+        <div class="col-md-14">
+            <div class="col-md-6">
+                <div class="col-md-2" style="font-size:12px;">
+                    <p class="text-danger" style="font-size:13px;"><b>#Cita: </b>{{$ctrl.Cita}}</p>
+                    <p><b>Tecnico:</b></p>
+                    <p><b>Fecha:</b></p><br>
+                    <p><b>Turno:</b></p>
+                    <p><b>Comentarios:</b></p>
+                </div>
+                <div class="col-md-3" style="font-size:12px;">
+                    <p> </p>
+                    <p><input type="text" name="InpSearchDia" class="form-control input-sm" ng-model="$ctrl.Tecnico" placeholder="Tecnico"></p>
+                    <p><input type="text" name="InpSearchDia" class="form-control input-sm" ng-model="$ctrl.Fecha" placeholder="Fecha"></p>
+                    <p><input type="text" name="InpSearchDia" class="form-control input-sm" ng-model="$ctrl.Turno" placeholder="Turno"></p>
+                    <p><input type="text" name="InpSearchDia" class="form-control input-sm" ng-model="$ctrl.Comentarios" placeholder="Comentarios"></p>
+                </div>
+                <div class="col-md-3" style="font-size:12px;">
+                    <br><br><br><br><br><br>
+                    <p><b>Clave de la orden: </b>{{$ctrl.ClvOrden}}</p>
+                    <p><b>Detalle : </b>{{$ctrl.Detalle}} </p>
+                </div>
+                <div class="col-md-3" style="font-size:12px;">
+                        <br><br><br><br><br>
+                        <p><input type="text" name="InpSearchDia" class="form-control input-sm" ng-model="$ctrl.Fecha" placeholder="Clv orden"></p>
+                        <p><input type="text" name="InpSearchDia" class="form-control input-sm" ng-model="$ctrl.Turno" placeholder="Detalle"></p>
+                    </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="col-md-12" style="font-size:12px;">
+                    <div class="col-md-5">
+                        <p><b class="text-danger" style="font-size:13px;">Contrato:</b>
+                        <input type="text" name="InpSearchDia" class="form-control input-sm" ng-model="$ctrl.Comentarios"
+                        placeholder="Contrato"></p>
+                        <b style="font-size:13px;">Datos del Cliente</b>
+                        <p><b>Nombre: </b>{{$ctrl.NombreCliente}}</p>
+                        <p><b>Direccion : </b>{{$ctrl.Calle}} <b>#:</b>{{$ctrl.Numero}} Col.{{$ctrl.Colonia}} {{$ctrl.Ciudad}}</p>
+
+                        <label class="radio-inline radio-styled radio-warning">
+                            <input type="radio" name="atencion" ng-model="$ctrl.tipoAtencion" value="T"><span>Solo Internet</span>
+                             </label>
+                        <label class="radio-inline radio-styled radio-warning">
+                           <input type="radio" name="atencion" ng-model="$ctrl.tipoAtencion" value="S"><span>Es Hotel</span>
+                            </label>
+                    </div>
+                    <div class="col-md-6 text-center" style="font-size:14px; color: #06599a;">
+                        <b>Servicios Asignados</b>
+                        <div class=" card wrapper text-center" style="background-color: whitesmoke;">
+                            <p ng-repeat="x in $ctrl.ServiciosCliente" style="font-size:10px;">{{x.Servicio}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+</div>
+</div>
+<!--end cardbody-->
+</div>
+<!--end card-->
