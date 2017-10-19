@@ -21,25 +21,167 @@
 </style>
 
 <div class="card" style="margin-top:20px; padding-bottom:30px;">
-    <div class="card-head style-default" style="padding-top:10px; padding-left:10px;">
+    <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
         <header>
-            <strong style="font-weight:bold; border:none; margin-left:10px;">{{$ctrl.Titulo}}</strong>
+            <strong style="font-weight:bold; border:none; margin-left:10px;">{{ $ctrl.Titulo }}</strong>
             <br />
             <small class="text-muted" style="font-size:14px; margin-left:10px;"> <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">Editar Agenda</a></small>
         </header>
         <div class="tools">
             <div class="btn-group">
-                <button type="button" class="btn btn-primary btn-sm" ng-click="$ctrl.Save();" title="Guardar Cambios "><i class="glyphicon glyphicon-eye"></i> GUARDAR</button>
-                <button type="button" class="btn btn-default btn-sm" ng-click="$ctrl.Cancel();" title="Cancelar "><i class="glyphicon glyphicon-eye"></i> CANCELAR</button>
+                <button type="button" class="btn btn-primary btn-sm" ng-click="$ctrl.Save();" title="Guardar Cambios "> GUARDAR</button>
+                <button type="button" class="btn btn-default btn-sm" ui-sref="home.procesos.agenda" title="Cancelar "> CANCELAR</button>
             </div>
         </div>
     </div>
-    
     <br>
     <div class="card-body">
+        <div class="col-md-12">
+            <div class="col-md-3">
+                <div class="col-md-12">
+                    <div class="col-md-4 text-danger">
+                        <b>#Cita:</b>
+                    </div>
+                    <div class="col-md-8">
+                        {{ $ctrl.ClvCita }}
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <b>Tecnico:</b>
+                    </div>
+                    <div class="col-md-8">
+                        <select name="SlcTecnico" class="form-control input-sm" ng-model="$ctrl.Tecnico" ng-options="T as T.tecnico for T in $ctrl.TecnicoList track by T.clv_tecnico">
+                            <option value="">Selecciona</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <b>Fecha:</b>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="date" name="InpFecha" class="form-control input-sm" ng-model="$ctrl.Fecha">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <b>Turno:</b>
+                    </div>
+                    <div class="col-md-8">
+                        <select name="SlcTurno" class="form-control input-sm" ng-model="$ctrl.Turno" ng-options="TR as TR.TURNO for TR in $ctrl.TurnoList track by TR.ID">
+                            <option value="">Selecciona</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <b>Comentarios:</b>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <textarea name="TxaCometario" rows="3" class="form-control input-sm" ng-model="$ctrl.Comentario"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="col-md-12">
+                    <div class="col-md-4 text-danger">
+                        <b>#Contrato:</b>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" name="InpContrato" class="form-control input-sm" ng-model="$ctrl.Contrato" placeholder="Contrato">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-12 text-center">
+                        <b>Datos del Cliente</b>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <b>Nombre:</b> {{$ctrl.NombreCliente}}
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <b>Direccion:</b> {{$ctrl.Calle}} #{{$ctrl.Numero}} Col.{{$ctrl.Colonia}} {{$ctrl.Ciudad}}
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-6">
+                        <label class="radio-inline radio-styled radio-warning">
+                            <input type="radio" name="atencion" ng-model="$ctrl.tipoAtencion" value="T"><span><small>Solo Internet</small></span>
+                        </label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="radio-inline radio-styled radio-warning">
+                            <input type="radio" name="atencion" ng-model="$ctrl.tipoAtencion" value="S"><span><small>Es Hotel</small></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="col-md-12">
+                    <div class="col-md-12 text-center" style="font-size:14px; color: #06599a;">
+                        <b>Servicios Asignados</b>
+                    </div>
+                    <div class="col-md-12">
+                        <treecontrol class="tree-light" tree-model="$ctrl.ServicioList" expanded-nodes="$ctrl.expandedNodes" on-selection="$ctrl.DetalleConcepto(node)"> 
+                            <span ng-switch="" on="node.Type">
+                                <span style="color:#2196f3" ng-switch-when="folder" class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
+                                <span style="color:#2196f3" ng-switch-when="pic" class="glyphicon glyphicon-picture" aria-hidden="true"></span>
+                                <span style="color:#2196f3" ng-switch-when="doc" class="glyphicon glyphicon-file" aria-hidden="true"></span>
+                                <span style="color:#2196f3" ng-switch-when="file" class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+                                <span style="color:#2196f3" ng-switch-when="movie" class="glyphicon glyphicon-film" aria-hidden="true"></span>
+                                <span style="color:#2196f3" ng-switch-when="email" class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+                                <span style="color:#2196f3" ng-switch-when="home" class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                                <span style="color:#2196f3" ng-switch-when="trash" class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                            </span>
+                            <a class="text-info" style="font-size:11px" ng-if="node.Tipo == 'A'">{{node.Nombre}} ({{node.Detalle}})</a>
+                            <a class="text-info" style="font-size:11px" ng-if="node.status == 'C'">{{node.Nombre}} (Contratado)</a>
+                            <a class="text-info" style="font-size:11px" ng-if="node.status == 'I'">{{node.Nombre}} (Instalado)</a>
+                            <a class="text-info" style="font-size:11px" ng-if="node.status == 'D'">{{node.Nombre}} (Desconectado)</a>
+                            <a class="text-info" style="font-size:11px" ng-if="node.status == 'S'">{{node.Nombre}} (Suspendido)</a>
+                            <a class="text-info" style="font-size:11px" ng-if="node.status == 'T'">{{node.Nombre}} (Suspención Temporal)</a>
+                            <a class="text-info" style="font-size:11px" ng-if="node.status == 'F'">{{node.Nombre}} (Fuera de Area)</a>
+                            <a class="text-info" style="font-size:11px" ng-if="node.status == 'B'">{{node.Nombre}} (Baja)</a>
+                        </treecontrol>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="col-md-12">
+                    <div class="col-md-4 text-danger">
+                        <b>#Orden:</b>
+                    </div>
+                    <div class="col-md-8">
+                        {{ $ctrl.ClvOrden }}
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <b>Detalle:</b>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <ul>
+                            <li ng-repeat="DS in $ctrl.DetalleServicio">{{ DS.Descripcion }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--
         <div class="col-md-14">
             <div class="col-md-6">
-                <div class="col-md-2" style="font-size:12px;">
+                <div class="col-md-3" style="font-size:12px;">
                     <p class="text-danger" style="font-size:13px;"><b>#Cita: </b>{{$ctrl.Cita}}</p>
                     <p><b>Tecnico:</b></p>
                     <p><b>Fecha:</b></p><br>
@@ -48,12 +190,14 @@
                 </div>
                 <div class="col-md-3" style="font-size:12px;">
                     <p> </p>
-                   <select name="SlcTecnico" class="form-control input-sm" ng-model="$ctrl.Tecnico" ng-options="T as T.tecnico for T in $ctrl.TecnicoList track by T.clv_tecnico">
-                       <option value="">Selecciona</option>
-                   </select>
-                   <input type="text" name="InpSearchDia" class="form-control input-sm" ng-model="$ctrl.Fecha" placeholder="Fecha">
-                   <input type="text" name="InpSearchDia" class="form-control input-sm" ng-model="$ctrl.Turno" placeholder="Turno">
-                   <input type="text" name="InpSearchDia" class="form-control input-sm" ng-model="$ctrl.Comentarios" placeholder="Comentarios">
+                    <p>
+                    <select name="SlcTecnico" class="form-control input-sm" ng-model="$ctrl.Tecnico" ng-options="T as T.tecnico for T in $ctrl.TecnicoList track by T.clv_tecnico">
+                        <option value="">Selecciona</option>
+                    </select>
+                    </p>
+                    <p><input type="text" name="InpSearchDia" class="form-control input-sm" ng-model="$ctrl.Fecha" placeholder="Fecha"></p>
+                    <p><input type="text" name="InpSearchDia" class="form-control input-sm" ng-model="$ctrl.Turno" placeholder="Turno"></p>
+                    <p><input type="text" name="InpSearchDia" class="form-control input-sm" ng-model="$ctrl.Comentarios" placeholder="Comentarios"></p>
                 </div>
                 <div class="col-md-3" style="font-size:12px;">
                     <br><br><br><br><br><br>
@@ -77,10 +221,10 @@
                         <p><b>Direccion : </b>{{$ctrl.Calle}} <b>#:</b>{{$ctrl.Numero}} Col.{{$ctrl.Colonia}} {{$ctrl.Ciudad}}</p>
 
                         <label class="radio-inline radio-styled radio-warning">
-                            <input type="radio" name="atencion" ng-model="$ctrl.tipoAtencion" value="T"><span>Solo Internet</span>
+                            <input type="radio" name="atencion" ng-model="$ctrl.tipoAtenc7ion" value="T"><span>Solo Internet</span>
                              </label>
                         <label class="radio-inline radio-styled radio-warning">
-                           <input type="radio" name="atencion" ng-model="$ctrl.tipoAtencion" value="S"><span>Es Hotel</span>
+                           <input type="radio" name="atencion" ng-model="$ctrl.tipoAtenci7on" value="S"><span>Es Hotel</span>
                             </label>
                     </div>
                     <div class="col-md-6 text-center" style="font-size:14px; color: #06599a;">
@@ -92,21 +236,6 @@
                 </div>
             </div>
         </div>
+        -->
     </div>
-
 </div>
-
-
-
-
-
-
-
-
-
-
-</div>
-</div>
-<!--end cardbody-->
-</div>
-<!--end card-->
