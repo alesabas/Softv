@@ -63,6 +63,8 @@ angular
                 vm.Email = DatosCliente.Email;
                 vm.EsPersonaFisica = DatosCliente.EsFisica;
                 vm.FechaNac = toDate(DatosCliente.FechaNacimiento);
+                console.log(DatosCliente.FechaNacimiento);
+                console.log(vm.FechaNac);
                 vm.IdEstado = DatosCliente.Clv_Estado;
                 vm.IdMunicipio = DatosCliente.Clv_Ciudad;
                 vm.IdLocalidad = DatosCliente.Clv_Localidad;

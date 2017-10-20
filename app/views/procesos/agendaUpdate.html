@@ -29,8 +29,9 @@
         </header>
         <div class="tools">
             <div class="btn-group">
-                <button type="button" class="btn btn-primary btn-sm" ng-click="$ctrl.Save();" title="Guardar Cambios "> GUARDAR</button>
-                <button type="button" class="btn btn-default btn-sm" ui-sref="home.procesos.agenda" title="Cancelar "> CANCELAR</button>
+                <button type="button" class="btn btn-primary btn-sm" ng-click="$ctrl.SaveCita();" title="Guardar Cambios"> GUARDAR</button>
+                <button type="button" class="btn btn-danger btn-sm" ng-click="$ctrl.DeleteCita();" title="Eliminar Registro"> ELIMINAR</button>
+                <button type="button" class="btn btn-default btn-sm" ui-sref="home.procesos.agenda" title="Cancelar"> CANCELAR</button>
             </div>
         </div>
     </div>
@@ -61,7 +62,7 @@
                         <b>Fecha:</b>
                     </div>
                     <div class="col-md-8">
-                        <input type="date" name="InpFecha" class="form-control input-sm" ng-model="$ctrl.Fecha">
+                        <input type="date" name="InpFecha" class="form-control input-sm" ng-model="$ctrl.FechaCita">
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -116,12 +117,12 @@
                 <div class="col-md-12">
                     <div class="col-md-6">
                         <label class="radio-inline radio-styled radio-warning">
-                            <input type="radio" name="atencion" ng-model="$ctrl.tipoAtencion" value="T"><span><small>Solo Internet</small></span>
+                            <input type="radio" name="atencion" ng-model="$ctrl.tipoAtencion" value="T" ng-disabled="true"><span><small>Solo Internet</small></span>
                         </label>
                     </div>
                     <div class="col-md-6">
                         <label class="radio-inline radio-styled radio-warning">
-                            <input type="radio" name="atencion" ng-model="$ctrl.tipoAtencion" value="S"><span><small>Es Hotel</small></span>
+                            <input type="radio" name="atencion" ng-model="$ctrl.tipoAtencion" value="S" ng-disabled="true"><span><small>Es Hotel</small></span>
                         </label>
                     </div>
                 </div>

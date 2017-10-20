@@ -5,6 +5,10 @@ angular
   .controller('agendaUpdateCtrl', function (agendaFactory, ngNotify, $uibModal, $state, $stateParams, $rootScope, $localStorage) {
     
     function InitData(){
+      GetCita();
+    }
+
+    function GetCita(){
       var ObjContrato = {
         'ContratoCom': vm.Contrato,
         'Id': 0
@@ -35,9 +39,12 @@ angular
           console.log(data);
           var Cita = data.GetCONCITASResult;
           vm.ClvCita = Cita.Clv_Cita;
-          vm.FechaCita = Cita.Fecha;
-          var Clv_Tecnico = Cita.Clv_Tecnico;
-          console.log(Clv_Tecnico);
+          
+          vm.FechaCita = toDate(Cita.Fecha);
+          console.log(Cita.Fecha);
+          console.log('Fecha: ',vm.FechaCita);
+          vm.Clv_Tecnico = Cita.Clv_Tecnico;
+          console.log(vm.Clv_Tecnico);
           agendaFactory.GetCONSULTARREL_CITAS(vm.ClvCita).then(function(data){
             console.log(data);
             vm.Comentario = data.GetCONSULTARREL_CITASResult;
@@ -45,13 +52,13 @@ angular
           agendaFactory.GetMuestra_Tecnicos_Almacen(vm.IdContrato).then(function(data){
             console.log(data);
             vm.TecnicoList = data.GetMuestra_Tecnicos_AlmacenResult;
-            console.log('C',Clv_Tecnico);
+            console.log('C',vm.Clv_Tecnico);
             for(var i = 0; vm.TecnicoList.length > i; i ++){
-              console.log('C2',Clv_Tecnico);
+              console.log('C2',vm.Clv_Tecnico);
               console.log('Li',vm.TecnicoList[i].clv_tecnico);
-              if(vm.TecnicoList[i].clv_tecnico == Clv_Tecnico){
+              if(vm.TecnicoList[i].clv_tecnico == vm.Clv_Tecnico){
                 console.log('yes');
-                console.log(Clv_Tecnico);
+                console.log(vm.Clv_Tecnico);
                 console.log('L',vm.TecnicoList[i].clv_tecnico);
                 vm.Tecnico = vm.TecnicoList[i];
               }
@@ -92,9 +99,65 @@ angular
       });
     }
 
+    function SaveCita(){
+      var ObjCita = {
+        'Clv_Cita': vm.ClvCita,
+        'ClaveTecnico': (vm.Tecnico != undefined)? vm.Tecnico.clv_tecnico : vm.Clv_Tecnico,
+        'Comentario': vm.Comentario,
+        'Fecha':JToDate(vm.FechaCita),
+        'ClaveHora': vm.Turno.ID,
+        'TURNO': vm.Turno.TURNO
+      }
+      agendaFactory.GetMODIFICA_REL_CITAS(ObjCita).then(function(data){
+        console.log(data);
+        if(data.GetMODIFICA_REL_CITASResult == -1){
+          ngNotify.set('CORRECTO, se guardó la cita.', 'success');
+          $state.go('home.procesos.agenda');
+        }else{
+          ngNotify.set('ERROR, al guardar la cita.', 'warn');
+          $state.go('home.procesos.agenda');
+        }
+      });
+    }
+
+    function DeleteCita(){
+      agendaFactory.GetBOR_CITAS(vm.ClvCita).then(function(data){
+        console.log(data);
+        if(data.GetBOR_CITASResult == -1){
+          ngNotify.set('CORRECTO, se eliminó la cita.', 'success');
+          $state.go('home.procesos.agenda');
+        }else{
+          ngNotify.set('ERROR, al eliminar la cita.', 'warn');
+          $state.go('home.procesos.agenda');
+        }
+      });
+    }
+
+    function toDate(dateStr) {
+      var parts = dateStr.split("/");
+      var subparts = parts[2].split(" ");
+      console.log(parts);
+      console.log(subparts);
+      console.log(parts[1] + '/' + parts[0] + '/' + subparts[0]);
+      console.log(new Date(parts[1] + '/' + parts[0] + '/' + subparts[0]));
+      return new Date(parts[1] + '/' + parts[0] + '/' + subparts[0])
+    }
+
+    function JToDate(Fecha){
+        var D = Fecha.getDate();
+        var M = Fecha.getMonth() + 1;
+        var FD = (String(D).length == 1)? '0'+D : D;
+        var FM = (String(M).length == 1)? '0'+M : M;
+        var FY = Fecha.getFullYear();
+        var FDate =  String(FD) + '/' + String(FM) + '/' + String(FY);
+        return FDate;
+    }
+
     var vm = this;
     vm.Titulo = '  Agenda Detalle';
     vm.Contrato = $stateParams.id;
+    vm.SaveCita = SaveCita;
+    vm.DeleteCita = DeleteCita;
     console.log($stateParams.cita);
     InitData();
 

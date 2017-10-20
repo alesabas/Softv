@@ -25,7 +25,9 @@ angular
       GetVERORDENES_CITAS: '/CatalogoAgenda/GetVERORDENES_CITAS',
       GetMuestraArbolServicios_ClientesList: '/MuestraArbolServicios_Clientes/GetMuestraArbolServicios_ClientesList',
       GetDame_DetOrdSer: '/CatalogoAgenda/GetDame_DetOrdSer',
-      GetBUSCADetCitas: '/CatalogoAgenda/GetBUSCADetCitas'
+      GetBUSCADetCitas: '/CatalogoAgenda/GetBUSCADetCitas',
+      GetMODIFICA_REL_CITAS: '/CatalogoAgenda/GetMODIFICA_REL_CITAS',
+      GetBOR_CITAS: '/CatalogoAgenda/GetBOR_CITAS'
     };
 
     var factory = {};   
@@ -397,6 +399,32 @@ angular
       var Parametros = {'CLV_CITA': CLV_CITA};
       console.log(Parametros);
       $http.post(globalService.getUrl() + paths.GetBUSCADetCitas, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+    factory.GetMODIFICA_REL_CITAS = function (ObjCita) {
+      var deferred = $q.defer();
+      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+      var Parametros = {'ObjCita': ObjCita};
+      console.log(Parametros);
+      $http.post(globalService.getUrl() + paths.GetMODIFICA_REL_CITAS, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+    factory.GetBOR_CITAS = function (CLV_CITA) {
+      var deferred = $q.defer();
+      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+      var Parametros = {'CLV_CITA': CLV_CITA};
+      console.log(Parametros);
+      $http.post(globalService.getUrl() + paths.GetBOR_CITAS, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
         deferred.reject(response);
