@@ -27,7 +27,8 @@ angular
       GetDame_DetOrdSer: '/CatalogoAgenda/GetDame_DetOrdSer',
       GetBUSCADetCitas: '/CatalogoAgenda/GetBUSCADetCitas',
       GetMODIFICA_REL_CITAS: '/CatalogoAgenda/GetMODIFICA_REL_CITAS',
-      GetBOR_CITAS: '/CatalogoAgenda/GetBOR_CITAS'
+      GetBOR_CITAS: '/CatalogoAgenda/GetBOR_CITAS',
+      GetTrabajosOrdenesTecnicoDia: '/CatalogoAgenda/GetTrabajosOrdenesTecnicoDia'
     };
 
     var factory = {};   
@@ -425,6 +426,19 @@ angular
       var Parametros = {'CLV_CITA': CLV_CITA};
       console.log(Parametros);
       $http.post(globalService.getUrl() + paths.GetBOR_CITAS, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+    factory.GetTrabajosOrdenesTecnicoDia = function (ObjTrabajoTecnico) {
+      var deferred = $q.defer();
+      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+      var Parametros = ObjTrabajoTecnico;
+      console.log(Parametros);
+      $http.post(globalService.getUrl() + paths.GetTrabajosOrdenesTecnicoDia, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
         deferred.reject(response);

@@ -39,7 +39,6 @@ angular
           console.log(data);
           var Cita = data.GetCONCITASResult;
           vm.ClvCita = Cita.Clv_Cita;
-          
           vm.FechaCita = toDate(Cita.Fecha);
           console.log(Cita.Fecha);
           console.log('Fecha: ',vm.FechaCita);
@@ -133,6 +132,33 @@ angular
       });
     }
 
+    function OpenTecnicoTrabajo(){
+      if(vm.Tecnico != undefined){
+        var ObjTecnicoTrabajo = {
+          'Clvtecnico': vm.Tecnico.clv_tecnico,
+          'NombreTecnico': vm.Tecnico.tecnico,
+          'Fecha': JToDate(vm.FechaCita)
+        };
+        var modalInstance = $uibModal.open({
+            animation: true,
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body', 
+            templateUrl: 'views/procesos/ModalTecnicoTrabajo.html',
+            controller: 'ModalTecnicoTrabajoCtrl',
+            controllerAs: 'ctrl',
+            backdrop: 'static',
+            keyboard: false,
+            class: 'modal-backdrop fade',
+            size: 'lg',
+            resolve: {
+                ObjTecnicoTrabajo: function () {
+                    return ObjTecnicoTrabajo;
+                }
+            }
+        }); 
+      }
+    }
+
     function toDate(dateStr) {
       var parts = dateStr.split("/");
       var subparts = parts[2].split(" ");
@@ -158,6 +184,7 @@ angular
     vm.Contrato = $stateParams.id;
     vm.SaveCita = SaveCita;
     vm.DeleteCita = DeleteCita;
+    vm.OpenTecnicoTrabajo = OpenTecnicoTrabajo;
     console.log($stateParams.cita);
     InitData();
 

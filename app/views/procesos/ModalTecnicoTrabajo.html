@@ -1,0 +1,55 @@
+<style type="text/css">
+    .table-scroll {
+        height:300px;
+        overflow:auto;  
+        margin-top:20px;
+    }
+</style>
+<div class="modal-header">
+    <button class="close" type="button" aria-label="close" ng-click="ctrl.cancel()">x</button>
+    <h4 class="modal-title"><i ng-class="ctrl.Icono"></i>Trabajos Asignados Técnico.</h4>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-8">
+                <h4>Nombre Técnico: {{ ctrl.NombreTecnico }}</h4>
+            </div>
+            <div class="col-md-4">
+                <div class="col-md-8">
+                    <input type="date" name="InpFecha" class="form-control input-sm" ng-model="ctrl.Fecha">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-12 table-scroll">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th><b>Tipo</b></th>
+                            <th><b>Clave Orden<br>o Reporte</b></th>
+                            <th><b>Estatus</b></th>
+                            <th><b>Fecha Solicitud</b></th>
+                            <th><b>Turno</b></th>
+                            <th><b>Descripción</b></th>
+                            <th><b>Observaciones</b></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="X in ctrl.TecnicoTrabajoList">
+                            <td>{{ X.QuejaOrden }}</td>
+                            <td>{{ X.Clv_OrdenQueja }}</td>
+                            <td>{{ X.Estatus }}</td>
+                            <td>{{ X.Fec_Sol }}</td>
+                            <td>{{ X.Turno }}</td>
+                            <td>{{ X.DESCRIPCION }}</td>
+                            <td>{{ X.Obs }}</td>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.cancel()" title="Salir">Cancelar</button>
+</div>

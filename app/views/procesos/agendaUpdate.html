@@ -52,7 +52,7 @@
                         <b>Tecnico:</b>
                     </div>
                     <div class="col-md-8">
-                        <select name="SlcTecnico" class="form-control input-sm" ng-model="$ctrl.Tecnico" ng-options="T as T.tecnico for T in $ctrl.TecnicoList track by T.clv_tecnico">
+                        <select name="SlcTecnico" class="form-control input-sm" ng-model="$ctrl.Tecnico" ng-options="T as T.tecnico for T in $ctrl.TecnicoList track by T.clv_tecnico" ng-change="$ctrl.OpenTecnicoTrabajo()">
                             <option value="">Selecciona</option>
                         </select>
                     </div>
