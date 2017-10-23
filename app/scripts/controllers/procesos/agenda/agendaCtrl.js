@@ -14,11 +14,13 @@ angular
       agendaFactory.GetSoftv_MuestraSectores().then(function(data){
         console.log(data);
         vm.SectorList = data.GetSoftv_MuestraSectoresResult;
+        vm.Sector = vm.SectorList[0];
       });
 
       agendaFactory.GetMuestra_Tecnicos_Agenda($localStorage.currentUser.idUsuario).then(function(data){
         console.log(data);
         vm.TecnicoList = data.GetMuestra_Tecnicos_AgendaResult;
+        vm.Tecnico = vm.TecnicoList[0];
       });
 
       agendaFactory.GetspConsultaTurnosList().then(function(data){

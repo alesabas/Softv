@@ -12,13 +12,14 @@
 <div class="modal-body">
     <div class="row">
         <div class="col-md-12">
-            <div class="col-md-8">
+            <div class="col-md-9">
                 <h4>Nombre Técnico: {{ ctrl.NombreTecnico }}</h4>
             </div>
-            <div class="col-md-4">
-                <div class="col-md-8">
-                    <input type="date" name="InpFecha" class="form-control input-sm" ng-model="ctrl.Fecha">
-                </div>
+            <div class="col-md-1">
+                <h4>Fecha:</h4>
+            </div>
+            <div class="col-md-2">
+                <input type="date" name="InpFecha" class="form-control input-sm" ng-model="ctrl.Fecha" ng-change="ctrl.GetTecnicoTrabajo();">
             </div>
         </div>
         <div class="col-md-12">
@@ -26,24 +27,25 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th><b>Tipo</b></th>
-                            <th><b>Clave Orden<br>o Reporte</b></th>
-                            <th><b>Estatus</b></th>
-                            <th><b>Fecha Solicitud</b></th>
-                            <th><b>Turno</b></th>
-                            <th><b>Descripción</b></th>
-                            <th><b>Observaciones</b></th>
+                            <th width="10%"><b>Tipo</b></th>
+                            <th width="10%"><b>Clave Orden<br>o Reporte</b></th>
+                            <th width="10%"><b>Estatus</b></th>
+                            <th width="10%"><b>Fecha Solicitud</b></th>
+                            <th width="10%"><b>Turno</b></th>
+                            <th width="15%"><b>Descripción</b></th>
+                            <th width="15%"><b>Observaciones</b></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="X in ctrl.TecnicoTrabajoList">
-                            <td>{{ X.QuejaOrden }}</td>
-                            <td>{{ X.Clv_OrdenQueja }}</td>
-                            <td>{{ X.Estatus }}</td>
-                            <td>{{ X.Fec_Sol }}</td>
-                            <td>{{ X.Turno }}</td>
-                            <td>{{ X.DESCRIPCION }}</td>
-                            <td>{{ X.Obs }}</td>
+                            <td><small>{{ X.QuejaOrden }}</small></td>
+                            <td><small>{{ X.Clv_OrdenQueja }}</small></td>
+                            <td><small>{{ X.Estatus }}</small></td>
+                            <td><small>{{ X.Fec_Sol | date }}</small></td>
+                            <td><small>{{ X.Turno }}</small></td>
+                            <td><small>{{ X.DESCRIPCION }}</small></td>
+                            <td><small>{{ X.Obs }}</small></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

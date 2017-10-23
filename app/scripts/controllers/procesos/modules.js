@@ -174,7 +174,7 @@ angular
         data: {
           pageTitle: 'SOFTV | EDITAR AGENDA',
         },
-        url: '/agenda/editar/:id/:cita',
+        url: '/agenda/editar/:id',
         templateUrl: 'views/procesos/agendaUpdate.html',
         controller: 'agendaUpdateCtrl',
         controllerAs: '$ctrl'

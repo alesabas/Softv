@@ -4,22 +4,15 @@
         overflow: auto;
         overflow-x: hidden;
     }
-
+    .input-sm {
+        font-size: 12px;
+    }
     .wrapper {
         height: 140px;
         overflow: auto;
     }
-
-    .form-control {
-        height: 37px;
-        border-bottom-color: rgba(12, 12, 12, 0.12);
-        background: transparent;
-        color: #0c0c0c;
-        -webkit-box-shadow: none;
-        box-shadow: none;
-    }
 </style>
-
+<form name="FormSaveCita" angular-validator-submit="$ctrl.SaveCita();" novalidate angular-validator autocomplete="off">
 <div class="card" style="margin-top:20px; padding-bottom:30px;">
     <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
         <header>
@@ -29,7 +22,7 @@
         </header>
         <div class="tools">
             <div class="btn-group">
-                <button type="button" class="btn btn-primary btn-sm" ng-click="$ctrl.SaveCita();" title="Guardar Cambios"> GUARDAR</button>
+                <button type="submit" class="btn btn-primary btn-sm" title="Guardar Cambios"> GUARDAR</button>
                 <button type="button" class="btn btn-danger btn-sm" ng-click="$ctrl.DeleteCita();" title="Eliminar Registro"> ELIMINAR</button>
                 <button type="button" class="btn btn-default btn-sm" ui-sref="home.procesos.agenda" title="Cancelar"> CANCELAR</button>
             </div>
@@ -62,7 +55,7 @@
                         <b>Fecha:</b>
                     </div>
                     <div class="col-md-8">
-                        <input type="date" name="InpFecha" class="form-control input-sm" ng-model="$ctrl.FechaCita">
+                        <input type="date" name="InpFecha" class="form-control input-sm" ng-model="$ctrl.FechaCita" validator="$ctrl.ValidateFecha()" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, la fecha no puede ser menor a {{ $ctrl.HoyD + '/' + $ctrl.HoyM + '/' + $ctrl.HoyY }}'">
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -71,7 +64,7 @@
                     </div>
                     <div class="col-md-8">
                         <select name="SlcTurno" class="form-control input-sm" ng-model="$ctrl.Turno" ng-options="TR as TR.TURNO for TR in $ctrl.TurnoList track by TR.ID">
-                            <option value="">Selecciona</option>
+                            <option value="" ng-disabled="true">Selecciona</option>
                         </select>
                     </div>
                 </div>
@@ -92,11 +85,11 @@
                         <b>#Contrato:</b>
                     </div>
                     <div class="col-md-8">
-                        <input type="text" name="InpContrato" class="form-control input-sm" ng-model="$ctrl.Contrato" placeholder="Contrato">
+                        {{ $ctrl.Contrato }}
                     </div>
                 </div>
                 <div class="col-md-12">
-                    <div class="col-md-12 text-center">
+                    <div class="col-md-12 text-center" style="font-size:14px;">
                         <b>Datos del Cliente</b>
                     </div>
                 </div>
@@ -129,7 +122,7 @@
             </div>
             <div class="col-md-3">
                 <div class="col-md-12">
-                    <div class="col-md-12 text-center" style="font-size:14px; color: #06599a;">
+                    <div class="col-md-12 text-center" style="font-size:14px;">
                         <b>Servicios Asignados</b>
                     </div>
                     <div class="col-md-12">
@@ -156,7 +149,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" ng-show="$ctrl.ShowOrden">
                 <div class="col-md-12">
                     <div class="col-md-4 text-danger">
                         <b>#Orden:</b>
@@ -166,7 +159,7 @@
                     </div>
                 </div>
                 <div class="col-md-12">
-                    <div class="col-md-12">
+                    <div class="col-md-12" style="font-size:14px;">
                         <b>Detalle:</b>
                     </div>
                 </div>
@@ -178,65 +171,37 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <!--
-        <div class="col-md-14">
-            <div class="col-md-6">
-                <div class="col-md-3" style="font-size:12px;">
-                    <p class="text-danger" style="font-size:13px;"><b>#Cita: </b>{{$ctrl.Cita}}</p>
-                    <p><b>Tecnico:</b></p>
-                    <p><b>Fecha:</b></p><br>
-                    <p><b>Turno:</b></p>
-                    <p><b>Comentarios:</b></p>
-                </div>
-                <div class="col-md-3" style="font-size:12px;">
-                    <p> </p>
-                    <p>
-                    <select name="SlcTecnico" class="form-control input-sm" ng-model="$ctrl.Tecnico" ng-options="T as T.tecnico for T in $ctrl.TecnicoList track by T.clv_tecnico">
-                        <option value="">Selecciona</option>
-                    </select>
-                    </p>
-                    <p><input type="text" name="InpSearchDia" class="form-control input-sm" ng-model="$ctrl.Fecha" placeholder="Fecha"></p>
-                    <p><input type="text" name="InpSearchDia" class="form-control input-sm" ng-model="$ctrl.Turno" placeholder="Turno"></p>
-                    <p><input type="text" name="InpSearchDia" class="form-control input-sm" ng-model="$ctrl.Comentarios" placeholder="Comentarios"></p>
-                </div>
-                <div class="col-md-3" style="font-size:12px;">
-                    <br><br><br><br><br><br>
-                    <p><b>Clave de la orden: </b>{{$ctrl.ClvOrden}}</p>
-                    <p><b>Detalle : </b>{{$ctrl.Detalle}} </p>
-                </div>
-                <div class="col-md-3" style="font-size:12px;">
-                    <br><br><br><br><br>
-                    <p><input type="text" name="InpSearchDia" class="form-control input-sm" ng-model="$ctrl.Fecha" placeholder="Clv orden"></p>
-                    <p><input type="text" name="InpSearchDia" class="form-control input-sm" ng-model="$ctrl.Turno" placeholder="Detalle"></p>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="col-md-12" style="font-size:12px;">
-                    <div class="col-md-5">
-                        <p><b class="text-danger" style="font-size:13px;">Contrato:</b>
-                        <input type="text" name="InpSearchDia" class="form-control input-sm" ng-model="$ctrl.Contrato" placeholder="Contrato"></p>
-                        <b style="font-size:13px;">Datos del Cliente</b>
-                        <p><b>Nombre: </b>{{$ctrl.NombreCliente}}</p>
-                        <p><b>Direccion : </b>{{$ctrl.Calle}} <b>#:</b>{{$ctrl.Numero}} Col.{{$ctrl.Colonia}} {{$ctrl.Ciudad}}</p>
-
-                        <label class="radio-inline radio-styled radio-warning">
-                            <input type="radio" name="atencion" ng-model="$ctrl.tipoAtenc7ion" value="T"><span>Solo Internet</span>
-                             </label>
-                        <label class="radio-inline radio-styled radio-warning">
-                           <input type="radio" name="atencion" ng-model="$ctrl.tipoAtenci7on" value="S"><span>Es Hotel</span>
-                            </label>
+            <div class="col-md-3" ng-show="$ctrl.ShowQueja">
+                <div class="col-md-12">
+                    <div class="col-md-4 text-danger">
+                        <b>#Reporte:</b>
                     </div>
-                    <div class="col-md-6 text-center" style="font-size:14px; color: #06599a;">
-                        <b>Servicios Asignados</b>
-                        <div class=" card wrapper text-center" style="background-color: whitesmoke;">
-                            <p ng-repeat="x in $ctrl.ServiciosCliente" style="font-size:10px;">{{x.Servicio}}</p>
-                        </div>
+                    <div class="col-md-8">
+                        {{ $ctrl.ClvReporte }}
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-12" style="font-size:14px;">
+                        <b>Problema:</b>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <textarea name="TxaProblemaReporte" rows="3" class="form-control input-sm" ng-model="$ctrl.ProblemaReporte" ng-disabled="true"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-12" style="font-size:14px;">
+                        <b>Observaciones:</b>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <textarea name="TxaObservacionesReporte" rows="4" class="form-control input-sm" ng-model="$ctrl.ObservacionesReporte" ng-disabled="true"></textarea>
                     </div>
                 </div>
             </div>
         </div>
-        -->
     </div>
 </div>
+</form>

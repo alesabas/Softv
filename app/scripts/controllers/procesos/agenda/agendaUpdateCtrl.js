@@ -9,13 +9,17 @@ angular
     }
 
     function GetCita(){
-      var ObjContrato = {
-        'ContratoCom': vm.Contrato,
-        'Id': 0
-      };
-      agendaFactory.GetMuestraContratoReal(ObjContrato).then(function(data){
+      agendaFactory.GetCONCITAS($stateParams.id).then(function(data){
         console.log(data);
-        vm.IdContrato = data.GetMuestraContratoRealResult.Contrato;
+        var Cita = data.GetCONCITASResult;
+        vm.ClvCita = Cita.Clv_Cita;
+        vm.IdContrato = Cita.Contrato;
+        vm.FechaCita = toDate(Cita.Fecha);
+        console.log(Cita.Fecha);
+        console.log('Fecha: ',vm.FechaCita);
+        vm.Clv_Tecnico = Cita.Clv_Tecnico;
+        var QuejaOrden = Cita.QuejaOrden;
+        console.log(vm.Clv_Tecnico);
         var ObjCliente = {
           'CONTRATO': vm.IdContrato,
           'NOMBRE': '',
@@ -35,56 +39,37 @@ angular
           vm.Ciudad = DatosCliente.Ciudad_;
           vm.tipoAtencion = (DatosCliente.SoloInternet == true)? 'T' : 'S';
         });
-        agendaFactory.GetCONCITAS($stateParams.cita).then(function(data){
+        agendaFactory.GetCONSULTARREL_CITAS(vm.ClvCita).then(function(data){
           console.log(data);
-          var Cita = data.GetCONCITASResult;
-          vm.ClvCita = Cita.Clv_Cita;
-          vm.FechaCita = toDate(Cita.Fecha);
-          console.log(Cita.Fecha);
-          console.log('Fecha: ',vm.FechaCita);
-          vm.Clv_Tecnico = Cita.Clv_Tecnico;
-          console.log(vm.Clv_Tecnico);
-          agendaFactory.GetCONSULTARREL_CITAS(vm.ClvCita).then(function(data){
+          vm.Comentario = data.GetCONSULTARREL_CITASResult;
+        });
+        agendaFactory.GetMuestra_Tecnicos_Almacen(vm.IdContrato).then(function(data){
+          console.log(data);
+          vm.TecnicoList = data.GetMuestra_Tecnicos_AlmacenResult;
+          console.log('C',vm.Clv_Tecnico);
+          for(var i = 0; vm.TecnicoList.length > i; i ++){
+            console.log('C2',vm.Clv_Tecnico);
+            console.log('Li',vm.TecnicoList[i].clv_tecnico);
+            if(vm.TecnicoList[i].clv_tecnico == vm.Clv_Tecnico){
+              console.log('yes');
+              console.log(vm.Clv_Tecnico);
+              console.log('L',vm.TecnicoList[i].clv_tecnico);
+              vm.Tecnico = vm.TecnicoList[i];
+            }
+          }
+        });
+        agendaFactory.GetBUSCADetCitas(vm.ClvCita).then(function(data){
+          console.log(data);
+          var DetalleCita = data.GetBUSCADetCitasResult;
+          var Clv_Hora = DetalleCita.Clv_Hora;
+          agendaFactory.GetspConsultaTurnosList().then(function(data){
             console.log(data);
-            vm.Comentario = data.GetCONSULTARREL_CITASResult;
-          });
-          agendaFactory.GetMuestra_Tecnicos_Almacen(vm.IdContrato).then(function(data){
-            console.log(data);
-            vm.TecnicoList = data.GetMuestra_Tecnicos_AlmacenResult;
-            console.log('C',vm.Clv_Tecnico);
-            for(var i = 0; vm.TecnicoList.length > i; i ++){
-              console.log('C2',vm.Clv_Tecnico);
-              console.log('Li',vm.TecnicoList[i].clv_tecnico);
-              if(vm.TecnicoList[i].clv_tecnico == vm.Clv_Tecnico){
-                console.log('yes');
-                console.log(vm.Clv_Tecnico);
-                console.log('L',vm.TecnicoList[i].clv_tecnico);
-                vm.Tecnico = vm.TecnicoList[i];
+            vm.TurnoList = data.GetspConsultaTurnosListResult;
+            for(var i = 0; vm.TurnoList.length > i; i ++){
+              if(vm.TurnoList[i].ID == Clv_Hora){
+                vm.Turno = vm.TurnoList[i];
               }
             }
-          });
-          agendaFactory.GetVERORDENES_CITAS(vm.ClvCita).then(function(data){
-            console.log(data);
-            var OrdenCita = data.GetVERORDENES_CITASResult;
-            vm.ClvOrden = OrdenCita.Clv_ORDEN;
-            agendaFactory.GetDame_DetOrdSer(vm.ClvOrden).then(function(data){
-              console.log(data);
-              vm.DetalleServicio = data.GetDame_DetOrdSerResult;
-            });
-          });
-          agendaFactory.GetBUSCADetCitas(vm.ClvCita).then(function(data){
-            console.log(data);
-            var DetalleCita = data.GetBUSCADetCitasResult;
-            var Clv_Hora = DetalleCita.Clv_Hora;
-            agendaFactory.GetspConsultaTurnosList().then(function(data){
-              console.log(data);
-              vm.TurnoList = data.GetspConsultaTurnosListResult;
-              for(var i = 0; vm.TurnoList.length > i; i ++){
-                if(vm.TurnoList[i].ID == Clv_Hora){
-                  vm.Turno = vm.TurnoList[i];
-                }
-              }
-            });
           });
         });
         agendaFactory.GetMuestraArbolServicios_ClientesList(vm.IdContrato).then(function(data){
@@ -95,6 +80,30 @@ angular
               vm.expandedNodes.push(value);
           });
         });
+        console.log(QuejaOrden);
+        if(QuejaOrden == 'O'){
+          vm.ShowOrden = true;
+          vm.ShowQueja = false;
+          agendaFactory.GetVERORDENES_CITAS(vm.ClvCita).then(function(data){
+            console.log(data);
+            var OrdenCita = data.GetVERORDENES_CITASResult;
+            vm.ClvOrden = OrdenCita.Clv_ORDEN;
+            agendaFactory.GetDame_DetOrdSer(vm.ClvOrden).then(function(data){
+              console.log(data);
+              vm.DetalleServicio = data.GetDame_DetOrdSerResult;
+            });
+          });
+        }else if(QuejaOrden = 'Q'){
+          vm.ShowOrden = false;
+          vm.ShowQueja = true;
+          agendaFactory.GetVERQUEJAS_CITAS(vm.ClvCita).then(function(data){
+            console.log(data);
+            var QuejaCita = data.GetVERQUEJAS_CITASResult;
+            vm.ClvReporte = QuejaCita.Clv_Queja;
+            vm.ProblemaReporte = QuejaCita.Problema;
+            vm.ObservacionesReporte = QuejaCita.Observaciones;
+          });
+        }
       });
     }
 
@@ -151,9 +160,9 @@ angular
             class: 'modal-backdrop fade',
             size: 'lg',
             resolve: {
-                ObjTecnicoTrabajo: function () {
-                    return ObjTecnicoTrabajo;
-                }
+              ObjTecnicoTrabajo: function () {
+                  return ObjTecnicoTrabajo;
+              }
             }
         }); 
       }
@@ -179,12 +188,29 @@ angular
         return FDate;
     }
 
+    function ValidateFecha(){
+      console.log('Valida Fecha');
+      console.log(vm.FechaCita);
+      var FechaCita = new Date(vm.FechaCita);
+      var FechaHoy = new Date();
+      vm.HoyD = FechaHoy.getDate();
+      vm.HoyM = FechaHoy.getMonth() + 1;
+      vm.HoyY = FechaHoy.getFullYear();
+      vm.FechaHoy = new Date(vm.HoyY + '/' + vm.HoyM + '/' + vm.HoyD)
+      console.log(FechaCita, vm.FechaHoy);
+      if(FechaCita >= vm.FechaHoy){
+        return true;
+      }else{
+        return false;
+      }
+    }
+
     var vm = this;
     vm.Titulo = '  Agenda Detalle';
-    vm.Contrato = $stateParams.id;
     vm.SaveCita = SaveCita;
     vm.DeleteCita = DeleteCita;
     vm.OpenTecnicoTrabajo = OpenTecnicoTrabajo;
+    vm.ValidateFecha = ValidateFecha;
     console.log($stateParams.cita);
     InitData();
 

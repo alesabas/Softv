@@ -44,6 +44,8 @@ angular
         vm.ClvTecnico = ObjTecnicoTrabajo.Clvtecnico;
         vm.NombreTecnico = ObjTecnicoTrabajo.NombreTecnico;
         vm.Fecha = toDate(ObjTecnicoTrabajo.Fecha);
+        vm.JToDate = JToDate;
+        vm.GetTecnicoTrabajo = GetTecnicoTrabajo;
         console.log(ObjTecnicoTrabajo);
         initData();
 
