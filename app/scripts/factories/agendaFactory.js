@@ -218,7 +218,6 @@ angular
         'clv_usuario': $localStorage.currentUser.idUsuario
        
       };
-      console.log(Parametros);
       $http.post(globalService.getUrl() + paths.GetMuestraPostes, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
@@ -239,7 +238,6 @@ angular
         'descripcion': obj.descripcion
       
       };
-      console.log(Parametros);
       $http.post(globalService.getUrl() + paths.GetNuePoste, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
@@ -252,7 +250,6 @@ angular
       var deferred = $q.defer();
       var config = {headers: {'Authorization': $localStorage.currentUser.token}};
       var Parametros = {'ObjAgenda':ObjAgenda};
-      console.log(Parametros);
       $http.post(globalService.getUrl() + paths.GetDesplegarAgenda, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
@@ -296,10 +293,10 @@ angular
       return deferred.promise;
     };
 
-    factory.GetMuestraContratoReal = function (ObjContrato) {
+    factory.GetMuestraContratoReal = function (ContratoCom) {
       var deferred = $q.defer();
       var config = {headers: {'Authorization': $localStorage.currentUser.token}};
-      var Parametros = ObjContrato;
+      var Parametros = {ContratoCom:ContratoCom};
       $http.post(globalService.getUrl() + paths.GetMuestraContratoReal, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
@@ -360,7 +357,6 @@ angular
       var deferred = $q.defer();
       var config = {headers: {'Authorization': $localStorage.currentUser.token}};
       var Parametros = {'CLV_CITA': CLV_CITA};
-      console.log(Parametros);
       $http.post(globalService.getUrl() + paths.GetVERORDENES_CITAS, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
@@ -373,7 +369,6 @@ angular
       var deferred = $q.defer();
       var config = {headers: {'Authorization': $localStorage.currentUser.token}};
       var Parametros = {'Contrato': Contrato};
-      console.log(Parametros);
       $http.post(globalService.getUrl() + paths.GetMuestraArbolServicios_ClientesList, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
@@ -386,7 +381,6 @@ angular
       var deferred = $q.defer();
       var config = {headers: {'Authorization': $localStorage.currentUser.token}};
       var Parametros = {'Clv_Orden': Clv_Orden};
-      console.log(Parametros);
       $http.post(globalService.getUrl() + paths.GetDame_DetOrdSer, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
@@ -399,7 +393,6 @@ angular
       var deferred = $q.defer();
       var config = {headers: {'Authorization': $localStorage.currentUser.token}};
       var Parametros = {'CLV_CITA': CLV_CITA};
-      console.log(Parametros);
       $http.post(globalService.getUrl() + paths.GetBUSCADetCitas, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
@@ -412,7 +405,6 @@ angular
       var deferred = $q.defer();
       var config = {headers: {'Authorization': $localStorage.currentUser.token}};
       var Parametros = {'ObjCita': ObjCita};
-      console.log(Parametros);
       $http.post(globalService.getUrl() + paths.GetMODIFICA_REL_CITAS, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
@@ -425,7 +417,6 @@ angular
       var deferred = $q.defer();
       var config = {headers: {'Authorization': $localStorage.currentUser.token}};
       var Parametros = {'CLV_CITA': CLV_CITA};
-      console.log(Parametros);
       $http.post(globalService.getUrl() + paths.GetBOR_CITAS, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
@@ -438,7 +429,6 @@ angular
       var deferred = $q.defer();
       var config = {headers: {'Authorization': $localStorage.currentUser.token}};
       var Parametros = ObjTrabajoTecnico;
-      console.log(Parametros);
       $http.post(globalService.getUrl() + paths.GetTrabajosOrdenesTecnicoDia, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
@@ -451,7 +441,6 @@ angular
       var deferred = $q.defer();
       var config = {headers: {'Authorization': $localStorage.currentUser.token}};
       var Parametros = {'CLV_CITA': CLV_CITA};
-      console.log(Parametros);
       $http.post(globalService.getUrl() + paths.GetVERQUEJAS_CITAS, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {

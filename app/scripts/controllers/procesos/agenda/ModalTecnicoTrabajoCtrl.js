@@ -13,10 +13,16 @@ angular
                 'fecha': JToDate(vm.Fecha),
                 'Clv_Tecnico': vm.ClvTecnico
             };
-            console.log(ObjTecTrabajo);
             agendaFactory.GetTrabajosOrdenesTecnicoDia(ObjTecTrabajo).then(function(data){
-                console.log(data);
                 vm.TecnicoTrabajoList = data.GetTrabajosOrdenesTecnicoDiaResult;
+                console.log(data);
+                if(vm.TecnicoTrabajoList.length > 0){
+                    vm.TotalReportes = vm.TecnicoTrabajoList[0].TOTALQUEJAS;
+                    vm.TotalOrdenes = vm.TecnicoTrabajoList[0].TOTALORDENES;
+                }else{
+                    vm.TotalReportes = 0;
+                    vm.TotalOrdenes = 0;
+                }
             });
         }
         
@@ -44,9 +50,7 @@ angular
         vm.ClvTecnico = ObjTecnicoTrabajo.Clvtecnico;
         vm.NombreTecnico = ObjTecnicoTrabajo.NombreTecnico;
         vm.Fecha = toDate(ObjTecnicoTrabajo.Fecha);
-        vm.JToDate = JToDate;
         vm.GetTecnicoTrabajo = GetTecnicoTrabajo;
-        console.log(ObjTecnicoTrabajo);
         initData();
 
     });

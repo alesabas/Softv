@@ -12,19 +12,16 @@ angular
       });
 
       agendaFactory.GetSoftv_MuestraSectores().then(function(data){
-        console.log(data);
         vm.SectorList = data.GetSoftv_MuestraSectoresResult;
         vm.Sector = vm.SectorList[0];
       });
 
       agendaFactory.GetMuestra_Tecnicos_Agenda($localStorage.currentUser.idUsuario).then(function(data){
-        console.log(data);
         vm.TecnicoList = data.GetMuestra_Tecnicos_AgendaResult;
         vm.Tecnico = vm.TecnicoList[0];
       });
 
       agendaFactory.GetspConsultaTurnosList().then(function(data){
-        console.log(data);
         vm.TurnoList = data.GetspConsultaTurnosListResult;
       });
     }
@@ -35,7 +32,7 @@ angular
         'ClvUsuario': $localStorage.currentUser.idUsuario,
         'opSetupBoxTarjeta': 1,
         'CLV_TECNICO': (Opc == 1 && vm.Tecnico != undefined)? vm.Tecnico.clv_tecnico : 0,
-        'CONTRATO': (Opc == 1 && vm.Contrato != undefined)? vm.Contrato : 0,
+        'CONTRATO': (Opc == 1 && (vm.Contrato != undefined || vm.Contrato))? CheckContrato(vm.Contrato):0,
         'Sector': (Opc > 0 && vm.Sector != undefined)? vm.Sector.Clv_Sector : 0,
         'NOMBRE': (Opc == 2 && vm.Nombre != undefined)? vm.Nombre : '',
         'ApellidoPaterno': (Opc == 2 && vm.Paterno != undefined)? vm.Paterno : '',
@@ -45,7 +42,6 @@ angular
         'Turno': (Opc == 5 && vm.Turno != undefined)? vm.Turno.TURNO : ''
       }
       agendaFactory.GetDesplegarAgenda(ObjAgenda).then(function(data){
-        console.log(data);
         vm.AgendaList = data.GetDesplegarAgendaResult;
         if(vm.AgendaList.length > 0){
           vm.ConResultado = true;
@@ -57,14 +53,24 @@ angular
       });
     }
 
+    function CheckContrato(Contrato){
+      var g = new RegExp("-");
+      if(g.test(Contrato)){
+        var SubC = Contrato.split("-");
+        return parseInt(SubC[0]);
+      }else{
+        return parseInt(Contrato);
+      }
+    }
+
     function ToDate(Fecha){
-        var D = Fecha.getDate();
-        var M = Fecha.getMonth() + 1;
-        var FD = (String(D).length == 1)? '0'+D : D;
-        var FM = (String(M).length == 1)? '0'+M : M;
-        var FY = Fecha.getFullYear();
-        var FDate =  String(FD) + '/' + String(FM) + '/' + String(FY);
-        return FDate;
+      var D = Fecha.getDate();
+      var M = Fecha.getMonth() + 1;
+      var FD = (String(D).length == 1)? '0'+D : D;
+      var FM = (String(M).length == 1)? '0'+M : M;
+      var FY = Fecha.getFullYear();
+      var FDate =  String(FD) + '/' + String(FM) + '/' + String(FY);
+      return FDate;
     }
 
     var vm = this;

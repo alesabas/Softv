@@ -41,12 +41,14 @@
                 <div class="col-md-1" style="text-align:right">
                     <button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.GetAgendaList(2);" title="Buscar por SetUpBox "><i class="glyphicon glyphicon-search"></i> BUSCAR</button>
                 </div>
-                <div class="col-md-1" style="text-align:right">
-                    <input type="number" name="InpContrato" class="form-control input-sm" ng-model="$ctrl.Contrato" placeholder="Contrato">
-                </div>
-                <div class="col-md-1" style="text-align:right">
-                    <button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.GetAgendaList(1);" title="Buscar por Contrato "><i class="glyphicon glyphicon-search"></i> BUSCAR</button>
-                </div>
+                <form name="FormBuscarContrato" angular-validator-submit="$ctrl.GetAgendaList(1);" novalidate angular-validator autocomplete="off">
+                    <div class="col-md-1" style="text-align:right">
+                        <input name="InpContrato" class="form-control input-sm" ng-model="$ctrl.Contrato" validate-on="dirty" placeholder="Contrato" ng-pattern="/^[0-9]+([-][0-9]+)?$/" invalid-message="'Formato de contrato inválido.'">
+                    </div>
+                    <div class="col-md-1" style="text-align:right">
+                        <button type="submit" class="btn btn-warning btn-xs" ng-click="" title="Buscar por Contrato "><i class="glyphicon glyphicon-search"></i> BUSCAR</button>
+                    </div>
+                </form>
                 <div class="col-md-2" style="text-align:right">
                     <input type="date" name="InpDia" class="form-control input-sm" ng-model="$ctrl.Dia" placeholder="Dia">
                 </div>
@@ -91,15 +93,15 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th><b>Tipo</b></th>
-                        <th><b>Estado</b></th>
-                        <th><b>Clv Orden</b></th>
-                        <th><b>Contrato</b></th>
-                        <th><b>Fecha de Prog.</b></th>
-                        <th><b>Fecha de Orden</b></th>
-                        <th><b>Turno</b></th>
-                        <th><b>Status</b></th>
-                        <th colspan="2"><b>Acciones</b></th>
+                        <th width="9%"><b>Tipo</b></th>
+                        <th width="9%"><b>Estado</b></th>
+                        <th width="9%"><b>Clv Orden</b></th>
+                        <th width="9%"><b>Contrato</b></th>
+                        <th width="12%"><b>Fecha de Prog.</b></th>
+                        <th width="12%"><b>Fecha de Orden</b></th>
+                        <th width="10%"><b>Turno</b></th>
+                        <th width="6%"><b>Status</b></th>
+                        <th width="24%" colspan="3"><b>Acciones</b></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -112,7 +114,8 @@
                         <td>{{ X.FechaOrdRep }}</td>
                         <td>{{ X.Turno}}</td>
                         <td>{{ X.Status }}</td>
-                        <td><button type="button" class="btn btn-warning btn-xs" ui-sref="home.procesos.agendaEditar({ id:X.No_Cita })" title="EDITAR"><i class="fa fa-pencil-square-o"></i> Editar</button></td>
+                        <td><button type="button" class="btn btn-info btn-xs" ui-sref="home.procesos.agendaDetalle({ id:X.No_Cita, cliente:X.Contrato })" title="EDITAR"><i class="fa fa-eye"></i> Cosultar</button></td>
+                        <td><button type="button" class="btn btn-warning btn-xs" ui-sref="home.procesos.agendaEditar({ id:X.No_Cita, cliente:X.Contrato })" title="EDITAR"><i class="fa fa-pencil-square-o"></i> Editar</button></td>
                         <td><button type="button" class="btn btn-danger btn-xs" ui-sref="home.procesos.agendaDetalle" title="ELIMINAR"><i class="fa fa-trash"></i> Eliminar</button></td>
                     </tr>
                     <tr ng-show="$ctrl.SinResultado">
