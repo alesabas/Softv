@@ -169,7 +169,6 @@
             else if (vm.selectedTrabajo.Descripcion.toLowerCase().includes('isnet') || 
               vm.selectedTrabajo.Descripcion.toLowerCase().includes('isdig') || 
               vm.selectedTrabajo.Descripcion.toLowerCase().includes('istva')) {
-              console.log("hola jano");
 
               vm.NOM = vm.selectedTrabajo.Descripcion.split(' ');
               var items_ = {

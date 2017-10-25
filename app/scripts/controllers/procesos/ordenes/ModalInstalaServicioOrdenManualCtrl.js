@@ -11,20 +11,23 @@
     var vm = this;
     vm.cancel = cancel;
     vm.guardar = guardar;
-    vm.medios=[];
+    vm.servicios=[];
     vm.cambio = false;
     console.log(items);
     
     this.$onInit = function () {
 
      var Parametros = {
-        'ClvUnicaNet': items.Clv_UnicaNet
+        'contrato': items.Contrato,
+        'Op': 0,
+        'Clv_TipSer': 0,
+        'Status': 'C'
       };
       console.log('Parametros');
       console.log(Parametros);
-      ordenesFactory.MuestraMedioPorServicoContratado(Parametros).then(function (resp) {
+      ordenesFactory.MuestraServiciosDelCli_porOpcion(Parametros).then(function (resp) {
         console.log(resp);
-        vm.medios = resp.GetMuestraMedioPorServicoContratadoListResult;
+        vm.servicios = resp.GetMuestraServiciosDelCli_porOpcionListResult;
       });
     }
 
@@ -32,6 +35,7 @@
         $uibModalInstance.close(vm.medio);
     
     }
+
 
     function cancel() {
       $uibModalInstance.dismiss('cancel');

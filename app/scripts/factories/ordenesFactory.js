@@ -1734,7 +1734,7 @@ angular
       var deferred = $q.defer();
       var Parametros = {
         'CONTRATO': obj.contrato,
-        'Status': 'P',
+        'Status': obj.Status,
         'OP': obj.Op,
         'clv_tipSer': obj.Clv_TipSer
       };

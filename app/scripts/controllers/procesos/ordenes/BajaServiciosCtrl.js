@@ -70,7 +70,8 @@
       var parametros={
         'contrato': items.contrato,
         'Clv_TipSer': items.servicio.clv_tipser,
-        'Op': 14
+        'Op': 14,
+        'Status':'P'
       };
 
       console.log(parametros);
