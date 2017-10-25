@@ -13,6 +13,7 @@
     vm.guardaDetalle = guardaDetalle;
     vm.changeTrabajo = changeTrabajo;
     vm.realizar = true;
+    console.log('firsy',items);
 
     this.$onInit = function () {
      
@@ -175,9 +176,10 @@
                 'Trabajo': vm.NOM[0],
                 'Contrato': items.contrato,
                 'Clave': items.clv_orden,
-                'ClvOrden':items.clv_orden
+                'ClvOrden':items.clv_orden,
+                'Clv_TipSer': vm.selectedServicio.clv_tipser
               };
-
+              console.log(items);
               var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
@@ -187,18 +189,15 @@
                 controllerAs: 'ctrl',
                 backdrop: 'static',
                 keyboard: false,
-                size: 'sm',
+                size: 'md',
                 resolve: {
                   items: function () {
                     return items_;
                   }
                 }
               });
-
             }else {          
-
             }
-
 
             $rootScope.$emit('actualiza_tablaServicios');
             $uibModalInstance.dismiss('cancel');

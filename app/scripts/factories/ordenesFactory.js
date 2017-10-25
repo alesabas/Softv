@@ -74,7 +74,8 @@ angular
       MuestraServiciosRelTipoAparato: '/MuestraServiciosRelTipoAparato/GetMuestraServiciosRelTipoAparatoList', 
       MuestraAparatosDisponibles: '/MuestraAparatosDisponibles/GetMuestraAparatosDisponiblesList',
       AsignaAparatosAlServicio: '/AsignaAparatosAlServicio/GetAsignaAparatosAlServicioList',
-      MuestraServiciosDelCli_porOpcion: '/MuestraServiciosDelCli_porOpcion/GetMuestraServiciosDelCli_porOpcionList'
+      MuestraServiciosDelCli_porOpcion: '/MuestraServiciosDelCli_porOpcion/GetMuestraServiciosDelCli_porOpcionList',
+      Addinstalaservicios: '/instalaservicios/Addinstalaservicios'
     };
 
 
@@ -1753,6 +1754,17 @@ angular
       return deferred.promise;
     };
 
+    factory.Addinstalaservicios = function (objinstalaservicios) {
+      var deferred = $q.defer();
+      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+      var Parametros = {'objinstalaservicios': objinstalaservicios};
+      $http.post(globalService.getUrl() + paths.Addinstalaservicios, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
 
     return factory;
   });

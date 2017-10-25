@@ -20,7 +20,7 @@
      var Parametros = {
         'contrato': items.Contrato,
         'Op': 0,
-        'Clv_TipSer': 0,
+        'Clv_TipSer': items.Clv_TipSer,
         'Status': 'C'
       };
       console.log('Parametros');
@@ -32,10 +32,19 @@
     }
 
     function guardar() {
-        $uibModalInstance.close(vm.medio);
-    
+        var objinstalaservicios = {
+          'Clave': items.Clave,
+          'Clv_Orden': items.ClvOrden,
+          'Trabajo': items.Trabajo,
+          'Clv_UnicaNet': vm.servicio.clv_unicanet,
+          'idMedio': 0
+        };
+        console.log(objinstalaservicios);
+        ordenesFactory.Addinstalaservicios(objinstalaservicios).then(function(data){
+          console.log(data);
+          $uibModalInstance.close(vm.medio);
+        });
     }
-
 
     function cancel() {
       $uibModalInstance.dismiss('cancel');
