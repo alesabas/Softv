@@ -220,7 +220,8 @@ angular
         x.Descripcion.toLowerCase().includes('riapar') ||
         x.Descripcion.toLowerCase().includes('retca') ||
         x.Descripcion.toLowerCase().includes('rradi') ||
-        x.Descripcion.toLowerCase().includes('rrout')
+        x.Descripcion.toLowerCase().includes('rrout') ||
+        x.Descripcion.toLowerCase().includes('rapag')
       ) {
 
         vm.TrabajoRetiro = true;

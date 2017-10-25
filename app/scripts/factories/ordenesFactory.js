@@ -73,7 +73,8 @@ angular
       MuestraTipoAparato: '/MuestraTipoAparato/GetMuestraTipoAparatoList',
       MuestraServiciosRelTipoAparato: '/MuestraServiciosRelTipoAparato/GetMuestraServiciosRelTipoAparatoList', 
       MuestraAparatosDisponibles: '/MuestraAparatosDisponibles/GetMuestraAparatosDisponiblesList',
-      AsignaAparatosAlServicio: '/AsignaAparatosAlServicio/GetAsignaAparatosAlServicioList'
+      AsignaAparatosAlServicio: '/AsignaAparatosAlServicio/GetAsignaAparatosAlServicioList',
+      MuestraServiciosDelCli_porOpcion: '/MuestraServiciosDelCli_porOpcion/GetMuestraServiciosDelCli_porOpcionList'
     };
 
 
@@ -1727,6 +1728,31 @@ angular
 
       return deferred.promise;
     };
+
+
+    factory.MuestraServiciosDelCli_porOpcion = function (obj) {
+      var deferred = $q.defer();
+      var Parametros = {
+        'CONTRATO': obj.contrato,
+        'Status': obj.Status,
+        'OP': obj.Op,
+        'clv_tipSer': obj.Clv_TipSer
+      };
+      console.log(Parametros);
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.MuestraServiciosDelCli_porOpcion, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response.data);
+      });
+
+      return deferred.promise;
+    };
+
 
     return factory;
   });

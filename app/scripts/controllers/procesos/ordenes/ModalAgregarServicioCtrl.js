@@ -103,7 +103,7 @@
                 controllerAs: 'ctrl',
                 backdrop: 'static',
                 keyboard: false,
-                size: 'md',
+                size: 'lg',
                 resolve: {
                   items: function () {
                     return items;
@@ -129,7 +129,8 @@
               vm.selectedTrabajo.Descripcion.toLowerCase().includes('rantx') ||
               vm.selectedTrabajo.Descripcion.toLowerCase().includes('retca') ||
               vm.selectedTrabajo.Descripcion.toLowerCase().includes('rradi') ||
-              vm.selectedTrabajo.Descripcion.toLowerCase().includes('rrout')
+              vm.selectedTrabajo.Descripcion.toLowerCase().includes('rrout') ||
+              vm.selectedTrabajo.Descripcion.toLowerCase().includes('rapag')
             ) {
               vm.NOM = vm.selectedTrabajo.Descripcion.split(' ');
              
@@ -164,7 +165,37 @@
              
             } else if (vm.selectedTrabajo.Descripcion.toLowerCase().includes('ecabl') || vm.selectedTrabajo.Descripcion.toLowerCase().includes('econt')) {
             
-            } else {          
+            } 
+            else if (vm.selectedTrabajo.Descripcion.toLowerCase().includes('isnet') || 
+              vm.selectedTrabajo.Descripcion.toLowerCase().includes('isdig') || 
+              vm.selectedTrabajo.Descripcion.toLowerCase().includes('istva')) {
+
+              vm.NOM = vm.selectedTrabajo.Descripcion.split(' ');
+              var items_ = {
+                'Trabajo': vm.NOM[0],
+                'Contrato': items.contrato,
+                'Clave': items.clv_orden,
+                'ClvOrden':items.clv_orden
+              };
+
+              var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'views/procesos/ModalInstalaServicioOrdenManual.html',
+                controller: 'ModalInstalaServicioOrdenManualCtrl',
+                controllerAs: 'ctrl',
+                backdrop: 'static',
+                keyboard: false,
+                size: 'sm',
+                resolve: {
+                  items: function () {
+                    return items_;
+                  }
+                }
+              });
+
+            }else {          
 
             }
 
