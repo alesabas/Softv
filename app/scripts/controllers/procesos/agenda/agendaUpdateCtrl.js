@@ -16,8 +16,9 @@ angular
           vm.ClvCita = Cita.Clv_Cita;
           vm.IdContrato = Cita.Contrato;
           vm.FechaCita = toDate(Cita.Fecha);
+          vm.FechaCitaDB = toDateD(Cita.Fecha);
           vm.Clv_Tecnico = Cita.Clv_Tecnico;
-          var QuejaOrden = Cita.QuejaOrden;
+          vm.QuejaOrden = Cita.QuejaOrden;
           if(vm.ClvCita != null && ContratoReal == vm.IdContrato){
             vm.Contrato = $stateParams.cliente;
             var ObjCliente = {
@@ -68,7 +69,7 @@ angular
                   vm.expandedNodes.push(value);
               });
             });
-            if(QuejaOrden == 'O'){
+            if(vm.QuejaOrden == 'O'){
               vm.ShowOrden = true;
               vm.ShowQueja = false;
               agendaFactory.GetVERORDENES_CITAS(vm.ClvCita).then(function(data){
@@ -78,7 +79,7 @@ angular
                   vm.DetalleServicio = data.GetDame_DetOrdSerResult;
                 });
               });
-            }else if(QuejaOrden = 'Q'){
+            }else if(vm.QuejaOrden = 'Q'){
               vm.ShowOrden = false;
               vm.ShowQueja = true;
               agendaFactory.GetVERQUEJAS_CITAS(vm.ClvCita).then(function(data){
@@ -117,13 +118,29 @@ angular
     }
 
     function DeleteCita(){
-      agendaFactory.GetBOR_CITAS(vm.ClvCita).then(function(data){
-        if(data.GetBOR_CITASResult == -1){
-          ngNotify.set('CORRECTO, se eliminó la cita.', 'success');
-          $state.go('home.procesos.agenda');
-        }else{
-          ngNotify.set('ERROR, al eliminar la cita.', 'warn');
-          $state.go('home.procesos.agenda');
+      var ObjCita = {
+        'No_Cita': vm.ClvCita,
+        'Tipo': (vm.QuejaOrden == 'O')? 'Orden':'Reporte',
+        'Contrato': vm.Contrato,
+        'FECHA': vm.FechaCitaDB,
+        'Clv_OrdRep': (vm.QuejaOrden == 'O')? vm.ClvOrden:vm.ClvReporte
+      };
+      var ObjCita = ObjCita;
+      var modalInstance = $uibModal.open({
+        animation: true,
+        ariaLabelledBy: 'modal-title',
+        ariaDescribedBy: 'modal-body', 
+        templateUrl: 'views/procesos/ModalDeleteCita.html',
+        controller: 'ModalDeleteCitaCtrl',
+        controllerAs: 'ctrl',
+        backdrop: 'static',
+        keyboard: false,
+        class: 'modal-backdrop fade',
+        size: 'sm',
+        resolve: {
+          ObjCita: function () {
+              return ObjCita;
+          }
         }
       });
     }
@@ -158,7 +175,13 @@ angular
     function toDate(dateStr) {
       var parts = dateStr.split("/");
       var subparts = parts[2].split(" ");
-      return new Date(parts[1] + '/' + parts[0] + '/' + subparts[0])
+      return new Date(parts[1] + '/' + parts[0] + '/' + subparts[0]);
+    }
+
+    function toDateD(dateStr) {
+      var parts = dateStr.split("/");
+      var subparts = parts[2].split(" ");
+      return parts[0] + '/' + parts[1] + '/' + subparts[0];
     }
 
     function JToDate(Fecha){

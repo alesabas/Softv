@@ -7,7 +7,6 @@ angular
     function init(){
       CatalogosFactory.GetPlazaList($localStorage.currentUser.idUsuario).then(function(data){
         vm.PlazaList = data.GetPlazaListResult;
-        vm.Plaza = vm.PlazaList[0];
         GetAgendaList();
       });
 
@@ -28,12 +27,13 @@ angular
     
     function GetAgendaList(Opc){
       var ObjAgenda = {
-        'idcompania': vm.Plaza.id_compania,
+        'idcompania': (vm.Plaza != undefined)? vm.Plaza.id_compania:0,
+        'idcompania': (Opc == 1 && (vm.Contrato != undefined && vm.Contrato != ''))? CheckContrato(vm.Contrato,'P'):(vm.Plaza != undefined)? vm.Plaza.id_compania:0,
         'ClvUsuario': $localStorage.currentUser.idUsuario,
         'opSetupBoxTarjeta': 1,
-        'CLV_TECNICO': (Opc == 1 && vm.Tecnico != undefined)? vm.Tecnico.clv_tecnico : 0,
-        'CONTRATO': (Opc == 1 && (vm.Contrato != undefined || vm.Contrato))? CheckContrato(vm.Contrato):0,
-        'Sector': (Opc > 0 && vm.Sector != undefined)? vm.Sector.Clv_Sector : 0,
+        'CLV_TECNICO': (vm.Tecnico != undefined)? vm.Tecnico.clv_tecnico : 0,
+        'CONTRATO': (Opc == 1 && (vm.Contrato != undefined && vm.Contrato != ''))? CheckContrato(vm.Contrato,'C'):0,
+        'Sector': (vm.Sector != undefined)? vm.Sector.Clv_Sector : 0,
         'NOMBRE': (Opc == 2 && vm.Nombre != undefined)? vm.Nombre : '',
         'ApellidoPaterno': (Opc == 2 && vm.Paterno != undefined)? vm.Paterno : '',
         'ApellidoMaterno': (Opc == 2 && vm.Materno != undefined)? vm.Materno : '',
@@ -53,13 +53,13 @@ angular
       });
     }
 
-    function CheckContrato(Contrato){
+    function CheckContrato(Contrato, Set){
       var g = new RegExp("-");
       if(g.test(Contrato)){
         var SubC = Contrato.split("-");
-        return parseInt(SubC[0]);
+        return (Set == 'C')? parseInt(SubC[0]):parseInt(SubC[1]);
       }else{
-        return parseInt(Contrato);
+        return (Set == 'C')? parseInt(Contrato):0;
       }
     }
 
@@ -73,8 +73,30 @@ angular
       return FDate;
     }
 
+    function OpenDeleteCita(ObjCita){
+      var ObjCita = ObjCita;
+      var modalInstance = $uibModal.open({
+        animation: true,
+        ariaLabelledBy: 'modal-title',
+        ariaDescribedBy: 'modal-body', 
+        templateUrl: 'views/procesos/ModalDeleteCita.html',
+        controller: 'ModalDeleteCitaCtrl',
+        controllerAs: 'ctrl',
+        backdrop: 'static',
+        keyboard: false,
+        class: 'modal-backdrop fade',
+        size: 'sm',
+        resolve: {
+          ObjCita: function () {
+              return ObjCita;
+          }
+        }
+      });
+    }
+
     var vm = this;
     vm.GetAgendaList = GetAgendaList;
+    vm.OpenDeleteCita = OpenDeleteCita;
     init();    
 
   });

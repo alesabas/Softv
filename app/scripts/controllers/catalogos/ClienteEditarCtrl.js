@@ -890,7 +890,7 @@ angular
         
         var vm = this;
         vm.IdContrato = $stateParams.id;
-        vm.Title = 'Cliente editar - ' + vm.IdContrato;
+        vm.Title = 'Cliente - ' + vm.IdContrato;
         vm.SetForm = 1;
         vm.ShowAccord = true;
         vm.BlockInput = true;
@@ -920,7 +920,6 @@ angular
         vm.ValidateFechaVen = ValidateFechaVen;
         vm.AddDatosFiscales = AddDatosFiscales;
         vm.AddDatosBancarios = AddDatosBancarios;
-        //vm.AddRefPersonales = AddRefPersonales;
         vm.OpenAddRefPersonal = OpenAddRefPersonal;
         vm.OpenEditRefPersonal = OpenEditRefPersonal;
         vm.OpenDeleteRefPersonal = OpenDeleteRefPersonal;
