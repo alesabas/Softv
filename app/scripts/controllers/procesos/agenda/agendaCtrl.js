@@ -46,13 +46,15 @@ angular
         if(vm.AgendaList.length > 0){
           vm.ConResultado = true;
           vm.SinResultado = false;
+          ClearInput();
         }else{
           vm.ConResultado = false;
           vm.SinResultado = true;
+          ClearInput();
         }
       });
     }
-
+    
     function CheckContrato(Contrato, Set){
       var g = new RegExp("-");
       if(g.test(Contrato)){
@@ -93,6 +95,16 @@ angular
         }
       });
     }
+
+    function ClearInput(){
+      vm.Nombre = undefined;
+      vm.Paterno = undefined;
+      vm.Materno = undefined;
+      vm.Contrato = undefined;
+      vm.Dia = undefined;
+      vm.SetUpBox = undefined;
+      vm.Turno = undefined;
+    };
 
     var vm = this;
     vm.GetAgendaList = GetAgendaList;

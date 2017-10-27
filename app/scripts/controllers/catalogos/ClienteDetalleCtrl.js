@@ -2,7 +2,7 @@
 
 angular
     .module('softvApp')
-    .controller('ClienteEditarCtrl', function(CatalogosFactory, ngNotify, $uibModal, $state, $stateParams, $rootScope, $localStorage){
+    .controller('ClienteDetalleCtrl', function(CatalogosFactory, ngNotify, $uibModal, $state, $stateParams, $rootScope, $localStorage){
 
         function initData(){
             CatalogosFactory.GetStatusNet().then(function(data){
@@ -911,7 +911,7 @@ angular
         vm.ShowTipServ1 = false;
         vm.DisFormDetallServicio = false;
         vm.DisFormDetallAparato = false;
-        vm.View = false;
+        vm.View = true;
         vm.ValidateRFC = /^[A-Z]{4}\d{6}[a-zA-Z]{3}$|^[A-Z]{4}\d{6}\d{3}$|^[A-Z]{4}\d{6}[A-Z]{2}\d{1}$|^[A-Z]{4}\d{6}[A-Z]{1}\d{2}$|^[A-Z]{4}\d{6}\d{2}[a-zA-Z]{1}$|^[A-Z]{4}\d{6}\d{1}[a-zA-Z]{2}$|^[A-Z]{4}\d{6}\d{1}[A-Z]{1}\d{1}$|^[A-Z]{4}\d{6}[A-Z]{1}\d{1}[a-zA-Z]{1}$/;
         vm.AddDatosPersonales = AddDatosPersonales;
         vm.GetCiudadMunicipio = GetCiudadMunicipio;

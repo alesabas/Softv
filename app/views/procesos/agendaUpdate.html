@@ -21,11 +21,9 @@
             <small class="text-muted" style="font-size:14px; margin-left:10px;"> <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">Editar Agenda</a></small>
         </header>
         <div class="tools">
-            <div class="btn-group">
-                <button type="submit" class="btn btn-primary btn-sm" title="Guardar Cambios" ng-show="!$ctrl.DisForm"> GUARDAR</button>
-                <button type="button" class="btn btn-danger btn-sm" ng-click="$ctrl.DeleteCita();" title="Eliminar Registro" ng-show="!$ctrl.DisForm"> ELIMINAR</button>
-                <button type="button" class="btn btn-default btn-sm" ui-sref="home.procesos.agenda" title="Cancelar"> CANCELAR</button>
-            </div>
+            <button type="submit" class="btn btn-primary btn-sm" title="Guardar Cambios" ng-show="!$ctrl.DisForm"> GUARDAR</button>
+            <button type="button" class="btn btn-danger btn-sm" ng-click="$ctrl.DeleteCita();" title="Eliminar Registro" ng-show="!$ctrl.DisForm"> ELIMINAR</button>
+            <button type="button" class="btn btn-default btn-sm" ui-sref="home.procesos.agenda" title="Cancelar"> CANCELAR</button>
         </div>
     </div>
     <br>

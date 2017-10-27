@@ -264,6 +264,7 @@
         <div class="row">
             <div class="col-md-12" ng-show="$ctrl.SetForm == 1">
                 <form name="FormDatosPersonales" angular-validator-submit="$ctrl.AddDatosPersonales()" novalidate angular-validator autocomplete="off">
+                    <fieldset ng-disabled="$ctrl.View">
                     <div class="col-md-12">
                         <div class="col-md-12">
                             <div class="col-md-12">
@@ -476,15 +477,17 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="col-md-12" style="text-align:right">
-                                    <button type="submit" class="btn btn-success btn-sm">Validar</button>
+                                    <button type="submit" class="btn btn-success btn-sm" ng-show="!$ctrl.View">Validar</button>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    </fieldset>
                 </form>
             </div>
             <div class="col-md-12" ng-show="$ctrl.SetForm == 2">
                 <form name="FormDatosFiscales" angular-validator-submit="$ctrl.AddDatosFiscales()" novalidate angular-validator autocomplete="off">
+                    <fieldset ng-disabled="$ctrl.View">
                     <div class="col-md-12">
                         <div class="col-md-12">
                             <div class="col-md-12">
@@ -619,11 +622,12 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="col-md-12" style="text-align:right">
-                                    <button type="submit" class="btn btn-success btn-sm" ng-disabled="$ctrl.DisableInput">Validar</button>
+                                    <button type="submit" class="btn btn-success btn-sm" ng-disabled="$ctrl.DisableInput" ng-show="!$ctrl.View">Validar</button>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    </fieldset>
                 </form>
             </div>
             <div class="col-md-12" ng-show="$ctrl.SetForm == 3">

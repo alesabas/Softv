@@ -403,6 +403,16 @@ angular
                 controllerAs: '$ctrl'
             },
             {
+                name: 'home.catalogos.cliente_detalle',
+                data: {
+                    pageTitle: 'SOFTV | DETALLE CLIENTE'
+                },
+                url: '/catalogo/clientes/detalle/:id',
+                templateUrl: 'views/catalogos/ClienteNuevo.html',
+                controller: 'ClienteDetalleCtrl',
+                controllerAs: '$ctrl'
+            },
+            {
                 name: 'home.catalogos.servicios',
                 data: {
                     pageTitle: 'SOFTV | CATÁLOGO SERVICIOS',

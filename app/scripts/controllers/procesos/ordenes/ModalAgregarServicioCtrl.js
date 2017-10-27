@@ -57,6 +57,7 @@
 
 
           ordenesFactory.addDetalleOrden(detalle).then(function (data) {
+            console.log('Detalle Serv',data);
             vm.clv_detalle_orden = data.AddDetOrdSerResult;
 
             $rootScope.$emit('detalle_orden', vm.clv_detalle_orden);
@@ -175,7 +176,7 @@
               var items_ = {
                 'Trabajo': vm.NOM[0],
                 'Contrato': items.contrato,
-                'Clave': items.clv_orden,
+                'Clave': vm.clv_detalle_orden,
                 'ClvOrden':items.clv_orden,
                 'Clv_TipSer': vm.selectedServicio.clv_tipser
               };
