@@ -43,6 +43,7 @@ angular
         var vm = this;
         vm.Titulo = 'Nueva Colonia';
         vm.Disable = true;
+        vm.View = false;
         vm.SaveColonia = SaveColonia;
         initData();
 

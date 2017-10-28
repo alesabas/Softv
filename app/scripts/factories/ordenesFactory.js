@@ -1737,7 +1737,7 @@ angular
         'CONTRATO': obj.contrato,
         'Status': obj.Status,
         'OP': obj.Op,
-        'clv_tipSer': obj.Clv_TipSer
+        'clv_tipser': obj.Clv_TipSer
       };
       console.log(Parametros);
       var config = {

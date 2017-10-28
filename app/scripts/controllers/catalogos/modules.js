@@ -291,7 +291,6 @@ angular
                 controller: 'DistribuidorDetalleCtrl',
                 controllerAs: '$ctrl'
             },
-           
             {
                 name: 'home.catalogos.colonias',
                 data: {
@@ -320,6 +319,21 @@ angular
                 url: '/catalogo/colonias/nuevo',
                 templateUrl: 'views/catalogos/coloniaForm.html',
                 controller: 'ColoniaFormAddCtrl',
+                controllerAs: '$ctrl'
+            },
+            {
+                name: 'home.catalogos.colonia_detalle',
+                data: {
+                    pageTitle: 'SOFTV | DETALLE COLONIA',
+                    permissions: {
+                        options: {
+                            reload: false
+                        }
+                    }
+                },
+                url: '/catalogo/colonias/detalle/:id',
+                templateUrl: 'views/catalogos/coloniaForm.html',
+                controller: 'ColoniaFormViewCtrl',
                 controllerAs: '$ctrl'
             },
             {

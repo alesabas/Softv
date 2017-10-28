@@ -2,7 +2,7 @@
 
 angular
     .module('softvApp')
-    .controller('ModalEstadoFormUpdateCtrl', function(CatalogosFactory, $uibModalInstance, ngNotify, $state, Clv_Estado){
+    .controller('ModalEstadoFormViewCtrl', function(CatalogosFactory, $uibModalInstance, ngNotify, $state, Clv_Estado){
         
         function initData(){
             CatalogosFactory.GetDeepEstados_New(Clv_Estado).then(function(data){
@@ -57,7 +57,7 @@ angular
         var vm = this;
         vm.Titulo = 'Editar Registro - ';
         vm.Icono = 'fa fa-pencil-square-o';
-        vm.View = false;
+        vm.View = true;
         vm.SaveEstado = SaveEstado;
         vm.cancel = cancel;
         initData();

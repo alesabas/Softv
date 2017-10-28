@@ -5,9 +5,6 @@ angular
     .controller('ColoniasCtrl', function($uibModal, CatalogosFactory, $localStorage){
         
         function initData(){
-            /*CatalogosFactory.GetPlazaList($localStorage.currentUser.idUsuario).then(function(data){
-                vm.PlazaList = data.GetPlazaListResult;
-            });*/
             GetColoniaList();
         }
 

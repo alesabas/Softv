@@ -2,7 +2,7 @@
 
 angular
     .module('softvApp')
-    .controller('ColoniaFormUpdateCtrl', function(CatalogosFactory, ngNotify, $state, $stateParams){
+    .controller('ColoniaFormViewCtrl', function(CatalogosFactory, ngNotify, $state, $stateParams){
 
         function initData(){
             CatalogosFactory.GetTipo_Colonias1_NewList().then(function(data){
@@ -261,10 +261,10 @@ angular
         }
 
         var vm = this;
-        vm.Titulo = 'Editar Colonia - ';
+        vm.Titulo = 'Detalle Colonia - ';
         vm.ShowRel = false;
         vm.Disable = false;
-        vm.View = false;
+        vm.View = true;
         vm.Clv_Colonia = $stateParams.id;
         vm.SaveColonia = SaveColonia;
         vm.GetCiudadList = GetCiudadList;

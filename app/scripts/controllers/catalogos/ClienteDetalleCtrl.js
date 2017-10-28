@@ -869,7 +869,6 @@ angular
                 vm.DisFS = (vm.StatusServicio.Clv_StatusNet == 'S')? false : true;
                 vm.DisFB = (vm.StatusServicio.Clv_StatusNet == 'B')? false : true;
                 vm.DisFFA = (vm.StatusServicio.Clv_StatusNet == 'F')? false : true;
-                
             }else{
                 vm.DisFI = true;
                 vm.DisFS = true;
@@ -909,8 +908,6 @@ angular
         vm.DisFA_A = true;
         vm.DisFB_A = true;
         vm.ShowTipServ1 = false;
-        vm.DisFormDetallServicio = false;
-        vm.DisFormDetallAparato = false;
         vm.View = true;
         vm.ValidateRFC = /^[A-Z]{4}\d{6}[a-zA-Z]{3}$|^[A-Z]{4}\d{6}\d{3}$|^[A-Z]{4}\d{6}[A-Z]{2}\d{1}$|^[A-Z]{4}\d{6}[A-Z]{1}\d{2}$|^[A-Z]{4}\d{6}\d{2}[a-zA-Z]{1}$|^[A-Z]{4}\d{6}\d{1}[a-zA-Z]{2}$|^[A-Z]{4}\d{6}\d{1}[A-Z]{1}\d{1}$|^[A-Z]{4}\d{6}[A-Z]{1}\d{1}[a-zA-Z]{1}$/;
         vm.AddDatosPersonales = AddDatosPersonales;

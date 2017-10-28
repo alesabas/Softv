@@ -32,6 +32,27 @@ angular
             });
         }
 
+        function OpenViewCalle(IdCalle){
+            var IdCalle = IdCalle;
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'views/catalogos/ModalCalleForm.html',
+                controller: 'ModalCalleFormViewCtrl',
+                controllerAs: 'ctrl',
+                backdrop: 'static',
+                keyboard: false,
+                class: 'modal-backdrop fade',
+                size: 'lg',
+                resolve: {
+                    IdCalle: function () {
+                        return IdCalle;
+                    }
+                }
+            });
+        }
+
         function OpenUpdateCalle(IdCalle){
             var IdCalle = IdCalle;
             var modalInstance = $uibModal.open({
@@ -55,6 +76,7 @@ angular
 
         var vm = this;
         vm.OpenAddCalle = OpenAddCalle;
+        vm.OpenViewCalle = OpenViewCalle;
         vm.OpenUpdateCalle = OpenUpdateCalle;
         initData();
         

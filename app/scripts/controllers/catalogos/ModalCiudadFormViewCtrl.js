@@ -2,55 +2,16 @@
 
 angular
     .module('softvApp')
-    .controller('ModalCiudadFormAddCtrl', function(CatalogosFactory, $uibModalInstance, $uibModal, ngNotify, $state){
+    .controller('ModalCiudadFormViewCtrl', function(CatalogosFactory, $uibModalInstance, ngNotify, $state, IdMunicipio){
 
         function initData(){
-            //GetEstadoList(vm.IdMunicipio);
-        }
-
-        function SaveCiudad(){
-            var ObjCiudad = {
-                'Nombre': vm.Ciudad,
-                'Id':0
-
-            };
-            CatalogosFactory.GetAddCiudades(ObjCiudad).then(function(data){
-                if(data.GetAddCiudadesResult[0].mismoNombre == 0){
-                    vm.IdCiudad = data.GetAddCiudadesResult[0].Clv_Ciudad;
-                    $state.reload('home.catalogos.ciudades');
-                    ngNotify.set('CORRECTO, se añadió una ciudad nueva, ahora puedes comenzar a agregar relaciones', 'success');
-                    vm.ShowEdit = false;
-                    vm.ShowAdd = true;
-                    GetEstadoList(vm.IdCiudad);
-                }else if(data.GetAddCiudadesResult[0].mismoNombre == 1){
-                    ngNotify.set('ERROR, Ya existe una ciudad con el mismo nombre.', 'warn');
-                }else{
-                    ngNotify.set('ERROR, al añadir una ciudad nueva.', 'warn');
-                    $state.reload('home.catalogos.ciudades');
-                    cancel();
-                }
+            CatalogosFactory.GetMuestraCiudadById(IdMunicipio).then(function(data){
+                var Ciudad = data.GetMuestraCiudadByIdResult[0];
+                vm.IdCiudad = Ciudad.Clv_Ciudad;
+                vm.Ciudad = Ciudad.Nombre;
             });
-        }
-
-        function OpenUpdateCiudad(IdMunicipio){
-            var IdMunicipio = IdMunicipio;
-            var modalInstance = $uibModal.open({
-                animation: true,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: 'views/catalogos/ModalCiudadForm.html',
-                controller: 'ModalCiudadFormUpdateCtrl',
-                controllerAs: 'ctrl',
-                backdrop: 'static',
-                keyboard: false,
-                class: 'modal-backdrop fade',
-                size: 'md',
-                resolve: {
-                    IdMunicipio: function () {
-                        return IdMunicipio;
-                    }
-                }
-            });
+            GetRelEstMun(IdMunicipio);
+            GetEstadoList(IdMunicipio);
         }
 
         function GetEstadoList(IdMunicipio){
@@ -109,21 +70,39 @@ angular
             })
         }
 
+        function SaveCiudad(){
+            var objCiudades_New = {
+                'Nombre': vm.Ciudad,
+                'Clv_Ciudad': vm.IdCiudad
+            };
+            CatalogosFactory.UpdateCiudades_New(objCiudades_New).then(function(data){
+                if(data.UpdateCiudades_NewResult == -1){
+                    ngNotify.set('CORRECTO, se guardó la ciudad.', 'success');
+                    $state.reload('home.catalogos.ciudades');
+                    cancel();
+                }else{
+                    GetRelEstMun(vm.IdCiudad);
+                    ngNotify.set('ERROR, al guardar la ciudad.', 'warn');
+                    $state.reload('home.catalogos.ciudades');
+                    cancel();
+                }
+            });
+        }
+        
         function cancel() {
             $uibModalInstance.dismiss('cancel');
         }
 
         var vm = this;
-        vm.Titulo = 'Nuevo Registro';
-        vm.Icono = 'fa fa-plus';
-        vm.ShowEdit = true;
+        vm.Titulo = 'Editar Registro - ';
+        vm.Icono = 'fa fa-pencil-square-o';
+        vm.ShowEdit = false;
         vm.ShowAdd = false;
-        vm.DisableAdd = false;
-        vm.DisableUpdate = true;
-        vm.View = false;
-        vm.SaveCiudad = SaveCiudad;
+        vm.View = true;
+        vm.RelEstViewList = [];
         vm.AddRelEst = AddRelEst;
         vm.DeleteRelEst = DeleteRelEst;
+        vm.SaveCiudad = SaveCiudad;
         vm.cancel = cancel;
         initData();
 

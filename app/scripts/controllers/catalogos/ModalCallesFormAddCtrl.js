@@ -57,9 +57,11 @@ angular
                 if(data.AddRelColoniasCalles_NewResult == 0){
                     ngNotify.set('CORRECTO, se guardó la relación con la colonia.', 'success');
                     GetRelCalle();
+                    ClearInput();
                 }else{
                     ngNotify.set('ERROR, al guardar la relación con la colonia, posiblemente esta relación ya existe para esta calle.', 'warn');
                     GetRelCalle();
+                    ClearInput();
                 }
             });
         }
@@ -126,6 +128,13 @@ angular
             }
         }
 
+        function ClearInput(){
+            vm.Estado = undefined;
+            vm.CiudadList = null;
+            vm.LocalidadList = null;
+            vm.ColoniaList = null;
+        }
+
         function cancel() {
             $uibModalInstance.dismiss('cancel');
         }
@@ -135,6 +144,7 @@ angular
         vm.Icono = 'fa fa-plus';
         vm.Disable = true;
         vm.DisableAdd = false;
+        vm.View = false;
         vm.SaveCalle = SaveCalle;
         vm.GetCiudadList = GetCiudadList;
         vm.GetColoniaList = GetColoniaList;
