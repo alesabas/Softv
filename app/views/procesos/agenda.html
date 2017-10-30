@@ -133,7 +133,7 @@
                                 <td>{{ X.Turno}}</td>
                                 <td>{{ X.Status }}</td>
                                 <td><button type="button" class="btn btn-info btn-xs" ui-sref="home.procesos.agendaDetalle({ id:X.No_Cita, cliente:X.Contrato })" title="EDITAR"><i class="fa fa-eye"></i> Cosultar</button></td>
-                                <td><button type="button" class="btn btn-warning btn-xs" ui-sref="home.procesos.agendaEditar({ id:X.No_Cita, cliente:X.Contrato })" title="EDITAR"><i class="fa fa-pencil-square-o"></i> Editar</button></td>
+                                <td><button type="button" class="btn btn-warning btn-xs" ui-sref="home.procesos.agendaEditar({ id:X.No_Cita, cliente:X.Contrato })" title="EDITAR" ng-show="X.Estado == 'Sin Agendar'"><i class="fa fa-pencil-square-o"></i> Editar</button></td>
                                 <td><button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.OpenDeleteCita(X);" title="ELIMINAR"><i class="fa fa-trash"></i> Eliminar</button></td>
                             </tr>
                             <tr ng-show="$ctrl.SinResultado">

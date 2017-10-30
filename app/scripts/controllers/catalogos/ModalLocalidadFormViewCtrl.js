@@ -2,7 +2,7 @@
 
 angular
     .module('softvApp')
-    .controller('ModalLocalidadFormUpdateCtrl', function(CatalogosFactory, $uibModalInstance, ngNotify, $state, IdLocalidad, $localStorage){
+    .controller('ModalLocalidadFormViewCtrl', function(CatalogosFactory, $uibModalInstance, ngNotify, $state, IdLocalidad, $localStorage){
 
         function initData(){
             var ObjCiudad = {
@@ -134,7 +134,7 @@ angular
         vm.Titulo = 'Editar Registro - ';
         vm.Icono = 'fa fa-pencil-square-o';
         vm.ShowUpdate = true;
-        vm.View = false;
+        vm.View = true;
         vm.SaveLocalidad = SaveLocalidad;
         vm.AddEstMun = AddEstMun;
         vm.DeleteEstMun = DeleteEstMun;

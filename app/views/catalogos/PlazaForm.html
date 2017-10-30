@@ -18,15 +18,13 @@
             </small>
       </header>
       <div class="tools">
-        <button type="submit" class="btn btn-primary btn-sm" ng-disabled="$ctrl.block" title="Guardar Plaza">Guardar</button>
-        <button type="button" class="btn btn-default-bright btn-sm" ui-sref="home.catalogos.plazas" title="Cancelar cambios">Cancelar</button>
+        <button type="submit" class="btn btn-primary btn-sm" ng-disabled="$ctrl.block" title="Guardar Plaza" ng-show="!$ctrl.block"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
+        <button type="button" class="btn btn-default-bright btn-sm" ui-sref="home.catalogos.plazas" title="Cancelar cambios"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
       </div>
     </div>
     <div class="card-body">
       <fieldset ng-disabled="$ctrl.block">
         <div class="col-md-12">
-
-          <!--datos de plaza-->
           <div class="col-md-6">
             <h4 class="text-primary text-center"><b>Datos de la plaza</b></h4>
             <div class="col-md-12">
@@ -39,9 +37,7 @@
               </div>
               <div class="col-md-6">
                 <b><small>Nombre de la Plaza:</small></b>
-                <input name="InpPlaza" type="text" class="form-control input-sm" ng-model="$ctrl.detplaza.Razonsocial" validate-on="dirty"
-                  required required-message="'Obligatorio'">
-
+                <input name="InpPlaza" type="text" class="form-control input-sm" ng-model="$ctrl.detplaza.Razonsocial" validate-on="dirty" required required-message="'Obligatorio'">
               </div>
             </div>
             <div class="col-md-12">
@@ -75,30 +71,23 @@
 
               </div>
               <div class="col-md-6">
-
                 <b><small>Código Postal:</small></b>
                 <input name="InpCP" type="text" class="form-control input-sm" ng-model="$ctrl.detplaza.CP" maxlength="5" ng-pattern="/^\d{5}$/"
                   validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa 5 dígitos.'">
               </div>
             </div>
-
-
             <div class="col-md-12">
               <div class="col-md-6">
                 <b><small>Localidad:</small></b>
                 <input name="InpLocalidad" type="text" class="form-control input-sm" ng-model="$ctrl.detplaza.Localidad" validate-on="dirty"
                   required required-message="'Obligatorio'">
-
               </div>
               <div class="col-md-6">
                 <b><small>Municipio:</small></b>
                 <input name="InpMunicipio" type="text" class="form-control input-sm" ng-model="$ctrl.detplaza.Municipio" validate-on="dirty"
                   required required-message="'Obligatorio'">
-
               </div>
             </div>
-
-
             <div class="col-md-12">
               <div class="col-md-6">
                 <b><small>Estado:</small></b>
@@ -109,10 +98,8 @@
                 <b><small>País:</small></b>
                 <input name="InpPais" type="text" class="form-control input-sm" ng-model="$ctrl.detplaza.Pais" validate-on="dirty" required
                   required-message="'Obligatorio'">
-
               </div>
             </div>
-
             <div class="col-md-12">
               <div class="col-md-6">
                 <b><small>Contacto:</small></b>
@@ -130,7 +117,6 @@
                   required-message="'Obligatorio'" invalid-message="'Inválido.'">
               </div>
             </div>
-
           </div>
           <!--datos de plaza-->
           <!--datos de almacen-->
@@ -153,8 +139,6 @@
                   validate-on="dirty" required required-message="'Obligatorio'" placeholder="CP" invalid-message="'Inválido, Ingresa 5 dígitos.'">
               </div>
             </div>
-
-
             <div class="col-md-12">
               <div class="col-md-6">
                 <b><small>Colonia:</small></b>
@@ -167,10 +151,7 @@
                   required required-message="'Obligatorio'">
               </div>
             </div>
-
-
             <div class="col-md-12">
-
               <div class="col-md-6">
                 <b><small>Municipio:</small></b>
                 <input name="InpMunicipioAlm" type="text" class="form-control input-sm" ng-model="$ctrl.detplaza.MunicipioAlmacen" validate-on="dirty"
@@ -225,7 +206,7 @@
                     <tr ng-repeat="X in $ctrl.relaciones">
                       <td>{{ X.Estado }}</td>
                       <td>{{ X.Nombre }}</td>
-                      <td><button type="button" class="btn btn-danger btn-xs" title="Eliminar Ciudad" ng-click="$ctrl.EliminaRelacion(X)">Eliminar</button></td>
+                      <td><button type="button" class="btn btn-danger btn-xs" title="Eliminar Ciudad" ng-click="$ctrl.EliminaRelacion(X)"><i class="fa fa-trash"></i> Eliminar</button></td>
                     </tr>
                   </tbody>
                 </table>
@@ -234,10 +215,8 @@
             </div>
           </div>
           <!--datos de almacen-->
-
         </div>
       </fieldset>
-
     </div>
   </div>
 </form>

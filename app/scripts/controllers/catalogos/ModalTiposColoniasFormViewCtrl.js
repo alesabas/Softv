@@ -2,7 +2,7 @@
 
 angular
     .module('softvApp')
-    .controller('ModalTiposColoniasFormUpdateCtrl', function(CatalogosFactory, $uibModalInstance, ngNotify, $state, Clave){
+    .controller('ModalTiposColoniasFormViewCtrl', function(CatalogosFactory, $uibModalInstance, ngNotify, $state, Clave){
 
         function initData(){
             CatalogosFactory.GetDeepTipo_Colonias1_New(Clave).then(function(data){
@@ -37,7 +37,7 @@ angular
         var vm = this;
         vm.Titulo = 'Editar Registro - ';
         vm.Icono = 'fa fa-pencil-square-o';
-        vm.View = false;
+        vm.View = true;
         vm.SaveTipoColonia = SaveTipoColonia;
         vm.cancel = cancel;
         initData();

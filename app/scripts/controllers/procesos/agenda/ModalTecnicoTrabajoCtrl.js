@@ -15,7 +15,6 @@ angular
             };
             agendaFactory.GetTrabajosOrdenesTecnicoDia(ObjTecTrabajo).then(function(data){
                 vm.TecnicoTrabajoList = data.GetTrabajosOrdenesTecnicoDiaResult;
-                console.log(data);
                 if(vm.TecnicoTrabajoList.length > 0){
                     vm.TotalReportes = vm.TecnicoTrabajoList[0].TOTALQUEJAS;
                     vm.TotalOrdenes = vm.TecnicoTrabajoList[0].TOTALORDENES;

@@ -17,7 +17,7 @@
     </header>
     <div class="tools">
       <div class="btn-group">
-        <button type="button" class="btn btn-primary btn-sm" ui-sref="home.catalogos.plaza_nueva" title="Crear una plaza nueva">NUEVA PLAZA</button>
+        <button type="button" class="btn btn-primary btn-sm" ui-sref="home.catalogos.plaza_nueva" title="Crear una plaza nueva"><i class="fa fa-plus"></i> NUEVA PLAZA</button>
       </div>
     </div>
   </div>
@@ -25,10 +25,9 @@
     <div class="row">
       <div class="col-md-12">
         <div class="col-md-3" style="text-align:right">
-          <select class="form-control" name="dis" ng-model="$ctrl.distribuidor" ng-options="item as item.Nombre for item in $ctrl.distribuidores track by item.Clv_Plaza">
-                    <option value="">Selecciona distribuidor</option>
-           </select>
-          <!--  -->
+          <select class="form-control input-sm" name="dis" ng-model="$ctrl.distribuidor" ng-options="item as item.Nombre for item in $ctrl.distribuidores track by item.Clv_Plaza">
+            <option value="">Selecciona distribuidor</option>
+          </select>
         </div>
         <div class="col-md-3" style="text-align:right">
           <div class="input-group">
@@ -48,20 +47,17 @@
         <table class="table">
           <thead>
             <tr>
-              <th ><b>Id</b></th>
-              <th ><b>Nombre de la plaza</b></th>
-              <th ><b>Acciones</b></th>
+              <th width="10%"><b>Id</b></th>
+              <th width="70%"><b>Nombre de la plaza</b></th>
+              <th width="20%" colspan="2"><b>Acciones</b></th>
             </tr>
           </thead>
           <tbody>
-
             <tr dir-paginate="X in $ctrl.plazas|filter:$ctrl.SearchPlaza|itemsPerPage:7">
               <td>{{ X.id_compania }}</td>
               <td>{{ X.razon_social }}</td>
-              <td>
-                  <button type="button" class="btn btn-info btn-xs" ui-sref="home.catalogos.plaza_detalle({ id:X.id_compania })" title="consultar Plaza"><i class="fa fa-pencil-square-o"></i> CONSULTAR</button>
-                <button type="button" class="btn btn-warning btn-xs" ui-sref="home.catalogos.plaza_editar({ id:X.id_compania })" title="Editar Plaza"><i class="fa fa-pencil-square-o"></i> EDITAR</button>
-              </td>
+              <td><button type="button" class="btn btn-info btn-xs" ui-sref="home.catalogos.plaza_detalle({ id:X.id_compania })" title="Consultar Plaza"><i class="fa fa-eye"></i> CONSULTAR</button></td>
+              <td><button type="button" class="btn btn-warning btn-xs" ui-sref="home.catalogos.plaza_editar({ id:X.id_compania })" title="Editar Plaza"><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
             </tr>
           </tbody>
         </table>

@@ -53,6 +53,27 @@ angular
             });
         }
 
+        function OpenViewTipoColonia(Clave){
+            var Clave = Clave;
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'views/catalogos/ModalTiposColoniasForm.html',
+                controller: 'ModalTiposColoniasFormViewCtrl',
+                controllerAs: 'ctrl',
+                backdrop: 'static',
+                keyboard: false,
+                class: 'modal-backdrop fade',
+                size: 'md',
+                resolve: {
+                    Clave: function () {
+                        return Clave;
+                    }
+                }
+            });
+        }
+
         function OpenDeleteTipoColonia(Clave){
             var Clave = Clave;
             var modalInstance = $uibModal.open({
@@ -78,6 +99,7 @@ angular
         vm.OpenAddTipoColonia = OpenAddTipoColonia;
         vm.OpenUpdateTipoColonia = OpenUpdateTipoColonia;
         vm.OpenDeleteTipoColonia = OpenDeleteTipoColonia;
+        vm.OpenViewTipoColonia = OpenViewTipoColonia;
         initData();
         
     });

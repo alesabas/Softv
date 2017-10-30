@@ -16,7 +16,7 @@
         </header>
         <div class="tools">
 			<div class="btn-group">
-				<button type="button" class="btn btn-primary btn-sm" ng-click="$ctrl.OpenAddTipoColonia()" title="Crear un tipo de colonia nuevo">NUEVO TIPO DE COLONIA</button>
+				<button type="button" class="btn btn-primary btn-sm" ng-click="$ctrl.OpenAddTipoColonia()" title="Crear un tipo de colonia nuevo"><i class="fa fa-plus"></i> NUEVO TIPO DE COLONIA</button>
 			</div>
         </div>
     </div>
@@ -42,8 +42,8 @@
                     <thead>
                         <tr>
                             <th width="10%"><b>Id</b></th>
-                            <th width="70%"><b>Nombre del tipo de colonias</b></th>
-                            <th width="20%" colspan="2"><b>Acciones</b></th>
+                            <th width="60%"><b>Nombre del tipo de colonias</b></th>
+                            <th width="30%" colspan="3"><b>Acciones</b></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -53,6 +53,7 @@
                         <tr dir-paginate="X in $ctrl.TipoColoniaList|filter:$ctrl.SearchTipoColonia|itemsPerPage:7" ng-show="$ctrl.ConRegistros">
                             <td>{{ X.Clave }}</td>
                             <td>{{ X.Concepto }}</td>
+                            <td><button type="button" class="btn btn-info btn-xs" ng-click="$ctrl.OpenViewTipoColonia(X.Clave)" title="Consultar Tipo de Colonia"><i class="fa fa-eye"></i> CONSULTAR</button></td>
                             <td><button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.OpenUpdateTipoColonia(X.Clave)" title="Editar Tipo de Colonia"><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
                             <td><button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.OpenDeleteTipoColonia(X.Clave)" title="Eliminar Tipo de Colonia"><i class="fa fa-trash"></i> ELIMINAR</button></td>
                         </tr>

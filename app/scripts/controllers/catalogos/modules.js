@@ -224,8 +224,6 @@ angular
                 controller: 'PlazaDetalleCtrl',
                 controllerAs: '$ctrl'
             },
-
-            
             {
                 name: 'home.catalogos.localidades',
                 data: {

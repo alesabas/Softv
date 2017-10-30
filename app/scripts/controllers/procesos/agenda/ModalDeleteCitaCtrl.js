@@ -30,5 +30,5 @@ angular
         vm.Clv_OrdRep = ObjCita.Clv_OrdRep;
         vm.DeleteCita = DeleteCita;
         vm.cancel = cancel;
-        console.log(ObjCita);
+        
     });

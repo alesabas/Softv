@@ -9,11 +9,12 @@
             </small>
         </header>
         <div class="tools">
-            <button type="submit" ng-show="!$ctrl.block" class="btn btn-primary btn-sm" title="Guardar Distribuidor">Guardar</button>
-			<button type="button" class="btn btn-default-bright btn-sm" ui-sref="home.catalogos.distribuidores" title="Cancelar cambios">Cancelar</button>
+            <button type="submit" ng-show="!$ctrl.block" class="btn btn-primary btn-sm" title="Guardar Distribuidor"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
+			<button type="button" class="btn btn-default-bright btn-sm" ui-sref="home.catalogos.distribuidores" title="Cancelar cambios"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
 		</div>
     </div>
     <div class="card-body">
+        <fieldset ng-disabled="$ctrl.block">
         <uib-tabset active="active">
             <uib-tab index="0">
                 <uib-tab-heading>
@@ -305,17 +306,14 @@
                                  <input type="text" class="form-control input-sm" name="" ng-model="$ctrl.resatencont">
                               </div>
                          </div>
-
-
                     </div>
                 </div>
-
-              
                 <footer>
                     <p class="text-right"></p>
                 </footer>
             </uib-tab>
         </uib-tabset>
+        </fieldset>
     </div>
 </div>
 </form>

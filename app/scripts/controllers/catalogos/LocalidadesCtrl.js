@@ -54,6 +54,27 @@ angular
             });
         }
 
+        function OpenViewLocalidad(IdLocalidad){
+            var IdLocalidad = IdLocalidad;
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'views/catalogos/ModalLocalidadForm.html',
+                controller: 'ModalLocalidadFormViewCtrl',
+                controllerAs: 'ctrl',
+                backdrop: 'static',
+                keyboard: false,
+                class: 'modal-backdrop fade',
+                size: 'md',
+                resolve: {
+                    IdLocalidad: function () {
+                        return IdLocalidad;
+                    }
+                }
+            });
+        }
+
         function OpenDeleteLocalidad(LocalidadObj){
             var LocalidadObj = LocalidadObj;
             var modalInstance = $uibModal.open({
@@ -79,6 +100,7 @@ angular
         vm.OpenAddLocalidad = OpenAddLocalidad;
         vm.OpenUpdateLocalidad = OpenUpdateLocalidad;
         vm.OpenDeleteLocalidad = OpenDeleteLocalidad;
+        vm.OpenViewLocalidad = OpenViewLocalidad;
         initData();
         
     });

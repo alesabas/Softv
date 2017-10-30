@@ -28,6 +28,7 @@ angular
         var vm = this;
         vm.Titulo = 'Nuevo Registro';
         vm.Icono = 'fa fa-plus';
+        vm.View = false;
         vm.SaveTipoColonia = SaveTipoColonia;
         vm.cancel = cancel;
 
