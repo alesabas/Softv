@@ -484,6 +484,21 @@ angular
                 templateUrl: 'views/catalogos/Bancos.html',
                 controller: 'BancosCtrl',
                 controllerAs: '$ctrl'
+            },
+            {
+                name: 'home.catalogos.VelocidadInternet',
+                data: {
+                    pageTitle: 'SOFTV | CATÁLOGO VELOCIDAD DE INTERNET',
+                    permissions: {
+                        options: {
+                            reload: false
+                        }
+                    }
+                },
+                url: '/catalogo/velocidad_inertnet',
+                templateUrl: 'views/catalogos/VelocidadInternet.html',
+                controller: 'VelocidadInternetCtrl',
+                controllerAs: '$ctrl'
             }
         ];
         states.forEach(function (state) {

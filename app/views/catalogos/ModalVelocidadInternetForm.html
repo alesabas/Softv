@@ -1,0 +1,50 @@
+<form name="FormSaveVelocidadInternet" angular-validator-submit="ctrl.SaveVelocidadInternet()" novalidate angular-validator>
+    <div class="modal-header">
+        <button class="close" type="button" aria-label="close" ng-click="ctrl.cancel()">x</button>
+        <h4 class="modal-title"><i ng-class="ctrl.Icono"></i> {{ ctrl.Titulo }} {{ ctrl.Id }}</h4>
+    </div>
+    <div class="modal-body">
+        <fieldset ng-disabled="ctrl.View">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-offset-1 col-md-4">
+                    <b>Clave equivalente:</b>
+                </div>
+                <div class="col-md-6">
+                    <input type="text" name="InpClaveEquivalente" class="form-control input-sm" ng-model="ctrl.ClaveEquivalente" validate-on="dirty" ng-pattern="/^[a-zA-Z0-9]+$/" required required-message="'Obligatorio'" invalid-message="'Inválido.'" ng-disabled="ctrl.BlockInput">
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-offset-1 col-md-4">
+                    <b>Velocidad de subida:</b>
+                </div>
+                <div class="col-md-3">
+                    <input type="number" name="InpVelocidadSubida" class="form-control input-sm" ng-model="ctrl.VelocidadSubida" validate-on="dirty" min="0" required required-message="'Obligatorio'" invalid-message="'Inválido.'">
+                </div>
+                <div class="col-md-3">
+                    <select name="SlcUnidadMedida1" class="form-control input-sm" ng-model="ctrl.UnidadMedida1" validate-on="dirty" required required-message="'Obligatorio'">
+                        <option value="">Selecciona</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-offset-1 col-md-4">
+                    <b>Velocidad de bajada:</b>
+                </div>
+                <div class="col-md-3">
+                    <input type="number" name="InpVelocidadBajada" class="form-control input-sm" ng-model="ctrl.VelocidadBajada" validate-on="dirty" min="0" required required-message="'Obligatorio'" invalid-message="'Inválido.'">
+                </div>
+                <div class="col-md-3">
+                    <select name="SlcUnidadMedida2" class="form-control input-sm" ng-model="ctrl.UnidadMedida2" validate-on="dirty" required required-message="'Obligatorio'">
+                        <option value="">Selecciona</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        </fieldset>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary btn-sm" title="Guardar Velocidad de Internet"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
+        <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.cancel()" title="Salir"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
+    </div>
+</form>
