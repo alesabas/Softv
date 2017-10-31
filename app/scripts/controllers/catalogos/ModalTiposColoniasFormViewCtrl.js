@@ -35,7 +35,7 @@ angular
         }
 
         var vm = this;
-        vm.Titulo = 'Editar Registro - ';
+        vm.Titulo = 'Detalle Registro - ';
         vm.Icono = 'fa fa-pencil-square-o';
         vm.View = true;
         vm.SaveTipoColonia = SaveTipoColonia;

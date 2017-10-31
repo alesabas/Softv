@@ -2,7 +2,7 @@
 
 angular
     .module('softvApp')
-    .controller('ModalConfiguracionAddCtrl', function($uibModalInstance, $uibModal, CatalogosFactory, $state, $rootScope, ngNotify, Clv_Servicio){
+    .controller('ModalConfiguracionAddCtrl', function($uibModalInstance, $uibModal, CatalogosFactory, $state, $rootScope, ngNotify, Obj){
 
         function initData(){
             CatalogosFactory.GetMuestra_Plazas_ConfiguracionServiciosList(0).then(function(data){
@@ -114,7 +114,8 @@ angular
         var vm = this;
         vm.cancel = cancel;
         vm.ShowRel = false;
-        vm.Clv_Servicio = Clv_Servicio;
+        vm.Clv_Servicio = Obj.Clv_Servicio;
+        vm.View = (Obj.Origen == 'V')? true:false;
         vm.GetRelComEstCiu = GetRelComEstCiu;
         vm.GetSerRelComEstCiu1 = GetSerRelComEstCiu1;
         vm.AddServicioPlaza = AddServicioPlaza;

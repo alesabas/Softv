@@ -5,7 +5,43 @@ angular
     .controller('VelocidadInternetCtrl', function(CatalogosFactory, $uibModal){
         
         function initData(){
-            
+            GetVelocidaInternetList();
+        }
+
+        function GetVelocidaInternetList(){
+            CatalogosFactory.Gettbl_politicasFibraList().then(function(data){
+                vm.VelocidadInternetList = data.Gettbl_politicasFibraListResult;
+                if(vm.VelocidadInternetList.length > 0){
+                    vm.ConRegistros = true;
+                    vm.SinRegistros = false;
+                }else{
+                    vm.ConRegistros = false;
+                    vm.SinRegistros = true;
+                }
+            });
+        }
+
+        function Search(){
+            if(vm.ClaveEquivalente != undefined){
+                var SearchObj = {
+                    'Clv_equivalente': vm.ClaveEquivalente,
+                    'id': 0
+                };
+                CatalogosFactory.GetSp_filtroPoliticas(SearchObj).then(function(data){
+                    vm.VelocidadInternetList = data.GetSp_filtroPoliticasResult;
+                    if(vm.VelocidadInternetList.length > 0){
+                        vm.ConRegistros = true;
+                        vm.SinRegistros = false;
+                        vm.ClaveEquivalente = undefined;
+                    }else{
+                        vm.ConRegistros = false;
+                        vm.SinRegistros = true;
+                        vm.ClaveEquivalente = undefined;
+                    }
+                });
+            }else{
+                GetVelocidaInternetList();
+            }
         }
 
         function OpenAddVelocidadInternet(){
@@ -23,8 +59,8 @@ angular
             });
         }
 
-        function OpenUpdateVelocidadInternet(IdVelocidadInternet){
-            var IdVelocidadInternet = IdVelocidadInternet;
+        function OpenUpdateVelocidadInternet(id){
+            var id = id;
             var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
@@ -37,15 +73,15 @@ angular
                 class: 'modal-backdrop fade',
                 size: 'md',
                 resolve: {
-                    IdVelocidadInternet: function () {
-                        return IdVelocidadInternet;
+                    id: function () {
+                        return id;
                     }
                 }
             });
         }
 
-        function OpenViewVelocidadInternet(IdVelocidadInternet){
-            var IdVelocidadInternet = IdVelocidadInternet;
+        function OpenViewVelocidadInternet(id){
+            var id = id;
             var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
@@ -58,15 +94,15 @@ angular
                 class: 'modal-backdrop fade',
                 size: 'md',
                 resolve: {
-                    IdVelocidadInternet: function () {
-                        return IdVelocidadInternet;
+                    id: function () {
+                        return id;
                     }
                 }
             });
         }
 
-        function OpenDeleteVelocidadInternet(ObjVelocidadInternet){
-            var ObjVelocidadInternet = ObjVelocidadInternet;
+        function OpenDeleteVelocidadInternet(id){
+            var id = id;
             var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
@@ -79,14 +115,15 @@ angular
                 class: 'modal-backdrop fade',
                 size: 'sm',
                 resolve: {
-                    ObjVelocidadInternet: function () {
-                        return ObjVelocidadInternet;
+                    id: function () {
+                        return id;
                     }
                 }
             });
         }
 
         var vm = this;
+        vm.Search = Search;
         vm.OpenAddVelocidadInternet = OpenAddVelocidadInternet;
         vm.OpenUpdateVelocidadInternet = OpenUpdateVelocidadInternet;
         vm.OpenViewVelocidadInternet = OpenViewVelocidadInternet;

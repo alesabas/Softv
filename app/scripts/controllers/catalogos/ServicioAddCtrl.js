@@ -360,6 +360,7 @@ angular
         vm.ShowOrden = false;
         vm.ShowClaveEquivalente = false;
         vm.Disable = false;
+        vm.View = false;
         vm.Clv_TipSer = $stateParams.id;
         vm.SetTipoCobro = SetTipoCobro;
         vm.SetOrden = SetOrden;

@@ -1,4 +1,4 @@
-<form name="FormSaveVelocidadInternet" angular-validator-submit="ctrl.SaveVelocidadInternet()" novalidate angular-validator>
+<form name="FormSaveVelocidadInternet" angular-validator-submit="ctrl.SaveVelocidadInternet()"  novalidate angular-validator autocomplete="off">
     <div class="modal-header">
         <button class="close" type="button" aria-label="close" ng-click="ctrl.cancel()">x</button>
         <h4 class="modal-title"><i ng-class="ctrl.Icono"></i> {{ ctrl.Titulo }} {{ ctrl.Id }}</h4>
@@ -22,7 +22,7 @@
                     <input type="number" name="InpVelocidadSubida" class="form-control input-sm" ng-model="ctrl.VelocidadSubida" validate-on="dirty" min="0" required required-message="'Obligatorio'" invalid-message="'Inválido.'">
                 </div>
                 <div class="col-md-3">
-                    <select name="SlcUnidadMedida1" class="form-control input-sm" ng-model="ctrl.UnidadMedida1" validate-on="dirty" required required-message="'Obligatorio'">
+                    <select name="SlcUnidadMedidaSubida" class="form-control input-sm" ng-model="ctrl.UnidadMedidaSubida" ng-options="UM.Nombre for UM in ctrl.UnidadMedidaList track by UM.Clave" validate-on="dirty" required required-message="'Obligatorio'">
                         <option value="">Selecciona</option>
                     </select>
                 </div>
@@ -35,7 +35,7 @@
                     <input type="number" name="InpVelocidadBajada" class="form-control input-sm" ng-model="ctrl.VelocidadBajada" validate-on="dirty" min="0" required required-message="'Obligatorio'" invalid-message="'Inválido.'">
                 </div>
                 <div class="col-md-3">
-                    <select name="SlcUnidadMedida2" class="form-control input-sm" ng-model="ctrl.UnidadMedida2" validate-on="dirty" required required-message="'Obligatorio'">
+                    <select name="SlcUnidadMedidaBajada" class="form-control input-sm" ng-model="ctrl.UnidadMedidaBajada" ng-options="UM.Nombre for UM in ctrl.UnidadMedidaList track by UM.Clave" validate-on="dirty" required required-message="'Obligatorio'">
                         <option value="">Selecciona</option>
                     </select>
                 </div>

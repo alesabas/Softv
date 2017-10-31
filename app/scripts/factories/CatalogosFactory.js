@@ -200,7 +200,13 @@ angular
       GetConRelCteDescuento: '/ContratacionServicio/GetConRelCteDescuento',
       GetNueRelCteDescuento: '/ContratacionServicio/GetNueRelCteDescuento',
       GetBorRelCteDescuento: '/ContratacionServicio/GetBorRelCteDescuento',
-      GetInfoTvs: '/InfoTvs/GetInfoTvs'
+      GetInfoTvs: '/InfoTvs/GetInfoTvs',
+      Gettbl_politicasFibraList: '/tbl_politicasFibra/Gettbl_politicasFibraList',
+      GetSp_filtroPoliticas: '/tbl_politicasFibra/GetSp_filtroPoliticas',
+      GetSp_guardaPolitica: '/tbl_politicasFibra/GetSp_guardaPolitica',
+      GetDeeptbl_politicasFibra: '/tbl_politicasFibra/GetDeeptbl_politicasFibra',
+      GetDameUnidadesMedidasDeVelocidadList: '/DameUnidadesMedidasDeVelocidad/GetDameUnidadesMedidasDeVelocidadList',
+      Deletetbl_politicasFibra: '/tbl_politicasFibra/Deletetbl_politicasFibra'
     };
 
     factory.AddSucursal = function (SUCURSALESobj) {
@@ -3241,6 +3247,76 @@ angular
       var config = {headers: {'Authorization': $localStorage.currentUser.token}};
       var Parametros = {};
       $http.post(globalService.getUrl() + paths.GetInfoTvs, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+    factory.Gettbl_politicasFibraList = function () {
+      var deferred = $q.defer();
+      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+      $http.get(globalService.getUrl() + paths.Gettbl_politicasFibraList, config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+    factory.GetSp_filtroPoliticas = function (SearchObj) {
+      var deferred = $q.defer();
+      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+      var Parametros = SearchObj;
+      $http.post(globalService.getUrl() + paths.GetSp_filtroPoliticas, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+    factory.GetSp_guardaPolitica = function (ObjVelocidad) {
+      var deferred = $q.defer();
+      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+      var Parametros = ObjVelocidad;
+      $http.post(globalService.getUrl() + paths.GetSp_guardaPolitica, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+    factory.GetDeeptbl_politicasFibra = function (id) {
+      var deferred = $q.defer();
+      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+      var Parametros = {'id': id};
+      $http.post(globalService.getUrl() + paths.GetDeeptbl_politicasFibra, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+    factory.GetDameUnidadesMedidasDeVelocidadList = function () {
+      var deferred = $q.defer();
+      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+      $http.get(globalService.getUrl() + paths.GetDameUnidadesMedidasDeVelocidadList, config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+    factory.Deletetbl_politicasFibra = function (id) {
+      var deferred = $q.defer();
+      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+      var Parametros = {'id': id};
+      $http.post(globalService.getUrl() + paths.Deletetbl_politicasFibra, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
         deferred.reject(response);

@@ -22,7 +22,7 @@
                 </small>
             </header>
             <div class="tools">
-                <button type="submit" class="btn btn-primary btn-sm" ng-click="" title="Guardar Servicio">Guardar</button>
+                <button type="submit" class="btn btn-primary btn-sm" ng-click="" title="Guardar Servicio" ng-show="!$ctrl.View">Guardar</button>
                 <button type="button" class="btn btn-default btn-sm" ui-sref="home.catalogos.servicios" title="Cancelar cambios">Cancelar</button>
             </div>
         </div>
@@ -55,6 +55,7 @@
                 </div>
             </div>
             <br>
+            <fieldset ng-disabled="$ctrl.View">
             <div class="row">
                 <div class="col-md-12">
                     <div class="col-md-2">
@@ -102,6 +103,7 @@
                     </div>
                 </div>
             </div>
+            </fieldset>
             <br>
             <div class="row">
                 <div class="col-md-12" ng-show="$ctrl.ShowCobroMensual && $ctrl.Clv_Servicio > 0">
@@ -128,6 +130,7 @@
                                 </div>
                                 <br>
                                 <div class="row">
+                                    <fieldset ng-disabled="$ctrl.View">
                                     <div class="col-md-12">
                                         <div class="col-md-12">
                                             <div class="row" ng-if="$ctrl.TipoCobro != Undefined">
@@ -136,7 +139,7 @@
                                                         <b>Conceptos para tipo de cobro {{ $ctrl.TipoCobro.DESCRIPCION }}</b>
                                                     </div>
                                                     <div class="col-md-2">
-                                                        <button type="button" class="btn btn-primary btn-sm" title="Agregar un concepto" ng-click="$ctrl.OpenAddConcepto($ctrl.TipoCobro.CLV_TIPOCLIENTE, $ctrl.Clv_Servicio)">Agregar Concepto</button>
+                                                        <button type="button" class="btn btn-primary btn-sm" title="Agregar un concepto" ng-click="$ctrl.OpenAddConcepto($ctrl.TipoCobro.CLV_TIPOCLIENTE, $ctrl.Clv_Servicio)" ng-show="!$ctrl.View">Agregar Concepto</button>
                                                     </div>
                                                     <div class="col-md-12">
                                                         <br>
@@ -180,6 +183,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    </fieldset>
                                 </div>
                                 <footer>
                                     <p class="text-right"></p>
@@ -199,6 +203,7 @@
                                 </div>
                                 <br>
                                 <div class="row" ng-if="$ctrl.ShowCobroMensual && $ctrl.Clv_Servicio > 0">
+                                    <fieldset ng-disabled="$ctrl.View">
                                     <div class="col-md-12">
                                         <div class="col-md-3">
                                             <b>Puntos por pronto pago:</b>
@@ -227,6 +232,7 @@
                                             <input type="number" name="ImpMeses11" class="form-control input-sm" ng-model="$ctrl.Meses11" min="1" ng-pattern="/^\d{1,10}$/" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido.'">
                                         </div>
                                     </div>
+                                    </fieldset>
                                 </div>
                                 <footer>
                                     <p class="text-right"></p>

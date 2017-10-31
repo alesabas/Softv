@@ -456,6 +456,14 @@ angular
                 controllerAs: '$ctrl'
             },
             {
+                name: 'home.catalogos.servicio_detalle',
+                data: { pageTitle: 'SOFTV | DETALLE SERVICIO' },
+                url: '/catalogo/servicios/detalle/:id',
+                templateUrl: 'views/catalogos/ServicioForm.html',
+                controller: 'ServicioViewCtrl',
+                controllerAs: '$ctrl'
+            },
+            {
                 name: 'home.catalogos.tipos_servicios',
                 data: {
                     pageTitle: 'SOFTV | CATÁLOGO TIPO DE SERVICIOS',

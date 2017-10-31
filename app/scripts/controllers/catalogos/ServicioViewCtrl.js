@@ -1,7 +1,7 @@
 'use strict'
 angular
     .module('softvApp')
-    .controller('ServicioUpdateCtrl', function(CatalogosFactory, ngNotify, $uibModal, $state, $stateParams, $rootScope){
+    .controller('ServicioViewCtrl', function(CatalogosFactory, ngNotify, $uibModal, $state, $stateParams, $rootScope){
 
         function initData(){
             CatalogosFactory.GetTipoClienteList_WebSoftvnew().then(function(data){
@@ -139,7 +139,7 @@ angular
         function OpenConfigurar(){
             var Obj = {
                 'Clv_Servicio': vm.Clv_Servicio,
-                'Origen': 'U'
+                'Origen': 'V'
             };
             var modalInstance = $uibModal.open({
                 animation: true,
@@ -253,7 +253,7 @@ angular
         }
 
         var vm = this;
-        vm.Titulo = 'Servicio Editar - ';
+        vm.Titulo = 'Detalle Servicio - ';
         var Clv_Servicio = $stateParams.id
         vm.ShowCobroMensual = false;
         vm.HideCobroMensual = true;
@@ -269,4 +269,5 @@ angular
         vm.OpenConfigurar = OpenConfigurar;
         vm.GetTarifa = GetTarifa;
         initData();
+
     });
