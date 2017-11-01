@@ -253,7 +253,7 @@ angular
         }
 
         var vm = this;
-        vm.Titulo = 'Detalle Servicio - ';
+        vm.Titulo = 'Servicio - ';
         var Clv_Servicio = $stateParams.id
         vm.ShowCobroMensual = false;
         vm.HideCobroMensual = true;

@@ -206,7 +206,8 @@ angular
       GetSp_guardaPolitica: '/tbl_politicasFibra/GetSp_guardaPolitica',
       GetDeeptbl_politicasFibra: '/tbl_politicasFibra/GetDeeptbl_politicasFibra',
       GetDameUnidadesMedidasDeVelocidadList: '/DameUnidadesMedidasDeVelocidad/GetDameUnidadesMedidasDeVelocidadList',
-      Deletetbl_politicasFibra: '/tbl_politicasFibra/Deletetbl_politicasFibra'
+      Deletetbl_politicasFibra: '/tbl_politicasFibra/Deletetbl_politicasFibra',
+      GetTblNetList: '/TblNet/GetTblNetList'
     };
 
     factory.AddSucursal = function (SUCURSALESobj) {
@@ -3317,6 +3318,19 @@ angular
       var config = {headers: {'Authorization': $localStorage.currentUser.token}};
       var Parametros = {'id': id};
       $http.post(globalService.getUrl() + paths.Deletetbl_politicasFibra, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+    factory.GetTblNetList = function (ObjClvEquiNet) {
+      var deferred = $q.defer();
+      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+      var Parametros = ObjClvEquiNet;
+      console.log(Parametros);
+      $http.post(globalService.getUrl() + paths.GetTblNetList, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
         deferred.reject(response);

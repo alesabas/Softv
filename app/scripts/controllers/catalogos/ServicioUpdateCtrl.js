@@ -253,13 +253,13 @@ angular
         }
 
         var vm = this;
-        vm.Titulo = 'Servicio Editar - ';
+        vm.Titulo = 'Servicio - ';
         var Clv_Servicio = $stateParams.id
         vm.ShowCobroMensual = false;
         vm.HideCobroMensual = true;
         vm.ShowOrden = false;
         vm.Disable = true;
-        vm.View = true;
+        vm.View = false;
         vm.SetTipoCobro = SetTipoCobro;
         vm.SetOrden = SetOrden;
         vm.OpenAddConcepto = OpenAddConcepto;

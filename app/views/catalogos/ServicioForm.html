@@ -36,7 +36,7 @@
                     </div>
                     <div class="col-md-2">
                         <label class="checkbox-inline checkbox-styled">
-                            <input type="checkbox" name="CbxPrincipal" ng-model="$ctrl.Principal" ng-disabled="$ctrl.Disable" ng-true-value="'Y'" ng-false-value="'N'" ng-change="$ctrl.buscarStatus()"><span>Principal</span>
+                            <input type="checkbox" name="CbxPrincipal" ng-model="$ctrl.Principal" ng-disabled="$ctrl.Disable" ng-true-value="'Y'" ng-false-value="'N'" ng-change="$ctrl.SetClvEquiNet()"><span>Principal</span>
                         </label>
                     </div>
                     <div class="col-md-2">
@@ -98,18 +98,23 @@
                     </div>
                 </div>
                 <div class="col-md-12">
-                    <div class="col-md-2" ng-if="$ctrl.ShowClaveEquivalente">
+                    <div class="col-md-2" ng-if="$ctrl.ShowClaveEquivalente || $ctrl.ShowClaveEquivalenteNet">
                         <input type="text" name="InpClaveEquivalente" class="form-control input-sm" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" ng-model="$ctrl.ClaveEquivalente"  maxlength="5" ng-pattern="/^[a-zA-Z0-9]{5}$/" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa 5 caracteres.'" ng-if="$ctrl.ShowClaveEquivalente">
+                    </div>
+                    <div class="col-md-2" ng-if="$ctrl.ShowClaveEquivalenteNet">
+                        <select name="SlcClvEquiNet" class="form-control input-sm" ng-model="$ctrl.ClvEquiNet" ng-options="CEN.Clv_equivalente for CEN in $ctrl.ClvEquiNetList track by CEN.Clv_equivalente" ng-if="$ctrl.ShowClaveEquivalenteNet" validate-on="dirty" required required-message="'Obligatorio'">
+                            <option value="">Selecciona</option>
+                        </select>
                     </div>
                 </div>
             </div>
             </fieldset>
             <br>
             <div class="row">
-                <div class="col-md-12" ng-show="$ctrl.ShowCobroMensual && $ctrl.Clv_Servicio > 0">
+                <div class="col-md-12" ng-show="($ctrl.ShowCobroMensual && $ctrl.Clv_Servicio > 0) || $ctrl.ShowCobroMensual">
                     <div class="col-md-12">
-                        <uib-tabset active="active">
-                            <uib-tab index="0">
+                        <uib-tabset active="$ctrl.ActiveTab">
+                            <uib-tab index="0" ng-show="($ctrl.ShowCobroMensual && $ctrl.Clv_Servicio > 0) || !$ctrl.ShowCobroMensual">
                                 <uib-tab-heading>
                                     Detalle del Servicio
                                 </uib-tab-heading>
@@ -202,7 +207,7 @@
                                     </div>
                                 </div>
                                 <br>
-                                <div class="row" ng-if="$ctrl.ShowCobroMensual && $ctrl.Clv_Servicio > 0">
+                                <div class="row" ng-if="($ctrl.ShowCobroMensual && $ctrl.Clv_Servicio > 0) || $ctrl.ShowCobroMensual">
                                     <fieldset ng-disabled="$ctrl.View">
                                     <div class="col-md-12">
                                         <div class="col-md-3">
