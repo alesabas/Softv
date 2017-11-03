@@ -32,34 +32,80 @@ angular
         }
 
         function SaveServicios(){
-            var objServicios_New = {
-                'Clv_TipSer': vm.Clv_TipSer,
-                'Descripcion': vm.Descripcion,
-                'Clv_Txt': vm.Clave,
-                'AplicanCom': (vm.AplicaComision == 'Y') ? 1 : 0,
-                'Sale_en_Cartera': (vm.CobroMensual == 'Y') ? 1 : 0,
-                'Precio': (vm.Precio != undefined) ? vm.Precio : 0,
-                'Genera_Orden': (vm.GeneraOrden == 'Y') ? 1 : 0,
-                'Es_Principal': (vm.Principal == 'Y') ? 1 : 0,
-                'idcompania': 0,
-                'EsToken': 0,
-                'Gb': 0
-            };
-            CatalogosFactory.AddServicios_New(objServicios_New).then(function(data){
-                var Clv_Servicio = data.AddServicios_NewResult;
-                if(Clv_Servicio > 0){
-                    CatalogosFactory.DeleteBORRel_Trabajos_NoCobroMensual(Clv_Servicio).then(function(data){
-                        var BorrarTrabajo = data.DeleteBORRel_Trabajos_NoCobroMensualResult;
-                        if(BorrarTrabajo == -1){
-                            if(vm.GeneraOrden == 'Y'){
-                                var objGUARDARel_Trabajos_NoCobroMensual = {
-                                    'Clv_Servicio': Clv_Servicio,
-                                    'Clv_Trabajo': vm.Trabajo.Clv_Trabajo
-                                };
-                                CatalogosFactory.UpdateGUARDARel_Trabajos_NoCobroMensual(objGUARDARel_Trabajos_NoCobroMensual).then(function(data){
-                                    if(data.UpdateGUARDARel_Trabajos_NoCobroMensualResult == -1){
+            if(vm.Clv_Servicio != undefined){
+
+            }else{
+                var objServicios_New = {
+                    'Clv_TipSer': vm.Clv_TipSer,
+                    'Descripcion': vm.Descripcion,
+                    'Clv_Txt': vm.Clave,
+                    'AplicanCom': (vm.AplicaComision == 'Y') ? 1 : 0,
+                    'Sale_en_Cartera': (vm.CobroMensual == 'Y') ? 1 : 0,
+                    'Precio': (vm.Precio != undefined) ? vm.Precio : 0,
+                    'Genera_Orden': (vm.GeneraOrden == 'Y') ? 1 : 0,
+                    'Es_Principal': (vm.Principal == 'Y') ? 1 : 0,
+                    'idcompania': 0,
+                    'EsToken': 0,
+                    'Gb': 0
+                };
+                CatalogosFactory.AddServicios_New(objServicios_New).then(function(data){
+                    var Clv_Servicio = data.AddServicios_NewResult;
+                    if(Clv_Servicio > 0){
+                        CatalogosFactory.DeleteBORRel_Trabajos_NoCobroMensual(Clv_Servicio).then(function(data){
+                            var BorrarTrabajo = data.DeleteBORRel_Trabajos_NoCobroMensualResult;
+                            if(BorrarTrabajo == -1){
+                                /** */
+                                if(vm.GeneraOrden == 'Y'){
+                                    var objGUARDARel_Trabajos_NoCobroMensual = {
+                                        'Clv_Servicio': Clv_Servicio,
+                                        'Clv_Trabajo': vm.Trabajo.Clv_Trabajo
+                                    };
+                                    CatalogosFactory.UpdateGUARDARel_Trabajos_NoCobroMensual(objGUARDARel_Trabajos_NoCobroMensual).then(function(data){
+                                        if(data.UpdateGUARDARel_Trabajos_NoCobroMensualResult == -1){
+                                            if(vm.Clv_TipSer == 2){
+                                                SaveServicio2(Clv_Servicio);
+                                            }else if(vm.Clv_TipSer == 3){
+                                                SaveServicio3(Clv_Servicio);
+                                            }else{
+                                                if(vm.CobroMensual == 'Y' || vm.Principal == 'Y'){
+                                                    vm.Clv_Servicio = Clv_Servicio;
+                                                    //vm.Disable = true;
+                                                    ngNotify.set('CORRECTO, se añadió un servicio nuevo.', 'success');
+                                                }else{
+                                                    ngNotify.set('CORRECTO, se añadió un servicio nuevo.', 'success');
+                                                    $state.go('home.catalogos.servicios');
+                                                }
+                                            }
+                                        }else{
+                                            ngNotify.set('ERROR, al agregar un trabajo.', 'warn');
+                                            $state.go('home.catalogos.servicios');
+                                        }
+                                    });
+                                }else if(vm.CobroMensual == 'Y'){
+                                    var objNUEPuntos_Pago_Adelantado = {
+                                        'CLV_SERVICIO': Clv_Servicio,
+                                        'Puntos3': vm.Meses35,
+                                        'Puntos6': vm.Meses611,
+                                        'puntos11': vm.Meses11,
+                                        'Punto_Pronto_Pago': vm.ProntoPago
+                                    };
+                                    CatalogosFactory.AddNUEPuntos_Pago_Adelantado(objNUEPuntos_Pago_Adelantado).then(function(data){
+                                        console.log(data);
                                         if(vm.Clv_TipSer == 2){
-                                            SaveServicio2(Clv_Servicio);
+                                            if(vm.ClvEquiNet != undefined){
+                                                var ObjClvEquiNet = {
+                                                    'Clv_Txt': vm.Clave, 
+                                                    'Clv_Eq': vm.ClvEquiNet.Clv_equivalente, 
+                                                    'Id': 0
+                                                };
+                                                CatalogosFactory.GetTblNetList(ObjClvEquiNet).then(function(data){
+                                                    console.log(data);
+                                                    vm.AddClvEquiNet = data.GetTblNetListResult[0];
+                                                    SaveServicio2(Clv_Servicio);
+                                                });
+                                            }else{
+                                                SaveServicio2(Clv_Servicio);
+                                            }
                                         }else if(vm.Clv_TipSer == 3){
                                             SaveServicio3(Clv_Servicio);
                                         }else{
@@ -72,22 +118,23 @@ angular
                                                 $state.go('home.catalogos.servicios');
                                             }
                                         }
-                                    }else{
-                                        ngNotify.set('ERROR, al agregar un trabajo.', 'warn');
-                                        $state.go('home.catalogos.servicios');
-                                    }
-                                });
-                            }else if(vm.CobroMensual == 'Y'){
-                                var objNUEPuntos_Pago_Adelantado = {
-                                    'CLV_SERVICIO': Clv_Servicio,
-                                    'Puntos3': vm.Meses35,
-                                    'Puntos6': vm.Meses611,
-                                    'puntos11': vm.Meses11,
-                                    'Punto_Pronto_Pago': vm.ProntoPago
-                                };
-                                CatalogosFactory.AddNUEPuntos_Pago_Adelantado(objNUEPuntos_Pago_Adelantado).then(function(data){
-                                    console.log(data);
+                                    });
+                                }else{
                                     if(vm.Clv_TipSer == 2){
+                                        /*if(vm.ClvEquiNet != undefined){
+                                            var ObjClvEquiNet = {
+                                                'Clv_Txt': vm.Clave, 
+                                                'Clv_Eq': vm.ClvEquiNet.Clv_equivalente, 
+                                                'Id': 0
+                                            };
+                                            CatalogosFactory.GetTblNetList(ObjClvEquiNet).then(function(data){
+                                                console.log(data);
+                                                vm.AddClvEquiNet = data.GetTblNetListResult[0];
+                                                SaveServicio2(Clv_Servicio);
+                                            });
+                                        }else{
+                                            SaveServicio2(Clv_Servicio);
+                                        }*/
                                         SaveServicio2(Clv_Servicio);
                                     }else if(vm.Clv_TipSer == 3){
                                         SaveServicio3(Clv_Servicio);
@@ -101,46 +148,19 @@ angular
                                             $state.go('home.catalogos.servicios');
                                         }
                                     }
-                                });
-                            }else{
-                                if(vm.Clv_TipSer == 2){
-                                    if(vm.ClvEquiNet != undefined){
-                                        var ObjClvEquiNet = {
-                                            'Clv_Txt': vm.Clave, 
-                                            'Clv_Eq': vm.ClvEquiNet.Clv_equivalente, 
-                                            'Id': 0
-                                        };
-                                        CatalogosFactory.GetTblNetList(ObjClvEquiNet).then(function(data){
-                                            console.log(data);
-                                            vm.AddClvEquiNet = data.GetTblNetListResult[0];
-                                            SaveServicio2(Clv_Servicio);
-                                        });
-                                    }else{
-                                        SaveServicio2(Clv_Servicio);
-                                    }
-                                }else if(vm.Clv_TipSer == 3){
-                                    SaveServicio3(Clv_Servicio);
-                                }else{
-                                    if(vm.CobroMensual == 'Y' || vm.Principal == 'Y'){
-                                        vm.Clv_Servicio = Clv_Servicio;
-                                        //vm.Disable = true;
-                                        ngNotify.set('CORRECTO, se añadió un servicio nuevo.', 'success');
-                                    }else{
-                                        ngNotify.set('CORRECTO, se añadió un servicio nuevo.', 'success');
-                                        $state.go('home.catalogos.servicios');
-                                    }
                                 }
+                                /** */
+                            }else{
+                                ngNotify.set('ERROR, al borrar trabajos.', 'warn');
+                                $state.go('home.catalogos.servicios');
                             }
-                        }else{
-                            ngNotify.set('ERROR, al borrar trabajos.', 'warn');
-                            $state.go('home.catalogos.servicios');
-                        }
-                    });
-                }else{
-                    ngNotify.set('ERROR, al añadir un servicio nuevo.', 'warn');
-                    $state.go('home.catalogos.servicios');
-                }
-            });
+                        });
+                    }else{
+                        ngNotify.set('ERROR, al añadir un servicio nuevo.', 'warn');
+                        $state.go('home.catalogos.servicios');
+                    }
+                });
+            }
         }
         
         function SaveServicio2(Clv_Servicio){
@@ -164,17 +184,21 @@ angular
                                 vm.Clv_Servicio = Clv_Servicio;
                                 //vm.Disable = true;
                                 ngNotify.set(Msg, 'success');
+                                console.log('1');
+                                $state.go('home.catalogos.servicio_editar', {'id':vm.Clv_Servicio});
                             }else{
                                 ngNotify.set(Msg, 'success');
-                                $state.go('home.catalogos.servicios');
+                                console.log('2');
+                                $state.go('home.catalogos.servicio_editar', {'id':vm.Clv_Servicio});
                             }
                         }else{
                             if(vm.AddClvEquiNet != ''){
-                                var Msg = (vm.AddClvEquiNet.Msg != null)? 'ERROR, al añadir un servicio nuevo, ' + vm.AddClvEquiNet.Msg + '.':'ERROR, al añadir un servicio nuevo.';
+                                var Msg = (vm.AddClvEquiNet.Msg != null)? 'ERROR, al validar solo internet, ' + vm.AddClvEquiNet.Msg + '.':'ERROR, al validar solo internet.';
                             }else{
-                                var Msg = 'ERROR, al añadir un servicio nuevo.';
+                                var Msg = 'ERROR, al validar solo internet.';
                             }
                             ngNotify.set(Msg, 'warn');
+                            console.log('Error 1');
                             $state.go('home.catalogos.servicios');
                         }
                     });
@@ -190,27 +214,32 @@ angular
                                 vm.Clv_Servicio = Clv_Servicio;
                                 //vm.Disable = true;
                                 ngNotify.set(Msg, 'success');
+                                console.log('3');
+                                $state.go('home.catalogos.servicio_editar', {'id':vm.Clv_Servicio});
                             }else{
                                 ngNotify.set(Msg, 'success');
-                                $state.go('home.catalogos.servicios');
+                                console.log('4');
+                                $state.go('home.catalogos.servicio_editar', {'id':vm.Clv_Servicio});
                             }
                         }else{
                             if(vm.AddClvEquiNet != ''){
-                                var Msg = (vm.AddClvEquiNet.Msg != null)? 'ERROR, al añadir un servicio nuevo, ' + vm.AddClvEquiNet.Msg + '.':'ERROR, al añadir un servicio nuevo.';
+                                var Msg = (vm.AddClvEquiNet.Msg != null)? 'ERROR, al validar solo internet, ' + vm.AddClvEquiNet.Msg + '.':'ERROR, al validar solo internet.';
                             }else{
-                                var Msg = 'ERROR, al añadir un servicio nuevo.';
+                                var Msg = 'ERROR, al validar solo internet.';
                             }
                             ngNotify.set(Msg, 'warn');
+                            console.log('Error 2');
                             $state.go('home.catalogos.servicios');
                         }
                     });
                 }else{
                     if(vm.AddClvEquiNet != ''){
-                        var Msg = (vm.AddClvEquiNet.Msg != null)? 'ERROR, al validar el servicio nuevo, ' + vm.AddClvEquiNet.Msg + '.':'ERROR, al validar el servicio nuevo.';
+                        var Msg = (vm.AddClvEquiNet.Msg != null)? 'ERROR, al validar solo internet, ' + vm.AddClvEquiNet.Msg + '.':'ERROR, al validar solo internet.';
                     }else{
-                        var Msg = 'ERROR, al añadir un servicio nuevo.';
+                        var Msg = 'ERROR, al validar solo internet.';
                     }
                     ngNotify.set(Msg, 'warn');
+                    console.log('Error 3');
                     $state.go('home.catalogos.servicios');
                 }
             });
@@ -239,7 +268,7 @@ angular
             });
         }
 
-        function GetServicio(){
+        /*function GetServicio(){
             CatalogosFactory.GetDeepServicios_New(Clv_Servicio).then(function(data){
                 console.log(data);
                 var Servicio = data.GetDeepServicios_NewResult;
@@ -275,7 +304,7 @@ angular
                     $state.go('home.catalogos.servicios');
                 }
             });
-        }
+        }*/
         
         /*
         function ValidaSoloInternet(Clv_Servicio){
@@ -314,6 +343,7 @@ angular
             });
         }
         */
+
         function OpenAddConcepto(Clv_TipoCobro, Clv_Servicio){
             var ObjServicio = {
                 'Clv_Servicio': Clv_Servicio,
@@ -433,6 +463,7 @@ angular
                 vm.HideCobroMensual = false;
                 vm.ShowOrden = false;
                 vm.GeneraOrden = 'N';
+                vm.Trabajo = undefined;
                 vm.AplicaComision = 'N';
                 if(vm.Clv_TipSer == 3){
                     vm.ShowClaveEquivalente = true;
@@ -447,6 +478,7 @@ angular
                 vm.HideCobroMensual = true;
                 vm.ShowOrden = false;
                 vm.GeneraOrden = 'N';
+                vm.Trabajo = undefined;
                 vm.AplicaComision = 'N';
                 vm.ShowClaveEquivalente = false;
                 vm.ShowClaveEquivalenteNet = false;
@@ -464,9 +496,11 @@ angular
         function SetOrden(){
             if(vm.GeneraOrden == 'Y'){
                 vm.ShowOrden = true;
+                vm.Trabajo = undefined;
             }
             else if(vm.GeneraOrden == 'N'){
                 vm.ShowOrden = false;
+                vm.Trabajo = undefined;
             }
         }
 
