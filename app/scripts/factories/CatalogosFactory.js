@@ -210,7 +210,8 @@ angular
       GetDeepRel_Trabajos_NoCobroMensual: '/Rel_Trabajos_NoCobroMensual/GetDeepRel_Trabajos_NoCobroMensual',
       GetTblNetList: '/TblNet/GetTblNetList',
       GetDeepTblNet: '/TblNet/GetDeepTblNet',
-      UpdateTblNet: '/TblNet/UpdateTblNet'
+      UpdateTblNet: '/TblNet/UpdateTblNet',
+      GetCONSULTAClv_Equi: '/NUEVOClv_Equi/GetCONSULTAClv_Equi'
     };
 
     factory.AddSucursal = function (SUCURSALESobj) {
@@ -1945,7 +1946,6 @@ angular
         }
       };
       var Parametros = ObjValidaCambio;
-      console.log(Parametros);
       $http.post(globalService.getUrl() + paths.GetDeepValidaCambioDClvtxtServ, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
@@ -3333,7 +3333,6 @@ angular
       var deferred = $q.defer();
       var config = {headers: {'Authorization': $localStorage.currentUser.token}};
       var Parametros = {Clv_Servicio: Clv_Servicio};
-      console.log(Parametros);
       $http.post(globalService.getUrl() + paths.GetDeepRel_Trabajos_NoCobroMensual, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
@@ -3346,7 +3345,6 @@ angular
       var deferred = $q.defer();
       var config = {headers: {'Authorization': $localStorage.currentUser.token}};
       var Parametros = ObjClvEquiNet;
-      console.log(Parametros);
       $http.post(globalService.getUrl() + paths.GetTblNetList, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
@@ -3359,7 +3357,6 @@ angular
       var deferred = $q.defer();
       var config = {headers: {'Authorization': $localStorage.currentUser.token}};
       var Parametros = {Clv_Txt: Clv_Txt};
-      console.log(Parametros);
       $http.post(globalService.getUrl() + paths.GetDeepTblNet, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
@@ -3372,8 +3369,19 @@ angular
       var deferred = $q.defer();
       var config = {headers: {'Authorization': $localStorage.currentUser.token}};
       var Parametros = {objTblNet: objTblNet};
-      console.log(Parametros);
       $http.post(globalService.getUrl() + paths.UpdateTblNet, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+    factory.GetCONSULTAClv_Equi = function (ObjClvEqui) {
+      var deferred = $q.defer();
+      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+      var Parametros = ObjClvEqui;
+      $http.post(globalService.getUrl() + paths.GetCONSULTAClv_Equi, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
         deferred.reject(response);

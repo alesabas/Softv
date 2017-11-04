@@ -8,7 +8,6 @@ angular
                 vm.TipoCobroList = data.GetTipoClienteList_WebSoftvnewResult;
             });
             CatalogosFactory.Gettbl_politicasFibraList().then(function(data){
-                console.log(data);
                 vm.ClvEquiNetList = data.Gettbl_politicasFibraListResult;
             });
             GetServicio();
@@ -20,7 +19,6 @@ angular
                 'Clv_Txt': vm.Clave
             };
             CatalogosFactory.GetDeepValidaCambioDClvtxtServ(ObjValidaCambio).then(function(data){
-                console.log(data);
                 vm.MsjExt = data.GetDeepValidaCambioDClvtxtServResult.MSJ;
                 var objServicios_New = {
                     'Clv_Servicio': vm.Clv_Servicio,
@@ -49,9 +47,9 @@ angular
                                     CatalogosFactory.UpdateGUARDARel_Trabajos_NoCobroMensual(objGUARDARel_Trabajos_NoCobroMensual).then(function(data){
                                         if(data.UpdateGUARDARel_Trabajos_NoCobroMensualResult == -1){
                                             if(vm.Clv_TipSer == 2){
-                                                SaveServicio2(Clv_Servicio);
+                                                SaveServicio2();
                                             }else if(vm.Clv_TipSer == 3){
-                                                SaveServicio3(Clv_Servicio);
+                                                SaveServicio3();
                                             }else{
                                                 ngNotify.set('CORRECTO, se guardó el servicio.', 'success');
                                                 GetServicio();
@@ -73,7 +71,6 @@ angular
                                         if(vm.Clv_TipSer == 2){
                                             if(vm.ClvEquiNet != undefined){
                                                 CatalogosFactory.GetDeepTblNet(vm.Clave).then(function(data){
-                                                    console.log(data);
                                                     if(data.GetDeepTblNetResult != null){
                                                         var objTblNet = {
                                                             'Clv_Txt': vm.Clave, 
@@ -89,7 +86,6 @@ angular
                                                             'Id': 0
                                                         };
                                                         CatalogosFactory.GetTblNetList(ObjClvEquiNet).then(function(data){
-                                                            console.log(data);
                                                             vm.AddClvEquiNet = data.GetTblNetListResult[0];
                                                             SaveServicio2();
                                                         });
@@ -117,66 +113,6 @@ angular
                     }
                 });
             });
-            /*var ObjValidaCambio = {
-                'clv_servicio': vm.Clv_Servicio,
-                'Clv_Txt': vm.Clave
-            };
-            CatalogosFactory.GetDeepValidaCambioDClvtxtServ(ObjValidaCambio).then(function(data){
-                console.log(data);
-                vm.MsjExt = data.GetDeepValidaCambioDClvtxtServResult.MSJ;
-                    var objServicios_New = {
-                        'Clv_Servicio': vm.Clv_Servicio,
-                        'Clv_TipSer': vm.Clv_TipSer,
-                        'Descripcion': vm.Descripcion,
-                        'Clv_Txt': vm.Clave,
-                        'AplicanCom': (vm.AplicaComision == 'Y') ? 1 : 0,
-                        'Sale_en_Cartera': (vm.CobroMensual == 'Y') ? 1 : 0,
-                        'Precio': (vm.Precio != undefined) ? vm.Precio : 0,
-                        'Genera_Orden': (vm.GeneraOrden == 'Y') ? 1 : 0,
-                        'Es_Principal': (vm.Principal == 'Y') ? 1 : 0,
-                        'Concepto': 'x',
-                        'EsToken': 0,
-                        'Gb': 0
-                    };
-                    CatalogosFactory.UpdateServicios_New(objServicios_New).then(function(data){
-                        if(data.UpdateServicios_NewResult == -1){
-
-                            ngNotify.set('CORRECTO, se guardó el servicio.', 'success');
-                            GetServicio();*/
-
-                        /*var objNUEPuntos_Pago_Adelantado = {
-                            'CLV_SERVICIO': vm.Clv_Servicio,
-                            'Puntos3': vm.Meses35,
-                            'Puntos6': vm.Meses611,
-                            'puntos11': vm.Meses11,
-                            'Punto_Pronto_Pago': vm.ProntoPago
-                        };
-                        CatalogosFactory.AddNUEPuntos_Pago_Adelantado(objNUEPuntos_Pago_Adelantado).then(function(data){
-                            if(data.AddNUEPuntos_Pago_AdelantadoResult == -1){
-                                if(vm.MsjExt != null){
-                                    var MSJ = 'NOTA:' + vm.MsjExt + ' CORRECTO, se guardó el servicio.';
-                                }else{
-                                    var MSJ = 'CORRECTO, se guardó el servicio.';
-                                }
-                                ngNotify.set(MSJ, 'success');
-                                GetServicio();
-                            }else{
-                                if(vm.MsjExt != null){
-                                    var MSJ = 'NOTA:' + vm.MsjExt + ' ERROR, al guardar el servicio.';
-                                }else{
-                                    var MSJ = 'ERROR, al guardar el servicio.';
-                                }
-                                ngNotify.set(MSJ, 'warn');
-                                GetServicio();
-                            }
-                        });*/
-                        
-                    /*}else{
-                        ngNotify.set('ERROR, al guardar el servicio.', 'warn');
-                        $state.go('home.catalogos.servicios');
-                    }
-                });
-            });*/
         }
 
         function SaveServicio2(){
@@ -184,15 +120,12 @@ angular
                 'Clv_Servicio': vm.Clv_Servicio
             };
             CatalogosFactory.AddValidaAplicaSoloInternet(objValidaAplicaSoloInternet).then(function(data){
-                console.log(data);
                 var ValildaInternetResult = data.AddValidaAplicaSoloInternetResult;
                 if(ValildaInternetResult == 0){
                     var objNueAplicaSoloInternet = {
                         'Clv_Servicio': vm.Clv_Servicio
                     }
                     CatalogosFactory.AddNueAplicaSoloInternet(objNueAplicaSoloInternet).then(function(data){
-                        console.log('Save 2 - 0');
-                        console.log(data);
                         if(data.AddNueAplicaSoloInternetResult == -1){
                             if(vm.AddClvEquiNet != ''){
                                 var Msg = (vm.AddClvEquiNet.Msg != null)? 'CORRECTO, se guardó el servicio, ' + vm.AddClvEquiNet.Msg + '.':'CORRECTO, se añadió un servicio nuevo.';
@@ -213,8 +146,6 @@ angular
                     });
                 }else if(ValildaInternetResult == 1){
                     CatalogosFactory.DeleteBorAplicaSoloInternet(vm.Clv_Servicio).then(function(data){
-                        console.log(data);
-                        console.log('Save 2 - 1');// (X)
                         if(data.DeleteBorAplicaSoloInternetResult == -1){
                             if(vm.AddClvEquiNet != ''){
                                 var Msg = (vm.AddClvEquiNet.Msg != null)? 'CORRECTO, se guardó servicio, ' + vm.AddClvEquiNet.Msg + '.':'CORRECTO, se añadió un servicio nuevo.';
@@ -230,7 +161,6 @@ angular
                                 var Msg = 'ERROR, al validar solo internet.';
                             }
                             ngNotify.set(Msg, 'warn');
-                            console.log('Error 2');
                             GetServicio();
                         }
                     });
@@ -241,7 +171,22 @@ angular
                         var Msg = 'ERROR, al validar solo internet.';
                     }
                     ngNotify.set(Msg, 'warn');
-                    console.log('Error 3');
+                    GetServicio();
+                }
+            });
+        }
+
+        function SaveServicio3(){
+            var objNUEVOClv_Equi = {
+                'Clv_txt': vm.Clave,
+                'Clv_Equivalente': vm.ClaveEquivalente
+            };
+            CatalogosFactory.UpdateNUEVOClv_Equi(objNUEVOClv_Equi).then(function(data){
+                if(data.UpdateNUEVOClv_EquiResult == 1){
+                    ngNotify.set('CORRECTO, se guardó el servicio.', 'success');
+                    GetServicio();
+                }else{
+                    ngNotify.set('ERROR, al agregar clave equivalente al servicio.', 'warn');
                     GetServicio();
                 }
             });
@@ -249,7 +194,6 @@ angular
 
         function GetServicio(){
             CatalogosFactory.GetDeepServicios_New(Clv_Servicio).then(function(data){
-                console.log(data);
                 var Servicio = data.GetDeepServicios_NewResult;
                 if(Servicio != null){
                     vm.Clv_Servicio = Servicio.Clv_Servicio;
@@ -264,7 +208,8 @@ angular
                     vm.Precio = (Servicio.Precio > 0)? Servicio.Precio : 0;
                     vm.HideCobroMensual = (Servicio.Sale_en_Cartera == true)? false : true;
                     vm.ShowCobroMensual = (Servicio.Sale_en_Cartera == true)? true : false;
-                    vm.ShowClaveEquivalenteNet = (Servicio.Sale_en_Cartera == true && Servicio.Es_Principal == true)
+                    vm.ShowClaveEquivalenteNet = (Servicio.Sale_en_Cartera == true && Servicio.Es_Principal == true && vm.Clv_TipSer == 2)? true:false;
+                    vm.ShowClaveEquivalente = (Servicio.Sale_en_Cartera == true && vm.Clv_TipSer == 3)? true:false;
                     var ObjPuntos = {
                         'clv_servicio': vm.Clv_Servicio,
                         'op':0
@@ -283,8 +228,10 @@ angular
                         }
                     });
 
-                    if(Servicio.Sale_en_Cartera == true && Servicio.Es_Principal == true){
+                    if(Servicio.Sale_en_Cartera == true && Servicio.Es_Principal == true && vm.Clv_TipSer == 2){
                         GetClvEquiNet();
+                    }else if(Servicio.Sale_en_Cartera == true && vm.Clv_TipSer == 3){
+                        GetClvEqui();                       
                     }
                 }else{
                     ngNotify.set('ERROR, El servicio que seleccionó no se encuentra registrado.', 'warn');
@@ -295,7 +242,6 @@ angular
 
         function GetTrabajo(){
             CatalogosFactory.GetDeepRel_Trabajos_NoCobroMensual(vm.Clv_Servicio).then(function(data){
-                console.log(data);
                 var ClvTrabajo = data.GetDeepRel_Trabajos_NoCobroMensualResult.Clv_Trabajo;
                 for(var i = 0; vm.TrabajoList.length > i; i ++){
                     if(vm.TrabajoList[i].Clv_Trabajo == ClvTrabajo) {
@@ -307,13 +253,22 @@ angular
 
         function GetClvEquiNet(){
             CatalogosFactory.GetDeepTblNet(vm.Clave).then(function(data){
-                console.log(data);
                 var ClvEquiNet = data.GetDeepTblNetResult.Clv_Eq;
                 for(var i = 0; vm.ClvEquiNetList.length > i; i ++){
                     if(vm.ClvEquiNetList[i].Clv_equivalente == ClvEquiNet){
                         vm.ClvEquiNet = vm.ClvEquiNetList[i];
                     }
                 }
+            });
+        }
+
+        function GetClvEqui(){
+            var ObjClvEqui = {
+                'Op':0,
+                'Clv_txt': vm.Clave
+            };
+            CatalogosFactory.GetCONSULTAClv_Equi(ObjClvEqui).then(function(data){
+                vm.ClaveEquivalente = data.GetCONSULTAClv_EquiResult.Clv_Equivalente;
             });
         }
 
@@ -487,6 +442,9 @@ angular
         vm.Disable = true;
         vm.View = false;
         vm.ActiveTab = 0;
+        vm.AddClvEquiNet = '';
+        vm.ShowClaveEquivalente = false;
+        vm.ShowClaveEquivalenteNet = false;
         vm.SetTipoCobro = SetTipoCobro;
         vm.SetOrden = SetOrden;
         vm.OpenAddConcepto = OpenAddConcepto;

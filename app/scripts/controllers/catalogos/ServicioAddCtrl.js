@@ -11,13 +11,11 @@ angular
                         vm.Clv_TipSer = TipoServicioResult.Clv_TipSer;
                         CatalogosFactory.GetMUESTRATRABAJOS_NewList(vm.Clv_TipSer).then(function(data){
                             vm.TrabajoList = data.GetMUESTRATRABAJOS_NewListResult;
-                            console.log(data);
                         });
                         CatalogosFactory.GetTipoClienteList_WebSoftvnew().then(function(data){
                             vm.TipoCobroList = data.GetTipoClienteList_WebSoftvnewResult;
                         });
                         CatalogosFactory.Gettbl_politicasFibraList().then(function(data){
-                            console.log(data);
                             vm.ClvEquiNetList = data.Gettbl_politicasFibraListResult;
                         });
                     }else{
@@ -54,7 +52,6 @@ angular
                         CatalogosFactory.DeleteBORRel_Trabajos_NoCobroMensual(Clv_Servicio).then(function(data){
                             var BorrarTrabajo = data.DeleteBORRel_Trabajos_NoCobroMensualResult;
                             if(BorrarTrabajo == -1){
-                                /** */
                                 if(vm.GeneraOrden == 'Y'){
                                     var objGUARDARel_Trabajos_NoCobroMensual = {
                                         'Clv_Servicio': Clv_Servicio,
@@ -67,14 +64,9 @@ angular
                                             }else if(vm.Clv_TipSer == 3){
                                                 SaveServicio3(Clv_Servicio);
                                             }else{
-                                                if(vm.CobroMensual == 'Y' || vm.Principal == 'Y'){
-                                                    vm.Clv_Servicio = Clv_Servicio;
-                                                    //vm.Disable = true;
-                                                    ngNotify.set('CORRECTO, se añadió un servicio nuevo.', 'success');
-                                                }else{
-                                                    ngNotify.set('CORRECTO, se añadió un servicio nuevo.', 'success');
-                                                    $state.go('home.catalogos.servicios');
-                                                }
+                                                vm.Clv_Servicio = Clv_Servicio;
+                                                ngNotify.set('CORRECTO, se añadió un servicio nuevo.', 'success');
+                                                $state.go('home.catalogos.servicio_editar', {'id':vm.Clv_Servicio});
                                             }
                                         }else{
                                             ngNotify.set('ERROR, al agregar un trabajo.', 'warn');
@@ -90,7 +82,6 @@ angular
                                         'Punto_Pronto_Pago': vm.ProntoPago
                                     };
                                     CatalogosFactory.AddNUEPuntos_Pago_Adelantado(objNUEPuntos_Pago_Adelantado).then(function(data){
-                                        console.log(data);
                                         if(vm.Clv_TipSer == 2){
                                             if(vm.ClvEquiNet != undefined){
                                                 var ObjClvEquiNet = {
@@ -99,7 +90,6 @@ angular
                                                     'Id': 0
                                                 };
                                                 CatalogosFactory.GetTblNetList(ObjClvEquiNet).then(function(data){
-                                                    console.log(data);
                                                     vm.AddClvEquiNet = data.GetTblNetListResult[0];
                                                     SaveServicio2(Clv_Servicio);
                                                 });
@@ -109,47 +99,22 @@ angular
                                         }else if(vm.Clv_TipSer == 3){
                                             SaveServicio3(Clv_Servicio);
                                         }else{
-                                            if(vm.CobroMensual == 'Y' || vm.Principal == 'Y'){
-                                                vm.Clv_Servicio = Clv_Servicio;
-                                                //vm.Disable = true;
-                                                ngNotify.set('CORRECTO, se añadió un servicio nuevo.', 'success');
-                                            }else{
-                                                ngNotify.set('CORRECTO, se añadió un servicio nuevo.', 'success');
-                                                $state.go('home.catalogos.servicios');
-                                            }
+                                            vm.Clv_Servicio = Clv_Servicio;
+                                            ngNotify.set('CORRECTO, se añadió un servicio nuevo.', 'success');
+                                            $state.go('home.catalogos.servicios');
                                         }
                                     });
                                 }else{
                                     if(vm.Clv_TipSer == 2){
-                                        /*if(vm.ClvEquiNet != undefined){
-                                            var ObjClvEquiNet = {
-                                                'Clv_Txt': vm.Clave, 
-                                                'Clv_Eq': vm.ClvEquiNet.Clv_equivalente, 
-                                                'Id': 0
-                                            };
-                                            CatalogosFactory.GetTblNetList(ObjClvEquiNet).then(function(data){
-                                                console.log(data);
-                                                vm.AddClvEquiNet = data.GetTblNetListResult[0];
-                                                SaveServicio2(Clv_Servicio);
-                                            });
-                                        }else{
-                                            SaveServicio2(Clv_Servicio);
-                                        }*/
                                         SaveServicio2(Clv_Servicio);
                                     }else if(vm.Clv_TipSer == 3){
                                         SaveServicio3(Clv_Servicio);
                                     }else{
-                                        if(vm.CobroMensual == 'Y' || vm.Principal == 'Y'){
-                                            vm.Clv_Servicio = Clv_Servicio;
-                                            //vm.Disable = true;
-                                            ngNotify.set('CORRECTO, se añadió un servicio nuevo.', 'success');
-                                        }else{
-                                            ngNotify.set('CORRECTO, se añadió un servicio nuevo.', 'success');
-                                            $state.go('home.catalogos.servicios');
-                                        }
+                                        vm.Clv_Servicio = Clv_Servicio;
+                                        ngNotify.set('CORRECTO, se añadió un servicio nuevo.', 'success');
+                                        $state.go('home.catalogos.servicios');
                                     }
                                 }
-                                /** */
                             }else{
                                 ngNotify.set('ERROR, al borrar trabajos.', 'warn');
                                 $state.go('home.catalogos.servicios');
@@ -180,17 +145,9 @@ angular
                             }else{
                                 var Msg = 'CORRECTO, se añadió un servicio nuevo.';
                             }
-                            if(vm.CobroMensual == 'Y' || vm.Principal == 'Y'){
-                                vm.Clv_Servicio = Clv_Servicio;
-                                //vm.Disable = true;
-                                ngNotify.set(Msg, 'success');
-                                console.log('1');
-                                $state.go('home.catalogos.servicio_editar', {'id':vm.Clv_Servicio});
-                            }else{
-                                ngNotify.set(Msg, 'success');
-                                console.log('2');
-                                $state.go('home.catalogos.servicio_editar', {'id':vm.Clv_Servicio});
-                            }
+                            vm.Clv_Servicio = Clv_Servicio;
+                            ngNotify.set(Msg, 'success');
+                            $state.go('home.catalogos.servicio_editar', {'id':vm.Clv_Servicio});
                         }else{
                             if(vm.AddClvEquiNet != ''){
                                 var Msg = (vm.AddClvEquiNet.Msg != null)? 'ERROR, al validar solo internet, ' + vm.AddClvEquiNet.Msg + '.':'ERROR, al validar solo internet.';
@@ -198,7 +155,6 @@ angular
                                 var Msg = 'ERROR, al validar solo internet.';
                             }
                             ngNotify.set(Msg, 'warn');
-                            console.log('Error 1');
                             $state.go('home.catalogos.servicios');
                         }
                     });
@@ -210,17 +166,9 @@ angular
                             }else{
                                 var Msg = 'CORRECTO, se añadió un servicio nuevo.';
                             }
-                            if(vm.CobroMensual == 'Y' || vm.Principal == 'Y'){
-                                vm.Clv_Servicio = Clv_Servicio;
-                                //vm.Disable = true;
-                                ngNotify.set(Msg, 'success');
-                                console.log('3');
-                                $state.go('home.catalogos.servicio_editar', {'id':vm.Clv_Servicio});
-                            }else{
-                                ngNotify.set(Msg, 'success');
-                                console.log('4');
-                                $state.go('home.catalogos.servicio_editar', {'id':vm.Clv_Servicio});
-                            }
+                            vm.Clv_Servicio = Clv_Servicio;
+                            ngNotify.set(Msg, 'success');
+                            $state.go('home.catalogos.servicio_editar', {'id':vm.Clv_Servicio});
                         }else{
                             if(vm.AddClvEquiNet != ''){
                                 var Msg = (vm.AddClvEquiNet.Msg != null)? 'ERROR, al validar solo internet, ' + vm.AddClvEquiNet.Msg + '.':'ERROR, al validar solo internet.';
@@ -228,7 +176,6 @@ angular
                                 var Msg = 'ERROR, al validar solo internet.';
                             }
                             ngNotify.set(Msg, 'warn');
-                            console.log('Error 2');
                             $state.go('home.catalogos.servicios');
                         }
                     });
@@ -239,110 +186,27 @@ angular
                         var Msg = 'ERROR, al validar solo internet.';
                     }
                     ngNotify.set(Msg, 'warn');
-                    console.log('Error 3');
                     $state.go('home.catalogos.servicios');
                 }
             });
         }
 
         function SaveServicio3(Clv_Servicio){
-            console.log(Clv_Servicio);
             var objNUEVOClv_Equi = {
                 'Clv_txt': vm.Clave,
                 'Clv_Equivalente': vm.ClaveEquivalente
             };
             CatalogosFactory.UpdateNUEVOClv_Equi(objNUEVOClv_Equi).then(function(data){
                 if(data.UpdateNUEVOClv_EquiResult == 1){
-                    if(vm.CobroMensual == 'Y' || vm.Principal == 'Y'){
-                        vm.Clv_Servicio = Clv_Servicio;
-                        //vm.Disable = true;
-                        ngNotify.set('CORRECTO, se añadió un servicio nuevo.', 'success');
-                    }else{
-                        ngNotify.set('CORRECTO, se añadió un servicio nuevo.', 'success');
-                        $state.go('home.catalogos.servicios');
-                    }
+                    vm.Clv_Servicio = Clv_Servicio;
+                    ngNotify.set('CORRECTO, se añadió un servicio nuevo.', 'success');
+                    $state.go('home.catalogos.servicio_editar', {'id':vm.Clv_Servicio});
                 }else{
                     ngNotify.set('ERROR, al agregar clave equivalente al servicio nuevo.', 'warn');
                     $state.go('home.catalogos.servicios');
                 }
             });
         }
-
-        /*function GetServicio(){
-            CatalogosFactory.GetDeepServicios_New(Clv_Servicio).then(function(data){
-                console.log(data);
-                var Servicio = data.GetDeepServicios_NewResult;
-                if(Servicio != null){
-                    vm.Clv_Servicio = Servicio.Clv_Servicio;
-                    vm.Clv_TipSer = Servicio.Clv_TipSer;
-                    vm.Descripcion = Servicio.Descripcion;
-                    vm.Clave = Servicio.Clv_Txt;
-                    vm.AplicaComision = (Servicio.AplicanCom == true)? 'Y' : 'N';
-                    vm.CobroMensual = (Servicio.Sale_en_Cartera == true)? 'Y' : 'N';
-                    vm.GeneraOrden = (Servicio.Genera_Orden == true)? 'Y' : 'N';
-                    vm.ShowOrden = (Servicio.Genera_Orden == true)? true : false;
-                    vm.Principal = (Servicio.Es_Principal == true)? 'Y' : 'N';
-                    vm.Precio = (Servicio.Precio > 0)? Servicio.Precio : 0;
-                    vm.HideCobroMensual = (Servicio.Sale_en_Cartera == true)? false : true;
-                    vm.ShowCobroMensual = (Servicio.Sale_en_Cartera == true)? true : false;
-                    var ObjPuntos = {
-                        'clv_servicio': vm.Clv_Servicio,
-                        'op':0
-                    }
-                    CatalogosFactory.GetBUSCAPuntos_Pago_Adelantado(ObjPuntos).then(function(data){
-                        var Puntos = data.GetBUSCAPuntos_Pago_AdelantadoResult;
-                        vm.Meses35 = Puntos.Puntos3;
-                        vm.Meses611 = Puntos.Puntos6;
-                        vm.Meses11 = Puntos.puntos11;
-                        vm.ProntoPago  = Puntos.Punto_Pronto_Pago;
-                        CatalogosFactory.GetMUESTRATRABAJOS_NewList(vm.Clv_TipSer).then(function(data){
-                            vm.TrabajoList = data.GetMUESTRATRABAJOS_NewListResult;
-                        });
-                    });
-                }else{
-                    ngNotify.set('ERROR, El servicio que seleccionó no se encuentra registrado.', 'warn');
-                    $state.go('home.catalogos.servicios');
-                }
-            });
-        }*/
-        
-        /*
-        function ValidaSoloInternet(Clv_Servicio){
-            var objValidaAplicaSoloInternet = {
-                'Clv_Servicio': Clv_Servicio
-            };
-            CatalogosFactory.AddValidaAplicaSoloInternet(objValidaAplicaSoloInternet).then(function(data){
-                var ValildaInternetResult = data.AddValidaAplicaSoloInternetResult;
-                if(ValildaInternetResult == 0){
-                    var objNueAplicaSoloInternet = {
-                        'Clv_Servicio': Clv_Servicio
-                    }
-                    CatalogosFactory.AddNueAplicaSoloInternet(objNueAplicaSoloInternet).then(function(data){
-                        if(data.AddNueAplicaSoloInternetResult == -1){
-                            ngNotify.set('CORRECTO, se añadió un servicio nuevo.', 'success');
-                            $state.go('home.catalogos.servicios');
-                        }else{
-                            ngNotify.set('ERROR, al añadir un servicio nuevo.', 'warn');
-                            $state.go('home.catalogos.servicios');
-                        }
-                    });
-                }else if(ValildaInternetResult == 1){
-                    CatalogosFactory.DeleteBorAplicaSoloInternet(Clv_Servicio).then(function(data){
-                        if(data.DeleteBorAplicaSoloInternetResult == -1){
-                            ngNotify.set('CORRECTO, se añadió un servicio nuevo.', 'success');
-                            $state.go('home.catalogos.servicios');
-                        }else{
-                            ngNotify.set('ERROR, al añadir un servicio nuevo.', 'warn');
-                            $state.go('home.catalogos.servicios');
-                        }
-                    });
-                }else{
-                    ngNotify.set('ERROR, al validar el servicio nuevo.', 'warn');
-                    $state.go('home.catalogos.servicios');
-                }
-            });
-        }
-        */
 
         function OpenAddConcepto(Clv_TipoCobro, Clv_Servicio){
             var ObjServicio = {
