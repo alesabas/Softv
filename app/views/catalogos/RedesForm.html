@@ -1,0 +1,229 @@
+<style>
+  .dualmultiselect label {
+    margin: 10px;
+  }
+
+  .dualmultiselect .btn {
+    margin: 10px;
+  }
+
+  .dualmultiselect .pool {
+    border: 1px solid #999;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 5px;
+    height: 280px;
+    overflow-y: scroll;
+  }
+
+  .dualmultiselect .pool ul {
+    list-style: none;
+    padding-left: 0px;
+  }
+
+  .dualmultiselect .pool ul li {
+    width: 100%;
+    padding: 4px 8px 4px 4px;
+    border-bottom: 1px dotted #CFCFCF;
+  }
+
+  .dualmultiselect .pool ul li a:hover {
+    text-decoration: none;
+  }
+</style>
+<form name="FormRedes" angular-validator-submit="$ctrl.SaveRedes()" novalidate angular-validator autocomplete="off">
+    <div class="card animated fadeIn" style="margin-top:20px;">
+        <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+            <header>
+                <strong style="font-weight:bold; border:none; margin-left:10px;">Red {{ $ctrl.Clv_Servicio }}</strong>
+                <br>
+                <small class="text-muted" style="font-size:14px; margin-left:10px;">
+                    <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">Red {{ $ctrl.Clv_Servicio }}</a>
+                </small>
+            </header>
+            <div class="tools">
+                <button type="submit" class="btn btn-primary btn-sm" ng-click="" title="Guardar Red">Guardar</button>
+                <button type="button" class="btn btn-default btn-sm" ui-sref="home.catalogos.redes" title="Cancelar cambios">Cancelar</button>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-1">
+                        <b>IP Red:</b>
+                    </div>
+                    <div class="col-md-1">
+                        <div class="input-group">
+                            <input type="number" name="Inp" class="form-control input-sm" ng-model="$ctrl.n">
+                            <span class="input-group-addon"><strong><b>.</b></strong></span>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                         <div class="input-group">
+                            <input type="number" name="Inp" class="form-control input-sm" ng-model="$ctrl.n">
+                            <span class="input-group-addon"><strong><b>.</b></strong></span>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <div class="input-group">
+                            <input type="number" name="Inp" class="form-control input-sm" ng-model="$ctrl.n">
+                            <span class="input-group-addon"><strong><b>.</b></strong></span>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <div class="input-group">
+                            <input type="number" name="Inp" class="form-control input-sm" ng-model="$ctrl.n">
+                            <span class="input-group-addon"><strong><b>/</b></strong></span>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <div class="input-group">
+                            <input type="number" name="Inp" class="form-control input-sm" ng-model="$ctrl.n">
+                            <span class="input-group-addon"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <b>Mask:</b>
+                    </div>
+                    <div class="col-md-1">
+                        <input type="number" name="Inp" class="form-control input-sm" ng-model="$ctrl.n">
+                    </div>
+                    <div class="col-md-offset-2 col-md-2">
+                        <button type="button" class="btn btn-success btn-md btn-block" ng-click="">IPs</button>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-offset-2 col-md-8">
+                         <uib-tabset active="active">
+                            <uib-tab index="0">
+                                <uib-tab-heading>
+                                    Ciudad
+                                </uib-tab-heading>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="col-md-12">
+                                            <div class="dualmultiselect">
+                                                <div class="row">
+                                                    <div class="col-lg-6 col-md-6 col-sm-6 text">
+                                                        <h6 class="text-center"><b>Lista</b></h6>
+                                                        <div class="pool">
+                                                            <ul>
+                                                                <li ng-repeat="item in $ctrl.Items">
+                                                                    <!--<p>
+                                                                        <b>{{ item.Name }}</b>
+                                                                        <small style="padding-left:20px; color:blue">Tipo : {{ item.Desc }}</small>
+                                                                    
+                                                                        <button
+                                                                            title="Agregar pregunta a la encuesta"
+                                                                            type="button"
+                                                                            class="btn ink-reaction  btn-xs btn-success" 
+                                                                            ng-click="$ctrl.transfer($ctrl.Items, $ctrl.SelctItems, $ctrl.Items.indexOf(item))">
+                                                                            Agregar <i class="md-chevron-right"></i>
+                                                                        </button>
+                                                                        </p>
+                                                                        -->
+                                                                    <div class="input-group">
+                                                                        <span class="input-group-addon"><strong><b>{{ item.Name }}</b></strong></span>
+                                                                        <button
+                                                                            title="Agregar pregunta a la encuesta"
+                                                                            type="button"
+                                                                            class="btn ink-reaction  btn-xs btn-info" 
+                                                                            ng-click="$ctrl.transfer($ctrl.Items, $ctrl.SelctItems, $ctrl.Items.indexOf(item))"><i class="md-chevron-right"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                                        <h6 class="text-center"><b>Selección</b></h6>                
+                                                        <div class="pool">
+                                                            <ul>
+                                                                <li ng-repeat="item in $ctrl.SelctItems">
+                                                                    <!--
+                                                                    <a>
+                                                                        <p>{{ item.Name }}</p>
+                                                                        <br>
+                                                                        <small style="padding-left:20px; color:blue">Tipo : {{ item.Desc }}</small>
+                                                                    </a>
+                                                                    <button
+                                                                        title="Quitar pregunta a la encuesta" 
+                                                                        ng-click="$ctrl.transfer($ctrl.SelctItems, $ctrl.Items, $ctrl.SelctItems.indexOf(item))"
+                                                                        type="button"
+                                                                        class="btn ink-reaction  btn-xs btn-warning">
+                                                                        <i class="md-chevron-left"></i> Quitar 
+                                                                    </button>
+                                                                    -->
+                                                                    <div class="input-group">
+                                                                        
+                                                                        <button
+                                                                        title="Quitar pregunta a la encuesta" 
+                                                                        ng-click="$ctrl.transfer($ctrl.SelctItems, $ctrl.Items, $ctrl.SelctItems.indexOf(item))"
+                                                                        type="button"
+                                                                        class="btn ink-reaction  btn-xs btn-warning">
+                                                                        <i class="md-chevron-left"></i>
+                                                                    </button>
+                                                                    <span class="input-group-addon"><strong><b>{{ item.Name }}</b></strong></span>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <footer>
+                                    <p class="text-right"></p>
+                                </footer>
+                            </uib-tab>
+                            <uib-tab index="1">
+                                <uib-tab-heading>
+                                    Localidad
+                                </uib-tab-heading><footer>
+                                    <p class="text-right"></p>
+                                </footer>
+                            </uib-tab>
+                            <uib-tab index="2">
+                                <uib-tab-heading>
+                                    Estado
+                                </uib-tab-heading>
+                                <footer>
+                                    <p class="text-right"></p>
+                                </footer>
+                            </uib-tab>
+                            <uib-tab index="3">
+                                <uib-tab-heading>
+                                    Compañia
+                                </uib-tab-heading>
+                                <footer>
+                                    <p class="text-right"></p>
+                                </footer>
+                            </uib-tab>
+                            <uib-tab index="4">
+                                <uib-tab-heading>
+                                    Plaza
+                                </uib-tab-heading>
+                                <footer>
+                                    <p class="text-right"></p>
+                                </footer>
+                            </uib-tab>
+                            <uib-tab index="5">
+                                <uib-tab-heading>
+                                    Medio
+                                </uib-tab-heading>
+                                <footer>
+                                    <p class="text-right"></p>
+                                </footer>
+                            </uib-tab>
+                         </uib-tabset>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

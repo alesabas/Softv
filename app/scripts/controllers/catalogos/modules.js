@@ -406,9 +406,7 @@ angular
             },
             {
                 name: 'home.catalogos.cliente_editar',
-                data: {
-                    pageTitle: 'SOFTV | EDITAR CLIENTE'
-                },
+                data: {pageTitle: 'SOFTV | EDITAR CLIENTE'},
                 url: '/catalogo/clientes/editar/:id',
                 templateUrl: 'views/catalogos/ClienteNuevo.html',
                 controller: 'ClienteEditarCtrl',
@@ -506,6 +504,60 @@ angular
                 url: '/catalogo/velocidad_inertnet',
                 templateUrl: 'views/catalogos/VelocidadInternet.html',
                 controller: 'VelocidadInternetCtrl',
+                controllerAs: '$ctrl'
+            },
+            {
+                name: 'home.catalogos.redes',
+                data: {
+                    pageTitle: 'SOFTV | CATÁLOGO REDES',
+                    permissions: {
+                        options: {
+                            reload: false
+                        }
+                    }
+                },
+                url: '/catalogo/redes',
+                templateUrl: 'views/catalogos/Redes.html',
+                controller: 'RedesCtrl',
+                controllerAs: '$ctrl'
+            },
+            {
+                name: 'home.catalogos.redes_nuevo',
+                data: { pageTitle: 'SOFTV | NUEVA RED' },
+                url: '/catalogo/redes/nuevo/',
+                templateUrl: 'views/catalogos/RedesForm.html',
+                controller: 'RedesAddCtrl',
+                controllerAs: '$ctrl'
+            },
+            {
+                name: 'home.catalogos.redes_editar',
+                data: {pageTitle: 'SOFTV | EDITAR RED'},
+                url: '/catalogo/Redes/editar/:id',
+                templateUrl: 'views/catalogos/RedesForm.html',
+                controller: 'RedesUpdateCtrl',
+                controllerAs: '$ctrl'
+            },
+            {
+                name: 'home.catalogos.redes_detalle',
+                data: {pageTitle: 'SOFTV | DETALLE RED'},
+                url: '/catalogo/Redes/detalle/:id',
+                templateUrl: 'views/catalogos/RedesForm.html',
+                controller: 'RedesViewCtrl',
+                controllerAs: '$ctrl'
+            },
+            {
+                name: 'home.catalogos.ips',
+                data: {
+                    pageTitle: 'SOFTV | CATÁLOGO IP',
+                    permissions: {
+                        options: {
+                            reload: false
+                        }
+                    }
+                },
+                url: '/catalogo/ip',
+                templateUrl: 'views/catalogos/Ips.html',
+                controller: 'IPsCtrl',
                 controllerAs: '$ctrl'
             }
         ];
