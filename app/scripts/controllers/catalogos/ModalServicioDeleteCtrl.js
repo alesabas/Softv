@@ -2,11 +2,11 @@
 
 angular
     .module('softvApp')
-    .controller('ModalServicioDeleteCtrl', function(CatalogosFactory, $uibModalInstance, ngNotify, $state, ObjServicio){
+    .controller('ModalServicioDeleteCtrl', function(CatalogosFactory, $uibModalInstance, ngNotify, $state, ObjServicio, $rootScope){
 
         function initData(){
              vm.Clv_Servicio = ObjServicio.Clv_Servicio;
-             vm.clv_txt = ObjServicio.clv_txt;
+             vm.Clv_Txt = ObjServicio.Clv_Txt;
              vm.Descripcion = ObjServicio.Descripcion;
         }
 
@@ -40,7 +40,7 @@ angular
                         var MSJ = 'CORRECTO, se eliminó el servicio.';
                     }
                     ngNotify.set('CORRECTO, se eliminó el servicio.', 'success');
-                    $state.reload('home.catalogos.servicios');
+                    $rootScope.$emit('LoadServicioList');
 				    cancel();
                 }else{
                     if(vm.ObjMSJ.error == 0){
@@ -49,7 +49,7 @@ angular
                         var MSJ = 'ERROR, al eliminar el servicio.';
                     }
                     ngNotify.set('ERROR, al eliminar el servicio.', 'warn');
-                    $state.reload('home.catalogos.servicios');
+                    $rootScope.$emit('LoadServicioList');
 				    cancel();
                 }
             });

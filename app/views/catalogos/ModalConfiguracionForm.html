@@ -32,7 +32,7 @@
                 <b>Servicio:</b>
             </div>
             <div class="col-md-3" ng-show="ctrl.ShowRel">
-                <select name="SlcServicio1" class="form-control input-sm" ng-model="ctrl.Servicio1" ng-options="S.Descripcion for S in ctrl.Servicio1List track by S.Clv_Servicio">
+                <select name="SlcServicio1" class="form-control input-sm" ng-model="ctrl.Servicio1" ng-options="S.Descripcion for S in ctrl.Servicio1List track by S.Clv_Servicio" ng-disabled="ctrl.View">
                     <option value="">Selecciona</option>
                 </select>
             </div>

@@ -363,7 +363,7 @@ angular
         function OpenConfigurar(){
             var Obj = {
                 'Clv_Servicio': vm.Clv_Servicio,
-                'Origen': 'U'
+                'Origen': 'V'
             };
             var modalInstance = $uibModal.open({
                 animation: true,

@@ -13,6 +13,103 @@ angular
             GetServicio();
         }
 
+        function GetServicio(){
+            CatalogosFactory.GetDeepServicios_New(vm.Clv_Servicio).then(function(data){
+                var Servicio = data.GetDeepServicios_NewResult;
+                if(Servicio != null){
+                    vm.Clv_Servicio = Servicio.Clv_Servicio;
+                    vm.Clv_TipSer = Servicio.Clv_TipSer;
+                    vm.Descripcion = Servicio.Descripcion;
+                    vm.Clave = Servicio.Clv_Txt;
+                    vm.AplicaComision = (Servicio.AplicanCom == true)? 'Y' : 'N';
+                    vm.CobroMensual = (Servicio.Sale_en_Cartera == true)? 'Y' : 'N';
+                    vm.GeneraOrden = (Servicio.Genera_Orden == true)? 'Y' : 'N';
+                    vm.ShowOrden = (Servicio.Genera_Orden == true)? true : false;
+                    vm.Principal = (Servicio.Es_Principal == true)? 'Y' : 'N';
+                    vm.Precio = (Servicio.Precio > 0)? Servicio.Precio : 0;
+                    vm.HideCobroMensual = (Servicio.Sale_en_Cartera == true)? false : true;
+                    vm.ShowCobroMensual = (Servicio.Sale_en_Cartera == true)? true : false;
+                    vm.ShowClaveEquivalenteNet = (Servicio.Sale_en_Cartera == true && Servicio.Es_Principal == true && vm.Clv_TipSer == 2)? true:false;
+                    vm.ShowClaveEquivalente = (Servicio.Sale_en_Cartera == true && vm.Clv_TipSer == 3)? true:false;
+                    var ObjPuntos = {
+                        'clv_servicio': vm.Clv_Servicio,
+                        'op':0
+                    }
+                    CatalogosFactory.GetBUSCAPuntos_Pago_Adelantado(ObjPuntos).then(function(data){
+                        var Puntos = data.GetBUSCAPuntos_Pago_AdelantadoResult;
+                        vm.Meses35 = Puntos.Puntos3;
+                        vm.Meses611 = Puntos.Puntos6;
+                        vm.Meses11 = Puntos.puntos11;
+                        vm.ProntoPago  = Puntos.Punto_Pronto_Pago;
+                    });
+                    CatalogosFactory.GetMUESTRATRABAJOS_NewList(vm.Clv_TipSer).then(function(data){
+                        vm.TrabajoList = data.GetMUESTRATRABAJOS_NewListResult;
+                        if(Servicio.Genera_Orden == true){
+                            GetTrabajo();
+                        }else{
+                            vm.Trabajo == undefined;
+                        }
+                    });
+
+                    if(Servicio.Sale_en_Cartera == true && Servicio.Es_Principal == true && vm.Clv_TipSer == 2){
+                        GetClvEquiNet();
+                    }else if(Servicio.Sale_en_Cartera == true && vm.Clv_TipSer == 3){
+                        GetClvEqui();                       
+                    }
+                }else{
+                    ngNotify.set('ERROR, El servicio que seleccionó no se encuentra registrado.', 'warn');
+                    $state.go('home.catalogos.servicios');
+                }
+            });
+        }
+
+        function GetTrabajo(){
+            CatalogosFactory.GetDeepRel_Trabajos_NoCobroMensual(vm.Clv_Servicio).then(function(data){
+                var ClvTrabajo = data.GetDeepRel_Trabajos_NoCobroMensualResult.Clv_Trabajo;
+                for(var i = 0; vm.TrabajoList.length > i; i ++){
+                    if(vm.TrabajoList[i].Clv_Trabajo == ClvTrabajo) {
+                        vm.Trabajo = vm.TrabajoList[i];
+                    }
+                }
+            });
+        }
+
+        function GetClvEquiNet(){
+            CatalogosFactory.GetDeepTblNet(vm.Clave).then(function(data){
+                var ClvEquiNet = data.GetDeepTblNetResult.Clv_Eq;
+                for(var i = 0; vm.ClvEquiNetList.length > i; i ++){
+                    if(vm.ClvEquiNetList[i].Clv_equivalente == ClvEquiNet){
+                        vm.ClvEquiNet = vm.ClvEquiNetList[i];
+                    }
+                }
+            });
+        }
+
+        function GetClvEqui(){
+            var ObjClvEqui = {
+                'Op':0,
+                'Clv_txt': vm.Clave
+            };
+            CatalogosFactory.GetCONSULTAClv_Equi(ObjClvEqui).then(function(data){
+                vm.ClaveEquivalente = data.GetCONSULTAClv_EquiResult.Clv_Equivalente;
+            });
+        }
+
+        function GetTarifa(){
+            if(vm.TipoCobro != undefined){
+                var ObjTarifa = {
+                    'CLV_SERVICIO': vm.Clv_Servicio, 
+                    'OP': 0, 
+                    'Clv_TipoCliente': vm.TipoCobro.CLV_TIPOCLIENTE
+                };
+                CatalogosFactory.GetREL_TARIFADOS_SERVICIOS_NewList(ObjTarifa).then(function(data){
+                    vm.TarifaList = data.GetREL_TARIFADOS_SERVICIOS_NewListResult;
+                });
+            }else{
+
+            }  
+        }
+
         function SaveServicios(){
             var ObjValidaCambio = {
                 'clv_servicio': vm.Clv_Servicio,
@@ -101,6 +198,15 @@ angular
                                             GetServicio();
                                         }
                                     });
+                                }else{
+                                    if(vm.Clv_TipSer == 2){
+                                        SaveServicio2();
+                                    }else if(vm.Clv_TipSer == 3){
+                                        SaveServicio3();
+                                    }else{
+                                        ngNotify.set('CORRECTO, se guardó el servicio.', 'success');
+                                        GetServicio();
+                                    }
                                 }
                             }else{
                                 ngNotify.set('ERROR, al borrar trabajos.', 'warn');
@@ -190,101 +296,6 @@ angular
                     GetServicio();
                 }
             });
-        }
-
-        function GetServicio(){
-            CatalogosFactory.GetDeepServicios_New(Clv_Servicio).then(function(data){
-                var Servicio = data.GetDeepServicios_NewResult;
-                if(Servicio != null){
-                    vm.Clv_Servicio = Servicio.Clv_Servicio;
-                    vm.Clv_TipSer = Servicio.Clv_TipSer;
-                    vm.Descripcion = Servicio.Descripcion;
-                    vm.Clave = Servicio.Clv_Txt;
-                    vm.AplicaComision = (Servicio.AplicanCom == true)? 'Y' : 'N';
-                    vm.CobroMensual = (Servicio.Sale_en_Cartera == true)? 'Y' : 'N';
-                    vm.GeneraOrden = (Servicio.Genera_Orden == true)? 'Y' : 'N';
-                    vm.ShowOrden = (Servicio.Genera_Orden == true)? true : false;
-                    vm.Principal = (Servicio.Es_Principal == true)? 'Y' : 'N';
-                    vm.Precio = (Servicio.Precio > 0)? Servicio.Precio : 0;
-                    vm.HideCobroMensual = (Servicio.Sale_en_Cartera == true)? false : true;
-                    vm.ShowCobroMensual = (Servicio.Sale_en_Cartera == true)? true : false;
-                    vm.ShowClaveEquivalenteNet = (Servicio.Sale_en_Cartera == true && Servicio.Es_Principal == true && vm.Clv_TipSer == 2)? true:false;
-                    vm.ShowClaveEquivalente = (Servicio.Sale_en_Cartera == true && vm.Clv_TipSer == 3)? true:false;
-                    var ObjPuntos = {
-                        'clv_servicio': vm.Clv_Servicio,
-                        'op':0
-                    }
-                    CatalogosFactory.GetBUSCAPuntos_Pago_Adelantado(ObjPuntos).then(function(data){
-                        var Puntos = data.GetBUSCAPuntos_Pago_AdelantadoResult;
-                        vm.Meses35 = Puntos.Puntos3;
-                        vm.Meses611 = Puntos.Puntos6;
-                        vm.Meses11 = Puntos.puntos11;
-                        vm.ProntoPago  = Puntos.Punto_Pronto_Pago;
-                    });
-                    CatalogosFactory.GetMUESTRATRABAJOS_NewList(vm.Clv_TipSer).then(function(data){
-                        vm.TrabajoList = data.GetMUESTRATRABAJOS_NewListResult;
-                        if(Servicio.Genera_Orden == true){
-                            GetTrabajo();
-                        }
-                    });
-
-                    if(Servicio.Sale_en_Cartera == true && Servicio.Es_Principal == true && vm.Clv_TipSer == 2){
-                        GetClvEquiNet();
-                    }else if(Servicio.Sale_en_Cartera == true && vm.Clv_TipSer == 3){
-                        GetClvEqui();                       
-                    }
-                }else{
-                    ngNotify.set('ERROR, El servicio que seleccionó no se encuentra registrado.', 'warn');
-                    $state.go('home.catalogos.servicios');
-                }
-            });
-        }
-
-        function GetTrabajo(){
-            CatalogosFactory.GetDeepRel_Trabajos_NoCobroMensual(vm.Clv_Servicio).then(function(data){
-                var ClvTrabajo = data.GetDeepRel_Trabajos_NoCobroMensualResult.Clv_Trabajo;
-                for(var i = 0; vm.TrabajoList.length > i; i ++){
-                    if(vm.TrabajoList[i].Clv_Trabajo == ClvTrabajo) {
-                        vm.Trabajo = vm.TrabajoList[i];
-                    }
-                }
-            });
-        }
-
-        function GetClvEquiNet(){
-            CatalogosFactory.GetDeepTblNet(vm.Clave).then(function(data){
-                var ClvEquiNet = data.GetDeepTblNetResult.Clv_Eq;
-                for(var i = 0; vm.ClvEquiNetList.length > i; i ++){
-                    if(vm.ClvEquiNetList[i].Clv_equivalente == ClvEquiNet){
-                        vm.ClvEquiNet = vm.ClvEquiNetList[i];
-                    }
-                }
-            });
-        }
-
-        function GetClvEqui(){
-            var ObjClvEqui = {
-                'Op':0,
-                'Clv_txt': vm.Clave
-            };
-            CatalogosFactory.GetCONSULTAClv_Equi(ObjClvEqui).then(function(data){
-                vm.ClaveEquivalente = data.GetCONSULTAClv_EquiResult.Clv_Equivalente;
-            });
-        }
-
-        function GetTarifa(){
-            if(vm.TipoCobro != undefined){
-                var ObjTarifa = {
-                    'CLV_SERVICIO': vm.Clv_Servicio, 
-                    'OP': 0, 
-                    'Clv_TipoCliente': vm.TipoCobro.CLV_TIPOCLIENTE
-                };
-                CatalogosFactory.GetREL_TARIFADOS_SERVICIOS_NewList(ObjTarifa).then(function(data){
-                    vm.TarifaList = data.GetREL_TARIFADOS_SERVICIOS_NewListResult;
-                });
-            }else{
-
-            }  
         }
 
         function OpenAddConcepto(Clv_TipoCobro, Clv_Servicio){
@@ -419,6 +430,7 @@ angular
         function SetClvEquiNet(){
             if(vm.Clv_TipSer == 2 && vm.Principal == 'Y' && vm.CobroMensual == 'Y'){
                 vm.ShowClaveEquivalenteNet = true;
+                vm.ActiveTab = 1;
             }else{
                 vm.ShowClaveEquivalenteNet = false;
             }
@@ -435,7 +447,7 @@ angular
 
         var vm = this;
         vm.Titulo = 'Servicio - ';
-        var Clv_Servicio = $stateParams.id
+        vm.Clv_Servicio = $stateParams.id
         vm.ShowCobroMensual = false;
         vm.HideCobroMensual = true;
         vm.ShowOrden = false;

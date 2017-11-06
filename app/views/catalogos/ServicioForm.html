@@ -50,7 +50,7 @@
                         </label>
                     </div>
                     <div class="col-md-4">
-                        <button type="button" class="btn btn-success btn-sm" ng-if="$ctrl.Clv_Servicio > 0 && $ctrl.Principal == 'Y'" ng-click="$ctrl.OpenConfigurar()">Conrfigurar Servicios</button>
+                        <button type="button" class="btn btn-success btn-sm" ng-if="$ctrl.Clv_Servicio > 0 && $ctrl.Principal == 'Y'" ng-click="$ctrl.OpenConfigurar()"><i class="fa fa-cogs"></i> Conrfigurar Servicios</button>
                     </div>
                 </div>
             </div>
@@ -144,7 +144,7 @@
                                                         <b>Conceptos para tipo de cobro {{ $ctrl.TipoCobro.DESCRIPCION }}</b>
                                                     </div>
                                                     <div class="col-md-2">
-                                                        <button type="button" class="btn btn-primary btn-sm" title="Agregar un concepto" ng-click="$ctrl.OpenAddConcepto($ctrl.TipoCobro.CLV_TIPOCLIENTE, $ctrl.Clv_Servicio)" ng-show="!$ctrl.View">Agregar Concepto</button>
+                                                        <button type="button" class="btn btn-primary btn-sm" title="Agregar un concepto" ng-click="$ctrl.OpenAddConcepto($ctrl.TipoCobro.CLV_TIPOCLIENTE, $ctrl.Clv_Servicio)" ng-show="!$ctrl.View"><i class="fa fa-plus"></i> Agregar Concepto</button>
                                                     </div>
                                                     <div class="col-md-12">
                                                         <br>
@@ -178,8 +178,8 @@
                                                                     <td ng-if="X.Genera_Orden == true">Si</td>
                                                                     <td ng-if="X.Genera_Orden == false">No</td>
                                                                     <td>{{ X.TRABAJO }}</td>
-                                                                    <td><button type="button" class="btn btn-warning btn-xs" title="Editar Concepto" ng-click="$ctrl.OpenUpdateConcepto(X.CLV_LLAVE, $ctrl.TipoCobro.CLV_TIPOCLIENTE, X.CONCEPTO)">Editar</button></td>
-                                                                    <td><button type="button" class="btn btn-danger btn-xs" title="Eliminar Concepto" ng-click="$ctrl.OpenDeleteConcepto(X, $ctrl.TipoCobro.CLV_TIPOCLIENTE, $ctrl.Clv_Servicio)">Eliminar</button></td>
+                                                                    <td><button type="button" class="btn btn-warning btn-xs" title="Editar Concepto" ng-click="$ctrl.OpenUpdateConcepto(X.CLV_LLAVE, $ctrl.TipoCobro.CLV_TIPOCLIENTE, X.CONCEPTO)"><i class="fa fa-pencil-square-o"></i> Editar</button></td>
+                                                                    <td><button type="button" class="btn btn-danger btn-xs" title="Eliminar Concepto" ng-click="$ctrl.OpenDeleteConcepto(X, $ctrl.TipoCobro.CLV_TIPOCLIENTE, $ctrl.Clv_Servicio)"><i class="fa fa-trash"></i> Eliminar</button></td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
