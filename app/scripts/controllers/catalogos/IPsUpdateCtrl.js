@@ -9,5 +9,7 @@ angular
         }
 
         var vm = this;
+        vm.Titulo = 'Editar IP';
+        vm.Icono = 'fa fa-pencil-square-o';
         vm.cancel = cancel;
     });

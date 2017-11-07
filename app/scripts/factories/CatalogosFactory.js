@@ -211,7 +211,8 @@ angular
       GetTblNetList: '/TblNet/GetTblNetList',
       GetDeepTblNet: '/TblNet/GetDeepTblNet',
       UpdateTblNet: '/TblNet/UpdateTblNet',
-      GetCONSULTAClv_Equi: '/NUEVOClv_Equi/GetCONSULTAClv_Equi'
+      GetCONSULTAClv_Equi: '/NUEVOClv_Equi/GetCONSULTAClv_Equi',
+      GetCatalogo_IpsList: '/Catalogo_Ips/GetCatalogo_IpsList'
     };
 
     factory.AddSucursal = function (SUCURSALESobj) {
@@ -3382,6 +3383,18 @@ angular
       var config = {headers: {'Authorization': $localStorage.currentUser.token}};
       var Parametros = ObjClvEqui;
       $http.post(globalService.getUrl() + paths.GetCONSULTAClv_Equi, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+    factory.GetCatalogo_IpsList = function (ObjRedIP) {
+      var deferred = $q.defer();
+      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+      var Parametros = ObjRedIP;
+      $http.post(globalService.getUrl() + paths.GetCatalogo_IpsList, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
         deferred.reject(response);
