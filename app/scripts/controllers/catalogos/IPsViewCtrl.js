@@ -11,6 +11,7 @@ angular
         var vm = this;
         vm.Titulo = 'Detalle IP';
         vm.Icono = 'fa fa-eye';
+        vm.View = true;
         vm.cancel = cancel;
 
     });

@@ -1,91 +1,68 @@
-<form name="FormCiudad" angular-validator-submit="ctrl.SaveCiudad()" novalidate angular-validator autocomplete="off">
+<form name="FormCiudad" angular-validator-submit="ctrl.SaveIP()" novalidate angular-validator autocomplete="off">
     <div class="modal-header">
         <button class="close" type="button" aria-label="close" ng-click="ctrl.cancel()">x</button>
-        <h4 class="modal-title"><i ng-class="ctrl.Icono"></i> {{ ctrl.Titulo }} {{ ctrl.IdCiudad }}</h4>
+        <h4 class="modal-title"><i ng-class="ctrl.Icono"></i> {{ ctrl.Titulo }} {{ ctrl.IdIP }}</h4>
     </div>
     <div class="modal-body">
+        <fieldset ng-disabled="ctrl.View">
         <div class="row">
             <div class="col-md-12">
                 <div class="col-md-12">
-                    <div class="col-md-offset-1 col-md-2">
-                        <b>IP Red:</b>
+                    <div class="col-md-offset-2 col-md-4">
+                        <b>Direccion IP:</b>
                     </div>
-                    <div class="col-md-2">
-                        <div class="input-group">
-                            <input type="number" name="InpIP1" class="form-control input-sm" ng-model="$ctrl.IP1">
-                            <span class="input-group-addon"><strong><b>.</b></strong></span>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                         <div class="input-group">
-                            <input type="number" name="InpIP2" class="form-control input-sm" ng-model="$ctrl.IP2">
-                            <span class="input-group-addon"><strong><b>.</b></strong></span>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="input-group">
-                            <input type="number" name="InpIP3" class="form-control input-sm" ng-model="$ctrl.IP3">
-                            <span class="input-group-addon"><strong><b>.</b></strong></span>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="input-group">
-                            <input type="number" name="InpIP4" class="form-control input-sm" ng-model="$ctrl.IP4">
-                            <span class="input-group-addon"><strong><b></b></strong></span>
-                        </div>
+                    <div class="col-md-4">
+                        <input name="InpIP" class="form-control input-sm" ng-model="ctrl.IP" ng-disabled="true">
                     </div>
                 </div>
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-md-12">
                 <div class="col-md-12">
-                    <div class="col-md-offset-1 col-md-5">
-                        <b>Ultima fecha de asignación:</b>
+                    <div class="col-md-offset-2 col-md-4">
+                        <b>Red:</b>
                     </div>
-                    <div class="col-md-5">
-                        <b>Ultima fecha de liberación:</b>
+                    <div class="col-md-4">
+                        <input name="InpRed" class="form-control input-sm" ng-model="ctrl.Red" ng-disabled="true">
                     </div>
                 </div>
-            </div>
-            <div class="col-md-12">
                 <div class="col-md-12">
-                    <div class="col-md-offset-1 col-md-5">
+                    <div class="col-md-offset-2 col-md-4">
+                        <b>Ultimo cliente asignado:</b>
+                    </div>
+                    <div class="col-md-4">
+                        <input name="InpClienteAsignado" class="form-control input-sm" ng-model="ctrl.ClienteAsignado" ng-disabled="true">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-offset-2 col-md-4">
+                        <b>Ultima fecha asignación:</b>
+                    </div>
+                    <div class="col-md-4">
                         <input type="date" name="InpFechaAsignacion" class="form-control input-sm" ng-model="ctrl.FechaAsignacion">
                     </div>
-                    <div class="col-md-5">
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-offset-2 col-md-4">
+                        <b>Ultima fecha liberación:</b>
+                    </div>
+                    <div class="col-md-4">
                         <input type="date" name="InpFechaLiberacion" class="form-control input-sm" ng-model="ctrl.FechaLiberacion">
                     </div>
                 </div>
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-md-12">
                 <div class="col-md-12">
-                    <div class="col-md-offset-1 col-md-5">
-                        <b>Ultimo cliente asignado:</b>
+                    <div class="col-md-offset-2 col-md-4">
+                        <b>Status:</b>
                     </div>
-                    <div class="col-md-5">
-                        <b>Red:</b>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="col-md-12">
-                    <div class="col-md-offset-1 col-md-5">
-                        <input name="InpClienteAsignado" class="form-control input-sm" ng-model="ctrl.ClienteAsignado">
-                    </div>
-                    <div class="col-md-5">
-                        <input name="InpRed" class="form-control input-sm" ng-model="ctrl.Red">
+                    <div class="col-md-4">
+                        <select name="SlcStatus" class="form-control input-sm" ng-model="Status" ng-options="S.Nombre for S in $ctrl.StatusList track by S.Clv_Status">
+                            <option value="">Selecciona</option>
+                        </select>
                     </div>
                 </div>
             </div>
         </div>
+        </fieldset>
     </div>
     <div class="modal-footer">
-        <button type="submit" class="btn btn-primary btn-sm" title="Guardar ciudad" ng-disabled="ctrl.ShowAdd" ng-show="!ctrl.View"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
+        <button type="submit" class="btn btn-primary btn-sm" title="Guardar IP" ng-disabled="ctrl.ShowAdd" ng-show="!ctrl.View"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
         <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.cancel()" title="Salir"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
     </div>
 </form>

@@ -532,7 +532,7 @@ angular
             {
                 name: 'home.catalogos.redes_editar',
                 data: {pageTitle: 'SOFTV | EDITAR RED'},
-                url: '/catalogo/Redes/editar/:id',
+                url: '/catalogo/redes/editar/:id',
                 templateUrl: 'views/catalogos/RedesForm.html',
                 controller: 'RedesUpdateCtrl',
                 controllerAs: '$ctrl'
@@ -540,9 +540,17 @@ angular
             {
                 name: 'home.catalogos.redes_detalle',
                 data: {pageTitle: 'SOFTV | DETALLE RED'},
-                url: '/catalogo/Redes/detalle/:id',
+                url: '/catalogo/redes/detalle/:id',
                 templateUrl: 'views/catalogos/RedesForm.html',
                 controller: 'RedesViewCtrl',
+                controllerAs: '$ctrl'
+            },
+            {
+                name: 'home.catalogos.red_ip',
+                data: {pageTitle: 'SOFTV | CATÁLOGO IP'},
+                url: '/catalogo/redes/ip/:mod/:id/',
+                templateUrl: 'views/catalogos/Ips.html',
+                controller: 'RedesIPCtrl',
                 controllerAs: '$ctrl'
             },
             {
