@@ -9,7 +9,6 @@ angular
         }
 
         function GetList(){
-
             var ObjIPList = {
                 'IdRed': 0, 
                 'Op': 0,
@@ -42,6 +41,7 @@ angular
                 }
             });
         }
+        
         $rootScope.$on('LoadLista', function(e){
              GetList();
         });

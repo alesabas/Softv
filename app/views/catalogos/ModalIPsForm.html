@@ -36,7 +36,7 @@
                         <b>Ultima fecha asignación:</b>
                     </div>
                     <div class="col-md-4">
-                        <input type="date" name="InpFechaAsignacion" class="form-control input-sm" ng-model="ctrl.FechaAsignacion" ng-required="ctrl.RFechaA" required-message="'Obligatorio'" invalid-message="'Inválido, Fecha invalida.'">
+                        <input type="date" name="InpFechaAsignacion" class="form-control input-sm" ng-model="ctrl.FechaAsignacion" validator="((ctrl.RFechaA == true && ctrl.FechaVA == true)||(ctrl.RFechaA == false))? true:false;" validate-on="dirty" ng-required="ctrl.RFechaA" required-message="'Obligatorio'" invalid-message="'Inválido, Fecha invalida.'" ng-disabled="ctrl.BlockFA" ng-change="ctrl.ValidateSetFecha(1);">
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -44,7 +44,7 @@
                         <b>Ultima fecha liberación:</b>
                     </div>
                     <div class="col-md-4">
-                        <input type="date" name="InpFechaLiberacion" class="form-control input-sm" ng-model="ctrl.FechaLiberacion" required required-message="'Obligatorio'" invalid-message="'Inválido, Fecha invalida.'">
+                        <input type="date" name="InpFechaLiberacion" class="form-control input-sm" ng-model="ctrl.FechaLiberacion" validator="((ctrl.RFechaL == true && ctrl.FechaV == true)||(ctrl.RFechaL == false))? true:false;" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, Fecha invalida.'" ng-disabled="ctrl.BlockFL" ng-change="ctrl.ValidateSetFecha(2);">
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -52,7 +52,7 @@
                         <b>Status:</b>
                     </div>
                     <div class="col-md-4">
-                        <select name="SlcStatus" class="form-control input-sm" ng-model="ctrl.Status" ng-options="S.Descripcion for S in ctrl.ListCombo  track by S.Status" required required-message="'Obligatorio'" ng-change="ctrl.ValidaS()">
+                        <select name="SlcStatus" class="form-control input-sm" ng-model="ctrl.Status" ng-options="S.Descripcion for S in ctrl.ListCombo  track by S.Status" validate-on="dirty" required required-message="'Obligatorio'" ng-change="ctrl.ValidaS()">
                             <option value="">Selecciona</option>
                         </select>
                     </div>

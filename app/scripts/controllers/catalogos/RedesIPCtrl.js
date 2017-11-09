@@ -12,7 +12,7 @@ angular
                 if(Red != null && ($stateParams.mod == '0' || $stateParams.mod == '1') ){
                     vm.IdRed = $stateParams.id;
                     vm.Mod = $stateParams.mod;
-                    GetIPList();
+                    GetList();
                 }else{
                     ngNotify.set('ERROR, No se encontró la Red seleccionada.', 'warn');
                     $state.go('home.catalogos.redes');
@@ -20,7 +20,7 @@ angular
             });
         }
 
-        function GetIPList(){
+        function GetList(){
             var ObjIPList = {
                 "IdRed": $stateParams.id, 
                 "Op": 1,
@@ -32,6 +32,10 @@ angular
                  vm.ViewList = (vm.IPList.length > 0)? true:false;
             });
         }
+
+        $rootScope.$on('LoadLista', function(e){
+             GetList();
+        });
 
         function OpenUpdateIP(IdIP){
             var IdIP = IdIP;
