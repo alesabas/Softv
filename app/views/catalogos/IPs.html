@@ -18,7 +18,7 @@
 			<div class="col-md-12">
                 <div class="col-md-3" style="text-align:right">
                     <div class="input-group">
-                        <input type="text" name="InpSearchIP" class="form-control input-sm" ng-model="$SearchIP" placeholder="Buscar IP">
+                        <input type="text" name="InpSearchIP" class="form-control input-sm" ng-model="$ctrl.SearchIP" placeholder="Buscar IP">
                         <span class="input-group-addon"><i class="fa fa-search"></i></span>
                     </div>
                 </div>
@@ -43,9 +43,9 @@
                     </thead>
                     <tbody>
                         <tr ng-show="!$ctrl.ViewList">
-							<td class="text-center" colspan="4">SIN REGISTROS</td>
+							<td class="text-center" colspan="8">SIN REGISTROS</td>
 						</tr>
-                        <tr dir-paginate="X in $ctrl.IPList|filter:$SearchIP|itemsPerPage:7" ng-show="$ctrl.ViewList">
+                        <tr dir-paginate="X in $ctrl.IPList|filter:$ctrl.SearchIP|itemsPerPage:7" ng-show="$ctrl.ViewList">
                             <td>{{ X.IdIP }}</td>
                             <td>{{ X.IP_ALL }}</td>
                             <td ng-if="X.Status == 'D'">Disponible</td>

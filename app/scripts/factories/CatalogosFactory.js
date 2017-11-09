@@ -215,7 +215,10 @@ angular
       GetCatalogo_IpsList: '/Catalogo_Ips/GetCatalogo_IpsList',
       GetListCatalogo_Ips: '/Catalogo_Ips/GetListCatalogo_Ips',
       GetDeepCatalogo_Ips: '/Catalogo_Ips/GetDeepCatalogo_Ips',
-      GetcatalogoIps_dosList: '/catalogoIps_dos/GetcatalogoIps_dosList'
+      GetcatalogoIps_dosList: '/catalogoIps_dos/GetcatalogoIps_dosList',
+      UpdatecatalogoIps_dos: '/catalogoIps_dos/UpdatecatalogoIps_dos',
+      GetDeepcatalogoIps_dos: '/catalogoIps_dos/GetDeepcatalogoIps_dos',
+      GetListCombo: '/catalogoIps_dos/GetListCombo'
     };
 
     factory.AddSucursal = function (SUCURSALESobj) {
@@ -3440,6 +3443,45 @@ angular
       });
       return deferred.promise;
     };
+
+    factory.UpdatecatalogoIps_dos = function (objcatalogoIps_dos) {
+      var deferred = $q.defer();
+      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+      var Parametros =  {'objcatalogoIps_dos':objcatalogoIps_dos };
+      console.log(Parametros);
+      $http.post(globalService.getUrl() + paths.UpdatecatalogoIps_dos, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+    factory.GetDeepcatalogoIps_dos = function (IdIp) {
+      var deferred = $q.defer();
+      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+      var Parametros = {'IdIP': IdIp};
+      console.log(Parametros);
+      $http.post(globalService.getUrl() + paths.GetDeepcatalogoIps_dos, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+    factory.GetListCombo = function () {
+      var deferred = $q.defer();
+      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+      $http.get(globalService.getUrl() + paths.GetListCombo, config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+
 
     return factory;
 
