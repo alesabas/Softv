@@ -1,0 +1,73 @@
+<style type="text/css">
+    .table-scroll {
+        height:300px;
+        overflow:auto;  
+        margin-top:20px;
+    }
+</style>
+<div class="modal-header">
+    <button class="close" type="button" aria-label="close" ng-click="ctrl.cancel()">x</button>
+    <h4 class="modal-title"><i ng-class="ctrl.Icono"></i>Trabajos Asignados Técnico.</h4>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-9">
+                <h4>Nombre Técnico: {{ ctrl.NombreTecnico }}</h4>
+            </div>
+            <div class="col-md-1">
+                <h4>Fecha:</h4>
+            </div>
+            <div class="col-md-2">
+                <input type="date" name="InpFecha" class="form-control input-sm" ng-model="ctrl.Fecha" ng-change="ctrl.GetTecnicoTrabajo();">
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-12 table-scroll">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th width="7%"><b>Tipo</b></th>
+                            <th width="7%"><b>Clave</b></th>
+                            <th width="6%"><b>Estatus</b></th>
+                            <th width="14%"><b>Fecha Solicitud</b></th>
+                            <th width="8%"><b>Turno</b></th>
+                            <th width="30%"><b>Descripción</b></th>
+                            <th width="30%"><b>Observaciones</b></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="X in ctrl.TecnicoTrabajoList">
+                            <td style="font-size:12px;"><small>{{ X.QuejaOrden }}</small></td>
+                            <td style="font-size:12px;"><small>{{ X.Clv_OrdenQueja }}</small></td>
+                            <td style="font-size:12px;"><small>{{ X.Estatus }}</small></td>
+                            <td style="font-size:12px;"><small>{{ X.Fec_Sol }}</small></td>
+                            <td style="font-size:12px;"><small>{{ X.Turno }}</small></td>
+                            <td style="font-size:12px;"><small>{{ X.DESCRIPCION }}</small></td>
+                            <td style="font-size:12px;"><small>{{ X.Obs }}</small></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-12">
+                <div class="col-md-offset-3 col-md-2">
+                    <b>Total de Reportes</b>
+                </div>
+                <div class="col-md-1">
+                    {{ ctrl.TotalReportes }}
+                </div>
+                <div class="col-md-2">
+                    <b>Total de Ordenes</b>
+                </div>
+                <div class="col-md-1">
+                    {{ ctrl.TotalOrdenes }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.cancel()" title="Salir">Cancelar</button>
+</div>

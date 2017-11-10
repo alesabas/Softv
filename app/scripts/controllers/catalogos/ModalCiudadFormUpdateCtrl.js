@@ -98,6 +98,7 @@ angular
         vm.Icono = 'fa fa-pencil-square-o';
         vm.ShowEdit = false;
         vm.ShowAdd = false;
+        vm.View = false;
         vm.RelEstViewList = [];
         vm.AddRelEst = AddRelEst;
         vm.DeleteRelEst = DeleteRelEst;

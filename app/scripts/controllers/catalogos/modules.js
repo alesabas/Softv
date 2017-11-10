@@ -224,8 +224,6 @@ angular
                 controller: 'PlazaDetalleCtrl',
                 controllerAs: '$ctrl'
             },
-
-            
             {
                 name: 'home.catalogos.localidades',
                 data: {
@@ -291,7 +289,6 @@ angular
                 controller: 'DistribuidorDetalleCtrl',
                 controllerAs: '$ctrl'
             },
-           
             {
                 name: 'home.catalogos.colonias',
                 data: {
@@ -320,6 +317,21 @@ angular
                 url: '/catalogo/colonias/nuevo',
                 templateUrl: 'views/catalogos/coloniaForm.html',
                 controller: 'ColoniaFormAddCtrl',
+                controllerAs: '$ctrl'
+            },
+            {
+                name: 'home.catalogos.colonia_detalle',
+                data: {
+                    pageTitle: 'SOFTV | DETALLE COLONIA',
+                    permissions: {
+                        options: {
+                            reload: false
+                        }
+                    }
+                },
+                url: '/catalogo/colonias/detalle/:id',
+                templateUrl: 'views/catalogos/coloniaForm.html',
+                controller: 'ColoniaFormViewCtrl',
                 controllerAs: '$ctrl'
             },
             {
@@ -394,12 +406,20 @@ angular
             },
             {
                 name: 'home.catalogos.cliente_editar',
-                data: {
-                    pageTitle: 'SOFTV | EDITAR CLIENTE'
-                },
+                data: {pageTitle: 'SOFTV | EDITAR CLIENTE'},
                 url: '/catalogo/clientes/editar/:id',
                 templateUrl: 'views/catalogos/ClienteNuevo.html',
                 controller: 'ClienteEditarCtrl',
+                controllerAs: '$ctrl'
+            },
+            {
+                name: 'home.catalogos.cliente_detalle',
+                data: {
+                    pageTitle: 'SOFTV | DETALLE CLIENTE'
+                },
+                url: '/catalogo/clientes/detalle/:id',
+                templateUrl: 'views/catalogos/ClienteNuevo.html',
+                controller: 'ClienteDetalleCtrl',
                 controllerAs: '$ctrl'
             },
             {
@@ -434,6 +454,14 @@ angular
                 controllerAs: '$ctrl'
             },
             {
+                name: 'home.catalogos.servicio_detalle',
+                data: { pageTitle: 'SOFTV | DETALLE SERVICIO' },
+                url: '/catalogo/servicios/detalle/:id',
+                templateUrl: 'views/catalogos/ServicioForm.html',
+                controller: 'ServicioViewCtrl',
+                controllerAs: '$ctrl'
+            },
+            {
                 name: 'home.catalogos.tipos_servicios',
                 data: {
                     pageTitle: 'SOFTV | CATÁLOGO TIPO DE SERVICIOS',
@@ -461,6 +489,83 @@ angular
                 url: '/catalogo/bancos',
                 templateUrl: 'views/catalogos/Bancos.html',
                 controller: 'BancosCtrl',
+                controllerAs: '$ctrl'
+            },
+            {
+                name: 'home.catalogos.VelocidadInternet',
+                data: {
+                    pageTitle: 'SOFTV | CATÁLOGO VELOCIDAD DE INTERNET',
+                    permissions: {
+                        options: {
+                            reload: false
+                        }
+                    }
+                },
+                url: '/catalogo/velocidad_inertnet',
+                templateUrl: 'views/catalogos/VelocidadInternet.html',
+                controller: 'VelocidadInternetCtrl',
+                controllerAs: '$ctrl'
+            },
+            {
+                name: 'home.catalogos.redes',
+                data: {
+                    pageTitle: 'SOFTV | CATÁLOGO REDES',
+                    permissions: {
+                        options: {
+                            reload: false
+                        }
+                    }
+                },
+                url: '/catalogo/redes',
+                templateUrl: 'views/catalogos/Redes.html',
+                controller: 'RedesCtrl',
+                controllerAs: '$ctrl'
+            },
+            {
+                name: 'home.catalogos.redes_nuevo',
+                data: { pageTitle: 'SOFTV | NUEVA RED' },
+                url: '/catalogo/redes/nuevo/',
+                templateUrl: 'views/catalogos/RedesForm.html',
+                controller: 'RedesAddCtrl',
+                controllerAs: '$ctrl'
+            },
+            {
+                name: 'home.catalogos.redes_editar',
+                data: {pageTitle: 'SOFTV | EDITAR RED'},
+                url: '/catalogo/redes/editar/:id',
+                templateUrl: 'views/catalogos/RedesForm.html',
+                controller: 'RedesUpdateCtrl',
+                controllerAs: '$ctrl'
+            },
+            {
+                name: 'home.catalogos.redes_detalle',
+                data: {pageTitle: 'SOFTV | DETALLE RED'},
+                url: '/catalogo/redes/detalle/:id',
+                templateUrl: 'views/catalogos/RedesForm.html',
+                controller: 'RedesViewCtrl',
+                controllerAs: '$ctrl'
+            },
+            {
+                name: 'home.catalogos.red_ip',
+                data: {pageTitle: 'SOFTV | CATÁLOGO IP'},
+                url: '/catalogo/redes/ip/:mod/:id/',
+                templateUrl: 'views/catalogos/Ips.html',
+                controller: 'RedesIPCtrl',
+                controllerAs: '$ctrl'
+            },
+            {
+                name: 'home.catalogos.ips',
+                data: {
+                    pageTitle: 'SOFTV | CATÁLOGO IP',
+                    permissions: {
+                        options: {
+                            reload: false
+                        }
+                    }
+                },
+                url: '/catalogo/ip',
+                templateUrl: 'views/catalogos/Ips.html',
+                controller: 'IPsCtrl',
                 controllerAs: '$ctrl'
             }
         ];

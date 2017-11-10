@@ -1,0 +1,15 @@
+<div class="modal-header">
+    <button class="close" type="button" aria-label="close" ng-click="ctrl.cancel()">x</button>
+    <h4 class="modal-title"><i class="fa fa-exclamation-triangle"></i> Eliminar Registro de Cita - {{ ctrl.NoCita }}</h4>
+</div>
+<div class="modal-body">
+    <p>¿Realmente desea eliminar la cita?</p>
+    <p><b>Tipo:</b> {{ ctrl.Tipo }}</p>
+    <p><b>Clave de {{ ctrl.Tipo }}:</b> {{ ctrl.Clv_OrdRep }}</p>
+    <p><b>Contrato:</b> {{ ctrl.Contrato }}</p>
+    <p><b>Fecha:</b> {{ ctrl.FECHA }}</p>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-danger btn-sm" type="button" ng-click="ctrl.DeleteCita()" title="Eliminar Calle">Eliminar</button>
+    <button class="btn bnt-default btn-sm" type="button" ng-click="ctrl.cancel()" title="Salir">Cancelar</button>
+</div>

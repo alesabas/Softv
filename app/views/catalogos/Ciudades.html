@@ -16,7 +16,7 @@
         </header>
         <div class="tools">
 			<div class="btn-group">
-			    <button type="button" class="btn btn-primary btn-sm" ng-click="$ctrl.OpenAddCiudad()" title="Crear una ciudad nueva">NUEVA CIUDAD</button>
+			    <button type="button" class="btn btn-primary btn-sm" ng-click="$ctrl.OpenAddCiudad()" title="Crear una ciudad nueva"><i class="fa fa-plus"></i> NUEVA CIUDAD</button>
             </div>
         </div>
     </div>
@@ -42,8 +42,8 @@
                     <thead>
                         <tr>
                             <th width="10%"><b>Id</b></th>
-                            <th width="70%"><b>Nombre de la ciudad</b></th>
-                            <th width="20%" colspan="2"><b>Acciones</b></th>
+                            <th width="60%"><b>Nombre de la ciudad</b></th>
+                            <th width="30%" colspan="3"><b>Acciones</b></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -53,6 +53,7 @@
                         <tr dir-paginate="X in $ctrl.CiudadLista|filter:$SearchCiudad|itemsPerPage:7" ng-show="$ctrl.ConRegistros">
                             <td>{{ X.Clv_Ciudad }}</td>
                             <td>{{ X.Nombre }}</td>
+                            <td><button type="button" class="btn btn-info btn-xs" ng-click="$ctrl.OpenViewCiudad(X.Clv_Ciudad)" title="Consultar Ciudad"><i class="fa fa-eye"></i> CONSULTAR</button></td>
                             <td><button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.OpenUpdateCiudad(X.Clv_Ciudad)" title="Editar Ciudad"><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
                             <td><button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.OpenDeleteCiudad(X.Clv_Ciudad)" title="Eliminar Ciudad"><i class="fa fa-trash"></i> ELIMINAR</button></td>
                         </tr>
@@ -63,7 +64,6 @@
 					<dir-pagination-controls max-size="7" direction-links="true" boundary-links="true" ng-if="$ctrl.CiudadLista.length > 0">
 					</dir-pagination-controls>
 				</div>
-                <br>
             </div>
         </div>
     </div>

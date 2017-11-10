@@ -63,6 +63,8 @@ angular
                 vm.Email = DatosCliente.Email;
                 vm.EsPersonaFisica = DatosCliente.EsFisica;
                 vm.FechaNac = toDate(DatosCliente.FechaNacimiento);
+                console.log(DatosCliente.FechaNacimiento);
+                console.log(vm.FechaNac);
                 vm.IdEstado = DatosCliente.Clv_Estado;
                 vm.IdMunicipio = DatosCliente.Clv_Ciudad;
                 vm.IdLocalidad = DatosCliente.Clv_Localidad;
@@ -888,7 +890,7 @@ angular
         
         var vm = this;
         vm.IdContrato = $stateParams.id;
-        vm.Title = 'Cliente editar - ' + vm.IdContrato;
+        vm.Title = 'Cliente - ';
         vm.SetForm = 1;
         vm.ShowAccord = true;
         vm.BlockInput = true;
@@ -907,8 +909,7 @@ angular
         vm.DisFA_A = true;
         vm.DisFB_A = true;
         vm.ShowTipServ1 = false;
-        vm.DisFormDetallServicio = false;
-        vm.DisFormDetallAparato = false;
+        vm.View = false;
         vm.ValidateRFC = /^[A-Z]{4}\d{6}[a-zA-Z]{3}$|^[A-Z]{4}\d{6}\d{3}$|^[A-Z]{4}\d{6}[A-Z]{2}\d{1}$|^[A-Z]{4}\d{6}[A-Z]{1}\d{2}$|^[A-Z]{4}\d{6}\d{2}[a-zA-Z]{1}$|^[A-Z]{4}\d{6}\d{1}[a-zA-Z]{2}$|^[A-Z]{4}\d{6}\d{1}[A-Z]{1}\d{1}$|^[A-Z]{4}\d{6}[A-Z]{1}\d{1}[a-zA-Z]{1}$/;
         vm.AddDatosPersonales = AddDatosPersonales;
         vm.GetCiudadMunicipio = GetCiudadMunicipio;
@@ -918,7 +919,6 @@ angular
         vm.ValidateFechaVen = ValidateFechaVen;
         vm.AddDatosFiscales = AddDatosFiscales;
         vm.AddDatosBancarios = AddDatosBancarios;
-        //vm.AddRefPersonales = AddRefPersonales;
         vm.OpenAddRefPersonal = OpenAddRefPersonal;
         vm.OpenEditRefPersonal = OpenEditRefPersonal;
         vm.OpenDeleteRefPersonal = OpenDeleteRefPersonal;

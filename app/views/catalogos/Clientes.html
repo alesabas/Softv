@@ -16,7 +16,7 @@
         </header>
         <div class="tools">
 			<div class="btn-group">
-				<button type="button" class="btn btn-primary btn-sm" ui-sref="home.catalogos.cliente_nuevo" title="Crear un cliente nuevo"> nuevo cliente</button>
+				<button type="button" class="btn btn-primary btn-sm" ui-sref="home.catalogos.cliente_nuevo" title="Crear un cliente nuevo"><i class="fa fa-plus"></i> nuevo cliente</button>
 			</div>
 		</div>
     </div>
@@ -40,16 +40,22 @@
                                 <form name="FormSearchContrato" angular-validator-submit="$ctrl.SearchContrato()" novalidate angular-validator autocomplete="off">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            Ingrese el número de contrato
+                                            <div class="col-md-3">
+                                                Ingrese el número de contrato
+                                            </div>
                                         </div>
-                                        <div class="col-md-10">
-                                            <input type="text" name="InpContrato" class="form-control input-sm" ng-model="$ctrl.Contrato" ng-pattern="/^\d{1,9}-\d{1,9}$/" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa un contrato.'">
+                                        <div class="col-md-12">
+                                            <div class="col-md-3">
+                                                <input type="text" name="InpContrato" class="form-control input-sm" ng-model="$ctrl.Contrato" ng-pattern="/^\d{1,9}-\d{1,9}$/" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa un contrato.'">
+                                            </div>
+                                            <div class="col-md-2" style="text-align:center">
+                                                <button type="submit" class="btn btn-info btn-sm"><i class="fa fa-search"></i> Buscar</button>
+                                            </div>
                                         </div>
-                                        <div class="col-md-2" style="text-align:center">
-                                            <button type="submit" class="btn btn-info btn-sm"><i class="fa fa-search"></i> Buscar</button>
-                                        </div>
-                                        <div class="col-md-12 note">
-                                            <small>El número de contrato está formado por 2 grupos de números con un guion intermedio p.e. (1234-1)</small>
+                                        <div class="col-md-12">
+                                            <div class="col-md-12 note">
+                                                <small>El número de contrato está formado por 2 grupos de números con un guion intermedio p.e. (1234-1)</small>
+                                            </div>
                                         </div>
                                     </div>
                                 </form>
@@ -144,13 +150,17 @@
                                 <form name="FormSearchNombre" angular-validator-submit="$ctrl.SearchNombre()" novalidate angular-validator autocomplete="off">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            Nombre completo:
+                                            <div class="col-md-12">
+                                                Nombre completo:
+                                            </div>
                                         </div>
-                                        <div class="col-md-10">
-                                            <input type="text" name="InpNombre" class="form-control input-sm" ng-model="$ctrl.Nombre" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa un nombre.'">
-                                        </div>
-                                        <div class="col-md-2" style="text-align:center">
-                                            <button type="submit" class="btn btn-info btn-sm"><i class="fa fa-search"></i> Buscar</button>
+                                        <div class="col-md-12">
+                                            <div class="col-md-3">
+                                                <input type="text" name="InpNombre" class="form-control input-sm" ng-model="$ctrl.Nombre" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa un nombre.'">
+                                            </div>
+                                            <div class="col-md-2" style="text-align:center">
+                                                <button type="submit" class="btn btn-info btn-sm"><i class="fa fa-search"></i> Buscar</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </form>
@@ -166,15 +176,19 @@
                                 <form name="FormSearchPlaza" angular-validator-submit="$ctrl.SearchPlaza()" novalidate angular-validator autocomplete="off">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            Plaza:
+                                            <div class="col-md-12">
+                                                Plaza:
+                                            </div>
                                         </div>
-                                        <div class="col-md-10">
-                                            <select type="text" name="SltPlaza" class="form-control input-sm" ng-model="$ctrl.Plaza" ng-options="P.razon_social for P in $ctrl.PlazaList track by P.id_compania" validate-on="dirty" required required-message="'Obligatorio'">
-                                                <option value="">Selecciona</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-2" style="text-align:center">
-                                            <button type="submit" class="btn btn-info btn-sm"><i class="fa fa-search"></i> Buscar</button>
+                                        <div class="col-md-12">
+                                            <div class="col-md-3">
+                                                <select type="text" name="SltPlaza" class="form-control input-sm" ng-model="$ctrl.Plaza" ng-options="P.razon_social for P in $ctrl.PlazaList track by P.id_compania" validate-on="dirty" required required-message="'Obligatorio'">
+                                                    <option value="">Selecciona</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-2" style="text-align:center">
+                                                <button type="submit" class="btn btn-info btn-sm"><i class="fa fa-search"></i> Buscar</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </form>
@@ -191,14 +205,14 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th><b><small>ID</small></b></th>
-                        <th><b><small>Nombre completo</small></b></th>
-                        <th><b><small>Domicilio</small></b></th>
-                        <th><b><small>Colonia</small></b></th>
-                        <th><b><small>Ciudad</small></b></th>
-                        <th><b><small>Teléfono</small></b></th>
-                        <th><b><small>¿Internet?</small></b></th>
-                        <th><b><small>Acciones</small></b></th>
+                        <th width="5%"><b><small>ID</small></b></th>
+                        <th width="18%"><b><small>Nombre completo</small></b></th>
+                        <th width="20%"><b><small>Domicilio</small></b></th>
+                        <th width="15%"><b><small>Colonia</small></b></th>
+                        <th width="10%"><b><small>Ciudad</small></b></th>
+                        <th width="8%"><b><small>Teléfono</small></b></th>
+                        <th width="7%"><b><small>¿Internet?</small></b></th>
+                        <th colspan="2" width="17%"><b><small>Acciones</small></b></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -217,6 +231,7 @@
                         <td><small>{{ X.TELEFONO }}</small></td>
                         <td ng-if="X.SoloInternet == false"><small>{{ 'No' }}</small></td>
                         <td ng-if="X.SoloInternet == true"><small>{{ 'Si' }}</small></td>
+                        <td><a type="button" class="btn btn-info btn-xs" ui-sref="home.catalogos.cliente_detalle({ id: X.CONTRATO })" title="Consultar Cliente"><i class="fa fa-eye"></i> CONSULTAR</a></td>
                         <td><a type="button" class="btn btn-warning btn-xs" ui-sref="home.catalogos.cliente_editar({ id: X.CONTRATO })" title="Editar Cliente"><i class="fa fa-pencil-square-o"></i> EDITAR</a></td>
                     </tr>
                 </tbody>

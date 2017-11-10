@@ -79,8 +79,30 @@ angular
             });
         }
 
+        function OpenViewCiudad(IdMunicipio){
+            var IdMunicipio = IdMunicipio;
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'views/catalogos/ModalCiudadForm.html',
+                controller: 'ModalCiudadFormViewCtrl',
+                controllerAs: 'ctrl',
+                backdrop: 'static',
+                keyboard: false,
+                class: 'modal-backdrop fade',
+                size: 'md',
+                resolve: {
+                    IdMunicipio: function () {
+                        return IdMunicipio;
+                    }
+                }
+            });
+        }
+
         var vm = this;
         vm.OpenAddCiudad = OpenAddCiudad;
+        vm.OpenViewCiudad = OpenViewCiudad;
         vm.OpenUpdateCiudad = OpenUpdateCiudad;
         vm.OpenDeleteCiudad = OpenDeleteCiudad;
         initData();

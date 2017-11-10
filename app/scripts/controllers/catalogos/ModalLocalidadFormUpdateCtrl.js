@@ -134,6 +134,7 @@ angular
         vm.Titulo = 'Editar Registro - ';
         vm.Icono = 'fa fa-pencil-square-o';
         vm.ShowUpdate = true;
+        vm.View = false;
         vm.SaveLocalidad = SaveLocalidad;
         vm.AddEstMun = AddEstMun;
         vm.DeleteEstMun = DeleteEstMun;

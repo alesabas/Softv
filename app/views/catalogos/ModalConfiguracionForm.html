@@ -32,7 +32,7 @@
                 <b>Servicio:</b>
             </div>
             <div class="col-md-3" ng-show="ctrl.ShowRel">
-                <select name="SlcServicio1" class="form-control input-sm" ng-model="ctrl.Servicio1" ng-options="S.Descripcion for S in ctrl.Servicio1List track by S.Clv_Servicio">
+                <select name="SlcServicio1" class="form-control input-sm" ng-model="ctrl.Servicio1" ng-options="S.Descripcion for S in ctrl.Servicio1List track by S.Clv_Servicio" ng-disabled="ctrl.View">
                     <option value="">Selecciona</option>
                 </select>
             </div>
@@ -75,27 +75,29 @@
                 </table>
             </div>
             <div class="col-md-2" style="text-align:center" ng-show="ctrl.ShowRel">
+                <fieldset ng-disabled="ctrl.View">
                 <div class="col-md-12">
-                <button type="button" class="btn btn-success btn-xs" title="Agrega a la plaza seleccionada" ng-click="ctrl.AddServicioPlaza()" ng-disabled="ctrl.Servicio1 == undefined || ctrl.Distribuidor == undefined">Agregar</button>
+                    <button type="button" class="btn btn-success btn-xs" title="Agrega a la plaza seleccionada" ng-click="ctrl.AddServicioPlaza()" ng-disabled="ctrl.Servicio1 == undefined || ctrl.Distribuidor == undefined" ng-show="!ctrl.View">Agregar</button>
                 </div>
                 <div class="col-md-12">
                     <br>
                 </div>
                 <div class="col-md-12">
-                <button type="button" class="btn btn-danger btn-xs" title="Elimina de la plaza seleccionada" ng-click="ctrl.DeleteServicioPlaza()" ng-disabled="(ctrl.Servicio2List == undefined || ctrl.Servicio2List == '') || ctrl.Servicio1 != undefined">Eliminar</button>
+                    <button type="button" class="btn btn-danger btn-xs" title="Elimina de la plaza seleccionada" ng-click="ctrl.DeleteServicioPlaza()" ng-disabled="(ctrl.Servicio2List == undefined || ctrl.Servicio2List == '') || ctrl.Servicio1 != undefined" ng-show="!ctrl.View">Eliminar</button>
                 </div>
                 <div class="col-md-12">
                     <br>
                 </div>
                 <div class="col-md-12">
-                <button type="button" class="btn btn-success btn-xs" title="Agrega a todas las plazas" ng-click="ctrl.AddServicioPlazaTodas()">Agregar<br/>todas las<br/>Plazas</button>
+                    <button type="button" class="btn btn-success btn-xs" title="Agrega a todas las plazas" ng-click="ctrl.AddServicioPlazaTodas()" ng-show="!ctrl.View">Agregar<br/>todas las<br/>Plazas</button>
                 </div>
                 <div class="col-md-12">
                     <br>
                 </div>
                 <div class="col-md-12">
-                <button type="button" class="btn btn-danger btn-xs" title="Elimina de todas las plazas" ng-click="ctrl.DeleteServicioPlazaTodas()">Eliminar<br/>de todas las<br/>Plazas</button>
+                    <button type="button" class="btn btn-danger btn-xs" title="Elimina de todas las plazas" ng-click="ctrl.DeleteServicioPlazaTodas()" ng-show="!ctrl.View">Eliminar<br/>de todas las<br/>Plazas</button>
                 </div>
+                </fieldset>
             </div>
         </div>
     </div>

@@ -1,0 +1,63 @@
+<div class="card animated fadeIn" style="margin-top:20px;">
+    <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+        <header>
+            <strong style="font-weight:bold; border:none; margin-left:10px;">Catálogo Velocidades de Internet</strong>
+			<br>
+            <small class="text-muted" style="font-size:14px; margin-left:10px;">
+                <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">Catálogo Velocidades de Internet</a>
+            </small>
+        </header>
+        <div class="tools">
+			<div class="btn-group">
+				<button type="button" class="btn btn-primary btn-sm" ng-click="$ctrl.OpenAddVelocidadInternet()" title="Crear una Velocidad de Internet Nueva"><i class="fa fa-plus"></i> NUEVA VELOCIDAD</button>
+			</div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+			<div class="col-md-12">
+                <form name="FormSearch" angular-validator-submit="$ctrl.Search()"  novalidate angular-validator autocomplete="off">
+                <div class="col-md-2">
+                    <input type="text" name="InpClaveEquivalente" class="form-control input-sm" ng-model="$ctrl.ClaveEquivalente" placeholder="Clave Equivalente" validate-on="dirty" ng-pattern="/^[a-zA-Z0-9]+$/" invalid-message="'Inválido.'">
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-warning btn-xs" title="Buscar"><i class="fa fa-search"></i> BUSCAR</button>
+                </div>
+                </form>
+			</div>
+        </div>
+        <br>
+        <div class="col-md-12">
+            <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th width="15%"><b>Clave equivalente</b></th>
+                            <th width="30%"><b>Velocidad subida</b></th>
+                            <th width="30%"><b>Velocidad bajada</b></th>
+                            <th width="25%" colspan="3"><b>Acciones</b></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-show="$ctrl.SinRegistros">
+							<td class="text-center" colspan="6">SIN RESULTADOS</td>
+						</tr>
+                        <tr dir-paginate="X in $ctrl.VelocidadInternetList|filter:$ctrl.SearchVelocidad|itemsPerPage:7" ng-show="$ctrl.ConRegistros">
+                            <td>{{ X.Clv_equivalente }}</td>
+                            <td>{{ X.VelSub }}</td>
+                            <td>{{ X.VelBaj }}</td>
+                            <td><button type="button" class="btn btn-info btn-xs" ng-click="$ctrl.OpenViewVelocidadInternet(X.id)" title="Editar Velocidad de Internet"><i class="fa fa-eye"></i> CONSULTAR</button></td>
+                            <td><button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.OpenUpdateVelocidadInternet(X.id)" title="Editar Velocidad de Internet"><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
+                            <td><button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.OpenDeleteVelocidadInternet(X.id)" title="Eliminar Velocidad de Internet"><i class="fa fa-trash"></i> ELIMINAR</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br>
+                <div style="margin-top:-40px;">
+					<dir-pagination-controls max-size="7" direction-links="true" boundary-links="true" ng-if="$ctrl.VelocidadInternetList.length > 0">
+					</dir-pagination-controls>
+				</div>
+            </div>
+        </div>
+    </div>
+</div>

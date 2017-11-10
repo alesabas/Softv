@@ -54,6 +54,10 @@ angular
             });
         }
 
+        $rootScope.$on('LoadServicioList', function(e){
+            GetServiciosList();
+        });
+
         var vm = this;
         vm.OpenDeleteServicio = OpenDeleteServicio;
         vm.GetServiciosList = GetServiciosList;

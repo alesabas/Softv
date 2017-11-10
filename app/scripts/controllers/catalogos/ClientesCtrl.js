@@ -48,12 +48,8 @@ angular
 
         function GetCiudadMunicipio(){
             if(vm.Estado != undefined){
-                var RelEstMun = {
-                    'clv_estado' : vm.Estado.Clv_Estado,
-                    'idcompania' : vm.Plaza.id_compania
-                };
-                CatalogosFactory.GetMuestraCiudadesEstadoList(RelEstMun).then(function(data){
-                    vm.CiudadMunicipioList = data.GetMuestraCiudadesEstadoListResult;
+                CatalogosFactory.GetMuestraCdsEdo_RelColoniaList(vm.Estado.Clv_Estado).then(function(data){
+                    vm.CiudadMunicipioList = data.GetMuestraCdsEdo_RelColoniaListResult;
                 });
             }else{
                 vm.CiudadMunicipioList = null;

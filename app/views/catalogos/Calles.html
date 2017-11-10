@@ -16,7 +16,7 @@
         </header>
         <div class="tools">
 			<div class="btn-group">
-				<button type="button" class="btn btn-primary btn-sm" ng-click="$ctrl.OpenAddCalle()" title="Crear una Calle Nueva">NUEVA CALLE</button>
+				<button type="button" class="btn btn-primary btn-sm" ng-click="$ctrl.OpenAddCalle()" title="Crear una Calle Nueva"><i class="fa fa-plus"></i> NUEVA CALLE</button>
 			</div>
         </div>
     </div>
@@ -42,8 +42,8 @@
                     <thead>
                         <tr>
                             <th width="10%"><b>Id</b></th>
-                            <th width="80%"><b>Nombre de la Calle</b></th>
-                            <th width="10%"><b>Acciones</b></th>
+                            <th width="70%"><b>Nombre de la Calle</b></th>
+                            <th width="20%" colspan="2"><b>Acciones</b></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -53,6 +53,7 @@
                         <tr dir-paginate="X in $ctrl.CalleList|filter:$ctrl.SearchCalle|itemsPerPage:7" ng-show="$ctrl.ConRegistros">
                             <td>{{ X.Clv_Calle }}</td>
                             <td>{{ X.NOMBRE }}</td>
+                            <td><button type="button" class="btn btn-info btn-xs" ng-click="$ctrl.OpenViewCalle(X.Clv_Calle)" title="Consultar Calle"><i class="fa fa-eye"></i> CONSULTAR</button></td>
                             <td><button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.OpenUpdateCalle(X.Clv_Calle)" title="Editar Calle"><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
                         </tr>
                     </tbody>

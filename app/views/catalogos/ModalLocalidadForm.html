@@ -11,6 +11,7 @@
         <h4 class="modal-title"><i ng-class="ctrl.Icono"></i> {{ ctrl.Titulo }} {{ ctrl.IdLocalidad }}</h4>
     </div>
     <div class="modal-body">
+        <fieldset ng-disabled="ctrl.View">
         <div class="row">
             <div class="col-md-12">
                 <div class="col-md-12">
@@ -37,7 +38,7 @@
                     </select>
                 </div>
                 <div class="col-md-4 text-center">
-                    <button type="button" class="btn btn-success btn-sm" title="Agregar Relación Estado y Ciudad" ng-click="ctrl.AddEstMun()">Agregar</button>
+                    <button type="button" class="btn btn-success btn-xs" title="Agregar Relación Estado y Ciudad" ng-click="ctrl.AddEstMun()">Agregar</button>
                 </div>
             </div>
         </div>
@@ -57,68 +58,17 @@
                             <tr ng-repeat="X in ctrl.RelLocalidadList">
                                 <td>{{ X.clv_ciudad }}</td>
                                 <td>{{ X.Nombre }}</td>
-                                <td><button type="button" class="btn btn-danger btn-xs" title="Eliminar Ciudad" ng-click="ctrl.DeleteEstMun(X.clv_ciudad)">Eliminar</button></td>
+                                <td><button type="button" class="btn btn-danger btn-xs" title="Eliminar Ciudad" ng-click="ctrl.DeleteEstMun(X.clv_ciudad)"><i class="fa fa-trash"></i> Eliminar</button></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-        <!--
-        <div class="row">
-            <div class="col-md-12">
-                <div class="col-md-5">
-                    <p><b><small>Estado:</small></b></p>
-                </div>
-                <div class="col-md-5">
-                    <p><b><small>Ciudades:</small></b></p>
-                </div>
-                <div class="col-md-5">
-                    <p><b><small></small></b></p>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="col-md-5">
-                    <select name="SltEstado" class="form-control input-sm" ng-model="ctrl.Estado" ng-options="E.Nombre for E in ctrl.EstadoList track by E.Clv_Estado" ng-change="ctrl.GetCiudadMunicipio()">
-                        <option value="">Selecciona</option>
-                    </select>
-                </div>
-                <div class="col-md-5">
-                    <select name="SltCiudad" class="form-control input-sm" ng-model="ctrl.Ciudad" ng-options="C.Nombre for C in ctrl.CiudadMunicipioList track by C.Clv_Ciudad">
-                        <option value="">Selecciona</option>
-                    </select>
-                </div>
-                <div class="col-md-2">
-                    <button type="button" class="btn btn-success btn-sm" title="Agregar Relación Estado y Ciudad" ng-click="ctrl.AddEstMun()">Agregar</button>
-                </div>
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="col-md-12 table-scroll">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th width="45%"><b>Estado</b></th>
-                                <th width="45%"><b>Ciudad</b></th>
-                                <th width="10%"><b>Acciones</b></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="X in ctrl.EstMunViewList">
-                                <td>{{ X.Estado }}</td>
-                                <td>{{ X.Municipio }}</td>
-                                <td><button type="button" class="btn btn-danger btn-xs" title="Eliminar Ciudad" ng-click="ctrl.DeleteEstMun(X.IdEstado, X.IdMunicipio)">Eliminar</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div> -->
+        </fieldset>
     </div>
     <div class="modal-footer">
-        <button type="submit" class="btn btn-primary btn-sm" title="Guardar Localidad">Guardar</button>
-        <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.cancel()" title="Salir">Cancelar</button>
+        <button type="submit" class="btn btn-primary btn-sm" title="Guardar Localidad" ng-show="!ctrl.View"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
+        <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.cancel()" title="Salir"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
     </div>
 </form>

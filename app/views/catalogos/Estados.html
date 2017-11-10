@@ -16,7 +16,7 @@
         </header>
         <div class="tools">
 			<div class="btn-group">
-				<button type="button" class="btn btn-primary btn-sm" ng-click="$ctrl.OpenAddEstado()" title="Crear un estado nuevo">NUEVO ESTADO</button>
+				<button type="button" class="btn btn-primary btn-sm" ng-click="$ctrl.OpenAddEstado()" title="Crear un estado nuevo"><i class="fa fa-plus"></i> NUEVO ESTADO</button>
 			</div>
         </div>
     </div>
@@ -42,8 +42,8 @@
                     <thead>
                         <tr>
                             <th width="10%"><b>Id</b></th>
-                            <th width="70%"><b>Nombre del Estado</b></th>
-                            <th width="20%" colspan="2"><b>Acciones</b></th>
+                            <th width="60%"><b>Nombre del Estado</b></th>
+                            <th width="30%" colspan="3"><b>Acciones</b></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -53,6 +53,7 @@
                         <tr dir-paginate="X in $ctrl.EstadoList|filter:$ctrl.SearchEstado|itemsPerPage:7" ng-show="$ctrl.ConRegistros">
                             <td>{{ X.Clv_Estado }}</td>
                             <td>{{ X.Nombre }}</td>
+                            <td><button type="button" class="btn btn-info btn-xs" ng-click="$ctrl.OpenViewEstado(X.Clv_Estado)" title="Consultar Estado"><i class="fa fa-eye"></i> Consultar</button></td>
                             <td><button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.OpenUpdateEstado(X.Clv_Estado)" title="Editar Estado"><i class="fa fa-pencil-square-o"></i> Editar</button></td>
                             <td><button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.OpenDeleteEstado(X.Clv_Estado)" title="Eliminar Estado"><i class="fa fa-trash"></i> Eliminar</button></td>
                         </tr>

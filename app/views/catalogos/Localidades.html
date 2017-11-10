@@ -16,7 +16,7 @@
         </header>
         <div class="tools">
 			<div class="btn-group">
-				<button type="button" class="btn btn-primary btn-sm" ng-click="$ctrl.OpenAddLocalidad()" title="Crear una Localidad nueva">NUEVA LOCALIDAD</button>
+				<button type="button" class="btn btn-primary btn-sm" ng-click="$ctrl.OpenAddLocalidad()" title="Crear una Localidad nueva"><i class="fa fa-plus"></i> NUEVA LOCALIDAD</button>
 			</div>
         </div>
     </div>
@@ -42,8 +42,8 @@
                     <thead>
                         <tr>
                             <th width="10%"><b>Id</b></th>
-                            <th width="70%"><b>Nombre de la localidad</b></th>
-                            <th width="20%" colspan="2"><b>Acciones</b></th>
+                            <th width="60%"><b>Nombre de la localidad</b></th>
+                            <th width="30%" colspan="3"><b>Acciones</b></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -53,6 +53,7 @@
                         <tr dir-paginate="X in $ctrl.LocalidadList|filter:$ctrl.SearchLocalidad|itemsPerPage:7" ng-show="$ctrl.ConRegistros">
                             <td>{{ X.Clv_Localidad }}</td>
                             <td>{{ X.Nombre }}</td>
+                            <td><button type="button" class="btn btn-info btn-xs" ng-click="$ctrl.OpenViewLocalidad(X.Clv_Localidad)" title="Consultar Localidad"><i class="fa fa-eye"></i> CONSULTAR</button></td>
                             <td><button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.OpenUpdateLocalidad(X.Clv_Localidad)" title="Editar Localidad"><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
                             <td><button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.OpenDeleteLocalidad(X)" title="Eliminar Localidad"><i class="fa fa-trash"></i> ELIMINAR</button></td>
                         </tr>

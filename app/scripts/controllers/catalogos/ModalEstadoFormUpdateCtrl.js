@@ -57,6 +57,7 @@ angular
         var vm = this;
         vm.Titulo = 'Editar Registro - ';
         vm.Icono = 'fa fa-pencil-square-o';
+        vm.View = false;
         vm.SaveEstado = SaveEstado;
         vm.cancel = cancel;
         initData();

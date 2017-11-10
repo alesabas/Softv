@@ -20,7 +20,16 @@ angular
       GetMuestraContratoReal: '/MuestraContratoReal/GetMuestraContratoReal',
       GetBUSCLIPORCONTRATO2: '/CatalogoAgenda/GetBUSCLIPORCONTRATO2',
       GetMuestra_Tecnicos_Almacen: '/CatalogoAgenda/GetMuestra_Tecnicos_Almacen',
-      GetCONCITAS:'/CatalogoAgenda/GetCONCITAS'
+      GetCONCITAS:'/CatalogoAgenda/GetCONCITAS',
+      GetCONSULTARREL_CITAS:'/CatalogoAgenda/GetCONSULTARREL_CITAS',
+      GetVERORDENES_CITAS: '/CatalogoAgenda/GetVERORDENES_CITAS',
+      GetMuestraArbolServicios_ClientesList: '/MuestraArbolServicios_Clientes/GetMuestraArbolServicios_ClientesList',
+      GetDame_DetOrdSer: '/CatalogoAgenda/GetDame_DetOrdSer',
+      GetBUSCADetCitas: '/CatalogoAgenda/GetBUSCADetCitas',
+      GetMODIFICA_REL_CITAS: '/CatalogoAgenda/GetMODIFICA_REL_CITAS',
+      GetBOR_CITAS: '/CatalogoAgenda/GetBOR_CITAS',
+      GetTrabajosOrdenesTecnicoDia: '/CatalogoAgenda/GetTrabajosOrdenesTecnicoDia',
+      GetVERQUEJAS_CITAS: '/CatalogoAgenda/GetVERQUEJAS_CITAS'
     };
 
     var factory = {};   
@@ -209,7 +218,6 @@ angular
         'clv_usuario': $localStorage.currentUser.idUsuario
        
       };
-      console.log(Parametros);
       $http.post(globalService.getUrl() + paths.GetMuestraPostes, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
@@ -230,7 +238,6 @@ angular
         'descripcion': obj.descripcion
       
       };
-      console.log(Parametros);
       $http.post(globalService.getUrl() + paths.GetNuePoste, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
@@ -243,7 +250,6 @@ angular
       var deferred = $q.defer();
       var config = {headers: {'Authorization': $localStorage.currentUser.token}};
       var Parametros = {'ObjAgenda':ObjAgenda};
-      console.log(Parametros);
       $http.post(globalService.getUrl() + paths.GetDesplegarAgenda, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
@@ -287,10 +293,10 @@ angular
       return deferred.promise;
     };
 
-    factory.GetMuestraContratoReal = function (ObjContrato) {
+    factory.GetMuestraContratoReal = function (ContratoCom) {
       var deferred = $q.defer();
       var config = {headers: {'Authorization': $localStorage.currentUser.token}};
-      var Parametros = ObjContrato;
+      var Parametros = {ContratoCom:ContratoCom};
       $http.post(globalService.getUrl() + paths.GetMuestraContratoReal, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
@@ -328,6 +334,114 @@ angular
       var config = {headers: {'Authorization': $localStorage.currentUser.token}};
       var Parametros = {'Clv_Cita': Clv_Cita};
       $http.post(globalService.getUrl() + paths.GetCONCITAS, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+    factory.GetCONSULTARREL_CITAS = function (Clv_Cita) {
+      var deferred = $q.defer();
+      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+      var Parametros = {'Clv_Cita': Clv_Cita};
+      $http.post(globalService.getUrl() + paths.GetCONSULTARREL_CITAS, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+    factory.GetVERORDENES_CITAS = function (CLV_CITA) {
+      var deferred = $q.defer();
+      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+      var Parametros = {'CLV_CITA': CLV_CITA};
+      $http.post(globalService.getUrl() + paths.GetVERORDENES_CITAS, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+    factory.GetMuestraArbolServicios_ClientesList = function (Contrato) {
+      var deferred = $q.defer();
+      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+      var Parametros = {'Contrato': Contrato};
+      $http.post(globalService.getUrl() + paths.GetMuestraArbolServicios_ClientesList, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+    factory.GetDame_DetOrdSer = function (Clv_Orden) {
+      var deferred = $q.defer();
+      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+      var Parametros = {'Clv_Orden': Clv_Orden};
+      $http.post(globalService.getUrl() + paths.GetDame_DetOrdSer, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+    factory.GetBUSCADetCitas = function (CLV_CITA) {
+      var deferred = $q.defer();
+      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+      var Parametros = {'CLV_CITA': CLV_CITA};
+      $http.post(globalService.getUrl() + paths.GetBUSCADetCitas, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+    factory.GetMODIFICA_REL_CITAS = function (ObjCita) {
+      var deferred = $q.defer();
+      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+      var Parametros = {'ObjCita': ObjCita};
+      $http.post(globalService.getUrl() + paths.GetMODIFICA_REL_CITAS, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+    factory.GetBOR_CITAS = function (CLV_CITA) {
+      var deferred = $q.defer();
+      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+      var Parametros = {'CLV_CITA': CLV_CITA};
+      $http.post(globalService.getUrl() + paths.GetBOR_CITAS, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+    factory.GetTrabajosOrdenesTecnicoDia = function (ObjTrabajoTecnico) {
+      var deferred = $q.defer();
+      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+      var Parametros = ObjTrabajoTecnico;
+      $http.post(globalService.getUrl() + paths.GetTrabajosOrdenesTecnicoDia, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+    factory.GetVERQUEJAS_CITAS = function (CLV_CITA) {
+      var deferred = $q.defer();
+      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+      var Parametros = {'CLV_CITA': CLV_CITA};
+      $http.post(globalService.getUrl() + paths.GetVERQUEJAS_CITAS, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
         deferred.reject(response);

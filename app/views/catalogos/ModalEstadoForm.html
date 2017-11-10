@@ -4,6 +4,7 @@
         <h4 class="modal-title"><i ng-class="ctrl.Icono"></i> {{ ctrl.Titulo }} {{ ctrl.IdEstado }}</h4>
     </div>
     <div class="modal-body">
+        <fieldset ng-disabled="ctrl.View">
         <div class="row">
             <div class="col-md-12">
                 <p><b>Nombre del estado:</b></p>
@@ -12,9 +13,10 @@
                 <input type="text" name="InpEstado" class="form-control input-sm" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" ng-model="ctrl.Estado" validate-on="dirty" required required-message="'Obligatorio'">
             </div>
         </div>
+        </fieldset>
     </div>
     <div class="modal-footer">
-        <button type="submit" class="btn btn-primary btn-sm" title="Guardar estado">Guardar</button>
-        <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.cancel()" title="Salir">Cancelar</button>
+        <button type="submit" class="btn btn-primary btn-sm" title="Guardar estado" ng-show="!ctrl.View"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
+        <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.cancel()" title="Salir"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
     </div>
 </form>

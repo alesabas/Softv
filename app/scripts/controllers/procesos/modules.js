@@ -164,8 +164,8 @@ angular
         data: {
           pageTitle: 'SOFTV | DETALLE AGENDA',
         },
-        url: '/agenda/detalle/:id',
-        templateUrl: 'views/procesos/agendaDetalle.html',
+        url: '/agenda/detalle/:id/:cliente',
+        templateUrl: 'views/procesos/agendaUpdate.html',
         controller: 'agendaDetalleCtrl',
         controllerAs: '$ctrl'
       },
@@ -174,7 +174,7 @@ angular
         data: {
           pageTitle: 'SOFTV | EDITAR AGENDA',
         },
-        url: '/agenda/editar/:id/:cita',
+        url: '/agenda/editar/:id/:cliente',
         templateUrl: 'views/procesos/agendaUpdate.html',
         controller: 'agendaUpdateCtrl',
         controllerAs: '$ctrl'

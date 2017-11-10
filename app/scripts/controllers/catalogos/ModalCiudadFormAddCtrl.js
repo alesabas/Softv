@@ -120,6 +120,7 @@ angular
         vm.ShowAdd = false;
         vm.DisableAdd = false;
         vm.DisableUpdate = true;
+        vm.View = false;
         vm.SaveCiudad = SaveCiudad;
         vm.AddRelEst = AddRelEst;
         vm.DeleteRelEst = DeleteRelEst;

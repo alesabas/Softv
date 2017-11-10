@@ -2,7 +2,7 @@
 
 angular
     .module('softvApp')
-    .controller('ModalBancoFormUpdateCtrl', function(CatalogosFactory, $uibModal, $uibModalInstance, ngNotify, $state, IdBanco){
+    .controller('ModalBancoFormViewCtrl', function(CatalogosFactory, $uibModal, $uibModalInstance, ngNotify, $state, IdBanco){
         
         function initData(){
             CatalogosFactory.GetDeepBanco(IdBanco).then(function(data){

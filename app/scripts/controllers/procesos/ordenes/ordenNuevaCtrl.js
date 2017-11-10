@@ -447,7 +447,7 @@
             controllerAs: 'ctrl',
             backdrop: 'static',
             keyboard: false,
-            size: 'md',
+            size: 'lg',
             resolve: {
               items: function () {
                 return items;
@@ -508,7 +508,8 @@
           x.Descripcion.toLowerCase().includes('rantx') ||
           x.Descripcion.toLowerCase().includes('retca') ||
           x.Descripcion.toLowerCase().includes('rradi') ||
-          x.Descripcion.toLowerCase().includes('rrout')
+          x.Descripcion.toLowerCase().includes('rrout')||
+          x.Descripcion.toLowerCase().includes('rapag')          
         ) {
           vm.NOM = x.Descripcion.split(' ');
 

@@ -14,11 +14,12 @@
                 <small class="text-muted" style="font-size:14px; margin-left:10px;"> <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">Catálogos</a></small>
             </header>
             <div class="tools">
-                <button type="submit" class="btn btn-primary btn-sm" title="Guardar Distribuidor">Guardar</button>
-			    <button type="button" class="btn btn-default-bright btn-sm" ui-sref="home.catalogos.colonias" title="Cancelar cambios">Cancelar</button>
+                <button type="submit" class="btn btn-primary btn-sm" title="Guardar Distribuidor" ng-show="!$ctrl.View"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
+			    <button type="button" class="btn btn-default-bright btn-sm" ui-sref="home.catalogos.colonias" title="Cancelar cambios"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
             </div>
         </div>
         <div class="card-body">
+            <fieldset ng-disabled="$ctrl.View">
             <div class="row">
                 <div class="col-md-12">
                     <div class="col-md-offset-1 col-md-4">
@@ -27,11 +28,6 @@
                     <div class="col-md-3">
                         <b><small>Tipo de Colonia:</small></b>
                     </div>
-                    <!--
-                    <div class="col-md-2">
-                        <b><small>Código Postal:</small></b>
-                    </div>
-                    -->
                     <div class="col-md-3">
                         <b><small>Fecha de entrga:</small></b>
                     </div>
@@ -45,20 +41,17 @@
                             <option value="">Selecciona</option>
                         </select>
                     </div>
-                    <!--
-                    <div class="col-md-2">
-                        <input name="InpCP" type="text" class="form-control input-sm" ng-model="$ctrl.CP" maxlength="5" ng-pattern="/^\d{5}$/" validator="$ctrl.CP > 0" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa 5 dígitos.'">
-                    </div>
-                    -->
                     <div class="col-md-3">
                         <input type="date" name="InpFechaEntrega" class="form-control input-sm" ng-model="$ctrl.FechaEntrega" validate-on="dirty" required required-message="'Obligatorio'">
                     </div>
                 </div>
             </div>
+            </fieldset>
             <br>
             <div class="row">
                 <div class="col-md-12">
                     <div class="col-md-7">
+                        <fieldset ng-disabled="$ctrl.View">
                         <div class="col-md-12">
                             <div class="col-md-12">
                                 <p class="text-danger">Relación de la Colonia con las Localidades</p>
@@ -106,6 +99,7 @@
                                 <button type="button" class="btn btn-success btn-xs" title="Agregar Relación" ng-click="$ctrl.AddRelEstCiuLocCol()" ng-disabled="($ctrl.CPRel == null || $ctrl.CPRel == 0) || ($ctrl.Estado == undefined || $ctrl.Estado == '') || ($ctrl.Ciudad == undefined || $ctrl.Ciudad == '') || ($ctrl.Localidad == undefined || $ctrl.Localidad == '')">Agregar</button>
                             </div>
                         </div>
+                        </fieldset>
                         <div class="col-md-12">
                             <div class="col-md-12 table-scroll">
                                 <table class="table">
@@ -122,8 +116,8 @@
                                             <td>{{ X.Localidad }}</td>
                                             <td>{{ X.Ciudad }}</td>
                                             <td>{{ X.CodigoPostal }}</td>
-                                            <td><button type="button" class="btn btn-warning btn-xs" title="Seleccionar" ng-click="$ctrl.SetRelCol(X)">Seleccionar</button></td>
-                                            <td><button type="button" class="btn btn-danger btn-xs" title="Eliminar Ciudad" ng-click="$ctrl.DeleteRelEstCiuLocCol(X)">Eliminar</button></td>
+                                            <td><button type="button" class="btn btn-warning btn-xs" title="Seleccionar" ng-click="$ctrl.SetRelCol(X)"><i class="fa fa-check-square-o"></i> Seleccionar</button></td>
+                                            <td><button type="button" class="btn btn-danger btn-xs" title="Eliminar Ciudad" ng-click="$ctrl.DeleteRelEstCiuLocCol(X)" ng-show="!$ctrl.View"><i class="fa fa-trash"></i> Eliminar</button></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -131,6 +125,7 @@
                         </div>
                     </div>
                     <div class="col-md-5" ng-show="$ctrl.ShowRel">
+                        <fieldset ng-disabled="$ctrl.View">
                         <uib-tabset active="active">
                             <uib-tab index="0">
                                 <uib-tab-heading>
@@ -225,6 +220,7 @@
                                 </footer>
                             </uib-tab>
                         </uib-tabset>
+                        </fieldset>
                     </div>
                 </div>
             </div>

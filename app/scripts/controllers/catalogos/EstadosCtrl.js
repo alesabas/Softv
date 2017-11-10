@@ -32,6 +32,27 @@ angular
             });
         }
 
+        function OpenViewEstado(Clv_Estado){
+            var Clv_Estado = Clv_Estado;
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'views/catalogos/ModalEstadoForm.html',
+                controller: 'ModalEstadoFormViewCtrl',
+                controllerAs: 'ctrl',
+                backdrop: 'static',
+                keyboard: false,
+                class: 'modal-backdrop fade',
+                size: 'md',
+                resolve: {
+                    Clv_Estado: function () {
+                        return Clv_Estado;
+                    }
+                }
+            });
+        }
+
         function OpenUpdateEstado(Clv_Estado){
             var Clv_Estado = Clv_Estado;
             var modalInstance = $uibModal.open({
@@ -76,6 +97,7 @@ angular
 
         var vm = this;
         vm.OpenAddEstado = OpenAddEstado;
+        vm.OpenViewEstado = OpenViewEstado;
         vm.OpenUpdateEstado = OpenUpdateEstado;
         vm.OpenDeleteEstado = OpenDeleteEstado;
         

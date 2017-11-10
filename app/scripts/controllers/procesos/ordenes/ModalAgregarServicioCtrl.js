@@ -13,6 +13,7 @@
     vm.guardaDetalle = guardaDetalle;
     vm.changeTrabajo = changeTrabajo;
     vm.realizar = true;
+    console.log('firsy',items);
 
     this.$onInit = function () {
      
@@ -56,6 +57,7 @@
 
 
           ordenesFactory.addDetalleOrden(detalle).then(function (data) {
+            console.log('Detalle Serv',data);
             vm.clv_detalle_orden = data.AddDetOrdSerResult;
 
             $rootScope.$emit('detalle_orden', vm.clv_detalle_orden);
@@ -103,7 +105,7 @@
                 controllerAs: 'ctrl',
                 backdrop: 'static',
                 keyboard: false,
-                size: 'md',
+                size: 'lg',
                 resolve: {
                   items: function () {
                     return items;
@@ -129,7 +131,8 @@
               vm.selectedTrabajo.Descripcion.toLowerCase().includes('rantx') ||
               vm.selectedTrabajo.Descripcion.toLowerCase().includes('retca') ||
               vm.selectedTrabajo.Descripcion.toLowerCase().includes('rradi') ||
-              vm.selectedTrabajo.Descripcion.toLowerCase().includes('rrout')
+              vm.selectedTrabajo.Descripcion.toLowerCase().includes('rrout') ||
+              vm.selectedTrabajo.Descripcion.toLowerCase().includes('rapag')
             ) {
               vm.NOM = vm.selectedTrabajo.Descripcion.split(' ');
              
@@ -164,10 +167,38 @@
              
             } else if (vm.selectedTrabajo.Descripcion.toLowerCase().includes('ecabl') || vm.selectedTrabajo.Descripcion.toLowerCase().includes('econt')) {
             
-            } else {          
+            } 
+            else if (vm.selectedTrabajo.Descripcion.toLowerCase().includes('isnet') || 
+              vm.selectedTrabajo.Descripcion.toLowerCase().includes('isdig') || 
+              vm.selectedTrabajo.Descripcion.toLowerCase().includes('istva')) {
 
+              vm.NOM = vm.selectedTrabajo.Descripcion.split(' ');
+              var items_ = {
+                'Trabajo': vm.NOM[0],
+                'Contrato': items.contrato,
+                'Clave': vm.clv_detalle_orden,
+                'ClvOrden':items.clv_orden,
+                'Clv_TipSer': vm.selectedServicio.clv_tipser
+              };
+              console.log(items);
+              var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'views/procesos/ModalInstalaServicioOrdenManual.html',
+                controller: 'ModalInstalaServicioOrdenManualCtrl',
+                controllerAs: 'ctrl',
+                backdrop: 'static',
+                keyboard: false,
+                size: 'md',
+                resolve: {
+                  items: function () {
+                    return items_;
+                  }
+                }
+              });
+            }else {          
             }
-
 
             $rootScope.$emit('actualiza_tablaServicios');
             $uibModalInstance.dismiss('cancel');

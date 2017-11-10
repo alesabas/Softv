@@ -192,6 +192,7 @@
   <script src="scripts/controllers/procesos/ordenes/OrdenDetalleCtrl.js"></script>
   <script src="scripts/controllers/procesos/ordenes/ModalInstalaServicioCtrl.js"></script>
   <script src="scripts/controllers/procesos/ordenes/ModalAsignaMedioCtrl.js"></script>
+  <script src="scripts/controllers/procesos/ordenes/ModalInstalaServicioOrdenManualCtrl.js"></script>
 
   <script src="scripts/controllers/procesos/ordenes/BuscarNuevoCtrl.js"></script>
   <script src="scripts/controllers/procesos/ordenes/CambioDomicilioOrdenesCtrl.js"></script>
@@ -320,7 +321,6 @@
   <script src="scripts/controllers/comisiones/ComisionTecnicoCtrl.js"></script>
 
   <!-- Catalogos -->
-
   <script src="scripts/factories/CatalogosFactory.js"></script>
   <script src="scripts/controllers/catalogos/modules.js"></script>
   <script src="scripts/controllers/catalogos/EstadosCtrl.js"></script>
@@ -328,14 +328,17 @@
   <script src="scripts/controllers/catalogos/ClientesCtrl.js"></script>
   <script src="scripts/controllers/catalogos/ClienteNuevoCtrl.js"></script>
   <script src="scripts/controllers/catalogos/ClienteEditarCtrl.js"></script>
+  <script src="scripts/controllers/catalogos/ClienteDetalleCtrl.js"></script>
   <script src="scripts/controllers/catalogos/ModalAddRefClienteCtrl.js"></script>
   <script src="scripts/controllers/catalogos/ModalEditarRefClienteCtrl.js"></script>
   <script src="scripts/controllers/catalogos/ModalEliminarRefClienteCtrl.js"></script>
   <script src="scripts/controllers/catalogos/ModalEstadoFormAddCtrl.js"></script>
+  <script src="scripts/controllers/catalogos/ModalEstadoFormViewCtrl.js"></script>
   <script src="scripts/controllers/catalogos/ModalEstadoFormUpdateCtrl.js"></script>
   <script src="scripts/controllers/catalogos/ModalEstadoEliminarCtrl.js"></script>
   <script src="scripts/controllers/catalogos/ModalCiudadFormAddCtrl.js"></script>
   <script src="scripts/controllers/catalogos/ModalCiudadFormUpdateCtrl.js"></script>
+  <script src="scripts/controllers/catalogos/ModalCiudadFormViewCtrl.js"></script>
   <script src="scripts/controllers/catalogos/ModalCiudadEliminarCtrl.js"></script>
   <script src="scripts/controllers/catalogos/PlazasCtrl.js"></script>
   <script src="scripts/controllers/catalogos/PlazaAddCtrl.js"></script>
@@ -344,6 +347,7 @@
   <script src="scripts/controllers/catalogos/LocalidadesCtrl.js"></script>
   <script src="scripts/controllers/catalogos/ModalLocalidadFormAddCtrl.js"></script>
   <script src="scripts/controllers/catalogos/ModalLocalidadFormUpdateCtrl.js"></script>
+  <script src="scripts/controllers/catalogos/ModalLocalidadFormViewCtrl.js"></script>
   <script src="scripts/controllers/catalogos/ModalLocalidadEliminarCtrl.js"></script>
   <script src="scripts/controllers/catalogos/DistribuidoresCtrl.js"></script>
   <script src="scripts/controllers/catalogos/DistribuidorAddCtrl.js"></script>
@@ -352,18 +356,22 @@
   <script src="scripts/controllers/catalogos/ModalDistribuidorEliminarCtrl.js"></script>
   <script src="scripts/controllers/catalogos/ColoniasCtrl.js"></script>
   <script src="scripts/controllers/catalogos/ColoniaFormAddCtrl.js"></script>
+  <script src="scripts/controllers/catalogos/ColoniaFormViewCtrl.js"></script>
   <script src="scripts/controllers/catalogos/ColoniaFormUpdateCtrl.js"></script>
   <script src="scripts/controllers/catalogos/TiposColoniasCtrl.js"></script>
   <script src="scripts/controllers/catalogos/ModalTiposColoniasFormAddCtrl.js"></script>
   <script src="scripts/controllers/catalogos/ModalTiposColoniasFormUpdateCtrl.js"></script>
+  <script src="scripts/controllers/catalogos/ModalTiposColoniasFormViewCtrl.js"></script>
   <script src="scripts/controllers/catalogos/ModalTiposColoniasEliminarCtrl.js"></script>
   <script src="scripts/controllers/catalogos/CallesCtrl.js"></script>
   <script src="scripts/controllers/catalogos/ModalCallesFormAddCtrl.js"></script>
   <script src="scripts/controllers/catalogos/ModalCallesFormUpdateCtrl.js"></script>
+  <script src="scripts/controllers/catalogos/ModalCallesFormViewCtrl.js"></script>
   <script src="scripts/controllers/catalogos/ModalCallesEliminarCtrl.js"></script>
   <script src="scripts/controllers/catalogos/ServiciosCtrl.js"></script>
   <script src="scripts/controllers/catalogos/ServicioAddCtrl.js"></script>
   <script src="scripts/controllers/catalogos/ServicioUpdateCtrl.js"></script>
+  <script src="scripts/controllers/catalogos/ServicioViewCtrl.js"></script>
   <script src="scripts/controllers/catalogos/ModalServicioDeleteCtrl.js"></script>
   <script src="scripts/controllers/catalogos/ModalConfiguracionAddCtrl.js"></script>
   <script src="scripts/controllers/catalogos/ModalConceptoDeleteCtrl.js"></script>
@@ -371,10 +379,24 @@
   <script src="scripts/controllers/catalogos/BancosCtrl.js"></script>
   <script src="scripts/controllers/catalogos/ModalBancoFormAddCtrl.js"></script>
   <script src="scripts/controllers/catalogos/ModalBancoFormUpdateCtrl.js"></script>
+  <script src="scripts/controllers/catalogos/ModalBancoFormViewCtrl.js"></script>
   <script src="scripts/controllers/catalogos/ModalBancoDeleteCtrl.js"></script>
   <script src="scripts/controllers/catalogos/ModalServicioClienteAddCtrl.js"></script>
   <script src="scripts/controllers/catalogos/ModalServicioClienteDeleteCtrl.js"></script>
   <script src="scripts/controllers/catalogos/ModalDescuentoServicioCtrl.js"></script>
+  <script src="scripts/controllers/catalogos/VelocidadInternetCtrl.js"></script>
+  <script src="scripts/controllers/catalogos/ModalVelocidadInternetFormAddCtrl.js"></script>
+  <script src="scripts/controllers/catalogos/ModalVelocidadInternetFormUpdateCtrl.js"></script>
+  <script src="scripts/controllers/catalogos/ModalVelocidadInternetFormViewCtrl.js"></script>
+  <script src="scripts/controllers/catalogos/ModalVelocidadInternetDeleteCtrl.js"></script>
+  <script src="scripts/controllers/catalogos/RedesCtrl.js"></script>
+  <script src="scripts/controllers/catalogos/RedesAddCtrl.js"></script>
+  <script src="scripts/controllers/catalogos/RedesUpdateCtrl.js"></script>
+  <script src="scripts/controllers/catalogos/RedesViewCtrl.js"></script>
+  <script src="scripts/controllers/catalogos/RedesIPCtrl.js"></script>
+  <script src="scripts/controllers/catalogos/IPsCtrl.js"></script>
+  <script src="scripts/controllers/catalogos/IPsUpdateCtrl.js"></script>
+  <script src="scripts/controllers/catalogos/IPsViewCtrl.js"></script>
   <!-- Agregados06/09 Sucursales -->
 
   <script src="scripts/factories/distribuidorFactory.js"></script>
@@ -426,7 +448,9 @@
   <script src="scripts/controllers/catalogos2/ModalMotivoReimpDeleteCtrl.js"></script>
   <script src="scripts/controllers/procesos/agenda/agendaUpdateCtrl.js"></script>
   <script src="scripts/controllers/procesos/agenda/agendaDetalleCtrl.js"></script>
+  <script src="scripts/controllers/procesos/agenda/ModalDeleteCitaCtrl.js"></script>
   <script src="scripts/controllers/procesos/agenda/agendaCtrl.js"></script>
+  <script src="scripts/controllers/procesos/agenda/ModalTecnicoTrabajoCtrl.js"></script>
 
   <!--Area tecnica-->
   <script src="scripts/controllers/areatecnica/modules.js"></script>

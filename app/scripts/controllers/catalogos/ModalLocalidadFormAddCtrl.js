@@ -76,6 +76,7 @@ angular
         vm.Titulo = 'Nuevo Registro';
         vm.Icono = 'fa fa-plus';
         vm.ShowUpdate = false;
+        vm.View = false;
         vm.SaveLocalidad = SaveLocalidad;
         vm.cancel = cancel;
         initData();

@@ -181,10 +181,10 @@
 <div class="card animated fadeIn" style="margin-top:20px;">
     <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
         <header>
-            <strong style="font-weight:bold; border:none; margin-left:10px;">{{ $ctrl.Title }}</strong>
+            <strong style="font-weight:bold; border:none; margin-left:10px;">{{ $ctrl.Title }} {{ $ctrl.IdCliente }}</strong>
 			<br>
             <small class="text-muted" style="font-size:14px; margin-left:10px;">
-                <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">{{ $ctrl.Title }}</a>
+                <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">{{ $ctrl.Title }} {{ $ctrl.IdCliente }}</a>
             </small>
         </header>
         <div class="tools">
@@ -264,6 +264,7 @@
         <div class="row">
             <div class="col-md-12" ng-show="$ctrl.SetForm == 1">
                 <form name="FormDatosPersonales" angular-validator-submit="$ctrl.AddDatosPersonales()" novalidate angular-validator autocomplete="off">
+                    <fieldset ng-disabled="$ctrl.View">
                     <div class="col-md-12">
                         <div class="col-md-12">
                             <div class="col-md-12">
@@ -476,15 +477,17 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="col-md-12" style="text-align:right">
-                                    <button type="submit" class="btn btn-success btn-sm">Validar</button>
+                                    <button type="submit" class="btn btn-success btn-sm" ng-show="!$ctrl.View">Validar</button>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    </fieldset>
                 </form>
             </div>
             <div class="col-md-12" ng-show="$ctrl.SetForm == 2">
                 <form name="FormDatosFiscales" angular-validator-submit="$ctrl.AddDatosFiscales()" novalidate angular-validator autocomplete="off">
+                    <fieldset ng-disabled="$ctrl.View">
                     <div class="col-md-12">
                         <div class="col-md-12">
                             <div class="col-md-12">
@@ -619,15 +622,17 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="col-md-12" style="text-align:right">
-                                    <button type="submit" class="btn btn-success btn-sm" ng-disabled="$ctrl.DisableInput">Validar</button>
+                                    <button type="submit" class="btn btn-success btn-sm" ng-disabled="$ctrl.DisableInput" ng-show="!$ctrl.View">Validar</button>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    </fieldset>
                 </form>
             </div>
             <div class="col-md-12" ng-show="$ctrl.SetForm == 3">
                 <form name="FormDatosBancarios" angular-validator-submit="$ctrl.AddDatosBancarios()" novalidate angular-validator autocomplete="off">
+                    <fieldset ng-disabled="$ctrl.View">
                     <div class="col-md-12">
                         <div class="col-md-12">
                             <div class="col-md-12">
@@ -722,15 +727,18 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="col-md-12" style="text-align:right">
-                                    <button type="submit" class="btn btn-success btn-sm" ng-disabled="$ctrl.DisableInput" >Validar</button>
+                                    <br ng-show="$ctrl.View">
+                                    <button type="submit" class="btn btn-success btn-sm" ng-disabled="$ctrl.DisableInput" ng-show="!$ctrl.View">Validar</button>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    </fieldset>
                 </form>
             </div>
             <div class="col-md-12" ng-show="$ctrl.SetForm == 4">
                 <form name="FormRefPersonales" angular-validator-submit="$ctrl.AddRefPersonales()" novalidate angular-validator autocomplete="off">
+                    <fieldset ng-disabled="$ctrl.View">
                     <div class="col-md-12">
                         <div class="col-md-12">
                             <div class="col-md-12">
@@ -775,15 +783,17 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="col-md-12" style="text-align:right">
-                                    <button type="button" class="btn btn-success btn-sm" ng-click="$ctrl.OpenAddRefPersonal()" title="Agregar Referencia Personal" ng-disabled="$ctrl.DisableInput">Agregar</button>
+                                    <button type="button" class="btn btn-success btn-sm" ng-click="$ctrl.OpenAddRefPersonal()" title="Agregar Referencia Personal" ng-disabled="$ctrl.DisableInput" ng-show="!$ctrl.View">Agregar</button>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    </fieldset>
                 </form>
             </div>
             <div class="col-md-12" ng-show="$ctrl.SetForm == 5">
                 <form name="FormNotas" angular-validator-submit="$ctrl.AddNotas()" novalidate angular-validator autocomplete="off">
+                    <fieldset ng-disabled="$ctrl.View">
                     <div class="col-md-12">
                         <div class="col-md-12">
                             <div class="col-md-12">
@@ -819,7 +829,8 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="col-md-12" style="text-align:right">
-                                    <button type="submit" class="btn btn-success btn-sm" ng-disabled="$ctrl.DisableInput">Validar</button>
+                                    <br ng-show="$ctrl.View">
+                                    <button type="submit" class="btn btn-success btn-sm" ng-disabled="$ctrl.DisableInput" ng-show="!$ctrl.View">Validar</button>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -829,6 +840,7 @@
                             </div>
                         </div>
                     </div>
+                    </fieldset>
                 </form>
             </div>
             <div class="col-md-12" ng-show="$ctrl.SetForm == 6">
@@ -845,7 +857,7 @@
                                     <h4 class="text-primary">Servicios Asignados</h4>
                                 </div>
                                 <div class="col-md-3">
-                                    <button type="button" class="btn btn-success btn-xs" ng-click="$ctrl.OpenAddServicioCliente()" ng-disabled="$ctrl.DisableInput" title="Agregar Servicio">AGREGAR</button>
+                                    <button type="button" class="btn btn-success btn-xs" ng-click="$ctrl.OpenAddServicioCliente()" ng-disabled="$ctrl.DisableInput" ng-show="!$ctrl.View" title="Agregar Servicio">AGREGAR</button>
                                 </div>
                                 <div class="col-md-12">
                                     <treecontrol class="tree-light" tree-model="$ctrl.ServicioList" expanded-nodes="$ctrl.expandedNodes" on-selection="$ctrl.DetalleConcepto(node)"> 
@@ -872,7 +884,7 @@
                             </div>
                             <div class="col-md-7" ng-if="$ctrl.DivServicio">
                                 <form name="FormDetallServicio" angular-validator-submit="$ctrl.UpdateServicioCliente()" novalidate angular-validator autocomplete="off">
-                                <fieldset ng-disabled="$ctrl.DisFormDetallServicio">
+                                <fieldset ng-disabled="$ctrl.View">
                                 <div class="col-md-12">
                                 <div class="col-md-3">
                                     <h4 class="text-primary">Detalle Servicio:</h4>
@@ -881,8 +893,7 @@
                                     <h4 class="text-danger">{{ $ctrl.NombreServicio }} - {{ $ctrl.Clv_UnicaNet }}</h4>
                                 </div>
                                 <div class="col-md-2">
-                                    <!--<button type="button" class="btn btn-success btn-xs" ng-click="$ctrl.UpdateServicioCliente()" title="Guardar Detalle del Servicio" ng-disabled="FormDetallServicio.InpUltimoMesServicio.$invalid || FormDetallServicio.InpUltimoAnioServicio.$invalid || FormDetallServicio.InpFechaContratacion.$invalid  || FormDetallServicio.InpFechaInstalacion.$invalid || FormDetallServicio.InpFechaSuspencion.$invalid || FormDetallServicio.InpFechaBaja.$invalid || FormDetallServicio.InpFechaFueraArea.$invalid || FormDetallServicio.InpFechaUltimoPago.$invalid">GUARDAR</button>-->
-                                    <button type="submit" class="btn btn-success btn-xs" title="Guardar Detalle del Servicio" ng-disabled="FormDetallServicio.InpUltimoMesServicio.$invalid || FormDetallServicio.InpUltimoAnioServicio.$invalid">GUARDAR</button>
+                                    <button type="submit" class="btn btn-success btn-xs" title="Guardar Detalle del Servicio" ng-disabled="FormDetallServicio.InpUltimoMesServicio.$invalid || FormDetallServicio.InpUltimoAnioServicio.$invalid" ng-show="!$ctrl.View">GUARDAR</button>
                                 </div>
                                 </div>
                                 <div class="col-md-12">
@@ -1028,10 +1039,9 @@
                             </div>
                             <div class="col-md-7" ng-if="$ctrl.DivAparato">
                                 <form name="FormDetallAparato" angular-validator-submit="$ctrl.UpdateAparatoCliente()" novalidate angular-validator autocomplete="off">
-                                <fieldset ng-disabled="$ctrl.DisFormDetallAparato">
+                                <fieldset ng-disabled="$ctrl.View">
                                 <div class="col-md-offset-10 col-md-2">
-                                    <!--<button type="button" class="btn btn-success btn-xs" ng-click="$ctrl.UpdateAparatoCliente()" title="Guardar Detalle Aparato" ng-disabled="FormDetallAparato.InpFechaActivacionAparato.$invalid || FormDetallAparato.InpSuspencionAparato.$invalid || FormDetallAparato.InpFechaBajaAparato.$invalid">GUARDAR</button>-->
-                                    <button type="submit" class="btn btn-success btn-xs" title="Guardar Detalle Aparato">GUARDAR</button>
+                                    <button type="submit" class="btn btn-success btn-xs" title="Guardar Detalle Aparato" ng-show="!$ctrl.View">GUARDAR</button>
                                 </div>
                                 <div class="col-md-3">
                                     <h4 class="text-primary">Detalle Aparato:</h4>

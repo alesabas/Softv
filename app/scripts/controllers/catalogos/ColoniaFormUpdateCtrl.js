@@ -264,6 +264,7 @@ angular
         vm.Titulo = 'Editar Colonia - ';
         vm.ShowRel = false;
         vm.Disable = false;
+        vm.View = false;
         vm.Clv_Colonia = $stateParams.id;
         vm.SaveColonia = SaveColonia;
         vm.GetCiudadList = GetCiudadList;
