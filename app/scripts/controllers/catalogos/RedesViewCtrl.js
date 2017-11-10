@@ -2,7 +2,7 @@
 
 angular
     .module('softvApp')
-    .controller('RedesViewCtrl', function(CatalogosFactory, ngNotify, $uibModal, $state, $stateParams, $rootScope, $localStorage){
+    .controller('RedesViewCtrl', function(CatalogosRedIPFactory, ngNotify, $uibModal, $state, $stateParams, $rootScope, $localStorage){
     
         function initData(){
             GetRed();
@@ -13,8 +13,7 @@ angular
         }
 
         function GetRed(){
-            CatalogosFactory.GetDeepCatalogo_Ips($stateParams.id).then(function(data){
-                console.log(data);
+            CatalogosRedIPFactory.GetDeepCatalogo_Ips($stateParams.id).then(function(data){
                 var Red = data.GetDeepCatalogo_IpsResult;
                 if(Red != null){
                     vm.IdRed = Red.IdRed;
@@ -34,7 +33,6 @@ angular
 
         function DivIP(IP) {
             var PartIP = IP.split(".");
-            console.log(PartIP);
             return PartIP;
         }
 
@@ -88,7 +86,7 @@ angular
         ];
         vm.SaveRedes = SaveRedes;
         vm.transfer = transfer;
-        console.log($stateParams.id);
+        vm.Block = true;
         initData();
     
     });

@@ -2,7 +2,7 @@
 
 angular
     .module('softvApp')
-    .controller('IPsCtrl', function(CatalogosFactory, ngNotify, $uibModal, $state, $stateParams, $rootScope, $localStorage){
+    .controller('IPsCtrl', function(CatalogosRedIPFactory, ngNotify, $uibModal, $state, $stateParams, $rootScope, $localStorage){
 
         function initData(){
              GetList();
@@ -14,8 +14,7 @@ angular
                 'Op': 0,
                 'IdIP': 0
             };
-            CatalogosFactory.GetcatalogoIps_dosList(ObjIPList).then(function(data){
-                console.log(data);
+            CatalogosRedIPFactory.GetcatalogoIps_dosList(ObjIPList).then(function(data){
                 vm.IPList = data.GetcatalogoIps_dosListResult;
                 vm.ViewList = (vm.IPList.length > 0)? true:false;
             });

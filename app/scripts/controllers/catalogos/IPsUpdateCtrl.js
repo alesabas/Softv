@@ -2,25 +2,21 @@
 
 angular
     .module('softvApp')
-    .controller('IPsUpdateCtrl', function(CatalogosFactory, $uibModalInstance, $uibModal, ngNotify, $state, IdIP, $rootScope){
+    .controller('IPsUpdateCtrl', function(CatalogosRedIPFactory, $uibModalInstance, $uibModal, ngNotify, $state, IdIP, $rootScope){
         
         function initData(){
-            CatalogosFactory.GetDeepcatalogoIps_dos(IdIP).then(function(data){
-                console.log(data);
+            CatalogosRedIPFactory.GetDeepcatalogoIps_dos(IdIP).then(function(data){
                 var ListIp = data.GetDeepcatalogoIps_dosResult;
-                console.log(ListIp);
                 vm.IP= ListIp.IP_ALL;
                 vm.Red= ListIp.IPRed;
                 vm.FechaAsignacion= (ListIp.UltimaFechaAsignacion != null)? toDate(ListIp.UltimaFechaAsignacion):ListIp.UltimaFechaAsignacion;
                 vm.FechaLiberacion=(ListIp.UltimaFechaLiberacion != null) ? toDate(ListIp.UltimaFechaLiberacion): ListIp.UltimaFechaLiberacion;
                 vm.FechaAsignacionR= (ListIp.UltimaFechaAsignacion != null)? toDate(ListIp.UltimaFechaAsignacion):ListIp.UltimaFechaAsignacion;
                 vm.FechaLiberacionR=(ListIp.UltimaFechaLiberacion != null) ? toDate(ListIp.UltimaFechaLiberacion): ListIp.UltimaFechaLiberacion;
-                console.log(vm.FechaLiberacion);
                 vm.IdIp = ListIp.IdIP;
                 vm.StatusIP= ListIp.Status;
                 vm.ClienteAsignado= ListIp.UltimoClienteAsignado;
-                CatalogosFactory.GetListCombo().then(function(data){
-                    console.log(data);
+                CatalogosRedIPFactory.GetListCombo().then(function(data){
                     vm.ListCombo = data.GetListComboResult;
                     for (var b = 0; b < vm.ListCombo.length; b++) {
                         if(vm.ListCombo[b].Status == vm.StatusIP) {
@@ -80,8 +76,7 @@ angular
                 'UltimaFechaAsignacion': (vm.FechaAsignacion != null)? Fechas(vm.FechaAsignacion):vm.FechaAsignacion,
                 'Status': vm.Status.Status
             }
-            CatalogosFactory.UpdatecatalogoIps_dos(objcatalogoIps_dos).then(function(data){
-                console.log(data);
+            CatalogosRedIPFactory.UpdatecatalogoIps_dos(objcatalogoIps_dos).then(function(data){
                 ngNotify.set('CORRECTO, se guardaron los cambios.', 'success');
                 //$state.reload('home.catalogos.ips');
                 $rootScope.$emit('LoadLista');

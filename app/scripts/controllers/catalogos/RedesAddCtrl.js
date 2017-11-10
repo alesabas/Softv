@@ -2,7 +2,7 @@
 
 angular
     .module('softvApp')
-    .controller('RedesAddCtrl', function(CatalogosFactory, ngNotify, $uibModal, $state, $stateParams, $rootScope, $localStorage){
+    .controller('RedesAddCtrl', function(CatalogosRedIPFactory, ngNotify, $uibModal, $state, $stateParams, $rootScope, $localStorage){
 
         function SaveRedes(){
             var ObjRedIP = {
@@ -13,9 +13,7 @@ angular
                 'mask': vm.Mask, 
                 'status': 'D'
             };
-            console.log(ObjRedIP);
-            CatalogosFactory.GetCatalogo_IpsList(ObjRedIP).then(function(data){
-                console.log(data);
+            CatalogosRedIPFactory.GetCatalogo_IpsList(ObjRedIP).then(function(data){
                 if(data.GetCatalogo_IpsListResult.length > 0){
                     ngNotify.set('CORRECTO, se añadió una red nueva', 'success');
                 }else{
@@ -26,5 +24,5 @@ angular
 
         var vm = this;
         vm.SaveRedes = SaveRedes;
-
+        vm.Block = false;
     });

@@ -2,7 +2,7 @@
 
 angular
     .module('softvApp')
-    .controller('RedesUpdateCtrl', function(CatalogosFactory, ngNotify, $uibModal, $state, $stateParams, $rootScope, $localStorage){
+    .controller('RedesUpdateCtrl', function(CatalogosRedIPFactory, ngNotify, $uibModal, $state, $stateParams, $rootScope, $localStorage){
         
         function initData(){
             GetRed();
@@ -13,8 +13,7 @@ angular
         }
 
         function GetRed(){
-            CatalogosFactory.GetDeepCatalogo_Ips($stateParams.id).then(function(data){
-                console.log(data);
+            CatalogosRedIPFactory.GetDeepCatalogo_Ips($stateParams.id).then(function(data){
                 var Red = data.GetDeepCatalogo_IpsResult;
                 if(Red != null){
                     vm.IdRed = Red.IdRed;
@@ -34,7 +33,6 @@ angular
 
         function DivIP(IP) {
             var PartIP = IP.split(".");
-            console.log(PartIP);
             return PartIP;
         }
 
@@ -88,7 +86,14 @@ angular
         ];
         vm.SaveRedes = SaveRedes;
         vm.transfer = transfer;
-        console.log($stateParams.id);
+        vm.Block = true;
+        vm.AvanceRedIP = 1;
+        vm.BlockTab1 = (1 <= vm.AvanceRedIP)? true:false;
+        vm.BlockTab2 = (2 <= vm.AvanceRedIP)? true:false;
+        vm.BlockTab3 = (3 <= vm.AvanceRedIP)? true:false;
+        vm.BlockTab4 = (4 <= vm.AvanceRedIP)? true:false;
+        vm.BlockTab5 = (5 <= vm.AvanceRedIP)? true:false;
+        vm.TabActive = (vm.AvanceRedIP > 0)? 0:5;
         initData();
         
     });

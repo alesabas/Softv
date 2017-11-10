@@ -49,22 +49,22 @@
                     </div>
                     <div class="col-md-6">
                     <div class="col-md-2">
-                        <input type="number" name="InpIP1" class="form-control input-sm" ng-model="$ctrl.IP1" min="0" ng-pattern="/^\d{1,3}$/" validator="$ctrl.IP1 <= 255" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido.'">
+                        <input type="number" name="InpIP1" class="form-control input-sm" ng-model="$ctrl.IP1" min="0" ng-pattern="/^\d{1,3}$/" validator="$ctrl.IP1 <= 255" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido.'" ng-disabled="$ctrl.Block">
                     </div>
                     <div class="col-md-2">
-                         <input type="number" name="InpIP2" class="form-control input-sm" ng-model="$ctrl.IP2" min="0" ng-pattern="/^\d{1,3}$/" validator="$ctrl.IP2 <= 255" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido.'">
+                         <input type="number" name="InpIP2" class="form-control input-sm" ng-model="$ctrl.IP2" min="0" ng-pattern="/^\d{1,3}$/" validator="$ctrl.IP2 <= 255" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido.'" ng-disabled="$ctrl.Block">
                     </div>
                     <div class="col-md-2">
-                        <input type="number" name="InpIP3" class="form-control input-sm" ng-model="$ctrl.IP3" min="0" ng-pattern="/^\d{1,3}$/" validator="$ctrl.IP3 <= 255" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido.'">
+                        <input type="number" name="InpIP3" class="form-control input-sm" ng-model="$ctrl.IP3" min="0" ng-pattern="/^\d{1,3}$/" validator="$ctrl.IP3 <= 255" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido.'" ng-disabled="$ctrl.Block">
                     </div>
                     <div class="col-md-2">
-                        <input type="number" name="InpIP4" class="form-control input-sm" ng-model="$ctrl.IP4" min="0" ng-pattern="/^\d{1,3}$/" validator="$ctrl.IP4 <= 255" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido.'">
+                        <input type="number" name="InpIP4" class="form-control input-sm" ng-model="$ctrl.IP4" min="0" ng-pattern="/^\d{1,3}$/" validator="$ctrl.IP4 <= 255" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido.'" ng-disabled="$ctrl.Block">
                     </div>
                     <div class="col-md-1 text-center" style="font-size:22px;">
                         /
                     </div>
                     <div class="col-md-2">
-                        <input type="number" name="InpMask" class="form-control input-sm" ng-model="$ctrl.Mask" min="0" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido.'">
+                        <input type="number" name="InpMask" class="form-control input-sm" ng-model="$ctrl.Mask" min="0" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido.'" ng-disabled="$ctrl.Block">
                     </div>
                     </div>
                     <div class="col-md-offset-1 col-md-2">
@@ -76,8 +76,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="col-md-offset-1 col-md-10">
-                         <uib-tabset active="active">
-                            <uib-tab index="0">
+                         <uib-tabset active="$ctrl.TabActive">
+                            <uib-tab index="0" ng-if="$ctrl.BlockTab1">
                                 <uib-tab-heading>
                                     Distribuidor
                                 </uib-tab-heading>
@@ -87,7 +87,7 @@
                                         <div class="col-md-12">
                                             <div class="dualmultiselect">
                                                 <div class="row">
-                                                    <div class="col-lg-6 col-md-6 col-sm-6 text">
+                                                    <div class="col-lg-5 col-md-5 col-sm-5">
                                                         <h4 class="text-center"><b>Disponibles</b></h4>
                                                         <div class="pool">
                                                             <div class="col-md-12" ng-repeat="item in $ctrl.Items" style="border-bottom: dashed #c2c2c2 0.5px;">
@@ -100,7 +100,16 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                                    <div class="col-lg-2 col-md-2 col-sm-2">
+                                                        <br>
+                                                        <br>
+                                                        <br>
+                                                        <br>
+                                                        <button type="button" class="btn btn-success btn-xs">Agregar Todos</button>
+                                                        <br>
+                                                        <button type="button" class="btn btn-danger btn-xs">Eliminar Todos</button>
+                                                    </div>
+                                                    <div class="col-lg-5 col-md-5 col-sm-5">
                                                         <h4 class="text-center"><b>Incluidos</b></h4>                
                                                         <div class="pool">
                                                             <div class="col-md-12" ng-repeat="item in $ctrl.SelctItems" style="border-bottom: dashed #c2c2c2 0.5px;">
@@ -122,7 +131,7 @@
                                     <p class="text-right"></p>
                                 </footer>
                             </uib-tab>
-                            <uib-tab index="1">
+                            <uib-tab index="1" ng-if="$ctrl.BlockTab2">
                                 <uib-tab-heading>
                                     Plaza
                                 </uib-tab-heading>
@@ -167,7 +176,7 @@
                                     <p class="text-right"></p>
                                 </footer>
                             </uib-tab>
-                            <uib-tab index="2">
+                            <uib-tab index="2" ng-if="$ctrl.BlockTab3">
                                 <uib-tab-heading>
                                     Estado
                                 </uib-tab-heading>
@@ -212,7 +221,7 @@
                                     <p class="text-right"></p>
                                 </footer>
                             </uib-tab>
-                            <uib-tab index="3">
+                            <uib-tab index="3" ng-if="$ctrl.BlockTab4">
                                 <uib-tab-heading>
                                     Ciudad
                                 </uib-tab-heading>
@@ -257,7 +266,7 @@
                                     <p class="text-right"></p>
                                 </footer>
                             </uib-tab>
-                            <uib-tab index="4">
+                            <uib-tab index="4" ng-if="$ctrl.BlockTab5">
                                 <uib-tab-heading>
                                     Localidad
                                 </uib-tab-heading>
