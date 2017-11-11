@@ -90,12 +90,12 @@
                                                     <div class="col-lg-5 col-md-5 col-sm-5">
                                                         <h4 class="text-center"><b>Disponibles</b></h4>
                                                         <div class="pool">
-                                                            <div class="col-md-12" ng-repeat="item in $ctrl.Items" style="border-bottom: dashed #c2c2c2 0.5px;">
+                                                            <div class="col-md-12" ng-repeat="DD in $ctrl.RelRedDistribuidorDisList" style="border-bottom: dashed #c2c2c2 0.5px; font-size:11px;">
                                                                 <div class="col-md-9" style="padding-top: 3%;">
-                                                                    <b>{{ item.Name }}</b>
+                                                                    <b>{{ DD.Nombre }}</b>
                                                                 </div>
                                                                 <div class="col-md-3">
-                                                                    <button type="button" class="btn ink-reaction  btn-xs btn-info" ng-click="$ctrl.transfer($ctrl.Items, $ctrl.SelctItems, $ctrl.Items.indexOf(item))" title="Agregar"><i class="md-chevron-right"></i></button>
+                                                                    <button type="button" class="btn ink-reaction btn-xs btn-info" ng-click="$ctrl.UpdateRelRedDistribuidor(3, DD.Clv_Plaza);" title="Agregar Distribuidor"><i class="md-chevron-right"></i></button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -105,19 +105,18 @@
                                                         <br>
                                                         <br>
                                                         <br>
-                                                        <button type="button" class="btn btn-success btn-xs">Agregar Todos</button>
-                                                        <br>
-                                                        <button type="button" class="btn btn-danger btn-xs">Eliminar Todos</button>
+                                                        <button type="button" class="btn btn-success btn-xs btn-block" ng-click="$ctrl.UpdateRelRedDistribuidor(1, 0);" title="Agregar todos los Distribuidores">Agregar Todos</button>
+                                                        <button type="button" class="btn btn-danger btn-xs btn-block" ng-click="$ctrl.UpdateRelRedDistribuidor(2, 0);" title="Quitar todos los Distribuidores">Quitar Todos</button>
                                                     </div>
                                                     <div class="col-lg-5 col-md-5 col-sm-5">
                                                         <h4 class="text-center"><b>Incluidos</b></h4>                
                                                         <div class="pool">
-                                                            <div class="col-md-12" ng-repeat="item in $ctrl.SelctItems" style="border-bottom: dashed #c2c2c2 0.5px;">
+                                                            <div class="col-md-12" ng-repeat="DI in $ctrl.RelRedDistribuidorIncList" style="border-bottom: dashed #c2c2c2 0.5px; font-size:11px;">
                                                                 <div class="col-md-3">
-                                                                    <button type="button" class="btn ink-reaction  btn-xs btn-danger" ng-click="$ctrl.transfer($ctrl.SelctItems, $ctrl.Items, $ctrl.SelctItems.indexOf(item))" title="Quitar"><i class="md-chevron-left"></i></button> 
+                                                                    <button type="button" class="btn ink-reaction btn-xs btn-warning" ng-click="$ctrl.UpdateRelRedDistribuidor(4, DI.ClvPlaza);" title="Quitar Distribuidor"><i class="md-chevron-left"></i></button> 
                                                                 </div>
                                                                 <div class="col-md-9 text-right" style="padding-top: 3%;">
-                                                                    <strong><b>{{ item.Name }}</b></strong>
+                                                                    <strong><b>{{ DI.Nombre }}</b></strong>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -141,28 +140,36 @@
                                         <div class="col-md-12">
                                             <div class="dualmultiselect">
                                                 <div class="row">
-                                                    <div class="col-lg-6 col-md-6 col-sm-6 text">
+                                                    <div class="col-lg-5 col-md-5 col-sm-5">
                                                         <h4 class="text-center"><b>Disponibles</b></h4>
                                                         <div class="pool">
-                                                            <div class="col-md-12" ng-repeat="item in $ctrl.Items" style="border-bottom: dashed #c2c2c2 0.5px;">
+                                                            <div class="col-md-12" ng-repeat="PD in $ctrl.RelRedPlazaDisList" style="border-bottom: dashed #c2c2c2 0.5px; font-size:11px;">
                                                                 <div class="col-md-9" style="padding-top: 3%;">
-                                                                    <b>{{ item.Name }}</b>
+                                                                    <b>{{ PD.razon_social }}</b>
                                                                 </div>
                                                                 <div class="col-md-3">
-                                                                    <button type="button" class="btn ink-reaction  btn-xs btn-info" ng-click="$ctrl.transfer($ctrl.Items, $ctrl.SelctItems, $ctrl.Items.indexOf(item))" title="Agregar"><i class="md-chevron-right"></i></button>
+                                                                    <button type="button" class="btn ink-reaction btn-xs btn-info" ng-click="$ctrl.UpdateRelRedPlaza(3, PD.IdCompania);" title="Agregar Plaza"><i class="md-chevron-right"></i></button>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-6 col-md-6 col-sm-6">
-                                                        <h4 class="text-center"><b>Seleccionados</b></h4>                
+                                                    <div class="col-lg-2 col-md-2 col-sm-2">
+                                                        <br>
+                                                        <br>
+                                                        <br>
+                                                        <br>
+                                                        <button type="button" class="btn btn-success btn-xs btn-block" ng-click="$ctrl.UpdateRelRedPlaza(1, 0);" title="Agregar todos los Plazas">Agregar Todos</button>
+                                                        <button type="button" class="btn btn-danger btn-xs btn-block" ng-click="$ctrl.UpdateRelRedPlaza(2, 0);" title="Quitar todos los Plazas">Quitar Todos</button>
+                                                    </div>
+                                                    <div class="col-lg-5 col-md-5 col-sm-5">
+                                                        <h4 class="text-center"><b>Incluidos</b></h4>                
                                                         <div class="pool">
-                                                            <div class="col-md-12" ng-repeat="item in $ctrl.SelctItems" style="border-bottom: dashed #c2c2c2 0.5px;">
+                                                            <div class="col-md-12" ng-repeat="PI in $ctrl.RelRedPlazaIncList" style="border-bottom: dashed #c2c2c2 0.5px; font-size:11px;">
                                                                 <div class="col-md-3">
-                                                                    <button type="button" ng-click="$ctrl.transfer($ctrl.SelctItems, $ctrl.Items, $ctrl.SelctItems.indexOf(item))" class="btn ink-reaction  btn-xs btn-warning" title="Quitar"><i class="md-chevron-left"></i></button> 
+                                                                    <button type="button" class="btn ink-reaction btn-xs btn-warning" ng-click="$ctrl.UpdateRelRedPlaza(4, PI.IdCompania);" title="Quitar Plaza"><i class="md-chevron-left"></i></button> 
                                                                 </div>
                                                                 <div class="col-md-9 text-right" style="padding-top: 3%;">
-                                                                    <strong><b>{{ item.Name }}</b></strong>
+                                                                    <strong><b>{{ PI.razon_social }}</b></strong>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -186,28 +193,36 @@
                                         <div class="col-md-12">
                                             <div class="dualmultiselect">
                                                 <div class="row">
-                                                    <div class="col-lg-6 col-md-6 col-sm-6 text">
+                                                    <div class="col-lg-5 col-md-5 col-sm-5">
                                                         <h4 class="text-center"><b>Disponibles</b></h4>
                                                         <div class="pool">
-                                                            <div class="col-md-12" ng-repeat="item in $ctrl.Items" style="border-bottom: dashed #c2c2c2 0.5px;">
+                                                            <div class="col-md-12" ng-repeat="ED in $ctrl.RelRedEstadoDisList" style="border-bottom: dashed #c2c2c2 0.5px; font-size:11px;">
                                                                 <div class="col-md-9" style="padding-top: 3%;">
-                                                                    <b>{{ item.Name }}</b>
+                                                                    <b>{{ ED.Nombre }}</b>
                                                                 </div>
                                                                 <div class="col-md-3">
-                                                                    <button type="button" class="btn ink-reaction  btn-xs btn-info" ng-click="$ctrl.transfer($ctrl.Items, $ctrl.SelctItems, $ctrl.Items.indexOf(item))" title="Agregar"><i class="md-chevron-right"></i></button>
+                                                                    <button type="button" class="btn ink-reaction btn-xs btn-info" ng-click="$ctrl.UpdateRelRedEstado(3, ED.Clv_Estado);" title="Agregar Estado"><i class="md-chevron-right"></i></button>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-6 col-md-6 col-sm-6">
-                                                        <h4 class="text-center"><b>Seleccionados</b></h4>                
+                                                    <div class="col-lg-2 col-md-2 col-sm-2">
+                                                        <br>
+                                                        <br>
+                                                        <br>
+                                                        <br>
+                                                        <button type="button" class="btn btn-success btn-xs btn-block" ng-click="$ctrl.UpdateRelRedEstado(1, 0);" title="Agregar todos los Estados">Agregar Todos</button>
+                                                        <button type="button" class="btn btn-danger btn-xs btn-block" ng-click="$ctrl.UpdateRelRedEstado(2, 0);" title="Quitar todos los Estados">Quitar Todos</button>
+                                                    </div>
+                                                    <div class="col-lg-5 col-md-5 col-sm-5">
+                                                        <h4 class="text-center"><b>Incluidos</b></h4>                
                                                         <div class="pool">
-                                                            <div class="col-md-12" ng-repeat="item in $ctrl.SelctItems" style="border-bottom: dashed #c2c2c2 0.5px;">
+                                                            <div class="col-md-12" ng-repeat="EI in $ctrl.RelRedEstadoIncList" style="border-bottom: dashed #c2c2c2 0.5px; font-size:11px;">
                                                                 <div class="col-md-3">
-                                                                    <button type="button" ng-click="$ctrl.transfer($ctrl.SelctItems, $ctrl.Items, $ctrl.SelctItems.indexOf(item))" class="btn ink-reaction  btn-xs btn-warning" title="Quitar"><i class="md-chevron-left"></i></button> 
+                                                                    <button type="button" class="btn ink-reaction btn-xs btn-warning" ng-click="$ctrl.UpdateRelRedEstado(4, EI.Clv_Estado);" title="Quitar Estado"><i class="md-chevron-left"></i></button> 
                                                                 </div>
                                                                 <div class="col-md-9 text-right" style="padding-top: 3%;">
-                                                                    <strong><b>{{ item.Name }}</b></strong>
+                                                                    <strong><b>{{ EI.Nombre }}</b></strong>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -231,28 +246,36 @@
                                         <div class="col-md-12">
                                             <div class="dualmultiselect">
                                                 <div class="row">
-                                                    <div class="col-lg-6 col-md-6 col-sm-6 text">
+                                                    <div class="col-lg-5 col-md-5 col-sm-5">
                                                         <h4 class="text-center"><b>Disponibles</b></h4>
                                                         <div class="pool">
-                                                            <div class="col-md-12" ng-repeat="item in $ctrl.Items" style="border-bottom: dashed #c2c2c2 0.5px;">
+                                                            <div class="col-md-12" ng-repeat="CD in $ctrl.RelRedCiudadDisList" style="border-bottom: dashed #c2c2c2 0.5px; font-size:11px;">
                                                                 <div class="col-md-9" style="padding-top: 3%;">
-                                                                    <b>{{ item.Name }}</b>
+                                                                    <b>{{ CD.Nombre }}</b>
                                                                 </div>
                                                                 <div class="col-md-3">
-                                                                    <button type="button" class="btn ink-reaction  btn-xs btn-info" ng-click="$ctrl.transfer($ctrl.Items, $ctrl.SelctItems, $ctrl.Items.indexOf(item))" title="Agregar"><i class="md-chevron-right"></i></button>
+                                                                    <button type="button" class="btn ink-reaction btn-xs btn-info" ng-click="$ctrl.UpdateRelRedCiudad(3, CD.Clv_Ciudad);" title="Agregar Ciudad"><i class="md-chevron-right"></i></button>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-6 col-md-6 col-sm-6">
-                                                        <h4 class="text-center"><b>Seleccionados</b></h4>                
+                                                    <div class="col-lg-2 col-md-2 col-sm-2">
+                                                        <br>
+                                                        <br>
+                                                        <br>
+                                                        <br>
+                                                        <button type="button" class="btn btn-success btn-xs btn-block" ng-click="$ctrl.UpdateRelRedCiudad(1, 0);" title="Agregar todos los Ciudades">Agregar Todos</button>
+                                                        <button type="button" class="btn btn-danger btn-xs btn-block" ng-click="$ctrl.UpdateRelRedCiudad(2, 0);" title="Quitar todos los Ciudades">Quitar Todos</button>
+                                                    </div>
+                                                    <div class="col-lg-5 col-md-5 col-sm-5">
+                                                        <h4 class="text-center"><b>Incluidos</b></h4>                
                                                         <div class="pool">
-                                                            <div class="col-md-12" ng-repeat="item in $ctrl.SelctItems" style="border-bottom: dashed #c2c2c2 0.5px;">
+                                                            <div class="col-md-12" ng-repeat="CI in $ctrl.RelRedCiudadIncList" style="border-bottom: dashed #c2c2c2 0.5px; font-size:11px;">
                                                                 <div class="col-md-3">
-                                                                    <button type="button" ng-click="$ctrl.transfer($ctrl.SelctItems, $ctrl.Items, $ctrl.SelctItems.indexOf(item))" class="btn ink-reaction  btn-xs btn-warning" title="Quitar"><i class="md-chevron-left"></i></button> 
+                                                                    <button type="button" class="btn ink-reaction btn-xs btn-warning" ng-click="$ctrl.UpdateRelRedCiudad(4, CI.Clv_Ciudad);" title="Quitar Ciudad"><i class="md-chevron-left"></i></button> 
                                                                 </div>
                                                                 <div class="col-md-9 text-right" style="padding-top: 3%;">
-                                                                    <strong><b>{{ item.Name }}</b></strong>
+                                                                    <strong><b>{{ CI.Nombre }}</b></strong>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -276,28 +299,36 @@
                                         <div class="col-md-12">
                                             <div class="dualmultiselect">
                                                 <div class="row">
-                                                    <div class="col-lg-6 col-md-6 col-sm-6 text">
+                                                    <div class="col-lg-5 col-md-5 col-sm-5">
                                                         <h4 class="text-center"><b>Disponibles</b></h4>
                                                         <div class="pool">
-                                                            <div class="col-md-12" ng-repeat="item in $ctrl.Items" style="border-bottom: dashed #c2c2c2 0.5px;">
+                                                            <div class="col-md-12" ng-repeat="LD in $ctrl.RelRedLocalidadDisList" style="border-bottom: dashed #c2c2c2 0.5px; font-size:11px;">
                                                                 <div class="col-md-9" style="padding-top: 3%;">
-                                                                    <b>{{ item.Name }}</b>
+                                                                    <b>{{ LD.Nombre }}</b>
                                                                 </div>
                                                                 <div class="col-md-3">
-                                                                    <button type="button" class="btn ink-reaction  btn-xs btn-info" ng-click="$ctrl.transfer($ctrl.Items, $ctrl.SelctItems, $ctrl.Items.indexOf(item))" title="Agregar"><i class="md-chevron-right"></i></button>
+                                                                    <button type="button" class="btn ink-reaction btn-xs btn-info" ng-click="$ctrl.UpdateRelRedLocalidad(3, LD.Clv_Localidad);" title="Agregar Localidad"><i class="md-chevron-right"></i></button>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-6 col-md-6 col-sm-6">
-                                                        <h4 class="text-center"><b>Seleccionados</b></h4>                
+                                                    <div class="col-lg-2 col-md-2 col-sm-2">
+                                                        <br>
+                                                        <br>
+                                                        <br>
+                                                        <br>
+                                                        <button type="button" class="btn btn-success btn-xs btn-block" ng-click="$ctrl.UpdateRelRedLocalidad(1, 0);" title="Agregar todos los Localidades">Agregar Todos</button>
+                                                        <button type="button" class="btn btn-danger btn-xs btn-block" ng-click="$ctrl.UpdateRelRedLocalidad(2, 0);" title="Quitar todos los Localidades">Quitar Todos</button>
+                                                    </div>
+                                                    <div class="col-lg-5 col-md-5 col-sm-5">
+                                                        <h4 class="text-center"><b>Incluidos</b></h4>                
                                                         <div class="pool">
-                                                            <div class="col-md-12" ng-repeat="item in $ctrl.SelctItems" style="border-bottom: dashed #c2c2c2 0.5px;">
+                                                            <div class="col-md-12" ng-repeat="LI in $ctrl.RelRedLocalidadIncList" style="border-bottom: dashed #c2c2c2 0.5px; font-size:11px;">
                                                                 <div class="col-md-3">
-                                                                    <button type="button" ng-click="$ctrl.transfer($ctrl.SelctItems, $ctrl.Items, $ctrl.SelctItems.indexOf(item))" class="btn ink-reaction  btn-xs btn-warning" title="Quitar"><i class="md-chevron-left"></i></button> 
+                                                                    <button type="button" class="btn ink-reaction btn-xs btn-warning" ng-click="$ctrl.UpdateRelRedLocalidad(4, LI.Clv_Localidad);" title="Quitar Localidad"><i class="md-chevron-left"></i></button> 
                                                                 </div>
                                                                 <div class="col-md-9 text-right" style="padding-top: 3%;">
-                                                                    <strong><b>{{ item.Name }}</b></strong>
+                                                                    <strong><b>{{ LI.Nombre }}</b></strong>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -321,28 +352,36 @@
                                         <div class="col-md-12">
                                             <div class="dualmultiselect">
                                                 <div class="row">
-                                                    <div class="col-lg-6 col-md-6 col-sm-6 text">
+                                                    <div class="col-lg-5 col-md-5 col-sm-5">
                                                         <h4 class="text-center"><b>Disponibles</b></h4>
                                                         <div class="pool">
-                                                            <div class="col-md-12" ng-repeat="item in $ctrl.Items" style="border-bottom: dashed #c2c2c2 0.5px;">
+                                                            <div class="col-md-12" ng-repeat="MD in $ctrl.RelRedMedioDisList" style="border-bottom: dashed #c2c2c2 0.5px; font-size:11px;">
                                                                 <div class="col-md-9" style="padding-top: 3%;">
-                                                                    <b>{{ item.Name }}</b>
+                                                                    <b>{{ MD.Descripcion }}</b>
                                                                 </div>
                                                                 <div class="col-md-3">
-                                                                    <button type="button" class="btn ink-reaction  btn-xs btn-info" ng-click="$ctrl.transfer($ctrl.Items, $ctrl.SelctItems, $ctrl.Items.indexOf(item))" title="Agregar"><i class="md-chevron-right"></i></button>
+                                                                    <button type="button" class="btn ink-reaction btn-xs btn-info" ng-click="$ctrl.UpdateRelRedMedio(3, MD.IdMedio);" title="Agregar Medio"><i class="md-chevron-right"></i></button>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-6 col-md-6 col-sm-6">
-                                                        <h4 class="text-center"><b>Seleccionados</b></h4>                
+                                                    <div class="col-lg-2 col-md-2 col-sm-2">
+                                                        <br>
+                                                        <br>
+                                                        <br>
+                                                        <br>
+                                                        <button type="button" class="btn btn-success btn-xs btn-block" ng-click="$ctrl.UpdateRelRedMedio(1, 0);" title="Agregar todos los Medioes">Agregar Todos</button>
+                                                        <button type="button" class="btn btn-danger btn-xs btn-block" ng-click="$ctrl.UpdateRelRedMedio(2, 0);" title="Quitar todos los Medioes">Quitar Todos</button>
+                                                    </div>
+                                                    <div class="col-lg-5 col-md-5 col-sm-5">
+                                                        <h4 class="text-center"><b>Incluidos</b></h4>                
                                                         <div class="pool">
-                                                            <div class="col-md-12" ng-repeat="item in $ctrl.SelctItems" style="border-bottom: dashed #c2c2c2 0.5px;">
+                                                            <div class="col-md-12" ng-repeat="MI in $ctrl.RelRedMedioIncList" style="border-bottom: dashed #c2c2c2 0.5px; font-size:11px;">
                                                                 <div class="col-md-3">
-                                                                    <button type="button" ng-click="$ctrl.transfer($ctrl.SelctItems, $ctrl.Items, $ctrl.SelctItems.indexOf(item))" class="btn ink-reaction  btn-xs btn-warning" title="Quitar"><i class="md-chevron-left"></i></button> 
+                                                                    <button type="button" class="btn ink-reaction btn-xs btn-warning" ng-click="$ctrl.UpdateRelRedMedio(4, MI.IdMedio);" title="Quitar Medio"><i class="md-chevron-left"></i></button> 
                                                                 </div>
                                                                 <div class="col-md-9 text-right" style="padding-top: 3%;">
-                                                                    <strong><b>{{ item.Name }}</b></strong>
+                                                                    <strong><b>{{ MI.Descripcion }}</b></strong>
                                                                 </div>
                                                             </div>
                                                         </div>
