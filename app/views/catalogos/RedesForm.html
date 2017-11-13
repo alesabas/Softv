@@ -30,10 +30,10 @@
     <div class="card animated fadeIn" style="margin-top:20px;">
         <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
             <header>
-                <strong style="font-weight:bold; border:none; margin-left:10px;">Red {{ $ctrl.Clv_Servicio }}</strong>
+                <strong style="font-weight:bold; border:none; margin-left:10px;">{{ $ctrl.Titulo }} {{ $ctrl.IdRed }}</strong>
                 <br>
                 <small class="text-muted" style="font-size:14px; margin-left:10px;">
-                    <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">Red {{ $ctrl.Clv_Servicio }}</a>
+                    <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">{{ $ctrl.Titulo }} {{ $ctrl.IdRed }}</a>
                 </small>
             </header>
             <div class="tools">
@@ -68,12 +68,13 @@
                     </div>
                     </div>
                     <div class="col-md-offset-1 col-md-2">
-                        <button type="button" class="btn btn-success btn-md btn-block" ui-sref="home.catalogos.red_ip({mod:$ctrl.Mod, id:$ctrl.IdRed})" title="Ver la lista de IPs en la Red"><i class="fa fa-external-link"></i> Lista de IP</button>
+                        <button type="button" class="btn btn-success btn-md btn-block" ui-sref="home.catalogos.red_ip({mod:$ctrl.Mod, id:$ctrl.IdRed})" title="Ver la lista de IPs en la Red" ng-disabled="!$ctrl.Block"><i class="fa fa-external-link" ></i> Lista de IP</button>
                     </div>
                 </div>
             </div>
             <br>
             <div class="row">
+                <fieldset ng-disabled="$ctrl.View">
                 <div class="col-md-12">
                     <div class="col-md-offset-1 col-md-10">
                          <uib-tabset active="$ctrl.TabActive">
@@ -105,8 +106,8 @@
                                                         <br>
                                                         <br>
                                                         <br>
-                                                        <button type="button" class="btn btn-success btn-xs btn-block" ng-click="$ctrl.UpdateRelRedDistribuidor(1, 0);" title="Agregar todos los Distribuidores">Agregar Todos</button>
-                                                        <button type="button" class="btn btn-danger btn-xs btn-block" ng-click="$ctrl.UpdateRelRedDistribuidor(2, 0);" title="Quitar todos los Distribuidores">Quitar Todos</button>
+                                                        <button type="button" class="btn btn-success btn-xs btn-block" ng-click="$ctrl.UpdateRelRedDistribuidor(1, 0);" title="Agregar todos los Distribuidores" ng-disabled="$ctrl.BlockDistribuidorDis">Agregar Todos <i class="fa fa-angle-double-right"></i></button>
+                                                        <button type="button" class="btn btn-danger btn-xs btn-block" ng-click="$ctrl.UpdateRelRedDistribuidor(2, 0);" title="Quitar todos los Distribuidores" ng-disabled="$ctrl.BlockDistribuidorInc"><i class="fa fa-angle-double-left"></i> Quitar Todos</button>
                                                     </div>
                                                     <div class="col-lg-5 col-md-5 col-sm-5">
                                                         <h4 class="text-center"><b>Incluidos</b></h4>                
@@ -158,8 +159,8 @@
                                                         <br>
                                                         <br>
                                                         <br>
-                                                        <button type="button" class="btn btn-success btn-xs btn-block" ng-click="$ctrl.UpdateRelRedPlaza(1, 0);" title="Agregar todos los Plazas">Agregar Todos</button>
-                                                        <button type="button" class="btn btn-danger btn-xs btn-block" ng-click="$ctrl.UpdateRelRedPlaza(2, 0);" title="Quitar todos los Plazas">Quitar Todos</button>
+                                                        <button type="button" class="btn btn-success btn-xs btn-block" ng-click="$ctrl.UpdateRelRedPlaza(1, 0);" title="Agregar todos los Plazas" ng-disabled="$ctrl.BlockPlazaDis">Agregar Todos <i class="fa fa-angle-double-right"></i></button>
+                                                        <button type="button" class="btn btn-danger btn-xs btn-block" ng-click="$ctrl.UpdateRelRedPlaza(2, 0);" title="Quitar todos los Plazas" ng-disabled="$ctrl.BlockPlazaInc"><i class="fa fa-angle-double-left"></i> Quitar Todos</button>
                                                     </div>
                                                     <div class="col-lg-5 col-md-5 col-sm-5">
                                                         <h4 class="text-center"><b>Incluidos</b></h4>                
@@ -211,8 +212,8 @@
                                                         <br>
                                                         <br>
                                                         <br>
-                                                        <button type="button" class="btn btn-success btn-xs btn-block" ng-click="$ctrl.UpdateRelRedEstado(1, 0);" title="Agregar todos los Estados">Agregar Todos</button>
-                                                        <button type="button" class="btn btn-danger btn-xs btn-block" ng-click="$ctrl.UpdateRelRedEstado(2, 0);" title="Quitar todos los Estados">Quitar Todos</button>
+                                                        <button type="button" class="btn btn-success btn-xs btn-block" ng-click="$ctrl.UpdateRelRedEstado(1, 0);" title="Agregar todos los Estados" ng-disabled="$ctrl.BlockEstadoDis">Agregar Todos <i class="fa fa-angle-double-right"></i></button>
+                                                        <button type="button" class="btn btn-danger btn-xs btn-block" ng-click="$ctrl.UpdateRelRedEstado(2, 0);" title="Quitar todos los Estados" ng-disabled="$ctrl.BlockEstadoInc"><i class="fa fa-angle-double-left"></i> Quitar Todos</button>
                                                     </div>
                                                     <div class="col-lg-5 col-md-5 col-sm-5">
                                                         <h4 class="text-center"><b>Incluidos</b></h4>                
@@ -264,8 +265,8 @@
                                                         <br>
                                                         <br>
                                                         <br>
-                                                        <button type="button" class="btn btn-success btn-xs btn-block" ng-click="$ctrl.UpdateRelRedCiudad(1, 0);" title="Agregar todos los Ciudades">Agregar Todos</button>
-                                                        <button type="button" class="btn btn-danger btn-xs btn-block" ng-click="$ctrl.UpdateRelRedCiudad(2, 0);" title="Quitar todos los Ciudades">Quitar Todos</button>
+                                                        <button type="button" class="btn btn-success btn-xs btn-block" ng-click="$ctrl.UpdateRelRedCiudad(1, 0);" title="Agregar todos los Ciudades" ng-disabled="$ctrl.BlockCiudadDis">Agregar Todos <i class="fa fa-angle-double-right"></i></button>
+                                                        <button type="button" class="btn btn-danger btn-xs btn-block" ng-click="$ctrl.UpdateRelRedCiudad(2, 0);" title="Quitar todos los Ciudades" ng-disabled="$ctrl.BlockCiudadInc"><i class="fa fa-angle-double-left"></i> Quitar Todos</button>
                                                     </div>
                                                     <div class="col-lg-5 col-md-5 col-sm-5">
                                                         <h4 class="text-center"><b>Incluidos</b></h4>                
@@ -317,8 +318,8 @@
                                                         <br>
                                                         <br>
                                                         <br>
-                                                        <button type="button" class="btn btn-success btn-xs btn-block" ng-click="$ctrl.UpdateRelRedLocalidad(1, 0);" title="Agregar todos los Localidades">Agregar Todos</button>
-                                                        <button type="button" class="btn btn-danger btn-xs btn-block" ng-click="$ctrl.UpdateRelRedLocalidad(2, 0);" title="Quitar todos los Localidades">Quitar Todos</button>
+                                                        <button type="button" class="btn btn-success btn-xs btn-block" ng-click="$ctrl.UpdateRelRedLocalidad(1, 0);" title="Agregar todos los Localidades" ng-disabled="$ctrl.BlockLocalidadDis">Agregar Todos <i class="fa fa-angle-double-right"></i></button>
+                                                        <button type="button" class="btn btn-danger btn-xs btn-block" ng-click="$ctrl.UpdateRelRedLocalidad(2, 0);" title="Quitar todos los Localidades" ng-disabled="$ctrl.BlockLocalidadInc"><i class="fa fa-angle-double-left"></i> Quitar Todos</button>
                                                     </div>
                                                     <div class="col-lg-5 col-md-5 col-sm-5">
                                                         <h4 class="text-center"><b>Incluidos</b></h4>                
@@ -370,8 +371,8 @@
                                                         <br>
                                                         <br>
                                                         <br>
-                                                        <button type="button" class="btn btn-success btn-xs btn-block" ng-click="$ctrl.UpdateRelRedMedio(1, 0);" title="Agregar todos los Medioes">Agregar Todos</button>
-                                                        <button type="button" class="btn btn-danger btn-xs btn-block" ng-click="$ctrl.UpdateRelRedMedio(2, 0);" title="Quitar todos los Medioes">Quitar Todos</button>
+                                                        <button type="button" class="btn btn-success btn-xs btn-block" ng-click="$ctrl.UpdateRelRedMedio(1, 0);" title="Agregar todos los Medios" ng-disabled="$ctrl.BlockMedioDis">Agregar Todos <i class="fa fa-angle-double-right"></i></button>
+                                                        <button type="button" class="btn btn-danger btn-xs btn-block" ng-click="$ctrl.UpdateRelRedMedio(2, 0);" title="Quitar todos los Medios" ng-disabled="$ctrl.BlockMedioInc"><i class="fa fa-angle-double-left"></i> Quitar Todos</button>
                                                     </div>
                                                     <div class="col-lg-5 col-md-5 col-sm-5">
                                                         <h4 class="text-center"><b>Incluidos</b></h4>                
@@ -398,6 +399,7 @@
                          </uib-tabset>
                     </div>
                 </div>
+                </fieldset>
             </div>
         </div>
     </div>

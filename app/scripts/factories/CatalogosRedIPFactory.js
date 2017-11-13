@@ -145,7 +145,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'IdRed': IdRed};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetRelRedPlaza_Inc, JSON.stringify(Parametros), config).then(function (response) {
                 deferred.resolve(response.data);
             }).catch(function (response) {
@@ -158,7 +157,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'objRelRedPlaza': objRelRedPlaza};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.UpdateRelRedPlaza, JSON.stringify(Parametros), config).then(function (response) {
                 deferred.resolve(response.data);
             }).catch(function (response) {
@@ -183,7 +181,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'IdRed': IdRed};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetRelRedCompania_Inc, JSON.stringify(Parametros), config).then(function (response) {
                 deferred.resolve(response.data);
             }).catch(function (response) {
@@ -196,7 +193,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'objRelRedCompania': objRelRedCompania};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.UpdateRelRedCompania, JSON.stringify(Parametros), config).then(function (response) {
                 deferred.resolve(response.data);
             }).catch(function (response) {
@@ -221,7 +217,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'IdRed': IdRed};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetRelRedEstadoList, JSON.stringify(Parametros), config).then(function (response) {
                 deferred.resolve(response.data);
             }).catch(function (response) {
@@ -234,7 +229,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'objRelRedEstado': objRelRedEstado};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.UpdateRelRedEstado, JSON.stringify(Parametros), config).then(function (response) {
                 deferred.resolve(response.data);
             }).catch(function (response) {
@@ -259,7 +253,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'IdRed': IdRed};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetRelRedCiudadList, JSON.stringify(Parametros), config).then(function (response) {
                 deferred.resolve(response.data);
             }).catch(function (response) {
@@ -272,7 +265,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'objRelRedCiudad': objRelRedCiudad};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.UpdateRelRedCiudad, JSON.stringify(Parametros), config).then(function (response) {
                 deferred.resolve(response.data);
             }).catch(function (response) {
@@ -297,7 +289,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'IdRed': IdRed};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetRelRedLocalidad_inc, JSON.stringify(Parametros), config).then(function (response) {
                 deferred.resolve(response.data);
             }).catch(function (response) {
@@ -310,7 +301,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'objRelRedLocalidad': objRelRedLocalidad};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.UpdateRelRedLocalidad, JSON.stringify(Parametros), config).then(function (response) {
                 deferred.resolve(response.data);
             }).catch(function (response) {
@@ -335,7 +325,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'IdRed': IdRed};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetRelRedMedio_Inc, JSON.stringify(Parametros), config).then(function (response) {
                 deferred.resolve(response.data);
             }).catch(function (response) {
@@ -348,7 +337,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'objRelRedMedio': objRelRedMedio};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.UpdateRelRedMedio, JSON.stringify(Parametros), config).then(function (response) {
                 deferred.resolve(response.data);
             }).catch(function (response) {

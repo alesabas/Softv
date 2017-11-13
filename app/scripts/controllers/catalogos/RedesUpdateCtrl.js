@@ -7,7 +7,6 @@ angular
         function initData(){
             GetRed();
             CatalogosRedIPFactory.GetGeneral_Sistema_II().then(function(data){
-                console.log(data);
                 vm.AlcanceRedIP = data.GetGeneral_Sistema_IIResult.AlcanceRedIp;
                 vm.BlockTab1 = (1 <= vm.AlcanceRedIP)? true:false;
                 vm.BlockTab2 = (2 <= vm.AlcanceRedIP)? true:false;
@@ -15,7 +14,6 @@ angular
                 vm.BlockTab4 = (4 <= vm.AlcanceRedIP)? true:false;
                 vm.BlockTab5 = (5 <= vm.AlcanceRedIP)? true:false;
                 vm.TabActive = (vm.AlcanceRedIP > 0)? 0:5;
-                console.log(vm.AlcanceRedIP, vm.TabActive);
             });
         }
 
@@ -56,15 +54,15 @@ angular
 
         function GetRelRedDistribuidorDisList(){
             CatalogosRedIPFactory.GetRelRedPlazaList(vm.IdRed).then(function(data){
-                console.log(data);
                 vm.RelRedDistribuidorDisList = data.GetRelRedPlazaListResult;
+                vm.BlockDistribuidorDis = (vm.RelRedDistribuidorDisList.length > 0)? false:true;  
             });
         }
 
         function GetRelRedDistribuidorIncList(){
             CatalogosRedIPFactory.GetRelRedPlaza_Inc(vm.IdRed).then(function(data){
-                console.log(data);
                 vm.RelRedDistribuidorIncList = data.GetRelRedPlaza_IncResult;
+                vm.BlockDistribuidorInc = (vm.RelRedDistribuidorIncList.length > 0)? false:true;
             });
         }
 
@@ -74,9 +72,7 @@ angular
                 'Clv_Plaza': Clv_Plaza,
                 'Op': Op
             };
-            console.log(objRelRedPlaza);
             CatalogosRedIPFactory.UpdateRelRedPlaza(objRelRedPlaza).then(function(data){
-                console.log(data);
                 GetRelRedDistribuidorDisList();
                 GetRelRedDistribuidorIncList();
             });
@@ -84,15 +80,15 @@ angular
 
         function GetRelRedPlazaDisList(){
             CatalogosRedIPFactory.GetRelRedCompaniaList(vm.IdRed).then(function(data){
-                console.log(data);
                 vm.RelRedPlazaDisList = data.GetRelRedCompaniaListResult;
+                vm.BlockPlazaDis = (vm.RelRedPlazaDisList.length > 0)? false:true;
             });
         }
 
         function GetRelRedPlazaIncList(){
             CatalogosRedIPFactory.GetRelRedCompania_Inc(vm.IdRed).then(function(data){
-                console.log(data);
                 vm.RelRedPlazaIncList = data.GetRelRedCompania_IncResult;
+                vm.BlockPlazaInc = (vm.RelRedPlazaIncList.length > 0)? false:true;
             });
         }
 
@@ -103,24 +99,22 @@ angular
                 'Op': Op
             };
             CatalogosRedIPFactory.UpdateRelRedCompania(objRelRedCompania).then(function(data){
-                console.log(data);
                 GetRelRedPlazaDisList();
                 GetRelRedPlazaIncList();
             });
         }
-
-        
+ 
         function GetRelRedEstadoDisList(){
             CatalogosRedIPFactory.GetRelRedEstado_Dis(vm.IdRed).then(function(data){
-                console.log(data);
                 vm.RelRedEstadoDisList = data.GetRelRedEstado_DisResult;
+                vm.BlockEstadoDis = (vm.RelRedEstadoDisList.length > 0)? false:true; 
             });
         }
 
         function GetRelRedEstadoIncList(){
             CatalogosRedIPFactory.GetRelRedEstadoList(vm.IdRed).then(function(data){
-                console.log(data);
                 vm.RelRedEstadoIncList = data.GetRelRedEstadoListResult;
+                vm.BlockEstadoInc = (vm.RelRedEstadoIncList.length > 0)? false:true; 
             });
         }
 
@@ -131,24 +125,22 @@ angular
                 'Op': Op
             };
             CatalogosRedIPFactory.UpdateRelRedEstado(objRelRedEstado).then(function(data){
-                console.log(data);
                 GetRelRedEstadoDisList();
                 GetRelRedEstadoIncList();
             });
         }
 
-        
         function GetRelRedCiudadDisList(){
             CatalogosRedIPFactory.GetRelRedCiudad_Dis(vm.IdRed).then(function(data){
-                console.log(data);
                 vm.RelRedCiudadDisList = data.GetRelRedCiudad_DisResult;
+                vm.BlockCiudadDis = (vm.RelRedCiudadDisList.length > 0)? false:true;
             });
         }
 
         function GetRelRedCiudadIncList(){
             CatalogosRedIPFactory.GetRelRedCiudadList(vm.IdRed).then(function(data){
-                console.log(data);
                 vm.RelRedCiudadIncList = data.GetRelRedCiudadListResult;
+                vm.BlockCiudadInc = (vm.RelRedCiudadIncList.length > 0)? false:true;
             });
         }
 
@@ -159,24 +151,22 @@ angular
                 'Op': Op
             };
             CatalogosRedIPFactory.UpdateRelRedCiudad(objRelRedCiudad).then(function(data){
-                console.log(data);
                 GetRelRedCiudadDisList();
                 GetRelRedCiudadIncList();
             });
         }
         
-        
         function GetRelRedLocalidadDisList(){
             CatalogosRedIPFactory.GetRelRedLocalidadList(vm.IdRed).then(function(data){
-                console.log(data);
                 vm.RelRedLocalidadDisList = data.GetRelRedLocalidadListResult;
+                vm.BlockLocalidadDis = (vm.RelRedLocalidadDisList.length > 0)? false:true;
             });
         }
         
         function GetRelRedLocalidadIncList(){
             CatalogosRedIPFactory.GetRelRedLocalidad_inc(vm.IdRed).then(function(data){
-                console.log(data);
                 vm.RelRedLocalidadIncList = data.GetRelRedLocalidad_incResult;
+                vm.BlockLocalidadInc = (vm.RelRedLocalidadIncList.length > 0)? false:true;
             });
         }
 
@@ -187,7 +177,6 @@ angular
                 'Op': Op
             };
             CatalogosRedIPFactory.UpdateRelRedLocalidad(objRelRedLocalidad).then(function(data){
-                console.log(data);
                 GetRelRedLocalidadDisList();
                 GetRelRedLocalidadIncList();
             });
@@ -195,26 +184,25 @@ angular
 
         function GetRelRedMedioDisList(){
             CatalogosRedIPFactory.GetRelRedMedioList(vm.IdRed).then(function(data){
-                console.log(data);
                 vm.RelRedMedioDisList = data.GetRelRedMedioListResult;
+                vm.BlockMedioDis = (vm.RelRedMedioDisList.length > 0)? false:true;
             });
         }
 
         function GetRelRedMedioIncList(){
             CatalogosRedIPFactory.GetRelRedMedio_Inc(vm.IdRed).then(function(data){
-                console.log(data);
                 vm.RelRedMedioIncList = data.GetRelRedMedio_IncResult;
+                vm.BlockMedioInc = (vm.RelRedMedioIncList.length > 0)? false:true;
             });
         }
 
-         function UpdateRelRedMedio(Op, IdMedio){
+        function UpdateRelRedMedio(Op, IdMedio){
              var objRelRedMedio = {
                 'IdRed': vm.IdRed,
                 'IdMedio': IdMedio,
                 'Op': Op
              };
             CatalogosRedIPFactory.UpdateRelRedMedio(objRelRedMedio).then(function(data){
-                console.log(data);
                 GetRelRedMedioDisList();
                 GetRelRedMedioIncList();
             });
@@ -226,8 +214,10 @@ angular
         }
 
         var vm = this;
+        vm.Titulo = 'Red - ';
         vm.Block = true;
         vm.TabActive = 0;
+        vm.View = false;
         vm.SaveRedes = SaveRedes;
         vm.UpdateRelRedDistribuidor = UpdateRelRedDistribuidor;
         vm.UpdateRelRedPlaza = UpdateRelRedPlaza;

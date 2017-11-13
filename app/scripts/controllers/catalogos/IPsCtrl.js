@@ -66,9 +66,10 @@ angular
             });
         }
 
-        initData();
-
         var vm = this;
+        vm.blockE = true;
         vm.OpenUpdateIP = OpenUpdateIP;
         vm.OpenViewIP = OpenViewIP;
+        initData();
+
     });

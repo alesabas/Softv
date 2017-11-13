@@ -10,6 +10,8 @@ angular
                 if(Red != null && ($stateParams.mod == '0' || $stateParams.mod == '1') ){
                     vm.IdRed = $stateParams.id;
                     vm.Mod = $stateParams.mod;
+                    vm.blockC = (vm.Mod == 1)? true:false;
+                    vm.blockE = (vm.Mod == 0)? true:false;
                     GetList();
                 }else{
                     ngNotify.set('ERROR, No se encontró la Red seleccionada.', 'warn');
