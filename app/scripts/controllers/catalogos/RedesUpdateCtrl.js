@@ -33,23 +33,27 @@ angular
                     vm.IP2 = parseInt(IPRed[1]);
                     vm.IP3 = parseInt(IPRed[2]);
                     vm.IP4 = parseInt(IPRed[3]);
-                    GetRelRedDistribuidorDisList();
-                    GetRelRedDistribuidorIncList();
-                    GetRelRedPlazaDisList();
-                    GetRelRedPlazaIncList();
-                    GetRelRedEstadoDisList();
-                    GetRelRedEstadoIncList();
-                    GetRelRedCiudadDisList();
-                    GetRelRedCiudadIncList();
-                    GetRelRedLocalidadDisList();
-                    GetRelRedLocalidadIncList();
-                    GetRelRedMedioDisList();
-                    GetRelRedMedioIncList();
+                    GetRelRedList();
                 }else{
                     ngNotify.set('ERROR, No se encontró la Red seleccionada.', 'warn');
                     $state.go('home.catalogos.redes');
                 }
             });
+        }
+
+        function GetRelRedList(){
+            GetRelRedDistribuidorDisList();
+            GetRelRedDistribuidorIncList();
+            GetRelRedPlazaDisList();
+            GetRelRedPlazaIncList();
+            GetRelRedEstadoDisList();
+            GetRelRedEstadoIncList();
+            GetRelRedCiudadDisList();
+            GetRelRedCiudadIncList();
+            GetRelRedLocalidadDisList();
+            GetRelRedLocalidadIncList();
+            GetRelRedMedioDisList();
+            GetRelRedMedioIncList();
         }
 
         function GetRelRedDistribuidorDisList(){
@@ -73,8 +77,7 @@ angular
                 'Op': Op
             };
             CatalogosRedIPFactory.UpdateRelRedPlaza(objRelRedPlaza).then(function(data){
-                GetRelRedDistribuidorDisList();
-                GetRelRedDistribuidorIncList();
+               GetRelRedList();
             });
         }
 
@@ -99,8 +102,7 @@ angular
                 'Op': Op
             };
             CatalogosRedIPFactory.UpdateRelRedCompania(objRelRedCompania).then(function(data){
-                GetRelRedPlazaDisList();
-                GetRelRedPlazaIncList();
+                GetRelRedList();
             });
         }
  
@@ -125,8 +127,7 @@ angular
                 'Op': Op
             };
             CatalogosRedIPFactory.UpdateRelRedEstado(objRelRedEstado).then(function(data){
-                GetRelRedEstadoDisList();
-                GetRelRedEstadoIncList();
+                GetRelRedList();
             });
         }
 
@@ -151,8 +152,7 @@ angular
                 'Op': Op
             };
             CatalogosRedIPFactory.UpdateRelRedCiudad(objRelRedCiudad).then(function(data){
-                GetRelRedCiudadDisList();
-                GetRelRedCiudadIncList();
+                GetRelRedList();
             });
         }
         
@@ -177,8 +177,7 @@ angular
                 'Op': Op
             };
             CatalogosRedIPFactory.UpdateRelRedLocalidad(objRelRedLocalidad).then(function(data){
-                GetRelRedLocalidadDisList();
-                GetRelRedLocalidadIncList();
+                GetRelRedList();
             });
         }
 
@@ -203,8 +202,7 @@ angular
                 'Op': Op
              };
             CatalogosRedIPFactory.UpdateRelRedMedio(objRelRedMedio).then(function(data){
-                GetRelRedMedioDisList();
-                GetRelRedMedioIncList();
+                GetRelRedList();
             });
          }        
                     
