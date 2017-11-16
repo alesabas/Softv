@@ -30,10 +30,25 @@
                     </select>
                 </div>
             </div>
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <br>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <b><small>Medio:</small></b>
+                </div>
+                <div class="col-md-12">
+                    <select name="SlcMedio" class="form-control input-sm" ng-model="ctrl.Medio" ng-options="M.Descripcion disable when M.Activo != true for M in ctrl.MedioList track by M.IdMedio">
+                        <option value="" ng-disabled="ctrl.BlokMedioInst">Definir en la instalación</option>
+                    </select>
+                </div>
+            </div>
         </div>
     </div>
     <div class="modal-footer">
-        <button type="submit" class="btn btn-primary btn-sm" title="Guardar Calle" ng-disabled="ctrl.DisableAdd">Guardar</button>
-        <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.cancel()" title="Salir">Cancelar</button>
+        <button type="submit" class="btn btn-primary btn-sm" title="Guardar Servico" ng-disabled="ctrl.DisableAdd"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
+        <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.cancel()" title="Salir"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
     </div>
 </form>

@@ -63,8 +63,6 @@ angular
                 vm.Email = DatosCliente.Email;
                 vm.EsPersonaFisica = DatosCliente.EsFisica;
                 vm.FechaNac = toDate(DatosCliente.FechaNacimiento);
-                console.log(DatosCliente.FechaNacimiento);
-                console.log(vm.FechaNac);
                 vm.IdEstado = DatosCliente.Clv_Estado;
                 vm.IdMunicipio = DatosCliente.Clv_Ciudad;
                 vm.IdLocalidad = DatosCliente.Clv_Localidad;
@@ -521,53 +519,20 @@ angular
         });
 
         function AddNotas(){
-             if(vm.IdContrato != undefined){
-                var objRELCLIENTEOBS = {
-                    'Contrato': vm.IdContrato,
-                    'Obs': vm.Observaciones
-                };
-                var objRoboDeSeñal_New = {
-                    'Contrato': vm.IdContrato,
-                    'Descripcion': vm.Notas
-                };
-                if(vm.UpdateObs == false && vm.UpdateNot == false){
-                   CatalogosFactory.AddRELCLIENTEOBS(objRELCLIENTEOBS).then(function(data){
-                        if(data.AddRELCLIENTEOBSResult == -1){
-                            CatalogosFactory.AddRoboDeSeñal_New(objRoboDeSeñal_New).then(function(data){
-                                if(data.AddRoboDeSeñal_NewResult == -1){
-                                    ngNotify.set('CORRECTO, se guardó observaciones y notas.', 'success');
-                                    GetNotas(vm.IdContrato);;
-                                }else{
-                                    ngNotify.set('ERROR, al guardar observaciones y notas.', 'warn');
-                                    GetNotas(vm.IdContrato);
-                                }
-                            });
-                        }else{
-                            ngNotify.set('ERROR, al guardar observaciones y notas.', 'warn');
-                            GetNotas(vm.IdContrato);
-                        }
-                    });
-                }else if(vm.UpdateObs == true && vm.UpdateNot == true){
-                    CatalogosFactory.UpdateRELCLIENTEOBS(objRELCLIENTEOBS).then(function(data){
-                        if(data.UpdateRELCLIENTEOBSResult == -1){
-                            CatalogosFactory.UpdateRoboDeSeñal_New(objRoboDeSeñal_New).then(function(data){
-                                if(data.UpdateRoboDeSeñal_NewResult == -1){
-                                    ngNotify.set('CORRECTO, se guardó observaciones y notas.', 'success');
-                                    GetNotas(vm.IdContrato);
-                                }else{
-                                    ngNotify.set('ERROR, al guardar observaciones y notas.', 'warn');
-                                    GetNotas(vm.IdContrato);
-                                }
-                            });
-                        }else{
-                            ngNotify.set('ERROR, al guardar observaciones y notas.', 'warn');
-                            GetNotas(vm.IdContrato);
-                        }
-                    });
-                }
-            }else{
-                ngNotify.set('Aun no se han registrado los datos personales.', 'warn');
-            }
+            var objRELCLIENTEOBS = {
+                'Contrato': vm.IdContrato,
+                'Obs': vm.Observaciones
+            };
+            var objRoboDeSeñal_New = {
+                'Contrato': vm.IdContrato,
+                'Descripcion': vm.Notas
+            };
+            CatalogosFactory.UpdateRELCLIENTEOBS(objRELCLIENTEOBS).then(function(data){
+                CatalogosFactory.UpdateRoboDeSeñal_New(objRoboDeSeñal_New).then(function(data){
+                    ngNotify.set('CORRECTO, se guardó observaciones y notas.', 'success');
+                    GetNotas(vm.IdContrato);
+                });
+            });
         }
 
         function GetServicios(IdContrato){

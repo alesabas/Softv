@@ -8,6 +8,25 @@ angular
             CatalogosFactory.GetMuestraTipSerPrincipal_SERList().then(function(data){
                 vm.TipoServicioList = data.GetMuestraTipSerPrincipal_SERListResult;
             });
+
+            CatalogosFactory.GetCatMediosList().then(function(data){
+                vm.MedioList = data.GetCatMediosListResult;
+                var count = 0;
+                for (var i = 0; vm.MedioList.length > i; i ++){
+                    if(vm.MedioList[i].Activo == 1){
+                        count = count + 1;
+                    }
+                }
+                if(count == 1){
+                    vm.BlokMedioInst = true;
+                    for (var i = 0; vm.MedioList.length > i; i ++){
+                        if(vm.MedioList[i].Activo == 1){
+                            vm.Medio = vm.MedioList[i];
+                            break
+                        }
+                    }
+                }
+            });
         }
 
         function AddServicioCliente(){
@@ -39,7 +58,7 @@ angular
                 'Adic': 0,
                 'TVSINPAGO': 0,
                 'TVCONPAGO': 0,
-                'IdMedio': 0,
+                'IdMedio': (vm.Medio != undefined)? vm.Medio.IdMedio:0,
                 'TipServ': vm.TipoServicio.Clv_TipSerPrincipal,
                 'Clv_usuarioCapturo': $localStorage.currentUser.idUsuario
             };
@@ -85,6 +104,7 @@ angular
         vm.Titulo = 'Agregar Servicio';
         vm.Icono = 'fa fa-plus';
         vm.IdContrato = IdContrato;
+        vm.BlokMedioInst = false;
         vm.GetServiciosList = GetServiciosList;
         vm.AddServicioCliente = AddServicioCliente;
         vm.cancel = cancel;

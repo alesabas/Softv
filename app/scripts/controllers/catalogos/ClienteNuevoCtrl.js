@@ -51,8 +51,20 @@ angular
                 vm.Cliente = data.GetCLIENTES_NewListResult;
                 if(vm.Cliente.length == 1){
                     var IdCliente = vm.Cliente[0].CONTRATO;
-                    ngNotify.set('CORRECTO, se añadió un cliente nuevo.', 'success');
-                    $state.go('home.catalogos.cliente_editar', { id:IdCliente });
+                    var objRELCLIENTEOBS = {
+                        'Contrato': IdCliente,
+                        'Obs': vm.Observaciones
+                    };
+                    var objRoboDeSeñal_New = {
+                        'Contrato': IdCliente,
+                        'Descripcion': vm.Notas
+                    };
+                    CatalogosFactory.AddRELCLIENTEOBS(objRELCLIENTEOBS).then(function(data){
+                        CatalogosFactory.AddRoboDeSeñal_New(objRoboDeSeñal_New).then(function(data){
+                            ngNotify.set('CORRECTO, se añadió un cliente nuevo.', 'success');
+                            $state.go('home.catalogos.cliente_editar', { id:IdCliente });
+                        });
+                    });
                 }else{
                     ngNotify.set('ERROR, al añadir un cliente nuevo.', 'warn');
                     $state.go('home.catalogos.clientes');

@@ -37,7 +37,7 @@
                 </small>
             </header>
             <div class="tools">
-                <button type="submit" class="btn btn-primary btn-sm" ng-click="" title="Guardar Red"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
+                <button type="submit" class="btn btn-primary btn-sm" ng-click="" title="Guardar Red" ng-if="!$ctrl.Block"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
                 <button type="button" class="btn btn-default btn-sm" ui-sref="home.catalogos.redes" title="Cancelar cambios"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
             </div>
         </div>
@@ -144,7 +144,7 @@
                                                     <div class="col-lg-5 col-md-5 col-sm-5">
                                                         <h4 class="text-center"><b>Disponibles</b></h4>
                                                         <div class="pool">
-                                                            <div class="col-md-12" ng-repeat="PD in $ctrl.RelRedPlazaDisList" style="border-bottom: dashed #c2c2c2 0.5px; font-size:11px;">
+                                                            <div class="col-md-12" ng-repeat="PD in $ctrl.RelRedPlazaDisList" style="border-bottom: dashed #c2c2c2 0.5px; font-size:11px;" ng-show="!$ctrl.BlockPlazaDis">
                                                                 <div class="col-md-9" style="padding-top: 3%;">
                                                                     <b>{{ PD.razon_social }}</b>
                                                                 </div>
@@ -152,6 +152,11 @@
                                                                     <button type="button" class="btn ink-reaction btn-xs btn-info" ng-click="$ctrl.UpdateRelRedPlaza(3, PD.IdCompania);" title="Agregar Plaza"><i class="md-chevron-right"></i></button>
                                                                 </div>
                                                             </div>
+                                                            <!--
+                                                            <div class="col-md-12 text-center" style="padding-top: 20%;" ng-show="$ctrl.BlockPlazaDis">
+                                                                <h5>No hay Distribuidores incluidos</h5>
+                                                            </div>
+                                                            -->
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-2 col-md-2 col-sm-2">
@@ -197,7 +202,7 @@
                                                     <div class="col-lg-5 col-md-5 col-sm-5">
                                                         <h4 class="text-center"><b>Disponibles</b></h4>
                                                         <div class="pool">
-                                                            <div class="col-md-12" ng-repeat="ED in $ctrl.RelRedEstadoDisList" style="border-bottom: dashed #c2c2c2 0.5px; font-size:11px;">
+                                                            <div class="col-md-12" ng-repeat="ED in $ctrl.RelRedEstadoDisList" style="border-bottom: dashed #c2c2c2 0.5px; font-size:11px;" ng-show="!$ctrl.BlockEstadoDis">
                                                                 <div class="col-md-9" style="padding-top: 3%;">
                                                                     <b>{{ ED.Nombre }}</b>
                                                                 </div>
@@ -205,6 +210,11 @@
                                                                     <button type="button" class="btn ink-reaction btn-xs btn-info" ng-click="$ctrl.UpdateRelRedEstado(3, ED.Clv_Estado);" title="Agregar Estado"><i class="md-chevron-right"></i></button>
                                                                 </div>
                                                             </div>
+                                                            <!--
+                                                            <div class="col-md-12 text-center" style="padding-top: 20%;" ng-show="$ctrl.BlockEstadoDis">
+                                                                <h5>No hay Plazas incluidas</h5>
+                                                            </div>
+                                                            -->
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-2 col-md-2 col-sm-2">
@@ -250,7 +260,7 @@
                                                     <div class="col-lg-5 col-md-5 col-sm-5">
                                                         <h4 class="text-center"><b>Disponibles</b></h4>
                                                         <div class="pool">
-                                                            <div class="col-md-12" ng-repeat="CD in $ctrl.RelRedCiudadDisList" style="border-bottom: dashed #c2c2c2 0.5px; font-size:11px;">
+                                                            <div class="col-md-12" ng-repeat="CD in $ctrl.RelRedCiudadDisList" style="border-bottom: dashed #c2c2c2 0.5px; font-size:11px;" ng-show="!$ctrl.BlockCiudadDis">
                                                                 <div class="col-md-9" style="padding-top: 3%;">
                                                                     <b>{{ CD.Nombre }}</b>
                                                                 </div>
@@ -258,6 +268,11 @@
                                                                     <button type="button" class="btn ink-reaction btn-xs btn-info" ng-click="$ctrl.UpdateRelRedCiudad(3, CD.Clv_Ciudad);" title="Agregar Ciudad"><i class="md-chevron-right"></i></button>
                                                                 </div>
                                                             </div>
+                                                            <!--
+                                                            <div class="col-md-12 text-center" style="padding-top: 20%;" ng-show="$ctrl.BlockCiudadDis">
+                                                                <h5>No hay Estados incluidos</h5>
+                                                            </div>
+                                                            -->
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-2 col-md-2 col-sm-2">
@@ -303,7 +318,7 @@
                                                     <div class="col-lg-5 col-md-5 col-sm-5">
                                                         <h4 class="text-center"><b>Disponibles</b></h4>
                                                         <div class="pool">
-                                                            <div class="col-md-12" ng-repeat="LD in $ctrl.RelRedLocalidadDisList" style="border-bottom: dashed #c2c2c2 0.5px; font-size:11px;">
+                                                            <div class="col-md-12" ng-repeat="LD in $ctrl.RelRedLocalidadDisList" style="border-bottom: dashed #c2c2c2 0.5px; font-size:11px;"  ng-show="!$ctrl.BlockLocalidadDis">
                                                                 <div class="col-md-9" style="padding-top: 3%;">
                                                                     <b>{{ LD.Nombre }}</b>
                                                                 </div>
@@ -311,6 +326,11 @@
                                                                     <button type="button" class="btn ink-reaction btn-xs btn-info" ng-click="$ctrl.UpdateRelRedLocalidad(3, LD.Clv_Localidad);" title="Agregar Localidad"><i class="md-chevron-right"></i></button>
                                                                 </div>
                                                             </div>
+                                                            <!--
+                                                            <div class="col-md-12 text-center" style="padding-top: 20%;" ng-show="$ctrl.BlockLocalidadDis">
+                                                                <h5>No hay Ciudades incluidas</h5>
+                                                            </div>
+                                                            -->
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-2 col-md-2 col-sm-2">
