@@ -1,3 +1,20 @@
+<style type="text/css">
+	.table-scroll {
+        height:200px;
+        overflow:auto;  
+        margin-top:20px;
+    }
+    .input-sm {
+        font-size: 12px;
+    }
+    .nav-tabs{
+        float:left;
+        font-size: 13px;
+    }
+    .contect-tabs{
+        float:left;
+    }
+</style>
 <form name="FormAddServicioCliente" angular-validator-submit="ctrl.AddServicioCliente()" novalidate angular-validator autocomplete="off">
     <div class="modal-header">
         <button class="close" type="button" aria-label="close" ng-click="ctrl.cancel()">x</button>
@@ -5,44 +22,67 @@
     </div>
     <div class="modal-body">
         <div class="row">
-            <div class="col-md-12">
-                <div class="col-md-12">
+            <div class="col-md-offset-1 col-md-10">
+                <div class="col-md-5">
                     <b><small>Tipo Servicio:</small></b>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-7">
                     <select name="SlcTipoServicio" class="form-control input-sm" ng-model="ctrl.TipoServicio" ng-options="T.Concepto for T in ctrl.TipoServicioList track by T.Clv_TipSerPrincipal" ng-change="ctrl.GetServiciosList()" validate-on="dirty" required required-message="'Obligatorio'">
                         <option value="">Selecciona</option>
                     </select>
                 </div>
             </div>
-            <div class="col-md-12">
-                <div class="col-md-12">
-                    <br>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="col-md-12">
+            <div class="col-md-offset-1 col-md-10">
+                <div class="col-md-5">
                     <b><small>Servicio:</small></b>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-7">
                     <select name="Servicio" class="form-control input-sm" ng-model="ctrl.Servicio" ng-options="S.Descripcion for S in ctrl.ServicioList track by S.Clv_Servicio" validate-on="dirty" required required-message="'Obligatorio'">
                         <option value="">Selecciona</option>
                     </select>
                 </div>
             </div>
+            <div class="col-md-offset-1 col-md-10">
+                <div class="col-md-5">
+                    <b><small>Medio:</small></b>
+                </div>
+                <div class="col-md-7">
+                    <select name="SlcMedio" class="form-control input-sm" ng-model="ctrl.Medio" ng-options="M.Descripcion disable when M.Activo != true for M in ctrl.MedioList track by M.IdMedio" ng-change="ctrl.GetIPList()">
+                        <option value="" ng-disabled="ctrl.BlokMedioInst">Definir en la instalación</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row" ng-if="ctrl.TipoServicio.Clv_TipSerPrincipal == 2 && ctrl.ViewIP && ctrl.Servicio != undefined">
             <div class="col-md-12">
-                <div class="col-md-12">
-                    <br>
+                <div class="col-md-offset-1 col-md-10">
+                    <b>Lista de IP</b>
                 </div>
             </div>
             <div class="col-md-12">
-                <div class="col-md-12">
-                    <b><small>Medio:</small></b>
-                </div>
-                <div class="col-md-12">
-                    <select name="SlcMedio" class="form-control input-sm" ng-model="ctrl.Medio" ng-options="M.Descripcion disable when M.Activo != true for M in ctrl.MedioList track by M.IdMedio">
-                        <option value="" ng-disabled="ctrl.BlokMedioInst">Definir en la instalación</option>
-                    </select>
+                <div class="col-md-offset-1 col-md-10 table-scroll">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th width="20%"><b><small>Id</small></b></th>
+                                <th width="80%"><b><small>IP</small></b></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-show="!ctrl.ViewListIP">
+                                <td class="text-center" colspan="2">SIN REGISTROS</td>
+                            </tr>
+                            <tr ng-repeat="X in ctrl.IPList" ng-show="ctrl.ViewListIP">
+                                <td><small>{{ X.IdIP }}</small></td>
+                                <td><small>{{ X.IP_ALL }}</small></td>
+                                <!--
+                                <td><button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.OpenEditRefPersonal(X)" title="Editar Referencia Personal"><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
+                                <td><button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.OpenDeleteRefPersonal(X)" title="Eliminar Referencia Personal"><i class="fa fa-trash"></i> ELIMINAR</button></td>
+                                -->
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

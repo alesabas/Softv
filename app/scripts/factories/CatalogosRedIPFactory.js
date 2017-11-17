@@ -32,7 +32,11 @@ angular
             UpdateRelRedLocalidad: '/RelRedLocalidad/UpdateRelRedLocalidad',
             GetRelRedMedioList: '/RelRedMedio/GetRelRedMedioList',
             GetRelRedMedio_Inc: '/RelRedMedio/GetRelRedMedio_Inc',
-            UpdateRelRedMedio: '/RelRedMedio/UpdateRelRedMedio'
+            UpdateRelRedMedio: '/RelRedMedio/UpdateRelRedMedio',
+            GetCatMedioByCiuLocCol: '/CatMedios/GetCatMedioByCiuLocCol',
+            Get_ActivaIP: '/General_Sistema_II/Get_ActivaIP',
+            GetCatalogoIPByCliente: '/catalogoIps_dos/GetCatalogoIPByCliente'
+            
         };
 
         factory.GetCatalogo_IpsList = function (ObjRedIP) {
@@ -338,6 +342,43 @@ angular
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'objRelRedMedio': objRelRedMedio};
             $http.post(globalService.getUrl() + paths.UpdateRelRedMedio, JSON.stringify(Parametros), config).then(function (response) {
+                deferred.resolve(response.data);
+            }).catch(function (response) {
+                deferred.reject(response);
+            });
+            return deferred.promise;
+        };
+
+        factory.GetCatMedioByCiuLocCol = function (ObjListMedio) {
+            var deferred = $q.defer();
+            var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+            var Parametros = ObjListMedio;
+            console.log(Parametros);
+            $http.post(globalService.getUrl() + paths.GetCatMedioByCiuLocCol, JSON.stringify(Parametros), config).then(function (response) {
+                deferred.resolve(response.data);
+            }).catch(function (response) {
+                deferred.reject(response);
+            });
+            return deferred.promise;
+        };
+
+        factory.Get_ActivaIP = function () {
+            var deferred = $q.defer();
+            var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+            $http.get(globalService.getUrl() + paths.Get_ActivaIP, config).then(function (response) {
+                deferred.resolve(response.data);
+            }).catch(function (response) {
+                deferred.reject(response);
+            });
+            return deferred.promise;
+        };
+
+        factory.GetCatalogoIPByCliente = function (ObjIpList) {
+            var deferred = $q.defer();
+            var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+            var Parametros = ObjIpList;
+            console.log(Parametros);
+            $http.post(globalService.getUrl() + paths.GetCatalogoIPByCliente, JSON.stringify(Parametros), config).then(function (response) {
                 deferred.resolve(response.data);
             }).catch(function (response) {
                 deferred.reject(response);
