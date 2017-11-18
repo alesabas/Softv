@@ -26,7 +26,6 @@ angular
                 'status': 'D'
             };
             CatalogosRedIPFactory.GetCatalogo_IpsList(ObjRedIP).then(function(data){
-                console.log(data);
                 if(data.GetCatalogo_IpsListResult[0].IdRed != undefined){
                     vm.IdRed = data.GetCatalogo_IpsListResult[0].IdRed;
                     vm.Titulo = 'Red - ';

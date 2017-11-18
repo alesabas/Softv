@@ -768,7 +768,7 @@ angular
                 backdrop: 'static',
                 keyboard: false,
                 class: 'modal-backdrop fade',
-                size: 'md',
+                size: 'sm',
                 resolve: {
                     IdContrato: function () {
                         return IdContrato;

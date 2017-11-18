@@ -10,9 +10,8 @@ angular
             });
 
             CatalogosFactory.GetConsultaClientesList(IdContrato).then(function(data){
-                console.log(data);
                 var DatosCliente = data.GetConsultaClientesListResult[0];
-                vm.CONTRATO = DatosCliente.CONTRATO;
+                vm.IdContrato = DatosCliente.CONTRATO;
                 vm.IdCompania = DatosCliente.IdCompania;
                 vm.Clv_Estado = DatosCliente.Clv_Estado;
                 vm.Clv_Ciudad = DatosCliente.Clv_Ciudad;
@@ -56,17 +55,30 @@ angular
                 'Clv_usuarioCapturo': $localStorage.currentUser.idUsuario
             };
             CatalogosFactory.AddClientesServicio(ObjServicioCliente).then(function(data){
-                if(data.AddClientesServicioResult > 0){
-                    ngNotify.set('CORRECTO, se agregó un servico al cliente.', 'success');
-                    $rootScope.$emit('LoadServicioCliente', vm.IdContrato);
-                    cancel();
+                vm.Clv_UnicaNet = data.AddClientesServicioResult;
+                if(vm.Clv_UnicaNet > 0){
+                    if(vm.Medio != undefined && vm.TipoServicio.Clv_TipSerPrincipal == 2){
+                        CatalogosRedIPFactory.Get_ActivaIP().then(function(data){
+                            vm.ActivaIP = data.Get_ActivaIPResult.ActivaIP
+                            if(vm.ActivaIP == true){
+                                    SetServicoIP();
+                            }else{
+                                ngNotify.set('CORRECTO, se agregó un servico al cliente.', 'success');
+                                $rootScope.$emit('LoadServicioCliente', vm.IdContrato);
+                                cancel();
+                            }
+                        });
+                    }else{
+                        ngNotify.set('CORRECTO, se agregó un servico al cliente.', 'success');
+                        $rootScope.$emit('LoadServicioCliente', vm.IdContrato);
+                        cancel();
+                    }
                 }else{
                     ngNotify.set('ERROR, al agregar un servico al cliente.', 'warn');
                     $rootScope.$emit('LoadServicioCliente', vm.IdContrato);
                     cancel();
                 }
             });
-
         }
 
         function GetServiciosList(){
@@ -86,7 +98,6 @@ angular
                 'Clv_Colonia': vm.Clv_Colonia,
             };
             CatalogosRedIPFactory.GetCatMedioByCiuLocCol(ObjMedioList).then(function(data){
-                console.log(data);
                 vm.MedioList = data.GetCatMedioByCiuLocColResult;
                 var count = 0;
                 for (var i = 0; vm.MedioList.length > i; i ++){
@@ -106,41 +117,35 @@ angular
             });
         }
 
-        function GetIPList(){
-            if(vm.Medio != undefined){
-                if(vm.TipoServicio != undefined){
-                    if(vm.TipoServicio.Clv_TipSerPrincipal == 2){
-                        CatalogosRedIPFactory.Get_ActivaIP().then(function(data){
-                            console.log(data);
-                            vm.ActivaIP = data.Get_ActivaIPResult.ActivaIP
-                            if(vm.ActivaIP == true){
-                                var ObjIpList = {
-                                    'IdCompania': vm.IdCompania,
-                                    'Clv_Estado': vm.Clv_Estado,
-                                    'Clv_Ciudad': vm.Clv_Ciudad,
-                                    'Clv_Localidad': vm.Clv_Localidad,
-                                    'IdMedio': vm.Medio.IdMedio
-                                };
-                                CatalogosRedIPFactory.GetCatalogoIPByCliente(ObjIpList).then(function(data){
-                                    console.log(data);
-                                    vm.IPList = data.GetCatalogoIPByClienteResult;
-                                    vm.ViewIP = true;
-                                    vm.ViewListIP = (vm.IPList.length > 0)? true:false;
-                                });
-                            }
-                        });
-                    }else{
-                        vm.IPList = null;
-                        vm.ViewIP = false;
-                    }
+        function SetServicoIP(){
+            var ObjIpList = {
+                'IdCompania': vm.IdCompania,
+                'Clv_Estado': vm.Clv_Estado,
+                'Clv_Ciudad': vm.Clv_Ciudad,
+                'Clv_Localidad': vm.Clv_Localidad,
+                'IdMedio': vm.Medio.IdMedio
+            };
+            CatalogosRedIPFactory.GetCatalogoIPByCliente(ObjIpList).then(function(data){
+                if(data.GetCatalogoIPByClienteResult.IdIP != null){
+                    var IPResult = data.GetCatalogoIPByClienteResult;
+                    vm.IdIP = IPResult.IdIP;
+                    vm.IP = IPResult.IP_ALL;
+                    var ObjSerIP = {
+                        'IdIP': vm.IdIP,
+                        'Clv_UnicaNet': vm.Clv_UnicaNet,
+                        'FechaAsignacion': GetToDay()
+                    };
+                    CatalogosRedIPFactory.GetAdd_RelServicioIPTem(ObjSerIP).then(function(data){
+                        ngNotify.set('CORRECTO, se agregó un servico al cliente. NOTA: Se le Asigno la IP: ' + vm.IP + '.', 'success');
+                        $rootScope.$emit('LoadServicioCliente', vm.IdContrato);
+                        cancel();
+                    });
                 }else{
-                    vm.IPList = null;
-                    vm.ViewIP = false;
+                    ngNotify.set('CORRECTO, se agregó un servico al cliente. NOTA: No hay Direcciones IP Disponibles, para asignar.', 'success');
+                    $rootScope.$emit('LoadServicioCliente', vm.IdContrato);
+                    cancel();
                 }
-            }else{
-                vm.IPList = null;
-                vm.ViewIP = false;
-            }
+            });
         }
 
         function ToDate(Fecha){
@@ -153,6 +158,14 @@ angular
             return FDate;
         }
 
+        function GetToDay(){
+            var Fecha = new Date();
+            var FechaD = Fecha.getDate();
+            var FechaM = Fecha.getMonth() + 1;
+            var FechaY = Fecha.getFullYear();
+            return FechaD + '/' + FechaM + '/' + FechaY;
+        }
+
         function cancel() {
             $uibModalInstance.dismiss('cancel');
         }
@@ -161,10 +174,8 @@ angular
         vm.Titulo = 'Agregar Servicio';
         vm.Icono = 'fa fa-plus';
         vm.BlokMedioInst = false;
-        vm.ViewIP = false;
         vm.GetServiciosList = GetServiciosList;
         vm.AddServicioCliente = AddServicioCliente;
-        vm.GetIPList = GetIPList;
         vm.cancel = cancel;
         initData();
 

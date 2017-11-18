@@ -35,7 +35,8 @@ angular
             UpdateRelRedMedio: '/RelRedMedio/UpdateRelRedMedio',
             GetCatMedioByCiuLocCol: '/CatMedios/GetCatMedioByCiuLocCol',
             Get_ActivaIP: '/General_Sistema_II/Get_ActivaIP',
-            GetCatalogoIPByCliente: '/catalogoIps_dos/GetCatalogoIPByCliente'
+            GetCatalogoIPByCliente: '/catalogoIps_dos/GetCatalogoIPByCliente',
+            GetAdd_RelServicioIPTem: '/catalogoIps_dos/GetAdd_RelServicioIPTem'
             
         };
 
@@ -353,7 +354,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = ObjListMedio;
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetCatMedioByCiuLocCol, JSON.stringify(Parametros), config).then(function (response) {
                 deferred.resolve(response.data);
             }).catch(function (response) {
@@ -377,8 +377,19 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = ObjIpList;
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetCatalogoIPByCliente, JSON.stringify(Parametros), config).then(function (response) {
+                deferred.resolve(response.data);
+            }).catch(function (response) {
+                deferred.reject(response);
+            });
+            return deferred.promise;
+        };
+
+        factory.GetAdd_RelServicioIPTem = function (ObjSerIp) {
+            var deferred = $q.defer();
+            var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+            var Parametros = ObjSerIp;
+            $http.post(globalService.getUrl() + paths.GetAdd_RelServicioIPTem, JSON.stringify(Parametros), config).then(function (response) {
                 deferred.resolve(response.data);
             }).catch(function (response) {
                 deferred.reject(response);
