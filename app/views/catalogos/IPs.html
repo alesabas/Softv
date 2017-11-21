@@ -8,7 +8,6 @@
             </small>
         </header>
         <div class="tools">
-            <!--<button type="button" class="btn btn-primary btn-sm" ng-click="$OpenAddIP" title="Crear una IP nueva"><i class="fa fa-plus"></i> NUEVA IP</button>-->
             <button type="button" class="btn btn-default btn-sm" ui-sref="home.catalogos.redes_detalle({ id: $ctrl.IdRed })" title="Salir" ng-if="$ctrl.IdRed > 0 && $ctrl.Mod == 1"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
             <button type="button" class="btn btn-default btn-sm" ui-sref="home.catalogos.redes_editar({ id: $ctrl.IdRed })" title="Salir" ng-if="$ctrl.IdRed > 0 && $ctrl.Mod == 0"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
         </div>
@@ -38,7 +37,7 @@
                             <th width="18%"><b>Ultima Fecha de Asignación</b></th>
                             <th width="18%"><b>Ultima Fecha de Liberación</b></th>
                             <th width="17%"><b>Ultimo Cliente Asignado</b></th>
-                            <th width="20%" ng-if="$ctrl.blockC || "><b>Acciones</b></th>
+                            <th width="20%" ng-if="$ctrl.blockC"><b>Acciones</b></th>
                             <th width="20%" colspan="2" ng-if="$ctrl.blockE"><b>Acciones</b></th>
                         </tr>
                     </thead>

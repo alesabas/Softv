@@ -292,8 +292,6 @@ angular
       return deferred.promise;
     };
 
-
-
     factory.GetCatalogoCajasList = function (obj) {
       var deferred = $q.defer();
       var config = {
@@ -333,9 +331,6 @@ angular
       });
       return deferred.promise;
     };
-
-
-
 
     factory.UpdateCatalogoCajas = function (obj) {
       var deferred = $q.defer();
@@ -3400,6 +3395,18 @@ angular
       });
       return deferred.promise;
     };
+
+    factory.GetMUESTRASUCURSALES2 = function (op) {
+      var deferred = $q.defer();
+      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+      var Parametros = {'op': op};
+      $http.post(globalService.getUrl() + paths.GetMUESTRASUCURSALES2, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };    
 
     return factory;
 

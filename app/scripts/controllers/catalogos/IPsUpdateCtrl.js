@@ -78,7 +78,6 @@ angular
             }
             CatalogosRedIPFactory.UpdatecatalogoIps_dos(objcatalogoIps_dos).then(function(data){
                 ngNotify.set('CORRECTO, se guardaron los cambios.', 'success');
-                //$state.reload('home.catalogos.ips');
                 $rootScope.$emit('LoadLista');
                 cancel();
             });

@@ -16,6 +16,7 @@ angular
     function GetSucursales(sucursal) {
       CatalogosFactory.GetMUESTRASUCURSALES2(vm.plaza.id_compania)
         .then(function (result) {
+          console.log(result);
           vm.sucursales = result.GetMUESTRASUCURSALES2Result;
           if (sucursal > 0) {
             vm.sucursales.forEach(function (item) {
