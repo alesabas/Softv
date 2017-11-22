@@ -2,25 +2,20 @@
 
 angular
     .module('softvApp')
-    .controller('IPsViewCtrl', function(CatalogosFactory, $uibModalInstance, $uibModal, ngNotify, $state, IdIP){
+    .controller('IPsViewCtrl', function(CatalogosRedIPFactory, $uibModalInstance, $uibModal, ngNotify, $state, IdIP){
         
          function initData(){
             
-            CatalogosFactory.GetDeepcatalogoIps_dos(IdIP).then(function(data){
-                console.log(data);
+            CatalogosRedIPFactory.GetDeepcatalogoIps_dos(IdIP).then(function(data){
                 var ListIp = data.GetDeepcatalogoIps_dosResult;
-                console.log(ListIp);
                 vm.IP= ListIp.IP_ALL;
                 vm.Red= ListIp.IPRed;
                 vm.FechaAsignacion= (ListIp.UltimaFechaAsignacion != null)? toDate(ListIp.UltimaFechaAsignacion):ListIp.UltimaFechaAsignacion;
                 vm.FechaLiberacion=(ListIp.UltimaFechaLiberacion != null) ? toDate(ListIp.UltimaFechaLiberacion): ListIp.UltimaFechaLiberacion;
                 vm.IdIp = ListIp.IdIP;
-
-                var Status= ListIp.Status;
-                                
+                var Status= ListIp.Status;              
                 vm.ClienteAsignado= ListIp.UltimoClienteAsignado;
-                CatalogosFactory.GetListCombo().then(function(data){
-                    console.log(data);
+                CatalogosRedIPFactory.GetListCombo().then(function(data){
                     vm.ListCombo = data.GetListComboResult;
 
                     for (var b = 0; b < vm.ListCombo.length; b++) {
@@ -30,8 +25,6 @@ angular
                     }
                 });
             });
-
-            
         }
 
         function toDate(dateStr) {
@@ -43,9 +36,8 @@ angular
             $uibModalInstance.dismiss('cancel');
         }
 
-
         var vm = this;
-        vm.Titulo = 'Detalle IP';
+        vm.Titulo = 'Detalle IP - ';
         vm.Icono = 'fa fa-eye';
         vm.View = true;
         vm.RFechaA= false;

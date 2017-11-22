@@ -7,6 +7,7 @@ angular
     this.$onInit = function () {
 
       generalesSistemaFactory.GetvalidaAccesoFacturacion().then(function (data) {
+        console.log(data);
         if (data.GetvalidaAccesoFacturacionResult === 0) {
           $state.go('home.dashboard');
           ngNotify.set('Su máquina no esta registrada como una caja, por tal motivo no tiene acceso a facturación', 'warn');

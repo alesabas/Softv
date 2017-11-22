@@ -51,8 +51,9 @@ angular
     }
 
     function agregaRelacion() {
-      plazaFactory.GetAgregaEliminaRelCompaniaCiudad2(1, $stateParams.id, vm.estado2select.Clv_Estado, vm.CiudadPla.Clv_Ciudad)
+      plazaFactory.GetAgregaEliminaRelCompaniaCiudad2(1, $stateParams.id, vm.CiudadPla.Clv_Ciudad, vm.estado2select.Clv_Estado)
         .then(function (res) {
+          console.log(res);
           muestraRelacion();
         });
     }

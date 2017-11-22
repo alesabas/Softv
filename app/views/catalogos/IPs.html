@@ -8,7 +8,6 @@
             </small>
         </header>
         <div class="tools">
-            <!--<button type="button" class="btn btn-primary btn-sm" ng-click="$OpenAddIP" title="Crear una IP nueva"><i class="fa fa-plus"></i> NUEVA IP</button>-->
             <button type="button" class="btn btn-default btn-sm" ui-sref="home.catalogos.redes_detalle({ id: $ctrl.IdRed })" title="Salir" ng-if="$ctrl.IdRed > 0 && $ctrl.Mod == 1"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
             <button type="button" class="btn btn-default btn-sm" ui-sref="home.catalogos.redes_editar({ id: $ctrl.IdRed })" title="Salir" ng-if="$ctrl.IdRed > 0 && $ctrl.Mod == 0"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
         </div>
@@ -32,13 +31,14 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th width="10%"><b>Id</b></th>
-                            <th width="15%"><b>IP</b></th>
-                            <th width="15%"><b>Status</b></th>
-                            <th width="15%"><b>Ultima Fecha de Asignación</b></th>
-                            <th width="15%"><b>Ultima Fecha de Liberación</b></th>
-                            <th width="10%"><b>Ultimo Cliente Asignado</b></th>
-                            <th width="20%" colspan="2"><b>Acciones</b></th>
+                            <th width="7%"><b>Id</b></th>
+                            <th width="10%"><b>IP</b></th>
+                            <th width="10%"><b>Status</b></th>
+                            <th width="18%"><b>Ultima Fecha de Asignación</b></th>
+                            <th width="18%"><b>Ultima Fecha de Liberación</b></th>
+                            <th width="17%"><b>Ultimo Cliente Asignado</b></th>
+                            <th width="20%" ng-if="$ctrl.blockC"><b>Acciones</b></th>
+                            <th width="20%" colspan="2" ng-if="$ctrl.blockE"><b>Acciones</b></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -54,7 +54,7 @@
                             <td>{{ X.UltimaFechaLiberacion }}</td>
                             <td>{{ X.UltimoClienteAsignado }}</td>
                             <td><button type="button" class="btn btn-info btn-xs" ng-click="$ctrl.OpenViewIP(X.IdIP)" title="Consultar IP"><i class="fa fa-eye"></i> CONSULTAR</button></td>
-                            <td><button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.OpenUpdateIP(X.IdIP)" title="Editar IP"><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
+                            <td><button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.OpenUpdateIP(X.IdIP)" title="Editar IP" ng-if="$ctrl.blockE"><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
                             <!--
                             <td><button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.OpenDeleteIP(X.Clv_IP)" title="Eliminar IP"><i class="fa fa-trash"></i> ELIMINAR</button></td>
                             -->

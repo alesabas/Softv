@@ -37,7 +37,7 @@ angular
     }
 
     function agregaRelacion() {
-      plazaFactory.GetAgregaEliminaRelCompaniaCiudad2(1, $stateParams.id, vm.estado2select.Clv_Estado, vm.CiudadPla.Clv_Ciudad)
+      plazaFactory.GetAgregaEliminaRelCompaniaCiudad2(1, $stateParams.id, vm.CiudadPla.Clv_Ciudad, vm.estado2select.Clv_Estado)
         .then(function (res) {
           muestraRelacion();
         });
@@ -52,8 +52,8 @@ angular
     }
 
     function SavePlaza() {
-
-      vm.detplaza.Clv_plaza = vm.detplaza.distribuidor.Clv_Plaza;
+      console.log(vm.detplaza);
+      vm.detplaza.Clv_plaza = vm.distribuidor.Clv_Plaza;
       console.log(vm.detplaza);
       plazaFactory.AddPlaza(vm.detplaza)
         .then(function (result) {
