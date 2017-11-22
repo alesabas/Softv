@@ -9,6 +9,9 @@ angular
         }
 
         var vm = this;
+        vm.Titulo = 'Editar Vendedor - ';
+        vm.Icono = 'fa fa-pencil-square-o';
+        vm.View = false;
         vm.cancel = cancel;
         
     });

@@ -1,0 +1,103 @@
+<div class="card animated fadeIn" style="margin-top:20px;">
+    <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+        <header>
+            <strong style="font-weight:bold; border:none; margin-left:10px;">Catálogo Series</strong>
+			<br>
+            <small class="text-muted" style="font-size:14px; margin-left:10px;">
+                <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">Catálogo Series</a>
+            </small>
+        </header>
+        <div class="tools">
+			<div class="btn-group">
+				<button type="button" class="btn btn-primary btn-sm" ng-click="$ctrl.OpenSerieAdd();" title="Crear un Serie Nueva"><i class="fa fa-plus"></i> NUEVA SERIE</button>
+			</div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <b>Buscar por:</b>
+                    <br>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-2">
+                    <select name="SlcDistribuidor" class="form-control input-sm" ng-model="$ctrl.Distribuidor" ng-options="D.Nombre for D in $ctrl.DistribuidorList track by D.ClvDistribuidor">
+                        <option value="">Selecciona Distribuidor</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <select name="SlcTipo" class="form-control input-sm" ng-model="$ctrl.Tipo" ng-options="T.Nombre for T in $ctrl.TipoList track by T.Clvave">
+                        <option value="">Selecciona Tipo</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <input name="InpClave" class="form-control input-sm" ng-model="$ctrl.Clave" placeholder="Serie">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-warning btn-xs"><i class="fa fa-search"></i> Buscar</button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="input-group">
+                        <input name="InpNombre" class="form-control input-sm" ng-model="$ctrl.Nombre" placeholder="Clave Vendedor">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-warning btn-xs"><i class="fa fa-search"></i> Buscar</button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="input-group">
+                        <input name="InpNombre" class="form-control input-sm" ng-model="$ctrl.Nombre" placeholder="Nombre del Vendedor">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-warning btn-xs"><i class="fa fa-search"></i> Buscar</button>
+                        </span>
+                    </div>
+                </div>
+			</div>
+            <div class="col-md-12">
+                <br>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th width="10%"><b>Serie</b></th>
+                                <th width="25%"><b>Clave Vendedor</b></th>
+                                <th width="40%"><b>Nombre Vendedor</b></th>
+                                <th width="25%" colspan="3"><b>Acciones</b></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!--
+                            <tr ng-show="$ctrl.SinRegistros">
+                                <td class="text-center" colspan="3">SIN REGISTROS</td>
+                            </tr>
+                            <tr dir-paginate="X in $ctrl.SerieList|filter:$ctrl.SearchSerie|itemsPerPage:7" ng-show="$ctrl.ConRegistros">
+                                -->
+                            <tr>
+                                <td>{{ X.Clv_Serie }}</td>
+                                <td>{{ X.Nombre }}</td>
+                                <td>{{ X.Nombre }}</td>
+                                <td><button type="button" class="btn btn-info btn-xs" ng-click="$ctrl.OpenSerieView();" title="Consultar Serie"><i class="fa fa-eye"></i> CONSULTAR</button></td>
+                                <td><button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.OpenSerieUpdate();" title="Editar Serie"><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
+                                <td><button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.OpenSerieDelete();" title="Eliminar Serie"><i class="fa fa-trash"></i> ELIMINAR</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <div style="margin-top:-40px;">
+                        <dir-pagination-controls max-size="7" direction-links="true" boundary-links="true" ng-if="$ctrl.SerieesList.length > 0">
+                        </dir-pagination-controls>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>

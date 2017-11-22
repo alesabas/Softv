@@ -1,0 +1,42 @@
+<form name="FormRango" angular-validator-submit="ctrl.SaveRango()" novalidate angular-validator autocomplete="off">
+    <div class="modal-header">
+        <button class="close" type="button" aria-label="close" ng-click="ctrl.cancel()">x</button>
+        <h4 class="modal-title"><i ng-class="ctrl.Icono"></i> {{ ctrl.Titulo }} {{ ctrl.IdVendedor }}</h4>
+    </div>
+    <div class="modal-body">
+        <fieldset ng-disabled="ctrl.View">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-offset-2 col-md-3">
+                        <b>Distribuidor:</b>
+                    </div>
+                    <div class="col-md-5">
+                        <select name="SlcDistrubidor" class="form-control input-sm" ng-model="ctrl.Distribuidor" ng-options="D.Nombre for D in ctrl.DistribuidoresList track by D.Clave">
+                            <option value="">Selecciona</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-offset-2 col-md-3">
+                        <b>Rango Inferior:</b>
+                    </div>
+                    <div class="col-md-5">
+                        <input type="number" name="RangoInferior" class="form-control input-sm" ng-model="ctrl.RangoInferior">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-offset-2 col-md-3">
+                        <b>Rango Superior:</b>
+                    </div>
+                    <div class="col-md-5">
+                        <input type="number" name="RangoSuperior" class="form-control input-sm" ng-model="ctrl.RangoSuperior">
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary btn-sm" title="Guardar Rango" ng-show="!ctrl.View"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
+        <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.cancel();" title="Salir"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
+    </div>
+</form>

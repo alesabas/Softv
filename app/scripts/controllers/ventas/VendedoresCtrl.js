@@ -15,7 +15,7 @@ angular
                 backdrop: 'static',
                 keyboard: false,
                 class: 'modal-backdrop fade',
-                size: 'md'
+                size: 'lg'
             });
         }
 
@@ -31,7 +31,7 @@ angular
                 backdrop: 'static',
                 keyboard: false,
                 class: 'modal-backdrop fade',
-                size: 'md',
+                size: 'lg',
                 resolve: {
                     IdIP: function () {
                         return IdIP;
@@ -52,7 +52,7 @@ angular
                 backdrop: 'static',
                 keyboard: false,
                 class: 'modal-backdrop fade',
-                size: 'md',
+                size: 'lg',
                 resolve: {
                     IdIP: function () {
                         return IdIP;
@@ -73,7 +73,7 @@ angular
                 backdrop: 'static',
                 keyboard: false,
                 class: 'modal-backdrop fade',
-                size: 'md',
+                size: 'sm',
                 resolve: {
                     IdIP: function () {
                         return IdIP;

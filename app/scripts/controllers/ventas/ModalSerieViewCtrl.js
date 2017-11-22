@@ -2,14 +2,14 @@
 
 angular
     .module('softvApp')
-    .controller('ModalVendedorViewCtrl', function(VentasFactory, $uibModalInstance, $uibModal, ngNotify, $state, $rootScope){
+    .controller('ModalSerieViewCtrl', function(VentasFactory, $uibModalInstance, $uibModal, ngNotify, $state, $rootScope){
         
         function cancel() {
             $uibModalInstance.dismiss('cancel');
         }
 
         var vm = this;
-        vm.Titulo = 'Consultar Vendedor - ';
+        vm.Titulo = 'Consultar Serie - ';
         vm.Icono = 'fa fa-eye';
         vm.View = true;
         vm.cancel = cancel;

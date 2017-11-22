@@ -52,7 +52,7 @@
                         <b>Status:</b>
                     </div>
                     <div class="col-md-4">
-                        <select name="SlcStatus" class="form-control input-sm" ng-model="ctrl.Status" ng-options="S.Descripcion for S in ctrl.ListCombo  track by S.Status" validate-on="dirty" required required-message="'Obligatorio'" ng-change="ctrl.ValidaS()">
+                        <select name="SlcStatus" class="form-control input-sm" ng-model="ctrl.Status" ng-options="S.Descripcion for S in ctrl.ListCombo track by S.Status" validate-on="dirty" required required-message="'Obligatorio'" ng-change="ctrl.ValidaS()">
                             <option value="">Selecciona</option>
                         </select>
                     </div>
