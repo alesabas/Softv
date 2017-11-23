@@ -11,7 +11,21 @@ angular
     function login() {
       authFactory.login(vm.user, vm.password).then(function (data) {
         if (data) {
-          $window.location.reload();
+          
+          authFactory.obtenNombreComputadora().then(function (result) {
+            $localStorage.currentUser.maquina = result;
+            authFactory.obtensucursalIp($localStorage.currentUser.token, $localStorage.currentUser.maquina).then(function (response) {
+              $localStorage.currentUser.sucursal = response;
+              $window.location.reload();
+            });
+
+          })
+          .catch(function(result){
+            $window.location.reload();
+          });
+          console.log($localStorage.currentUser);
+
+
         } else {
           ngNotify.set('Datos de acceso erróneos', 'error');
         }

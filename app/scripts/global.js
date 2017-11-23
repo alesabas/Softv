@@ -28,12 +28,13 @@ angular
     };
 
     svc.getUrlReportes = function () {
-      return 'http://localhost:64481';
+      return 'localhost:64481';
     };
 
-    svc.getUrllogos = function () {
-      return 'http://localhost:64481/logos';
+    svc.getUrlPrinters = function () {
+      return 'http://localhost:50';
     };
+
 
     return svc;
   });

@@ -9,10 +9,13 @@
     <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
       <header>
         <strong style="font-weight:bold; border:none; margin-left:10px;">Nuevo Contrato Maestro</strong>
-        <br /><small class="text-muted" style="font-size:14px; margin-left:10px;"><i class="fa fa-home" aria-hidden="true"></i> Facturación Corporativa>Nuevo Contrato Maestro</small>
+        <br />
+        <small class="text-muted" style="font-size:14px; margin-left:10px;">
+          <i class="fa fa-home" aria-hidden="true"></i> Facturación Corporativa>Nuevo Contrato Maestro</small>
       </header>
       <div class="tools">
-        <button class="btn btn-default btn-sm" type="button" ui-sref="home.corporativa.maestro"><i class="fa fa-arrow-left" aria-hidden="true"></i> Regresar</button>
+        <button class="btn btn-default btn-sm" type="button" ui-sref="home.corporativa.maestro">
+          <i class="fa fa-arrow-left" aria-hidden="true"></i> Regresar</button>
       </div>
     </div>
     <div class="row" style="padding:30px;">
@@ -20,7 +23,9 @@
         <h4 class="text-center">Datos Contrato Maestro</h4>
       </div>
       <div class="col-md-6" style="padding-top:10px;">
-        <p class="text-right"><a class="btn ink-reaction btn-flat btn-primary" ng-disabled="$ctrl.ligados" ng-click="$ctrl.abrirContratos()">Contratos Ligados</a></p>
+        <p class="text-right">
+          <a class="btn ink-reaction btn-flat btn-primary" ng-disabled="$ctrl.ligados" ng-click="$ctrl.abrirContratos()">Contratos Ligados</a>
+        </p>
       </div>
       <div class="col-md-6">
 
@@ -38,7 +43,7 @@
           <div class="col-md-9" style="padding-left:-10px;">
             <select class="form-control input-sm" name="distribuidor" validate-on="dirty" ng-model="$ctrl.distribuidor" ng-options="v.Nombre for v in $ctrl.distribuidores track by v.Clv_Plaza"
               required-message="'Este campo es obligatorio.'" required>
-                <option value="">selecciona</option>
+              <option value="">selecciona</option>
             </select>
           </div>
         </div>
@@ -68,8 +73,7 @@
         <div class="col-md-12">
           <label class="col-md-3 control-label blod">Localidad:</label>
           <div class="col-md-9" style="padding-left:-10px;">
-            <input type="text" name="localidad"  class="form-control input-sm" ng-model="$ctrl.localidad" 
-              >
+            <input type="text" name="localidad" class="form-control input-sm" ng-model="$ctrl.localidad">
 
           </div>
         </div>
@@ -96,7 +100,7 @@
         <div class="col-md-12">
           <label class="col-md-3 control-label blod">Entre calles:</label>
           <div class="col-md-9" style="padding-left:-10px;">
-            <input type="text" class="form-control input-sm"  ng-model="$ctrl.EntreCalles"
+            <input type="text" class="form-control input-sm" required-message="'Este campo es obligatorio.'" required ng-model="$ctrl.EntreCalles"
               name="EntreCalles">
 
           </div>
@@ -129,7 +133,7 @@
         <div class="col-md-12">
           <label class="col-md-3 control-label blod">Fax:</label>
           <div class="col-md-9" style="padding-left:-10px;">
-            <input type="text" class="form-control input-sm"   ng-model="$ctrl.Fax" >
+            <input type="text" name="fax" class="form-control input-sm" ng-model="$ctrl.Fax">
 
           </div>
         </div>
@@ -143,7 +147,10 @@
 
           </div>
           <div class="col-md-9">
-            <label class="text-left radio-inline radio-styled"><input type="radio" name="prepago" ng-model ="$ctrl.prepago" value='postpago' ng-change="$ctrl.CambioTipoPago($ctrl.prepago)" ><span>PostPago</span></label>
+            <label class="text-left radio-inline radio-styled">
+              <input type="radio" name="prepago" ng-model="$ctrl.prepago" value='postpago' ng-change="$ctrl.CambioTipoPago($ctrl.prepago)">
+              <span>PostPago</span>
+            </label>
           </div>
         </div>
 
@@ -151,16 +158,22 @@
 
         <div class="col-md-12" style="padding-top:10px">
           <label class="col-md-3 control-label blod">
-              Generación de orden de servicio:
+            Generación de orden de servicio:
           </label>
           <div class="col-md-9">
-            <label class="text-left radio-inline radio-styled"><input type="radio" name="cuenta" ng-model="$ctrl.reactivacion" value="manual"><span>Manual</span></label>
+            <label class="text-left radio-inline radio-styled">
+              <input type="radio" name="cuenta" ng-model="$ctrl.reactivacion" value="manual">
+              <span>Manual</span>
+            </label>
           </div>
           <label class="col-md-3">
 
           </label>
           <div class="col-md-9">
-            <label class="text-left radio-inline radio-styled"><input type="radio" name="cuenta" ng-model="$ctrl.reactivacion" value="factura"><span>Por pago de factura</span></label>
+            <label class="text-left radio-inline radio-styled">
+              <input type="radio" name="cuenta" ng-model="$ctrl.reactivacion" value="factura">
+              <span>Por pago de factura</span>
+            </label>
           </div>
         </div>
 
@@ -244,19 +257,19 @@
               ng-options="v.Descripcion for v in $ctrl.tipoPagos track by v.Id" required-message="'Este campo es obligatorio.'"
               required>
               <option value="">Selecciona</option>
-              </select>
+            </select>
           </div>
         </div>
         <div class="col-md-12" ng-show="$ctrl.MuestraBanco">
           <label class="col-md-3 control-label blod">Banco</label>
           <div class="col-md-7" style="padding-left:-10px;">
-            <select class="form-control" ng-model="$ctrl.selectedBanco" ng-options="v.nombre for v in $ctrl.bancos track by v.Clave"></select>
+            <select class="form-control" name="banco" ng-model="$ctrl.selectedBanco" ng-options="v.nombre for v in $ctrl.bancos track by v.Clave"></select>
           </div>
         </div>
         <div class="col-md-12" ng-show="$ctrl.MuestraReferencia">
           <label class="col-md-3 control-label blod">Referencia</label>
           <div class="col-md-9" style="padding-left:-10px;">
-            <input type="text" ng-model="$ctrl.Referencia" class="form-control input-sm" placeholder="Número de referencia">
+            <input type="text" name="referencia" ng-model="$ctrl.Referencia" class="form-control input-sm" placeholder="Número de referencia">
           </div>
         </div>
         <div class="col-md-12" ng-show="$ctrl.MuestraAutorizacion">
@@ -273,13 +286,34 @@
           </div>-->
           <label class="col-md-3 control-label blod"></label>
           <div class="col-md-9">
-            <label class="text-left radio-inline radio-styled"><input type="radio" name="tipago" ng-model="$ctrl.tipopago" value="factura"><span>Factura</span></label>
+            <label class="text-left radio-inline radio-styled">
+              <input type="radio" name="tipago" ng-model="$ctrl.tipopago" value="factura">
+              <span>Factura</span>
+            </label>
           </div>
         </div>
         <div class="col-md-12">
           <br>
           <label class="col-md-3 control-label blod">Pago en Dolares:</label>
-          <label class="text-left checkbox-inline checkbox-styled"><input type="checkbox" name="dolares" ng-model="$ctrl.dolares"><span></span></label>
+          <label class="text-left checkbox-inline checkbox-styled">
+            <input type="checkbox" name="dolares" ng-model="$ctrl.dolares">
+            <span></span>
+          </label>
+        </div>
+        <div class="col-md-12">
+          <label class="col-md-3 control-label blod">Fecha de Vencimiento:</label>
+          <div class="col-md-9" style="padding-left:-10px;">
+            <input ng-model="$ctrl.fechaVigencia" name="fechaVigencia" style="padding-left:-10px;" type="date" id="fechaVigencia" placeholder="yyyy-MM-dd"
+              required-message="'Este campo es obligatorio.'" required />
+          </div>
+        </div>
+        <div class="col-md-12">
+          <label class="col-md-3 control-label blod">Cuenta CLABE:</label>
+          <div class="col-md-9" style="padding-left:-10px;">
+            <div class="col-md-9" style="padding-left:-10px;">
+              <select class="form-control input-sm" name="clabes" ng-model="$ctrl.selectedClabe" ng-options="item as item.Clabe for item in $ctrl.Clabes track by item.Id"></select>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -287,7 +321,8 @@
 
     <div class="card  style-default-light text-right" style="padding:10px; margin-bottom:0px;">
       <p class="text-right">
-        <button class="btn btn-primary btn-sm" ng-disabled="$ctrl.guardarBtn" type="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button>
+        <button class="btn btn-primary btn-sm" ng-disabled="$ctrl.guardarBtn" type="submit">
+          <i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button>
       </p>
       <p class="text-right" ng-show="$ctrl.helpSave" style="color:red;">
         <small>El contrato maestro fue guardado exitosamente, puedes ligar contratos ahora ó hacerlo después.</small>

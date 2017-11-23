@@ -3,7 +3,7 @@ angular
 	.module('softvApp')
 	.controller('NuevoMaestroCtrl', NuevoMaestroCtrl);
 
-function NuevoMaestroCtrl($uibModal, $rootScope, corporativoFactory, cajasFactory, $filter, ngNotify, $state) {
+function NuevoMaestroCtrl($uibModal, $rootScope, corporativoFactory, cajasFactory, $filter, ngNotify, $state, ContratoMaestroFactory) {
 	var vm = this;
 	vm.abrirContratos = abrirContratos;
 	vm.contratos = [];
@@ -24,6 +24,7 @@ function NuevoMaestroCtrl($uibModal, $rootScope, corporativoFactory, cajasFactor
 	vm.MuestraReferencia = false;
 	vm.CambioTipo = CambioTipo;
 	vm.dolares = false;
+	vm.fechaVigencia = "";
 
 	this.$onInit = function () {
 		corporativoFactory.getDistribuidores().then(function (data) {
@@ -41,6 +42,10 @@ function NuevoMaestroCtrl($uibModal, $rootScope, corporativoFactory, cajasFactor
 		cajasFactory.dameBancos().then(function (data) {
 			vm.bancos = data.GetMuestraBancosListResult;
 		});
+		ContratoMaestroFactory.GetCuentaCableMaestro().then(function (data) {
+          vm.Clabes = data.GetCuentaCableMaestroResult;
+          console.log(vm.Clabes);
+        });
 	}
 
 	function abrirContratos() {
@@ -102,6 +107,7 @@ function NuevoMaestroCtrl($uibModal, $rootScope, corporativoFactory, cajasFactor
 	}
 
 	function guardarContrato() {
+
 		if (vm.MuestraBanco) {
 			if (!vm.selectedBanco) {
 				ngNotify.set('Selecciona un banco por favor.', 'error');
@@ -148,8 +154,20 @@ function NuevoMaestroCtrl($uibModal, $rootScope, corporativoFactory, cajasFactor
 		} else {
 			vm.FacturacionDolaresAux = 0;
 		}
+		var IdClabe = 0;
+		if (vm.selectedClabe != undefined){
+			IdClabe = vm.selectedClabe.Id;
+		}
 
 		var auxFecha = $filter('date')(vm.fecha, 'dd/MM/yyyy');
+		var fechaHoy = new Date();
+		fechaHoy = $filter('date')(fechaHoy, 'dd/MM/yyyy');
+		var fechaVigenciaAux = $filter('date')(vm.fechaVigencia, 'dd/MM/yyyy');
+		if(fechaVigenciaAux <= fechaHoy){
+			ngNotify.set('La fecha de vigencia debe ser mayor a la fecha actual', 'error');
+			return;
+		}
+			
 		var contrato = {
 			'objContratoMaestroFac': {
 				'RazonSocial': vm.razon,
@@ -184,9 +202,9 @@ function NuevoMaestroCtrl($uibModal, $rootScope, corporativoFactory, cajasFactor
 				'Pais':vm.Pais,
 				'Fax':vm.Fax,
 				'Tel':vm.Telefono,
-				'Email':vm.Email
-
-
+				'Email':vm.Email,
+				'FechaVencimiento':$filter('date')(vm.fechaVigencia, 'dd/MM/yyyy'),
+				'IdClabe': IdClabe
 			}
 		};
 		corporativoFactory.addMaestro(contrato).then(function (data) {

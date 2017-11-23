@@ -49,6 +49,11 @@
                             <input type="checkbox" name="CbxGeneraOrden" ng-model="$ctrl.GeneraOrden" ng-true-value="'Y'" ng-false-value="'N'" ng-change="$ctrl.SetOrden()" ng-disabled="$ctrl.View"><span>Genera Orden</span>
                         </label>
                     </div>
+                    <div class="col-md-2">
+                        <label class="checkbox-inline checkbox-styled">
+                            <input type="checkbox" name="Cbxdolares" ng-model="$ctrl.dolares"  ng-disabled="$ctrl.View"><span>Servicio en dolares</span>
+                        </label>
+                    </div>
                     <div class="col-md-4">
                         <button type="button" class="btn btn-success btn-sm" ng-if="$ctrl.Clv_Servicio > 0 && $ctrl.Principal == 'Y'" ng-click="$ctrl.OpenConfigurar()"><i class="fa fa-cogs"></i> Conrfigurar Servicios</button>
                     </div>
