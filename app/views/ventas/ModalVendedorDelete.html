@@ -4,9 +4,12 @@
 </div>
 <div class="modal-body">
     <p>¿Realmente desea eliminar al vendedor?</p>
-    <p><b>Nombre:</b> {{ ctrl.VelocidadSubida }} {{ ctrl.UnidadMedidaSubida }}</p>
+    <p><b>Clave:</b> {{ ctrl.Clv_Vendedor }}</p>
+    <p><b>Nombre:</b> {{ ctrl.Nombre }}</p>
+    <p><b>Fecha de Ingreso:</b> {{ ctrl.FechaIngreso }}</p>
+    <p><b>Fecha de Salida:</b> {{ ctrl.FechaSalida }}</p>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-danger btn-sm" type="button" ng-click="ctrl.DeleteVelocidadInternet()" title="Eliminar Vendedor"><i class="fa fa-trash"></i> Eliminar</button>
+    <button class="btn btn-danger btn-sm" type="button" ng-click="ctrl.DeleteVendedor()" title="Eliminar Vendedor"><i class="fa fa-trash"></i> Eliminar</button>
     <button class="btn bnt-default btn-sm" type="button" ng-click="ctrl.cancel()" title="Salir"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
 </div>
