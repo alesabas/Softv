@@ -17,7 +17,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = ObjVendedorList;
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetBUSCAVENDEDORESList, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -30,7 +29,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'objVendedores': objVendedores};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.AddVendedores, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -43,7 +41,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {Clv_Vendedor: Clv_Vendedor};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetDeepVendedores, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -56,7 +53,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {objVendedores: objVendedores};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.UpdateVendedores, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -69,7 +65,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {Clv_Vendedor: Clv_Vendedor};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.DeleteVendedores, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){

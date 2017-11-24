@@ -6,7 +6,6 @@ angular
         
         function initData(){
             distribuidorFactory.Getplaza(0,'').then(function(data){
-                console.log(data);
                 vm.DistribuidorList = data.GetPlaza_DistribuidoresNewResult;
                 GetVendedor();
             });
@@ -14,7 +13,6 @@ angular
 
         function GetVendedor(){
             VentasFactory.GetDeepVendedores(Clv_Vendedor).then(function(data){
-                console.log(data);
                 var Vendedor = data.GetDeepVendedoresResult;
                 vm.Clv_Vendedor = Vendedor.Clv_Vendedor;
                 vm.Nombre = Vendedor.Nombre;
@@ -22,6 +20,7 @@ angular
                 vm.Colonia = Vendedor.Colonia;
                 vm.FechaIngreso = GetDate(Vendedor.FechaIngreso);
                 vm.FechaSalida = (Vendedor.FechaSalida != "01/01/1900" && Vendedor.FechaSalida != null)? GetDate(Vendedor.FechaSalida): null;
+                vm.FechaSalidaP = (Vendedor.FechaSalida != "01/01/1900" && Vendedor.FechaSalida != null)? GetDate(Vendedor.FechaSalida): null;
                 vm.ActivoP = Vendedor.Activo;
                 vm.Activo = Vendedor.Activo;
                 vm.Capacitacion = Vendedor.Capacitacion;
@@ -50,7 +49,6 @@ angular
                 'ClvUsuario': $localStorage.currentUser.idUsuario
             };
             VentasFactory.UpdateVendedores(objVendedores).then(function(data){
-                console.log(data);
                 ngNotify.set('CORRECTO, se guardó el Vendedor.', 'success');
                 $rootScope.$emit('LoadVendedorList');
                 cancel();
@@ -70,15 +68,25 @@ angular
         }
 
         function ValidaFechaSalida(){
-            if((vm.ActivoP == true && vm.Activo == false) || (vm.ActivoP == false && vm.Activo == false)){
-                console.log(vm.FechaSalida);
+            if(vm.ActivoP == true && vm.Activo == false){
                 if(vm.FechaSalida != undefined || vm.FechaSalida != null){
                     var F = SaveDate(vm.FechaSalida);
                     return F;
                 }else{
                     var F = new Date();
                     var D = F.getDate();
-                    var M = F.getMonth();
+                    var M = F.getMonth() + 1;
+                    var Y = F.getFullYear();
+                    return D + '/' + M + '/' + Y;
+                }
+            }else if(vm.ActivoP == false && vm.Activo == false){
+                if(vm.FechaSalida != undefined || vm.FechaSalida != null){
+                    var F = SaveDate(vm.FechaSalida);
+                    return F;
+                }else{
+                    var F = vm.FechaSalidaP;
+                    var D = F.getDate();
+                    var M = F.getMonth() + 1;
                     var Y = F.getFullYear();
                     return D + '/' + M + '/' + Y;
                 }
@@ -93,9 +101,9 @@ angular
         vm.Titulo = 'Editar Vendedor - ';
         vm.Icono = 'fa fa-pencil-square-o';
         vm.View = false;
+        vm.DisAdd = false;
         vm.SaveVendedor = SaveVendedor;
         vm.cancel = cancel;
-        console.log(Clv_Vendedor);
         initData();
         
     });

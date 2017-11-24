@@ -54,22 +54,25 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th width="10%"><b>Clave</b></th>
+                                <th width="8%"><b>Clave</b></th>
                                 <th width="25%"><b>Nombre</b></th>
-                                <th width="20%"><b>Fecha Ingreo</b></th>
-                                <th width="20%"><b>Fecha Salida</b></th>
+                                <th width="17%"><b>Fecha Ingreo</b></th>
+                                <th width="17%"><b>Fecha Salida</b></th>
+                                <th width="8%"><b>Activo</b></th>
                                 <th width="25%" colspan="3"><b>Acciones</b></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr ng-show="!$ctrl.ViewList">
-                                <td class="text-center" colspan="7">SIN REGISTROS</td>
+                                <td class="text-center" colspan="8">SIN REGISTROS</td>
                             </tr>
                             <tr dir-paginate="X in $ctrl.VendedorList|itemsPerPage:7" ng-show="$ctrl.ViewList">
                                 <td>{{ X.Clv_Vendedor }}</td>
                                 <td>{{ X.Nombre }}</td>
                                 <td>{{ X.FechaIngreso }}</td>
                                 <td>{{ X.FechaSalida }}</td>
+                                <td ng-if="X.Activo == true"> Si </td>
+                                <td ng-if="X.Activo == false"> No </td>
                                 <td><button type="button" class="btn btn-info btn-xs" ng-click="$ctrl.OpenVendedorView(X.Clv_Vendedor);" title="Consultar Vendedor"><i class="fa fa-eye"></i> CONSULTAR</button></td>
                                 <td><button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.OpenVendedorUpdate(X.Clv_Vendedor);" title="Editar Vendedor"><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
                                 <td><button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.OpenVendedorDelete(X.Clv_Vendedor);" title="Eliminar Vendedor"><i class="fa fa-trash"></i> ELIMINAR</button></td>

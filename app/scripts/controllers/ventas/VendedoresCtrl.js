@@ -6,10 +6,9 @@ angular
 
         function initData(){
             distribuidorFactory.Getplaza(0,'').then(function(data){
-                console.log(data);
                 vm.DistribuidorList = data.GetPlaza_DistribuidoresNewResult;
                 vm.Distribuidor = vm.DistribuidorList[0];
-                 GetVendedorList(3);
+                GetVendedorList(3);
             });
         }
 
@@ -22,7 +21,6 @@ angular
                 'idcompania': (vm.Distribuidor != undefined)? vm.Distribuidor.Clv_Plaza : 0
             };
             VentasFactory.GetBUSCAVENDEDORESList(ObjVendedorList).then(function(data){
-                console.log(data);
                 vm.VendedorList = data.GetBUSCAVENDEDORESListResult;
                 vm.ViewList = (vm.VendedorList.length > 0)? true:false;
                 vm.Clave = null;
@@ -118,7 +116,6 @@ angular
         vm.OpenVendedorView = OpenVendedorView;
         vm.OpenVendedorDelete = OpenVendedorDelete;
         vm.GetVendedorList = GetVendedorList;
-        console.log($localStorage);
         initData();
 
     });

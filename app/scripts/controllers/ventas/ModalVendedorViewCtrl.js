@@ -6,7 +6,6 @@ angular
         
         function initData(){
             distribuidorFactory.Getplaza(0,'').then(function(data){
-                console.log(data);
                 vm.DistribuidorList = data.GetPlaza_DistribuidoresNewResult;
                 GetVendedor();
             });
@@ -14,7 +13,6 @@ angular
 
         function GetVendedor(){
             VentasFactory.GetDeepVendedores(Clv_Vendedor).then(function(data){
-                console.log(data);
                 var Vendedor = data.GetDeepVendedoresResult;
                 vm.Clv_Vendedor = Vendedor.Clv_Vendedor;
                 vm.Nombre = Vendedor.Nombre;
@@ -50,7 +48,6 @@ angular
                 'ClvUsuario': $localStorage.currentUser.idUsuario
             };
             VentasFactory.UpdateVendedores(objVendedores).then(function(data){
-                console.log(data);
                 ngNotify.set('CORRECTO, se guardó el Vendedor.', 'success');
                 $rootScope.$emit('LoadVendedorList');
                 cancel();
@@ -70,6 +67,7 @@ angular
         vm.Titulo = 'Consultar Vendedor - ';
         vm.Icono = 'fa fa-eye';
         vm.View = true;
+        vm.DisAdd = false;
         vm.cancel = cancel;
         initData();
 

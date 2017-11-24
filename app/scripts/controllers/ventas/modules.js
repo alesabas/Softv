@@ -84,6 +84,21 @@ angular
                 templateUrl: 'views/ventas/Grupo_Ventas.html',
                 controller: 'Grupo_VentasCtrl',
                 controllerAs: '$ctrl'
+            },
+            {
+                name: 'home.ventas.evidencia_folios_cancelados',
+                data: {
+                    pageTitle: 'SOFTV | EVIDENCIAS DE FOLIOS CANCELADOS',
+                    permissions: {
+                        options: {
+                            reload: false
+                        }
+                    }
+                },
+                url: '/ventas/evidencia_folios_cancelados',
+                templateUrl: 'views/ventas/EvidenciaFoliosCancelados.html',
+                controller: 'EvidenciaFoliosCanceladosCtrl',
+                controllerAs: '$ctrl'
             }
         ];
 

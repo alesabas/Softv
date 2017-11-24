@@ -6,7 +6,6 @@ angular
         
         function initData(){
             distribuidorFactory.Getplaza(0,'').then(function(data){
-                console.log(data);
                 vm.DistribuidorList = data.GetPlaza_DistribuidoresNewResult;
             });
         }
@@ -23,8 +22,7 @@ angular
                 'Clv_Grupo': 0,
                 'idcompania': vm.Distribuidor.Clv_Plaza
             };
-            VentasFactory.AddVendedores(objVendedores).then(function(data){
-                console.log(data);
+            VentasFactory.AddVendedores(objVendedores).then(function(data){s
                 if(data.AddVendedoresResult > 0){
                     ngNotify.set('CORRECTO, se guardó el Vendedor.', 'success');
                     $rootScope.$emit('LoadVendedorList');
@@ -52,9 +50,9 @@ angular
         vm.Titulo = 'Nuevo Vendedor';
         vm.Icono = 'fa fa-plus';
         vm.View = false;
-        vm.FechaIngreso = new Date();
         vm.Activo = true;
         vm.DisAdd = true;
+        vm.FechaIngreso = new Date();
         vm.SaveVendedor = SaveVendedor;
         vm.cancel = cancel;
         initData();
