@@ -2,7 +2,33 @@
 
 angular
     .module('softvApp')
-    .controller('SeriesCtrl', function(VentasFactory, ngNotify, $uibModal, $rootScope, $state, $localStorage){
+    .controller('SeriesCtrl', function(SeriesFactory, VentasFactory, ngNotify, $uibModal, $rootScope, $state, $localStorage){
+
+        function initData(){
+            VentasFactory.GetMuestra_PlazasPorUsuarioList($localStorage.currentUser.idUsuario).then(function(data){
+                console.log(data);
+                vm.DistribuidorList = data.GetMuestra_PlazasPorUsuarioListResult;
+                vm.Distribuidor = vm.DistribuidorList[0];
+                GetSerieList(4);
+            });
+        }
+
+        function GetSerieList(Op){
+            var ObjSeriesList = {
+                'Serie': vm.Serie, 
+                'Clv_Vendedor': 0, 
+                'NOMBRE': '', 
+                'Op': Op, 
+                'ClvUsuario': $localStorage.currentUser.idUsuario, 
+                'IdCompania': vm.Distribuidor.Clv_Plaza, 
+                'Tipo': vm.Tipo.Clv_Tipo
+            };
+            SeriesFactory.GetCatalogoSeriesList(ObjSeriesList).then(function(data){
+                console.log(data);
+                vm.SerieList = data.GetCatalogoSeriesListResult;
+                vm.ViewList = (vm.SerieList.length > 0)? true:false;
+            });
+        }
 
         function OpenSerieAdd(){
             var modalInstance = $uibModal.open({
@@ -158,6 +184,12 @@ angular
         }
 
         var vm = this;
+        vm.TipoList = [
+            {'Clv_Tipo': 1, 'Tipo': 'Cobro'},
+            {'Clv_Tipo': 2, 'Tipo': 'Venta'},
+        ];
+        vm.Tipo = vm.TipoList[0];
+        vm.GetSerieList = GetSerieList;
         vm.OpenSerieAdd = OpenSerieAdd;
         vm.OpenSerieUpdate = OpenSerieUpdate;
         vm.OpenSerieView = OpenSerieView;
@@ -167,5 +199,6 @@ angular
         vm.OpenReimprimirFolios = OpenReimprimirFolios;
         vm.OpenFoliosFaltantes = OpenFoliosFaltantes;
         vm.OpenFoliosCancelados = OpenFoliosCancelados;
+        initData();
 
     });

@@ -10,7 +10,21 @@ angular
             AddVendedores: '/Vendedores/AddVendedores',
             GetDeepVendedores: '/Vendedores/GetDeepVendedores',
             UpdateVendedores: '/Vendedores/UpdateVendedores',
-            DeleteVendedores: '/Vendedores/DeleteVendedores'
+            DeleteVendedores: '/Vendedores/DeleteVendedores',
+            GetMuestra_PlazasPorUsuarioList: '/Muestra_PlazasPorUsuario/GetMuestra_PlazasPorUsuarioList'
+        };
+
+        factory.GetMuestra_PlazasPorUsuarioList = function(Clv_Usuario){
+            var deferred = $q.defer();
+            var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+            var Parametros = {'Clv_Usuario': Clv_Usuario};
+            console.log(Parametros);
+            $http.post(globalService.getUrl() + paths.GetMuestra_PlazasPorUsuarioList, JSON.stringify(Parametros), config).then(function(response){
+                deferred.resolve(response.data);
+            }).catch(function(response){
+                deferred.reject(response);
+            });
+            return deferred.promise;
         };
 
         factory.GetBUSCAVENDEDORESList = function(ObjVendedorList){

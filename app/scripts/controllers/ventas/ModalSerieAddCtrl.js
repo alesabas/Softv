@@ -12,6 +12,10 @@ angular
         vm.Titulo = 'Nuevo Vendedor';
         vm.Icono = 'fa fa-plus';
         vm.View = false;
+        vm.DisVendedor = false;
+        vm.NumeroFolio = 0;
+        vm.UltimoFolio = 0;
+        vm.Tipo = 'V';
         vm.cancel = cancel;
         
     });

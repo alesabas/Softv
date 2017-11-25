@@ -1,25 +1,17 @@
 <form name="FormSerie" angular-validator-submit="ctrl.SaveSerie()" novalidate angular-validator autocomplete="off">
     <div class="modal-header">
         <button class="close" type="button" aria-label="close" ng-click="ctrl.cancel()">x</button>
-        <h4 class="modal-title"><i ng-class="ctrl.Icono"></i> {{ ctrl.Titulo }} {{ ctrl.IdVendedor }}</h4>
+        <h4 class="modal-title"><i ng-class="ctrl.Icono"></i> {{ ctrl.Titulo }} {{ ctrl.Clave }}</h4>
     </div>
     <div class="modal-body">
         <fieldset ng-disabled="ctrl.View">
             <div class="row">
                 <div class="col-md-12">
                     <div class="col-md-offset-1 col-md-4">
-                        <b>Clave:</b>
-                    </div>
-                    <div class="col-md-5">
-                        <input name="InpClave" class="form-control input-sm" ng-model="ctrl.Clave">
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="col-md-offset-1 col-md-4">
                         <b>Serie:</b>
                     </div>
                     <div class="col-md-5">
-                        <input name="InpSerie" class="form-control input-sm" ng-model="ctrl.Serie">
+                        <input name="InpSerie" class="form-control input-sm" ng-model="ctrl.Serie" validate-on="dirty" ng-pattern="/^[a-zA-Z0-9 ._-]+$/" required required-message="'Obligatorio'" invalid-message="'Inválido.'">
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -27,7 +19,7 @@
                         <b>Numero de Folios impresos:</b>
                     </div>
                     <div class="col-md-5">
-                        <input name="InpNumeroFolio" class="form-control input-sm" ng-model="ctrl.NumeroFolio">
+                        <input type="number" name="InpNumeroFolio" class="form-control input-sm" ng-model="ctrl.NumeroFolio" ng-disabled="true">
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -35,7 +27,7 @@
                         <b>Ultimo Folio Impreso:</b>
                     </div>
                     <div class="col-md-5">
-                        <input name="InpFolio" class="form-control input-sm" ng-model="ctrl.Folio">
+                        <input type="number" name="InpUltimoFolio" class="form-control input-sm" ng-model="ctrl.UltimoFolio" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido.'">
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -43,7 +35,7 @@
                         <b>Vendedor:</b>
                     </div>
                     <div class="col-md-5">
-                        <select name="SlcVendedor" class="form-control input-sm" ng-model="ctrl.Vendedor">
+                        <select name="SlcVendedor" class="form-control input-sm" ng-model="ctrl.Vendedor" ng-options="V.Nombre for V in ctrl.VendedoresList track by V.Clave" validate-on="dirty" required required-message="'Obligatorio'">
                             <option value="">Selecciona</option>
                         </select>
                     </div>
@@ -54,10 +46,10 @@
                     </div>
                     <div class="col-md-5">
                         <label class="radio-inline radio-styled">
-                            <input type="radio" name="RdoTipo" ng-model="$ctrl.Tipo" value="V"><span><small>Venta</small></span>
+                            <input type="radio" name="RdoTipo" ng-model="ctrl.Tipo" value="V"><span><small>Venta</small></span>
                         </label>
                         <label class="radio-inline radio-styled">
-                            <input type="radio" name="RdoTipo" ng-model="$ctrl.Tipo" value="C"><span><small>Cobro</small></span>
+                            <input type="radio" name="RdoTipo" ng-model="ctrl.Tipo" value="C"><span><small>Cobro</small></span>
                         </label>
                     </div>
                 </div>

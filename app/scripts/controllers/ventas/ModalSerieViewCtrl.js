@@ -12,6 +12,7 @@ angular
         vm.Titulo = 'Consultar Serie - ';
         vm.Icono = 'fa fa-eye';
         vm.View = true;
+        vm.DisVendedor = true;
         vm.cancel = cancel;
         
     });
