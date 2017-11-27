@@ -18,9 +18,10 @@ angular.module('softvApp').controller('agregaListaPagoCtrl', agregaListaPagoCtrl
   };
 });
 
-function agregaListaPagoCtrl($uibModal, $state, $rootScope, cajasFactory, corporativoFactory, ngNotify, inMenu, $uibModalInstance , $filter, Contratos, Clv_SessionPadre, detallePagoTodo) {
+function agregaListaPagoCtrl($uibModal, $state, $rootScope, cajasFactory, corporativoFactory, ngNotify, $uibModalInstance , $filter, Contratos, Clv_SessionPadre, detallePagoTodo) {
 
   function Init() {
+    alert('inicia modal');
     vm.contratosLigados = Contratos.lstCliS;
     vm.displayCollection = Contratos.lstCliS;
   }

@@ -10,11 +10,12 @@ function PagoDetalleContratoMaestroCtrl($stateParams, ContratoMaestroFactory,cor
   vm.IdContratoMaestro = $stateParams.id;
   init();
   vm.agregarListaGeneral=agregarListaGeneral;
-
+  vm.abrirDetalle=abrirDetalle;
+  vm.abrirPago=abrirPago;
+  vm.PagarCredito=PagarCredito;
 
   function init() {
-    corporativoFactory.singleContrato($stateParams.id).then(function (data) {
-        console.log('contrato',data);
+    corporativoFactory.singleContrato($stateParams.id).then(function (data) {        
         vm.Contratos = data.GetRelContratosResult[0];
         pagosMaestrosFactory.cobraSaldoMaestro(vm.IdContratoMaestro).then(function (data) {
             vm.saldo = data.GetCobraContratoMaestroResult;
@@ -33,6 +34,7 @@ function PagoDetalleContratoMaestroCtrl($stateParams, ContratoMaestroFactory,cor
               }
               vm.detallePago = detallePago.GetDetalleContratosMaestrosListResult.lista;
               vm.sumaPagos = detallePago.GetDetalleContratosMaestrosListResult.datosdetalle;
+              vm.detallePagoTodo = detallePago.GetDetalleContratosMaestrosListResult.lista;
               vm.detallePagoAux = vm.detallePago;
               DetalleFactura(vm.saldo.Clv_SessionPadre);
             });
@@ -48,9 +50,10 @@ function PagoDetalleContratoMaestroCtrl($stateParams, ContratoMaestroFactory,cor
     });
   }
 
-  function HacerPregunta(clv_session, option) {
-
+  function HacerPregunta(clv_session, option) { 
+   
     ContratoMaestroFactory.uspHaz_Pregunta(vm.IdContratoMaestro, 900).then(function (data) {
+      console.log('response haz pregunta',data);
       vm.pregunta = data.GetDeepuspHaz_Pregunta_CMResult.Pregunta;
       vm.MesesAdelantados = data.GetDeepuspHaz_Pregunta_CMResult.MesesAdelantados;
 
@@ -83,7 +86,32 @@ function PagoDetalleContratoMaestroCtrl($stateParams, ContratoMaestroFactory,cor
     });
   }
 
-  function agregarListaGeneral(){        
+  function abrirDetalle(x) {
+    vm.animationsEnabled = true;
+    var modalInstance = $uibModal.open({
+        animation: vm.animationsEnabled,
+        ariaLabelledBy: 'modal-title',
+        ariaDescribedBy: 'modal-body',
+        templateUrl: 'views/corporativa/abrirDetalle.html',
+        controller: 'AbrirDetalleCtrl',
+        controllerAs: '$ctrl',
+        backdrop: 'static',
+        keyboard: false,
+        size: 'lg',
+        resolve: {
+            x: function () {
+                return x;
+            }
+        }
+    });
+}
+
+
+  function agregarListaGeneral(){ 
+    console.log(vm.Contratos);
+    console.log(vm.saldo.Clv_SessionPadre);
+    console.log(vm.detallePagoTodo);
+
     vm.animationsEnabled = true;
     vm.modalInstanceLista = $uibModal.open({
         animation: vm.animationsEnabled,
@@ -109,6 +137,7 @@ function PagoDetalleContratoMaestroCtrl($stateParams, ContratoMaestroFactory,cor
     });   
     vm.modalInstanceLista.result.then(function () {
         pagosMaestrosFactory.dameDetalle(vm.saldo.Clv_SessionPadre).then(function (detallePago) {
+          console.log(detallePago);
             vm.detallePago = detallePago.GetDetalleContratosMaestrosListResult.lista.filter(function(value) { return value.Importe >= 0 });
             vm.detallePagoTodo = detallePago.GetDetalleContratosMaestrosListResult.lista;
             vm.sumaPagos = detallePago.GetDetalleContratosMaestrosListResult.datosdetalle;
@@ -119,6 +148,67 @@ function PagoDetalleContratoMaestroCtrl($stateParams, ContratoMaestroFactory,cor
         //alert('Modal dismissed');
     });
 }
+
+function abrirPago(x, y) {
+  vm.animationsEnabled = true;
+  var modalInstance = $uibModal.open({
+      animation: vm.animationsEnabled,
+      ariaLabelledBy: 'modal-title',
+      ariaDescribedBy: 'modal-body',
+      templateUrl: 'views/corporativa/yaPago.html',
+      controller: 'YaPagoCtrl',
+      controllerAs: '$ctrl',
+      backdrop: 'static',
+      keyboard: false,
+      size: 'md',
+      resolve: {
+          x: function () {
+              return x;
+          },
+          y: function () {
+              return y;
+          }
+      }
+  });
+}
+
+
+function PagarCredito(z, imp, y, tipo) {
+  imp.forEach(function (element) {
+      if (element.Posicion == 4) {
+          vm.tot = element.Total;
+      }
+  });
+  var x = {
+      ContratoMaestro: y.IdContratoMaestro,
+      IdCompania: z.IdCompania,
+      IdDistribuidor: z.IdDistribuidor,
+      Clv_Session: z.Clv_Session,
+      Clv_SessionPadre: z.Clv_SessionPadre,
+      tipo: tipo
+  }
+  vm.animationsEnabled = true;
+  var modalInstance = $uibModal.open({
+      animation: vm.animationsEnabled,
+      ariaLabelledBy: 'modal-title',
+      ariaDescribedBy: 'modal-body',
+      templateUrl: 'views/corporativa/abrirPago.html',
+      controller: 'AbrirPagoCtrl',
+      controllerAs: '$ctrl',
+      backdrop: 'static',
+      keyboard: false,
+      size: 'sm',
+      resolve: {
+          elem1: function () {
+              return vm.tot;
+          },
+          x: function () {
+              return x;
+          }
+      }
+  });
+}
+
 
 
 }
