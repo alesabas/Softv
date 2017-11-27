@@ -16,8 +16,8 @@ angular
         function GetSerieList(Op){
             var ObjSeriesList = {
                 'Serie': vm.Serie, 
-                'Clv_Vendedor': 0, 
-                'NOMBRE': '', 
+                'Clv_Vendedor': vm.Clv_Vendedor, 
+                'NOMBRE': vm.NombreVendedor, 
                 'Op': Op, 
                 'ClvUsuario': $localStorage.currentUser.idUsuario, 
                 'IdCompania': vm.Distribuidor.Clv_Plaza, 
@@ -27,8 +27,15 @@ angular
                 console.log(data);
                 vm.SerieList = data.GetCatalogoSeriesListResult;
                 vm.ViewList = (vm.SerieList.length > 0)? true:false;
+                vm.Serie = null;
+                vm.Clv_Vendedor = null;
+                vm.NombreVendedor = null;
             });
         }
+
+        $rootScope.$on('LoadSerieList', function(e){
+            GetSerieList(4);
+        });
 
         function OpenSerieAdd(){
             var modalInstance = $uibModal.open({
@@ -45,8 +52,8 @@ angular
             });
         }
 
-        function OpenSerieUpdate(IdIP){
-            var IdIP = IdIP;
+        function OpenSerieUpdate(Clave){
+            var Clave = Clave;
             var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
@@ -59,15 +66,15 @@ angular
                 class: 'modal-backdrop fade',
                 size: 'md',
                 resolve: {
-                    IdIP: function () {
-                        return IdIP;
+                    Clave: function () {
+                        return Clave;
                     }
                 }
             });
         }
 
-        function OpenSerieView(IdIP){
-            var IdIP = IdIP;
+        function OpenSerieView(Clave){
+            var Clave = Clave;
             var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
@@ -80,15 +87,15 @@ angular
                 class: 'modal-backdrop fade',
                 size: 'md',
                 resolve: {
-                    IdIP: function () {
-                        return IdIP;
+                    Clave: function () {
+                        return Clave;
                     }
                 }
             });
         }
 
-        function OpenSerieDelete(IdIP){
-            var IdIP = IdIP;
+        function OpenSerieDelete(Clave){
+            var Clave = Clave;
             var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
@@ -101,8 +108,8 @@ angular
                 class: 'modal-backdrop fade',
                 size: 'sm',
                 resolve: {
-                    IdIP: function () {
-                        return IdIP;
+                    Clave: function () {
+                        return Clave;
                     }
                 }
             });

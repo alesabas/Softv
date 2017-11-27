@@ -13,7 +13,7 @@
                 </div>
                 <div class="col-md-12">
                     <div class="col-md-12">
-                        <select name="SlcVendedor" class="form-control input-sm" ng-model="ctrl.Vendedor" ng-options="D.Nombre for D in ctrl.VendedorList track by D.Clv">
+                        <select name="SlcVendedor" class="form-control input-sm" ng-model="ctrl.Vendedor" ng-options="V.Nombre for V in ctrl.VendedorList track by V.Clv_Vendedor" ng-change="ctrl.GetSerieList();">
                             <option value="">Selecciona</option>
                         </select>
                     </div>
@@ -25,7 +25,7 @@
                 </div>
                 <div class="col-md-12">
                     <div class="col-md-12">
-                        <select name="SlcSerie" class="form-control input-sm" ng-model="ctrl.Serie" ng-options="S.Nombre for S in ctrl.SerieList track by S.Clv">
+                        <select name="SlcSerie" class="form-control input-sm" ng-model="ctrl.Serie" ng-options="S.SERIE for S in ctrl.SerieList track by S.SERIE" ng-change="ctrl.GetFolioDisponible();">
                             <option value="">Selecciona</option>
                         </select>
                     </div>

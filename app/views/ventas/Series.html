@@ -33,31 +33,37 @@
                         </select>
                     </div>
                     <div class="col-md-3">
-                        <div class="input-group">
-                            <input name="InpSerie" class="form-control input-sm" ng-model="$ctrl.Serie" placeholder="Serie">
-                            <span class="input-group-btn">
-                                <button type="button" class="btn btn-warning btn-xs" title="Buscar por Serie" ng-click="$ctrl.GetSerieList(1);"><i class="fa fa-search"></i> Buscar</button>
-                            </span>
-                        </div>
+                        <form name="FormSearchSerie" angular-validator-submit="$ctrl.GetSerieList(1);" novalidate angular-validator autocomplete="off">
+                            <div class="input-group">
+                                <input name="InpSerie" class="form-control input-sm" ng-model="$ctrl.Serie" placeholder="Serie" validate-on="dirty" ng-pattern="/^[a-zA-Z0-9 ._-]+$/" invalid-message="'Inválido.'">
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-warning btn-xs" title="Buscar por Serie"><i class="fa fa-search"></i> Buscar</button>
+                                </span>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <div class="col-md-12">
-                    <div class="col-md-3">
-                        <div class="input-group">
-                            <input name="InpNombre" class="form-control input-sm" ng-model="$ctrl.Nombre" placeholder="Clave Vendedor">
-                            <span class="input-group-btn">
-                                <button type="button" class="btn btn-warning btn-xs"><i class="fa fa-search"></i> Buscar</button>
-                            </span>
+                    <form name="FormSearchClaveVendedor" angular-validator-submit="$ctrl.GetSerieList(2);" novalidate angular-validator autocomplete="off">
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <input type="number" name="Clv_Vendedor" class="form-control input-sm" ng-model="$ctrl.Clv_Vendedor" placeholder="Clave Vendedor" validate-on="dirty" invalid-message="'Inválido.'">
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-warning btn-xs" title="Buscar por Clave de Vendedor"><i class="fa fa-search"></i> Buscar</button>
+                                </span>
+                            </div>
+                        </div>  
+                    </form>
+                    <form name="FormSearchNombreVendedor" angular-validator-submit="$ctrl.GetSerieList(3);" novalidate angular-validator autocomplete="off">
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <input name="InpNombreVendedor" class="form-control input-sm" ng-model="$ctrl.NombreVendedor" placeholder="Nombre del Vendedor" validate-on="dirty" ng-pattern="/^[a-zA-Z0-9 ._-]+$/" invalid-message="'Inválido.'">
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-warning btn-xs" title="Buscar por Nombre del Vendedor"><i class="fa fa-search"></i> Buscar</button>
+                                </span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="input-group">
-                            <input name="InpNombre" class="form-control input-sm" ng-model="$ctrl.Nombre" placeholder="Nombre del Vendedor">
-                            <span class="input-group-btn">
-                                <button type="button" class="btn btn-warning btn-xs"><i class="fa fa-search"></i> Buscar</button>
-                            </span>
-                        </div>
-                    </div>
+                    </form>
                 </div>
                 <div class="col-md-12">
                     <br>
@@ -75,15 +81,15 @@
                             </thead>
                             <tbody>
                                 <tr ng-show="!$ctrl.ViewList">
-                                    <td class="text-center" colspan="3">SIN REGISTROS</td>
+                                    <td class="text-center" colspan="6">SIN REGISTROS</td>
                                 </tr>
                                 <tr dir-paginate="X in $ctrl.SerieList|itemsPerPage:7" ng-show="$ctrl.ViewList">
                                     <td>{{ X.Serie }}</td>
                                     <td>{{ X.Clv_Vendedor }}</td>
                                     <td>{{ X.NOMBRE }}</td>
-                                    <td><button type="button" class="btn btn-info btn-xs" ng-click="$ctrl.OpenSerieView();" title="Consultar Serie"><i class="fa fa-eye"></i> CONSULTAR</button></td>
-                                    <td><button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.OpenSerieUpdate();" title="Editar Serie"><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
-                                    <td><button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.OpenSerieDelete();" title="Eliminar Serie"><i class="fa fa-trash"></i> ELIMINAR</button></td>
+                                    <td><button type="button" class="btn btn-info btn-xs" ng-click="$ctrl.OpenSerieView(X.Clave);" title="Consultar Serie"><i class="fa fa-eye"></i> CONSULTAR</button></td>
+                                    <td><button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.OpenSerieUpdate(X.Clave);" title="Editar Serie"><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
+                                    <td><button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.OpenSerieDelete(X.Clave);" title="Eliminar Serie"><i class="fa fa-trash"></i> ELIMINAR</button></td>
                                 </tr>
                             </tbody>
                         </table>

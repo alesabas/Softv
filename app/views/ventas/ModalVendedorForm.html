@@ -28,7 +28,7 @@
                                 <b>Nombre:</b>
                             </div>
                             <div class="col-md-10">
-                                <input name="InpNombre" class="form-control input-sm" ng-model="ctrl.Nombre" validate-on="dirty" required required-message="'Obligatorio'">
+                                <input name="InpNombre" class="form-control input-sm" ng-model="ctrl.Nombre" validate-on="dirty" ng-pattern="/^[a-zA-Z0-9 ._-]+$/" required required-message="'Obligatorio'" invalid-message="'Inválido.'">
                             </div>
                         </div>
                         <div class="col-md-12">

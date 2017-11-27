@@ -8,6 +8,14 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="col-md-offset-1 col-md-4">
+                        <b>Clave:</b>
+                    </div>
+                    <div class="col-md-5">
+                        <input type="number" name="InpClave" class="form-control input-sm" ng-model="ctrl.Clave" ng-disabled="true">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-offset-1 col-md-4">
                         <b>Serie:</b>
                     </div>
                     <div class="col-md-5">
@@ -19,7 +27,7 @@
                         <b>Numero de Folios impresos:</b>
                     </div>
                     <div class="col-md-5">
-                        <input type="number" name="InpNumeroFolio" class="form-control input-sm" ng-model="ctrl.NumeroFolio" ng-disabled="true">
+                        <input type="number" name="InpNumeroFoliosImpresos" class="form-control input-sm" ng-model="ctrl.NumeroFoliosImpresos" ng-disabled="true">
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -27,7 +35,7 @@
                         <b>Ultimo Folio Impreso:</b>
                     </div>
                     <div class="col-md-5">
-                        <input type="number" name="InpUltimoFolio" class="form-control input-sm" ng-model="ctrl.UltimoFolio" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido.'">
+                        <input type="number" name="InpUltimoFolio" class="form-control input-sm" ng-model="ctrl.UltimoFolio" validate-on="dirty" min="0" required required-message="'Obligatorio'" invalid-message="'Inválido.'">
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -35,7 +43,7 @@
                         <b>Vendedor:</b>
                     </div>
                     <div class="col-md-5">
-                        <select name="SlcVendedor" class="form-control input-sm" ng-model="ctrl.Vendedor" ng-options="V.Nombre for V in ctrl.VendedoresList track by V.Clave" validate-on="dirty" required required-message="'Obligatorio'">
+                        <select name="SlcVendedor" class="form-control input-sm" ng-model="ctrl.Vendedor" ng-options="V.Nombre for V in ctrl.VendedorList track by V.Clv_Vendedor" validate-on="dirty" required required-message="'Obligatorio'" ng-disabled="ctrl.DisVendedor">
                             <option value="">Selecciona</option>
                         </select>
                     </div>

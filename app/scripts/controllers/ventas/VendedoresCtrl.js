@@ -5,8 +5,8 @@ angular
     .controller('VendedoresCtrl', function(VentasFactory, distribuidorFactory, ngNotify, $uibModal, $rootScope, $state, $localStorage){
 
         function initData(){
-            distribuidorFactory.Getplaza(0,'').then(function(data){
-                vm.DistribuidorList = data.GetPlaza_DistribuidoresNewResult;
+            VentasFactory.GetMuestra_PlazasPorUsuarioList($localStorage.currentUser.idUsuario).then(function(data){
+                vm.DistribuidorList = data.GetMuestra_PlazasPorUsuarioListResult;
                 vm.Distribuidor = vm.DistribuidorList[0];
                 GetVendedorList(3);
             });
