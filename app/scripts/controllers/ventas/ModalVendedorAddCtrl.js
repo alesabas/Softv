@@ -22,7 +22,7 @@ angular
                 'Clv_Grupo': 0,
                 'idcompania': vm.Distribuidor.Clv_Plaza
             };
-            VentasFactory.AddVendedores(objVendedores).then(function(data){s
+            VentasFactory.AddVendedores(objVendedores).then(function(data){
                 if(data.AddVendedoresResult > 0){
                     ngNotify.set('CORRECTO, se guardó el Vendedor.', 'success');
                     $rootScope.$emit('LoadVendedorList');

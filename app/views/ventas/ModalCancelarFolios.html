@@ -1,4 +1,4 @@
-<!--<form name="FormSerie" angular-validator-submit="ctrl.SaveSerie()" novalidate angular-validator autocomplete="off">-->
+<form name="FormCancelarFolio" angular-validator-submit="ctrl.CancelarFolio()" novalidate angular-validator autocomplete="off">
     <div class="modal-header">
         <button class="close" type="button" aria-label="close" ng-click="ctrl.cancel()">x</button>
         <h4 class="modal-title">Cancelación de Folios Impresos</h4>
@@ -13,8 +13,8 @@
                 </div>
                 <div class="col-md-12">
                     <div class="col-md-12">
-                        <select name="SlcVendedor" class="form-control input-sm" ng-model="ctrl.Vendedor" ng-options="V.Nombre for V in ctrl.VendedorList track by V.Clv_Vendedor" ng-change="ctrl.GetSerieList();">
-                            <option value="">Selecciona</option>
+                        <select name="SlcVendedor" class="form-control input-sm" ng-model="ctrl.Vendedor" ng-options="V.Nombre for V in ctrl.VendedorList track by V.Clv_Vendedor" ng-change="ctrl.GetSerieList();" validate-on="dirty" required required-message="'Obligatorio'">
+                            <option value="" ng-disabled="true">Selecciona</option>
                         </select>
                     </div>
                 </div>
@@ -25,8 +25,8 @@
                 </div>
                 <div class="col-md-12">
                     <div class="col-md-12">
-                        <select name="SlcSerie" class="form-control input-sm" ng-model="ctrl.Serie" ng-options="S.SERIE for S in ctrl.SerieList track by S.SERIE" ng-change="ctrl.GetFolioDisponible();">
-                            <option value="">Selecciona</option>
+                        <select name="SlcSerie" class="form-control input-sm" ng-model="ctrl.Serie" ng-options="S.SERIE for S in ctrl.SerieList track by S.SERIE" ng-change="ctrl.GetFolioDisponible();" validate-on="dirty" required required-message="'Obligatorio'">
+                            <option value="" ng-disabled="true">Selecciona</option>
                         </select>
                     </div>
                 </div>
@@ -37,8 +37,8 @@
                 </div>
                 <div class="col-md-12">
                     <div class="col-md-12">
-                        <select name="SlcFolio" class="form-control input-sm" ng-model="ctrl.Folio" ng-options="S.Nombre for S in ctrl.FolioList track by S.Clv">
-                            <option value="">Selecciona</option>
+                        <select name="SlcFolioDisponible" class="form-control input-sm" ng-model="ctrl.FolioDisponible" ng-options="S.Folio for S in ctrl.FolioDisponibleList track by S.Folio" validate-on="dirty" required required-message="'Obligatorio'">
+                            <option value="" ng-disabled="true">Selecciona</option>
                         </select>
                     </div>
                 </div>
@@ -55,7 +55,7 @@
                 </div>
                 <div class="col-md-12">
                     <div class="col-md-12">
-                        <textarea name="TxaComentario" class="form-control input-sm" rows="2" ng-model="ctrl.Comentario"></textarea>
+                        <textarea name="TxaComentario" class="form-control input-sm" rows="2" ng-model="ctrl.Comentario" validate-on="dirty" required required-message="'Obligatorio'"></textarea>
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -75,4 +75,4 @@
         <button type="submit" class="btn btn-primary btn-sm" title="Aceptar" ng-disabled="ctrl.ShowAdd" ng-show="!ctrl.View"><i class="fa fa-check"></i> Aceptar</button>
         <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.cancel();" title="Salir"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
     </div>
-<!--</form>-->
+</form>

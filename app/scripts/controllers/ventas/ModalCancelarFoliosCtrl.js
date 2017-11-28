@@ -17,6 +17,18 @@ angular
             });
         }
 
+        function CancelarFolio(){
+            var objCancela_Folios = {
+                'Vendedor': vm.Vendedor.Clv_Vendedor,
+                'Serie': vm.Serie.SERIE,
+                'Folio': vm.FolioDisponible.Folio,
+                'comentario': vm.Comentario
+            };
+            SeriesFactory.UpdateCancela_Folios(objCancela_Folios).then(function(data){
+                console.log(data);
+            });
+        }
+
         function GetSerieList(){
             if(vm.Vendedor != undefined){
                 var ObjSerieList = {
@@ -40,6 +52,8 @@ angular
             };
             SeriesFactory.GetFolio_DisponibleList(ObjFolioDisponible).then(function(data){
                 console.log(data);
+                vm.FolioDisponibleList = data.GetFolio_DisponibleListResult;
+                vm.FolioDisponible = FolioDisponibleList[0];
             });
         }
 
@@ -49,6 +63,7 @@ angular
 
         var vm = this;
         vm.View = false;
+        vm.CancelarFolio = CancelarFolio;
         vm.GetSerieList = GetSerieList;
         vm.GetFolioDisponible = GetFolioDisponible;
         vm.cancel = cancel;

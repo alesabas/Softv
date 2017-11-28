@@ -15,7 +15,8 @@ angular
             DeleteCatalogoSeries: '/CatalogoSeries/DeleteCatalogoSeries',
             GetVendedores_dosList: '/Vendedores/GetVendedores_dosList',
             GetUltimo_SERIEYFOLIOList:'/Ultimo_SERIEYFOLIO/GetUltimo_SERIEYFOLIOList',
-            GetFolio_DisponibleList: '/Folio_Disponible/GetFolio_DisponibleList'
+            GetFolio_DisponibleList: '/Folio_Disponible/GetFolio_DisponibleList',
+            UpdateCancela_Folios: '/Cancela_Folios/UpdateCancela_Folios'
         };
 
         factory.GetCatalogoSeriesList = function(ObjSeriesList){
@@ -141,6 +142,19 @@ angular
             var Parametros = ObjFolioDisponibleList;
             console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetFolio_DisponibleList, JSON.stringify(Parametros), config).then(function(response){
+                deferred.resolve(response.data);
+            }).catch(function(response){
+                deferred.reject(response);
+            });
+            return deferred.promise;
+        };
+
+        factory.UpdateCancela_Folios = function(objCancela_Folios){
+            var deferred = $q.defer();
+            var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+            var Parametros = {'objCancela_Folios': objCancela_Folios};
+            console.log(Parametros);
+            $http.post(globalService.getUrl() + paths.UpdateCancela_Folios, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
                 deferred.reject(response);
