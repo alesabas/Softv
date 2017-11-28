@@ -88,7 +88,8 @@ angular
 					'GLONOTA3': objPagar.GLONOTA3,
 					'IdMedioPago': objPagar.IdMedioPago,
 					'IdCompania': objPagar.IdCompania,
-					'IdDistribuidor': objPagar.IdDistribuidor
+					'IdDistribuidor': objPagar.IdDistribuidor,
+					'IdCaja':objPagar.IdCaja
 				}
 			};
 			console.log(Parametros);
@@ -338,7 +339,8 @@ angular
 				'Tipo': obj.Tipo,
 				'ToKen2': obj.ToKen2,
 				'NoPagos' : obj.NoPagos,
-				'PagoInicial': obj.PagoInicial
+				'PagoInicial': obj.PagoInicial,
+				'IdCaja':obj.IdCaja
 			};
 			var config = {
 				headers: {

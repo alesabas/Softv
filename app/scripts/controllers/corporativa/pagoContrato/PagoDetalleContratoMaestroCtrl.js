@@ -15,6 +15,17 @@ function PagoDetalleContratoMaestroCtrl($stateParams, ContratoMaestroFactory,cor
   vm.PagarCredito=PagarCredito;
 
   function init() {
+
+    var fechaHoy = new Date();
+    fechaHoy = $filter('date')(fechaHoy, 'dd/MM/yyyy');
+    var fechaVigenciaAux = vm.Contratos.FechaVencimiento.replace(/[^0-9\.]+/g, '');
+    var pattern = /(\d{2})(\d{2})(\d{4})/;
+    fechaVigenciaAux = new Date(fechaVigenciaAux.replace(pattern, '$2/$1/$3'));
+    if(fechaVigenciaAux < fechaHoy){
+        ngNotify.set('El contrato maestro se encuentra vencido, no se pueden aplicar pagos', 'error');
+        return;
+    }  
+
     corporativoFactory.singleContrato($stateParams.id).then(function (data) {        
         vm.Contratos = data.GetRelContratosResult[0];
         pagosMaestrosFactory.cobraSaldoMaestro(vm.IdContratoMaestro).then(function (data) {

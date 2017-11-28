@@ -16,7 +16,14 @@ angular
             $localStorage.currentUser.maquina = result;
             authFactory.obtensucursalIp($localStorage.currentUser.token, $localStorage.currentUser.maquina).then(function (response) {
               $localStorage.currentUser.sucursal = response;
-              $window.location.reload();
+              authFactory.GetClaveCajaPorIp($localStorage.currentUser.token,$localStorage.currentUser.maquina)
+              .then(function(data){
+                console.log(data);
+                $localStorage.currentUser.IdCaja = data;
+                console.log($localStorage.currentUser);               
+                $window.location.reload();
+              });
+              
             });
 
           })

@@ -5,7 +5,8 @@ angular.module('softvApp')
     var paths = {
       getAuthentication: '/DameSessionW/GetDameSessionWList',
       login: '/Usuario/LogOn',
-      GetSucursalPorIp: '/SessionWeb/GetSucursalPorIp'
+      GetSucursalPorIp: '/SessionWeb/GetSucursalPorIp',
+      GetClaveCajaPorIp:'/SessionWeb/GetClaveCajaPorIp'
     };
 
     /* factory.getAuthentication = function (token) {
@@ -44,6 +45,30 @@ angular.module('softvApp')
     };
  */
    
+   
+
+
+   factory.GetClaveCajaPorIp =function(token,ip) {
+    var deferred = $q.defer();
+    var Parametros = {
+      'id': 0,
+      'ip': ip
+    };
+    var config = {
+      headers: {
+        'Authorization': token
+      }
+    };
+
+    $http.post(globalService.getUrl() + paths.GetClaveCajaPorIp,JSON.stringify(Parametros),config).then(function (response) {
+      console.log(response);
+      deferred.resolve(response.data.GetClaveCajaPorIpResult);
+    }).catch(function (result) {
+      deferred.reject(0);
+    });
+    return deferred.promise;
+  }
+
 
     
     factory.obtenNombreComputadora =function() {
