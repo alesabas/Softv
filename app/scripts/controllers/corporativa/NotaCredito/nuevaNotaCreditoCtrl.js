@@ -309,7 +309,9 @@
 
           ContratoMaestroFactory.AddMovSist(vm.Contrato, vm.sumatotal).then(function (data) {
             ContratoMaestroFactory.DeleteNotasDeCredito_ContraMaeFac(vm.factura.CLV_FACTURA, vm.Clv_NotadeCredito)
-              .then(function (data) {});
+              .then(function (data) {
+                
+              });
           });
         });
         vm.mostrarbtn = false;

@@ -15,15 +15,13 @@ angular
           authFactory.obtenNombreComputadora().then(function (result) {
             $localStorage.currentUser.maquina = result;
             authFactory.obtensucursalIp($localStorage.currentUser.token, $localStorage.currentUser.maquina).then(function (response) {
-              $localStorage.currentUser.sucursal = response;
-              authFactory.GetClaveCajaPorIp($localStorage.currentUser.token,$localStorage.currentUser.maquina)
-              .then(function(data){
-                console.log(data);
-                $localStorage.currentUser.IdCaja = data;
-                console.log($localStorage.currentUser);               
-                $window.location.reload();
-              });
-              
+              console.log(response);
+              $localStorage.currentUser.sucursal = response.IdSucursal;
+              $localStorage.currentUser.IdCaja = response.IdCaja;
+              $localStorage.currentUser.CajaNombre = response.Caja;
+              $localStorage.currentUser.SucursalNombre = response.Sucursal;
+             
+              $window.location.reload();
             });
 
           })

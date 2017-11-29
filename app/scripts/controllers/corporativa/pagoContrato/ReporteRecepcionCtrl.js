@@ -19,7 +19,6 @@ angular.module('softvApp').controller('ReporteRecepcionCtrl', ReporteRecepcionCt
     });
 
 function ReporteRecepcionCtrl($uibModal, ngNotify, inMenu, pagosMaestrosFactory, $timeout) {
-
     function saldadas() {
         var parametros;
         if (vm.pendientes == 1) {

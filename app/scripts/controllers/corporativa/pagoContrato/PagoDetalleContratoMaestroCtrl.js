@@ -4,7 +4,7 @@ angular
   .controller('PagoDetalleContratoMaestroCtrl', PagoDetalleContratoMaestroCtrl);
 
 
-function PagoDetalleContratoMaestroCtrl($stateParams, ContratoMaestroFactory,corporativoFactory, pagosMaestrosFactory, ngNotify,$uibModal) {
+function PagoDetalleContratoMaestroCtrl($stateParams, ContratoMaestroFactory,corporativoFactory, pagosMaestrosFactory, ngNotify,$uibModal,$filter ) {
 
   var vm = this;
   vm.IdContratoMaestro = $stateParams.id;
@@ -16,7 +16,7 @@ function PagoDetalleContratoMaestroCtrl($stateParams, ContratoMaestroFactory,cor
 
   function init() {
 
-    var fechaHoy = new Date();
+  /*   var fechaHoy = new Date();
     fechaHoy = $filter('date')(fechaHoy, 'dd/MM/yyyy');
     var fechaVigenciaAux = vm.Contratos.FechaVencimiento.replace(/[^0-9\.]+/g, '');
     var pattern = /(\d{2})(\d{2})(\d{4})/;
@@ -24,7 +24,7 @@ function PagoDetalleContratoMaestroCtrl($stateParams, ContratoMaestroFactory,cor
     if(fechaVigenciaAux < fechaHoy){
         ngNotify.set('El contrato maestro se encuentra vencido, no se pueden aplicar pagos', 'error');
         return;
-    }  
+    }   */
 
     corporativoFactory.singleContrato($stateParams.id).then(function (data) {        
         vm.Contratos = data.GetRelContratosResult[0];
