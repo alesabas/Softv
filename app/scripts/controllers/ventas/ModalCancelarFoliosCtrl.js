@@ -2,7 +2,7 @@
 
 angular
     .module('softvApp')
-    .controller('ModalCancelarFoliosCtrl', function(SeriesFactory, $uibModalInstance, $uibModal, ngNotify, $state, $rootScope, $localStorage){
+    .controller('ModalCancelarFoliosCtrl', function($scope, SeriesFactory, $uibModalInstance, $uibModal, ngNotify, $state, $rootScope, $localStorage){
         
         function initData(){
             var ObjVendedorList = {
@@ -25,6 +25,22 @@ angular
                 'comentario': vm.Comentario
             };
             SeriesFactory.UpdateCancela_Folios(objCancela_Folios).then(function(data){
+                console.log(data);
+                if(vm.Evidencia != undefined){
+                    GuardarEvidencia();
+                }else{
+                    ngNotify.set('CORRECTO, Se cancelo el Folio.', 'success');
+                    $rootScope.$emit('LoadSerieList');
+                    cancel();
+                }
+            });
+        }
+
+        function GuardarEvidencia(){
+            console.dir(vm.Evidencia);
+            var EvidenciaFD = new FormData();
+            EvidenciaFD.append('file', vm.Evidencia);
+            SeriesFactory.imageToByteArray(EvidenciaFD).then(function(data){
                 console.log(data);
             });
         }
@@ -68,5 +84,7 @@ angular
         vm.GetFolioDisponible = GetFolioDisponible;
         vm.cancel = cancel;
         initData();
+        
+        vm.GuardarEvidencia = GuardarEvidencia;
         
     });

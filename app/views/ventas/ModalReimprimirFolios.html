@@ -13,8 +13,7 @@
                 </div>
                 <div class="col-md-offset-1 col-md-10">
                     <div class="col-md-12">
-                        <select name="SlcSerie" class="form-control input-sm" ng-model="ctrl.Serie" ng-options="S.Nombre for S in ctrl.SerieList track by S.Clv">
-                            <option value="">Selecciona</option>
+                        <select name="SlcSerie" class="form-control input-sm" ng-model="ctrl.Serie" ng-options="S.Serie disable when S.Clave == 0 for S in ctrl.SerieList track by S.Clave">
                         </select>
                     </div>
                 </div>

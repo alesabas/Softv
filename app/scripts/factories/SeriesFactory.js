@@ -16,7 +16,14 @@ angular
             GetVendedores_dosList: '/Vendedores/GetVendedores_dosList',
             GetUltimo_SERIEYFOLIOList:'/Ultimo_SERIEYFOLIO/GetUltimo_SERIEYFOLIOList',
             GetFolio_DisponibleList: '/Folio_Disponible/GetFolio_DisponibleList',
-            UpdateCancela_Folios: '/Cancela_Folios/UpdateCancela_Folios'
+            UpdateCancela_Folios: '/Cancela_Folios/UpdateCancela_Folios',
+            UpdateGuardaEvidenciaCancelacionFolio: '/GuardaEvidenciaCancelacionFolio/UpdateGuardaEvidenciaCancelacionFolio',
+            imageToByteArray: '/GuardaEvidenciaCancelacionFolio/imageToByteArray',
+            GetSP_SerieFolioList: '/SP_SerieFolio/GetSP_SerieFolioList',
+            AddDameTipoSerie: '/DameTipoSerie/AddDameTipoSerie',
+            AddValidaFoliosImprimir: '/ValidaFoliosImprimir/AddValidaFoliosImprimir',
+            AddFolios: '/CatalogoSeries/AddFolios',
+            AddSerieFolios: '/CatalogoSeries/AddSerieFolios'
         };
 
         factory.GetCatalogoSeriesList = function(ObjSeriesList){
@@ -155,6 +162,97 @@ angular
             var Parametros = {'objCancela_Folios': objCancela_Folios};
             console.log(Parametros);
             $http.post(globalService.getUrl() + paths.UpdateCancela_Folios, JSON.stringify(Parametros), config).then(function(response){
+                deferred.resolve(response.data);
+            }).catch(function(response){
+                deferred.reject(response);
+            });
+            return deferred.promise;
+        };
+
+        factory.UpdateGuardaEvidenciaCancelacionFolio = function(objGuardaEvidenciaCancelacionFolio){
+            var deferred = $q.defer();
+            var config = {headers: {'Authorization': $localStorage.currentUser.token, 'Content-Type': undefined}};
+            var Parametros = {'objGuardaEvidenciaCancelacionFolio': objGuardaEvidenciaCancelacionFolio};
+            console.log(Parametros);
+            $http.post(globalService.getUrl() + paths.UpdateGuardaEvidenciaCancelacionFolio, JSON.stringify(Parametros), config).then(function(response){
+                deferred.resolve(response.data);
+            }).catch(function(response){
+                deferred.reject(response);
+            });
+            return deferred.promise;
+        };
+
+        factory.imageToByteArray = function(image){
+            var deferred = $q.defer();
+            var config = {headers: {'Authorization': $localStorage.currentUser.token, 'Content-Type': undefined}};
+            var Parametros = {'Op': 0, 'image': image};
+            console.log(Parametros);
+            $http.post(globalService.getUrl() + paths.imageToByteArray, JSON.stringify(Parametros), config).then(function(response){
+                deferred.resolve(response.data);
+            }).catch(function(response){
+                deferred.reject(response);
+            });
+            return deferred.promise;
+        };
+
+        factory.GetSP_SerieFolioList = function(ClvUsuario){
+            var deferred = $q.defer();
+            var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+            var Parametros = {'ClvUsuario': ClvUsuario};
+            console.log(Parametros);
+            $http.post(globalService.getUrl() + paths.GetSP_SerieFolioList, JSON.stringify(Parametros), config).then(function(response){
+                deferred.resolve(response.data);
+            }).catch(function(response){
+                deferred.reject(response);
+            });
+            return deferred.promise;
+        };
+
+        factory.AddDameTipoSerie = function(objDameTipoSerie){
+            var deferred = $q.defer();
+            var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+            var Parametros = {'objDameTipoSerie': objDameTipoSerie};
+            console.log(Parametros);
+            $http.post(globalService.getUrl() + paths.AddDameTipoSerie, JSON.stringify(Parametros), config).then(function(response){
+                deferred.resolve(response.data);
+            }).catch(function(response){
+                deferred.reject(response);
+            });
+            return deferred.promise;
+        };
+
+        factory.AddValidaFoliosImprimir = function(objValidaFoliosImprimir){
+            var deferred = $q.defer();
+            var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+            var Parametros = {'objValidaFoliosImprimir': objValidaFoliosImprimir};
+            console.log(Parametros);
+            $http.post(globalService.getUrl() + paths.AddValidaFoliosImprimir, JSON.stringify(Parametros), config).then(function(response){
+                deferred.resolve(response.data);
+            }).catch(function(response){
+                deferred.reject(response);
+            });
+            return deferred.promise;
+        };
+
+        factory.AddFolios = function(objCatalogoSeries){
+            var deferred = $q.defer();
+            var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+            var Parametros = {'objCatalogoSeries': objCatalogoSeries};
+            console.log(Parametros);
+            $http.post(globalService.getUrl() + paths.AddFolios, JSON.stringify(Parametros), config).then(function(response){
+                deferred.resolve(response.data);
+            }).catch(function(response){
+                deferred.reject(response);
+            });
+            return deferred.promise;
+        };
+
+        factory.AddSerieFolios = function(objCatalogoSeries){
+            var deferred = $q.defer();
+            var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+            var Parametros = {'objCatalogoSeries': objCatalogoSeries};
+            console.log(Parametros);
+            $http.post(globalService.getUrl() + paths.AddSerieFolios, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
                 deferred.reject(response);
