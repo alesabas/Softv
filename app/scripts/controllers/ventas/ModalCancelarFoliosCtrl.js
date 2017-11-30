@@ -2,7 +2,7 @@
 
 angular
     .module('softvApp')
-    .controller('ModalCancelarFoliosCtrl', function($scope, SeriesFactory, $uibModalInstance, $uibModal, ngNotify, $state, $rootScope, $localStorage){
+    .controller('ModalCancelarFoliosCtrl', function($scope, SeriesFactory, $uibModalInstance, $uibModal, ngNotify, $state, $rootScope, $localStorage, fileUpload){
         
         function initData(){
             var ObjVendedorList = {
@@ -38,9 +38,7 @@ angular
 
         function GuardarEvidencia(){
             console.dir(vm.Evidencia);
-            var EvidenciaFD = new FormData();
-            EvidenciaFD.append('file', vm.Evidencia);
-            SeriesFactory.imageToByteArray(EvidenciaFD).then(function(data){
+            SeriesFactory.imageToByteArray(vm.Evidencia).then(function(data){
                 console.log(data);
             });
         }

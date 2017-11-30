@@ -181,13 +181,21 @@ angular
             });
             return deferred.promise;
         };
-
+        /*
+        $http.post(uploadUrl, fd, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+        })
+        */
         factory.imageToByteArray = function(image){
+            var EvidenciaFD = new FormData();
+            EvidenciaFD.append('file', image);
             var deferred = $q.defer();
-            var config = {headers: {'Authorization': $localStorage.currentUser.token, 'Content-Type': undefined}};
-            var Parametros = {'Op': 0, 'image': image};
-            console.log(Parametros);
-            $http.post(globalService.getUrl() + paths.imageToByteArray, JSON.stringify(Parametros), config).then(function(response){
+            var config = {
+                            transformRequest: angular.identity,
+                            headers: {'Authorization': $localStorage.currentUser.token, 'Content-Type': undefined}
+                        };
+            $http.post(globalService.getUrl() + paths.imageToByteArray, EvidenciaFD, config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
                 deferred.reject(response);
