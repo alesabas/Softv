@@ -20,7 +20,8 @@ angular
     'treeControl',
     'multipleSelect',
     'base64',
-    'colorpicker.module'
+    'colorpicker.module',
+    'angularFileUpload'
      ])
   .config(['$provide','$urlRouterProvider', '$httpProvider' ,'cfpLoadingBarProvider', '$qProvider', 'blockUIConfig', function ($provide, $urlRouterProvider, $httpProvider ,cfpLoadingBarProvider, $qProvider, blockUIConfig) {
     $urlRouterProvider.otherwise(function ($injector) {

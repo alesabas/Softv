@@ -1,8 +1,88 @@
+<style type="text/css">
+  .scrollDiv {
+    height: 500px;
+    overflow: auto;
+    overflow-x: hidden;
+  }
+
+
+  .fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+  }
+
+  .fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+  }
+
+  .form-group>label,
+  .form-group .control-label {
+    font-size: 12px !important;
+    opacity: 0.9;
+    margin-bottom: 0 !important;
+  }
+
+
+  .my-drop-zone {
+    border: dotted 3px lightgray;
+  }
+
+  .nv-file-over {
+    border: dotted 3px red;
+  }
+  /* Default class applied to drop zones on over */
+
+  .another-file-over-class {
+    border: dotted 3px green;
+  }
+
+  html,
+  body {
+    height: 100%;
+  }
+
+  canvas {
+    background-color: #f3f3f3;
+    -webkit-box-shadow: 3px 3px 3px 0 #e3e3e3;
+    -moz-box-shadow: 3px 3px 3px 0 #e3e3e3;
+    box-shadow: 3px 3px 3px 0 #e3e3e3;
+    border: 1px solid #c3c3c3;
+    height: 100px;
+    margin: 6px 0 0 6px;
+  }
+
+  .nav-tabs>li>a {
+    margin-right: 2px;
+    line-height: 1.846153846;
+    border: none;
+    border-bottom: 2px solid transparent;
+    border-radius: none;
+    opacity: 0.9;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+</style>
+
 <div class="card animated fadeIn fast" style="margin-top:20px;">
   <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
     <header>
       <strong style="font-weight:bold; border:none; margin-left:10px;">Generales del sistema </strong>
-      <br /><small class="text-muted" style="font-size:14px; margin-left:10px;"> <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Configuración</a>><a href="#" class="paginaActiva">usuarios</a></small>
+      <br />
+      <small class="text-muted" style="font-size:14px; margin-left:10px;">
+        <a href="#">
+          <i class="fa fa-home" aria-hidden="true"></i> Configuración</a>>
+        <a href="#" class="paginaActiva">usuarios</a>
+      </small>
 
     </header>
     <div class="tools">
@@ -27,8 +107,8 @@
                   <b>Periodo:</b>
                   <select name="periodo" ng-model="$ctrl.Periodo" ng-options="item as item.Descripcion for item in $ctrl.periodos track by item.Clv_periodo"
                     class="form-control input-sm" ng-change="$ctrl.detalleperiodo()">
-                     <option value="">selecciona periodo</option>
-                 </select>
+                    <option value="">selecciona periodo</option>
+                  </select>
 
                 </div>
                 <div class="col-md-12">
@@ -105,7 +185,7 @@
             <div class="col-md-12">
               <div class="col-md-5 col-md-offset-3">
 
-                <h4 class="text-danger text-center">Impuestos</h4>
+                <!-- <h4 class="text-danger text-center">Impuestos</h4>
                 <div class="col-md-12">
                   <br>
                   <div class="col-md-6">
@@ -150,7 +230,7 @@
                   <div class="col-md-6">
                     <input type="text" name="ctaieps" ng-model="$ctrl.impuestos.Cta_IEPS" class="form-control input-sm">
                   </div>
-                </div>
+                </div> -->
 
               </div>
               <div class="col-md-12 text-right">
@@ -213,7 +293,10 @@
                       <td>{{x.inicio}}</td>
                       <td>{{x.final}}</td>
                       <td>{{x.maximo}}</td>
-                      <td><button class="btn btn-xs btn-danger" type="button" ng-click="$ctrl.eliminarango(x.id)" type="buttton"> <i class="fa fa-trash"></i> Eliminar</button></td>
+                      <td>
+                        <button class="btn btn-xs btn-danger" type="button" ng-click="$ctrl.eliminarango(x.id)" type="buttton">
+                          <i class="fa fa-trash"></i> Eliminar</button>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -241,7 +324,9 @@
               <div class="col-md-4 col-md-offset-2">
                 <div class="col-md-12">
                   <div class="col-md-5">
-                    <label><b>Empresa</b></label>
+                    <label>
+                      <b>Empresa</b>
+                    </label>
                   </div>
                   <div class="col-md-6">
                     <input type="text" required-message="'Este campo es obligatorio'" ng-required="true" validate-on="dirty" class="form-control input-sm"
@@ -250,7 +335,9 @@
                 </div>
                 <div class="col-md-12">
                   <div class="col-md-5">
-                    <label><b>Dirección</b></label>
+                    <label>
+                      <b>Dirección</b>
+                    </label>
                   </div>
                   <div class="col-md-6">
                     <input type="text" required-message="'Este campo es obligatorio'" ng-required="true" validate-on="dirty" class="form-control input-sm"
@@ -259,7 +346,9 @@
                 </div>
                 <div class="col-md-12">
                   <div class="col-md-5">
-                    <label><b>Numero exterior</b></label>
+                    <label>
+                      <b>Numero exterior</b>
+                    </label>
                   </div>
                   <div class="col-md-6">
                     <input type="number" required-message="'Este campo es obligatorio'" ng-required="true" validate-on="dirty" class="form-control input-sm"
@@ -269,7 +358,9 @@
 
                 <div class="col-md-12">
                   <div class="col-md-5">
-                    <label><b>Numero Interior</b></label>
+                    <label>
+                      <b>Numero Interior</b>
+                    </label>
                   </div>
                   <div class="col-md-6">
                     <input type="number" required-message="'Este campo es obligatorio'" ng-required="true" validate-on="dirty" class="form-control input-sm"
@@ -279,7 +370,9 @@
 
                 <div class="col-md-12">
                   <div class="col-md-5">
-                    <label><b>Colonia</b></label>
+                    <label>
+                      <b>Colonia</b>
+                    </label>
                   </div>
                   <div class="col-md-6">
                     <input type="text" required-message="'Este campo es obligatorio'" ng-required="true" validate-on="dirty" class="form-control input-sm"
@@ -295,7 +388,9 @@
               <div class="col-md-4">
                 <div class="col-md-12">
                   <div class="col-md-5">
-                    <label><b>Código postal</b></label>
+                    <label>
+                      <b>Código postal</b>
+                    </label>
                   </div>
                   <div class="col-md-6">
                     <input type="text" required-message="'Este campo es obligatorio'" ng-required="true" validate-on="dirty" class="form-control input-sm"
@@ -305,7 +400,9 @@
 
                 <div class="col-md-12">
                   <div class="col-md-5">
-                    <label><b>Ciudad</b></label>
+                    <label>
+                      <b>Ciudad</b>
+                    </label>
                   </div>
                   <div class="col-md-6">
                     <input type="text" required-message="'Este campo es obligatorio'" ng-required="true" validate-on="dirty" class="form-control input-sm"
@@ -315,7 +412,9 @@
 
                 <div class="col-md-12">
                   <div class="col-md-5">
-                    <label><b>Estado</b></label>
+                    <label>
+                      <b>Estado</b>
+                    </label>
                   </div>
                   <div class="col-md-6">
                     <input type="text" required-message="'Este campo es obligatorio'" ng-required="true" validate-on="dirty" class="form-control input-sm"
@@ -325,7 +424,9 @@
 
                 <div class="col-md-12">
                   <div class="col-md-5">
-                    <label><b>RFC</b></label>
+                    <label>
+                      <b>RFC</b>
+                    </label>
                   </div>
                   <div class="col-md-6">
                     <input type="text" required-message="'Este campo es obligatorio'" ng-required="true" validate-on="dirty" class="form-control input-sm"
@@ -335,7 +436,9 @@
 
                 <div class="col-md-12">
                   <div class="col-md-5">
-                    <label><b>Teléfono</b></label>
+                    <label>
+                      <b>Teléfono</b>
+                    </label>
                   </div>
                   <div class="col-md-6">
                     <input type="text" required-message="'Este campo es obligatorio'" ng-required="true" validate-on="dirty" class="form-control input-sm"
@@ -360,64 +463,180 @@
 
           <div class="col-md-12" style="margin-top:40px;">
             <div class="col-md-6">
-             
+
               <div class="col-md-8">
                 <label>Nombre del sistema</label>
-                <input type="text" class="form-control input-sm" placeholder="Ingresa el nombre que aparecerá en reportes y sistema">
+                <input type="text" class="form-control input-sm" 
+                ng-model="$ctrl.nombresistema" name="nombresistema"
+                placeholder="Ingresa el nombre que aparecerá en reportes y sistema">
               </div>
 
               <div class="col-md-8">
-                <label>Titulo de login</label>
-                <input type="text" class="form-control input-sm" placeholder="Titulo login">
+                <label>Titulo de menu</label>
+                <input type="text" ng-model="$ctrl.titulomenu" name="titulomenu" class="form-control input-sm" placeholder="Titulo login">
               </div>
+
+
 
               <div class="col-md-8">
-                <label>Titulo de menú</label>
-                <input type="text" class="form-control input-sm" placeholder="Titulo que aparecerá en el login">
-              </div>
-
-               <div class="col-md-8">
                 <label>Mensaje de Inicio</label>
-                <input type="text" class="form-control input-sm" placeholder="Este mensaje aparecera en la pantalla inicial">
+                <input type="text" ng-model="$ctrl.mensajeinicio" name="mensajeinicio" class="form-control input-sm" placeholder="Este mensaje aparecera en la pantalla inicial">
               </div>
 
             </div>
             <div class="col-md-6">
-              <table class="table">
-                <thead>
-                  <th>Parametro</th>
-                  <th>Logo</th>
-                  <th>Opciones</th>
-                </thead>
-                <tbody>
-                  <tr>
-                   <td>Logo login</td>
-                   <td></td>
-                   <td></td>
-                  </tr>
-                  <tr>
-                   <td>Logo menu</td>
-                   <td></td>
-                   <td></td>
-                  </tr>
-                  <tr>
-                   <td>Logo reportes</td>
-                   <td></td>
-                   <td></td>
-                  </tr>
-                </tbody>
+              <div class="col-md-12">
+                <div class="col-md-3">
+                  <p>Color menu</p>
+                </div>
+                <div class="col-md-3">
+                  <span ng-style="{'background-color':$ctrl.hexPicker.colormenu }">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                </div>
+                <div class="col-md-3">
+                  <input colorpicker ng-model="$ctrl.hexPicker.colormenu" type="text">
+                </div>
+              </div>
 
-              </table>
+              <div class="col-md-12">
+                <div class="col-md-3">
+                  <p>Color letra menu</p>
+                </div>
+                <div class="col-md-3">
+                  <span ng-style="{'background-color':$ctrl.hexPicker.colormenuletra }">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                </div>
+                <div class="col-md-3">
+                  <input colorpicker ng-model="$ctrl.hexPicker.colormenuletra" type="text">
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="col-md-3">
+                  <p>Color navegacion</p>
+                </div>
+                <div class="col-md-3">
+                  <span ng-style="{'background-color':$ctrl.hexPicker.colornavegacion }">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                </div>
+                <div class="col-md-3">
+                  <input colorpicker ng-model="$ctrl.hexPicker.colornavegacion" type="text">
+                </div>
+              </div>
+              <div class="col-md-12">
+                  <div class="col-md-3">
+                    <p>Color fondo</p>
+                  </div>
+                  <div class="col-md-3">
+                    <span ng-style="{'background-color':$ctrl.hexPicker.colorfondo }">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                  </div>
+                  <div class="col-md-3">
+                    <input colorpicker ng-model="$ctrl.hexPicker.colorfondo" type="text">
+                  </div>
+                </div>
+
+              <div class="col-md-12">
+                <div class="col-md-3">
+                  <p>Color navegacion letra</p>
+                </div>
+                <div class="col-md-3">
+                  <span ng-style="{'background-color':$ctrl.hexPicker.colornavegacionletra }">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                </div>
+                <div class="col-md-3">
+                  <input colorpicker ng-model="$ctrl.hexPicker.colornavegacionletra" type="text">
+                </div>
+              </div>
 
             </div>
-
+            <div class="col-md-12 text-right">
+              <br>
+              <button class="btn btn-success btn-sm" ng-click="$ctrl.guardarPreferencias()">GUARDAR </button>
+            </div>
 
           </div>
 
+    
+    </uib-tab>
+    <uib-tab index="5" heading="">
+      <uib-tab-heading>
+          <i class="fa fa-picture-o" aria-hidden="true"></i> Logos
+      </uib-tab-heading>
 
-          <input colorpicker ng-model="hexPicker.color" type="text">
-        </uib-tab>
-      </uib-tabset>
+      
+        <div class="col-md-6">
+          <p class="text-primary">Selecciona el tipo de imagen</p>
+          <select ng-model="$ctrl.tipoimagen" class="form-control input-sm" ng-options="item as item.Nombre for item in $ctrl.tiposimg track by item.IdTipo"
+            ng-model="selected">
+            <option value="">Selecciona el tipo </option>
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <br>
+          <div class="fileUpload btn btn-sm btn-primary">
+            <span>Elegir archivos</span>
+            <input type="file" ng-disabled="$ctrl.tipoimagen===''||$ctrl.tipoimagen===null" multiple="multiple" id="file" nv-file-select
+              uploader="$ctrl.uploader" class="upload" />
+          </div>
+
+
+        </div>
+
+        <div class="col-md-6" style="overflow-y: scroll; max-height: 350px;">
+          <table class="table">
+            <thead>
+              <tr>
+                <th width="50%">Elegir</th>
+                <th width="50%">Nombre</th>
+                <th width="50%">Tipo</th>
+                <th width="50%">Preview</th>
+                <th ng-show="uploader.isHTML5">Tamaño</th>
+                <th>Eliminar</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="item in $ctrl.uploader.queue">
+                <td>
+                  <strong>{{ item.file.name }}</strong>
+                </td>
+                <td>
+                  <strong>{{ item.file.tipo }}</strong>
+                </td>
+                <td>
+                  <div ng-thumb="{ file: item._file, width: 100, height: 100 }"></div>
+                </td>
+                <td ng-show="$ctrl.uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB
+                </td>
+                <td>
+
+                  <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
+                    <span class="glyphicon glyphicon-trash"></span> Eliminar
+                  </button>
+                </td>
+
+
+
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-md-6" style="overflow-y: scroll; max-height: 350px;">
+ 
+       <table class="table">
+         <thead>
+           <tr>Descripcion</tr>
+           <tr>Imagen</tr>
+         </thead>
+         <tbody>
+          
+         </tbody>
+
+       </table>
+
+        </div>
+        <div class="col-md-12 text-right">
+          <br>
+          <button class="btn btn-success btn-sm" type="submit">GUARDAR </button>
+        </div>
+
+    </uib-tab>
+    </uib-tabset>
 
 
 
