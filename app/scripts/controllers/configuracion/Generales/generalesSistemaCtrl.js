@@ -42,7 +42,10 @@ angular
         fn: function (item) {
           var count = 0;
           vm.uploader.queue.forEach(function (f) {
-            count += f._file.name === item.name ? 1 : 0;
+            alert(f._file.idtipo);
+            alert(item.idtipo);
+            console.log(f);
+            count += f._file.idtipo === item.idtipo ? 1 : 0;
           });
           if (count > 0) {
             ngNotify.set(
