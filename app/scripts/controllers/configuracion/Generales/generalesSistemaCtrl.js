@@ -11,8 +11,9 @@ angular
     vm.Guardarcobro = Guardarcobro;
     vm.detalleperiodo = detalleperiodo;
     vm.guardarPreferencias = guardarPreferencias;
-    vm.hexPicker={};
-   
+    vm.guardaLogo=guardaLogo;
+    vm.hexPicker = {};
+
     vm.tiposimg = [{
         "IdTipo": 3,
         "Nombre": "LogoNav"
@@ -125,6 +126,33 @@ angular
 
     }
 
+    function guardaLogo() {
+
+      var file_options = [];
+      var files = [];
+      var tipos = [];
+      var count = 0;
+      vm.uploader.queue.forEach(function (f) {
+        var options = {
+          IdImagen: 0,
+          Tipo: f._file.idtipo,
+          Nombre: f._file.name
+        };
+        file_options.push(options);
+        tipos.push(f._file.idtipo);
+        files.push(f._file);
+      });
+      if (count > 1) {
+        ngNotify.set("El número de imagenes con el mismo tipo se ha sobrepasado maximo 2", "error");
+        return;
+      }
+      generalesSistemaFactory.GuardaLogos(files, file_options, []).then(function (result) {
+        console.log(result);
+      });
+
+    }
+
+
     function eliminarango(id) {
       generalesSistemaFactory.GetspEliminaRangosCobroMaterial(id)
         .then(function (result) {
@@ -175,15 +203,15 @@ angular
       generalesSistemaFactory.GetDetallePreferencias().then(function (result) {
         var detalle = result.GetDetallePreferenciasResult;
         console.log(detalle);
-        vm.nombresistema=detalle.NombreSistema;
-        vm.mensajeinicio=detalle.MensajeHome;
-        vm.titulomenu=detalle.TituloNav;
-        vm.hexPicker.colormenu=detalle.ColorMenu;
-        vm.hexPicker.colormenuletra=detalle.ColorMenuLetra;
-        vm.hexPicker.colornavegacion=detalle.ColorNav;
-        vm.hexPicker.colornavegacionletra=detalle.ColorNavLetra;
-       
-        vm.hexPicker.colorfondo=detalle.ColorFondo;
+        vm.nombresistema = detalle.NombreSistema;
+        vm.mensajeinicio = detalle.MensajeHome;
+        vm.titulomenu = detalle.TituloNav;
+        vm.hexPicker.colormenu = detalle.ColorMenu;
+        vm.hexPicker.colormenuletra = detalle.ColorMenuLetra;
+        vm.hexPicker.colornavegacion = detalle.ColorNav;
+        vm.hexPicker.colornavegacionletra = detalle.ColorNavLetra;
+
+        vm.hexPicker.colorfondo = detalle.ColorFondo;
       });
     }
 

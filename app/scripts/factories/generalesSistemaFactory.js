@@ -31,7 +31,8 @@ angular
       GetNUEBonificacionCajeras: '/Configuracion/GetNUEBonificacionCajeras',
       GetvalidaAccesoFacturacion:'/Configuracion/GetvalidaAccesoFacturacion',
       GetguardaPreferencia:'/Configuracion/GetguardaPreferencia',
-      GetDetallePreferencias:'/Configuracion/GetDetallePreferencias'
+      GetDetallePreferencias:'/Configuracion/GetDetallePreferencias',
+      GetGuardalogos:'/Configuracion/GetGuardalogos'
     };
 
     /* factory.GetguardaPreferencia = function (file, options, eliminadas) {
@@ -82,6 +83,30 @@ angular
     };
 
 
+
+    factory.GuardaLogos = function (file,options, eliminadas) {
+      var deferred = $q.defer();
+      var data = new FormData();
+      for (var i = 0; i < file.length; i++) {
+        data.append('file' + i, file[i]);
+      }      
+      data.append('options', JSON.stringify(options));
+      data.append('eliminadas', JSON.stringify(eliminadas));
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token,
+          'Content-Type': undefined
+        }
+      };
+      
+      $http.post(globalService.getUrl() + paths.GetGuardalogos, data, config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+
+      return deferred.promise;
+    };
 
 
 
