@@ -38,8 +38,23 @@ angular
 
         function GuardarEvidencia(){
             console.dir(vm.Evidencia);
-            SeriesFactory.imageToByteArray(vm.Evidencia).then(function(data){
-                console.log(data);
+            /*vm.Evidencia = null;
+            vm.InpFilePath = null;*/
+            SeriesFactory.GetimageToByteArray(vm.Evidencia).then(function(data){
+                //console.log(data);
+                var ImgByte = data;
+                console.log(ImgByte);
+                var objGuardaEvidenciaCancelacionFolio = {
+                    'folio': vm.FolioDisponible.Folio,
+                    'serie': vm.Serie.SERIE,
+                    'clv_vendedor': vm.Vendedor.Clv_Vendedor,
+                    'archivo': ImgByte,
+                    'tipo': GetTipo()
+                }
+                console.log(objGuardaEvidenciaCancelacionFolio);
+                SeriesFactory.UpdateGuardaEvidenciaCancelacionFolio(objGuardaEvidenciaCancelacionFolio).then(function(data){
+                    /*console.log(data);*/
+                });
             });
         }
 
@@ -69,6 +84,14 @@ angular
                 vm.FolioDisponibleList = data.GetFolio_DisponibleListResult;
                 vm.FolioDisponible = FolioDisponibleList[0];
             });
+        }
+
+        function GetTipo(){
+            if(vm.Evidencia.type == 'image/jpeg' || vm.Evidencia.type == 'image/png'){
+                return 'image';
+            }else if(vm.Evidencia.type == 'application/pdf'){
+                return 'pdf';
+            }
         }
 
         function cancel(){

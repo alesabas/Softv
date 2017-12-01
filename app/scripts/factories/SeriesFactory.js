@@ -17,8 +17,8 @@ angular
             GetUltimo_SERIEYFOLIOList:'/Ultimo_SERIEYFOLIO/GetUltimo_SERIEYFOLIOList',
             GetFolio_DisponibleList: '/Folio_Disponible/GetFolio_DisponibleList',
             UpdateCancela_Folios: '/Cancela_Folios/UpdateCancela_Folios',
+            GetimageToByteArray: '/GuardaEvidenciaCancelacionFolio/GetimageToByteArray',
             UpdateGuardaEvidenciaCancelacionFolio: '/GuardaEvidenciaCancelacionFolio/UpdateGuardaEvidenciaCancelacionFolio',
-            imageToByteArray: '/GuardaEvidenciaCancelacionFolio/imageToByteArray',
             GetSP_SerieFolioList: '/SP_SerieFolio/GetSP_SerieFolioList',
             AddDameTipoSerie: '/DameTipoSerie/AddDameTipoSerie',
             AddValidaFoliosImprimir: '/ValidaFoliosImprimir/AddValidaFoliosImprimir',
@@ -169,37 +169,40 @@ angular
             return deferred.promise;
         };
 
-        factory.UpdateGuardaEvidenciaCancelacionFolio = function(objGuardaEvidenciaCancelacionFolio){
+        factory.GetimageToByteArray = function(image){
+            var EvidenciaFD = new FormData();
+            //EvidenciaFD.append('file', image);
+                
+                EvidenciaFD.append('file', image); 
+                /*
+                EvidenciaFD.append('folio', JSON.stringify(folio));
+                EvidenciaFD.append('serie', JSON.stringify(serie));
+                EvidenciaFD.append('Clv_Vendedor', JSON.stringify(Clv_Vendedor));
+                EvidenciaFD.append('tipo', JSON.stringify(tipo));
+                */
+                
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token, 'Content-Type': undefined}};
-            var Parametros = {'objGuardaEvidenciaCancelacionFolio': objGuardaEvidenciaCancelacionFolio};
-            console.log(Parametros);
-            $http.post(globalService.getUrl() + paths.UpdateGuardaEvidenciaCancelacionFolio, JSON.stringify(Parametros), config).then(function(response){
+            $http.post(globalService.getUrl() + paths.GetimageToByteArray, EvidenciaFD, config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
                 deferred.reject(response);
             });
             return deferred.promise;
         };
-        /*
-        $http.post(uploadUrl, fd, {
-            transformRequest: angular.identity,
-            headers: {'Content-Type': undefined}
-        })
-        */
-        factory.imageToByteArray = function(image){
-            var EvidenciaFD = new FormData();
-            EvidenciaFD.append('file', image);
+
+        factory.UpdateGuardaEvidenciaCancelacionFolio = function(objGuardaEvidenciaCancelacionFolio){
             var deferred = $q.defer();
-            var config = {
-                            transformRequest: angular.identity,
-                            headers: {'Authorization': $localStorage.currentUser.token, 'Content-Type': undefined}
-                        };
-            $http.post(globalService.getUrl() + paths.imageToByteArray, EvidenciaFD, config).then(function(response){
+            var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+            var Parametros = {'objGuardaEvidenciaCancelacionFolio': objGuardaEvidenciaCancelacionFolio};
+            console.log(JSON.stringify(Parametros));
+            /*
+            $http.post(globalService.getUrl() + paths.UpdateGuardaEvidenciaCancelacionFolio, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
                 deferred.reject(response);
             });
+            */
             return deferred.promise;
         };
 

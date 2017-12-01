@@ -1,10 +1,33 @@
-<form name="FormCancelarFolio" angular-validator-submit="ctrl.GuardarEvidencia ()" novalidate angular-validator autocomplete="off">
+<style type="text/css">
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+}
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+</style>
+
+<script>
+    document.getElementById("uploadBtn").onchange = function () {
+    document.getElementById("uploadFile").value = this.value;
+};
+</script>
+
+<form name="FormCancelarFolio" angular-validator-submit="ctrl.CancelarFolio()" novalidate angular-validator autocomplete="off">
     <div class="modal-header">
         <button class="close" type="button" aria-label="close" ng-click="ctrl.cancel()">x</button>
         <h4 class="modal-title">Cancelación de Folios Impresos</h4>
     </div>
     <div class="modal-body">
-        <fieldset ng-disabled="ctrl.View" ng-if="false">
+            <fieldset ng-disabled="ctrl.View">
             <div class="row">
                 <div class="col-md-12">
                     <div class="col-md-12">
@@ -65,11 +88,17 @@
                 </div>
 
             </div>
-        </fieldset>
+            </fieldset>
             <div class="row">
                 <div class="col-md-12">
-                    <div class="col-md-12">
-                        <input type="file" name="InpRuta" class="form-control input-sm" file-model="ctrl.Evidencia">
+                    <div class="col-md-8">
+                        <input name="InpFilePath" id="uploadFile" class="form-control input-sm" ng-model="ctrl.InpFilePath" placeholder="Selecciona archivo" disabled="disabled" />
+                    </div>
+                    <div class="col-md-4">
+                        <div class="fileUpload btn btn-success btn-xs">
+                        <span><i class="fa fa-search"></i> Buscar</span>
+                        <input type="file" name="InpEvidencia" id="uploadBtn" class="upload" file-model="ctrl.Evidencia">
+                        </div>
                     </div>
                 </div>
             </div>
