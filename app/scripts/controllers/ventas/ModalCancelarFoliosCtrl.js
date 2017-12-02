@@ -40,22 +40,22 @@ angular
             console.dir(vm.Evidencia);
             /*vm.Evidencia = null;
             vm.InpFilePath = null;*/
-            SeriesFactory.GetimageToByteArray(vm.Evidencia).then(function(data){
+            /*SeriesFactory.GetimageToByteArray(vm.Evidencia).then(function(data){*/
                 //console.log(data);
-                var ImgByte = data;
-                console.log(ImgByte);
+                /*var ImgByte = new Int16Array(data);
+                console.log(ImgByte);*/
                 var objGuardaEvidenciaCancelacionFolio = {
                     'folio': vm.FolioDisponible.Folio,
                     'serie': vm.Serie.SERIE,
                     'clv_vendedor': vm.Vendedor.Clv_Vendedor,
-                    'archivo': ImgByte,
+                    'archivo': vm.Evidencia,
                     'tipo': GetTipo()
                 }
                 console.log(objGuardaEvidenciaCancelacionFolio);
                 SeriesFactory.UpdateGuardaEvidenciaCancelacionFolio(objGuardaEvidenciaCancelacionFolio).then(function(data){
-                    /*console.log(data);*/
+                    console.log(data);
                 });
-            });
+            /*});*/
         }
 
         function GetSerieList(){
