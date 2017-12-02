@@ -32,6 +32,7 @@ angular
       GetvalidaAccesoFacturacion:'/Configuracion/GetvalidaAccesoFacturacion',
       GetguardaPreferencia:'/Configuracion/GetguardaPreferencia',
       GetDetallePreferencias:'/Configuracion/GetDetallePreferencias',
+      Getlogos:'/Configuracion/Getlogos',
       GetGuardalogos:'/Configuracion/GetGuardalogos'
     };
 
@@ -62,6 +63,25 @@ angular
       return deferred.promise;
     }; */
 
+
+    factory.Getlogos = function () {
+      var deferred = $q.defer();
+     
+
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token          
+        }
+      };
+      
+      $http.get(globalService.getUrl() + paths.Getlogos, config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+
+      return deferred.promise;
+    };
 
     factory.GetDetallePreferencias = function (obj) {
       var deferred = $q.defer();

@@ -6,6 +6,7 @@ angular
     var vm = this;
     init();
     detallePreferencia();
+    Getlogos();
     vm.Guardarperiodo = Guardarperiodo;
     vm.GuardarImpuestos = GuardarImpuestos;
     vm.Guardarcobro = Guardarcobro;
@@ -150,6 +151,13 @@ angular
         console.log(result);
       });
 
+    }
+
+    function Getlogos(){
+      generalesSistemaFactory.Getlogos()
+      .then(function (result) {
+       console.log(result);
+      });
     }
 
 
