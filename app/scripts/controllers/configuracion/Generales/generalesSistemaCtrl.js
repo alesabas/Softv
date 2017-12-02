@@ -1,7 +1,7 @@
 'use strict';
 angular
   .module('softvApp')
-  .controller('generalesSistemaCtrl', function ($state, $uibModal, ngNotify, generalesSistemaFactory, FileUploader) {
+  .controller('generalesSistemaCtrl', function ($state, $uibModal, ngNotify,globalService, generalesSistemaFactory, FileUploader) {
 
     var vm = this;
     init();
@@ -12,31 +12,10 @@ angular
     vm.Guardarcobro = Guardarcobro;
     vm.detalleperiodo = detalleperiodo;
     vm.guardarPreferencias = guardarPreferencias;
-    vm.guardaLogo=guardaLogo;
+    vm.guardaLogo = guardaLogo;
     vm.hexPicker = {};
 
-    vm.tiposimg = [{
-        "IdTipo": 3,
-        "Nombre": "LogoNav"
-      },
-      {
-        "IdTipo": 4,
-        "Nombre": "LogoLogin"
-      },
-      {
-        "IdTipo": 5,
-        "Nombre": "LogoHome"
-      },
-      {
-        "IdTipo": 6,
-        "Nombre": "LogoReportes"
-      },
-      {
-        "IdTipo": 7,
-        "Nombre": "LogoTickets"
-      }
 
-    ];
 
     vm.uploader = new FileUploader({
       filters: [{
@@ -66,9 +45,9 @@ angular
 
     vm.uploader.onAfterAddingFile = function (fileItem) {
       console.log(fileItem);
-      fileItem.file.idtipo = vm.tipoimagen.IdTipo;
+      fileItem.file.idtipo = vm.tipoimagen.Idtipo;
       fileItem.file.tipo = vm.tipoimagen.Nombre;
-      fileItem._file.idtipo = vm.tipoimagen.IdTipo;
+      fileItem._file.idtipo = vm.tipoimagen.Idtipo;
       fileItem._file.tipo = vm.tipoimagen.Nombre;
     };
 
@@ -147,17 +126,23 @@ angular
         ngNotify.set("El número de imagenes con el mismo tipo se ha sobrepasado maximo 2", "error");
         return;
       }
+
       generalesSistemaFactory.GuardaLogos(files, file_options, []).then(function (result) {
         console.log(result);
+        ngNotify.set('Se guardo correctamente', 'success');
+        Getlogos();
       });
 
     }
 
-    function Getlogos(){
+    function Getlogos() {
       generalesSistemaFactory.Getlogos()
-      .then(function (result) {
-       console.log(result);
-      });
+        .then(function (result) {
+          console.log(result);
+          result.forEach(function(item){ item.Valor=globalService.getUrllogos()+'/'+item.Valor});
+          vm.tiposimg = result;
+
+        });
     }
 
 

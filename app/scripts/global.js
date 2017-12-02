@@ -31,5 +31,9 @@ angular
       return 'http://localhost:64481';
     };
 
+    svc.getUrllogos = function () {
+      return 'http://localhost:64481/logos';
+    };
+
     return svc;
   });
