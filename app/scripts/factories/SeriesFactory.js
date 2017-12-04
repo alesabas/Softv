@@ -209,10 +209,10 @@ angular
         factory.UpdateGuardaEvidenciaCancelacionFolio = function(objGuardaEvidenciaCancelacionFolio){
             var EvidenciaFD = new FormData();
             EvidenciaFD.append('file', objGuardaEvidenciaCancelacionFolio.archivo); 
-            EvidenciaFD.append('folio', JSON.stringify(objGuardaEvidenciaCancelacionFolio.folio));
-            EvidenciaFD.append('serie', JSON.stringify(objGuardaEvidenciaCancelacionFolio.serie));
-            EvidenciaFD.append('Clv_Vendedor', JSON.stringify(objGuardaEvidenciaCancelacionFolio.clv_vendedor));
-            EvidenciaFD.append('tipo', JSON.stringify(objGuardaEvidenciaCancelacionFolio.tipo));
+            EvidenciaFD.append('folio', objGuardaEvidenciaCancelacionFolio.folio);
+            EvidenciaFD.append('serie', objGuardaEvidenciaCancelacionFolio.serie);
+            EvidenciaFD.append('Clv_Vendedor', objGuardaEvidenciaCancelacionFolio.clv_vendedor);
+            EvidenciaFD.append('tipo', objGuardaEvidenciaCancelacionFolio.tipo);
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token, 'Content-Type': undefined}};
             console.log(EvidenciaFD);
