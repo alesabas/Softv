@@ -18,6 +18,32 @@ angular
         }
 
         function CancelarFolio(){
+            if(vm.Evidencia != undefined){
+                console.log(vm.Evidencia.type);
+                if(vm.Evidencia.type == 'image/jpeg' ||
+                    vm.Evidencia.type == 'image/bmp' || 
+                    vm.Evidencia.type == 'image/gif' || 
+                    vm.Evidencia.type == 'image/tiff' || 
+                    vm.Evidencia.type == 'image/png' || 
+                    vm.Evidencia.type == 'application/pdf'){
+                    if(vm.Evidencia.size <= 1000000){
+                        GetCancelaFolio();
+                    }else{
+                        ngNotify.set('ERROR, el tamaño del archivo es invalido.', 'warn');
+                        vm.Evidencia = null;
+                        vm.FilePath = null;
+                    }
+                }else{
+                    ngNotify.set('ERROR, el formato del archivo es invalido.', 'warn');
+                    vm.Evidencia = null;
+                    vm.FilePath = null;
+                }
+            }else{
+               GetCancelaFolio();
+            }
+        }
+
+        function  GetCancelaFolio(){
             var objCancela_Folios = {
                 'Vendedor': vm.Vendedor.Clv_Vendedor,
                 'Serie': vm.Serie.SERIE,
@@ -25,12 +51,10 @@ angular
                 'comentario': vm.Comentario
             };
             SeriesFactory.UpdateCancela_Folios(objCancela_Folios).then(function(data){
-                console.log(data);
                 if(vm.Evidencia != undefined){
                     GuardarEvidencia();
                 }else{
-                    ngNotify.set('CORRECTO, Se cancelo el Folio.', 'success');
-                    $rootScope.$emit('LoadSerieList');
+                    ngNotify.set('CORRECTO, Se canceló el Folio.', 'success');
                     cancel();
                 }
             });
@@ -38,24 +62,19 @@ angular
 
         function GuardarEvidencia(){
             console.dir(vm.Evidencia);
-            /*vm.Evidencia = null;
-            vm.InpFilePath = null;*/
-            /*SeriesFactory.GetimageToByteArray(vm.Evidencia).then(function(data){*/
-                //console.log(data);
-                /*var ImgByte = new Int16Array(data);
-                console.log(ImgByte);*/
-                var objGuardaEvidenciaCancelacionFolio = {
-                    'folio': vm.FolioDisponible.Folio,
-                    'serie': vm.Serie.SERIE,
-                    'clv_vendedor': vm.Vendedor.Clv_Vendedor,
-                    'archivo': vm.Evidencia,
-                    'tipo': GetTipo()
-                }
-                console.log(objGuardaEvidenciaCancelacionFolio);
-                SeriesFactory.UpdateGuardaEvidenciaCancelacionFolio(objGuardaEvidenciaCancelacionFolio).then(function(data){
-                    console.log(data);
-                });
-            /*});*/
+            var objGuardaEvidenciaCancelacionFolio = {
+                'folio': vm.FolioDisponible.Folio,
+                'serie': vm.Serie.SERIE,
+                'clv_vendedor': vm.Vendedor.Clv_Vendedor,
+                'archivo': vm.Evidencia,
+                'tipo': GetTipo()
+            }
+            console.log(objGuardaEvidenciaCancelacionFolio);
+            SeriesFactory.UpdateGuardaEvidenciaCancelacionFolio(objGuardaEvidenciaCancelacionFolio).then(function(data){
+                console.log(data);
+                ngNotify.set('CORRECTO, Se canceló el Folio.', 'success');
+                cancel();
+            });
         }
 
         function GetSerieList(){
@@ -105,7 +124,5 @@ angular
         vm.GetFolioDisponible = GetFolioDisponible;
         vm.cancel = cancel;
         initData();
-        
-        vm.GuardarEvidencia = GuardarEvidencia;
         
     });
