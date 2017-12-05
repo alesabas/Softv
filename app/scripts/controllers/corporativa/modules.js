@@ -88,6 +88,22 @@ function corporativaConf($stateProvider) {
 		controllerAs: '$ctrl'
 	},
 	{
+		name: 'home.corporativa.pagodetalle',
+		data: {
+			pageTitle: 'SOFTV | PAGO CONTRATO MAESTRO',
+			permissions: {
+				only: ['contratomaestroUpdate'],
+				options: {
+					reload: false
+				}
+			}
+		},
+		url: '/corporativa/pagoContratoMaestro/detallepago/:id',
+		templateUrl: 'views/corporativa/pagoDetalleContratoMaestro.html',
+		controller: 'PagoDetalleContratoMaestroCtrl',
+		controllerAs: '$ctrl'
+	},
+	{
 		name: 'home.corporativa.reporteRecepcion',
 		data: {
 			pageTitle: 'SOFTV | REPORTES CONTRATO MAESTRO',
@@ -184,67 +200,132 @@ function corporativaConf($stateProvider) {
 		controllerAs: '$ctrl'
 	},
 	{
-		name: 'home.corporativa.reportedolares',
+		name: 'home.corporativa.reportesResumenContrato',
 		data: {
-			pageTitle: 'SOFTV | REPORTES FACTURAS EN DOLARES',
+			pageTitle: 'SOFTV | REPORTES RESUMEN POR CONTRATO MAESTRO',
 			permissions: {
-				only: ['facturasendolaresSelect'],
+				only: ['recepciondepagosSelect'],
 				options: {
 					reload: false
 				}
 			}
 		},
-		url: '/corporativa/reportedolares',
-		templateUrl: 'views/corporativa/reporteFacDolares.html',
-		controller: 'reporteFacDolaresCtrl',
+		url: '/corporativa/reportesResumenContrato',
+		templateUrl: 'views/corporativa/reportesResumenContrato.html',
+		controller: 'reportesResumenContratoCtrl',
 		controllerAs: '$ctrl'
 	},
 	{
-		name: 'home.corporativa.reportecontsaldados',
+		name: 'home.corporativa.reportesServiciosInstalados',
 		data: {
-			pageTitle: 'SOFTV | REPORTES CONTRATOS SALDADOS',
+			pageTitle: 'SOFTV | REPORTES SERVICIOS INSTALADOS',
 			permissions: {
-				only: ['contratossaldadosSelect'],
+				only: ['recepciondepagosSelect'],
 				options: {
 					reload: false
 				}
 			}
 		},
-		url: '/corporativa/reportecontsaldados',
-		templateUrl: 'views/corporativa/reporteContSaldados.html',
-		controller: 'reporteContSaldadosCtrl',
+		url: '/corporativa/reportesServiciosInstalados',
+		templateUrl: 'views/corporativa/reportesServiciosInstalados.html',
+		controller: 'reportesServiciosInstaladosCtrl',
 		controllerAs: '$ctrl'
 	},
 	{
-		name: 'home.corporativa.reportecontpend',
+		name: 'home.corporativa.reportesServiciosPorInstalar',
 		data: {
-			pageTitle: 'SOFTV | REPORTES CONTRATOS PENDIENTES',
+			pageTitle: 'SOFTV | REPORTES SERVICIOS POR INSTALAR',
 			permissions: {
-				only: ['contratospendientespagoSelect'],
+				only: ['recepciondepagosSelect'],
 				options: {
 					reload: false
 				}
 			}
 		},
-		url: '/corporativa/reportecontpendientes',
-		templateUrl: 'views/corporativa/reporteContpendientes.html',
-		controller: 'reporteContpendientesCtrl',
+		url: '/corporativa/reportesServiciosPorInstalar',
+		templateUrl: 'views/corporativa/reportesServiciosPorInstalar.html',
+		controller: 'reportesServiciosPorInstalarCtrl',
+		controllerAs: '$ctrl'
+	},
+	{
+		name: 'home.corporativa.reportesFacturasVencidas',
+		data: {
+			pageTitle: 'SOFTV | REPORTES FACTURAS VENCIDAS',
+			permissions: {
+				only: ['recepciondepagosSelect'],
+				options: {
+					reload: false
+				}
+			}
+		},
+		url: '/corporativa/reportesFacturasVencidas',
+		templateUrl: 'views/corporativa/reportesFacturasVencidas.html',
+		controller: 'reportesFacturasVencidasCtrl',
+		controllerAs: '$ctrl'
+	},
+	{
+		name: 'home.corporativa.prefacturas',
+		data: {
+			pageTitle: 'SOFTV | FACTURAS',
+			permissions: {
+				only: ['facturaspreliminaresSelect'],
+				options: {
+					reload: false
+				}
+			}
+		},
+		url: '/corporativa/facturas',
+		templateUrl: 'views/corporativa/prefacturas.html',
+		controller: 'prefacturasCtrl',
 		controllerAs: '$ctrl'
 	},
 		{
-		name: 'home.corporativa.tipocambio',
+		name: 'home.corporativa.relacioningresos',
 		data: {
-			pageTitle: 'SOFTV | REPORTES CONTRATOS PENDIENTES',
+			pageTitle: 'SOFTV | FACTURAS',
 			permissions: {
-				only: ['tipodecambioSelect'],
+				
 				options: {
 					reload: false
 				}
 			}
 		},
-		url: '/corporativa/tipocambio',
-		templateUrl: 'views/corporativa/TipoCambio.html',
-		controller: 'TipoCambioCtrl',
+		url: '/corporativa/relaciondeingresos',
+		templateUrl: 'views/corporativa/relacioningresos.html',
+		controller: 'relacionIngresosCtrl',
+		controllerAs: '$ctrl'
+    
+	},
+	{
+		name: 'home.corporativa.polizas',
+		data: {
+			pageTitle: 'SOFTV | PÓLIZAS',
+			permissions: {
+				only: ['polizasSelect'],
+				options: {
+					reload: false
+				}
+			}
+		},
+		url: '/corporativa/polizas',
+		templateUrl: 'views/corporativa/polizasMaestro.html',
+		controller: 'polizaMaestroCtrl',
+		controllerAs: '$ctrl'
+	},
+	{
+		name: 'home.corporativa.reportecontratos',
+		data: {
+			pageTitle: 'SOFTV | CONTRATOS VENCIDOS/POR VENCER',
+			permissions: {
+				only: ['polizasSelect'],
+				options: {
+					reload: false
+				}
+			}
+		},
+		url: '/corporativa/reportecontratos',
+		templateUrl: 'views/corporativa/reporte.contratovencido.html',
+		controller: 'reporteContratoVencidoCtrl',
 		controllerAs: '$ctrl'
 	}
 

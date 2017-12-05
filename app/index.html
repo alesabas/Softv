@@ -24,6 +24,7 @@
   <link rel="stylesheet" href="bower_components/angular-tree-control/css/tree-control.css" />
   <link rel="stylesheet" href="bower_components/angularMultipleSelect/build/multiple-select.min.css" />
   <link rel="stylesheet" href="bower_components/angular-bootstrap-colorpicker/css/colorpicker.css" />
+  <link rel="stylesheet" href="bower_components/angular-moment-picker/dist/angular-moment-picker.min.css" />
   <!-- endbower -->
   <!-- endbuild -->
   <!-- build:css(.tmp) styles/main.css -->
@@ -91,6 +92,9 @@
   <script src="bower_components/angularMultipleSelect/build/multiple-select.min.js"></script>
   <script src="bower_components/angular-base64/angular-base64.js"></script>
   <script src="bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js"></script>
+  <script src="bower_components/moment/moment.js"></script>
+  <script src="bower_components/angular-moment/angular-moment.js"></script>
+  <script src="bower_components/angular-moment-picker/dist/angular-moment-picker.min.js"></script>
   <script src="bower_components/angular-file-upload/dist/angular-file-upload.min.js"></script>
   <!-- endbower -->
   <!-- endbuild -->
@@ -228,8 +232,11 @@
   <script src="scripts/controllers/facturacion/desglose/PrintArchivosCtrl.js"></script>
   <script src="scripts/factories/ordenesFactory.js"></script>
   <script src="scripts/factories/pagosMaestrosFactory.js"></script>
+
   <script src="scripts/controllers/corporativa/pagoContrato/PagoContratoMaestroCtrl.js"></script>
-  <script src="scripts/controllers/corporativa/pagoContrato/AbrirPagoCtrl.js"></script>
+  <script src="scripts/controllers/corporativa/pagoContrato/PagoDetalleContratoMaestroCtrl.js"></script>
+    <script src="scripts/controllers/corporativa/pagoContrato/AbrirPagoCtrl.js"></script>
+  <script src="scripts/controllers/corporativa/pagoContrato/agregaListaPagoCtrl.js"></script>
   <script src="scripts/controllers/corporativa/pagoContrato/EscogerPagoCtrl.js"></script>
   <script src="scripts/controllers/corporativa/pagoContrato/PagarContadoCtrl.js"></script>
   <script src="scripts/controllers/corporativa/pagoContrato/PagarCreditoCtrl.js"></script>
@@ -243,13 +250,10 @@
   <script src="scripts/controllers/corporativa/pagoContrato/AbrirDetalleCtrl.js"></script>
   <script src="scripts/controllers/corporativa/contrato/ModalProporcionalCtrl.js"></script>
   <script src="scripts/controllers/corporativa/contrato/DesconexionCtrl.js"></script>
-  <script src="scripts/controllers/corporativa/contrato/reporteFacDolaresCtrl.js"></script>
-  <script src="scripts/controllers/corporativa/contrato/reporteContSaldadosCtrl.js"></script>
-  <script src="scripts/controllers/corporativa/contrato/reporteContpendientesCtrl.js"></script>
-  <script src="scripts/controllers/corporativa/contrato/TipoCambioCtrl.js"></script>
-
-
-
+  <!-- <script src="scripts/controllers/corporativa/contrato/reporteFacDolaresCtrl.js"></script> -->
+  <!-- <script src="scripts/controllers/corporativa/contrato/reporteContSaldadosCtrl.js"></script>
+  <script src="scripts/controllers/corporativa/contrato/reporteContpendientesCtrl.js"></script> -->
+<!--   <script src="scripts/controllers/corporativa/contrato/TipoCambioCtrl.js"></script> -->
   <script src="scripts/factories/reportesVariosFactory.js"></script>
   <script src="scripts/controllers/reportes/reportesvarios/ReportesVariosCtrl.js"></script>
   <script src="scripts/factories/reportesCortesCorporativaFactory.js"></script>
@@ -261,13 +265,24 @@
   <script src="scripts/controllers/corporativa/NotaCredito/ModalDetalleNotaCtrl.js"></script>
   <script src="scripts/controllers/corporativa/NotaCredito/ModalDetalleFacCliCtrl.js"></script>
   <script src="scripts/controllers/corporativa/pagoContrato/ModalHazPreguntaCtrl.js"></script>
-
   <script src="scripts/controllers/corporativa/NotaCredito/ModalTicketNotaCtrl.js"></script>
   <script src="scripts/controllers/corporativa/tickets/ticketsCorporativaCtrl.js"></script>
   <script src="scripts/controllers/corporativa/tickets/modalCancelaTicketCtrl.js"></script>
   <script src="scripts/controllers/corporativa/tickets/modalMotivoCanMaestroCtrl.js"></script>
   <script src="scripts/controllers/corporativa/NotaCredito/modalRevertirProcesoCtrl.js"></script>
   <script src="scripts/controllers/corporativa/recepcionpago/ModalCancelaFacturaCtrl.js"></script>
+  <script src="scripts/controllers/corporativa/facturas/prefacturasCtrl.js"></script>
+  <script src="scripts/controllers/corporativa/facturas/ModalEditaFacpreeliminarCtrl.js"></script>
+  <script src="scripts/controllers/corporativa/PolizaMaestro/polizasMaestroCtrl.js"></script>
+  <script src="scripts/controllers/corporativa/PolizaMaestro/modalNuevoPolizaMaestroCtrl.js"></script>
+<script src="scripts/controllers/corporativa/relacionIngresos/modules.js"></script>
+<script src="scripts/controllers/corporativa/relacionIngresos/relacionIngresosCtrl.js"></script>
+<script src="scripts/controllers/corporativa/relacionIngresos/relacionIngresosFactory.js"></script>
+<script src="scripts/controllers/corporativa/reportesOtros/reporteContratoVencidoCtrl.js"></script>
+<script src="scripts/controllers/corporativa/reportesOtros/reportesFacturasVencidasCtrl.js"></script>
+<script src="scripts/controllers/corporativa/reportesOtros/reportesServiciosInstaladosCtrl.js"></script>
+<script src="scripts/controllers/corporativa/reportesOtros/reportesServiciosPorInstalarCtrl.js"></script>
+
 
   <script src="scripts/controllers/encuestas/modules.js"></script>
   <script src="scripts/controllers/encuestas/Encuesta/EncuestaCtrl.js"></script>

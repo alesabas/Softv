@@ -1,13 +1,15 @@
 'use strict';
 angular.module('softvApp')
-  .factory('authFactory', function ($http, $q, $window, globalService, $localStorage, PermPermissionStore, $location, $base64,ngNotify) {
+  .factory('authFactory', function ($http, $q, $window, globalService, $localStorage, PermPermissionStore, $location, $base64, ngNotify) {
     var factory = {};
     var paths = {
       getAuthentication: '/DameSessionW/GetDameSessionWList',
-      login: '/Usuario/LogOn'
+      login: '/Usuario/LogOn',
+      GetSucursalPorIp: '/SessionWeb/GetSucursalPorIp',
+      GetClaveCajaPorIp:'/SessionWeb/GetClaveCajaPorIp'
     };
 
-    factory.getAuthentication = function (token) {
+    /* factory.getAuthentication = function (token) {
       var deferred = $q.defer();
       var Parametros = {
         'Id': 0,
@@ -41,7 +43,67 @@ angular.module('softvApp')
 
       return deferred.promise;
     };
+ */
+   
+   
 
+
+   factory.GetClaveCajaPorIp =function(token,ip) {
+    var deferred = $q.defer();
+    var Parametros = {
+      'id': 0,
+      'ip': ip
+    };
+    var config = {
+      headers: {
+        'Authorization': token
+      }
+    };
+
+    $http.post(globalService.getUrl() + paths.GetClaveCajaPorIp,JSON.stringify(Parametros),config).then(function (response) {
+      console.log(response);
+      deferred.resolve(response.data.GetClaveCajaPorIpResult);
+    }).catch(function (result) {
+      deferred.reject(0);
+    });
+    return deferred.promise;
+  }
+
+
+    
+    factory.obtenNombreComputadora =function() {
+      var deferred = $q.defer();
+      $http.get(globalService.getUrlPrinters() + "/computersname").then(function (response) {
+        console.log(response);
+        deferred.resolve(response.data.name);
+      }).catch(function (result) {
+        deferred.reject('');
+      });
+      return deferred.promise;
+    }
+
+
+    factory.obtensucursalIp=function (token, ip) {
+      console.log(token);
+      console.log(ip);
+      var deferred = $q.defer();
+      var Parametros = {
+        'id': 0,
+        'ip': ip
+      };
+      var config = {
+        headers: {
+          'Authorization': token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.GetSucursalPorIp, JSON.stringify(Parametros), config).then(function (response) {
+        console.log(response);
+        deferred.resolve(response.data.GetSucursalPorIpResult);
+      }).catch(function (result) {
+        deferred.reject(0);
+      });
+      return deferred.promise;
+    }
 
 
     factory.login = function (user, password) {
@@ -55,19 +117,19 @@ angular.module('softvApp')
       };
       $http.post(globalService.getUrl() + paths.login, JSON.stringify(Parametros), config)
         .then(function (response) {
-          console.log(response);
+          var user = response.data.LogOnResult;
+
           if (response.data.LogOnResult.Token) {
             $localStorage.currentUser = {
               token: response.data.LogOnResult.Codigo,
               token1: token,
-              usuario: response.data.LogOnResult.Usuario,
-              sucursal: response.data.LogOnResult.IdSucursal,
+              usuario: response.data.LogOnResult.Usuario,            
               idUsuario: response.data.LogOnResult.IdUsuario,
-              maquina: response.data.LogOnResult.IpMaquina,
               tipoUsuario: response.data.LogOnResult.TipoUser,
               Menu: response.data.LogOnResult.Menu
             };
-            console.log($localStorage.currentUser);
+
+           console.log($localStorage.currentUser);
             deferred.resolve(true);
           } else {
             deferred.resolve(false);
@@ -80,6 +142,10 @@ angular.module('softvApp')
       return deferred.promise;
     };
 
+    
+
+
+    
 
     return factory;
   });
