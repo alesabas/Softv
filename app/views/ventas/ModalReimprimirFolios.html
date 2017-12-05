@@ -6,43 +6,38 @@
     <div class="modal-body">
         <fieldset ng-disabled="ctrl.View">
             <div class="row">
-                <div class="col-md-offset-1 col-md-10">
+                <div class="col-md-12">
                     <div class="col-md-12">
                         <b>Serie:</b>
                     </div>
                 </div>
-                <div class="col-md-offset-1 col-md-10">
+                <div class="col-md-12">
                     <div class="col-md-12">
-                        <select name="SlcSerie" class="form-control input-sm" ng-model="ctrl.Serie" ng-options="S.Serie disable when S.Clave == 0 for S in ctrl.SerieList track by S.Clave">
+                        <select name="SlcSerie" class="form-control input-sm" ng-model="ctrl.Serie" ng-options="S.Serie disable when S.Clave == 0 for S in ctrl.SerieList track by S.Clave" ng-change="ctrl.GetFolioMinExis()">
                         </select>
                     </div>
                 </div>
-                <div class="col-md-offset-1 col-md-10">
+                <div class="col-md-12">
                     <br>
                 </div>
-                <div class="col-md-offset-1 col-md-10">
-                    <div class="col-md-5">
-                        <b>Folio del:</b>
+                <div class="col-md-12">
+                    <div class="col-md-2">
+                        <b>Del:</b>
                     </div>
-                    <div class="col-md-7">
+                    <div class="col-md-4">
                         <input type="number" name="InpFolioI" class="form-control input-sm" ng-model="ctrl.FolioI">
                     </div>
-                </div>
-                <div class="col-md-offset-1 col-md-10">
-                    <br>
-                </div>
-                <div class="col-md-offset-1 col-md-10">
-                    <div class="col-md-5">
-                        <b>Folio al:</b>
+                    <div class="col-md-2">
+                        <b>al:</b>
                     </div>
-                    <div class="col-md-7">
+                    <div class="col-md-4">
                         <input type="number" name="InpFolioF" class="form-control input-sm" ng-model="ctrl.FolioF">
                     </div>
                 </div>
-                <div class="col-md-offset-1 col-md-10">
+                <div class="col-md-12">
                     <br>
                 </div>
-                <div class="col-md-offset-1 col-md-10">
+                <div class="col-md-12">
                     <div class="col-md-12">
                         <b>Se reimprimiran solo los folios disponibles.</b>
                     </div>

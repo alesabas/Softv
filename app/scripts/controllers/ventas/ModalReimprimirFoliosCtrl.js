@@ -12,12 +12,29 @@ angular
             });
         }
 
+        function GetFolioMinExis(){
+            if(vm.Serie != undefined){
+                var objReimprimirFolios = {
+                    'Serie': vm.Serie.Serie
+                };
+                SeriesFactory.GetReimpresionFoliosExistentesMin(objReimprimirFolios).then(function(data){
+                    console.log(data);
+                    vm.FolioExisMin = data.GetReimpresionFoliosExistentesMinResult.Minimo;
+                });
+                SeriesFactory.GetReimpresionFoliosExistentes(objReimprimirFolios).then(function(data){
+                    console.log(data);
+                    vm.FolioExis = data.GetReimpresionFoliosExistentesResult.Existentes;
+                });
+            }
+        }
+
         function cancel() {
             $uibModalInstance.dismiss('cancel');
         }
 
         var vm = this;
         vm.View = false;
+        vm.GetFolioMinExis = GetFolioMinExis;
         vm.cancel = cancel;
         initData();
 

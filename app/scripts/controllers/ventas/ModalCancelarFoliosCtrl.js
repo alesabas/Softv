@@ -2,7 +2,7 @@
 
 angular
     .module('softvApp')
-    .controller('ModalCancelarFoliosCtrl', function($scope, SeriesFactory, $uibModalInstance, $uibModal, ngNotify, $state, $rootScope, $localStorage, fileUpload){
+    .controller('ModalCancelarFoliosCtrl', function($scope, SeriesFactory, $uibModalInstance, $uibModal, ngNotify, $state, $rootScope, $localStorage){
         
         function initData(){
             var ObjVendedorList = {
@@ -18,7 +18,7 @@ angular
         }
 
         function CancelarFolio(){
-            if(vm.Evidencia != undefined){
+            if(vm.Evidencia != undefined ){
                 console.log(vm.Evidencia.type);
                 if(vm.Evidencia.type == 'image/jpeg' ||
                     vm.Evidencia.type == 'image/bmp' || 
@@ -30,13 +30,11 @@ angular
                         GetCancelaFolio();
                     }else{
                         ngNotify.set('ERROR, el tamaño del archivo es invalido.', 'warn');
-                        vm.Evidencia = null;
-                        vm.FilePath = null;
+                        ResetEvidencia()
                     }
                 }else{
                     ngNotify.set('ERROR, el formato del archivo es invalido.', 'warn');
-                    vm.Evidencia = null;
-                    vm.FilePath = null;
+                    ResetEvidencia()
                 }
             }else{
                GetCancelaFolio();
@@ -54,7 +52,7 @@ angular
                 if(vm.Evidencia != undefined){
                     GuardarEvidencia();
                 }else{
-                    ngNotify.set('CORRECTO, Se canceló el Folio.', 'success');
+                    ngNotify.set('CORRECTO, se canceló el Folio.', 'success');
                     cancel();
                 }
             });
@@ -72,7 +70,7 @@ angular
             console.log(objGuardaEvidenciaCancelacionFolio);
             SeriesFactory.UpdateGuardaEvidenciaCancelacionFolio(objGuardaEvidenciaCancelacionFolio).then(function(data){
                 console.log(data);
-                ngNotify.set('CORRECTO, Se canceló el Folio.', 'success');
+                ngNotify.set('CORRECTO, se canceló el Folio.', 'success');
                 cancel();
             });
         }
@@ -104,9 +102,20 @@ angular
                 vm.FolioDisponible = FolioDisponibleList[0];
             });
         }
+        
+        function ResetEvidencia(){
+            vm.Evidencia = null;
+            vm.FilePath = null;
+            vm.File = null;
+            angular.element("input[type='file']").val(null);
+        }
 
         function GetTipo(){
-            if(vm.Evidencia.type == 'image/jpeg' || vm.Evidencia.type == 'image/png'){
+            if(vm.Evidencia.type == 'image/jpeg' ||
+               vm.Evidencia.type == 'image/bmp' || 
+               vm.Evidencia.type == 'image/gif' || 
+               vm.Evidencia.type == 'image/tiff' || 
+               vm.Evidencia.type == 'image/png'){
                 return 'image';
             }else if(vm.Evidencia.type == 'application/pdf'){
                 return 'pdf';
@@ -122,6 +131,7 @@ angular
         vm.CancelarFolio = CancelarFolio;
         vm.GetSerieList = GetSerieList;
         vm.GetFolioDisponible = GetFolioDisponible;
+        vm.ResetEvidencia = ResetEvidencia;
         vm.cancel = cancel;
         initData();
         

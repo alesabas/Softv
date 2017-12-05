@@ -2,11 +2,11 @@
 
 angular
     .module('softvApp')
-    .controller('ModalVendedorAddCtrl', function(VentasFactory, distribuidorFactory, $uibModalInstance, $uibModal, ngNotify, $state, $rootScope){
+    .controller('ModalVendedorAddCtrl', function(VentasFactory, $localStorage, $uibModalInstance, $uibModal, ngNotify, $state, $rootScope){
         
         function initData(){
-            distribuidorFactory.Getplaza(0,'').then(function(data){
-                vm.DistribuidorList = data.GetPlaza_DistribuidoresNewResult;
+            VentasFactory.GetMuestra_PlazasPorUsuarioList($localStorage.currentUser.idUsuario).then(function(data){
+                vm.DistribuidorList = data.GetMuestra_PlazasPorUsuarioListResult;
             });
         }
 

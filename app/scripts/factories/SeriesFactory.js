@@ -23,7 +23,10 @@ angular
             AddDameTipoSerie: '/DameTipoSerie/AddDameTipoSerie',
             AddValidaFoliosImprimir: '/ValidaFoliosImprimir/AddValidaFoliosImprimir',
             AddFolios: '/CatalogoSeries/AddFolios',
-            AddSerieFolios: '/CatalogoSeries/AddSerieFolios'
+            AddSerieFolios: '/CatalogoSeries/AddSerieFolios',
+            GetReimpresionFoliosExistentesMin: '/ReimprimirFolios/GetReimpresionFoliosExistentesMin',
+            GetReimpresionFoliosExistentes: '/ReimprimirFolios/GetReimpresionFoliosExistentes',
+            GetReimpresionFolios: '/ReimprimirFolios/GetReimpresionFolios'
         };
 
         factory.GetCatalogoSeriesList = function(ObjSeriesList){
@@ -171,16 +174,7 @@ angular
 
         factory.GetimageToByteArray = function(image){
             var EvidenciaFD = new FormData();
-            //EvidenciaFD.append('file', image);
-                
-                EvidenciaFD.append('file', image); 
-                /*
-                EvidenciaFD.append('folio', JSON.stringify(folio));
-                EvidenciaFD.append('serie', JSON.stringify(serie));
-                EvidenciaFD.append('Clv_Vendedor', JSON.stringify(Clv_Vendedor));
-                EvidenciaFD.append('tipo', JSON.stringify(tipo));
-                */
-                
+            EvidenciaFD.append('file', image); 
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token, 'Content-Type': undefined}};
             $http.post(globalService.getUrl() + paths.GetimageToByteArray, EvidenciaFD, config).then(function(response){
@@ -190,21 +184,6 @@ angular
             });
             return deferred.promise;
         };
-
-        /*
-        factory.UpdateGuardaEvidenciaCancelacionFolio = function(objGuardaEvidenciaCancelacionFolio){
-            var deferred = $q.defer();
-            var config = {headers: {'Authorization': $localStorage.currentUser.token}};
-            var Parametros = {'objGuardaEvidenciaCancelacionFolio': objGuardaEvidenciaCancelacionFolio};
-            console.log(JSON.stringify(Parametros));
-            $http.post(globalService.getUrl() + paths.UpdateGuardaEvidenciaCancelacionFolio, JSON.stringify(Parametros), config).then(function(response){
-                deferred.resolve(response.data);
-            }).catch(function(response){
-                deferred.reject(response);
-            });
-            return deferred.promise;
-        };
-        */
 
         factory.UpdateGuardaEvidenciaCancelacionFolio = function(objGuardaEvidenciaCancelacionFolio){
             var EvidenciaFD = new FormData();
@@ -282,6 +261,45 @@ angular
             var Parametros = {'objCatalogoSeries': objCatalogoSeries};
             console.log(Parametros);
             $http.post(globalService.getUrl() + paths.AddSerieFolios, JSON.stringify(Parametros), config).then(function(response){
+                deferred.resolve(response.data);
+            }).catch(function(response){
+                deferred.reject(response);
+            });
+            return deferred.promise;
+        };
+
+        factory.GetReimpresionFoliosExistentesMin = function(objReimprimirFolios){
+            var deferred = $q.defer();
+            var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+            var Parametros = {'objReimprimirFolios': objReimprimirFolios};
+            console.log(Parametros);
+            $http.post(globalService.getUrl() + paths.GetReimpresionFoliosExistentesMin, JSON.stringify(Parametros), config).then(function(response){
+                deferred.resolve(response.data);
+            }).catch(function(response){
+                deferred.reject(response);
+            });
+            return deferred.promise;
+        };
+
+        factory.GetReimpresionFoliosExistentes = function(objReimprimirFolios){
+            var deferred = $q.defer();
+            var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+            var Parametros = {'objReimprimirFolios': objReimprimirFolios};
+            console.log(Parametros);
+            $http.post(globalService.getUrl() + paths.GetReimpresionFoliosExistentes, JSON.stringify(Parametros), config).then(function(response){
+                deferred.resolve(response.data);
+            }).catch(function(response){
+                deferred.reject(response);
+            });
+            return deferred.promise;
+        };
+
+        factory.GetReimpresionFolios = function(objReimprimirFolios){
+            var deferred = $q.defer();
+            var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+            var Parametros = {'objReimprimirFolios': objReimprimirFolios};
+            console.log(Parametros);
+            $http.post(globalService.getUrl() + paths.GetReimpresionFolios, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
                 deferred.reject(response);
