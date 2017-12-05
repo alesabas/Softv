@@ -257,11 +257,15 @@
           vm.contratos = result.GetDetalleContratosFMListResult.ListaUno;
           ContratoMaestroFactory.GetDetalle_NotasdeCreditoList(vm.clv_session).then(function (data) {
             vm.DetalleNota = data.GetDetalle_NotasdeCreditoListResult;
-            calcular();
-          });
-          ContratoMaestroFactory.GetCalcula_monto(vm.factura.CLV_FACTURA).then(function (data) {
 
-            vm.Monto = data.GetCalcula_montoResult.Monto;
+
+            ContratoMaestroFactory.GetCalcula_monto(vm.factura.CLV_FACTURA).then(function (data) {
+              vm.Monto = data.GetCalcula_montoResult.Monto;
+              calcular();
+            });
+
+
+
 
           });
 
@@ -281,8 +285,8 @@
         return;
       }
 
-      
-      
+
+
       var obj = {
         'ContratoMaestro': vm.Contrato,
         'Factura': vm.factura.CLV_FACTURA,
@@ -310,7 +314,7 @@
           ContratoMaestroFactory.AddMovSist(vm.Contrato, vm.sumatotal).then(function (data) {
             ContratoMaestroFactory.DeleteNotasDeCredito_ContraMaeFac(vm.factura.CLV_FACTURA, vm.Clv_NotadeCredito)
               .then(function (data) {
-                
+
               });
           });
         });
