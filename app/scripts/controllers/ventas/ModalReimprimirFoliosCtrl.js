@@ -12,6 +12,20 @@ angular
             });
         }
 
+        function ReimprimirFolio(){
+            console.log('ok');
+            var objReimprimirFolios = {
+                'Serie': vm.Serie.Serie,
+                'Minimo': vm.FolioI,
+                'Existentes': vm.FolioF
+            };
+            SeriesFactory.GetReimpresionFolios(objReimprimirFolios).then(function(data){
+                console.log(data);
+                ngNotify.set('CORRECTO, se reimprimieron los folios.', 'success');
+                cancel();
+            });
+        }
+
         function GetFolioMinExis(){
             if(vm.Serie != undefined){
                 var objReimprimirFolios = {
@@ -20,10 +34,12 @@ angular
                 SeriesFactory.GetReimpresionFoliosExistentesMin(objReimprimirFolios).then(function(data){
                     console.log(data);
                     vm.FolioExisMin = data.GetReimpresionFoliosExistentesMinResult.Minimo;
+                    vm.FolioI = data.GetReimpresionFoliosExistentesMinResult.Minimo;
                 });
                 SeriesFactory.GetReimpresionFoliosExistentes(objReimprimirFolios).then(function(data){
                     console.log(data);
                     vm.FolioExis = data.GetReimpresionFoliosExistentesResult.Existentes;
+                    vm.FolioF = data.GetReimpresionFoliosExistentesResult.Existentes;
                 });
             }
         }
@@ -35,6 +51,7 @@ angular
         var vm = this;
         vm.View = false;
         vm.GetFolioMinExis = GetFolioMinExis;
+        vm.ReimprimirFolio = ReimprimirFolio;
         vm.cancel = cancel;
         initData();
 
