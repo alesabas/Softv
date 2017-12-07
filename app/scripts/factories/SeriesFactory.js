@@ -26,7 +26,13 @@ angular
             AddSerieFolios: '/CatalogoSeries/AddSerieFolios',
             GetReimpresionFoliosExistentesMin: '/ReimprimirFolios/GetReimpresionFoliosExistentesMin',
             GetReimpresionFoliosExistentes: '/ReimprimirFolios/GetReimpresionFoliosExistentes',
-            GetReimpresionFolios: '/ReimprimirFolios/GetReimpresionFolios'
+            GetReimpresionFolios: '/ReimprimirFolios/GetReimpresionFolios',
+            Get_clv_session_Reportes: '/FoliosCancelados/Get_clv_session_Reportes',
+            GetConVentasVendedoresPro: '/FoliosCancelados/GetConVentasVendedoresPro',
+            GetConVentasVendedoresTmp: '/FoliosCancelados/GetConVentasVendedoresTmp',
+            GetInsertarVendedorTmp: '/FoliosCancelados/GetInsertarVendedorTmp',
+            GetBorrarVendedorTmp: '/FoliosCancelados/GetBorrarVendedorTmp',
+            GetMuestraFoliosCancelados: '/EvidenciasDeCancelados/GetMuestraFoliosCancelados'
         };
 
         factory.GetCatalogoSeriesList = function(ObjSeriesList){
@@ -300,6 +306,84 @@ angular
             var Parametros = {'objReimprimirFolios': objReimprimirFolios};
             console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetReimpresionFolios, JSON.stringify(Parametros), config).then(function(response){
+                deferred.resolve(response.data);
+            }).catch(function(response){
+                deferred.reject(response);
+            });
+            return deferred.promise;
+        };
+
+        factory.Get_clv_session_Reportes = function(ObjClvSession){
+            var deferred = $q.defer();
+            var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+            var Parametros = {'ObjClvSession': ObjClvSession};
+            console.log(Parametros);
+            $http.post(globalService.getUrl() + paths.Get_clv_session_Reportes, JSON.stringify(Parametros), config).then(function(response){
+                deferred.resolve(response.data);
+            }).catch(function(response){
+                deferred.reject(response);
+            });
+            return deferred.promise;
+        };
+
+        factory.GetConVentasVendedoresPro = function(ObjVendedor){
+            var deferred = $q.defer();
+            var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+            var Parametros = {'ObjVendedor': ObjVendedor};
+            console.log(Parametros);
+            $http.post(globalService.getUrl() + paths.GetConVentasVendedoresPro, JSON.stringify(Parametros), config).then(function(response){
+                deferred.resolve(response.data);
+            }).catch(function(response){
+                deferred.reject(response);
+            });
+            return deferred.promise;
+        };
+
+        factory.GetConVentasVendedoresTmp = function(ObjVendedor){
+            var deferred = $q.defer();
+            var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+            var Parametros = {'ObjVendedor': ObjVendedor};
+            console.log(Parametros);
+            $http.post(globalService.getUrl() + paths.GetConVentasVendedoresTmp, JSON.stringify(Parametros), config).then(function(response){
+                deferred.resolve(response.data);
+            }).catch(function(response){
+                deferred.reject(response);
+            });
+            return deferred.promise;
+        };
+
+        factory.GetInsertarVendedorTmp = function(ObjVendedor){
+            var deferred = $q.defer();
+            var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+            var Parametros = {'ObjVendedor': ObjVendedor};
+            console.log(Parametros);
+            $http.post(globalService.getUrl() + paths.GetInsertarVendedorTmp, JSON.stringify(Parametros), config).then(function(response){
+                deferred.resolve(response.data);
+            }).catch(function(response){
+                deferred.reject(response);
+            });
+            return deferred.promise;
+        };
+
+        factory.GetBorrarVendedorTmp = function(ObjVendedor){
+            var deferred = $q.defer();
+            var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+            var Parametros = {'ObjVendedor': ObjVendedor};
+            console.log(Parametros);
+            $http.post(globalService.getUrl() + paths.GetBorrarVendedorTmp, JSON.stringify(Parametros), config).then(function(response){
+                deferred.resolve(response.data);
+            }).catch(function(response){
+                deferred.reject(response);
+            });
+            return deferred.promise;
+        };
+
+        factory.GetMuestraFoliosCancelados = function(ObjFoliosCancelados){
+            var deferred = $q.defer();
+            var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+            var Parametros = {'ObjFoliosCancelados': ObjFoliosCancelados};
+            console.log(Parametros);
+            $http.post(globalService.getUrl() + paths.GetMuestraFoliosCancelados, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
                 deferred.reject(response);

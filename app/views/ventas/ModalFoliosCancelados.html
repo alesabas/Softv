@@ -44,12 +44,12 @@
                                 <div class="col-lg-5 col-md-5 col-sm-5">
                                     <h4 class="text-center"><b>Vendedores Disponibles</b></h4>
                                     <div class="pool">
-                                        <div class="col-md-12" ng-repeat="MD in $ctrl.RelRedMedioDisList" style="border-bottom: dashed #c2c2c2 0.5px; font-size:11px;">
+                                        <div class="col-md-12" ng-repeat="VP in ctrl.VendedorProList" style="border-bottom: dashed #c2c2c2 0.5px; font-size:11px;">
                                             <div class="col-md-9" style="padding-top: 3%;">
-                                                <b>{{ MD.Descripcion }}</b>
+                                                <b>{{ VP.Nombre }}</b>
                                             </div>
                                             <div class="col-md-3">
-                                                <button type="button" class="btn ink-reaction btn-xs btn-info" ng-click="$ctrl.UpdateRelRedMedio(3, MD.IdMedio);" title="Agregar Medio"><i class="md-chevron-right"></i></button>
+                                                <button type="button" class="btn ink-reaction btn-xs btn-info" ng-click="ctrl.AddVendedor(0, VP.Clv_Vendedor);" title="Agregar Medio"><i class="md-chevron-right"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -59,18 +59,18 @@
                                     <br>
                                     <br>
                                     <br>
-                                    <button type="button" class="btn btn-success btn-xs btn-block" ng-click="$ctrl.UpdateRelRedMedio(1, 0);" title="Agregar todos los Medios" ng-disabled="$ctrl.BlockMedioDis">Agregar Todos <i class="fa fa-angle-double-right"></i></button>
-                                    <button type="button" class="btn btn-danger btn-xs btn-block" ng-click="$ctrl.UpdateRelRedMedio(2, 0);" title="Quitar todos los Medios" ng-disabled="$ctrl.BlockMedioInc"><i class="fa fa-angle-double-left"></i> Quitar Todos</button>
+                                    <button type="button" class="btn btn-success btn-xs btn-block" ng-click="ctrl.AddVendedor(1, 0);" title="Agregar todos los Medios" ng-disabled="$ctrl.BlockMedioDis">Agregar Todos <i class="fa fa-angle-double-right"></i></button>
+                                    <button type="button" class="btn btn-danger btn-xs btn-block" ng-click="ctrl.DeleteVendedor(1, 0);" title="Quitar todos los Medios" ng-disabled="$ctrl.BlockMedioInc"><i class="fa fa-angle-double-left"></i> Quitar Todos</button>
                                 </div>
                                 <div class="col-lg-5 col-md-5 col-sm-5">
                                     <h4 class="text-center"><b>Vendedores Seleccionados</b></h4>                
                                     <div class="pool">
-                                        <div class="col-md-12" ng-repeat="MI in $ctrl.RelRedMedioIncList" style="border-bottom: dashed #c2c2c2 0.5px; font-size:11px;">
+                                        <div class="col-md-12" ng-repeat="VT in ctrl.VendedorTmpList" style="border-bottom: dashed #c2c2c2 0.5px; font-size:11px;">
                                             <div class="col-md-3">
-                                                <button type="button" class="btn ink-reaction btn-xs btn-warning" ng-click="$ctrl.UpdateRelRedMedio(4, MI.IdMedio);" title="Quitar Medio"><i class="md-chevron-left"></i></button> 
+                                                <button type="button" class="btn ink-reaction btn-xs btn-warning" ng-click="ctrl.DeleteVendedor(0, VT.Clv_Vendedor);" title="Quitar Medio"><i class="md-chevron-left"></i></button> 
                                             </div>
                                             <div class="col-md-9 text-right" style="padding-top: 3%;">
-                                                <strong><b>{{ MI.Descripcion }}</b></strong>
+                                                <strong><b>{{ VT.Nombre }}</b></strong>
                                             </div>
                                         </div>
                                     </div>
