@@ -33,7 +33,8 @@ angular
             GetInsertarVendedorTmp: '/FoliosCancelados/GetInsertarVendedorTmp',
             GetBorrarVendedorTmp: '/FoliosCancelados/GetBorrarVendedorTmp',
             GetMuestraFoliosCancelados: '/EvidenciasDeCancelados/GetMuestraFoliosCancelados',
-            GetDameTipoEvidencia: '/EvidenciasDeCancelados/GetDameTipoEvidencia'
+            GetDameTipoEvidencia: '/EvidenciasDeCancelados/GetDameTipoEvidencia',
+            GetMuestra_Compania_RelUsuarioList: '/Muestra_Compania_RelUsuario/GetMuestra_Compania_RelUsuarioList'
         };
 
         factory.GetCatalogoSeriesList = function(ObjSeriesList){
@@ -398,6 +399,19 @@ angular
             var Parametros = {'ObjTipoEvidencia': ObjTipoEvidencia};
             console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetDameTipoEvidencia, JSON.stringify(Parametros), config).then(function(response){
+                deferred.resolve(response.data);
+            }).catch(function(response){
+                deferred.reject(response);
+            });
+            return deferred.promise;
+        };
+
+        factory.GetMuestra_Compania_RelUsuarioList = function(ClvUsuario){
+            var deferred = $q.defer();
+            var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+            var Parametros = {'ClvUsuario': ClvUsuario};
+            console.log(Parametros);
+            $http.post(globalService.getUrl() + paths.GetMuestra_Compania_RelUsuarioList, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
                 deferred.reject(response);

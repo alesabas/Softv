@@ -2,7 +2,14 @@
 
 angular
     .module('softvApp')
-    .controller('RangosCtrl', function(VentasFactory, ngNotify, $uibModal, $rootScope, $state, $localStorage){
+    .controller('RangosCtrl', function(SeriesFactory, ngNotify, $uibModal, $rootScope, $state, $localStorage){
+
+        function initData(){
+            SeriesFactory.GetMuestra_Compania_RelUsuarioList($localStorage.currentUser.idUsuario).then(function(data){
+                console.log(data);
+                vm.PlazaList = data.GetMuestra_Compania_RelUsuarioListResult;
+            });
+        }
 
         function OpenRangoAdd(){
             var modalInstance = $uibModal.open({
@@ -87,5 +94,6 @@ angular
         vm.OpenRangoUpdate = OpenRangoUpdate;
         vm.OpenRangoView = OpenRangoView;
         vm.OpenRangoDelete = OpenRangoDelete;
+        initData();
 
     });
