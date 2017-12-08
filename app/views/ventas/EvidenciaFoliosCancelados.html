@@ -1,6 +1,6 @@
 <style type="text/css">
 	.table-scroll {
-        height:230px;
+        height:380px;
         overflow:auto;  
         margin-top:20px;
     }
@@ -28,7 +28,7 @@
                         <div class="input-group">
                             <input name="InpBusqueda" class="form-control input-sm" ng-model="$ctrl.Busqueda" placeholder="Buscar Por">
                             <span class="input-group-btn">
-                                <button type="button" class="btn btn-warning btn-xs" title="Buscar"><i class="fa fa-search"></i> Buscar</button>
+                                <button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.GetFolioCanceladoList(1)" title="Buscar"><i class="fa fa-search"></i> Buscar</button>
                             </span>
                         </div>
                     </div>
@@ -41,17 +41,20 @@
                                 <th><b><small>Serie</small></b></th>
                                 <th><b><small>Vendedor</small></b></th>
                                 <th><b><small>Evidencia</small></b></th>
+                                <th><b><small></small></b></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-show="$ctrl.SinRegistros">
-                                <td class="text-center" colspan="7">SIN REGISTROS</td>
+                            <tr ng-show="!$ctrl.ViewList">
+                                <td class="text-center" colspan="4">SIN REGISTROS</td>
                             </tr>
-                            <tr ng-repeat="X in $ctrl.RefPerList | orderBy:'id_referencia'">
-                                <td><small>{{ X.id_referencia }}</small></td>
+                            <tr ng-repeat="X in $ctrl.FolioCanceladoList | orderBy:'id_referencia'" ng-show="$ctrl.ViewList">
+                                <td><small>{{ X.folio }}</small></td>
+                                <td><small>{{ X.serie }}</small></td>
                                 <td><small>{{ X.nombre }}</small></td>
-                                <td><small>{{ X.direccion }}</small></td>
-                                <td><small>{{ X.telefono }}</small></td>
+                                <td ng-if="X.tieneEvidencia == true"><small>Si</small></td>
+                                <td ng-if="X.tieneEvidencia == false"><small>No</small></td>
+                                <td><button class="btn btn-success btn-xs" title="Ver Evidencia" ng-click="$ctrl.GetEvidencia(X)" ng-if="X.tieneEvidencia == true"><i class="fa fa-eye"></i> Ver</button></td>
                             </tr>
                         </tbody>
                     </table>
