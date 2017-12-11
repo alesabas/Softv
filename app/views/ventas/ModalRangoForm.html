@@ -7,29 +7,30 @@
         <fieldset ng-disabled="ctrl.View">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="col-md-offset-2 col-md-3">
+                    <div class="col-md-offset-1 col-md-3">
                         <b>Distribuidor:</b>
                     </div>
-                    <div class="col-md-5">
-                        <select name="SlcDistrubidor" class="form-control input-sm" ng-model="ctrl.Distribuidor" ng-options="D.Nombre for D in ctrl.DistribuidoresList track by D.Clave">
-                            <option value="">Selecciona</option>
+                    <div class="col-md-7">
+                        <select name="SlcPlaza" class="form-control input-sm" ng-model="ctrl.Plaza" ng-options="P.razon_social for P in ctrl.PlazaList track by P.id_compania" ng-change="ctrl.GetRangoList()" validate-on="dirty" required required-message="'Obligatorio'">
+                            <option value="">Selecciona Plaza</option>
                         </select>
                     </div>
                 </div>
                 <div class="col-md-12">
-                    <div class="col-md-offset-2 col-md-3">
-                        <b>Rango Inferior:</b>
-                    </div>
-                    <div class="col-md-5">
-                        <input type="number" name="RangoInferior" class="form-control input-sm" ng-model="ctrl.RangoInferior">
-                    </div>
+                    <br>
                 </div>
                 <div class="col-md-12">
-                    <div class="col-md-offset-2 col-md-3">
+                    <div class="col-md-offset-1 col-md-3">
+                        <b>Rango Inferior:</b>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="number" name="RangoInferior" class="form-control input-sm" ng-model="ctrl.RangoInferior" validate-on="dirty" min="0" validator="ctrl.RangoInferior < ctrl.RangoSuperior" required required-message="'Obligatorio.'" invalid-message="'Invalido.'">
+                    </div>
+                    <div class="col-md-3">
                         <b>Rango Superior:</b>
                     </div>
-                    <div class="col-md-5">
-                        <input type="number" name="RangoSuperior" class="form-control input-sm" ng-model="ctrl.RangoSuperior">
+                    <div class="col-md-2">
+                        <input type="number" name="RangoSuperior" class="form-control input-sm" ng-model="ctrl.RangoSuperior"  validate-on="dirty" min="0" validator="ctrl.RangoSuperior > ctrl.RangoInferior" required required-message="'Obligatorio.'" invalid-message="'Invalido.'">
                     </div>
                 </div>
             </div>

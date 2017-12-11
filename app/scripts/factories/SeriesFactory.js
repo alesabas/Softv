@@ -34,7 +34,14 @@ angular
             GetBorrarVendedorTmp: '/FoliosCancelados/GetBorrarVendedorTmp',
             GetMuestraFoliosCancelados: '/EvidenciasDeCancelados/GetMuestraFoliosCancelados',
             GetDameTipoEvidencia: '/EvidenciasDeCancelados/GetDameTipoEvidencia',
-            GetMuestra_Compania_RelUsuarioList: '/Muestra_Compania_RelUsuario/GetMuestra_Compania_RelUsuarioList'
+            GetMuestra_Compania_RelUsuarioList: '/Muestra_Compania_RelUsuario/GetMuestra_Compania_RelUsuarioList',
+            GetMuestraCatalogoDeRangos: '/Rangos/GetMuestraCatalogoDeRangos',
+            GetuspChecaSiGuardaRango: '/Rangos/GetuspChecaSiGuardaRango',
+            GetNueCatalogoDeRangos: '/Rangos/GetNueCatalogoDeRangos',
+            GetConCatalogoDeRangos: '/Rangos/GetConCatalogoDeRangos',
+            GetValidaRangosAEliminar: '/Rangos/GetValidaRangosAEliminar',
+            GetModCatalogoDeRangos: '/Rangos/GetModCatalogoDeRangos',
+            GetBorCatalogoDeRangos: '/Rangos/GetBorCatalogoDeRangos'
         };
 
         factory.GetCatalogoSeriesList = function(ObjSeriesList){
@@ -412,6 +419,97 @@ angular
             var Parametros = {'ClvUsuario': ClvUsuario};
             console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetMuestra_Compania_RelUsuarioList, JSON.stringify(Parametros), config).then(function(response){
+                deferred.resolve(response.data);
+            }).catch(function(response){
+                deferred.reject(response);
+            });
+            return deferred.promise;
+        };
+
+        factory.GetMuestraCatalogoDeRangos = function(ObjRango){
+            var deferred = $q.defer();
+            var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+            var Parametros = {'ObjRango': ObjRango};
+            console.log(Parametros);
+            $http.post(globalService.getUrl() + paths.GetMuestraCatalogoDeRangos, JSON.stringify(Parametros), config).then(function(response){
+                deferred.resolve(response.data);
+            }).catch(function(response){
+                deferred.reject(response);
+            });
+            return deferred.promise;
+        };
+
+        factory.GetuspChecaSiGuardaRango = function(ObjRango){
+            var deferred = $q.defer();
+            var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+            var Parametros = {'ObjRango': ObjRango};
+            console.log(Parametros);
+            $http.post(globalService.getUrl() + paths.GetuspChecaSiGuardaRango, JSON.stringify(Parametros), config).then(function(response){
+                deferred.resolve(response.data);
+            }).catch(function(response){
+                deferred.reject(response);
+            });
+            return deferred.promise;
+        };
+
+        factory.GetNueCatalogoDeRangos = function(ObjRango){
+            var deferred = $q.defer();
+            var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+            var Parametros = {'ObjRango': ObjRango};
+            console.log(Parametros);
+            $http.post(globalService.getUrl() + paths.GetNueCatalogoDeRangos, JSON.stringify(Parametros), config).then(function(response){
+                deferred.resolve(response.data);
+            }).catch(function(response){
+                deferred.reject(response);
+            });
+            return deferred.promise;
+        };
+
+        factory.GetConCatalogoDeRangos = function(ObjRango){
+            var deferred = $q.defer();
+            var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+            var Parametros = {'ObjRango': ObjRango};
+            console.log(Parametros);
+            $http.post(globalService.getUrl() + paths.GetConCatalogoDeRangos, JSON.stringify(Parametros), config).then(function(response){
+                deferred.resolve(response.data);
+            }).catch(function(response){
+                deferred.reject(response);
+            });
+            return deferred.promise;
+        };
+
+        factory.GetValidaRangosAEliminar = function(ObjRango){
+            var deferred = $q.defer();
+            var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+            var Parametros = {'ObjRango': ObjRango};
+            console.log(Parametros);
+            $http.post(globalService.getUrl() + paths.GetValidaRangosAEliminar, JSON.stringify(Parametros), config).then(function(response){
+                deferred.resolve(response.data);
+            }).catch(function(response){
+                deferred.reject(response);
+            });
+            return deferred.promise;
+        };
+
+        factory.GetModCatalogoDeRangos = function(ObjRango){
+            var deferred = $q.defer();
+            var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+            var Parametros = {'ObjRango': ObjRango};
+            console.log(Parametros);
+            $http.post(globalService.getUrl() + paths.GetModCatalogoDeRangos, JSON.stringify(Parametros), config).then(function(response){
+                deferred.resolve(response.data);
+            }).catch(function(response){
+                deferred.reject(response);
+            });
+            return deferred.promise;
+        };
+
+        factory.GetBorCatalogoDeRangos = function(ObjRango){
+            var deferred = $q.defer();
+            var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+            var Parametros = {'ObjRango': ObjRango};
+            console.log(Parametros);
+            $http.post(globalService.getUrl() + paths.GetBorCatalogoDeRangos, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
                 deferred.reject(response);

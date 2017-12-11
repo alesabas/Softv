@@ -8,26 +8,41 @@ angular
             SeriesFactory.GetMuestra_Compania_RelUsuarioList($localStorage.currentUser.idUsuario).then(function(data){
                 console.log(data);
                 vm.PlazaList = data.GetMuestra_Compania_RelUsuarioListResult;
+                vm.Plaza = vm.PlazaList[0];
+                GetRangoList();
             });
         }
 
-        function OpenRangoAdd(){
-            var modalInstance = $uibModal.open({
-                animation: true,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: 'views/ventas/ModalRangoForm.html',
-                controller: 'ModalRangoAddCtrl',
-                controllerAs: 'ctrl',
-                backdrop: 'static',
-                keyboard: false,
-                class: 'modal-backdrop fade',
+        function GetRangoList(){
+            var ObjRango = {
+                'CveRango': 0,
+                'idcompania': vm.Plaza.id_compania 
+            };
+            SeriesFactory.GetMuestraCatalogoDeRangos(ObjRango).then(function(data){
+                console.log(data);
+                vm.RangoList = data.GetMuestraCatalogoDeRangosResult;
+                vm.ViewList = (vm.RangoList.length > 0)? true:false;
+                console.log(vm.RangoList, vm.ViewList);
+            });
+        }
+
+        function OpenRangoAdd(){ 
+            var modalInstance = $uibModal.open({ 
+                animation: true, 
+                ariaLabelledBy: 'modal-title', 
+                ariaDescribedBy: 'modal-body', 
+                templateUrl: 'views/ventas/ModalRangoForm.html', 
+                controller: 'ModalRangoAddCtrl', 
+                controllerAs: 'ctrl', 
+                backdrop: 'static', 
+                keyboard: false, 
+                class: 'modal-backdrop fade', 
                 size: 'md'
-            });
-        }
+            }); 
+        } 
 
-        function OpenRangoUpdate(IdIP){
-            var IdIP = IdIP;
+        function OpenRangoUpdate(CveRango){
+            var CveRango = CveRango;
             var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
@@ -40,15 +55,15 @@ angular
                 class: 'modal-backdrop fade',
                 size: 'md',
                 resolve: {
-                    IdIP: function () {
-                        return IdIP;
+                    CveRango: function () {
+                        return CveRango;
                     }
                 }
             });
         }
 
-        function OpenRangoView(IdIP){
-            var IdIP = IdIP;
+        function OpenRangoView(CveRango){
+            var CveRango = CveRango;
             var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
@@ -61,15 +76,15 @@ angular
                 class: 'modal-backdrop fade',
                 size: 'md',
                 resolve: {
-                    IdIP: function () {
-                        return IdIP;
+                    CveRango: function () {
+                        return CveRango;
                     }
                 }
             });
         }
 
-        function OpenRangoDelete(IdIP){
-            var IdIP = IdIP;
+        function OpenRangoDelete(CveRango){
+            var CveRango = CveRango;
             var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
@@ -82,14 +97,19 @@ angular
                 class: 'modal-backdrop fade',
                 size: 'sm',
                 resolve: {
-                    IdIP: function () {
-                        return IdIP;
+                    CveRango: function () {
+                        return CveRango;
                     }
                 }
             });
         }
 
+        $rootScope.$on('LoadRangoList', function(e, IdContrato){
+            GetRangoList();
+        });
+
         var vm = this;
+        vm.GetRangoList = GetRangoList;
         vm.OpenRangoAdd = OpenRangoAdd;
         vm.OpenRangoUpdate = OpenRangoUpdate;
         vm.OpenRangoView = OpenRangoView;
