@@ -26,6 +26,9 @@ angular
                 if(data.GetValidaRangosAEliminarResult == 0){
                     SeriesFactory.GetBorCatalogoDeRangos(ObjRango).then(function(data){
                         console.log(data);
+                        ngNotify.set('CORRECTO, Se guardo el Rango.', 'success');
+                        $rootScope.$emit('LoadRangoList');
+                        cancel();
                     });
                 }else{
                     ngNotify.set('ERROR, No se puede eliminar porque al rango ya se le asigno un precio.', 'warn');
