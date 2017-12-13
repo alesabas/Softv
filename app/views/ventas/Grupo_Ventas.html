@@ -1,6 +1,6 @@
 <style type="text/css">
 	.table-scroll {
-        height:230px;
+        height:300px;
         overflow:auto;  
         /*margin-top:20px;*/
     }
@@ -21,6 +21,86 @@
         </div>
     </div>
     <div class="card-body">
+        <form name="FormGrupo" angular-validator-submit="$ctrl.SaveGrupo()" novalidate angular-validator autocomplete="off">
+        <!--
+        <form name="FormGrupo" novalidate angular-validator autocomplete="off">
+        -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-offset-4 col-md-4">
+                    <div class="col-md-3">
+                        <b>Clave:</b>
+                    </div>
+                    <div class="col-md-9">
+                        <input name="InpClave" class="form-control input-sm" ng-model="$ctrl.Clave" ng-disabled="true">
+                    </div>
+                </div>
+                <div class="col-md-offset-4 col-md-4">
+                    <div class="col-md-3">
+                        <b>Grupo:</b>
+                    </div>
+                    <div class="col-md-9">
+                        <input name="InpGrupo" class="form-control input-sm" ng-model="$ctrl.Grupo" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Invalido.'" ng-disabled="$ctrl.DisGrupo">
+                    </div>
+                </div>
+                <div class="col-md-offset-4 col-md-4">
+                    <div class="col-md-3">
+                        <b>Plaza:</b>
+                    </div>
+                    <div class="col-md-9">
+                        <select name="SlcPlaza" class="form-control input-sm" ng-model="$ctrl.Plaza" ng-options="P.razon_social for P in $ctrl.PlazaList track by P.id_compania" ng-change="$ctrl.GetGrupoList()" ng-disabled="$ctrl.DisPlaza" validate-on="dirty" required required-message="'Obligatorio'">
+                            <option value="">Selecciona</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <br>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-offset-4 col-md-4">
+                    <div class="col-md-4">
+                        <button type="button" class="btn btn-primary btn-block btn-xs" ng-click="$ctrl.OpenFormGrupo(1)" title="Consultar Rango" ng-if="$ctrl.DisBtnNuevo"><i class="fa fa-plus"></i> Nuevo</button>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="submit" class="btn btn-success btn-block btn-xs" title="Consultar Rango" ng-if="$ctrl.DisBtnGuardar"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="button" class="btn btn-default btn-block btn-xs" ng-click="$ctrl.OpenFormGrupo(0)" title="Consultar Rango" ng-if="$ctrl.DisBtnCancelar"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-offset-3 col-md-6">
+                    <div class="col-md-12 table-scroll">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th width="40%"><b>Clave Grupo</b></th>
+                                    <th width="40%"><b>Comisión</b></th>
+                                    <th width="20%"><b></b></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-show="!$ctrl.ViewList">
+                                    <td class="text-center" colspan="3">SIN REGISTROS</td>
+                                </tr>
+                                <tr ng-repeat="X in $ctrl.GrupoList" ng-show="$ctrl.ViewList">
+                                    <td>{{ X.Clv_Grupo }}</td>
+                                    <td>{{ X.Grupo }}</td>
+                                    <td><button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.OpenFormGrupo(2)" title="Editar Rango" ng-disabled="$ctrl.DisEditar"><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
+                                    <!--
+                                    <td><button type="button" class="btn btn-info btn-xs" ng-click="$ctrl.OpenRangoView();" title="Consultar Rango"><i class="fa fa-eye"></i> CONSULTAR</button></td>
+                                    <td><button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.OpenRangoDelete();" title="Eliminar Rango"><i class="fa fa-trash"></i> ELIMINAR</button></td>
+                                    -->
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--
         <div class="row">
             <div class="col-md-12">
                 <div class="col-md-6">
@@ -41,6 +121,7 @@
                                     <td><button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.OpenRangoUpdate();" title="Editar Rango"><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
                                     <td><button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.OpenRangoDelete();" title="Eliminar Rango"><i class="fa fa-trash"></i> ELIMINAR</button></td>
                                     -->
+                                    <!--
                                 </tr>
                             </tbody>
                         </table>
@@ -82,5 +163,6 @@
                 </div>
             </div>
         </div>
+        -->
     </div>
 </div>
