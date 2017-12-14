@@ -22,9 +22,6 @@
     </div>
     <div class="card-body">
         <form name="FormGrupo" angular-validator-submit="$ctrl.SaveGrupo()" novalidate angular-validator autocomplete="off">
-        <!--
-        <form name="FormGrupo" novalidate angular-validator autocomplete="off">
-        -->
         <div class="row">
             <div class="col-md-12">
                 <div class="col-md-offset-4 col-md-4">
@@ -40,7 +37,7 @@
                         <b>Grupo:</b>
                     </div>
                     <div class="col-md-9">
-                        <input name="InpGrupo" class="form-control input-sm" ng-model="$ctrl.Grupo" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Invalido.'" ng-disabled="$ctrl.DisGrupo">
+                        <input name="InpGrupo" class="form-control input-sm" ng-model="$ctrl.Grupo" validate-on="dirty" ng-required="$ctrl.ReqGrupo" required-message="'Obligatorio'" invalid-message="'Invalido.'" ng-disabled="$ctrl.DisGrupo">
                     </div>
                 </div>
                 <div class="col-md-offset-4 col-md-4">
@@ -60,7 +57,7 @@
             <div class="col-md-12">
                 <div class="col-md-offset-4 col-md-4">
                     <div class="col-md-4">
-                        <button type="button" class="btn btn-primary btn-block btn-xs" ng-click="$ctrl.OpenFormGrupo(1)" title="Consultar Rango" ng-if="$ctrl.DisBtnNuevo"><i class="fa fa-plus"></i> Nuevo</button>
+                        <button type="button" class="btn btn-primary btn-block btn-xs" ng-click="$ctrl.OpenFormGrupo(1, '')" title="Consultar Rango" ng-if="$ctrl.DisBtnNuevo"><i class="fa fa-plus"></i> Nuevo</button>
                     </div>
                     <div class="col-md-4">
                         <button type="submit" class="btn btn-success btn-block btn-xs" title="Consultar Rango" ng-if="$ctrl.DisBtnGuardar"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
@@ -88,11 +85,7 @@
                                 <tr ng-repeat="X in $ctrl.GrupoList" ng-show="$ctrl.ViewList">
                                     <td>{{ X.Clv_Grupo }}</td>
                                     <td>{{ X.Grupo }}</td>
-                                    <td><button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.OpenFormGrupo(2)" title="Editar Rango" ng-disabled="$ctrl.DisEditar"><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
-                                    <!--
-                                    <td><button type="button" class="btn btn-info btn-xs" ng-click="$ctrl.OpenRangoView();" title="Consultar Rango"><i class="fa fa-eye"></i> CONSULTAR</button></td>
-                                    <td><button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.OpenRangoDelete();" title="Eliminar Rango"><i class="fa fa-trash"></i> ELIMINAR</button></td>
-                                    -->
+                                    <td><button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.OpenFormGrupo(2, X)" title="Editar Rango" ng-disabled="$ctrl.DisBtnEditar"><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -100,69 +93,5 @@
                 </div>
             </div>
         </div>
-        <!--
-        <div class="row">
-            <div class="col-md-12">
-                <div class="col-md-6">
-                    <div class="col-md-12 table-scroll">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th width="50%"><b>Clave Grupo</b></th>
-                                    <th width="50%"><b>Comisión</b></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>{{ X.Clv_Serie }}</td>
-                                    <td>{{ X.Nombre }}</td>
-                                    <!--
-                                    <td><button type="button" class="btn btn-info btn-xs" ng-click="$ctrl.OpenRangoView();" title="Consultar Rango"><i class="fa fa-eye"></i> CONSULTAR</button></td>
-                                    <td><button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.OpenRangoUpdate();" title="Editar Rango"><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
-                                    <td><button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.OpenRangoDelete();" title="Eliminar Rango"><i class="fa fa-trash"></i> ELIMINAR</button></td>
-                                    -->
-                                    <!--
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="col-md-12">
-                        <div class="col-md-offset-1 col-md-4">
-                            <b>Clave:</b>
-                        </div>
-                        <div class="col-md-6">
-                            <input name="InpClave" class="form-control input-sm" ng-model="$ctrl.Clave">
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <br>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="col-md-offset-1 col-md-4">
-                            <b>Grupo:</b>
-                        </div>
-                        <div class="col-md-6">
-                            <input name="InpGrupo" class="form-control input-sm" ng-model="$ctrl.Grupo">
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <br>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="col-md-offset-1 col-md-4">
-                            <b>Plaza:</b>
-                        </div>
-                        <div class="col-md-6">
-                            <select name="SlcPlaza" class="form-control input-sm" ng-model="$ctrl.Plaza" ng-options="D.Nombre for D in $ctrl.PlazaList track by D.Clave">
-                                <option value="">Selecciona</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        -->
     </div>
 </div>

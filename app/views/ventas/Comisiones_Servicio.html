@@ -1,8 +1,7 @@
 <style type="text/css">
 	.table-scroll {
-        height:230px;
-        overflow:auto;  
-        /*margin-top:20px;*/
+        height:290px;
+        overflow:auto;
     }
 </style>
 <div class="card animated fadeIn" style="margin-top:20px;">
@@ -16,12 +15,103 @@
         </header>
         <div class="tools">
 			<div class="btn-group">
-				<button type="button" class="btn btn-primary btn-sm" ng-click="$ctrl.OpenRangoAdd();" title="Crear una Comisión por Servicio Nueva"><i class="fa fa-plus"></i> NUEVA COMISIÓN</button>
 			</div>
         </div>
     </div>
     <div class="card-body">
         <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-offset-4 col-md-4">
+                    <div class="col-md-4">
+                        <b>Distribuidor:</b>
+                    </div>
+                    <div class="col-md-8">
+                        <select name="SlcDistribuidor" class="form-control input-sm" ng-model="$ctrl.Plaza" ng-options="P.razon_social for P in $ctrl.PlazaList track by P.id_compania" ng-change="$ctrl.GetTipoServicioList()">
+                            <option value="">Selecciona Distribuidor</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-offset-4 col-md-4">
+                    <div class="col-md-4">
+                        <b>Tipo de Servicio:</b>
+                    </div>
+                    <div class="col-md-8">
+                        <select name="SlcTipoServicio" class="form-control input-sm" ng-model="$ctrl.TipoServicio" ng-options="TS.Servicio for TS in $ctrl.TipoServicioList track by TS.Clv_TipServ" ng-change="$ctrl.GetServicoList()">
+                            <option value="">Selecciona Tipo de Servicio</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-offset-4 col-md-4">
+                    <div class="col-md-4">
+                        <b>Servicio:</b>
+                    </div>
+                    <div class="col-md-8">
+                        <select name="SlcServicio" class="form-control input-sm" ng-model="$ctrl.Servicio" ng-options="S.Descripcion for S in $ctrl.ServicioList track by S.CLV_SERVICIO" ng-change="$ctrl.GetRangoList()">
+                            <option value="">Selecciona Servicio</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-offset-4 col-md-4">
+                    <div class="col-md-4">
+                        <b>Rango:</b>
+                    </div>
+                    <div class="col-md-8">
+                        <select name="SlcRango" class="form-control input-sm" ng-model="$ctrl.Rango" ng-options="R.Rango for R in $ctrl.RangoList track by R.CLV_RANGO" ng-change="$ctrl.GetComisionList()">
+                            <option value="">Selecciona Rango</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <br>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-offset-4 col-md-4">
+                    <div class="col-md-4">
+                        <button type="button" class="btn btn-primary btn-block btn-xs" ng-click="$ctrl.OpenFormGrupo(1, '')" title="Consultar Rango" ng-if="$ctrl.DisBtnNuevo"><i class="fa fa-plus"></i> Nuevo</button>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="submit" class="btn btn-success btn-block btn-xs" title="Consultar Rango" ng-if="$ctrl.DisBtnGuardar"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.DeleteComision();" title="Eliminar Rango"><i class="fa fa-trash"></i> Eliminar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-offset-3 col-md-6">
+                    <div class="col-md-12 table-scroll">
+                        <form name="FormGrupo" novalidate angular-validator autocomplete="off">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th width="30%"><b>Grupo</b></th>
+                                    <th width="30%"><b>Comisión</b></th>
+                                    <th width="40%"><b>Comisión</b></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-show="!$ctrl.ViewList">
+                                    <td colspan="4" class="text-center">SIN REGISTROS</td>
+                                </tr>
+                                <tr ng-repeat="X in $ctrl.ComisionList" ng-show="$ctrl.ViewList">
+                                    <td>{{ X.Grupo }}</td>
+                                    <td><input type="number" name="InpCom{{X.CLV_COMISION}}" class="form-control input-sm" ng-model="X.COMISION" min="0" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Invalido.'"></td>
+                                    <!--
+                                    <td><button type="button" class="btn btn-info btn-xs" ng-click="$ctrl.OpenRangoView();" title="Consultar Rango"><i class="fa fa-eye"></i> CONSULTAR</button></td>
+                                    -->
+                                    <td><button type="button" class="btn btn-success btn-xs" title="Guardar Comisión" ng-click="$ctrl.SaveComision(X)" ng-disabled="FormGrupo.InpCom{{X.CLV_COMISION}}.$invalid"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button></td>
+                                    <!--
+                                    <td><button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.DeleteComision(X);" title="Eliminar Rango"><i class="fa fa-trash"></i> Eliminar</button></td>
+                                    -->
+                                </tr>
+                            </tbody>
+                        </table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!--
             <div class="col-md-12">
                 <div class="col-md-6">
                     <div class="col-md-12 table-scroll">
@@ -36,11 +126,11 @@
                                 <tr>
                                     <td>{{ X.Clv_Serie }}</td>
                                     <td>{{ X.Nombre }}</td>
-                                    <!--
+                                    
                                     <td><button type="button" class="btn btn-info btn-xs" ng-click="$ctrl.OpenRangoView();" title="Consultar Rango"><i class="fa fa-eye"></i> CONSULTAR</button></td>
                                     <td><button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.OpenRangoUpdate();" title="Editar Rango"><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
                                     <td><button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.OpenRangoDelete();" title="Eliminar Rango"><i class="fa fa-trash"></i> ELIMINAR</button></td>
-                                    -->
+                                    
                                 </tr>
                             </tbody>
                         </table>
@@ -98,6 +188,7 @@
                     </div>
                 </div>
             </div>
+            -->
         </div>
     </div>
 </div>

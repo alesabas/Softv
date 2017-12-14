@@ -7,6 +7,8 @@ angular
         var factory = {};
         var paths = {
             GetConGrupoVentas1: '/GrupoVentas/GetConGrupoVentas1',
+            GetNueGrupoVentas: '/GrupoVentas/GetNueGrupoVentas',
+            GetModGrupoVentas:'/GrupoVentas/GetModGrupoVentas'
         };
 
         factory.GetConGrupoVentas1 = function(idcompania){
@@ -15,6 +17,32 @@ angular
             var Parametros = {'idcompania': idcompania};
             console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetConGrupoVentas1, JSON.stringify(Parametros), config).then(function(response){
+                deferred.resolve(response.data);
+            }).catch(function(response){
+                deferred.reject(response);
+            });
+            return deferred.promise;
+        };
+
+        factory.GetNueGrupoVentas = function(ObjGrupo){
+            var deferred = $q.defer();
+            var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+            var Parametros = {'ObjGrupo': ObjGrupo};
+            console.log(Parametros);
+            $http.post(globalService.getUrl() + paths.GetNueGrupoVentas, JSON.stringify(Parametros), config).then(function(response){
+                deferred.resolve(response.data);
+            }).catch(function(response){
+                deferred.reject(response);
+            });
+            return deferred.promise;
+        };
+
+        factory.GetModGrupoVentas = function(ObjGrupo){
+            var deferred = $q.defer();
+            var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+            var Parametros = {'ObjGrupo': ObjGrupo};
+            console.log(Parametros);
+            $http.post(globalService.getUrl() + paths.GetModGrupoVentas, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
                 deferred.reject(response);
