@@ -567,6 +567,36 @@ angular
                 templateUrl: 'views/catalogos/Ips.html',
                 controller: 'IPsCtrl',
                 controllerAs: '$ctrl'
+            },
+            {
+                name: 'home.catalogos.combo',
+                data: {
+                    pageTitle: 'SOFTV | CATÁLOGO DESCUENTO COMBO',
+                    permissions: {
+                        options: {
+                            reload: false
+                        }
+                    }
+                },
+                url: '/catalogo/descuentocombo',
+                templateUrl: 'views/catalogos/descuentoCombo.html',
+                controller: 'descuentoComboCtrl',
+                controllerAs: '$ctrl'
+            },
+            {
+                name: 'home.catalogos.comboNuevo',
+                data: {
+                    pageTitle: 'SOFTV | CATÁLOGO DESCUENTO COMBO',
+                    permissions: {
+                        options: {
+                            reload: false
+                        }
+                    }
+                },
+                url: '/catalogo/nuevodescuentocombo',
+                templateUrl: 'views/catalogos/NuevodescuentoCombo.html',
+                controller: 'NuevodescuentoComboCtrl',
+                controllerAs: '$ctrl'
             }
         ];
         states.forEach(function (state) {

@@ -212,8 +212,132 @@ angular
       GetDeepTblNet: '/TblNet/GetDeepTblNet',
       UpdateTblNet: '/TblNet/UpdateTblNet',
       GetCONSULTAClv_Equi: '/NUEVOClv_Equi/GetCONSULTAClv_Equi',
-      GetCatMediosList: '/CatMedios/GetCatMediosList'
+      GetCatMediosList: '/CatMedios/GetCatMediosList',
+      GetConDescuentoCombo:'/CatMedios/GetConDescuentoCombo',
+      Getsp_muestraServiciosCombos:'/CatMedios/Getsp_muestraServiciosCombos',
+      Get_clv_session_Reportes:'/CatMedios/Get_clv_session_Reportes',
+      GetConDetDescuentoCombo:'/CatMedios/GetConDetDescuentoCombo',
+      GetAgrPreDetDescuentoCombo:'/CatMedios/GetAgrPreDetDescuentoCombo'
     };
+
+
+    factory.GetAgrPreDetDescuentoCombo = function (obj) {
+      var deferred = $q.defer();
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      var Parametros = {
+        'DescuentoCombo':{
+          'Clv_Session': obj.Clv_Session,
+          'Clv_TipSer':obj.Clv_TipSer,
+          'Clv_Servicio':obj.Clv_Servicio,
+          'Cont':obj.Cont,
+          'Mens':obj.Mens,
+          'Reco':obj.Reco,
+          'Puntos':obj.Puntos,
+          'Llamada':obj.Llamada,
+          'Descripcion':obj.Descripcion,
+          'Op':obj.Op
+        }      
+      };
+
+      $http.post(globalService.getUrl() + paths.GetAgrPreDetDescuentoCombo,Parametros, config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+
+    factory.GetConDetDescuentoCombo = function (Clv_Descuento,Clv_TipoCliente,Descripcion,Clv_Session,Op) {
+      var deferred = $q.defer();
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      var Parametros = {
+        'Clv_Descuento': Clv_Descuento,
+        'Clv_TipoCliente':Clv_TipoCliente,
+        'Descripcion':Descripcion,
+        'Clv_Session':Clv_Session,
+        'Op':Op
+      };
+
+      $http.post(globalService.getUrl() + paths.GetConDetDescuentoCombo,Parametros, config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+
+
+    
+    factory.Get_clv_session_Reportes = function () {
+      var deferred = $q.defer();
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };  
+      $http.get(globalService.getUrl() + paths.Get_clv_session_Reportes, config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+
+
+    factory.Getsp_muestraServiciosCombos = function (Clv_TipSer,Clv_Servicio,Op,idcompania) {
+      var deferred = $q.defer();
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      var Parametros = {
+        'Clv_TipSer': Clv_TipSer,
+        'Clv_Servicio':Clv_Servicio,
+        'Op':Op,
+        'idcompania':idcompania
+      };
+      $http.post(globalService.getUrl() + paths.Getsp_muestraServiciosCombos, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+
+    factory.GetConDescuentoCombo = function (Descripcion,Op,idcompania) {
+      var deferred = $q.defer();
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      var Parametros = {
+        'Descripcion': Descripcion,
+        'Op':Op,
+        'idcompania':idcompania
+      };
+      $http.post(globalService.getUrl() + paths.GetConDescuentoCombo, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+
 
     factory.AddSucursal = function (SUCURSALESobj) {
       var deferred = $q.defer();
