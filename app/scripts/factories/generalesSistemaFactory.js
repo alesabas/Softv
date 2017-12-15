@@ -83,7 +83,7 @@ angular
       return deferred.promise;
     };
 
-    factory.GetDetallePreferencias = function (obj) {
+    factory.GetDetallePreferencias = function () {
       var deferred = $q.defer();
      
 

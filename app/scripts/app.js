@@ -22,7 +22,7 @@ angular
     'base64',
     'colorpicker.module',
     'moment-picker',
-		'angularMoment'
+		'angularMoment',
     'angularFileUpload'
      ])
   .config(['$provide','$urlRouterProvider', '$httpProvider' ,'cfpLoadingBarProvider', '$qProvider', 'blockUIConfig', function ($provide, $urlRouterProvider, $httpProvider ,cfpLoadingBarProvider, $qProvider, blockUIConfig) {
