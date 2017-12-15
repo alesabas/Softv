@@ -93,6 +93,11 @@ angular
             }
         }
 
+        function OpenDocumentos(){
+            $state.go('home.ventas.vendedores_documentos');
+            cancel();
+        }
+
         function cancel() {
             $uibModalInstance.dismiss('cancel');
         }
@@ -103,6 +108,7 @@ angular
         vm.View = false;
         vm.DisAdd = false;
         vm.SaveVendedor = SaveVendedor;
+        vm.OpenDocumentos = OpenDocumentos;
         vm.cancel = cancel;
         initData();
         

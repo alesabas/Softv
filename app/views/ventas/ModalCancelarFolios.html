@@ -84,14 +84,14 @@
         </fieldset>
         <div class="row">
             <div class="col-md-12">
-                <div class="col-md-12 btn-toolbar" role="toolbar">
-                    <div class="fileUpload btn btn-success btn-xs btn-group">
-                        <span>...</span>
+                <div class="col-md-6">
+                    <div class="fileUpload btn btn-success btn-xs btn-block">
+                        <span><i class="fa fa-file"></i> Buscar</span>
                         <input type="file" name="InpEvidencia" class="upload" accept=".png, .jpg, .bmp, .tif, .gif, .pdf" ng-model="ctrl.File" file-model="ctrl.Evidencia">
                     </div>
-                    <div class="btn-group">
-                        <button type="reset" class="btn btn-danger btn-xs" ng-click="ctrl.ResetEvidencia()" ng-disabled="(ctrl.Evidencia == null || ctrl.Evidencia == undefined) || (ctrl.FilePath != null || ctrl.FilePath != undefined)" title="Quitar archivo"><i class="fa fa-ban"></i></button>
-                    </div>
+                </div>
+                <div class="col-md-6">
+                    <button type="reset" class="btn btn-danger btn-xs btn-block" ng-click="ctrl.ResetEvidencia()" ng-disabled="(ctrl.Evidencia == null || ctrl.Evidencia == undefined) || (ctrl.FilePath != null || ctrl.FilePath != undefined)" title="Quitar archivo"><i class="fa fa-ban"></i> Quitar</button>
                 </div>
             </div>
         </div>

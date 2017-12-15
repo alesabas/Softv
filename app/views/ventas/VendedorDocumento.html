@@ -1,0 +1,103 @@
+<style type="text/css">
+	.table-scroll {
+        height:280px;
+        overflow:auto;
+    }
+
+    .fileUpload {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .fileUpload input.upload {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+        padding: 0;
+        cursor: pointer;
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+</style>
+<div class="card animated fadeIn" style="margin-top:20px;">
+    <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+        <header>
+            <strong style="font-weight:bold; border:none; margin-left:10px;">Documentos del vendedor</strong>
+			<br>
+            <small class="text-muted" style="font-size:14px; margin-left:10px;">
+                <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">Documentos del vendedor</a>
+            </small>
+        </header>
+        <div class="tools">
+			<div class="btn-group">
+				<button type="button" class="btn btn-default-bright btn-sm" ui-sref="home.ventas.vendedores" title="Cancelar cambios"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
+			</div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <b>Subir archivos</b>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <select name="SlcDocumento" class="form-control input-sm" ng-model="$ctrl.DocumentoTipo" ng-options="DT.Nombre for DT in $ctrl.DocumentoTipoList track by DT.Clv_Plaza">
+                            <option value="">Selecciona Documento</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <br>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <div class="fileUpload btn btn-success btn-xs btn-block">
+                            <span><i class="fa fa-file"></i> Buscar</span>
+                            <input type="file" name="InpEvidencia" class="upload" accept=".png, .jpg, .bmp, .tif, .gif, .pdf" ng-model="$ctrl.File" file-model="$ctrl.Evidencia">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="submit" class="btn btn-primary btn-xs btn-block" ng-click="ctrl.SaveDocumento()" title="Guardar Documento"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="reset" class="btn btn-danger btn-xs btn-block" ng-click="$ctrl.ResetEvidencia()" ng-disabled="($ctrl.Evidencia == null || $ctrl.Evidencia == undefined) || ($ctrl.FilePath != null || $ctrl.FilePath != undefined)" title="Quitar archivo"><i class="fa fa-ban"></i> Quitar</button>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <br>
+                </div>
+                <div class="col-md-12">
+                    <b>Archivos existentes</b>
+                </div>
+                <div class="col-md-12 table-scroll">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th width="50%"><b><small>Nombre</small></b></th>
+                                <th width="20%"><b><small>Existe</small></b></th>
+                                <th width="30%"><b><small></small></b></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-show="!$ctrl.ViewList">
+                                <td class="text-center" colspan="4">SIN REGISTROS</td>
+                            </tr>
+                            <tr ng-repeat="X in $ctrl.VendedorDocumentoList" ng-show="$ctrl.ViewList">
+                                <td><small>{{ X.folio }}</small></td>
+                                <td ng-if="X.tieneEvidencia == true"><small>Si</small></td>
+                                <td ng-if="X.tieneEvidencia == false"><small>No</small></td>
+                                <td><button class="btn btn-success btn-xs" title="Ver Evidencia" ng-click="$ctrl.GetEvidencia(X)" ng-if="X.tieneEvidencia == true"><i class="fa fa-eye"></i> Ver</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-7">
+            </div>
+        </div>
+    </div>
+</div>

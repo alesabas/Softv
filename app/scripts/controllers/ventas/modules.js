@@ -26,6 +26,21 @@ angular
                 controllerAs: '$ctrl'
             },
             {
+                name: 'home.ventas.vendedores_documentos',
+                data: {
+                    pageTitle: 'SOFTV | VENDEDORES',
+                    permissions: {
+                        options: {
+                            reload: false
+                        }
+                    }
+                },
+                url: '/ventas/vendedores_documentos',
+                templateUrl: 'views/ventas/VendedorDocumento.html',
+                controller: 'VendedorDocumentoCtrl',
+                controllerAs: '$ctrl'
+            },
+            {
                 name: 'home.ventas.series',
                 data: {
                     pageTitle: 'SOFTV | SERIES',

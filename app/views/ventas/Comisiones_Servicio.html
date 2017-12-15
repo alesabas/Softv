@@ -74,7 +74,7 @@
                         <button type="submit" class="btn btn-success btn-block btn-xs" title="Consultar Rango" ng-if="$ctrl.DisBtnGuardar"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
                     </div>
                     <div class="col-md-4">
-                        <button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.DeleteComision();" title="Eliminar Rango"><i class="fa fa-trash"></i> Eliminar</button>
+                        <button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.DeleteComision();" title="Eliminar Comisiones" ng-if="$ctrl.ViewList"><i class="fa fa-trash"></i> Eliminar</button>
                     </div>
                 </div>
             </div>
@@ -85,9 +85,9 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th width="30%"><b>Grupo</b></th>
-                                    <th width="30%"><b>Comisión</b></th>
+                                    <th width="40%"><b>Grupo</b></th>
                                     <th width="40%"><b>Comisión</b></th>
+                                    <th width="20%"><b>Comisión</b></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -111,84 +111,6 @@
                     </div>
                 </div>
             </div>
-            <!--
-            <div class="col-md-12">
-                <div class="col-md-6">
-                    <div class="col-md-12 table-scroll">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th width="50%"><b>Grupo</b></th>
-                                    <th width="50%"><b>Comisión</b></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>{{ X.Clv_Serie }}</td>
-                                    <td>{{ X.Nombre }}</td>
-                                    
-                                    <td><button type="button" class="btn btn-info btn-xs" ng-click="$ctrl.OpenRangoView();" title="Consultar Rango"><i class="fa fa-eye"></i> CONSULTAR</button></td>
-                                    <td><button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.OpenRangoUpdate();" title="Editar Rango"><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
-                                    <td><button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.OpenRangoDelete();" title="Eliminar Rango"><i class="fa fa-trash"></i> ELIMINAR</button></td>
-                                    
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="col-md-12">
-                        <div class="col-md-offset-1 col-md-4">
-                            <b>Distribuidor:</b>
-                        </div>
-                        <div class="col-md-6">
-                            <select name="SlcDistribuidor" class="form-control input-sm" ng-model="$ctrl.Distribuidor" ng-options="D.Nombre for D in $ctrl.DistribuidorList track by D.Clave">
-                                <option value="">Selecciona</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <br>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="col-md-offset-1 col-md-4">
-                            <b>Tipo de Servicio:</b>
-                        </div>
-                        <div class="col-md-6">
-                            <select name="SlcTipoServicio" class="form-control input-sm" ng-model="$ctrl.TipoServicio" ng-options="D.Nombre for D in $ctrl.TipoServicioList track by D.Clave">
-                                <option value="">Selecciona</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <br>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="col-md-offset-1 col-md-4">
-                            <b>Servicio:</b>
-                        </div>
-                        <div class="col-md-6">
-                            <select name="SlcServicio" class="form-control input-sm" ng-model="$ctrl.Servicio" ng-options="D.Nombre for D in $ctrl.ServicioList track by D.Clave">
-                                <option value="">Selecciona</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <br>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="col-md-offset-1 col-md-4">
-                            <b>Rango:</b>
-                        </div>
-                        <div class="col-md-6">
-                            <select name="SlcRango" class="form-control input-sm" ng-model="$ctrl.Rango" ng-options="D.Nombre for D in $ctrl.RangoList track by D.Clave">
-                                <option value="">Selecciona</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            -->
         </div>
     </div>
 </div>

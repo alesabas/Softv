@@ -4,15 +4,38 @@
         overflow:auto;  
         margin-top:20px;
     }
+
+    .table-scroll-docs {
+        height:250px;
+        overflow:auto;  
+    }
+
     .input-sm {
         font-size: 12px;
     }
+
     .nav-tabs{
         float:left;
         font-size: 13px;
     }
+
     .contect-tabs{
         float:left;
+    }
+
+    .fileUpload {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .fileUpload input.upload {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+        padding: 0;
+        cursor: pointer;
+        opacity: 0;
     }
 </style>
 <style type="text/css">
@@ -33,7 +56,7 @@
         position: absolute;
         left: 250px;
         width: 0;
-        height: 255px;
+        height: 300px;
         margin-left: -250px;
         overflow-y: auto;
         background-color:#d0d3d6 !Important;/*Fondo*/
@@ -256,6 +279,9 @@
                     </li>
                     <li>
                         <a ng-click="$ctrl.SetForm = 6"> <i class="fa fa-list-ol" aria-hidden="true" style="cursor:pointer;"> </i> <span style="margin-left:10px; cursor:pointer;"> SERVICIOS</span> </a>
+                    </li>
+                    <li>
+                        <a ng-click="$ctrl.SetForm = 7"> <i class="glyphicon glyphicon-duplicate" aria-hidden="true" style="cursor:pointer;"> </i> <span style="margin-left:10px; cursor:pointer;"> DOCUMENTOS</span> </a>
                     </li>
                 </ul>
             </div>
@@ -1114,6 +1140,93 @@
                             <br>
                             <br ng-repeat="S in $ctrl.GetNumber($ctrl.ShowServiciosE)">
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12" ng-show="$ctrl.SetForm == 7">
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <b class="text-primary" style="font-size:18px;"><i class="glyphicon glyphicon-duplicate"></i> Documentos</b>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-5">
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <b>Subir archivos</b>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <select name="SlcDocumento" class="form-control input-sm" ng-model="$ctrl.DocumentoTipo" ng-options="DT.Nombre for DT in $ctrl.DocumentoTipoList track by DT.Clv_Plaza">
+                                    <option value="">Selecciona Documento</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="padding:2%">
+                            <div class="col-md-4">
+                                <div class="fileUpload btn btn-success btn-xs btn-block">
+                                    <span><i class="fa fa-file"></i> Buscar</span>
+                                    <input type="file" name="InpEvidencia" class="upload" accept=".png, .jpg, .bmp, .tif, .gif, .pdf" ng-model="$ctrl.File" file-model="$ctrl.Evidencia">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <button type="submit" class="btn btn-primary btn-xs btn-block" ng-click="ctrl.SaveDocumento()" title="Guardar Documento"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
+                            </div>
+                            <div class="col-md-4">
+                                <button type="reset" class="btn btn-danger btn-xs btn-block" ng-click="$ctrl.ResetEvidencia()" ng-disabled="($ctrl.Evidencia == null || $ctrl.Evidencia == undefined) || ($ctrl.FilePath != null || $ctrl.FilePath != undefined)" title="Quitar archivo"><i class="fa fa-ban"></i> Quitar</button>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <b>Archivos existentes</b>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-12 table-scroll-docs">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th width="50%"><b><small>Nombre</small></b></th>
+                                            <th width="20%"><b><small>Existe</small></b></th>
+                                            <th width="30%"><b><small></small></b></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-show="!$ctrl.ViewList">
+                                            <td class="text-center" colspan="4">SIN REGISTROS</td>
+                                        </tr>
+                                        <tr ng-repeat="X in $ctrl.VendedorDocumentoList" ng-show="$ctrl.ViewList">
+                                            <td><small>{{ X.folio }}</small></td>
+                                            <td ng-if="X.tieneEvidencia == true"><small>Si</small></td>
+                                            <td ng-if="X.tieneEvidencia == false"><small>No</small></td>
+                                            <td><button class="btn btn-success btn-xs" title="Ver Evidencia" ng-click="$ctrl.GetEvidencia(X)" ng-if="X.tieneEvidencia == true"><i class="fa fa-eye"></i> Ver</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <label class="checkbox-inline checkbox-styled">
+                                    <input type="checkbox" name="CbxRevisado" ng-model="$ctrl.Revisado"><span><small>Expediente Electrónico Revisado</small></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <label class="checkbox-inline checkbox-styled">
+                                    <input type="checkbox" name="CbxRecibido" ng-model="$ctrl.Recibido"><span><small>Orden y Contrato Físico Recibido</small></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+
                     </div>
                 </div>
             </div>
