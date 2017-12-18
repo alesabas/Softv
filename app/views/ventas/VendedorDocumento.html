@@ -37,7 +37,8 @@
     </div>
     <div class="card-body">
         <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-4">
+                <form name="FormDocumentoVendedor" angular-validator-submit="$ctrl.SaveDocumento()" novalidate angular-validator autocomplete="off">
                 <div class="col-md-12">
                     <div class="col-md-12">
                         <b>Subir archivos</b>
@@ -45,10 +46,15 @@
                 </div>
                 <div class="col-md-12">
                     <div class="col-md-12">
-                        <select name="SlcDocumento" class="form-control input-sm" ng-model="$ctrl.DocumentoTipo" ng-options="DT.Nombre for DT in $ctrl.DocumentoTipoList track by DT.Clv_Plaza">
+                        <select name="SlcDocumento" class="form-control input-sm" ng-model="$ctrl.DocumentoVendedor" ng-options="D.Documento for D in $ctrl.DocumentoList track by D.IdDocumento" validate-on="dirty" required required-message="'Obligatorio'">
                             <option value="">Selecciona Documento</option>
                         </select>
                     </div>
+                </div>
+                <div class="col-md-12 has-error" ng-if="($ctrl.Evidencia == null || $ctrl.Evidencia == undefined) && $ctrl.TouchFie == false">
+                    <label class="control-label has-error validationMessage" ng-if="($ctrl.Evidencia == null || $ctrl.Evidencia == undefined) && $ctrl.TouchFie == false">
+                        Aun no has seleccionado algún archivo.
+                    </label>
                 </div>
                 <div class="col-md-12">
                     <br>
@@ -57,46 +63,49 @@
                     <div class="col-md-4">
                         <div class="fileUpload btn btn-success btn-xs btn-block">
                             <span><i class="fa fa-file"></i> Buscar</span>
-                            <input type="file" name="InpEvidencia" class="upload" accept=".png, .jpg, .bmp, .tif, .gif, .pdf" ng-model="$ctrl.File" file-model="$ctrl.Evidencia">
+                            <input type="file" name="InpEvidencia" class="upload" accept=".pdf" ng-model="$ctrl.File" file-model="$ctrl.Evidencia" validate-on="dirty" required required-message="''">
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <button type="submit" class="btn btn-primary btn-xs btn-block" ng-click="ctrl.SaveDocumento()" title="Guardar Documento"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
+                        <button type="submit" class="btn btn-primary btn-xs btn-block" ng-click="$ctrl.SetTouch();" title="Guardar Documento" ng-disabled="$ctrl.Evidencia == null || $ctrl.Evidencia == undefined"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
                     </div>
                     <div class="col-md-4">
                         <button type="reset" class="btn btn-danger btn-xs btn-block" ng-click="$ctrl.ResetEvidencia()" ng-disabled="($ctrl.Evidencia == null || $ctrl.Evidencia == undefined) || ($ctrl.FilePath != null || $ctrl.FilePath != undefined)" title="Quitar archivo"><i class="fa fa-ban"></i> Quitar</button>
                     </div>
                 </div>
+                </form>
                 <div class="col-md-12">
                     <br>
                 </div>
                 <div class="col-md-12">
-                    <b>Archivos existentes</b>
+                    <div class="col-md-12">
+                        <b>Archivos existentes</b>
+                    </div>
                 </div>
                 <div class="col-md-12 table-scroll">
                     <table class="table">
                         <thead>
                             <tr>
-                                <th width="50%"><b><small>Nombre</small></b></th>
-                                <th width="20%"><b><small>Existe</small></b></th>
-                                <th width="30%"><b><small></small></b></th>
+                                <th width="70%"><b><small>Nombre</small></b></th>
+                                <th width="10%"><b><small>Existe</small></b></th>
+                                <th width="20%"><b><small></small></b></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr ng-show="!$ctrl.ViewList">
-                                <td class="text-center" colspan="4">SIN REGISTROS</td>
+                                <td class="text-center" colspan="3">SIN REGISTROS</td>
                             </tr>
-                            <tr ng-repeat="X in $ctrl.VendedorDocumentoList" ng-show="$ctrl.ViewList">
-                                <td><small>{{ X.folio }}</small></td>
-                                <td ng-if="X.tieneEvidencia == true"><small>Si</small></td>
-                                <td ng-if="X.tieneEvidencia == false"><small>No</small></td>
-                                <td><button class="btn btn-success btn-xs" title="Ver Evidencia" ng-click="$ctrl.GetEvidencia(X)" ng-if="X.tieneEvidencia == true"><i class="fa fa-eye"></i> Ver</button></td>
+                            <tr ng-repeat="X in $ctrl.DocumentoVendedorList" ng-show="$ctrl.ViewList">
+                                <td><small>{{ X.Documento }}</small></td>
+                                <td ng-if="X.Existe == true"><small>Si</small></td>
+                                <td ng-if="X.Existe == false"><small>No</small></td>
+                                <td><button class="btn btn-success btn-xs" title="Ver Evidencia" ng-click="$ctrl.GetEvidencia(X)"><i class="fa fa-eye"></i> Ver</button></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-            <div class="col-md-7">
+            <div class="col-md-8">
             </div>
         </div>
     </div>

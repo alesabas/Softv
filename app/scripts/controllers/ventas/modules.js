@@ -35,7 +35,7 @@ angular
                         }
                     }
                 },
-                url: '/ventas/vendedores_documentos',
+                url: '/ventas/vendedores_documentos/:id',
                 templateUrl: 'views/ventas/VendedorDocumento.html',
                 controller: 'VendedorDocumentoCtrl',
                 controllerAs: '$ctrl'

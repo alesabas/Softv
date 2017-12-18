@@ -94,7 +94,7 @@ angular
         }
 
         function OpenDocumentos(){
-            $state.go('home.ventas.vendedores_documentos');
+            $state.go('home.ventas.vendedores_documentos', {'id':vm.Clv_Vendedor});
             cancel();
         }
 
