@@ -29,7 +29,9 @@ angular
                 'clv_vendedor': Evidencia.clv_vendedor
             };
             SeriesFactory.GetDameTipoEvidencia(ObjTipoEvidencia).then(function(data){
-                console.log(data);
+                SeriesFactory.GetEvidenciaSerieFolioVEndedor(ObjTipoEvidencia).then(function(data){
+                    console.log(data);
+                });
             });
         }
 

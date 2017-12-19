@@ -51,10 +51,12 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-md-12 has-error" ng-if="($ctrl.Evidencia == null || $ctrl.Evidencia == undefined) && $ctrl.TouchFie == false">
-                    <label class="control-label has-error validationMessage" ng-if="($ctrl.Evidencia == null || $ctrl.Evidencia == undefined) && $ctrl.TouchFie == false">
-                        Aun no has seleccionado algún archivo.
-                    </label>
+                <div class="col-md-12">
+                    <div class="col-md-12 has-error" ng-if="FormDocumentoVendedor.InpEvidencia.$invalid && $ctrl.TouchFile == true">
+                        <label class="control-label has-error validationMessage" ng-if="FormDocumentoVendedor.InpEvidencia.$invalid && $ctrl.TouchFile == true">
+                            Aun no has seleccionado algún archivo.
+                        </label>
+                    </div>
                 </div>
                 <div class="col-md-12">
                     <br>
@@ -63,11 +65,11 @@
                     <div class="col-md-4">
                         <div class="fileUpload btn btn-success btn-xs btn-block">
                             <span><i class="fa fa-file"></i> Buscar</span>
-                            <input type="file" name="InpEvidencia" class="upload" accept=".pdf" ng-model="$ctrl.File" file-model="$ctrl.Evidencia" validate-on="dirty" required required-message="''">
+                            <input type="file" name="InpEvidencia" class="upload" accept=".pdf" ng-model="$ctrl.File" file-model="$ctrl.Evidencia" validate-on="dirty" validator="$ctrl.Evidencia != undefined && $ctrl.Evidencia != null" required-message="''" invalid-message="''">
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <button type="submit" class="btn btn-primary btn-xs btn-block" ng-click="$ctrl.SetTouch();" title="Guardar Documento" ng-disabled="$ctrl.Evidencia == null || $ctrl.Evidencia == undefined"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
+                        <button type="submit" class="btn btn-primary btn-xs btn-block" ng-click="$ctrl.SetTouch()" title="Guardar Documento"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
                     </div>
                     <div class="col-md-4">
                         <button type="reset" class="btn btn-danger btn-xs btn-block" ng-click="$ctrl.ResetEvidencia()" ng-disabled="($ctrl.Evidencia == null || $ctrl.Evidencia == undefined) || ($ctrl.FilePath != null || $ctrl.FilePath != undefined)" title="Quitar archivo"><i class="fa fa-ban"></i> Quitar</button>
@@ -99,7 +101,7 @@
                                 <td><small>{{ X.Documento }}</small></td>
                                 <td ng-if="X.Existe == true"><small>Si</small></td>
                                 <td ng-if="X.Existe == false"><small>No</small></td>
-                                <td><button class="btn btn-success btn-xs" title="Ver Evidencia" ng-click="$ctrl.GetEvidencia(X)"><i class="fa fa-eye"></i> Ver</button></td>
+                                <td><button class="btn btn-success btn-xs" title="Ver Documento" ng-click="$ctrl.GetDocumentoVendedor(X.IdDocumento)" ng-if="X.Existe == true"><i class="fa fa-eye"></i> Ver</button></td>
                             </tr>
                         </tbody>
                     </table>

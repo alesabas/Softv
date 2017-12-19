@@ -34,6 +34,7 @@ angular
             GetBorrarVendedorTmp: '/FoliosCancelados/GetBorrarVendedorTmp',
             GetMuestraFoliosCancelados: '/EvidenciasDeCancelados/GetMuestraFoliosCancelados',
             GetDameTipoEvidencia: '/EvidenciasDeCancelados/GetDameTipoEvidencia',
+            GetEvidenciaSerieFolioVEndedor: '/EvidenciasDeCancelados/GetEvidenciaSerieFolioVEndedor',
             GetMuestra_Compania_RelUsuarioList: '/Muestra_Compania_RelUsuario/GetMuestra_Compania_RelUsuarioList',
             GetMuestraCatalogoDeRangos: '/Rangos/GetMuestraCatalogoDeRangos',
             GetuspChecaSiGuardaRango: '/Rangos/GetuspChecaSiGuardaRango',
@@ -406,6 +407,19 @@ angular
             var Parametros = {'ObjTipoEvidencia': ObjTipoEvidencia};
             console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetDameTipoEvidencia, JSON.stringify(Parametros), config).then(function(response){
+                deferred.resolve(response.data);
+            }).catch(function(response){
+                deferred.reject(response);
+            });
+            return deferred.promise;
+        };
+
+        factory.GetEvidenciaSerieFolioVEndedor = function(ObjEvidencia){
+            var deferred = $q.defer();
+            var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+            var Parametros = {'ObjEvidencia': ObjEvidencia};
+            console.log(Parametros);
+            $http.post(globalService.getUrl() + paths.GetEvidenciaSerieFolioVEndedor, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
                 deferred.reject(response);
