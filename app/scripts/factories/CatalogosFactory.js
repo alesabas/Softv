@@ -217,7 +217,122 @@ angular
       Getsp_muestraServiciosCombos:'/CatMedios/Getsp_muestraServiciosCombos',
       Get_clv_session_Reportes:'/CatMedios/Get_clv_session_Reportes',
       GetConDetDescuentoCombo:'/CatMedios/GetConDetDescuentoCombo',
-      GetAgrPreDetDescuentoCombo:'/CatMedios/GetAgrPreDetDescuentoCombo'
+      GetAgrPreDetDescuentoCombo:'/CatMedios/GetAgrPreDetDescuentoCombo',
+      GetEliPreDetDescuentoCombo :'/CatMedios/GetEliPreDetDescuentoCombo',
+      GetNueDescuentoCombo:'/CatMedios/GetNueDescuentoCombo',
+      GetNueDetDescuentoCombo:'/CatMedios/GetNueDetDescuentoCombo',
+      GetDameClv_Descuento:'/CatMedios/GetDameClv_Descuento',
+      GetModDescuentoCombo:'/CatMedios/GetModDescuentoCombo'
+    };
+
+
+    factory.GetModDescuentoCombo = function (Clv_Descuento,Clv_TipoCliente,Descripcion) {
+      var deferred = $q.defer();
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      var Parametros = {
+      'Clv_Descuento':Clv_Descuento,
+      'Clv_TipoCliente':Clv_TipoCliente,
+       'Descripcion':Descripcion     
+      };
+
+      $http.post(globalService.getUrl() + paths.GetModDescuentoCombo,JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+
+
+
+
+    
+    factory.GetDameClv_Descuento = function (Clv_TipoCliente,Descripcion) {
+      var deferred = $q.defer();
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      var Parametros = {
+      'Clv_TipoCliente':Clv_TipoCliente,
+      'Descripcion':Descripcion      
+      };
+
+      $http.post(globalService.getUrl() + paths.GetDameClv_Descuento,JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+    factory.GetNueDetDescuentoCombo = function (Clv_Descuento,Clv_Session,idcompania) {
+      var deferred = $q.defer();
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      var Parametros = {
+      'Clv_Descuento':Clv_Descuento,
+      'Clv_Session':Clv_Session,
+      'idcompania':idcompania
+      };
+
+      $http.post(globalService.getUrl() + paths.GetNueDetDescuentoCombo,JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+    factory.GetNueDescuentoCombo = function (Clv_TipoCliente,Descripcion,idcompania) {
+      var deferred = $q.defer();
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      var Parametros = {
+      'Clv_TipoCliente':Clv_TipoCliente,
+      'Descripcion':Descripcion,
+      'idcompania':idcompania
+      };
+
+      $http.post(globalService.getUrl() + paths.GetNueDescuentoCombo,JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+    factory.GetEliPreDetDescuentoCombo = function (Clv_Session,Clv_Servicio,Op) {
+      var deferred = $q.defer();
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      var Parametros = {
+      'Clv_Session':Clv_Session,
+      'Clv_Servicio':Clv_Servicio,
+      'Op':Op
+      };
+
+      $http.post(globalService.getUrl() + paths.GetEliPreDetDescuentoCombo,JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
     };
 
 
@@ -243,7 +358,7 @@ angular
         }      
       };
 
-      $http.post(globalService.getUrl() + paths.GetAgrPreDetDescuentoCombo,Parametros, config).then(function (response) {
+      $http.post(globalService.getUrl() + paths.GetAgrPreDetDescuentoCombo,JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
         deferred.reject(response);
@@ -267,7 +382,7 @@ angular
         'Op':Op
       };
 
-      $http.post(globalService.getUrl() + paths.GetConDetDescuentoCombo,Parametros, config).then(function (response) {
+      $http.post(globalService.getUrl() + paths.GetConDetDescuentoCombo,JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
         deferred.reject(response);

@@ -6,13 +6,9 @@ angular
         
         function initData(){
             CatalogosFactory.GetConDescuentoCombo('',0,488).then(function(result){
-            console.log(result);
-           
+            vm.list=result.GetConDescuentoComboResult;           
             });
-        }
-
-       
+        }       
         var vm = this;
-        initData();
-       
+        initData();       
     });

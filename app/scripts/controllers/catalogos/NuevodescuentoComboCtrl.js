@@ -2,7 +2,7 @@
 
 angular
   .module('softvApp')
-  .controller('NuevodescuentoComboCtrl', function ($uibModal, CatalogosFactory, $localStorage) {
+  .controller('NuevodescuentoComboCtrl', function ($uibModal, CatalogosFactory, $localStorage,ngNotify) {
 
     function initData() {
 
@@ -19,8 +19,7 @@ angular
           });
         });
 
-      })
-
+      });
     }
 
     function GetServiciosCombo() {
@@ -31,7 +30,7 @@ angular
         });
     }
 
-    function SaveCombo() {
+    function addServicio() {
 
       var obj = {
         'Clv_Session': vm.session,
@@ -52,7 +51,24 @@ angular
 
     function GetDetalle() {
       CatalogosFactory.GetConDetDescuentoCombo(0, 0, '', vm.session, 1).then(function (result) {
-        console.log(result);
+        vm.listadesc=result.GetConDetDescuentoComboResult
+      });
+    }
+
+    function eliminadetCombo(item){
+      CatalogosFactory.GetEliPreDetDescuentoCombo(vm.session,item.Clv_Servicio,0).then(function(result){
+        GetDetalle();
+      });
+    }
+
+    function SaveCombo(){
+      CatalogosFactory.GetNueDescuentoCombo(vm.tipoCliente.CLV_TIPOCLIENTE,vm.nombreCombo,488)
+      .then(function(result){
+        var id= result.GetNueDescuentoComboResult;
+        CatalogosFactory.GetNueDetDescuentoCombo(id,vm.session,488).then(function(result){
+          $state.go('home.catalogos.combo');
+          ngNotify.set('El descuento combo se ha guardado correctamente','success');
+        });
       });
     }
 
@@ -62,6 +78,12 @@ angular
     vm.tipo = '7';
     vm.GetServiciosCombo = GetServiciosCombo;
     vm.SaveCombo = SaveCombo;
+    vm.eliminadetCombo=eliminadetCombo;
+    vm.SaveCombo=SaveCombo;
+    vm.addServicio=addServicio;
+    vm.blocknombre=true;
+    vm.detalle=false;
+    vm.blocknombre = false;
     initData();
 
   });

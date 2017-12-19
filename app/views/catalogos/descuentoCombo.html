@@ -18,7 +18,7 @@
 			<div class="col-md-12">
                 <div class="col-md-3" style="text-align:right">
                     <div class="input-group">
-                        <input type="text" name="InpSearchRed" class="form-control input-sm" ng-model="$SearchRed" placeholder="Buscar Red">
+                        <input type="text" name="InpSearchRed" class="form-control input-sm" ng-model="$SearchRed" placeholder="Buscar Combo">
                         <span class="input-group-addon"><i class="fa fa-search"></i></span>
                     </div>
                 </div>
@@ -28,26 +28,25 @@
         </div>
         <br>
         <div class="col-md-12">
-            <div class="col-md-12">
-                <table class="table">
+            <div class="col-md-7 col-md-offset-3">
+                <table class="table" style="font-size:16px;">
                     <thead>
                         <tr>
-                            <th width="10%"><b>Id</b></th>
-                            <th width="20%"><b>IP Red</b></th>
-                            <th width="50%"><b>Mask</b></th>
-                            <th width="20%" colspan="2"><b>Acciones</b></th>
+                            <th ><b>Combo</b></th>
+                         
+                            <th colspan="2"><b>Acciones</b></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-show="!$ctrl.ViewList">
+                        <tr ng-show="!$ctrl.list">
 							<td class="text-center" colspan="5">SIN REGISTROS</td>
 						</tr>
-                        <tr dir-paginate="X in $ctrl.RedList|filter:$SearchRed|itemsPerPage:7" ng-show="$ctrl.ViewList">
-                            <td>{{ X.IdRed }}</td>
-                            <td>{{ X.IPRed }}</td>
-                            <td>{{ X.mask }}</td>
-                            <td><button type="button" class="btn btn-info btn-xs" ui-sref="home.catalogos.redes_detalle({ id: X.IdRed})" title="Consultar Red"><i class="fa fa-eye"></i> CONSULTAR</button></td>
-                            <td><button type="button" class="btn btn-warning btn-xs" ui-sref="home.catalogos.redes_editar({ id: X.IdRed})" title="Editar Red"><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
+                        <tr dir-paginate="X in $ctrl.list|filter:$SearchRed|itemsPerPage:7" >
+                            <td>{{ X }}</td>
+                            
+                            
+                            <td><button type="button" class="btn btn-info btn-xs" ui-sref="home.catalogos.comboDetalle({ id: X})" title="Consultar combo"><i class="fa fa-eye"></i> CONSULTAR</button></td>
+                            <td><button type="button" class="btn btn-warning btn-xs" ui-sref="home.catalogos.comboEdita({ id: X})" title="Editar combo"><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
                             <!--
                             <td><button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.OpenDeleteRed(X.Clv_Red)" title="Eliminar Red"><i class="fa fa-trash"></i> ELIMINAR</button></td>
                             -->
