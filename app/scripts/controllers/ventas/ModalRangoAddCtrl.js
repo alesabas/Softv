@@ -6,7 +6,6 @@ angular
         
         function initData(){
             SeriesFactory.GetMuestra_Compania_RelUsuarioList($localStorage.currentUser.idUsuario).then(function(data){
-                console.log(data);
                 vm.PlazaList = data.GetMuestra_Compania_RelUsuarioListResult;
             });
         }
@@ -18,7 +17,6 @@ angular
                 'idcompania': vm.Plaza.id_compania
             };
             SeriesFactory.GetuspChecaSiGuardaRango(ObjRango).then(function(data){
-                console.log(data);
                 if(data.GetuspChecaSiGuardaRangoResult == 0){
                     var ObjRango = {
                         'rangoIni': vm.RangoInferior,
@@ -26,7 +24,6 @@ angular
                         'idcompania': vm.Plaza.id_compania
                     };
                     SeriesFactory.GetNueCatalogoDeRangos(ObjRango).then(function(data){
-                        console.log(data);
                         ngNotify.set('CORRECTO, Se guardo el Rango nuevo.', 'success');
                         $rootScope.$emit('LoadRangoList');
                         cancel();

@@ -15,7 +15,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'idcompania': idcompania};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetConGrupoVentas1, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -28,7 +27,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'ObjGrupo': ObjGrupo};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetNueGrupoVentas, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -41,7 +39,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'ObjGrupo': ObjGrupo};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetModGrupoVentas, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){

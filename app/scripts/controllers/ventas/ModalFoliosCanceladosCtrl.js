@@ -13,7 +13,6 @@ angular
                 'Clv_Session': 0
             };
             SeriesFactory.Get_clv_session_Reportes(ObjClvSession).then(function(data){
-                console.log(data);
                 vm.Clv_Session = data.Get_clv_session_ReportesResult.Clv_Session;
                 GetVendedorProList(3, $localStorage.currentUser.idUsuario);
             });
@@ -26,7 +25,6 @@ angular
                 'ClvUsuario': ClvUsuario
             };
             SeriesFactory.GetConVentasVendedoresPro(ObjVendedor).then(function(data){
-                console.log(data);
                 vm.VendedorProList = data.GetConVentasVendedoresProResult;
             });
         }
@@ -36,7 +34,6 @@ angular
                 'Clv_Session': vm.Clv_Session
             };
             SeriesFactory.GetConVentasVendedoresTmp(ObjVendedor).then(function(data){
-                console.log(data);
                 vm.VendedorTmpList = data.GetConVentasVendedoresTmpResult;
             });
         }
@@ -48,7 +45,6 @@ angular
                 'Op': Op
             };
             SeriesFactory.GetInsertarVendedorTmp(ObjVendedor).then(function(data){
-                console.log(data);
                 GetVendedorProList(1, 0);
                 GetVendedorTmpList();
             });
@@ -61,7 +57,6 @@ angular
                 'Op': Op
             };
             SeriesFactory.GetBorrarVendedorTmp(ObjVendedor).then(function(data){
-                console.log(data);
                 GetVendedorProList(1, 0);
                 GetVendedorTmpList();
             });

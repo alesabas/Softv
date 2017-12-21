@@ -17,7 +17,9 @@ angular
             GetGuardaDocumentoPDF: '/DocumentosVendedoresClientes/GetGuardaDocumentoPDF',
             GetModificaRevisado: '/DocumentosVendedoresClientes/GetModificaRevisado',
             GetModificaRecibido: '/DocumentosVendedoresClientes/GetModificaRecibido',
-            GetDimeTipoDocumento: '/DocumentosVendedoresClientes/GetDimeTipoDocumento'
+            GetDimeTipoDocumento: '/DocumentosVendedoresClientes/GetDimeTipoDocumento',
+            GetDocumentoVendedorWeb: '/DocumentosVendedoresClientes/GetDocumentoVendedorWeb',
+            GetDocumentoClienteWeb: '/DocumentosVendedoresClientes/GetDocumentoClienteWeb'
         };
 
         factory.GetDameDocumentosVendedor = function(){
@@ -35,7 +37,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'clv_vendedor': clv_vendedor};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetDameDocumentosVendedorGrid, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -59,8 +60,19 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'ObjTipoDocumento': ObjTipoDocumento};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetDimeTipoDocumentoVendedor, JSON.stringify(Parametros), config).then(function(response){
+                deferred.resolve(response.data);
+            }).catch(function(response){
+                deferred.reject(response);
+            });
+            return deferred.promise;
+        };
+
+        factory.GetDocumentoVendedorWeb = function(ObjDocumentoVendedor){
+            var deferred = $q.defer();
+            var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+            var Parametros = {'ObjDocumentoVendedor': ObjDocumentoVendedor};
+            $http.post(globalService.getUrl() + paths.GetDocumentoVendedorWeb, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
                 deferred.reject(response);
@@ -72,7 +84,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'clv_tipousuario': clv_tipousuario};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetValidaPerfilActivarChecksDocumentos, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -85,7 +96,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'contrato': contrato};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetDameDocumentos, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -98,7 +108,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'contrato': contrato};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetDameOpcionesDocumentos, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -111,7 +120,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'contrato': contrato};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetDameDocumentosContrato, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -135,8 +143,19 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'ObjDocumento': ObjDocumento};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetDimeTipoDocumento, JSON.stringify(Parametros), config).then(function(response){
+                deferred.resolve(response.data);
+            }).catch(function(response){
+                deferred.reject(response);
+            });
+            return deferred.promise;
+        };
+
+        factory.GetDocumentoClienteWeb = function(ObjDocumentoCliente){
+            var deferred = $q.defer();
+            var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+            var Parametros = {'ObjDocumentoCliente': ObjDocumentoCliente};
+            $http.post(globalService.getUrl() + paths.GetDocumentoClienteWeb, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
                 deferred.reject(response);
@@ -148,7 +167,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'ObjRevisado': ObjRevisado};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetModificaRevisado, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -161,7 +179,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'ObjRecibido': ObjRecibido};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetModificaRecibido, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){

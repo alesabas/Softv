@@ -6,7 +6,6 @@ angular
         
         function initData(){
             SeriesFactory.GetMuestra_Compania_RelUsuarioList($localStorage.currentUser.idUsuario).then(function(data){
-                console.log(data);
                 vm.PlazaList = data.GetMuestra_Compania_RelUsuarioListResult;
                 GetRango();
             });
@@ -17,7 +16,6 @@ angular
                 'CveRango': CveRango
             };
             SeriesFactory.GetConCatalogoDeRangos(ObjRango).then(function(data){
-                console.log(data);
                 var Rango = data.GetConCatalogoDeRangosResult;
                 vm.CveRango = Rango.CveRango;
                 vm.RangoInferior = Rango.rangoIni;
@@ -36,7 +34,6 @@ angular
                 'CveRango': vm.CveRango
             };
             SeriesFactory.GetValidaRangosAEliminar(ObjRango).then(function(data){
-                console.log(data);
                 if(data.GetValidaRangosAEliminarResult == 0){
                     var ObjRango = {
                         'CveRango': vm.CveRango,
@@ -45,7 +42,6 @@ angular
                         'idcompania': vm.Plaza.id_compania
                     };
                     SeriesFactory.GetModCatalogoDeRangos(ObjRango).then(function(data){
-                        console.log(data);
                         ngNotify.set('CORRECTO, Se guardo el Rango.', 'success');
                         $rootScope.$emit('LoadRangoList');
                         cancel();
@@ -66,7 +62,6 @@ angular
         vm.View = false;
         vm.SaveRango = SaveRango;
         vm.cancel = cancel;
-        console.log(CveRango);
         initData();
 
     });

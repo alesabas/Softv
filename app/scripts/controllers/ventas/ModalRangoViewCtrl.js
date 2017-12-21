@@ -6,7 +6,6 @@ angular
         
         function initData(){
             SeriesFactory.GetMuestra_Compania_RelUsuarioList($localStorage.currentUser.idUsuario).then(function(data){
-                console.log(data);
                 vm.PlazaList = data.GetMuestra_Compania_RelUsuarioListResult;
                 GetRango();
             });
@@ -17,7 +16,6 @@ angular
                 'CveRango': CveRango
             };
             SeriesFactory.GetConCatalogoDeRangos(ObjRango).then(function(data){
-                console.log(data);
                 var Rango = data.GetConCatalogoDeRangosResult;
                 vm.CveRango = Rango.CveRango;
                 vm.RangoInferior = Rango.rangoIni;

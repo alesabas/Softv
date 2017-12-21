@@ -6,7 +6,6 @@ angular
 
         function initData(){
             SeriesFactory.GetMuestra_Compania_RelUsuarioList($localStorage.currentUser.idUsuario).then(function(data){
-                console.log(data);
                 vm.PlazaList = data.GetMuestra_Compania_RelUsuarioListResult;
                 vm.Plaza = vm.PlazaList[0];
                 GetRangoList();
@@ -19,10 +18,8 @@ angular
                 'idcompania': vm.Plaza.id_compania 
             };
             SeriesFactory.GetMuestraCatalogoDeRangos(ObjRango).then(function(data){
-                console.log(data);
                 vm.RangoList = data.GetMuestraCatalogoDeRangosResult;
                 vm.ViewList = (vm.RangoList.length > 0)? true:false;
-                console.log(vm.RangoList, vm.ViewList);
             });
         }
 

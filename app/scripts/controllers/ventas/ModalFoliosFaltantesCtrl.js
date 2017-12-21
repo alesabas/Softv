@@ -10,7 +10,6 @@ angular
                 'Op': 0
             };
             SeriesFactory.GetVendedores_dosList(ObjVendedorList).then(function(data){
-                console.log(data);
                 vm.VendedorList = data.GetVendedores_dosListResult;
                 vm.Vendedor = vm.VendedorList[0];
                 GetSerieList();
@@ -24,7 +23,6 @@ angular
                     'Contrato': 0
                 };
                 SeriesFactory.GetUltimo_SERIEYFOLIOList(ObjSerieList).then(function(data){
-                    console.log(data);
                     vm.SerieList = data.GetUltimo_SERIEYFOLIOListResult;
                     vm.Serie = vm.SerieList[0];
                     GetFolioDisponible();

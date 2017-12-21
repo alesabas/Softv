@@ -10,7 +10,6 @@ angular
                 'ClvUsuario': $localStorage.currentUser.idUsuario
             };
             SeriesFactory.GetVendedoresList(ObjVendedorList).then(function(data){
-                console.log(data);
                 vm.VendedorList = data.GetVendedoresListResult;
             });
         }
@@ -24,9 +23,7 @@ angular
                 'OPCION': 'N'
             };
             SeriesFactory.GetVALIDACatalogoSeries(ObjValidaSerie).then(function(data){
-                console.log(data);
                 var ValidaResult = data.GetVALIDACatalogoSeriesResult;
-                console.log(ValidaResult);
                 if(ValidaResult == null){
                     var objCatalogoSeries = {
                         'Serie': vm.Serie,
@@ -36,7 +33,6 @@ angular
                         'Tipo': (vm.Tipo == 'C')? 1:2
                     };
                     SeriesFactory.AddCatalogoSeries(objCatalogoSeries).then(function(data){
-                        console.log(data);
                         if(data.AddCatalogoSeriesResult > 0){
                             ngNotify.set('CORRECTO, se guardó la Serie.', 'success');
                             $rootScope.$emit('LoadSerieList');
@@ -48,7 +44,6 @@ angular
                         }
                     });
                 }else{
-                    console.log('null');
                     ngNotify.set('ERROR, ' + ValidaResult.MSG, 'warn');
                 }
             });

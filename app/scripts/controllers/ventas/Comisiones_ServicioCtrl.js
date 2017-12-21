@@ -6,7 +6,6 @@ angular
     
         function initData(){
             SeriesFactory.GetMuestra_Compania_RelUsuarioList($localStorage.currentUser.idUsuario).then(function(data){
-                console.log(data);
                 vm.PlazaList = data.GetMuestra_Compania_RelUsuarioListResult;
                 vm.Plaza = vm.PlazaList[0];
                 GetTipoServicioList();
@@ -20,9 +19,7 @@ angular
                 'CLV_RANGO': ObjCom.CLV_RANGO, 
                 'COMISION': ObjCom.COMISION
             };
-            console.log(ObjComision);
             ComisionServicioFactory.GetNUECOMISION(ObjComision).then(function(data){
-                console.log(data);
                 ngNotify.set('CORRECTO, Se guardo la comisión.', 'success');
                 GetComisionList();
             });
@@ -34,7 +31,6 @@ angular
                 'CLV_RANGO': vm.Rango.CLV_RANGO
             };
             ComisionServicioFactory.GetBORCOMISION(ObjComision).then(function(data){
-                console.log(data);
                 ngNotify.set('CORRECTO, Se elimino la comisión.', 'success');
                 GetComisionList();
             });
@@ -46,7 +42,6 @@ angular
                 'OP': 0
             };
             ComisionServicioFactory.GetMuestraTipServ(ObjTipoServicio).then(function(data){
-                console.log(data);
                 vm.TipoServicioList = data.GetMuestraTipServResult;
                 vm.TipoServicio = vm.TipoServicioList[0];
                 GetServicoList();
@@ -61,7 +56,6 @@ angular
                 'idcompania': vm.Plaza.id_compania
             };
             ComisionServicioFactory.GetMuestraServicios(ObjServicio).then(function(data){
-                console.log(data);
                 vm.ServicioList = data.GetMuestraServiciosResult;
                 vm.Servicio = vm.ServicioList[0];
                 GetRangoList();
@@ -75,7 +69,6 @@ angular
                 'idcompania': vm.Plaza.id_compania
             };
             ComisionServicioFactory.GetCONRANGOS(ObjRango).then(function(data){
-                console.log(data);
                 vm.RangoList = data.GetCONRANGOSResult;
                 vm.Rango = vm.RangoList[0];
                 GetComisionList();
@@ -92,7 +85,6 @@ angular
                     'idcompania': vm.Plaza.id_compania
                 };
                 ComisionServicioFactory.GetCONCOMISION(ObjComision).then(function(data){
-                    console.log(data);
                     vm.ComisionList = data.GetCONCOMISIONResult;
                     vm.ViewList = (vm.ComisionList.length > 0)? true:false;
                 });

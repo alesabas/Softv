@@ -18,7 +18,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'Clv_Usuario': Clv_Usuario};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetMuestra_PlazasPorUsuarioList, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){

@@ -2,7 +2,7 @@
 
 angular
     .module('softvApp')
-    .controller('ClienteEditarCtrl', function(CatalogosFactory, DocVendedorClienteFactory, ngNotify, $uibModal, $state, $stateParams, $rootScope, $localStorage){
+    .controller('ClienteEditarCtrl', function(CatalogosFactory, DocVendedorClienteFactory, ngNotify, $uibModal, $state, $stateParams, $rootScope, $localStorage, $sce, globalService){
 
         function initData(){
             CatalogosFactory.GetStatusNet().then(function(data){
@@ -549,7 +549,7 @@ angular
                     CA = CA + vm.ServicioList[i].children.length;
                 }
                 vm.CT = CS + CA;
-                vm.ShowServiciosE = (vm.CT >= 8)? 0 : 8 - vm.CT;
+                vm.ShowServiciosE = (vm.CT >= 11)? 0 : 11 - vm.CT;
             });
         }
 
@@ -631,7 +631,7 @@ angular
             }else if(ObjConcepto.Tipo == 'A'){
                 vm.DivServicio = false;
                 vm.DivAparato = true;
-                vm.ShowServiciosE = (vm.CT >= 8)? 0 : 8 - vm.CT;
+                vm.ShowServiciosE = (vm.CT >= 11)? 0 : 11 - vm.CT;
                 var ContratoNet = ObjConcepto.ContratoNet;
                 vm.NombreAparato = ObjConcepto.Nombre;
                 vm.DetalleAparato = ObjConcepto.Detalle;
@@ -822,10 +822,8 @@ angular
 
         function GetDocumentos(){
             DocVendedorClienteFactory.GetValidaPerfilActivarChecksDocumentos(vm.tipoUsuario).then(function(data){
-                console.log(data);
                 vm.DisCbxDocumneto = (data.GetValidaPerfilActivarChecksDocumentosResult.desactivar == 1)? true:false;
                 DocVendedorClienteFactory.GetDameDocumentos(vm.IdContrato).then(function(data){
-                    console.log(data);
                     vm.DocumentoList = data.GetDameDocumentosResult;
                     GetDocumentosCliente();
                 });
@@ -834,12 +832,10 @@ angular
 
         function GetDocumentosCliente(){
             DocVendedorClienteFactory.GetDameOpcionesDocumentos(vm.IdContrato).then(function(data){
-                console.log(data);
                 var OpcionDoc = data.GetDameOpcionesDocumentosResult;
                 vm.Revisado = (OpcionDoc.cbRevisado == 1)? true:false;
                 vm.Recibido = (OpcionDoc.cbRecibido == 1)? true:false;
                 DocVendedorClienteFactory.GetDameDocumentosContrato(vm.IdContrato).then(function(data){
-                    console.log(data);
                     vm.DocumentoClienteList = data.GetDameDocumentosContratoResult;
                     vm.ViewDocClienteList = (vm.DocumentoClienteList.length > 0)? true:false;
                 });
@@ -847,30 +843,39 @@ angular
         }
 
         function SaveDocumentoCliente(){
-            console.log('save');
+            vm.FileName = null;
+            vm.TituloDoc = null;
             if(vm.Evidencia.type == "application/pdf"){
-                var EvidenciaFD = new FormData();
-                EvidenciaFD.append('file', vm.Evidencia); 
-                EvidenciaFD.append('IdDocumento', vm.Documento.IdDocumento);
-                EvidenciaFD.append('contrato', vm.IdContrato);
-                DocVendedorClienteFactory.GetGuardaDocumentoPDF(EvidenciaFD).then(function(data){
-                    console.log(data);
-                    ngNotify.set('CORRECTO, Correcto se guardó el documento para el cliente.', 'success');
-                    GetDocumentosCliente();
-                    ResetEvidencia();
-                });
+                if(vm.Evidencia.size <= 1000000){
+                    var EvidenciaFD = new FormData();
+                    EvidenciaFD.append('file', vm.Evidencia); 
+                    EvidenciaFD.append('IdDocumento', vm.Documento.IdDocumento);
+                    EvidenciaFD.append('contrato', vm.IdContrato);
+                    DocVendedorClienteFactory.GetGuardaDocumentoPDF(EvidenciaFD).then(function(data){
+                        ngNotify.set('CORRECTO, Correcto se guardó el documento para el cliente.', 'success');
+                        GetDocumentosCliente();
+                        ResetEvidencia();
+                    });
+                }else{
+                    ngNotify.set('ERROR, el tamaño del archivo es invalido.', 'warn');
+                }
             }else{
                 ngNotify.set('ERROR, Formato invalido', 'warn');
             }
         }
 
-        function GetDocumentoCliente(IdDocumento){
+        function GetDocumentoCliente(ObjDoc){
             var ObjDocumento = {
-                'IdDocumento': IdDocumento, 
+                'IdDocumento': ObjDoc.IdDocumento, 
                 'contrato': vm.IdContrato
             };
             DocVendedorClienteFactory.GetDimeTipoDocumento(ObjDocumento).then(function(data){
-                console.log(data);
+                DocVendedorClienteFactory.GetDocumentoClienteWeb(ObjDocumento).then(function(data){
+                    var Name = data.GetDocumentoClienteWebResult;
+                    var FileName = globalService.getUrlReportes() + '/Images/' + Name;
+                    vm.FileName = $sce.trustAsResourceUrl(FileName);
+                    vm.TituloDoc = ObjDoc.Documento;
+                });
             });
         }
 
@@ -881,7 +886,6 @@ angular
                 'idUsuario': $localStorage.currentUser.idUsuario
             };
             DocVendedorClienteFactory.GetModificaRevisado(ObjRevisado).then(function(data){
-                console.log(data);
                 GetDocumentosCliente();
             });
         }
@@ -893,7 +897,6 @@ angular
                 'idUsuario': $localStorage.currentUser.idUsuario
             };
             DocVendedorClienteFactory.GetModificaRecibido(ObjRecibido).then(function(data){
-                console.log(data);
                 GetDocumentosCliente();
             });
         }

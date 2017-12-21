@@ -2,7 +2,7 @@
 
 angular
     .module('softvApp')
-    .controller('VendedorDocumentoCtrl', function(DocVendedorClienteFactory, VentasFactory, distribuidorFactory, ngNotify, $uibModal, $rootScope, $state, $localStorage, $stateParams){
+    .controller('VendedorDocumentoCtrl', function(DocVendedorClienteFactory, VentasFactory, distribuidorFactory, ngNotify, $uibModal, $rootScope, $state, $localStorage, $stateParams, globalService, $sce){
         
         function initData(){
             VentasFactory.GetDeepVendedores($stateParams.id).then(function(data){
@@ -28,28 +28,41 @@ angular
         }
 
         function SaveDocumento(){
+            vm.FileName = null;
+            vm.TituloDoc = null;
             if(vm.Evidencia.type == "application/pdf"){
-                var EvidenciaFD = new FormData();
-                EvidenciaFD.append('file', vm.Evidencia); 
-                EvidenciaFD.append('IdDocumento', vm.DocumentoVendedor.IdDocumento);
-                EvidenciaFD.append('clv_vendedor', vm.clv_vendedor);
-                DocVendedorClienteFactory.GetGuardaDocumentoPDFVendedor(EvidenciaFD).then(function(data){
-                    ngNotify.set('CORRECTO, Correcto se guardó el documento para el vendedor.', 'success');
-                    GetDocumentoVendedorList();
-                    ResetEvidencia();
-                });
+                if(vm.Evidencia.size <= 1000000){
+                    var EvidenciaFD = new FormData();
+                    EvidenciaFD.append('file', vm.Evidencia); 
+                    EvidenciaFD.append('IdDocumento', vm.DocumentoVendedor.IdDocumento);
+                    EvidenciaFD.append('clv_vendedor', vm.clv_vendedor);
+                    DocVendedorClienteFactory.GetGuardaDocumentoPDFVendedor(EvidenciaFD).then(function(data){
+                        ngNotify.set('CORRECTO, Correcto se guardó el documento para el vendedor.', 'success');
+                        GetDocumentoVendedorList();
+                        ResetEvidencia();
+                    });
+                }else{
+                    ngNotify.set('ERROR, el tamaño del archivo es invalido.', 'warn');
+                }
             }else{
                 ngNotify.set('ERROR, Formato invalido', 'warn');
             }
         }
 
-        function GetDocumentoVendedor(IdDocumento){
+        function GetDocumentoVendedor(ObjDoc){
+            vm.FileName = null;
+            vm.TituloDoc = null;
             var ObjTipoDocumento = {
-                'IdDocumento': IdDocumento,
+                'IdDocumento': ObjDoc.IdDocumento,
                 'clv_vendedor': vm.clv_vendedor
             };
             DocVendedorClienteFactory.GetDimeTipoDocumentoVendedor(ObjTipoDocumento).then(function(data){
-                console.log(data);
+                DocVendedorClienteFactory.GetDocumentoVendedorWeb(ObjTipoDocumento).then(function(data){
+                    var Name = data.GetDocumentoVendedorWebResult;
+                    var FileName = globalService.getUrlReportes() + '/Images/' + Name;
+                    vm.FileName = $sce.trustAsResourceUrl(FileName);
+                    vm.TituloDoc = ObjDoc.Documento;
+                });
             });
         }
 

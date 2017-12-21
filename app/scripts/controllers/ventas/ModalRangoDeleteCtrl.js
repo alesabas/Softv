@@ -9,7 +9,6 @@ angular
                 'CveRango': CveRango
             };
             SeriesFactory.GetConCatalogoDeRangos(ObjRango).then(function(data){
-                console.log(data);
                 var Rango = data.GetConCatalogoDeRangosResult;
                 vm.CveRango = Rango.CveRango;
                 vm.RangoInferior = Rango.rangoIni;
@@ -22,10 +21,8 @@ angular
                 'CveRango': vm.CveRango
             };
             SeriesFactory.GetValidaRangosAEliminar(ObjRango).then(function(data){
-                console.log(data);
                 if(data.GetValidaRangosAEliminarResult == 0){
                     SeriesFactory.GetBorCatalogoDeRangos(ObjRango).then(function(data){
-                        console.log(data);
                         ngNotify.set('CORRECTO, Se guardo el Rango.', 'success');
                         $rootScope.$emit('LoadRangoList');
                         cancel();

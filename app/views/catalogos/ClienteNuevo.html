@@ -6,7 +6,7 @@
     }
 
     .table-scroll-docs {
-        height:250px;
+        height:300px;
         overflow:auto;  
     }
 
@@ -754,6 +754,9 @@
                                 <div class="col-md-12" style="text-align:right">
                                     <br ng-show="$ctrl.View">
                                     <button type="submit" class="btn btn-success btn-sm" ng-disabled="$ctrl.DisableInput" ng-show="!$ctrl.View">Validar</button>
+                                    <br>
+                                    <br>
+                                    <br>
                                 </div>
                             </div>
                         </div>
@@ -860,6 +863,8 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="col-md-12">
+                                    <br>
+                                    <br>
                                     <br>
                                 </div>
                             </div>
@@ -1138,6 +1143,8 @@
                         <div class="col-md-12" ng-show="$ctrl.ShowServiciosE">
                             <br>
                             <br>
+                            <br>
+                            <br>
                             <br ng-repeat="S in $ctrl.GetNumber($ctrl.ShowServiciosE)">
                         </div>
                     </div>
@@ -1162,11 +1169,13 @@
                         </div>
                         <form name="FormDocumentoCliente" angular-validator-submit="$ctrl.SaveDocumentoCliente()" novalidate angular-validator autocomplete="off">
                         <div class="col-md-12">
+                            <fieldset ng-disabled="$ctrl.View">
                             <div class="col-md-12">
                                 <select name="SlcDocumento" class="form-control input-sm" ng-model="$ctrl.Documento" ng-options="DC.Documento for DC in $ctrl.DocumentoList track by DC.IdDocumento"  validate-on="dirty" required required-message="'Obligatorio'">
                                     <option value="">Selecciona Documento</option>
                                 </select>
                             </div>
+                            </fieldset>
                         </div>
                         <div class="col-md-12">
                             <div class="col-md-12 has-error" ng-if="FormDocumentoCliente.InpEvidencia.$invalid && $ctrl.TouchFile == true">
@@ -1176,6 +1185,7 @@
                             </div>
                         </div>
                         <div class="col-md-12" style="padding:2%">
+                            <fieldset ng-disabled="$ctrl.View">
                             <div class="col-md-4">
                                 <div class="fileUpload btn btn-success btn-xs btn-block">
                                     <span><i class="fa fa-file"></i> Buscar</span>
@@ -1188,6 +1198,7 @@
                             <div class="col-md-4">
                                 <button type="reset" class="btn btn-danger btn-xs btn-block" ng-click="$ctrl.ResetEvidencia()" ng-disabled="($ctrl.Evidencia == null || $ctrl.Evidencia == undefined)" title="Quitar archivo"><i class="fa fa-ban"></i> Quitar</button>
                             </div>
+                            </fieldset>
                         </div>
                         </form>
                         <div class="col-md-12">
@@ -1213,29 +1224,45 @@
                                             <td><small>{{ X.Documento }}</small></td>
                                             <td ng-if="X.Existe == true"><small>Si</small></td>
                                             <td ng-if="X.Existe == false"><small>No</small></td>
-                                            <td><button class="btn btn-success btn-xs" title="Ver Evidencia" ng-click="$ctrl.GetDocumentoCliente(X.IdDocumento)" ng-if="X.Existe == true"><i class="fa fa-eye"></i> Ver</button></td>
+                                            <td><button class="btn btn-success btn-xs" title="Ver Evidencia" ng-click="$ctrl.GetDocumentoCliente(X)" ng-if="X.Existe == true"><i class="fa fa-eye"></i> Ver</button></td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-                        <div class="col-md-12 text-center" style="padding:2%">
+                        <div class="col-md-12">
+                            <br>
+                        </div>
+                        <div class="col-md-12 text-center">
+                        <fieldset ng-disabled="$ctrl.View">
                             <div class="col-md-12">
                                 <label class="checkbox-inline checkbox-styled">
                                     <input type="checkbox" name="CbxRevisado" ng-model="$ctrl.Revisado" ng-disabled="$ctrl.DisCbxDocumneto" ng-change="$ctrl.SetRevisado()"><span><small>Expediente Electrónico Revisado</small></span>
                                 </label>
                             </div>
+                        </fieldset>
                         </div>
                         <div class="col-md-12  text-center">
+                        <fieldset ng-disabled="$ctrl.View">
                             <div class="col-md-12">
                                 <label class="checkbox-inline checkbox-styled">
                                     <input type="checkbox" name="CbxRecibido" ng-model="$ctrl.Recibido" ng-disabled="$ctrl.DisCbxDocumneto" ng-change="$ctrl.SetRecibido()"><span><small>Orden y Contrato Físico Recibido</small></span>
                                 </label>
                             </div>
+                        </fieldset>
                         </div>
                     </div>
                     <div class="col-md-7">
-
+                        <div class="col-md-12">
+                            <b>Documento seleccionado: {{ $ctrl.TituloDoc }}</b>
+                        </div>
+                        <div class="col-md-12">
+                            <br>
+                        </div>
+                        <div class="col-md-12">
+                            <iframe ng-src="{{ $ctrl.FileName }}" style="width: 100%; height: 450px;" ng-show="$ctrl.FileName != null"></iframe>
+                            <iframe ng-src="" style="width: 100%; height: 450px;" ng-show="$ctrl.FileName == null"></iframe>
+                        </div>
                     </div>
                 </div>
             </div>

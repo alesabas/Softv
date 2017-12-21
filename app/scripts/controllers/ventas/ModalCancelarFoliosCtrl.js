@@ -10,7 +10,6 @@ angular
                 'Op': 0
             };
             SeriesFactory.GetVendedores_dosList(ObjVendedorList).then(function(data){
-                console.log(data);
                 vm.VendedorList = data.GetVendedores_dosListResult;
                 vm.Vendedor = vm.VendedorList[0];
                 GetSerieList();
@@ -19,7 +18,6 @@ angular
 
         function CancelarFolio(){
             if(vm.Evidencia != undefined ){
-                console.log(vm.Evidencia.type);
                 if(vm.Evidencia.type == 'image/jpeg' ||
                     vm.Evidencia.type == 'image/bmp' || 
                     vm.Evidencia.type == 'image/gif' || 
@@ -67,9 +65,7 @@ angular
                 'archivo': vm.Evidencia,
                 'tipo': GetTipo()
             }
-            console.log(objGuardaEvidenciaCancelacionFolio);
             SeriesFactory.UpdateGuardaEvidenciaCancelacionFolio(objGuardaEvidenciaCancelacionFolio).then(function(data){
-                console.log(data);
                 ngNotify.set('CORRECTO, se canceló el Folio.', 'success');
                 cancel();
             });
@@ -82,7 +78,6 @@ angular
                     'Contrato': 0
                 };
                 SeriesFactory.GetUltimo_SERIEYFOLIOList(ObjSerieList).then(function(data){
-                    console.log(data);
                     vm.SerieList = data.GetUltimo_SERIEYFOLIOListResult;
                     vm.Serie = vm.SerieList[0];
                     GetFolioDisponible();
@@ -97,7 +92,6 @@ angular
                 'CONTRATO': 0
             };
             SeriesFactory.GetFolio_DisponibleList(ObjFolioDisponible).then(function(data){
-                console.log(data);
                 vm.FolioDisponibleList = data.GetFolio_DisponibleListResult;
                 vm.FolioDisponible = FolioDisponibleList[0];
             });

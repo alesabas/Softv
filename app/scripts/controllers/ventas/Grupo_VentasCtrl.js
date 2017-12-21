@@ -6,7 +6,6 @@ angular
         
         function initData(){
             SeriesFactory.GetMuestra_Compania_RelUsuarioList($localStorage.currentUser.idUsuario).then(function(data){
-                console.log(data);
                 vm.PlazaList = data.GetMuestra_Compania_RelUsuarioListResult;
                 vm.Plaza = vm.PlazaList[0];
                 GetGrupoList();
@@ -15,7 +14,6 @@ angular
 
         function GetGrupoList(){
             GrupoVentaFactory.GetConGrupoVentas1(vm.Plaza.id_compania).then(function(data){
-                console.log(data);
                 vm.GrupoList = data.GetConGrupoVentas1Result;
                 vm.ViewList = (vm.GrupoList.length > 0)? true:false;
             });
@@ -36,13 +34,11 @@ angular
 
         function SaveGrupo(){
             if(vm.Op == 1){
-                console.log('S');
                 var ObjGrupo = {
                     'Grupo': vm.Grupo,
                     'idcompania': vm.Plaza.id_compania
                 };
                 GrupoVentaFactory.GetNueGrupoVentas(ObjGrupo).then(function(data){
-                    console.log(data);
                     var Result = data.GetNueGrupoVentasResult;
                     if(Result.Res == 0){
                         ngNotify.set('CORRECTO, Se guardo el Grupo de Ventas.', 'success');
@@ -54,13 +50,11 @@ angular
                     }
                 });
             }else if(vm.Op == 2){
-                console.log('U');
                 var ObjGrupo = {
                     'Clv_Grupo': vm.Clave,
                     'Grupo': vm.Grupo
                 };
                 GrupoVentaFactory.GetModGrupoVentas(ObjGrupo).then(function(data){
-                    console.log(data);
                     var Result = data.GetModGrupoVentasResult;
                     if(Result.Res == 0){
                         ngNotify.set('CORRECTO, Se guardo el Grupo de Ventas.', 'success');

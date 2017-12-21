@@ -6,7 +6,6 @@ angular
         
         function initData(){
             SeriesFactory.GetSP_SerieFolioList($localStorage.currentUser.idUsuario).then(function(data){
-                console.log(data);
                 vm.SerieList = data.GetSP_SerieFolioListResult;
                 vm.Serie = vm.SerieList[0];
             });
@@ -19,13 +18,11 @@ angular
                     'clave': vm.Serie.Clave
                 };
                 SeriesFactory.AddDameTipoSerie(objDameTipoSerie).then(function(data){
-                    console.log(data);
                     vm.TipoSerie = data.AddDameTipoSerieResult;
                     var objValidaFoliosImprimir = {
                         'serie': vm.Serie.Serie
                     };
                     SeriesFactory.AddValidaFoliosImprimir(objValidaFoliosImprimir).then(function(data){
-                        console.log(data);
                         vm.ValidaFoliosRes = data.AddValidaFoliosImprimirResult;
                         vm.Cant = (vm.TipoSerie == 1)? 15:7;
                         var Concepto = (vm.TipoSerie == 1)? 'Cobro':'Venta';
@@ -45,9 +42,7 @@ angular
                 'Folio': vm.CantidadFolio
             };
             SeriesFactory.AddFolios(objCatalogoSeries).then(function(data){
-                console.log(data);
                 SeriesFactory.AddSerieFolios(objCatalogoSeries).then(function(data){
-                    console.log(data);
                     ngNotify.set('CORRECTO, Se imprimieron Folios.', 'success');
                     cancel();
                 });

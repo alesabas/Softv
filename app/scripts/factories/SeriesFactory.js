@@ -49,7 +49,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = ObjSeriesList;
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetCatalogoSeriesList, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -62,7 +61,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = ObjVendedorList;
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetVendedoresList, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -75,7 +73,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = ObjValidaSerie;
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetVALIDACatalogoSeries, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -88,7 +85,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'objCatalogoSeries': objCatalogoSeries};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.AddCatalogoSeries, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -101,7 +97,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'Clave': Clave};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetDeepCatalogoSeries, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -114,7 +109,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'objCatalogoSeries': objCatalogoSeries};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.UpdateCatalogoSeries, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -127,7 +121,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'Clave': Clave};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.DeleteCatalogoSeries, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -140,7 +133,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = ObjVendedorList;
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetVendedores_dosList, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -153,7 +145,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = ObjSerieList;
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetUltimo_SERIEYFOLIOList, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -166,7 +157,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = ObjFolioDisponibleList;
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetFolio_DisponibleList, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -179,7 +169,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'objCancela_Folios': objCancela_Folios};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.UpdateCancela_Folios, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -210,7 +199,6 @@ angular
             EvidenciaFD.append('tipo', objGuardaEvidenciaCancelacionFolio.tipo);
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token, 'Content-Type': undefined}};
-            console.log(EvidenciaFD);
             $http.post(globalService.getUrl() + paths.UpdateGuardaEvidenciaCancelacionFolio, EvidenciaFD, config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -223,7 +211,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'ClvUsuario': ClvUsuario};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetSP_SerieFolioList, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -236,7 +223,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'objDameTipoSerie': objDameTipoSerie};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.AddDameTipoSerie, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -249,7 +235,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'objValidaFoliosImprimir': objValidaFoliosImprimir};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.AddValidaFoliosImprimir, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -262,7 +247,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'objCatalogoSeries': objCatalogoSeries};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.AddFolios, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -275,7 +259,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'objCatalogoSeries': objCatalogoSeries};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.AddSerieFolios, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -288,7 +271,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'objReimprimirFolios': objReimprimirFolios};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetReimpresionFoliosExistentesMin, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -301,7 +283,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'objReimprimirFolios': objReimprimirFolios};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetReimpresionFoliosExistentes, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -314,7 +295,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'objReimprimirFolios': objReimprimirFolios};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetReimpresionFolios, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -327,7 +307,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'ObjClvSession': ObjClvSession};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.Get_clv_session_Reportes, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -340,7 +319,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'ObjVendedor': ObjVendedor};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetConVentasVendedoresPro, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -353,7 +331,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'ObjVendedor': ObjVendedor};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetConVentasVendedoresTmp, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -366,7 +343,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'ObjVendedor': ObjVendedor};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetInsertarVendedorTmp, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -379,7 +355,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'ObjVendedor': ObjVendedor};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetBorrarVendedorTmp, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -392,7 +367,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'ObjFoliosCancelados': ObjFoliosCancelados};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetMuestraFoliosCancelados, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -405,7 +379,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'ObjTipoEvidencia': ObjTipoEvidencia};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetDameTipoEvidencia, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -418,7 +391,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'ObjEvidencia': ObjEvidencia};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetEvidenciaSerieFolioVEndedor, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -431,7 +403,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'ClvUsuario': ClvUsuario};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetMuestra_Compania_RelUsuarioList, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -444,7 +415,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'ObjRango': ObjRango};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetMuestraCatalogoDeRangos, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -457,7 +427,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'ObjRango': ObjRango};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetuspChecaSiGuardaRango, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -470,7 +439,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'ObjRango': ObjRango};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetNueCatalogoDeRangos, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -483,7 +451,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'ObjRango': ObjRango};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetConCatalogoDeRangos, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -496,7 +463,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'ObjRango': ObjRango};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetValidaRangosAEliminar, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -509,7 +475,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'ObjRango': ObjRango};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetModCatalogoDeRangos, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -522,7 +487,6 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'ObjRango': ObjRango};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetBorCatalogoDeRangos, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){

@@ -346,7 +346,6 @@ angular
 				case 'General de Facturas Fiscales':
 					if (vm.selectedMenu.Clv_Vendedor == 2) {
 						if (vm.plazasObj.selectedItems.length > 0) {
-							console.log('generar pdf');
 						} else {
 							ngNotify.set('Selecciona al menos una plaza.', 'error');
 						}

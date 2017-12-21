@@ -101,13 +101,23 @@
                                 <td><small>{{ X.Documento }}</small></td>
                                 <td ng-if="X.Existe == true"><small>Si</small></td>
                                 <td ng-if="X.Existe == false"><small>No</small></td>
-                                <td><button class="btn btn-success btn-xs" title="Ver Documento" ng-click="$ctrl.GetDocumentoVendedor(X.IdDocumento)" ng-if="X.Existe == true"><i class="fa fa-eye"></i> Ver</button></td>
+                                <td><button class="btn btn-success btn-xs" title="Ver Documento" ng-click="$ctrl.GetDocumentoVendedor(X)" ng-if="X.Existe == true"><i class="fa fa-eye"></i> Ver</button></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
             <div class="col-md-8">
+                <div class="col-md-12">
+                    <b>Documento seleccionado: {{ $ctrl.TituloDoc }}</b>
+                </div>
+                <div class="col-md-12">
+                    <br>
+                </div>
+                <div class="col-md-12">
+                    <iframe ng-src="{{ $ctrl.FileName }}" style="width: 100%; height: 450px;" ng-show="$ctrl.FileName != null"></iframe>
+                    <iframe ng-src="" style="width: 100%; height: 450px;" ng-show="$ctrl.FileName == null"></iframe>
+                </div>
             </div>
         </div>
     </div>

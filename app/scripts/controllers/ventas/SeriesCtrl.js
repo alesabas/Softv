@@ -6,7 +6,6 @@ angular
 
         function initData(){
             VentasFactory.GetMuestra_PlazasPorUsuarioList($localStorage.currentUser.idUsuario).then(function(data){
-                console.log(data);
                 vm.DistribuidorList = data.GetMuestra_PlazasPorUsuarioListResult;
                 vm.Distribuidor = vm.DistribuidorList[0];
                 GetSerieList(4);
@@ -24,7 +23,6 @@ angular
                 'Tipo': vm.Tipo.Clv_Tipo
             };
             SeriesFactory.GetCatalogoSeriesList(ObjSeriesList).then(function(data){
-                console.log(data);
                 vm.SerieList = data.GetCatalogoSeriesListResult;
                 vm.ViewList = (vm.SerieList.length > 0)? true:false;
                 vm.Serie = null;
