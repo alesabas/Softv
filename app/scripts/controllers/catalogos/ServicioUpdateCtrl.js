@@ -27,6 +27,7 @@ angular
                     vm.ShowOrden = (Servicio.Genera_Orden == true)? true : false;
                     vm.Principal = (Servicio.Es_Principal == true)? 'Y' : 'N';
                     vm.Precio = (Servicio.Precio > 0)? Servicio.Precio : 0;
+                    vm.dolares=Servicio.dolares;
                     vm.HideCobroMensual = (Servicio.Sale_en_Cartera == true)? false : true;
                     vm.ShowCobroMensual = (Servicio.Sale_en_Cartera == true)? true : false;
                     vm.ShowClaveEquivalenteNet = (Servicio.Sale_en_Cartera == true && Servicio.Es_Principal == true && vm.Clv_TipSer == 2)? true:false;

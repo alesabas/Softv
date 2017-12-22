@@ -1,0 +1,154 @@
+<div class="card animated fadeIn" style="margin-top:20px;">
+  <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+    <header>
+      <strong style="font-weight:bold; border:none; margin-left:10px;">{{$ctrl.titulo}}</strong>
+      <br>
+      <small class="text-muted" style="font-size:14px; margin-left:10px;">
+        <a href="#">
+          <i class="fa fa-home" aria-hidden="true"></i> Inicio</a>>
+        <a href="#" class="paginaActiva">Catálogos</a>
+      </small>
+    </header>
+    <div class="tools">
+      <div class="btn-group">
+        <button type="button"  ng-disabled="$ctrl.detalle" ng-click="$ctrl.SaveCombo()" class="btn btn-primary btn-sm" title="Guardar combo">
+          <i class="fa fa-save"></i> Guardar</button>
+        <button type="button" class="btn btn-default btn-sm" ui-sref="home.catalogos.combo">
+          <i class="fa fa-close"></i> Cancelar</button>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+ <form name="FormCombo" angular-validator-submit="$ctrl.addServicio()" novalidate angular-validator autocomplete="off">
+    <div class="col-md-12" style="padding:30px;">
+      <div class="col-md-6">
+
+        <div class="col-md-12">
+          <label class="col-md-4 control-label blod">Nombre del combo:</label>
+          <div class="col-md-8">
+            <input class="form-control input-sm" ng-disabled="$ctrl.blocknombre"
+             name="nombreCombo" ng-model="$ctrl.nombreCombo"
+             required
+             validate-on="dirty" required required-message="'Obligatorio'"
+             >
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <label class="col-md-4 control-label blod">Tipo de cliente:</label>
+          <div class="col-md-8">
+               
+            <select class="form-control input-sm"
+             ng-options="item.DESCRIPCION for item in $ctrl.TipoCobroList track by item.CLV_TIPOCLIENTE" 
+             validate-on="dirty" required required-message="'Obligatorio'"
+             required
+              name="tipoCliente" ng-model="$ctrl.tipoCliente">
+              <option value="">Selecciona</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <label class="col-md-4 control-label blod">Tipo de servicio:</label>
+          <div class="col-md-8">
+            <select class="form-control input-sm" 
+            ng-change="$ctrl.GetServiciosCombo()"
+            required
+            ng-options="item.Concepto for item in $ctrl.TipoServicioList track by item.Clv_TipSerPrincipal"
+             name="tipoServicio" ng-model="$ctrl.tipoServicio"
+              validate-on="dirty" required required-message="'Obligatorio'">
+              <option value="">Selecciona</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <br>
+          <br>
+          <label class="col-md-4 control-label blod">Selecciona servicio:</label>
+          <div class="col-md-8">
+            <label class="radio-inline radio-styled radio-info">
+              <input type="radio" ng-change="$ctrl.GetServiciosCombo()" ng-model="$ctrl.tipo" value="7">
+              <span>Principal</span>
+            </label>
+
+            <label class="radio-inline radio-styled radio-info"  >
+              <input type="radio" ng-change="$ctrl.GetServiciosCombo()" ng-model="$ctrl.tipo"  value="9">
+              <span>Adicional</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+            <br>
+          <label class="col-md-4 control-label blod"></label>
+          <div class="col-md-8">
+            <select class="form-control input-sm" 
+            ng-options="item.Descripcion for item in $ctrl.ServiciosCombosList track by item.Clv_Servicio" 
+            name="servicioCombo" ng-model="$ctrl.servicioCombo" validate-on="dirty"
+            required
+             required required-message="'Obligatorio'"
+             
+            >
+              <option value="">selecciona</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+            <br>
+            <div class="col-md-3">
+             <label>Contratación</label>
+             <input type="number" class="form-control input-sm"
+             validate-on="dirty"
+             required
+             required required-message="'Obligatorio'"
+             min="1" name="contratacion" ng-model="$ctrl.contratacion">    
+            </div>    
+            <div class="col-md-3">
+                    <label>Mensualidad</label>
+                    <input type="number" class="form-control input-sm"
+                    validate-on="dirty"
+                    required
+                    required required-message="'Obligatorio'"
+                    min="1" name="mensualidad" ng-model="$ctrl.mensualidad">     
+            </div>  
+            <div class="col-md-3">
+                    <label>Renta</label>
+                    <input type="number" class="form-control input-sm" 
+                    validate-on="dirty"
+                    required
+                    required required-message="'Obligatorio'"
+                    min="1" name="renta" ng-model="$ctrl.renta">     
+            </div>  
+            <div class="col-md-3">
+              <button type="submit" ng-disabled="$ctrl.detalle"  class="btn  btn-warning"><i class="fa fa-plus"></i> Agregar</button> 
+      </div>  
+       </div>
+       
+      </div>
+      <div class="col-md-6">
+       <table class="table">
+           <thead>
+               <th>Servicio</th>
+               <th>Contratación</th>
+               <th>Mensualidad</th>
+               <th>Renta</th>
+               <th>Opciones</th>
+           </thead>
+           <tbody>
+             <tr ng-repeat="x in $ctrl.listadesc"> 
+               <td>{{x.Descripcion}}</td>
+               <td>{{x.Cont  | currency}}</td>
+               <td>{{x.Mens  | currency}}</td>
+               <td>{{x.Reco | currency}}</td>
+               <td><button type="button"  ng-disabled="$ctrl.detalle" class="btn btn-danger btn-xs" ng-click="$ctrl.eliminadetCombo(x)">Quitar</button></td>
+             </tr>
+           </tbody>
+       </table>
+
+      </div>
+
+    </div>
+</form>
+  </div>
+</div>

@@ -19,7 +19,6 @@ angular.module('softvApp').controller('ReporteRecepcionCtrl', ReporteRecepcionCt
     });
 
 function ReporteRecepcionCtrl($uibModal, ngNotify, inMenu, pagosMaestrosFactory, $timeout) {
-
     function saldadas() {
         var parametros;
         if (vm.pendientes == 1) {
@@ -367,7 +366,7 @@ function ReporteRecepcionCtrl($uibModal, ngNotify, inMenu, pagosMaestrosFactory,
     vm.saldadas = saldadas;
     vm.crearTodoAsCsv = crearTodoAsCsv;
     vm.createPdfTodo = createPdfTodo;
-    vm.filename = 'Contratos saldados';
+    vm.filename = 'Reporte_de_pagos';
     var reportHeaderPdf = "Reporte de Pagos";
     vm.csvDosHide = true;
     var img = new Image();

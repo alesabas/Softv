@@ -41,8 +41,11 @@ angular
                 'Es_Principal': (vm.Principal == 'Y') ? 1 : 0,
                 'idcompania': 0,
                 'EsToken': 0,
-                'Gb': 0
+                'Gb': 0,
+                'dolares':vm.dolares
             };
+            console.log(objServicios_New);
+            
             CatalogosFactory.AddServicios_New(objServicios_New).then(function(data){
                 var Clv_Servicio = data.AddServicios_NewResult;
                 if(Clv_Servicio > 0){

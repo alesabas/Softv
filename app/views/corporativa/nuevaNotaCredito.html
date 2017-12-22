@@ -22,7 +22,7 @@
             Contrato maestro
           </div>
           <div class="col-md-4">
-            <input type="number" class="form-control input-sm" placeholder="No.Contrato" ng-model="$ctrl.Contrato" ng-keypress="$ctrl.enter($event)">
+            <input type="number" name="contrato" class="form-control input-sm" placeholder="No.Contrato" ng-model="$ctrl.Contrato" ng-keypress="$ctrl.enter($event)">
           </div>
           <div class="col-md-4">
 
@@ -34,14 +34,14 @@
           <b class="text-danger"> Estatus</b>
         </div>
         <div class="col-md-3" ng-show="$ctrl.MuestraDet">
-          <select ng-model="$ctrl.Status" ng-disabled="true" class="form-control input-sm" ng-options="item as item.Status for item in $ctrl.StatusList track by item.Clv_Status">
+          <select ng-model="$ctrl.Status" name="status" ng-disabled="true" class="form-control input-sm" ng-options="item as item.Status for item in $ctrl.StatusList track by item.Clv_Status">
          <option value="" selected>Activa</option>
          </select>
         </div>
         <div class="col-md-3">
           <div class="col-md-4"><b class="text-danger">No.Nota</b></div>
           <div class="col-md-8">
-            <input type="text" ng-disabled="true" ng-model="$ctrl.clvnota" class="form-control input-sm">
+            <input type="text" name="clvnota" ng-disabled="true" ng-model="$ctrl.clvnota" class="form-control input-sm">
           </div>
         </div>
       </div>
@@ -56,7 +56,7 @@
 
             <label class="col-md-3 control-label blod">Nombre Comercial:</label>
             <div class="col-md-9" style="padding-left:-10px;">
-              <input type="text" ng-disabled="true" class="form-control input-sm" ng-value="$ctrl.DetalleContrato.NombreComercial">
+              <input type="text" name="nombrecomercial" ng-disabled="true" class="form-control input-sm" ng-value="$ctrl.DetalleContrato.NombreComercial">
 
             </div>
           </div>
@@ -65,7 +65,7 @@
 
             <label class="col-md-3 control-label blod">Razón social:</label>
             <div class="col-md-9" style="padding-left:-10px;">
-              <input type="text" ng-disabled="true" class="form-control input-sm" ng-value="$ctrl.DetalleContrato.RazonSocial">
+              <input type="text" name="razonsocial" ng-disabled="true" class="form-control input-sm" ng-value="$ctrl.DetalleContrato.RazonSocial">
 
             </div>
           </div>
@@ -73,7 +73,7 @@
 
             <label class="col-md-3 control-label blod">RFC:</label>
             <div class="col-md-9" style="padding-left:-10px;">
-              <input type="text" ng-disabled="true" class="form-control input-sm" ng-value="$ctrl.DetalleContrato.RFC">
+              <input type="text" name="rfc" ng-disabled="true" class="form-control input-sm" ng-value="$ctrl.DetalleContrato.RFC">
 
             </div>
           </div>
@@ -81,7 +81,7 @@
 
             <label class="col-md-3 control-label blod">Distribuidor:</label>
             <div class="col-md-9" style="padding-left:-10px;">
-              <input type="text" ng-disabled="true" class="form-control input-sm" ng-value="$ctrl.DetalleContrato.DistribuidorDes">
+              <input type="text" name="distribuidor" ng-disabled="true" class="form-control input-sm" ng-value="$ctrl.DetalleContrato.DistribuidorDes">
 
             </div>
           </div>
@@ -106,14 +106,14 @@
           <div class="col-md-12">
             <label class="col-md-3 control-label blod">Caja:</label>
             <div class="col-md-9" style="padding-left:-10px;">
-              <input type="text" ng-disabled="true" name="razon" validate-on="dirty" class="form-control input-sm" ng-model="$ctrl.Caja"
+              <input type="text" ng-disabled="true" name="caja" validate-on="dirty" class="form-control input-sm" ng-model="$ctrl.Caja"
                 required-message="'Este campo es obligatorio.'" required>
             </div>
           </div>
           <div class="col-md-12">
             <label class="col-md-3 control-label blod">Cajero:</label>
             <div class="col-md-9" style="padding-left:-10px;">
-              <select class="form-control input-sm" ng-model="$ctrl.scajero" ng-options="item as item.NOMBRE for item in $ctrl.Cajero track by item.CLV_USUARIO">
+              <select class="form-control input-sm" name="cajero" ng-model="$ctrl.scajero" ng-options="item as item.NOMBRE for item in $ctrl.Cajero track by item.CLV_USUARIO">
           <option value="">selecciona</option>
           </select>
 
@@ -129,7 +129,7 @@
           <div class="col-md-12">
             <label class="col-md-3 control-label blod">Fecha Generación:</label>
             <div class="col-md-9" style="padding-left:-10px;">
-              <input type="text" ng-disabled="true" class="form-control input-sm" ng-model="$ctrl.FechaG">
+              <input type="text" name="fechaG" ng-disabled="true" class="form-control input-sm" ng-model="$ctrl.FechaG">
             </div>
           </div>
         
@@ -214,7 +214,7 @@
           </div>
           <div class="row">
 <label class="checkbox-inline checkbox-styled checkbox-info">
-														<input type="checkbox" ng-change="$ctrl.MarcarContratos()" ng-model="$ctrl.marcar"><span>Marcar/Desmarcar contratos</span>
+														<input type="checkbox" name="marca" ng-change="$ctrl.MarcarContratos()" ng-model="$ctrl.marcar"><span>Marcar/Desmarcar contratos</span>
 													</label>
 
           </div>

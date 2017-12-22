@@ -6,6 +6,10 @@ angular
 			if ($localStorage.currentUser) {
 				vm.menus = $localStorage.currentUser.Menu;
 				vm.usuario = $localStorage.currentUser.usuario;
+
+			   vm.caja=	$localStorage.currentUser.CajaNombre;
+				vm.sucursal=$localStorage.currentUser.SucursalNombre;
+			//	vm.usuario = $localStorage.currentUser.usuario;
 				//$state.go('home.dashboard');
 			} else {
 				location.href === '/auth/';

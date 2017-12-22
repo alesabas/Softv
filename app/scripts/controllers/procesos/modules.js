@@ -178,7 +178,19 @@ angular
         templateUrl: 'views/procesos/agendaUpdate.html',
         controller: 'agendaUpdateCtrl',
         controllerAs: '$ctrl'
+      },
+      {
+        name: 'home.procesos.reset',
+        data: {
+          pageTitle: 'SOFTV | RESET DE APARATOS',
+        },
+        url: '/reset',
+        templateUrl: 'views/procesos/resetAparatos.html',
+        controller: 'resetAparatosCtrl',
+        controllerAs: '$ctrl'
       }
+      
+      
     ];
     states.forEach(function (state) {
       $stateProvider.state(state);

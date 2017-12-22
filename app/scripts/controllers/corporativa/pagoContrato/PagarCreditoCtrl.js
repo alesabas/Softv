@@ -143,8 +143,11 @@ function PagarCreditoCtrl($uibModal, $state, $rootScope, ngNotify, inMenu, $uibM
 			'Tipo': 0,
 			'ToKen2': $localStorage.currentUser.token,
 			'NoPagos': elem.NoPago,
-			'PagoInicial': elem.PagoInicial
+			'PagoInicial': elem.PagoInicial,
+			'IdCaja':$localStorage.currentUser.IdCaja
 		};
+
+
 		if (vm.casePago == undefined || vm.selectedMedio.IdMedioPago == 0) {
 			ngNotify.set('Por favor seleccione el medio de pago y llene un método de pago.', 'error');
 		} else {
@@ -176,8 +179,11 @@ function PagarCreditoCtrl($uibModal, $state, $rootScope, ngNotify, inMenu, $uibM
 										'GLONOTA3': 0,
 										'IdMedioPago': vm.selectedMedio.IdMedioPago,
 										'IdCompania': x.IdCompania,
-										'IdDistribuidor': x.IdDistribuidor
+										'IdDistribuidor': x.IdDistribuidor,
+										'IdCaja':$localStorage.currentUser.IdCaja
 									};
+                                     console.log('Por aqui se manda 1',objPagar);
+									
 									pagosMaestrosFactory.grabaFactura(objPagar).then(function (dataGraba) {
 										vm.pago = dataGraba.AddGuardaPagoFacturaMaestroResult;
 										pagosMaestrosFactory.nuePagoEfectivoPago(vm.pago, vm.efectivo, vm.cambio).then(function (dataNuevo) {
@@ -218,8 +224,11 @@ function PagarCreditoCtrl($uibModal, $state, $rootScope, ngNotify, inMenu, $uibM
 									'GLONOTA3': 0,
 									'IdMedioPago': vm.selectedMedio.IdMedioPago,
 									'IdCompania': x.IdCompania,
-									'IdDistribuidor': x.IdDistribuidor
+									'IdDistribuidor': x.IdDistribuidor,
+									'IdCaja':$localStorage.currentUser.IdCaja
 								};
+								console.log('Por aqui se manda 2',objPagar);
+							
 								pagosMaestrosFactory.grabaFactura(objPagar).then(function (dataGraba) {
 									vm.pago = dataGraba.AddGuardaPagoFacturaMaestroResult;
 									pagosMaestrosFactory.nuePagoEfectivoPago(vm.pago, vm.efectivo, vm.cambio).then(function (dataNuevo) {
@@ -271,8 +280,12 @@ function PagarCreditoCtrl($uibModal, $state, $rootScope, ngNotify, inMenu, $uibM
 											'GLONOTA3': 0,
 											'IdMedioPago': vm.selectedMedio.IdMedioPago,
 											'IdCompania': x.IdCompania,
-											'IdDistribuidor': x.IdDistribuidor
+											'IdDistribuidor': x.IdDistribuidor,
+											'IdCaja':$localStorage.currentUser.IdCaja
 										};
+										console.log('Por aqui se manda 3',objPagar);
+									
+										
 										pagosMaestrosFactory.grabaFactura(objPagar).then(function (dataGraba) {
 											if (dataGraba.AddGuardaPagoFacturaMaestroResult == 0) {
 												ngNotify.set('No se grabo la factura', 'error');
@@ -315,8 +328,13 @@ function PagarCreditoCtrl($uibModal, $state, $rootScope, ngNotify, inMenu, $uibM
 										'GLONOTA3': 0,
 										'IdMedioPago': vm.selectedMedio.IdMedioPago,
 										'IdCompania': x.IdCompania,
-										'IdDistribuidor': x.IdDistribuidor
+										'IdDistribuidor': x.IdDistribuidor,
+										'IdCaja':$localStorage.currentUser.IdCaja
 									};
+									console.log('Por aqui se manda 4',objPagar);
+								
+									
+
 									pagosMaestrosFactory.grabaFactura(objPagar).then(function (dataGraba) {
 										if (dataGraba.AddGuardaPagoFacturaMaestroResult == 0) {
 											ngNotify.set('No se grabo la factura', 'error');
@@ -367,8 +385,13 @@ function PagarCreditoCtrl($uibModal, $state, $rootScope, ngNotify, inMenu, $uibM
 											'GLONOTA3': 0,
 											'IdMedioPago': vm.selectedMedio.IdMedioPago,
 											'IdCompania': x.IdCompania,
-											'IdDistribuidor': x.IdDistribuidor
+											'IdDistribuidor': x.IdDistribuidor,
+											'IdCaja':$localStorage.currentUser.IdCaja
 										};
+                                        console.log('Por aqui se manda 5',objPagar);
+									
+										
+
 										pagosMaestrosFactory.grabaFactura(objPagar).then(function (dataGraba) {
 											if (dataGraba.AddGuardaPagoFacturaMaestroResult == 0) {
 												ngNotify.set('No se grabo la factura', 'error');
@@ -414,8 +437,12 @@ function PagarCreditoCtrl($uibModal, $state, $rootScope, ngNotify, inMenu, $uibM
 										'GLONOTA3': 0,
 										'IdMedioPago': vm.selectedMedio.IdMedioPago,
 										'IdCompania': x.IdCompania,
-										'IdDistribuidor': x.IdDistribuidor
+										'IdDistribuidor': x.IdDistribuidor,
+										'IdCaja':$localStorage.currentUser.IdCaja
 									};
+
+								
+
 									pagosMaestrosFactory.grabaFactura(objPagar).then(function (dataGraba) {
 										if (dataGraba.AddGuardaPagoFacturaMaestroResult == 0) {
 											ngNotify.set('No se grabo la factura', 'error');

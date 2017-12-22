@@ -39,7 +39,22 @@
         vm.colonia = vm.contratoMaestro.ColoniaDes;
         vm.calle = vm.contratoMaestro.CalleDes;
 
-
+        //Nos traemos las cuentas clabes disponibles en caso de que no se haya asignado alguna
+        if (vm.contratoMaestro.IdClabe === 0){
+          ContratoMaestroFactory.GetCuentaCableMaestro().then(function (data) {
+            vm.Clabes = data.GetCuentaCableMaestroResult;
+          });
+        }
+        //Si ya hay asignada, solo mostramos la que está asignada
+        else{
+          vm.Clabes = [
+            {
+              'Id': vm.contratoMaestro.IdClabe,
+               'Clabe': vm.contratoMaestro.Clabe
+            }
+          ];
+          vm.selectedClabe = vm.Clabes[0];
+        }
 
 
         corporativoFactory.getCortes().then(function (data) {
@@ -124,6 +139,11 @@
         vm.Fax = vm.contratoMaestro.Fax;
         vm.Pais = vm.contratoMaestro.Pais;
 
+        var date2 = new Date(vm.contratoMaestro.FechaVencimiento);
+        var date = vm.contratoMaestro.FechaVencimiento.replace(/[^0-9\.]+/g, '');
+        var pattern = /(\d{2})(\d{2})(\d{4})/;
+        date = new Date(date.replace(pattern, '$2/$1/$3'));
+        vm.fechaVigencia = date;
 
       });
     }
@@ -149,7 +169,14 @@
     }
 
     function abrirContratos() {
-
+      var auxFecha = $filter('date')(vm.fecha, 'dd/MM/yyyy');
+      var fechaHoy = new Date();
+      fechaHoy = $filter('date')(fechaHoy, 'dd/MM/yyyy');
+      var fechaVigenciaAux = $filter('date')(vm.fechaVigencia, 'dd/MM/yyyy');
+      if(fechaVigenciaAux <= fechaHoy){
+        ngNotify.set('El contrato maestro se encuentra vencido, los contratos que se agreguen no se verán afectados', 'info');
+      }
+    
       var detalle = {};
       detalle.ContratosSoftv = vm.contratoMaestro.lstCliS;
       detalle.IdContratoMaestro = vm.contratoMaestro.IdContratoMaestro;
@@ -224,6 +251,20 @@
       } else {
         vm.FacturacionDolaresAux = 0;
       }
+      var IdClabe = 0;
+      if (vm.contratoMaestro.IdClabe === 0){
+        if (vm.selectedClabe != undefined){
+          IdClabe = vm.selectedClabe.Id;
+        }
+      }
+      else{
+        IdClabe = vm.contratoMaestro.IdClabe;
+      }
+
+      var fechaHoy = new Date();
+      fechaHoy = $filter('date')(fechaHoy, 'dd/MM/yyyy');
+      var fechaVigenciaAux = $filter('date')(vm.fechaVigencia, 'dd/MM/yyyy');
+    
       var auxFecha = $filter('date')(vm.fecha, 'dd/MM/yyyy');
       var contrato = {
         'objContratoMaestroFac': {
@@ -260,7 +301,9 @@
           'Pais': vm.Pais,
           'Fax': vm.Fax,
           'Tel': vm.Telefono,
-          'Email': vm.Email
+          'Email': vm.Email,
+          'FechaVencimiento':fechaVigenciaAux,
+          'IdClabe': IdClabe
         }
       };
       corporativoFactory.updateContrato(contrato).then(function (data) {

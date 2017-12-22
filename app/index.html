@@ -24,6 +24,7 @@
   <link rel="stylesheet" href="bower_components/angular-tree-control/css/tree-control.css" />
   <link rel="stylesheet" href="bower_components/angularMultipleSelect/build/multiple-select.min.css" />
   <link rel="stylesheet" href="bower_components/angular-bootstrap-colorpicker/css/colorpicker.css" />
+  <link rel="stylesheet" href="bower_components/angular-moment-picker/dist/angular-moment-picker.min.css" />
   <!-- endbower -->
   <!-- endbuild -->
   <!-- build:css(.tmp) styles/main.css -->
@@ -37,7 +38,8 @@
   <link type="text/css" rel="stylesheet" href="libs/theme-default/libs/rickshaw/rickshaw.css?1422792967" />
   <link type="text/css" rel="stylesheet" href="libs/theme-default/libs/morris/morris.core.css?1420463396" />
   <script src="http://maps.google.com/maps/api/js?key=AIzaSyBo8Db0Dc56FBW_ZY4dVBlLAzhjQpgZpD0"></script>
-
+  <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.nanoscroller/0.8.7/css/nanoscroller.min.css"/>
+  
 </head>
 
 <body class="menubar-hoverable header-fixed" ng-controller="MainCtrl as $ctrl">
@@ -91,22 +93,31 @@
   <script src="bower_components/angularMultipleSelect/build/multiple-select.min.js"></script>
   <script src="bower_components/angular-base64/angular-base64.js"></script>
   <script src="bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js"></script>
+  <script src="bower_components/moment/moment.js"></script>
+  <script src="bower_components/angular-moment/angular-moment.js"></script>
+  <script src="bower_components/angular-moment-picker/dist/angular-moment-picker.min.js"></script>
+  <script src="bower_components/angular-file-upload/dist/angular-file-upload.min.js"></script>
   <!-- endbower -->
   <!-- endbuild -->
 
   <!-- build:js({.tmp,app}) scripts/scripts.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nanoscroller/0.8.7/javascripts/jquery.nanoscroller.min.js"></script>
   <script src="scripts/app.js"></script>
   <script src="scripts/global.js"></script>
   <script src="scripts/modules.js"></script>
   <script src="scripts/factories/authFactory.js"></script>
   <script src="scripts/factories/inMenu.js"></script>
   <script src="scripts/components/multiSelect.js"></script>
+  <script src="scripts/directives/ngThumb.js"></script>
   <script src="scripts/controllers/main.js"></script>
   <script src="scripts/controllers/home/home.js"></script>
   <script src="scripts/controllers/login/login.js"></script>
   <script src="scripts/controllers/dashboard/module.js"></script>
   <script src="scripts/controllers/dashboard/dashboardCtrl.js"></script>
   <script src="scripts/factories/authFactory.js"></script>
+  <script src="scripts/factories/procesoFactory.js"></script>
+  
+
   <script src="scripts/controllers/procesos/modules.js"></script>
   <script src="scripts/controllers/procesos/atencion/atencion.js"></script>
   <script src="scripts/controllers/procesos/atencion/atencionDetalle.js"></script>
@@ -198,7 +209,7 @@
   <script src="scripts/controllers/procesos/ordenes/CambioDomicilioOrdenesCtrl.js"></script>
   <script src="scripts/controllers/procesos/ordenes/BajaServiciosCtrl.js"></script>
   <script src="scripts/controllers/procesos/ordenes/modalReporteOrdeSerCtrl.js"></script>
-
+  <script src="scripts/controllers/procesos/resetAparatos/resetAparatosCtrl.js"></script>
 
   <script src="scripts/factories/rolFactory.js"></script>
   <script src="scripts/factories/permisosFactory.js"></script>
@@ -226,8 +237,11 @@
   <script src="scripts/controllers/facturacion/desglose/PrintArchivosCtrl.js"></script>
   <script src="scripts/factories/ordenesFactory.js"></script>
   <script src="scripts/factories/pagosMaestrosFactory.js"></script>
+
   <script src="scripts/controllers/corporativa/pagoContrato/PagoContratoMaestroCtrl.js"></script>
-  <script src="scripts/controllers/corporativa/pagoContrato/AbrirPagoCtrl.js"></script>
+  <script src="scripts/controllers/corporativa/pagoContrato/PagoDetalleContratoMaestroCtrl.js"></script>
+    <script src="scripts/controllers/corporativa/pagoContrato/AbrirPagoCtrl.js"></script>
+  <script src="scripts/controllers/corporativa/pagoContrato/agregaListaPagoCtrl.js"></script>
   <script src="scripts/controllers/corporativa/pagoContrato/EscogerPagoCtrl.js"></script>
   <script src="scripts/controllers/corporativa/pagoContrato/PagarContadoCtrl.js"></script>
   <script src="scripts/controllers/corporativa/pagoContrato/PagarCreditoCtrl.js"></script>
@@ -241,13 +255,10 @@
   <script src="scripts/controllers/corporativa/pagoContrato/AbrirDetalleCtrl.js"></script>
   <script src="scripts/controllers/corporativa/contrato/ModalProporcionalCtrl.js"></script>
   <script src="scripts/controllers/corporativa/contrato/DesconexionCtrl.js"></script>
-  <script src="scripts/controllers/corporativa/contrato/reporteFacDolaresCtrl.js"></script>
-  <script src="scripts/controllers/corporativa/contrato/reporteContSaldadosCtrl.js"></script>
-  <script src="scripts/controllers/corporativa/contrato/reporteContpendientesCtrl.js"></script>
-  <script src="scripts/controllers/corporativa/contrato/TipoCambioCtrl.js"></script>
-
-
-
+  <!-- <script src="scripts/controllers/corporativa/contrato/reporteFacDolaresCtrl.js"></script> -->
+  <!-- <script src="scripts/controllers/corporativa/contrato/reporteContSaldadosCtrl.js"></script>
+  <script src="scripts/controllers/corporativa/contrato/reporteContpendientesCtrl.js"></script> -->
+<!--   <script src="scripts/controllers/corporativa/contrato/TipoCambioCtrl.js"></script> -->
   <script src="scripts/factories/reportesVariosFactory.js"></script>
   <script src="scripts/controllers/reportes/reportesvarios/ReportesVariosCtrl.js"></script>
   <script src="scripts/factories/reportesCortesCorporativaFactory.js"></script>
@@ -259,13 +270,24 @@
   <script src="scripts/controllers/corporativa/NotaCredito/ModalDetalleNotaCtrl.js"></script>
   <script src="scripts/controllers/corporativa/NotaCredito/ModalDetalleFacCliCtrl.js"></script>
   <script src="scripts/controllers/corporativa/pagoContrato/ModalHazPreguntaCtrl.js"></script>
-
   <script src="scripts/controllers/corporativa/NotaCredito/ModalTicketNotaCtrl.js"></script>
   <script src="scripts/controllers/corporativa/tickets/ticketsCorporativaCtrl.js"></script>
   <script src="scripts/controllers/corporativa/tickets/modalCancelaTicketCtrl.js"></script>
   <script src="scripts/controllers/corporativa/tickets/modalMotivoCanMaestroCtrl.js"></script>
   <script src="scripts/controllers/corporativa/NotaCredito/modalRevertirProcesoCtrl.js"></script>
   <script src="scripts/controllers/corporativa/recepcionpago/ModalCancelaFacturaCtrl.js"></script>
+  <script src="scripts/controllers/corporativa/facturas/prefacturasCtrl.js"></script>
+  <script src="scripts/controllers/corporativa/facturas/ModalEditaFacpreeliminarCtrl.js"></script>
+  <script src="scripts/controllers/corporativa/PolizaMaestro/polizasMaestroCtrl.js"></script>
+  <script src="scripts/controllers/corporativa/PolizaMaestro/modalNuevoPolizaMaestroCtrl.js"></script>
+<script src="scripts/controllers/corporativa/relacionIngresos/modules.js"></script>
+<script src="scripts/controllers/corporativa/relacionIngresos/relacionIngresosCtrl.js"></script>
+<script src="scripts/controllers/corporativa/relacionIngresos/relacionIngresosFactory.js"></script>
+<script src="scripts/controllers/corporativa/reportesOtros/reporteContratoVencidoCtrl.js"></script>
+<script src="scripts/controllers/corporativa/reportesOtros/reportesFacturasVencidasCtrl.js"></script>
+<script src="scripts/controllers/corporativa/reportesOtros/reportesServiciosInstaladosCtrl.js"></script>
+<script src="scripts/controllers/corporativa/reportesOtros/reportesServiciosPorInstalarCtrl.js"></script>
+
 
   <script src="scripts/controllers/encuestas/modules.js"></script>
   <script src="scripts/controllers/encuestas/Encuesta/EncuestaCtrl.js"></script>
@@ -398,6 +420,11 @@
   <script src="scripts/controllers/catalogos/IPsCtrl.js"></script>
   <script src="scripts/controllers/catalogos/IPsUpdateCtrl.js"></script>
   <script src="scripts/controllers/catalogos/IPsViewCtrl.js"></script>
+  <script src="scripts/controllers/catalogos/descuentoComboCtrl.js"></script>
+  <script src="scripts/controllers/catalogos/NuevodescuentoComboCtrl.js"></script>
+  <script src="scripts/controllers/catalogos/EditadescuentoComboCtrl.js"></script>
+  <script src="scripts/controllers/catalogos/DetalledescuentoComboCtrl.js"></script>
+  
 
   <!-- Ventas -->
   <script src="scripts/directives/ModelFileDirective.js"></script>

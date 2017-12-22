@@ -24,12 +24,21 @@ angular
     
     /*
     svc.getUrl = function () {
-      return 'http://192.168.50.29/SoftvWCFService.svc';
+      return 'http://localhost:64481/SoftvWCFService.svc';
     };
 
     svc.getUrlReportes = function () {
-      return 'http://192.168.50.29';
+      return 'http://localhost:64481/';
     };
-    */
+
+    svc.getUrllogos = function () {
+      return 'http://localhost:64481/logos';
+    };
+
+    svc.getUrlPrinters = function () {
+      return 'http://localhost:50';
+    };
+
+
     return svc;
   });

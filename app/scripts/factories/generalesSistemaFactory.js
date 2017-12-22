@@ -29,8 +29,144 @@ angular
       GetBorRelOrdenesTecnicos: '/Configuracion/GetBorRelOrdenesTecnicos',
       GetBorRel_Tecnicos_Quejas: '/Configuracion/GetBorRel_Tecnicos_Quejas',
       GetNUEBonificacionCajeras: '/Configuracion/GetNUEBonificacionCajeras',
-      GetvalidaAccesoFacturacion:'/Configuracion/GetvalidaAccesoFacturacion'
+      GetvalidaAccesoFacturacion:'/Configuracion/GetvalidaAccesoFacturacion',
+      GetguardaPreferencia:'/Configuracion/GetguardaPreferencia',
+      GetDetallePreferencias:'/Configuracion/GetDetallePreferencias',
+      Getlogos:'/Configuracion/Getlogos',
+      GetGuardalogos:'/Configuracion/GetGuardalogos'
     };
+
+    /* factory.GetguardaPreferencia = function (file, options, eliminadas) {
+      var deferred = $q.defer();
+      var data = new FormData();
+      for (var i = 0; i < file.length; i++) {
+        data.append('file' + i, file[i]);
+      }
+      
+      data.append('options', JSON.stringify(options));
+      data.append('eliminadas', JSON.stringify(eliminadas));
+
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token,
+          'Content-Type': undefined
+        }
+      };
+      console.log(data);
+      console.log(config);
+      $http.post(globalService.getUrl() + paths.GetguardaPreferencia, data, config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+
+      return deferred.promise;
+    }; */
+
+
+    factory.Getlogos = function () {
+      var deferred = $q.defer();
+     
+
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token          
+        }
+      };
+      
+      $http.get(globalService.getUrl() + paths.Getlogos, config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+
+      return deferred.promise;
+    };
+
+    factory.GetDetallePreferencias = function () {
+      var deferred = $q.defer();
+     
+
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token          
+        }
+      };
+      
+      $http.get(globalService.getUrl() + paths.GetDetallePreferencias, config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+
+      return deferred.promise;
+    };
+
+
+
+    factory.GuardaLogos = function (file,options, eliminadas) {
+      var deferred = $q.defer();
+      var data = new FormData();
+      for (var i = 0; i < file.length; i++) {
+        data.append('file' + i, file[i]);
+      }      
+      data.append('options', JSON.stringify(options));
+      data.append('eliminadas', JSON.stringify(eliminadas));
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token,
+          'Content-Type': undefined
+        }
+      };
+      
+      $http.post(globalService.getUrl() + paths.GetGuardalogos, data, config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+
+      return deferred.promise;
+    };
+
+
+
+
+    factory.GetguardaPreferencia = function (obj) {
+      var deferred = $q.defer();
+     
+      var data = {
+       'preferencias':{ 
+          'NombreSistema':obj.NombreSistema,
+          'TituloNav':obj.TituloNav,
+          'ColorMenu':obj.ColorMenu,
+          'ColorMenuLetra':obj.ColorMenuLetra,
+          'ColorNav':obj.ColorNav,
+          'ColorNavLetra':obj.ColorNavLetra,
+          'MensajeHome':obj.MensajeHome,
+          'ColorFondo':obj.ColorFondo
+       }
+      };
+
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token          
+        }
+      };
+      
+      $http.post(globalService.getUrl() + paths.GetguardaPreferencia, data, config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+
+      return deferred.promise;
+    };
+
+
+
+
+
+
 
    factory.GetvalidaAccesoFacturacion = function () {
       var deferred = $q.defer();
