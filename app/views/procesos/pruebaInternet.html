@@ -51,8 +51,8 @@
   </div>
   <div class="card-body">
     <div class="card col-md-12 " style="padding: 5px;">
-      <div class="col-md-3">
-        <div class="form-group">
+      <div class="col-md-4">
+        <div class="form-group-content">
           <label for="Firstname5" class="col-sm-4">Servicio</label>
           <div class="col-sm-8">
             <select class="form-control input-sm" ng-model="$ctrl.selectedServicio" ng-change="$ctrl.CambioServicio($ctrl.selectedServicio)"
@@ -61,18 +61,19 @@
         </div>
       </div>
 
-      <div class="col-md-3">
+      <div class="col-md-4">
         <div class="form-group">
 
           <div class="input-group">
             <div class="input-group-content">
-              <label for="Firstname5" style="opacity: 0.5;" class="col-sm-4 ">Contrato</label>
+              <label for="Firstname5"  class="col-sm-4 ">Contrato</label>
               <div class="col-sm-8">
                 <input type="text" ng-model="$ctrl.contratoSelected" class="form-control input-sm" placeholder="Ingresa contrato" ng-keyup="$ctrl.EnterContrato($event)">
+                
               </div>
             </div>
             <div class="input-group-btn">
-              <button title="Buscar cliente" ng-click="$ctrl.ModalClientes()" class="btn ink-reaction btn-floating-action btn-sm btn-default">...</button>
+              <button title="Buscar cliente" ng-click="$ctrl.ModalClientes()" class="btn ink-reaction -action btn-sm btn-default">Buscar cliente ...</button>
             </div>
           </div>
         </div>
@@ -113,48 +114,66 @@
                 <td class="mac">{{x.maccablemodem}}</td>
                 <td class="desc">{{x.descripcion}}</td>
                 <td>
-                  <button class="btn btn-sm btn-default-bright" ng-click="$ctrl.aplicar(x)">
-                    <i class="fa fa-angle-double-right" aria-hidden="true"></i> aplicar</button>
+                  <button class="btn btn-sm btn-default" ng-click="$ctrl.aplicar(x)">
+                     aplicar <i class="fa fa-angle-double-right" aria-hidden="true"></i> </button>
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
+
         <div class="row" ng-if="$ctrl.Aparatoprueba">
+          <div class="row">
+                     
+            <p>Selecciona servicio de prueba</p>
+            <div class="col-md-12">
+              <select class="form-control" 
+              validate-on="dirty" required required-message="'Este campo es obligatorio.'"
+              ng-options="v.Descripcion for v in $ctrl.serviciosPrueba track by v.Clv_Servicio" ng-model="$ctrl.servicioPrueba"
+                name="servicioPrueba">
+                <option value="">selecciona</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
 
-          <div class="col-md-4">
+
+              <label>Fecha Inicial:</label>
+              <div class="input-group" moment-picker="$ctrl.fechainicial" format="YYYY-MM-DD">
+                <span class="input-group-addon">
+                  <i class="octicon octicon-calendar"></i>
+                </span>
+                <input name="fechainicio" required class="form-control input-sm" validate-on="dirty" required required-message="'Este campo es obligatorio.'" placeholder="Fecha inicial"
+                  ng-model="$ctrl.fechainicial" ng-model-options="{ updateOn: 'blur' }">
+              </div>
 
 
-            <label>Fecha Inicial:</label>
-            <div class="input-group" moment-picker="$ctrl.fechainicial" format="YYYY-MM-DD">
-              <span class="input-group-addon">
-                <i class="octicon octicon-calendar"></i>
-              </span>
-              <input class="form-control input-sm" validate-on="dirty" required required-message="'Este campo es obligatorio.'" placeholder="Fecha inicial"
-                ng-model="$ctrl.fechainicial" ng-model-options="{ updateOn: 'blur' }">
+            </div>
+            <div class="col-md-4">
+
+
+              <label>Fecha Final:</label>
+              <div class="input-group" moment-picker="$ctrl.fechafin" format="YYYY-MM-DD">
+                <span class="input-group-addon">
+                  <i class="octicon octicon-calendar"></i>
+                </span>
+                <input 
+                name="fechafin"
+                class="form-control required input-sm" validate-on="dirty" required required-message="'Este campo es obligatorio.'" placeholder="Fecha final"
+                  ng-model="$ctrl.fechafin" ng-model-options="{ updateOn: 'blur' }">
+              </div>
+
+
+            </div>
+            <div class="col-md-4">
+              <br>
+              <button type="button" ng-click="$ctrl.aplicarPrueba()" class="btn btn-success btn-sm" >Aplicar prueba </button>
+
             </div>
 
-
           </div>
-          <div class="col-md-4">
-
-
-            <label>Fecha Final:</label>
-            <div class="input-group" moment-picker="$ctrl.fechafin" format="YYYY-MM-DD">
-              <span class="input-group-addon">
-                <i class="octicon octicon-calendar"></i>
-              </span>
-              <input class="form-control input-sm" validate-on="dirty" required required-message="'Este campo es obligatorio.'" placeholder="Fecha final"
-                ng-model="$ctrl.fechafin" ng-model-options="{ updateOn: 'blur' }">
-            </div>
-
-
-          </div>
-          <div class="col-md-4">
-                          <br>
-                <button class="btn btn-success btn-sm">Apicar prueba a  {{$ctrl.Aparatoprueba.maccablemodem}}</button>
-                
-         </div>
+       
         </div>
       </div>
       <div class="col-md-4" ng-if="$ctrl.aparatos.length == 0">
