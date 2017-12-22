@@ -286,7 +286,6 @@ angular.module('softvApp')
       var parametros = {
         'IdComision': IdComision
       };
-      console.log(parametros);
       $http.post(globalService.getUrl() + paths.DeleteComisionesVendedoresWeb, JSON.stringify(parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
