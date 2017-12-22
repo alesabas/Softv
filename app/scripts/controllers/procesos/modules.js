@@ -188,8 +188,19 @@ angular
         templateUrl: 'views/procesos/resetAparatos.html',
         controller: 'resetAparatosCtrl',
         controllerAs: '$ctrl'
+      },
+      {
+        name: 'home.procesos.pruebainternet',
+        data: {
+          pageTitle: 'SOFTV | PRUEBA DE INTERNET',
+        },
+        url: '/pruebainternet',
+        templateUrl: 'views/procesos/pruebaInternet.html',
+        controller: 'pruebaInternetCtrl',
+        controllerAs: '$ctrl'
       }
       
+
       
     ];
     states.forEach(function (state) {
