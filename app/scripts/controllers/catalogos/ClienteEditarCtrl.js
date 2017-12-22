@@ -2,7 +2,7 @@
 
 angular
     .module('softvApp')
-    .controller('ClienteEditarCtrl', function(CatalogosFactory, ngNotify, $uibModal, $state, $stateParams, $rootScope, $localStorage){
+    .controller('ClienteEditarCtrl', function(CatalogosFactory, DocVendedorClienteFactory, ngNotify, $uibModal, $state, $stateParams, $rootScope, $localStorage, $sce, globalService){
 
         function initData(){
             CatalogosFactory.GetStatusNet().then(function(data){
@@ -34,6 +34,7 @@ angular
                                     GetReferenciasPersonales(vm.IdContrato);
                                     GetNotas(vm.IdContrato);
                                     GetServicios(vm.IdContrato);
+                                    GetDocumentos();
                                 });
                             });
                         });
@@ -420,7 +421,6 @@ angular
                         }
                     });
                 }
-
             }else{
                 ngNotify.set('Aun no se han registrado los datos personales.', 'warn');
             }
@@ -549,7 +549,7 @@ angular
                     CA = CA + vm.ServicioList[i].children.length;
                 }
                 vm.CT = CS + CA;
-                vm.ShowServiciosE = (vm.CT >= 8)? 0 : 8 - vm.CT;
+                vm.ShowServiciosE = (vm.CT >= 11)? 0 : 11 - vm.CT;
             });
         }
 
@@ -631,7 +631,7 @@ angular
             }else if(ObjConcepto.Tipo == 'A'){
                 vm.DivServicio = false;
                 vm.DivAparato = true;
-                vm.ShowServiciosE = (vm.CT >= 8)? 0 : 8 - vm.CT;
+                vm.ShowServiciosE = (vm.CT >= 11)? 0 : 11 - vm.CT;
                 var ContratoNet = ObjConcepto.ContratoNet;
                 vm.NombreAparato = ObjConcepto.Nombre;
                 vm.DetalleAparato = ObjConcepto.Detalle;
@@ -820,6 +820,87 @@ angular
             });
         }
 
+        function GetDocumentos(){
+            DocVendedorClienteFactory.GetValidaPerfilActivarChecksDocumentos(vm.tipoUsuario).then(function(data){
+                vm.DisCbxDocumneto = (data.GetValidaPerfilActivarChecksDocumentosResult.desactivar == 1)? true:false;
+                DocVendedorClienteFactory.GetDameDocumentos(vm.IdContrato).then(function(data){
+                    vm.DocumentoList = data.GetDameDocumentosResult;
+                    GetDocumentosCliente();
+                });
+            });
+        }
+
+        function GetDocumentosCliente(){
+            DocVendedorClienteFactory.GetDameOpcionesDocumentos(vm.IdContrato).then(function(data){
+                var OpcionDoc = data.GetDameOpcionesDocumentosResult;
+                vm.Revisado = (OpcionDoc.cbRevisado == 1)? true:false;
+                vm.Recibido = (OpcionDoc.cbRecibido == 1)? true:false;
+                DocVendedorClienteFactory.GetDameDocumentosContrato(vm.IdContrato).then(function(data){
+                    vm.DocumentoClienteList = data.GetDameDocumentosContratoResult;
+                    vm.ViewDocClienteList = (vm.DocumentoClienteList.length > 0)? true:false;
+                });
+            });
+        }
+
+        function SaveDocumentoCliente(){
+            vm.FileName = null;
+            vm.TituloDoc = null;
+            if(vm.Evidencia.type == "application/pdf"){
+                if(vm.Evidencia.size <= 1000000){
+                    var EvidenciaFD = new FormData();
+                    EvidenciaFD.append('file', vm.Evidencia); 
+                    EvidenciaFD.append('IdDocumento', vm.Documento.IdDocumento);
+                    EvidenciaFD.append('contrato', vm.IdContrato);
+                    DocVendedorClienteFactory.GetGuardaDocumentoPDF(EvidenciaFD).then(function(data){
+                        ngNotify.set('CORRECTO, Correcto se guardó el documento para el cliente.', 'success');
+                        GetDocumentosCliente();
+                        ResetEvidencia();
+                    });
+                }else{
+                    ngNotify.set('ERROR, el tamaño del archivo es invalido.', 'warn');
+                }
+            }else{
+                ngNotify.set('ERROR, Formato invalido', 'warn');
+            }
+        }
+
+        function GetDocumentoCliente(ObjDoc){
+            var ObjDocumento = {
+                'IdDocumento': ObjDoc.IdDocumento, 
+                'contrato': vm.IdContrato
+            };
+            DocVendedorClienteFactory.GetDimeTipoDocumento(ObjDocumento).then(function(data){
+                DocVendedorClienteFactory.GetDocumentoClienteWeb(ObjDocumento).then(function(data){
+                    var Name = data.GetDocumentoClienteWebResult;
+                    var FileName = globalService.getUrlReportes() + '/Images/' + Name;
+                    vm.FileName = $sce.trustAsResourceUrl(FileName);
+                    vm.TituloDoc = ObjDoc.Documento;
+                });
+            });
+        }
+
+        function SetRevisado(){
+            var ObjRevisado = {
+                'cbRevisado': (vm.Revisado == true)? 1:0,
+                'contrato': vm.IdContrato,
+                'idUsuario': $localStorage.currentUser.idUsuario
+            };
+            DocVendedorClienteFactory.GetModificaRevisado(ObjRevisado).then(function(data){
+                GetDocumentosCliente();
+            });
+        }
+
+        function SetRecibido(){
+            var ObjRecibido = {
+                'cbRecibido': (vm.Recibido == true)? 1:0,
+                'contrato': vm.IdContrato,
+                'idUsuario': $localStorage.currentUser.idUsuario
+            };
+            DocVendedorClienteFactory.GetModificaRecibido(ObjRecibido).then(function(data){
+                GetDocumentosCliente();
+            });
+        }
+
         function GetNumber(num){
             var res = [];
             for (var i = 0; i < num; i++) {
@@ -852,6 +933,17 @@ angular
                 vm.DisFB_A = true;
             }
         }
+
+        function ResetEvidencia(){
+            vm.Evidencia = null;
+            vm.File = null;
+            vm.TouchFile = false;
+            angular.element("input[type='file']").val(null);
+        }
+        
+        function SetTouch(){
+            vm.TouchFile = true;
+        }
         
         var vm = this;
         vm.IdContrato = $stateParams.id;
@@ -875,6 +967,9 @@ angular
         vm.DisFB_A = true;
         vm.ShowTipServ1 = false;
         vm.View = false;
+        vm.TouchFile = false;
+        vm.tipoUsuario = $localStorage.currentUser.tipoUsuario
+        vm.clv_usuario = $localStorage.currentUser
         vm.ValidateRFC = /^[A-Z]{4}\d{6}[a-zA-Z]{3}$|^[A-Z]{4}\d{6}\d{3}$|^[A-Z]{4}\d{6}[A-Z]{2}\d{1}$|^[A-Z]{4}\d{6}[A-Z]{1}\d{2}$|^[A-Z]{4}\d{6}\d{2}[a-zA-Z]{1}$|^[A-Z]{4}\d{6}\d{1}[a-zA-Z]{2}$|^[A-Z]{4}\d{6}\d{1}[A-Z]{1}\d{1}$|^[A-Z]{4}\d{6}[A-Z]{1}\d{1}[a-zA-Z]{1}$/;
         vm.AddDatosPersonales = AddDatosPersonales;
         vm.GetCiudadMunicipio = GetCiudadMunicipio;
@@ -896,6 +991,11 @@ angular
         vm.GetNumber = GetNumber;
         vm.ValidateStauts = ValidateStauts;
         vm.ValidateStautsAparato = ValidateStautsAparato;
+        vm.ResetEvidencia = ResetEvidencia;
+        vm.SetTouch = SetTouch;
+        vm.SaveDocumentoCliente = SaveDocumentoCliente;
+        vm.SetRevisado = SetRevisado;
+        vm.SetRecibido = SetRecibido;
+        vm.GetDocumentoCliente = GetDocumentoCliente;
         initData();
-
     });

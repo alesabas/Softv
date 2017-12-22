@@ -26,6 +26,21 @@ angular
                 controllerAs: '$ctrl'
             },
             {
+                name: 'home.ventas.vendedores_documentos',
+                data: {
+                    pageTitle: 'SOFTV | VENDEDORES',
+                    permissions: {
+                        options: {
+                            reload: false
+                        }
+                    }
+                },
+                url: '/ventas/vendedores_documentos/:id',
+                templateUrl: 'views/ventas/VendedorDocumento.html',
+                controller: 'VendedorDocumentoCtrl',
+                controllerAs: '$ctrl'
+            },
+            {
                 name: 'home.ventas.series',
                 data: {
                     pageTitle: 'SOFTV | SERIES',
@@ -83,6 +98,21 @@ angular
                 url: '/ventas/grupo_ventas',
                 templateUrl: 'views/ventas/Grupo_Ventas.html',
                 controller: 'Grupo_VentasCtrl',
+                controllerAs: '$ctrl'
+            },
+            {
+                name: 'home.ventas.evidencia_folios_cancelados',
+                data: {
+                    pageTitle: 'SOFTV | EVIDENCIAS DE FOLIOS CANCELADOS',
+                    permissions: {
+                        options: {
+                            reload: false
+                        }
+                    }
+                },
+                url: '/ventas/evidencia_folios_cancelados',
+                templateUrl: 'views/ventas/EvidenciaFoliosCancelados.html',
+                controller: 'EvidenciaFoliosCanceladosCtrl',
                 controllerAs: '$ctrl'
             }
         ];

@@ -15,11 +15,34 @@
     </div>
     <div class="card-body">
         <div class="row">
-			<div class="col-md-12">
-                <div class="col-md-3" style="text-align:right">
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <b>Buscar por:</b>
+                    <br>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-3">
+                    <select name="SlcDistribuidor" class="form-control input-sm" ng-model="$ctrl.Distribuidor" ng-options="D.Nombre for D in $ctrl.DistribuidorList track by D.Clv_Plaza" ng-change="$ctrl.GetVendedorList(3)">
+                        <option value="" ng-disabled="true">Selecciona Distribuidor</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <form name="FormVendedor" angular-validator-submit="$ctrl.GetVendedorList(0);" novalidate angular-validator autocomplete="off">
+                        <div class="input-group">
+                            <input type="number" name="InpClave" class="form-control input-sm" ng-model="$ctrl.Clave" placeholder="Calve" min="0" validate-on="dirty" invalid-message="'Inválido'">
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-warning btn-xs"><i class="fa fa-search"></i> Buscar</button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-3">
                     <div class="input-group">
-                        <input type="text" name="InpSearchVendedore" class="form-control input-sm" ng-model="$ctrl.SearchVendedore" placeholder="Buscar Vendedor">
-                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                        <input name="InpNombre" class="form-control input-sm" ng-model="$ctrl.Nombre" placeholder="Nombre">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.GetVendedorList(1);"><i class="fa fa-search"></i> Buscar</button>
+                        </span>
                     </div>
                 </div>
 			</div>
@@ -31,34 +54,34 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th width="10%"><b>Clave</b></th>
+                                <th width="8%"><b>Clave</b></th>
                                 <th width="25%"><b>Nombre</b></th>
-                                <th width="20%"><b>Fecha Ingreo</b></th>
-                                <th width="20%"><b>Fecha Salida</b></th>
+                                <th width="17%"><b>Fecha Ingreo</b></th>
+                                <th width="17%"><b>Fecha Salida</b></th>
+                                <th width="8%"><b>Activo</b></th>
                                 <th width="25%" colspan="3"><b>Acciones</b></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <!--
-                            <tr ng-show="$ctrl.SinRegistros">
-                                <td class="text-center" colspan="3">SIN REGISTROS</td>
+                            <tr ng-show="!$ctrl.ViewList">
+                                <td class="text-center" colspan="8">SIN REGISTROS</td>
                             </tr>
-                            <tr dir-paginate="X in $ctrl.VendedorList|filter:$ctrl.SearchVendedor|itemsPerPage:7" ng-show="$ctrl.ConRegistros">
-                                -->
-                            <tr>
+                            <tr dir-paginate="X in $ctrl.VendedorList|itemsPerPage:7" ng-show="$ctrl.ViewList">
                                 <td>{{ X.Clv_Vendedor }}</td>
                                 <td>{{ X.Nombre }}</td>
-                                <td>{{ X.Nombre }}</td>
-                                <td>{{ X.Nombre }}</td>
-                                <td><button type="button" class="btn btn-info btn-xs" ng-click="$ctrl.OpenVendedorUpdate();" title="Consultar Vendedor"><i class="fa fa-eye"></i> CONSULTAR</button></td>
-                                <td><button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.OpenVendedorView();" title="Editar Vendedor"><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
-                                <td><button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.OpenVendedorDelete();" title="Eliminar Vendedor"><i class="fa fa-trash"></i> ELIMINAR</button></td>
+                                <td>{{ X.FechaIngreso }}</td>
+                                <td>{{ X.FechaSalida }}</td>
+                                <td ng-if="X.Activo == true"> Si </td>
+                                <td ng-if="X.Activo == false"> No </td>
+                                <td><button type="button" class="btn btn-info btn-xs" ng-click="$ctrl.OpenVendedorView(X.Clv_Vendedor);" title="Consultar Vendedor"><i class="fa fa-eye"></i> CONSULTAR</button></td>
+                                <td><button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.OpenVendedorUpdate(X.Clv_Vendedor);" title="Editar Vendedor"><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
+                                <td><button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.OpenVendedorDelete(X.Clv_Vendedor);" title="Eliminar Vendedor"><i class="fa fa-trash"></i> ELIMINAR</button></td>
                             </tr>
                         </tbody>
                     </table>
                     <br>
                     <div style="margin-top:-40px;">
-                        <dir-pagination-controls max-size="7" direction-links="true" boundary-links="true" ng-if="$ctrl.VendedoresList.length > 0">
+                        <dir-pagination-controls max-size="7" direction-links="true" boundary-links="true" ng-if="$ctrl.VendedorList.length > 0">
                         </dir-pagination-controls>
                     </div>
                 </div>

@@ -2,7 +2,7 @@
 
 angular
     .module('softvApp')
-    .controller('ClienteDetalleCtrl', function(CatalogosFactory, ngNotify, $uibModal, $state, $stateParams, $rootScope, $localStorage){
+    .controller('ClienteDetalleCtrl', function(CatalogosFactory, DocVendedorClienteFactory, ngNotify, $uibModal, $state, $stateParams, $rootScope, $localStorage, globalService, $sce){
 
         function initData(){
             CatalogosFactory.GetStatusNet().then(function(data){
@@ -34,6 +34,7 @@ angular
                                     GetReferenciasPersonales(vm.IdContrato);
                                     GetNotas(vm.IdContrato);
                                     GetServicios(vm.IdContrato);
+                                    GetDocumentos();
                                 });
                             });
                         });
@@ -63,8 +64,6 @@ angular
                 vm.Email = DatosCliente.Email;
                 vm.EsPersonaFisica = DatosCliente.EsFisica;
                 vm.FechaNac = toDate(DatosCliente.FechaNacimiento);
-                console.log(DatosCliente.FechaNacimiento);
-                console.log(vm.FechaNac);
                 vm.IdEstado = DatosCliente.Clv_Estado;
                 vm.IdMunicipio = DatosCliente.Clv_Ciudad;
                 vm.IdLocalidad = DatosCliente.Clv_Localidad;
@@ -855,6 +854,43 @@ angular
             });
         }
 
+        function GetDocumentos(){
+            DocVendedorClienteFactory.GetValidaPerfilActivarChecksDocumentos(vm.tipoUsuario).then(function(data){
+                vm.DisCbxDocumneto = (data.GetValidaPerfilActivarChecksDocumentosResult.desactivar == 1)? true:false;
+                DocVendedorClienteFactory.GetDameDocumentos(vm.IdContrato).then(function(data){
+                    vm.DocumentoList = data.GetDameDocumentosResult;
+                    GetDocumentosCliente();
+                });
+            });
+        }
+
+        function GetDocumentosCliente(){
+            DocVendedorClienteFactory.GetDameOpcionesDocumentos(vm.IdContrato).then(function(data){
+                var OpcionDoc = data.GetDameOpcionesDocumentosResult;
+                vm.Revisado = (OpcionDoc.cbRevisado == 1)? true:false;
+                vm.Recibido = (OpcionDoc.cbRecibido == 1)? true:false;
+                DocVendedorClienteFactory.GetDameDocumentosContrato(vm.IdContrato).then(function(data){
+                    vm.DocumentoClienteList = data.GetDameDocumentosContratoResult;
+                    vm.ViewDocClienteList = (vm.DocumentoClienteList.length > 0)? true:false;
+                });
+            });
+        }
+
+        function GetDocumentoCliente(ObjDoc){
+            var ObjDocumento = {
+                'IdDocumento': ObjDoc.IdDocumento, 
+                'contrato': vm.IdContrato
+            };
+            DocVendedorClienteFactory.GetDimeTipoDocumento(ObjDocumento).then(function(data){
+                DocVendedorClienteFactory.GetDocumentoClienteWeb(ObjDocumento).then(function(data){
+                    var Name = data.GetDocumentoClienteWebResult;
+                    var FileName = globalService.getUrlReportes() + '/Images/' + Name;
+                    vm.FileName = $sce.trustAsResourceUrl(FileName);
+                    vm.TituloDoc = ObjDoc.Documento;
+                });
+            });
+        }
+
         function GetNumber(num){
             var res = [];
             for (var i = 0; i < num; i++) {
@@ -909,6 +945,8 @@ angular
         vm.DisFB_A = true;
         vm.ShowTipServ1 = false;
         vm.View = true;
+        vm.tipoUsuario = $localStorage.currentUser.tipoUsuario
+        vm.clv_usuario = $localStorage.currentUser
         vm.ValidateRFC = /^[A-Z]{4}\d{6}[a-zA-Z]{3}$|^[A-Z]{4}\d{6}\d{3}$|^[A-Z]{4}\d{6}[A-Z]{2}\d{1}$|^[A-Z]{4}\d{6}[A-Z]{1}\d{2}$|^[A-Z]{4}\d{6}\d{2}[a-zA-Z]{1}$|^[A-Z]{4}\d{6}\d{1}[a-zA-Z]{2}$|^[A-Z]{4}\d{6}\d{1}[A-Z]{1}\d{1}$|^[A-Z]{4}\d{6}[A-Z]{1}\d{1}[a-zA-Z]{1}$/;
         vm.AddDatosPersonales = AddDatosPersonales;
         vm.GetCiudadMunicipio = GetCiudadMunicipio;
@@ -930,6 +968,7 @@ angular
         vm.GetNumber = GetNumber;
         vm.ValidateStauts = ValidateStauts;
         vm.ValidateStautsAparato = ValidateStautsAparato;
+        vm.GetDocumentoCliente = GetDocumentoCliente;
         initData();
 
     });

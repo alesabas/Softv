@@ -1,0 +1,220 @@
+<div class="card animated fadeIn" style="margin-top:20px;">
+    <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+        <header>
+            <strong style="font-weight:bold; border:none; margin-left:10px;">Catálogo Rangos</strong>
+			<br>
+            <small class="text-muted" style="font-size:14px; margin-left:10px;">
+                <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">Catálogo Rangos</a>
+            </small>
+        </header>
+        <div class="tools">
+			<div class="btn-group">
+				<button type="button" class="btn btn-primary btn-sm" ng-click="$ctrl.OpenRangoAdd();" title="Crear un Rango Nuevo"><i class="fa fa-plus"></i> NUEVO RANGO</button>
+			</div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <div class="col-md-offset-2 col-md-8">
+                        <b>Buscar por:</b>
+                        <br>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-offset-2 col-md-3">
+                        <select name="SlcPlaza" class="form-control input-sm" ng-model="$ctrl.Plaza" ng-options="P.razon_social for P in $ctrl.PlazaList track by P.id_compania" ng-change="$ctrl.GetRangoList()">
+                            <option value="" ng-disabled="true">Selecciona Plaza</option>
+                        </select>
+                        <br>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-offset-2 col-md-8">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th width="20%"><b>Clave</b></th>
+                                    <th width="20%"><b>Rango Inferior</b></th>
+                                    <th width="20%"><b>Rango Superior</b></th>
+                                    <th width="40%" colspan="3"><b>Acciones</b></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-show="!$ctrl.ViewList">
+                                    <td class="text-center" colspan="6">SIN REGISTROS</td>
+                                </tr>
+                                <tr dir-paginate="X in $ctrl.RangoList|itemsPerPage:7" ng-show="$ctrl.ViewList">
+                                    <td>{{ X.CveRango }}</td>
+                                    <td>{{ X.rangoIni }}</td>
+                                    <td>{{ X.rangoFin }}</td>
+                                    <td><button type="button" class="btn btn-info btn-xs" ng-click="$ctrl.OpenRangoView(X.CveRango);" title=" Seleccionar Rango"><i class="fa fa-eye"></i> Consultar</button></td>
+                                    <td><button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.OpenRangoUpdate(X.CveRango);" title=" Seleccionar Rango"><i class="fa fa-check-square-o"></i> Editar</button></td>
+                                    <td><button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.OpenRangoDelete(X.CveRango);" title=" Seleccionar Rango"><i class="fa fa-trash"></i> Eliminar</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br>
+                        <div style="margin-top:-40px;">
+                            <dir-pagination-controls max-size="7" direction-links="true" boundary-links="true" ng-if="$ctrl.RangoList.length > 0">
+                            </dir-pagination-controls>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <!--
+                <div class="col-md-12" ng-show="$ctrl.ShowForm">
+                    <form name="FormRango" angular-validator-submit="$ctrl.SaveRango()" novalidate angular-validator autocomplete="off">
+                        <div class="col-md-12">
+                            <div class="col-md-offset-1 col-md-11">
+                                <b>Rango Seleccionado</b>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <br>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-offset-1 col-md-4">
+                                <b>Plaza:</b>
+                            </div>
+                            <div class="col-md-7">
+                                <select name="SlcDistrubidor" class="form-control input-sm" ng-model="$ctrl.PlazaRango" ng-options="P.razon_social for P in $ctrl.PlazaList track by P.id_compania" validate-on="dirty" required required-message="'Obligatorio'">
+                                    <option value="">Selecciona</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <br>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-offset-1 col-md-3">
+                                <b>Rango Inferior:</b>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" name="RangoInferior" class="form-control input-sm" ng-model="$ctrl.RangoInferior" validate-on="dirty" min="0" validator="$ctrl.RangoInferior < $ctrl.RangoSuperior" required required-message="'Obligatorio.'" invalid-message="'Invalido.'">
+                            </div>
+                            <div class="col-md-offset-1 col-md-3">
+                                <b>Rango Superior:</b>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" name="RangoSuperior" class="form-control input-sm" ng-model="$ctrl.RangoSuperior" validate-on="dirty" min="0" validator="$ctrl.RangoSuperior > $ctrl.RangoInferior" required required-message="'Obligatorio.'" invalid-message="'Invalido.'">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <br>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-8">
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.OpenRangoUpdate();" title="Editar Rango" ng-if="$ctrl.ViewUpdate"><i class="fa fa-pencil-square-o"></i> EDITAR</button>
+                                <button type="submit" class="btn btn-primary btn-xs" title="Guardar Rango" ng-if="$ctrl.ViewAdd"><i class="glyphicon glyphicon-floppy-disk"></i> GUARDAR</button>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.OpenRangoDelete();" title="Eliminar Rango"><i class="fa fa-trash"></i> ELIMINAR</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            -->
+   
+        <!--
+        div class="row">
+            <div class="col-md-6">
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <b>Buscar por:</b>
+                        <br>
+                    </div>
+                    <div class="col-md-7">
+                        <select name="SlcPlaza" class="form-control input-sm" ng-model="$ctrl.Plaza" ng-options="P.razon_social for P in $ctrl.PlazaList track by P.id_compania" ng-change="$ctrl.GetRangoList()">
+                            <option value="" ng-disabled="true">Selecciona Plaza</option>
+                        </select>
+                        <br>
+                    </div>
+                    <div class="col-md-12">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th width="20%"><b>Clave</b></th>
+                                    <th width="27%"><b>Rango Inferior</b></th>
+                                    <th width="27%"><b>Rango Superior</b></th>
+                                    <th width="21%"><b>Acciones</b></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-show="!$ctrl.ViewList">
+                                    <td class="text-center" colspan="4">SIN REGISTROS</td>
+                                </tr>
+                                <tr dir-paginate="X in $ctrl.RangoList|itemsPerPage:7" ng-show="$ctrl.ViewList">
+                                    <td>{{ X.CveRango }}</td>
+                                    <td>{{ X.rangoIni }}</td>
+                                    <td>{{ X.rangoFin }}</td>
+                                    <td><button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.OpenRangoView();" title=" Seleccionar Rango"><i class="fa fa-check-square-o"></i> SELECCIONAR</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-12" ng-show="$ctrl.ShowForm">
+                    <form name="FormRango" angular-validator-submit="$ctrl.SaveRango()" novalidate angular-validator autocomplete="off">
+                        <div class="col-md-12">
+                            <div class="col-md-offset-1 col-md-11">
+                                <b>Rango Seleccionado</b>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <br>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-offset-1 col-md-4">
+                                <b>Plaza:</b>
+                            </div>
+                            <div class="col-md-7">
+                                <select name="SlcDistrubidor" class="form-control input-sm" ng-model="$ctrl.PlazaRango" ng-options="P.razon_social for P in $ctrl.PlazaList track by P.id_compania" validate-on="dirty" required required-message="'Obligatorio'">
+                                    <option value="">Selecciona</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <br>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-offset-1 col-md-3">
+                                <b>Rango Inferior:</b>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" name="RangoInferior" class="form-control input-sm" ng-model="$ctrl.RangoInferior" validate-on="dirty" min="0" validator="$ctrl.RangoInferior < $ctrl.RangoSuperior" required required-message="'Obligatorio.'" invalid-message="'Invalido.'">
+                            </div>
+                            <div class="col-md-offset-1 col-md-3">
+                                <b>Rango Superior:</b>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" name="RangoSuperior" class="form-control input-sm" ng-model="$ctrl.RangoSuperior" validate-on="dirty" min="0" validator="$ctrl.RangoSuperior > $ctrl.RangoInferior" required required-message="'Obligatorio.'" invalid-message="'Invalido.'">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <br>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-8">
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.OpenRangoUpdate();" title="Editar Rango" ng-if="$ctrl.ViewUpdate"><i class="fa fa-pencil-square-o"></i> EDITAR</button>
+                                <button type="submit" class="btn btn-primary btn-xs" title="Guardar Rango" ng-if="$ctrl.ViewAdd"><i class="glyphicon glyphicon-floppy-disk"></i> GUARDAR</button>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.OpenRangoDelete();" title="Eliminar Rango"><i class="fa fa-trash"></i> ELIMINAR</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        -->
+    </div>
+</div>

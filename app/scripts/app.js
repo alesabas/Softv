@@ -16,7 +16,7 @@ angular
     'ngSanitize',
     'ngCsv',
     'googlechart',   
-   'angucomplete-alt',
+    'angucomplete-alt',
     'treeControl',
     'multipleSelect',
     'base64',

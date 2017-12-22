@@ -1,20 +1,119 @@
-<form name="FormVendedor" angular-validator-submit="ctrl.SaveVendedor()" novalidate angular-validator autocomplete="off">
+<form name="FormVendedor" angular-validator-submit="ctrl.SaveVendedor();" novalidate angular-validator autocomplete="off">
     <div class="modal-header">
         <button class="close" type="button" aria-label="close" ng-click="ctrl.cancel()">x</button>
-        <h4 class="modal-title"><i ng-class="ctrl.Icono"></i> {{ ctrl.Titulo }} {{ ctrl.IdIp }}</h4>
+        <h4 class="modal-title"><i ng-class="ctrl.Icono"></i> {{ ctrl.Titulo }} {{ ctrl.IdVendedor }}</h4>
     </div>
     <div class="modal-body">
         <fieldset ng-disabled="ctrl.View">
-        <div class="row">
-            <div class="col-md-12">
+            <div class="row">
                 <div class="col-md-12">
+                    <div class="col-md-7">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <b>Distribuidor:</b>
+                            </div>
+                            <div class="col-md-10">
+                                <select name="SlcDistribuidor" class="form-control input-sm" ng-model="ctrl.Distribuidor" ng-options="D.Nombre for D in ctrl.DistribuidorList track by D.Clv_Plaza" validate-on="dirty" required required-message="'Obligatorio'">
+                                    <option value="">Selecciona</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <br>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <b>Nombre:</b>
+                            </div>
+                            <div class="col-md-10">
+                                <input name="InpNombre" class="form-control input-sm" ng-model="ctrl.Nombre" validate-on="dirty" ng-pattern="/^[a-zA-Z0-9 ._-]+$/" required required-message="'Obligatorio'" invalid-message="'Inválido.'">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <br>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <b>Domicilio:</b>
+                            </div>
+                            <div class="col-md-10">
+                                <textarea name="TxaDomicilio" rows="3" class="form-control input-sm" ng-model="ctrl.Domicilio" validate-on="dirty" required required-message="'Obligatorio'"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <br>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <b>Colonia:</b>
+                            </div>
+                            <div class="col-md-10">
+                                <input name="InpColonia" class="form-control input-sm" ng-model="ctrl.Colonia" validate-on="dirty" required required-message="'Obligatorio'">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="col-md-12">
+                            <div class="col-md-5">
+                                <b>Fecha Ingreso:</b>
+                            </div>
+                            <div class="col-md-7">
+                                <input type="date" name="InpFechaIngreso" class="form-control input-sm" ng-model="ctrl.FechaIngreso" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido'">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <br>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-5">
+                                <b>Fecha Salida:</b>
+                            </div>
+                            <div class="col-md-7">
+                                <input type="date" name="InpFechaSalida" class="form-control input-sm" ng-model="ctrl.FechaSalida" validate-on="dirty" invalid-message="'Inválido'" ng-disabled="ctrl.DisAdd">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <br>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-12 text-center">
+                                <button type="button" class="btn btn-warning btn-sm" ng-click="ctrl.OpenDocumentos()" ng-disabled="ctrl.DisAdd">Documentos</button>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <br>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <label class="checkbox-inline checkbox-styled">
+                                    <input type="checkbox" name="CbxActivo" ng-model="ctrl.Activo"><span><b><small>Activo</small></b></span>
+                                </label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="checkbox-inline checkbox-styled">
+                                    <input type="checkbox" name="CbxCapacitacion" ng-model="ctrl.Capacitacion" ng-disabled="ctrl.DisAdd"><span><b><small>Capacitación</small></b></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
         </fieldset>
     </div>
     <div class="modal-footer">
         <button type="submit" class="btn btn-primary btn-sm" title="Guardar Vendedor" ng-disabled="ctrl.ShowAdd" ng-show="!ctrl.View"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
-        <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.cancel()" title="Salir"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
+        <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.cancel();" title="Salir"><i class="glyphicon glyphicon-log-o ut"></i> Cancelar</button>
     </div>
 </form>

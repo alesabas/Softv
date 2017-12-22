@@ -13,7 +13,7 @@ angular
       return 'http://192.168.50.33:4000';
     };
     */
-    /*
+    
     svc.getUrl = function() {
       return 'http://localhost:64481/SoftvWCFService.svc';
     };
@@ -21,8 +21,8 @@ angular
     svc.getUrlReportes = function() {
       return 'http://localhost:64481';
     };
-    */
-
+    
+    /*
     svc.getUrl = function () {
       return 'http://localhost:64481/SoftvWCFService.svc';
     };
