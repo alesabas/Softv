@@ -1,0 +1,63 @@
+<form name="FormReimprimirFolio" angular-validator-submit="ctrl.ReimprimirFolio()" novalidate angular-validator autocomplete="off">
+    <div class="modal-header">
+        <button class="close" type="button" aria-label="close" ng-click="ctrl.cancel()">x</button>
+        <h4 class="modal-title">Reimpresión Folios</h4>
+    </div>
+    <div class="modal-body">
+        <fieldset ng-disabled="ctrl.View">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <b>Serie:</b>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <select name="SlcSerie" class="form-control input-sm" ng-model="ctrl.Serie" ng-options="S.Serie disable when S.Clave == 0 for S in ctrl.SerieList track by S.Clave" ng-change="ctrl.GetFolioMinExis()" validate-on="dirty" required required-message="'Obligatorio'">
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <br>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-2">
+                        <b>Del:</b>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="number" name="InpFolioI" class="form-control input-sm" ng-model="ctrl.FolioI" min="0" validate-on="dirty" validator="ctrl.FolioI >= ctrl.FolioExisMin && ctrl.FolioI <= ctrl.FolioF" required required-message="'Obligatorio'" invalid-message="''">
+                    </div>
+                    <div class="col-md-2">
+                        <b>al:</b>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="number" name="InpFolioF" class="form-control input-sm" ng-model="ctrl.FolioF" validate-on="dirty" validator="ctrl.FolioF >= ctrl.FolioI && ctrl.FolioF <= ctrl.FolioExis" required required-message="'Obligatorio'" invalid-message="''">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <br>
+                </div>
+                <div class="col-md-12 has-error" ng-if="(FormReimprimirFolio.InpFolioI.$invalid && FormReimprimirFolio.InpFolioI.$dirty) || (FormReimprimirFolio.InpFolioF.$invalid && FormReimprimirFolio.InpFolioF.$dirty)">
+                    <label class="control-label has-error validationMessage" ng-if="FormReimprimirFolio.InpFolioI.$invalid && FormReimprimirFolio.InpFolioI.$dirty">
+                        El Folio de inicio debe ser mayor a {{ ctrl.FolioExisMin }} y menor o igual al folio final.
+                    </label>
+                    <label class="control-label has-error validationMessage" ng-if="FormReimprimirFolio.InpFolioF.$invalid && FormReimprimirFolio.InpFolioF.$dirty">
+                        El Folio de inicio debe ser mayor o igual al folio de inicio y no mayyor a {{ ctrl.FolioExis }}.
+                    </label>
+                </div>
+                <div class="col-md-12">
+                    <br>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <b>Se reimprimiran solo los folios disponibles.</b>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary btn-sm" title="Imprimir Folios"><i class="fa fa-check"></i> Imprimir</button>
+        <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.cancel();" title="Salir"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
+    </div>
+</form>

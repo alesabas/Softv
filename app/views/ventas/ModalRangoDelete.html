@@ -1,0 +1,14 @@
+<div class="modal-header">
+    <button class="close" type="button" aria-label="close" ng-click="ctrl.cancel()">x</button>
+    <h4 class="modal-title"><i class="fa fa-exclamation-triangle"></i> Eliminar Rango</h4>
+</div>
+<div class="modal-body">
+    <p>¿Realmente desea eliminar el Rango?</p>
+    <p><b>Clave del Rango:</b> {{ ctrl.CveRango }}</p>
+    <p><b>Rango Inferior:</b> {{ ctrl.RangoInferior }}</p>
+    <p><b>Rango Superior:</b> {{ ctrl.RangoSuperior }}</p>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-danger btn-sm" type="button" ng-click="ctrl.DeleteRango()" title="Eliminar Vendedor"><i class="fa fa-trash"></i> Eliminar</button>
+    <button class="btn bnt-default btn-sm" type="button" ng-click="ctrl.cancel()" title="Salir"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
+</div>

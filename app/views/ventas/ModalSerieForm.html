@@ -1,0 +1,71 @@
+<form name="FormSerie" angular-validator-submit="ctrl.SaveSerie()" novalidate angular-validator autocomplete="off">
+    <div class="modal-header">
+        <button class="close" type="button" aria-label="close" ng-click="ctrl.cancel()">x</button>
+        <h4 class="modal-title"><i ng-class="ctrl.Icono"></i> {{ ctrl.Titulo }} {{ ctrl.Clave }}</h4>
+    </div>
+    <div class="modal-body">
+        <fieldset ng-disabled="ctrl.View">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-offset-1 col-md-4">
+                        <b>Clave:</b>
+                    </div>
+                    <div class="col-md-5">
+                        <input type="number" name="InpClave" class="form-control input-sm" ng-model="ctrl.Clave" ng-disabled="true">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-offset-1 col-md-4">
+                        <b>Serie:</b>
+                    </div>
+                    <div class="col-md-5">
+                        <input name="InpSerie" class="form-control input-sm" ng-model="ctrl.Serie" validate-on="dirty" ng-pattern="/^[a-zA-Z0-9 ._-]+$/" required required-message="'Obligatorio'" invalid-message="'Inválido.'">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-offset-1 col-md-4">
+                        <b>Numero de Folios impresos:</b>
+                    </div>
+                    <div class="col-md-5">
+                        <input type="number" name="InpNumeroFoliosImpresos" class="form-control input-sm" ng-model="ctrl.NumeroFoliosImpresos" ng-disabled="true">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-offset-1 col-md-4">
+                        <b>Ultimo Folio Impreso:</b>
+                    </div>
+                    <div class="col-md-5">
+                        <input type="number" name="InpUltimoFolio" class="form-control input-sm" ng-model="ctrl.UltimoFolio" validate-on="dirty" min="0" required required-message="'Obligatorio'" invalid-message="'Inválido.'">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-offset-1 col-md-4">
+                        <b>Vendedor:</b>
+                    </div>
+                    <div class="col-md-5">
+                        <select name="SlcVendedor" class="form-control input-sm" ng-model="ctrl.Vendedor" ng-options="V.Nombre for V in ctrl.VendedorList track by V.Clv_Vendedor" validate-on="dirty" required required-message="'Obligatorio'" ng-disabled="ctrl.DisVendedor">
+                            <option value="">Selecciona</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-offset-1 col-md-4">
+                        <b>Tipo:</b>
+                    </div>
+                    <div class="col-md-5">
+                        <label class="radio-inline radio-styled">
+                            <input type="radio" name="RdoTipo" ng-model="ctrl.Tipo" value="V"><span><small>Venta</small></span>
+                        </label>
+                        <label class="radio-inline radio-styled">
+                            <input type="radio" name="RdoTipo" ng-model="ctrl.Tipo" value="C"><span><small>Cobro</small></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary btn-sm" title="Guardar Serie" ng-disabled="ctrl.ShowAdd" ng-show="!ctrl.View"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
+        <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.cancel();" title="Salir"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
+    </div>
+</form>

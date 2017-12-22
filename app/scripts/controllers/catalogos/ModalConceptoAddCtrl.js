@@ -49,7 +49,7 @@ angular
                     var objREL_TARIFADOS_SERVICIOS_New = {
                         'CLV_SERVICIO': vm.Clv_Servicio,
                         'CLAVE': vm.TipoConcepto.Clave,
-                        'PRECIO': 0,
+                        'PRECIO': 30,//X
                         'DIA_INICIAL': ObjDate.FID,
                         'DIA_FINAL': ObjDate.FFD,
                         'BRINCA_MES': (vm.AvanzaMes == 'Y')? 1 : 0,
@@ -58,13 +58,13 @@ angular
                         'Porcetaje_Descuento': 0,
                         'Aplica_Comision': (vm.AplicaComision == 'Y')? 1 : 0,
                         'Genera_Orden': (vm.GeneraOrden == 'Y')? 1 : 0,
-                        'Precio_Adicional': 0,
+                        'Precio_Adicional': 2,//X
                         'Vigente': (vm.Vigente == 'Y')? 1 : 0,
                         'Porcetaje_Descuento_Adicional': 0,
                         'Clv_TipoPromocion': 0,
                         'Clv_Trabajo': (vm.GeneraOrden == 'Y')? vm.Trabajo.Clv_Trabajo : 0,
                         'Numero_Cortesias': 0,
-                        'Precio_Inalambrico': 0,
+                        'Precio_Inalambrico': 1,
                         'Clv_TipoCliente': vm.Clv_TipoCobro,
                         'Se_Cobra_Proporcional': (vm.SeCobraMensualidad == 'Y')? 1 : 0
                     }

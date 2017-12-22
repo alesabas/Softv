@@ -1,0 +1,13 @@
+<div class="modal-header">
+    <button class="close" type="button" aria-label="close" ng-click="ctrl.cancel()">x</button>
+    <h4 class="modal-title"><i class="fa fa-exclamation-triangle"></i> Eliminar Serie</h4>
+</div>
+<div class="modal-body">
+    <p>¿Realmente desea eliminar la serie?</p>
+    <p><b>Clave:</b> {{ ctrl.Clave }}</p>
+    <p><b>Serie:</b> {{ ctrl.Serie }}</p>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-danger btn-sm" type="button" ng-click="ctrl.DeleteSerie()" title="Eliminar Serie"><i class="fa fa-trash"></i> Eliminar</button>
+    <button class="btn bnt-default btn-sm" type="button" ng-click="ctrl.cancel()" title="Salir"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
+</div>

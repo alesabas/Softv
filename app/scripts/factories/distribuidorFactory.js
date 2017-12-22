@@ -57,8 +57,6 @@ angular
           'estadoComercial': obj.estadoComercial
                 }
       };
-
-     console.log( Parametros);
       var config = {
         headers: {
           'Authorization': $localStorage.currentUser.token

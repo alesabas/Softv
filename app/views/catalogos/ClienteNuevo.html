@@ -4,15 +4,38 @@
         overflow:auto;  
         margin-top:20px;
     }
+
+    .table-scroll-docs {
+        height:300px;
+        overflow:auto;  
+    }
+
     .input-sm {
         font-size: 12px;
     }
+
     .nav-tabs{
         float:left;
         font-size: 13px;
     }
+
     .contect-tabs{
         float:left;
+    }
+
+    .fileUpload {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .fileUpload input.upload {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+        padding: 0;
+        cursor: pointer;
+        opacity: 0;
     }
 </style>
 <style type="text/css">
@@ -33,7 +56,7 @@
         position: absolute;
         left: 250px;
         width: 0;
-        height: 255px;
+        height: 300px;
         margin-left: -250px;
         overflow-y: auto;
         background-color:#d0d3d6 !Important;/*Fondo*/
@@ -257,6 +280,9 @@
                     <li>
                         <a ng-click="$ctrl.SetForm = 6"> <i class="fa fa-list-ol" aria-hidden="true" style="cursor:pointer;"> </i> <span style="margin-left:10px; cursor:pointer;"> SERVICIOS</span> </a>
                     </li>
+                    <li>
+                        <a ng-click="$ctrl.SetForm = 7"> <i class="glyphicon glyphicon-duplicate" aria-hidden="true" style="cursor:pointer;"> </i> <span style="margin-left:10px; cursor:pointer;"> DOCUMENTOS</span> </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -310,7 +336,7 @@
                                     </label>
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="date" name="InpFechaNac" class="form-control input-sm" ng-model="$ctrl.FechaNac" invalid-message="'Inválido'">
+                                    <input type="date" name="InpFechaNac" class="form-control input-sm" ng-model="$ctrl.FechaNac" required required-message="'Obligatorio'" invalid-message="'Inválido'">
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -728,6 +754,9 @@
                                 <div class="col-md-12" style="text-align:right">
                                     <br ng-show="$ctrl.View">
                                     <button type="submit" class="btn btn-success btn-sm" ng-disabled="$ctrl.DisableInput" ng-show="!$ctrl.View">Validar</button>
+                                    <br>
+                                    <br>
+                                    <br>
                                 </div>
                             </div>
                         </div>
@@ -834,6 +863,8 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="col-md-12">
+                                    <br>
+                                    <br>
                                     <br>
                                 </div>
                             </div>
@@ -1112,7 +1143,125 @@
                         <div class="col-md-12" ng-show="$ctrl.ShowServiciosE">
                             <br>
                             <br>
+                            <br>
+                            <br>
                             <br ng-repeat="S in $ctrl.GetNumber($ctrl.ShowServiciosE)">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12" ng-show="$ctrl.SetForm == 7">
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <b class="text-primary" style="font-size:18px;"><i class="glyphicon glyphicon-duplicate"></i> Documentos</b>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-5">
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <b>Subir archivos</b>
+                            </div>
+                        </div>
+                        <form name="FormDocumentoCliente" angular-validator-submit="$ctrl.SaveDocumentoCliente()" novalidate angular-validator autocomplete="off">
+                        <div class="col-md-12">
+                            <fieldset ng-disabled="$ctrl.View">
+                            <div class="col-md-12">
+                                <select name="SlcDocumento" class="form-control input-sm" ng-model="$ctrl.Documento" ng-options="DC.Documento for DC in $ctrl.DocumentoList track by DC.IdDocumento"  validate-on="dirty" required required-message="'Obligatorio'">
+                                    <option value="">Selecciona Documento</option>
+                                </select>
+                            </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-12 has-error" ng-if="FormDocumentoCliente.InpEvidencia.$invalid && $ctrl.TouchFile == true">
+                                <label class="control-label has-error validationMessage" ng-if="FormDocumentoCliente.InpEvidencia.$invalid && $ctrl.TouchFile == true">
+                                    Aun no has seleccionado algún archivo.
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="padding:2%">
+                            <fieldset ng-disabled="$ctrl.View">
+                            <div class="col-md-4">
+                                <div class="fileUpload btn btn-success btn-xs btn-block">
+                                    <span><i class="fa fa-file"></i> Buscar</span>
+                                    <input type="file" name="InpEvidencia" class="upload" accept=".pdf" ng-model="$ctrl.File" file-model="$ctrl.Evidencia" validate-on="dirty" validator="$ctrl.Evidencia != undefined && $ctrl.Evidencia != null" required-message="''" invalid-message="''">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <button type="submit" class="btn btn-primary btn-xs btn-block" ng-click="$ctrl.SetTouch()" title="Guardar Documento"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
+                            </div>
+                            <div class="col-md-4">
+                                <button type="reset" class="btn btn-danger btn-xs btn-block" ng-click="$ctrl.ResetEvidencia()" ng-disabled="($ctrl.Evidencia == null || $ctrl.Evidencia == undefined)" title="Quitar archivo"><i class="fa fa-ban"></i> Quitar</button>
+                            </div>
+                            </fieldset>
+                        </div>
+                        </form>
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <b>Archivos existentes</b>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-12 table-scroll-docs">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th width="70%"><b><small>Nombre</small></b></th>
+                                            <th width="13%"><b><small>Existe</small></b></th>
+                                            <th width="17%"><b><small></small></b></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-show="!$ctrl.ViewDocClienteList">
+                                            <td class="text-center" colspan="3">SIN REGISTROS</td>
+                                        </tr>
+                                        <tr ng-repeat="X in $ctrl.DocumentoClienteList" ng-show="$ctrl.ViewDocClienteList">
+                                            <td><small>{{ X.Documento }}</small></td>
+                                            <td ng-if="X.Existe == true"><small>Si</small></td>
+                                            <td ng-if="X.Existe == false"><small>No</small></td>
+                                            <td><button class="btn btn-success btn-xs" title="Ver Evidencia" ng-click="$ctrl.GetDocumentoCliente(X)" ng-if="X.Existe == true"><i class="fa fa-eye"></i> Ver</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <br>
+                        </div>
+                        <div class="col-md-12 text-center">
+                        <fieldset ng-disabled="$ctrl.View">
+                            <div class="col-md-12">
+                                <label class="checkbox-inline checkbox-styled">
+                                    <input type="checkbox" name="CbxRevisado" ng-model="$ctrl.Revisado" ng-disabled="$ctrl.DisCbxDocumneto" ng-change="$ctrl.SetRevisado()"><span><small>Expediente Electrónico Revisado</small></span>
+                                </label>
+                            </div>
+                        </fieldset>
+                        </div>
+                        <div class="col-md-12  text-center">
+                        <fieldset ng-disabled="$ctrl.View">
+                            <div class="col-md-12">
+                                <label class="checkbox-inline checkbox-styled">
+                                    <input type="checkbox" name="CbxRecibido" ng-model="$ctrl.Recibido" ng-disabled="$ctrl.DisCbxDocumneto" ng-change="$ctrl.SetRecibido()"><span><small>Orden y Contrato Físico Recibido</small></span>
+                                </label>
+                            </div>
+                        </fieldset>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="col-md-12">
+                            <b>Documento seleccionado: {{ $ctrl.TituloDoc }}</b>
+                        </div>
+                        <div class="col-md-12">
+                            <br>
+                        </div>
+                        <div class="col-md-12">
+                            <iframe ng-src="{{ $ctrl.FileName }}" style="width: 100%; height: 450px;" ng-show="$ctrl.FileName != null"></iframe>
+                            <iframe ng-src="" style="width: 100%; height: 450px;" ng-show="$ctrl.FileName == null"></iframe>
                         </div>
                     </div>
                 </div>
