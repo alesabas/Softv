@@ -23,6 +23,11 @@ angular
                 vm.FechaSalidaP = (Vendedor.FechaSalida != "01/01/1900" && Vendedor.FechaSalida != null)? GetDate(Vendedor.FechaSalida): null;
                 vm.ActivoP = Vendedor.Activo;
                 vm.Activo = Vendedor.Activo;
+                MovimientoSistemaList[0].valorant = Vendedor.Nombre;
+                MovimientoSistemaList[1].valorant = Vendedor.Domicilio;
+                MovimientoSistemaList[2].valorant = Vendedor.Colonia;
+                MovimientoSistemaList[3].valorant = Vendedor.Activo;
+                MovimientoSistemaList[4].valorant = Vendedor.FechaIngreso;
                 vm.Capacitacion = Vendedor.Capacitacion;
                 var Distribuidor = Vendedor.idcompania;
                 for(var i = 0; vm.DistribuidorList.length > i; i++){
@@ -48,10 +53,39 @@ angular
                 'Capacitacion': vm.Capacitacion,
                 'ClvUsuario': $localStorage.currentUser.idUsuario
             };
+            MovimientoSistemaList[0].valornuevo = vm.Nombre;
+            MovimientoSistemaList[1].valornuevo = vm.Domicilio;
+            MovimientoSistemaList[2].valornuevo = vm.Colonia;
+            MovimientoSistemaList[3].valornuevo = vm.Activo;
+            MovimientoSistemaList[4].valornuevo =SaveDate(vm.FechaIngreso);
             VentasFactory.UpdateVendedores(objVendedores).then(function(data){
-                ngNotify.set('CORRECTO, se guardó el Vendedor.', 'success');
-                $rootScope.$emit('LoadVendedorList');
-                cancel();
+                SetMovimientoSistema();
+            });
+        }
+        
+        function SetMovimientoSistema(){
+            for(var i = 0; MovimientoSistemaList.length > i; i++){
+                if(MovimientoSistemaList[i].valorant != MovimientoSistemaList[i].valornuevo){
+                    AddMovimientoSistema(i);
+                }
+            }
+            ngNotify.set('CORRECTO, se guardó el Vendedor.', 'success');
+            $rootScope.$emit('LoadVendedorList');
+            cancel();
+        }
+
+        function AddMovimientoSistema(i){
+            var ObjMovimientoSistema = {
+                'usuario': $localStorage.currentUser.usuario,
+                'contrato': 0,
+                'Sistema': 'Softv',
+                'Pantalla': 'Catálogo de Vendedores',
+                'control': MovimientoSistemaList[i].control,
+                'valorant': MovimientoSistemaList[i].valorant,
+                'valornuevo': MovimientoSistemaList[i].valornuevo,
+                'clv_ciudad': 'AG'
+            };
+            VentasFactory.GetInserta_MovSist(ObjMovimientoSistema).then(function(data){
             });
         }
 
@@ -107,6 +141,13 @@ angular
         vm.Icono = 'fa fa-pencil-square-o';
         vm.View = false;
         vm.DisAdd = false;
+        var MovimientoSistemaList = [
+            {'control': 'Nombre', 'valorant': '', valornuevo: ''},
+            {'control': 'Domicilio', 'valorant': '', valornuevo: ''},
+            {'control': 'Colonia', 'valorant': '', valornuevo: ''},
+            {'control': 'Activo', 'valorant': '', valornuevo: ''},
+            {'control': 'Fecha De Ingreso', 'valorant': '', valornuevo: ''}
+        ];
         vm.SaveVendedor = SaveVendedor;
         vm.OpenDocumentos = OpenDocumentos;
         vm.cancel = cancel;

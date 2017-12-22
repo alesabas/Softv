@@ -11,7 +11,8 @@ angular
             GetDeepVendedores: '/Vendedores/GetDeepVendedores',
             UpdateVendedores: '/Vendedores/UpdateVendedores',
             DeleteVendedores: '/Vendedores/DeleteVendedores',
-            GetMuestra_PlazasPorUsuarioList: '/Muestra_PlazasPorUsuario/GetMuestra_PlazasPorUsuarioList'
+            GetMuestra_PlazasPorUsuarioList: '/Muestra_PlazasPorUsuario/GetMuestra_PlazasPorUsuarioList',
+            GetInserta_MovSist: '/Vendedores/GetInserta_MovSist'
         };
 
         factory.GetMuestra_PlazasPorUsuarioList = function(Clv_Usuario){
@@ -79,6 +80,18 @@ angular
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {Clv_Vendedor: Clv_Vendedor};
             $http.post(globalService.getUrl() + paths.DeleteVendedores, JSON.stringify(Parametros), config).then(function(response){
+                deferred.resolve(response.data);
+            }).catch(function(response){
+                deferred.reject(response);
+            });
+            return deferred.promise;
+        };
+
+        factory.GetInserta_MovSist = function(ObjMovimientoSistema){
+            var deferred = $q.defer();
+            var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+            var Parametros = {ObjMovimientoSistema: ObjMovimientoSistema};
+            $http.post(globalService.getUrl() + paths.GetInserta_MovSist, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
                 deferred.reject(response);

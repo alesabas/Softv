@@ -2,7 +2,7 @@
 
 angular
     .module('softvApp')
-    .controller('ModalSerieAddCtrl', function(SeriesFactory, $uibModalInstance, $uibModal, ngNotify, $state, $rootScope, $localStorage){
+    .controller('ModalSerieAddCtrl', function(VentasFactory, SeriesFactory, $uibModalInstance, $uibModal, ngNotify, $state, $rootScope, $localStorage){
 
         function initData(){
             var ObjVendedorList = {
@@ -34,9 +34,21 @@ angular
                     };
                     SeriesFactory.AddCatalogoSeries(objCatalogoSeries).then(function(data){
                         if(data.AddCatalogoSeriesResult > 0){
-                            ngNotify.set('CORRECTO, se guardó la Serie.', 'success');
-                            $rootScope.$emit('LoadSerieList');
-                            cancel();
+                            var ObjMovimientoSistema = {
+                                'usuario': $localStorage.currentUser.usuario,
+                                'contrato': 0,
+                                'Sistema': 'Softv',
+                                'Pantalla': 'Catálogo de Series',
+                                'control': 'Nueva Serie',
+                                'valorant': '',
+                                'valornuevo': 'Serie:' + vm.Serie + ' / Vendedor:' + vm.Vendedor.Nombre,
+                                'clv_ciudad': 'AG'
+                            };
+                            VentasFactory.GetInserta_MovSist(ObjMovimientoSistema).then(function(data){
+                                ngNotify.set('CORRECTO, se guardó la Serie.', 'success');
+                                $rootScope.$emit('LoadSerieList');
+                                cancel();
+                            });
                         }else{
                             ngNotify.set('ERROR, al guardar la Serie.', 'warn');
                             $rootScope.$emit('LoadSerieList');

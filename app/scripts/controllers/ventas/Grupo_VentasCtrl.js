@@ -2,7 +2,7 @@
 
 angular
     .module('softvApp')
-    .controller('Grupo_VentasCtrl', function(SeriesFactory, GrupoVentaFactory, ngNotify, $uibModal, $rootScope, $state, $localStorage, $scope){
+    .controller('Grupo_VentasCtrl', function(SeriesFactory, VentasFactory, GrupoVentaFactory, ngNotify, $uibModal, $rootScope, $state, $localStorage, $scope){
         
         function initData(){
             SeriesFactory.GetMuestra_Compania_RelUsuarioList($localStorage.currentUser.idUsuario).then(function(data){
@@ -21,7 +21,8 @@ angular
 
         function OpenFormGrupo(Op, ObjGrupo){
             vm.Clave = (Op != 2)? null:ObjGrupo.Clv_Grupo;
-            vm.Grupo = (Op != 2)? null:ObjGrupo.Grupo;
+            vm.Grupo = (Op != 2)? null:ObjGrupo.Grupo; 
+            vm.GrupoP = (Op != 2)? null:ObjGrupo.Grupo;
             vm.ReqGrupo = (Op == 0)? false:true;
             vm.DisGrupo = (Op == 0)? true:false;
             vm.DisBtnGuardar = (Op == 0)? false:true;
@@ -41,9 +42,21 @@ angular
                 GrupoVentaFactory.GetNueGrupoVentas(ObjGrupo).then(function(data){
                     var Result = data.GetNueGrupoVentasResult;
                     if(Result.Res == 0){
-                        ngNotify.set('CORRECTO, Se guardo el Grupo de Ventas.', 'success');
-                        GetGrupoList();
-                        OpenFormGrupo(0);
+                        var ObjMovimientoSistema = {
+                            'usuario': $localStorage.currentUser.usuario,
+                            'contrato': 0,
+                            'Sistema': 'Softv',
+                            'Pantalla': 'Grupo de Ventas',
+                            'control': 'Nuevo Grupo Ventas',
+                            'valorant': '',
+                            'valornuevo': vm.Grupo,
+                            'clv_ciudad': 'AG'
+                        };
+                        VentasFactory.GetInserta_MovSist(ObjMovimientoSistema).then(function(data){
+                            ngNotify.set('CORRECTO, Se guardo el Grupo de Ventas.', 'success');
+                            GetGrupoList();
+                            OpenFormGrupo(0);
+                        });
                     }else{
                         ngNotify.set('ERROR, ' + Result.Msj, 'warn');
                         GetGrupoList();
@@ -57,9 +70,21 @@ angular
                 GrupoVentaFactory.GetModGrupoVentas(ObjGrupo).then(function(data){
                     var Result = data.GetModGrupoVentasResult;
                     if(Result.Res == 0){
-                        ngNotify.set('CORRECTO, Se guardo el Grupo de Ventas.', 'success');
-                        GetGrupoList();
-                        OpenFormGrupo(0);
+                        var ObjMovimientoSistema = {
+                            'usuario': $localStorage.currentUser.usuario,
+                            'contrato': 0,
+                            'Sistema': 'Softv',
+                            'Pantalla': 'Grupo de Ventas',
+                            'control': 'Grupo Ventas',
+                            'valorant': vm.GrupoP,
+                            'valornuevo': vm.Grupo,
+                            'clv_ciudad': 'AG'
+                        };
+                        VentasFactory.GetInserta_MovSist(ObjMovimientoSistema).then(function(data){
+                            ngNotify.set('CORRECTO, Se guardo el Grupo de Ventas.', 'success');
+                            GetGrupoList();
+                            OpenFormGrupo(0);
+                        });
                     }else{
                         ngNotify.set('ERROR, ' + Result.Msj, 'warn');
                         GetGrupoList();

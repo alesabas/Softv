@@ -24,9 +24,21 @@ angular
             };
             VentasFactory.AddVendedores(objVendedores).then(function(data){
                 if(data.AddVendedoresResult > 0){
-                    ngNotify.set('CORRECTO, se guardó el Vendedor.', 'success');
-                    $rootScope.$emit('LoadVendedorList');
-                    cancel();
+                    var ObjMovimientoSistema = {
+                        'usuario': $localStorage.currentUser.usuario,
+                        'contrato': 0,
+                        'Sistema': 'Softv',
+                        'Pantalla': 'Catálogo de Vendedores',
+                        'control': 'Nuevo Vendedor',
+                        'valorant': '',
+                        'valornuevo': 'Vendedor: ' + vm.Nombre,
+                        'clv_ciudad': 'AG'
+                    };
+                    VentasFactory.GetInserta_MovSist(ObjMovimientoSistema).then(function(data){
+                        ngNotify.set('CORRECTO, se guardó el Vendedor.', 'success');
+                        $rootScope.$emit('LoadVendedorList');
+                        cancel();
+                    });
                 }else{
                     ngNotify.set('ERROR, al guardar el Vendedor.', 'warn');
                     $rootScope.$emit('LoadVendedorList');
@@ -56,5 +68,5 @@ angular
         vm.SaveVendedor = SaveVendedor;
         vm.cancel = cancel;
         initData();
-        
+        console.log($localStorage);
     });

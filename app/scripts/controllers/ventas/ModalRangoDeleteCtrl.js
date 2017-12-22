@@ -2,7 +2,7 @@
 
 angular
     .module('softvApp')
-    .controller('ModalRangoDeleteCtrl', function(SeriesFactory, $uibModalInstance, $uibModal, ngNotify, $state, $rootScope, CveRango){
+    .controller('ModalRangoDeleteCtrl', function(SeriesFactory, VentasFactory, $uibModalInstance, $uibModal, ngNotify, $state, $rootScope, CveRango, $localStorage){
         
         function initData(){
             var ObjRango = {
@@ -23,9 +23,26 @@ angular
             SeriesFactory.GetValidaRangosAEliminar(ObjRango).then(function(data){
                 if(data.GetValidaRangosAEliminarResult == 0){
                     SeriesFactory.GetBorCatalogoDeRangos(ObjRango).then(function(data){
+                        var ObjMovimientoSistema = {
+                            'usuario': $localStorage.currentUser.usuario,
+                            'contrato': 0,
+                            'Sistema': 'Softv',
+                            'Pantalla': 'Rangos',
+                            'control': 'Se Eliminó Rango',
+                            'valorant': '',
+                            'valornuevo': 'Rango: ' + vm.RangoInferior + ' - ' + vm.RangoSuperior,
+                            'clv_ciudad': 'AG'
+                        };
+                        VentasFactory.GetInserta_MovSist(ObjMovimientoSistema).then(function(data){
+                            ngNotify.set('CORRECTO, Se guardo el Rango.', 'success');
+                            $rootScope.$emit('LoadRangoList');
+                            cancel();
+                        });
+                        /*
                         ngNotify.set('CORRECTO, Se guardo el Rango.', 'success');
                         $rootScope.$emit('LoadRangoList');
                         cancel();
+                        */
                     });
                 }else{
                     ngNotify.set('ERROR, No se puede eliminar porque al rango ya se le asigno un precio.', 'warn');
