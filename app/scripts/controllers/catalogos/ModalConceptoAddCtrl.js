@@ -33,32 +33,34 @@ angular
         }
 
         function SaveConcepto(){
-            var ObjDate = ToDate(vm.FechaInicio, vm.FechaFinal)
             var objValidaPeriodos = {
-                'Fec_Ini': parseInt(ObjDate.FIY+ '' + '' + ObjDate.FIM + '' + ObjDate.FID),
-                'Fec_Fin': parseInt(ObjDate.FFY+ '' + '' + ObjDate.FFM + '' + ObjDate.FFD),
-                'Ini': ObjDate.FID,
-                'Fin': ObjDate.FFD,
+                'Clv_LLave': 0,
+                'Fec_Ini': ToDateStr(vm.FechaInicio),
+                'Fec_Fin': ToDateStr(vm.FechaFinal),
+                'Ini': vm.DiaInicial,
+                'Fin': vm.DiaFinal,
                 'Clv_Servicio': vm.Clv_Servicio,
                 'Clave': vm.TipoConcepto.Clave,
                 'Clv_TipoCliente': vm.Clv_TipoCobro 
             }
+            console.log(objValidaPeriodos);
             CatalogosFactory.AddValidaPeriodos(objValidaPeriodos).then(function(data){
+                console.log(data);
                 var result = data.AddValidaPeriodosResult;
                 if(result == 0){
                     var objREL_TARIFADOS_SERVICIOS_New = {
                         'CLV_SERVICIO': vm.Clv_Servicio,
                         'CLAVE': vm.TipoConcepto.Clave,
-                        'PRECIO': 30,//X
-                        'DIA_INICIAL': ObjDate.FID,
-                        'DIA_FINAL': ObjDate.FFD,
+                        'PRECIO': (vm.Clv_TipSer == 2)? vm.Precio:0,
+                        'DIA_INICIAL': vm.DiaInicial,
+                        'DIA_FINAL': vm.DiaFinal,
                         'BRINCA_MES': (vm.AvanzaMes == 'Y')? 1 : 0,
-                        'Periodo_Inicial': parseInt(ObjDate.FIY+ '' + '' + ObjDate.FIM + '' + ObjDate.FID),
-                        'Periodo_Final': parseInt(ObjDate.FFY+ '' + '' + ObjDate.FFM + '' + ObjDate.FFD),
+                        'Periodo_Inicial': ToDateStr(vm.FechaInicio),
+                        'Periodo_Final': ToDateStr(vm.FechaFinal),
                         'Porcetaje_Descuento': 0,
                         'Aplica_Comision': (vm.AplicaComision == 'Y')? 1 : 0,
                         'Genera_Orden': (vm.GeneraOrden == 'Y')? 1 : 0,
-                        'Precio_Adicional': 2,//X
+                        'Precio_Adicional': 0,//X
                         'Vigente': (vm.Vigente == 'Y')? 1 : 0,
                         'Porcetaje_Descuento_Adicional': 0,
                         'Clv_TipoPromocion': 0,
@@ -70,9 +72,17 @@ angular
                     }
                     if(vm.AplicaTodos == 'Y'){
                         CatalogosFactory.AddREL_TARIFADOS_SERVICIOSAll_New(objREL_TARIFADOS_SERVICIOS_New).then(function(data){
+                            console.log(data);
                             var Clv_Llave = data.AddREL_TARIFADOS_SERVICIOSAll_NewResult;
                             if(Clv_Llave > 0){
-                                AddConceptoCajas(Clv_Llave);
+                                if(vm.Clv_TipSer == 2){
+                                    AddTarifado(Clv_Llave);
+                                    AddConceptoCajas(Clv_Llave);
+                                }else{
+                                    AddConceptoCajas(Clv_Llave);
+                                }
+
+                                AddTarifado(Clv_Llave);
                             }else{
                                 ngNotify.set('ERROR, al añadir un concepto nuevo.', 'warn');
                                 $rootScope.$emit('LoadRefPersonal', vm.IdContrato);
@@ -83,7 +93,12 @@ angular
                         CatalogosFactory.AddREL_TARIFADOS_SERVICIOS_New(objREL_TARIFADOS_SERVICIOS_New).then(function(data){
                             var Clv_Llave = data.AddREL_TARIFADOS_SERVICIOS_NewResult;
                             if(Clv_Llave > 0){
-                                AddConceptoCajas(Clv_Llave)
+                                /*if(vm.Clv_TipSer == 2){
+                                    AddTarifado(Clv_Llave);*/
+                                    AddConceptoCajas(Clv_Llave);
+                                /*}else{
+                                    AddConceptoCajas(Clv_Llave);
+                                }*/
                             }else{
                                 ngNotify.set('ERROR, al añadir un concepto nuevo.', 'warn');
                                 $rootScope.$emit('LoadRefPersonal', vm.IdContrato);
@@ -111,7 +126,10 @@ angular
                 'Costo3ra2': 0,
                 'op': (vm.AplicaTodos == 'Y')? 1 : 0
             };
+        }
+        function AddTarifado(Clv_Llave){
             CatalogosFactory.AddRelTarifadosServiciosCostoPorCaja_New(objRelTarifadosServiciosCostoPorCaja_New).then(function(data){
+                console.log(data);
                 if(data.AddRelTarifadosServiciosCostoPorCaja_NewResult == -1){
                     var ObjInstalacion = {
                         'CLV_LLAVE': Clv_Llave,
@@ -155,20 +173,15 @@ angular
             });
         }
 
-        function ToDate(FechaInicio, FechaFinal){
-            var FIM = FechaInicio.getMonth() + 1;
-            var FFM = FechaFinal.getMonth() + 1;
-            var FID = FechaInicio.getDate();
-            var FFD = FechaFinal.getDate();
-            var ObjDate = {
-               'FID': (String(FID).length == 1)? '0'+FID : FID,
-               'FIM': (String(FIM).length == 1)? '0'+FIM : FIM,
-               'FIY': FechaInicio.getFullYear(),
-               'FFD': (String(FFD).length == 1)? '0'+FFD : FFD,
-               'FFM': (String(FFM).length == 1)? '0'+FFM : FFM,
-               'FFY': FechaFinal.getFullYear(),
-            };
-            return ObjDate;
+        function ToDateStr(Fecha){
+            var F1 = Fecha.getDate();
+            var F2 = Fecha.getMonth() + 1;
+            var FD = (String(F1).length == 1)? '0'+F1 : F1;
+            var FM = (String(F2).length == 1)? '0'+F2 : F2;
+            var FY = Fecha.getFullYear();
+            var FechaStr = String(FY) + String(FM) + String(FD);
+            console.log('FS', FechaStr);
+            return FechaStr;
         }
 
         function cancel() {
@@ -179,10 +192,13 @@ angular
         vm.Titulo = 'Nuevo Concepto';
         vm.Icono = 'fa fa-plus'
         vm.ShowOrden = false;
+        vm.DiaInicial = 0;
+        vm.DiaFinal = 1;
         vm.SetOrden = SetOrden;
         vm.cancel = cancel;
         vm.SaveConcepto = SaveConcepto;
         vm.Clv_TipoCobro = ObjServicio.Clv_TipoCobro;
+        console.log(ObjServicio);
         initData();
 
     });
