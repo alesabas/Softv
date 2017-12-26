@@ -43,9 +43,7 @@ angular
                 'Clave': vm.TipoConcepto.Clave,
                 'Clv_TipoCliente': vm.Clv_TipoCobro 
             }
-            console.log(objValidaPeriodos);
             CatalogosFactory.AddValidaPeriodos(objValidaPeriodos).then(function(data){
-                console.log(data);
                 var result = data.AddValidaPeriodosResult;
                 if(result == 0){
                     var objREL_TARIFADOS_SERVICIOS_New = {
@@ -72,17 +70,9 @@ angular
                     }
                     if(vm.AplicaTodos == 'Y'){
                         CatalogosFactory.AddREL_TARIFADOS_SERVICIOSAll_New(objREL_TARIFADOS_SERVICIOS_New).then(function(data){
-                            console.log(data);
                             var Clv_Llave = data.AddREL_TARIFADOS_SERVICIOSAll_NewResult;
                             if(Clv_Llave > 0){
-                                if(vm.Clv_TipSer == 2){
-                                    AddTarifado(Clv_Llave);
-                                    AddConceptoCajas(Clv_Llave);
-                                }else{
-                                    AddConceptoCajas(Clv_Llave);
-                                }
-
-                                AddTarifado(Clv_Llave);
+                                SetInsdtalacion(Clv_Llave);
                             }else{
                                 ngNotify.set('ERROR, al añadir un concepto nuevo.', 'warn');
                                 $rootScope.$emit('LoadRefPersonal', vm.IdContrato);
@@ -93,12 +83,7 @@ angular
                         CatalogosFactory.AddREL_TARIFADOS_SERVICIOS_New(objREL_TARIFADOS_SERVICIOS_New).then(function(data){
                             var Clv_Llave = data.AddREL_TARIFADOS_SERVICIOS_NewResult;
                             if(Clv_Llave > 0){
-                                /*if(vm.Clv_TipSer == 2){
-                                    AddTarifado(Clv_Llave);*/
-                                    AddConceptoCajas(Clv_Llave);
-                                /*}else{
-                                    AddConceptoCajas(Clv_Llave);
-                                }*/
+                                SetInsdtalacion(Clv_Llave);
                             }else{
                                 ngNotify.set('ERROR, al añadir un concepto nuevo.', 'warn');
                                 $rootScope.$emit('LoadRefPersonal', vm.IdContrato);
@@ -113,7 +98,22 @@ angular
             });
         }
 
-        function AddConceptoCajas(Clv_Llave){
+        function SetInsdtalacion(Clv_Llave){
+            var ObjInstalacion = {
+                'CLV_LLAVE': Clv_Llave,
+                'Clv_TipoCliente': vm.Clv_TipoCobro,
+                'opc': 2
+            };
+            CatalogosFactory.GetActualiza_InstalacionList(ObjInstalacion).then(function(data){
+                if(vm.Clv_TipSer == 2){
+                    RentaAparato();
+                }else{
+                    AddTarifado(Clv_Llave)
+                }
+            });
+        }
+
+        function AddTarifado(Clv_Llave){
             var objRelTarifadosServiciosCostoPorCaja_New = {
                 'Clv_Llave': Clv_Llave,
                 'CostoPrincipal': vm.Principal,
@@ -126,30 +126,10 @@ angular
                 'Costo3ra2': 0,
                 'op': (vm.AplicaTodos == 'Y')? 1 : 0
             };
-        }
-        function AddTarifado(Clv_Llave){
             CatalogosFactory.AddRelTarifadosServiciosCostoPorCaja_New(objRelTarifadosServiciosCostoPorCaja_New).then(function(data){
-                console.log(data);
-                if(data.AddRelTarifadosServiciosCostoPorCaja_NewResult == -1){
-                    var ObjInstalacion = {
-                        'CLV_LLAVE': Clv_Llave,
-                        'Clv_TipoCliente': vm.Clv_TipoCobro,
-                        'opc': 2
-                    };
-                    CatalogosFactory.GetActualiza_InstalacionList(ObjInstalacion).then(function(data){
-                        if(vm.Clv_TipSer == 2){
-                            RentaAparato();
-                        }else{
-                            ngNotify.set('CORRECTO, se añadió un concepto nuevo.', 'success');
-                            $rootScope.$emit('LoadConceptos', vm.Clv_Servicio);
-                            cancel();
-                        }
-                    });
-                }else{
-                    ngNotify.set('ERROR, al añadir un concepto nuevo.', 'warn');
-                    $rootScope.$emit('LoadRefPersonal', vm.IdContrato);
-                    cancel();
-                }
+                ngNotify.set('CORRECTO, se añadió un concepto nuevo.', 'success');
+                $rootScope.$emit('LoadConceptos', vm.Clv_Servicio);
+                cancel();
             });
         }
 
@@ -161,15 +141,9 @@ angular
                 'PRECIOADIC': 0
             };
             CatalogosFactory.UpdateModRentaAparato(objModRentaAparato).then(function(data){
-                if(data.UpdateModRentaAparatoResult == 1){
-                    ngNotify.set('CORRECTO, se añadió un concepto nuevo.', 'success');
-                    $rootScope.$emit('LoadConceptos', vm.Clv_Servicio);
-                    cancel();
-                }else{
-                    ngNotify.set('ERROR, al añadir renta de aparato.', 'warn');
-                    $rootScope.$emit('LoadRefPersonal', vm.IdContrato);
-                    cancel();
-                }
+                ngNotify.set('CORRECTO, se añadió un concepto nuevo.', 'success');
+                $rootScope.$emit('LoadConceptos', vm.Clv_Servicio);
+                cancel();
             });
         }
 
@@ -180,7 +154,6 @@ angular
             var FM = (String(F2).length == 1)? '0'+F2 : F2;
             var FY = Fecha.getFullYear();
             var FechaStr = String(FY) + String(FM) + String(FD);
-            console.log('FS', FechaStr);
             return FechaStr;
         }
 
@@ -198,7 +171,6 @@ angular
         vm.cancel = cancel;
         vm.SaveConcepto = SaveConcepto;
         vm.Clv_TipoCobro = ObjServicio.Clv_TipoCobro;
-        console.log(ObjServicio);
         initData();
 
     });

@@ -12,12 +12,12 @@ angular
         }
 
         function SaveConcepto(){
-            var ObjDate = ToDateF(vm.FechaInicio, vm.FechaFinal);
             var objValidaPeriodos = {
-                'Fec_Ini': parseInt(ObjDate.FIY+ '' + '' + ObjDate.FIM + '' + ObjDate.FID),
-                'Fec_Fin': parseInt(ObjDate.FFY+ '' + '' + ObjDate.FFM + '' + ObjDate.FFD),
-                'Ini': ObjDate.FID,
-                'Fin': ObjDate.FFD,
+                'Clv_LLave': vm.CLV_LLAVE,
+                'Fec_Ini': ToDateStr(vm.FechaInicio),
+                'Fec_Fin': ToDateStr(vm.FechaFinal),
+                'Ini': vm.DiaInicial,
+                'Fin': vm.DiaFinal,
                 'Clv_Servicio': vm.Clv_Servicio,
                 'Clave': vm.TipoConcepto.Clave,
                 'Clv_TipoCliente': vm.Clv_TipoCobro 
@@ -29,12 +29,12 @@ angular
                         'CLV_LLAVE': vm.CLV_LLAVE,
                         'CLV_SERVICIO': vm.Clv_Servicio,
                         'CLAVE': vm.TipoConcepto.Clave,
-                        'PRECIO': 0,
-                        'DIA_INICIAL': ObjDate.FID,
-                        'DIA_FINAL': ObjDate.FFD,
+                        'PRECIO': (vm.Clv_TipSer == 2)? vm.Precio:0,
+                        'DIA_INICIAL': vm.DiaInicial,
+                        'DIA_FINAL': vm.DiaFinal,
                         'BRINCA_MES': (vm.AvanzaMes == 'Y')? 1 : 0,
-                        'Periodo_Inicial': parseInt(ObjDate.FIY+ '' + '' + ObjDate.FIM + '' + ObjDate.FID),
-                        'Periodo_Final': parseInt(ObjDate.FFY+ '' + '' + ObjDate.FFM + '' + ObjDate.FFD),
+                        'Periodo_Inicial': ToDateStr(vm.FechaInicio),
+                        'Periodo_Final': ToDateStr(vm.FechaFinal),
                         'Porcetaje_Descuento': 0,
                         'Aplica_Comision': (vm.AplicaComision == 'Y')? 1 : 0,
                         'Genera_Orden': (vm.GeneraOrden == 'Y')? 1 : 0,
@@ -54,7 +54,8 @@ angular
                             $rootScope.$emit('LoadConceptos', vm.Clv_Servicio);
                             cancel();
                             if(data.UpdateREL_TARIFADOS_SERVICIOSAll_NewResult == -1){
-                                AddConceptoCajas();
+                                //AddConceptoCajas();
+                                SetInsdtalacion();
                             }else{
                                 ngNotify.set('ERROR, al guardar un concepto nuevo.', 'warn');
                                 $rootScope.$emit('LoadRefPersonal', vm.IdContrato);
@@ -64,7 +65,8 @@ angular
                     }else{
                         CatalogosFactory.UpdateREL_TARIFADOS_SERVICIOS_New(objREL_TARIFADOS_SERVICIOS_New).then(function(data){
                             if(data.UpdateREL_TARIFADOS_SERVICIOS_NewResult == -1){
-                                AddConceptoCajas()
+                                //AddConceptoCajas()
+                                SetInsdtalacion();
                             }else{
                                 ngNotify.set('ERROR, al guardar un concepto nuevo.', 'warn');
                                 $rootScope.$emit('LoadRefPersonal', vm.IdContrato);
@@ -75,6 +77,21 @@ angular
                 }else{
                     ngNotify.set('ERROR, El periodo que se ingresó no es valido.', 'warn');
                     cancel();
+                }
+            });
+        }
+
+        function SetInsdtalacion(){
+            var ObjInstalacion = {
+                'CLV_LLAVE': vm.CLV_LLAVE,
+                'Clv_TipoCliente': vm.Clv_TipoCobro,
+                'opc': 2
+            };
+            CatalogosFactory.GetActualiza_InstalacionList(ObjInstalacion).then(function(data){
+                if(vm.Clv_TipSer == 2){
+                    RentaAparato();
+                }else{
+                    AddConceptoCajas()
                 }
             });
         }
@@ -105,6 +122,20 @@ angular
             });
         }
 
+        function RentaAparato(){
+            var objModRentaAparato = {
+                'CLV_TIPOCLIENTE': vm.Clv_TipoCobro,
+                'CLV_SERVICIO': vm.Clv_Servicio,
+                'PRECIO': 0,
+                'PRECIOADIC': 0
+            };
+            CatalogosFactory.UpdateModRentaAparato(objModRentaAparato).then(function(data){
+                ngNotify.set('CORRECTO, se añadió un concepto nuevo.', 'success');
+                $rootScope.$emit('LoadConceptos', vm.Clv_Servicio);
+                cancel();
+            });
+        }
+
         function GetConcepto(){
             var ObjGetConcepto = {
                 'CLV_LLAVE': ObjConcepto.CLV_LLAVE,
@@ -116,6 +147,8 @@ angular
                 vm.Clv_Servicio = Concepto.CLV_SERVICIO;
                 vm.FechaInicio = toDate(Concepto.Periodo_Inicial); 
                 vm.FechaFinal = toDate(Concepto.Periodo_Final);
+                vm.DiaInicial = Concepto.DIA_INICIAL,
+                vm.DiaFinal = Concepto.DIA_FINAL,
                 vm.Vigente = (Concepto.Vigente == true)? 'Y' : 'N';
                 vm.SeCobraMensualidad = (Concepto.Se_Cobra_Proporcional == true)? 'Y' : 'N';
                 vm.AplicaComision = (Concepto.Aplica_Comision == true)? 'Y' : 'N';
@@ -156,20 +189,14 @@ angular
             });
         }
 
-        function ToDateF(FechaInicio, FechaFinal){
-            var FIM = FechaInicio.getMonth() + 1;
-            var FFM = FechaFinal.getMonth() + 1;
-            var FID = FechaInicio.getDate();
-            var FFD = FechaFinal.getDate();
-            var ObjDate = {
-               'FID': (String(FID).length == 1)? '0'+FID : FID,
-               'FIM': (String(FIM).length == 1)? '0'+FIM : FIM,
-               'FIY': FechaInicio.getFullYear(),
-               'FFD': (String(FFD).length == 1)? '0'+FFD : FFD,
-               'FFM': (String(FFM).length == 1)? '0'+FFM : FFM,
-               'FFY': FechaFinal.getFullYear(),
-            };
-            return ObjDate;
+        function ToDateStr(Fecha){
+            var F1 = Fecha.getDate();
+            var F2 = Fecha.getMonth() + 1;
+            var FD = (String(F1).length == 1)? '0'+F1 : F1;
+            var FM = (String(F2).length == 1)? '0'+F2 : F2;
+            var FY = Fecha.getFullYear();
+            var FechaStr = String(FY) + String(FM) + String(FD);
+            return FechaStr;
         }
 
         function SetOrden(){

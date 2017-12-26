@@ -925,7 +925,7 @@ angular
         
         var vm = this;
         vm.IdContrato = $stateParams.id;
-        vm.Title = 'Cliente - ';
+        vm.Title = 'Detalle Cliente - ';
         vm.SetForm = 1;
         vm.ShowAccord = true;
         vm.BlockInput = true;
