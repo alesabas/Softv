@@ -1,0 +1,104 @@
+<style type="text/css">
+  .scrollDiv {
+    height: 500px;
+    overflow: auto;
+    overflow-x: hidden;
+  }
+
+</style>
+<div class="card animated fadeIn" style="margin-top:20px;">
+  <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+    <header>
+      <strong style="font-weight:bold; border:none; margin-left:10px;">Cambio de servicio</strong>
+      <br>
+      <small class="text-muted" style="font-size:14px; margin-left:10px;">
+        <a href="#">
+          <i class="fa fa-home" aria-hidden="true"></i> Inicio</a> >
+        <a href="#" class="paginaActiva">Procesos</a>
+      </small>
+    </header>
+  </div>
+  <div class="card-body">
+    <div class="row">
+
+      <div class="col-md-12">
+
+        <div class="col-md-2">
+          <label>Plaza</label>
+          <input type="text" name="InpSearchAparato" class="form-control input-sm" ng-model="$ctrl.clave">
+        </div>
+        <div class="col-md-2">
+          <br>
+          <button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.buscar(1);" title="Buscar por # Orden ">
+            <i class="glyphicon glyphicon-search"></i> BUSCAR</button>
+        </div>
+        <div class="col-md-2">
+          <label>Contrato</label>
+          <input type="text" name="InpSearchAparato2" class="form-control input-sm" ng-model="$ctrl.Mac">
+        </div>
+        <div class="col-md-2">
+          <br>
+          <button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.buscar(4);" title="Buscar por Mac ">
+            <i class="glyphicon glyphicon-search"></i> BUSCAR</button>
+        </div>
+
+        <div class="col-md-2">
+          <label>Nombre</label>
+          <input type="text" name="InpSearchAparato2" class="form-control input-sm" ng-model="$ctrl.Mac">
+        </div>
+        <div class="col-md-1">
+          <br>
+          <button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.buscar(4);" title="Buscar por Mac ">
+            <i class="glyphicon glyphicon-search"></i> BUSCAR</button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+  <br>
+  <div class="col-md-12">
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>
+            <b>#Contrato</b>
+          </th>
+          <th class="text-center">
+            <b>Nombre</b>
+          </th>
+          <th class="text-center">
+            <b>proceso</b>
+          </th>
+           
+          <th class="text-center">
+            <b>Opciones</b>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr dir-paginate="X in $ctrl.DevolucionList|itemsPerPage:7">
+          <td>{{X.CLV_ORDEN}}</td>
+          <td>{{X.MACCABLEMODEM}}</td>
+          <td>{{X.PROVIENEDE}}</td>
+          <td>{{X.RECIBIO}}</td>
+          <td>{{X.MARCA}}</td>
+          <td>
+            <button type="button" class="btn btn-primary btn-xs" ng-click="$ctrl.RegresaAlmacen(X)" title="Regresar al Almacen caja">
+              <i class="glyphicon glyphicon-backward"></i> Devolver</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <div style="margin-top:-40px;">
+      <dir-pagination-controls max-size="7" direction-links="true" boundary-links="true">
+      </dir-pagination-controls>
+    </div>
+    <br>
+
+  </div>
+</div>
+</div>

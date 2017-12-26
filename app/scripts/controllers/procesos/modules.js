@@ -198,7 +198,19 @@ angular
         templateUrl: 'views/procesos/pruebaInternet.html',
         controller: 'pruebaInternetCtrl',
         controllerAs: '$ctrl'
+      },
+      {
+        name: 'home.procesos.cambioservicio',
+        data: {
+          pageTitle: 'SOFTV | CAMBIO DE SERVICIO',
+        },
+        url: '/cambioservicio',
+        templateUrl: 'views/procesos/cambioServicio.html',
+        controller: 'cambioServicioCtrl',
+        controllerAs: '$ctrl'
       }
+
+    
       
 
       

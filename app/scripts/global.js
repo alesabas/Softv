@@ -22,15 +22,7 @@ angular
       return 'http://localhost:64481';
     };
     
-    /*
-    svc.getUrl = function () {
-      return 'http://localhost:64481/SoftvWCFService.svc';
-    };
-
-    svc.getUrlReportes = function () {
-      return 'http://localhost:64481/';
-    };
-
+ 
     svc.getUrllogos = function () {
       return 'http://localhost:64481/logos';
     };
