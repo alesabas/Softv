@@ -202,11 +202,32 @@
 </script>
 <div class="card animated fadeIn" style="margin-top:20px;">
     <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
-        <header>
-            <strong style="font-weight:bold; border:none; margin-left:10px;">{{ $ctrl.Title }} {{ $ctrl.IdCliente }}</strong>
+        <header ng-if="$ctrl.NombreAdi != null && $ctrl.SegundoApe != null">
+            <strong style="font-weight:bold; border:none; margin-left:10px;">{{ $ctrl.Title }} {{ $ctrl.Nombre + ' ' + $ctrl.NombreAdi + ' ' + $ctrl.PrimerApe + ' ' + $ctrl.SegundoApe }} {{ $ctrl.IdCliente }}</strong>
 			<br>
             <small class="text-muted" style="font-size:14px; margin-left:10px;">
-                <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">{{ $ctrl.Title }} {{ $ctrl.IdCliente }}</a>
+                <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">Catálogo Clientes</a>
+            </small>
+        </header>
+        <header ng-if="$ctrl.NombreAdi == null && $ctrl.SegundoApe != null">
+            <strong style="font-weight:bold; border:none; margin-left:10px;">{{ $ctrl.Title }} {{ $ctrl.Nombre + ' ' + $ctrl.PrimerApe + ' ' + $ctrl.SegundoApe }} {{ $ctrl.IdCliente }}</strong>
+			<br>
+            <small class="text-muted" style="font-size:14px; margin-left:10px;">
+                <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">Catálogo Clientes</a>
+            </small>
+        </header>
+        <header ng-if="$ctrl.NombreAdi != null && $ctrl.SegundoApe == null">
+            <strong style="font-weight:bold; border:none; margin-left:10px;">{{ $ctrl.Title }} {{ $ctrl.Nombre + ' ' + $ctrl.NombreAdi + ' ' + $ctrl.PrimerApe }} {{ $ctrl.IdCliente }}</strong>
+			<br>
+            <small class="text-muted" style="font-size:14px; margin-left:10px;">
+                <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">Catálogo Clientes</a>
+            </small>
+        </header>
+        <header ng-if="$ctrl.NombreAdi == null && $ctrl.SegundoApe == null">
+            <strong style="font-weight:bold; border:none; margin-left:10px;">{{ $ctrl.Title }} {{ $ctrl.Nombre + ' ' + $ctrl.PrimerApe }} {{ $ctrl.IdCliente }}</strong>
+			<br>
+            <small class="text-muted" style="font-size:14px; margin-left:10px;">
+                <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">Catálogo Clientes</a>
             </small>
         </header>
         <div class="tools">
@@ -393,7 +414,7 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="col-md-3">
-                                    <input type="text" name="InpClaveElector" class="form-control input-sm" ng-model="$ctrl.ClaveElector" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" maxlength="18" ng-pattern="/^[A-Z]{6}\d{8}[A-Z]{1}\d{3}$/" placeholder="AAAAAA11111111A111" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa 18 caracteres.'">
+                                    <input type="text" name="InpClaveElector" class="form-control input-sm" ng-model="$ctrl.ClaveElector" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" maxlength="18" ng-pattern="/^[A-Z]{6}\d{8}[A-Z]{1}\d{3}$/" placeholder="AAAAAA11111111A111" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, ej. AAAAAA11111111A111.'">
                                 </div>
                                 <div class="col-md-3">
                                     <input type="text" name="InpTelefono" class="form-control input-sm" ng-model="$ctrl.Telefono" validate-on="dirty" validator="$ctrl.Telefono > 0" ng-pattern="/^\d{10}$/" maxlength="10" required required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa 10 dígitos.'">
@@ -1187,16 +1208,16 @@
                         <div class="col-md-12" style="padding:2%">
                             <fieldset ng-disabled="$ctrl.View">
                             <div class="col-md-4">
-                                <div class="fileUpload btn btn-success btn-xs btn-block">
+                                <div class="fileUpload btn btn-success btn-xs btn-block" ng-disabled="$ctrl.DisableInput" >
                                     <span><i class="fa fa-file"></i> Buscar</span>
-                                    <input type="file" name="InpEvidencia" class="upload" accept=".pdf" ng-model="$ctrl.File" file-model="$ctrl.Evidencia" validate-on="dirty" validator="$ctrl.Evidencia != undefined && $ctrl.Evidencia != null" required-message="''" invalid-message="''">
+                                    <input type="file" name="InpEvidencia" class="upload" accept=".pdf" ng-model="$ctrl.File" file-model="$ctrl.Evidencia" validate-on="dirty" validator="$ctrl.Evidencia != undefined && $ctrl.Evidencia != null" required-message="''" invalid-message="''" ng-disabled="$ctrl.DisableInput">
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <button type="submit" class="btn btn-primary btn-xs btn-block" ng-click="$ctrl.SetTouch()" title="Guardar Documento"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
+                                <button type="submit" class="btn btn-primary btn-xs btn-block" ng-click="$ctrl.SetTouch()" title="Guardar Documento" ng-disabled="$ctrl.DisableInput"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
                             </div>
                             <div class="col-md-4">
-                                <button type="reset" class="btn btn-danger btn-xs btn-block" ng-click="$ctrl.ResetEvidencia()" ng-disabled="($ctrl.Evidencia == null || $ctrl.Evidencia == undefined)" title="Quitar archivo"><i class="fa fa-ban"></i> Quitar</button>
+                                <button type="reset" class="btn btn-danger btn-xs btn-block" ng-click="$ctrl.ResetEvidencia()" ng-disabled="($ctrl.Evidencia == null || $ctrl.Evidencia == undefined || $ctrl.DisableInput == true)" title="Quitar archivo"><i class="fa fa-ban"></i> Quitar</button>
                             </div>
                             </fieldset>
                         </div>

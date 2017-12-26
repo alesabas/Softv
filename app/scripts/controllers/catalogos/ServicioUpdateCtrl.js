@@ -6,6 +6,7 @@ angular
         function initData(){
             CatalogosFactory.GetTipoClienteList_WebSoftvnew().then(function(data){
                 vm.TipoCobroList = data.GetTipoClienteList_WebSoftvnewResult;
+                vm.TipoCobro = vm.TipoCobroList[0];
             });
             CatalogosFactory.Gettbl_politicasFibraList().then(function(data){
                 vm.ClvEquiNetList = data.Gettbl_politicasFibraListResult;

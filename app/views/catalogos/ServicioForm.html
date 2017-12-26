@@ -22,8 +22,8 @@
                 </small>
             </header>
             <div class="tools">
-                <button type="submit" class="btn btn-primary btn-sm" ng-click="" title="Guardar Servicio" ng-show="!$ctrl.View">Guardar</button>
-                <button type="button" class="btn btn-default btn-sm" ui-sref="home.catalogos.servicios" title="Cancelar cambios">Cancelar</button>
+                <button type="submit" class="btn btn-primary btn-sm" ng-click="" title="Guardar Servicio" ng-show="!$ctrl.View"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
+                <button type="button" class="btn btn-default btn-sm" ui-sref="home.catalogos.servicios" title="Cancelar cambios"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
             </div>
         </div>
         <div class="card-body">
@@ -54,7 +54,7 @@
                             <input type="checkbox" name="Cbxdolares" ng-model="$ctrl.dolares"  ng-disabled="$ctrl.View"><span>Servicio en dolares</span>
                         </label>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-2">
                         <button type="button" class="btn btn-success btn-sm" ng-if="$ctrl.Clv_Servicio > 0 && $ctrl.Principal == 'Y'" ng-click="$ctrl.OpenConfigurar()"><i class="fa fa-cogs"></i> Conrfigurar Servicios</button>
                     </div>
                 </div>

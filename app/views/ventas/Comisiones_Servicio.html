@@ -20,8 +20,8 @@
     </div>
     <div class="card-body">
         <div class="row">
-            <div class="col-md-12">
-                <div class="col-md-offset-4 col-md-4">
+            <div class="col-md-6">
+                <div class="col-md-offset-1 col-md-9">
                     <div class="col-md-4">
                         <b>Distribuidor:</b>
                     </div>
@@ -31,7 +31,10 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-md-offset-4 col-md-4">
+                <div class="col-md-offset-1 col-md-9">
+                    <br>
+                </div>
+                <div class="col-md-offset-1 col-md-9">
                     <div class="col-md-4">
                         <b>Tipo de Servicio:</b>
                     </div>
@@ -41,7 +44,10 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-md-offset-4 col-md-4">
+                <div class="col-md-offset-1 col-md-9">
+                    <br>
+                </div>
+                <div class="col-md-offset-1 col-md-9">
                     <div class="col-md-4">
                         <b>Servicio:</b>
                     </div>
@@ -51,7 +57,10 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-md-offset-4 col-md-4">
+                <div class="col-md-offset-1 col-md-9">
+                    <br>
+                </div>
+                <div class="col-md-offset-1 col-md-9">
                     <div class="col-md-4">
                         <b>Rango:</b>
                     </div>
@@ -61,56 +70,51 @@
                         </select>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-12">
-                <br>
-            </div>
-            <div class="col-md-12">
-                <div class="col-md-offset-4 col-md-4">
+                <div class="col-md-offset-1 col-md-9">
+                    <br>
+                </div>
+                <div class="col-md-offset-1 col-md-9">
                     <div class="col-md-4">
-                        <button type="button" class="btn btn-primary btn-block btn-xs" ng-click="$ctrl.OpenFormGrupo(1, '')" title="Consultar Rango" ng-if="$ctrl.DisBtnNuevo"><i class="fa fa-plus"></i> Nuevo</button>
                     </div>
                     <div class="col-md-4">
-                        <button type="submit" class="btn btn-success btn-block btn-xs" title="Consultar Rango" ng-if="$ctrl.DisBtnGuardar"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
                     </div>
                     <div class="col-md-4">
                         <button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.DeleteComision();" title="Eliminar Comisiones" ng-if="$ctrl.ViewList"><i class="fa fa-trash"></i> Eliminar</button>
                     </div>
                 </div>
             </div>
-            <div class="col-md-12">
-                <div class="col-md-offset-3 col-md-6">
-                    <div class="col-md-12 table-scroll">
+            <div class="col-md-6">
+                <div class="col-md-12">
+                    <div class="col-md-12">
                         <form name="FormGrupo" novalidate angular-validator autocomplete="off">
                         <table class="table">
                             <thead>
                                 <tr>
                                     <th width="40%"><b>Grupo</b></th>
-                                    <th width="40%"><b>Comisión</b></th>
-                                    <th width="20%"><b>Comisión</b></th>
+                                    <th width="35%"><b>Comisión</b></th>
+                                    <th width="25%"><b>Comisión</b></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr ng-show="!$ctrl.ViewList">
                                     <td colspan="4" class="text-center">SIN REGISTROS</td>
                                 </tr>
-                                <tr ng-repeat="X in $ctrl.ComisionList" ng-show="$ctrl.ViewList">
+                                <tr dir-paginate="X in $ctrl.ComisionList|itemsPerPage:7" ng-show="$ctrl.ViewList">
                                     <td>{{ X.Grupo }}</td>
                                     <td><input type="number" name="InpCom{{X.CLV_COMISION}}" class="form-control input-sm" ng-model="X.COMISION" min="0" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Invalido.'"></td>
-                                    <!--
-                                    <td><button type="button" class="btn btn-info btn-xs" ng-click="$ctrl.OpenRangoView();" title="Consultar Rango"><i class="fa fa-eye"></i> CONSULTAR</button></td>
-                                    -->
                                     <td><button type="button" class="btn btn-success btn-xs" title="Guardar Comisión" ng-click="$ctrl.SaveComision(X)" ng-disabled="FormGrupo.InpCom{{X.CLV_COMISION}}.$invalid"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button></td>
-                                    <!--
-                                    <td><button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.DeleteComision(X);" title="Eliminar Rango"><i class="fa fa-trash"></i> Eliminar</button></td>
-                                    -->
                                 </tr>
                             </tbody>
                         </table>
                         </form>
+                        <div style="margin-top:-40px;">
+                            <dir-pagination-controls max-size="7" direction-links="true" boundary-links="true" ng-if="$ctrl.ComisionList.length > 0">
+                            </dir-pagination-controls>
+                        </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </div>
