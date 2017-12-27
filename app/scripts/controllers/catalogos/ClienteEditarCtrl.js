@@ -232,6 +232,15 @@ angular
             });
         }
 
+        function GetDateToday() {
+            var F = new Date();
+            var D = F.getDate();
+            var M = F.getMonth();
+            var Y = F.getFullYear();
+            var ToDay = new Date(Y, M, D);
+            return ToDay;
+        }
+
         function toDate(dateStr) {
             var parts = dateStr.split("/");
             return new Date(parts[2], parts[1] - 1, parts[0]);
@@ -571,6 +580,7 @@ angular
                     vm.UltimoMesServicio = ServicioResult.ultimo_mes;
                     vm.UltimoAnioServicio = ServicioResult.ultimo_anio;
                     vm.FechaContratacion = (ServicioResult.fecha_solicitud != null)? toDate(ServicioResult.fecha_solicitud) : null;
+                    vm.FechaContratacionP = (ServicioResult.fecha_solicitud != null)? toDate(ServicioResult.fecha_solicitud) : null;
                     vm.FechaInstalacion = (ServicioResult.fecha_instalacio != null)? toDate(ServicioResult.fecha_instalacio) : null;
                     vm.FechaSuspencion = (ServicioResult.fecha_suspension != null)? toDate(ServicioResult.fecha_suspension) : null;
                     vm.FechaBaja = (ServicioResult.fecha_baja != null)? toDate(ServicioResult.fecha_baja) : null;
@@ -773,6 +783,22 @@ angular
                     IdContrato: function () {
                         return IdContrato;
                     }
+                }
+            });
+        }
+
+        function DeleteServicioCliente(){
+            CatalogosFactory.GetValidaPapoClienteServicio(vm.Clv_UnicaNet).then(function(data){
+                var ToDay = GetDateToday();
+                if(data.GetValidaPapoClienteServicioResult == 0 && vm.FechaContratacionP.getTime() == ToDay.getTime()){
+                    CatalogosFactory.GetEliminaClienteServicio(vm.Clv_UnicaNet).then(function(data){
+                        ngNotify.set('CORRECTO, se eliminó el servicio.', 'success');
+                        vm.DivServicio = false;
+                        vm.DivAparato = false;
+                        GetServicios(vm.IdContrato);
+                    });
+                }else{
+                    ngNotify.set('ERROR, solo se puede eliminar un servicio el mismo día que se contrató y/o que tenga ningún pago realizado.', 'warn');
                 }
             });
         }
@@ -997,5 +1023,6 @@ angular
         vm.SetRevisado = SetRevisado;
         vm.SetRecibido = SetRecibido;
         vm.GetDocumentoCliente = GetDocumentoCliente;
+        vm.DeleteServicioCliente = DeleteServicioCliente;
         initData();
     });

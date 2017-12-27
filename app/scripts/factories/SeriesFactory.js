@@ -42,7 +42,8 @@ angular
             GetConCatalogoDeRangos: '/Rangos/GetConCatalogoDeRangos',
             GetValidaRangosAEliminar: '/Rangos/GetValidaRangosAEliminar',
             GetModCatalogoDeRangos: '/Rangos/GetModCatalogoDeRangos',
-            GetBorCatalogoDeRangos: '/Rangos/GetBorCatalogoDeRangos'
+            GetBorCatalogoDeRangos: '/Rangos/GetBorCatalogoDeRangos',
+            GetValidaUpdateRango: '/Rangos/GetValidaUpdateRango'
         };
 
         factory.GetCatalogoSeriesList = function(ObjSeriesList){
@@ -488,6 +489,19 @@ angular
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'ObjRango': ObjRango};
             $http.post(globalService.getUrl() + paths.GetBorCatalogoDeRangos, JSON.stringify(Parametros), config).then(function(response){
+                deferred.resolve(response.data);
+            }).catch(function(response){
+                deferred.reject(response);
+            });
+            return deferred.promise;
+        };
+
+        factory.GetValidaUpdateRango = function(ObjRango){
+            var deferred = $q.defer();
+            var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+            var Parametros = {'ObjRango': ObjRango};
+            console.log(Parametros);
+            $http.post(globalService.getUrl() + paths.GetValidaUpdateRango, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
                 deferred.reject(response);

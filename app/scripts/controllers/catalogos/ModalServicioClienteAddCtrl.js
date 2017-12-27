@@ -84,6 +84,7 @@ angular
         function GetServiciosList(){
             if(vm.TipoServicio != undefined){
                 CatalogosFactory.GetRelTipoServClienteList(vm.TipoServicio.Clv_TipSerPrincipal).then(function(data){
+                    console.log(data);
                     vm.ServicioList = data.GetRelTipoServClienteListResult;
                 });
             }else{

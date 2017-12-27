@@ -668,7 +668,7 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="col-md-12" style="text-align:right">
-                                    <button type="submit" class="btn btn-success btn-sm" ng-disabled="$ctrl.DisableInput" ng-show="!$ctrl.View">Validar</button>
+                                    <button type="submit" class="btn btn-success btn-sm" ng-disabled="$ctrl.DisableInput" ng-show="!$ctrl.View"><i class="fa fa-check"></i> Guardar</button>
                                 </div>
                             </div>
                         </div>
@@ -774,7 +774,7 @@
                             <div class="col-md-12">
                                 <div class="col-md-12" style="text-align:right">
                                     <br ng-show="$ctrl.View">
-                                    <button type="submit" class="btn btn-success btn-sm" ng-disabled="$ctrl.DisableInput" ng-show="!$ctrl.View">Validar</button>
+                                    <button type="submit" class="btn btn-success btn-sm" ng-disabled="$ctrl.DisableInput" ng-show="!$ctrl.View"><i class="fa fa-check"></i> Guardar</button>
                                     <br>
                                     <br>
                                     <br>
@@ -832,7 +832,7 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="col-md-12" style="text-align:right">
-                                    <button type="button" class="btn btn-success btn-sm" ng-click="$ctrl.OpenAddRefPersonal()" title="Agregar Referencia Personal" ng-disabled="$ctrl.DisableInput" ng-show="!$ctrl.View">Agregar</button>
+                                    <button type="button" class="btn btn-success btn-sm" ng-click="$ctrl.OpenAddRefPersonal()" title="Agregar Referencia Personal" ng-disabled="$ctrl.DisableInput" ng-show="!$ctrl.View"><i class="fa fa-plus"></i> Agregar</button>
                                 </div>
                             </div>
                         </div>
@@ -879,7 +879,7 @@
                             <div class="col-md-12">
                                 <div class="col-md-12" style="text-align:right">
                                     <br ng-show="$ctrl.View">
-                                    <button type="submit" class="btn btn-success btn-sm" ng-disabled="$ctrl.DisableInput" ng-show="!$ctrl.View">Validar</button>
+                                    <button type="submit" class="btn btn-success btn-sm" ng-disabled="$ctrl.DisableInput" ng-show="!$ctrl.View"><i class="fa fa-check"></i> Guardar</button>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -937,14 +937,19 @@
                                 <form name="FormDetallServicio" angular-validator-submit="$ctrl.UpdateServicioCliente()" novalidate angular-validator autocomplete="off">
                                 <fieldset ng-disabled="$ctrl.View">
                                 <div class="col-md-12">
+                                    <div class="col-md-offset-8 col-md-2">
+                                        <button type="button" class="btn btn-danger btn-xs" title="Eliminar Servicio" ng-click="$ctrl.DeleteServicioCliente()" ng-show="!$ctrl.View"><i class="fa fa-trash"></i> ELIMINAR</button>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="submit" class="btn btn-success btn-xs" title="Guardar Detalle del Servicio" ng-disabled="FormDetallServicio.InpUltimoMesServicio.$invalid || FormDetallServicio.InpUltimoAnioServicio.$invalid" ng-show="!$ctrl.View"><i class="glyphicon glyphicon-floppy-disk"></i> GUARDAR</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
                                 <div class="col-md-3">
                                     <h4 class="text-primary">Detalle Servicio:</h4>
                                 </div>
-                                <div class="col-md-7">
+                                <div class="col-md-9">
                                     <h4 class="text-danger">{{ $ctrl.NombreServicio }} - {{ $ctrl.Clv_UnicaNet }}</h4>
-                                </div>
-                                <div class="col-md-2">
-                                    <button type="submit" class="btn btn-success btn-xs" title="Guardar Detalle del Servicio" ng-disabled="FormDetallServicio.InpUltimoMesServicio.$invalid || FormDetallServicio.InpUltimoAnioServicio.$invalid" ng-show="!$ctrl.View"><i class="glyphicon glyphicon-floppy-disk"></i> GUARDAR</button>
                                 </div>
                                 </div>
                                 <div class="col-md-12">
