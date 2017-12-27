@@ -208,6 +208,16 @@ angular
         templateUrl: 'views/procesos/cambioServicio.html',
         controller: 'cambioServicioCtrl',
         controllerAs: '$ctrl'
+      },
+      {
+        name: 'home.procesos.cambioservicionuevo',
+        data: {
+          pageTitle: 'SOFTV | NUEVO CAMBIO DE SERVICIO',
+        },
+        url: '/cambioservicio/nuevo',
+        templateUrl: 'views/procesos/cambioServicioNuevo.html',
+        controller: 'cambioServicioNuevoCtrl',
+        controllerAs: '$ctrl'
       }
 
     

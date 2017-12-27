@@ -8,10 +8,69 @@ angular
       GetResetServCte: '/Procesos/GetResetServCte',
       GetMuestraServiciosPrueba: '/Procesos/GetMuestraServiciosPrueba',
       GetMUESTRACablemodesDelClientePrueba: '/Procesos/GetMUESTRACablemodesDelClientePrueba',
-      GetNUEtblPruebaInternet: '/Procesos/GetNUEtblPruebaInternet'
+      GetNUEtblPruebaInternet: '/Procesos/GetNUEtblPruebaInternet',
+      GetConCambioServCliente:'/Procesos/GetConCambioServCliente',
+      GetuspDameClientesActivos:'/Procesos/GetuspDameClientesActivos'
     };
 
     var factory = {};
+
+
+    factory.GetuspDameClientesActivos = function (obj) {
+      var deferred = $q.defer();
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      var Parametros = {
+        'contrato': obj.contrato,
+        'nombre': obj.nombre,
+        'calle': obj.calle,
+        'numero': obj.numero,
+        'ciudad': obj.ciudad,
+        'op': obj.op,
+        'clvColonia':obj.clvColonia,
+        'idcompania':obj.idcompania,
+        'SETUPBOX':obj.SETUPBOX,
+        'TARJETA':obj.TARJETA,
+        'ClvUsuario':$localStorage.currentUser.idUsuario
+      };
+
+      $http.post(globalService.getUrl() + paths.GetuspDameClientesActivos, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+
+
+    factory.GetConCambioServCliente = function (obj) {
+      var deferred = $q.defer();
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      var Parametros = {
+        'clave': obj.clave,
+        'Contrato': obj.Contrato,
+        'Nombre': obj.Nombre,
+        'Clv_TipSer': obj.Clv_TipSer,
+        'Op': obj.Op,
+        'idcompania': obj.idcompania,
+        'ClvUsuario':$localStorage.currentUser.idUsuario
+      };
+
+      $http.post(globalService.getUrl() + paths.GetConCambioServCliente, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
 
 
     factory.GetNUEtblPruebaInternet = function (clv_unicanet, clv_servicioant, clv_servicionue, fechaInicio, fechafin) {

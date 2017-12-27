@@ -1,0 +1,123 @@
+<style type="text/css">
+    .scrollDiv {
+      height: 100px;
+      overflow: auto;
+      overflow-x: hidden;
+    }
+  
+    .wrapper {
+      height: 140px;
+      overflow: auto;
+    }
+  
+    .form-control {
+      height: 37px;
+      border-bottom-color: rgba(12, 12, 12, 0.12);
+      background: transparent;
+      color: #0c0c0c;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+    }
+  
+    .mac {
+      font-size: 14px;
+      font-weight: bold;
+      color: darkslateblue;
+    }
+  
+    .desc {
+      font-size: 12px;
+      font-weight: bold;
+      color: #252d46;
+    }
+  
+  </style>
+  
+  <div class="card" style="margin-top:20px; padding-bottom:30px;">
+    <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+      <header>
+        <strong style="font-weight:bold; border:none; margin-left:10px;">Nuevo cambio de servicio</strong>
+        <br />
+        <small class="text-muted" style="font-size:14px; margin-left:10px;">
+          <a href="#">
+            <i class="fa fa-home" aria-hidden="true"></i> Inicio</a>>
+          <a href="#" class="paginaActiva">procesos</a>
+        </small>
+  
+      </header>
+      <div class="tools">
+  
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card col-md-12 " style="padding: 5px;">
+      
+  
+        <div class="col-md-4">
+          <div class="form-group">
+  
+            <div class="input-group">
+              <div class="input-group-content">
+                <label for="Firstname5"  class="col-sm-4 ">Contrato</label>
+                <div class="col-sm-8">
+                  <input type="text" ng-model="$ctrl.contratoSelected" class="form-control input-sm" placeholder="Ingresa contrato" ng-keyup="$ctrl.EnterContrato($event)">
+                  
+                </div>
+              </div>
+              <div class="input-group-btn">
+                <button title="Buscar cliente" ng-click="$ctrl.ModalClientes()" class="btn ink-reaction -action btn-sm btn-default">Buscar cliente ...</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+  
+  
+      <div class="col-md-12">
+      
+       <div class="col-md-6">
+           <p>Servicios actuales del cliente</p>
+        <table class="table" style="font-size: 12px; color:#0c0c0c; font-weight:bold">
+        <thead>
+            <tr>
+                <td>Servicio</td>
+                <td>Aparato</td>
+                <td>Fecha Ultimo pago</td>
+                <td>Mensualidad sin descuento</td>
+                <td>Descuento combo</td>
+                <td>Mensualidad con descuento</td>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+        </table>
+       </div>
+       <div class="col-md-6">
+            <p>Servicios posibles a cambiar</p>
+            <table class="table" style="font-size: 12px; color:#0c0c0c; font-weight:bold">
+                    <thead>
+                        <tr>
+                            <td>Servicio</td>                           
+                            <td>Mensualidad sin descuento</td>
+                            <td>Descuento combo</td>
+                            <td>Mensualidad con descuento</td>
+                            <td>Cobro</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+            
+                    </tbody>
+                    </table>
+         
+       </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  <!--end cardbody-->
+  </div>
+  <!--end card-->
+  
