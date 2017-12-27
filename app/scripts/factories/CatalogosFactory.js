@@ -222,7 +222,9 @@ angular
       GetNueDescuentoCombo:'/CatMedios/GetNueDescuentoCombo',
       GetNueDetDescuentoCombo:'/CatMedios/GetNueDetDescuentoCombo',
       GetDameClv_Descuento:'/CatMedios/GetDameClv_Descuento',
-      GetModDescuentoCombo:'/CatMedios/GetModDescuentoCombo'
+      GetModDescuentoCombo:'/CatMedios/GetModDescuentoCombo',
+      GetValidaPapoClienteServicio:'/ClientesServicio/GetValidaPapoClienteServicio',
+      GetEliminaClienteServicio:'/ClientesServicio/GetEliminaClienteServicio'
     };
 
 
@@ -3646,6 +3648,30 @@ angular
       });
       return deferred.promise;
     };    
+
+    factory.GetValidaPapoClienteServicio = function (Clv_UnicaNet) {
+      var deferred = $q.defer();
+      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+      var Parametros = {'Clv_UnicaNet': Clv_UnicaNet};
+      $http.post(globalService.getUrl() + paths.GetValidaPapoClienteServicio, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+    factory.GetEliminaClienteServicio = function (Clv_UnicaNet) {
+      var deferred = $q.defer();
+      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+      var Parametros = {'Clv_UnicaNet': Clv_UnicaNet};
+      $http.post(globalService.getUrl() + paths.GetEliminaClienteServicio, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
 
     return factory;
 
