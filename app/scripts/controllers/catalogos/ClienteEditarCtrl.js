@@ -546,6 +546,7 @@ angular
 
         function GetServicios(IdContrato){
             CatalogosFactory.GetMuestraArbolServicios_ClientesList(IdContrato).then(function(data){
+                console.log(data);
                 vm.ServicioList = data.GetMuestraArbolServicios_ClientesListResult;
                 vm.expandedNodes=[];
                 angular.forEach(vm.ServicioList, function(value, key) {
@@ -619,6 +620,7 @@ angular
                     CatalogosFactory.GetDeepServicios_New(vm.Clv_Servicio).then(function(data){
                         var Clv_TipSer = data.GetDeepServicios_NewResult.Clv_TipSer;
                         vm.ShowTipServ1 = (data.GetDeepServicios_NewResult.Clv_TipSer == 1)? true : false;
+                        vm.ShowBtnAddPaq = (Clv_TipSer == 3)? true : false;
                         var ObjUsuario = {
                             'CLV_UNICANET': vm.Clv_UnicaNet,
                             'tipo_serv': Clv_TipSer
@@ -799,6 +801,31 @@ angular
                     });
                 }else{
                     ngNotify.set('ERROR, solo se puede eliminar un servicio el mismo día que se contrató y/o que tenga ningún pago realizado.', 'warn');
+                }
+            });
+        }
+
+        function OpenAddPaqueteAdic(Clv_UnicaNet){
+            var ObjPaqAdic = {
+                'Clv_UnicaNet': (vm.Clv_UnicaNet != null && vm.Clv_UnicaNet != undefined)? vm.Clv_UnicaNet:Clv_UnicaNet,
+                'IdContrato': vm.IdContrato
+            };
+            console.log(ObjPaqAdic);
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body', 
+                templateUrl: 'views/catalogos/ModalPaqueteAdicForm.html',
+                controller: 'ModalPaqueteAdicAddCtrl',
+                controllerAs: 'ctrl',
+                backdrop: 'static',
+                keyboard: false,
+                class: 'modal-backdrop fade',
+                size: 'sm',
+                resolve: {
+                    ObjPaqAdic: function () {
+                        return ObjPaqAdic;
+                    }
                 }
             });
         }
@@ -997,6 +1024,7 @@ angular
         vm.tipoUsuario = $localStorage.currentUser.tipoUsuario
         vm.clv_usuario = $localStorage.currentUser
         vm.ValidateRFC = /^[A-Z]{4}\d{6}[a-zA-Z]{3}$|^[A-Z]{4}\d{6}\d{3}$|^[A-Z]{4}\d{6}[A-Z]{2}\d{1}$|^[A-Z]{4}\d{6}[A-Z]{1}\d{2}$|^[A-Z]{4}\d{6}\d{2}[a-zA-Z]{1}$|^[A-Z]{4}\d{6}\d{1}[a-zA-Z]{2}$|^[A-Z]{4}\d{6}\d{1}[A-Z]{1}\d{1}$|^[A-Z]{4}\d{6}[A-Z]{1}\d{1}[a-zA-Z]{1}$/;
+        vm.ShowBtnAddPaq = false;
         vm.AddDatosPersonales = AddDatosPersonales;
         vm.GetCiudadMunicipio = GetCiudadMunicipio;
         vm.GetLocalidad = GetLocalidad;
@@ -1024,5 +1052,6 @@ angular
         vm.SetRecibido = SetRecibido;
         vm.GetDocumentoCliente = GetDocumentoCliente;
         vm.DeleteServicioCliente = DeleteServicioCliente;
+        vm.OpenAddPaqueteAdic = OpenAddPaqueteAdic;
         initData();
     });
