@@ -59,7 +59,7 @@
           <tr dir-paginate="X in $ctrl.MotivoCancelacionList|itemsPerPage:7">
             <td>{{ X.Clv_motivo}}</td>
             <td>{{ X.Descripcion }}</td>
-            <td><button type="button" class="btn btn-info btn-xs" ng-click="$ctrl.DetalleMotivo(X.Clv_motivo)" title="Consultar motivo"><i class="fa fa-eye"></i> CONSULTA</button></td>
+            <td></td>
             <td><button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.UpdateMotivo(X.Clv_motivo)" title="Editar motivo "><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
             <td><button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.EliminaMotivo(X.Clv_motivo)" title="Elimina motivo "><i class="fa fa-trash"></i> ELIMINAR</button></td>
           </tr>

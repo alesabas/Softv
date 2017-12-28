@@ -2,7 +2,7 @@
 
 angular
   .module('softvApp')
-  .controller('DistribuidorUpdateCtrl', function (CatalogosFactory, distribuidorFactory, ngNotify, $state, $stateParams) {
+  .controller('DistribuidorUpdateCtrl', function (CatalogosFactory, distribuidorFactory, ngNotify, $state, $stateParams,logFactory) {
 
     function initData() {
 
@@ -103,7 +103,15 @@ angular
       distribuidorFactory.UpdatePlaza_DistribuidoresNew(Parametros)
         .then(function (data) {
           ngNotify.set('Se ha editado el distribuidor correctamente', 'success');
-          console.log(data);
+          var log={
+            'Modulo':'home.catalogos',
+            'Submodulo':'home.catalogos.distribuidores',
+            'Observaciones':'Se editó distribuidor',
+            'Comando':JSON.stringify(Parametros),
+            'Clv_afectada': $stateParams.id
+        };
+
+        logFactory.AddMovSist(log).then(function(result){ console.log('add'); });    
           $state.go('home.catalogos.distribuidores');
         });
 

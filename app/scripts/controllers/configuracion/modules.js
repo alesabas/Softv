@@ -167,7 +167,25 @@ angular
         templateUrl: 'views/configuracion/changepassword.html',
         controller: 'changePasswordCtrl',
         controllerAs: '$ctrl'
+      },
+      {
+        name: 'home.configuracion.registro',
+        data: {
+          pageTitle: 'SAC | REGISTRO',
+          permissions: {
+           
+            options: {
+              reload: false
+            }
+          }
+        },
+        url: '/configuracion/registrosistema',
+        templateUrl: 'views/configuracion/registroSistema.html',
+        controller: 'registroSistemaCtrl',
+        controllerAs: '$ctrl'
       }
+
+      
 
 
 

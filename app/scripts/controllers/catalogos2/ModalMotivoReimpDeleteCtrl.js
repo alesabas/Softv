@@ -1,6 +1,6 @@
 angular
 .module('softvApp')
-.controller('ModalMotivoReimpDeleteCtrl', function(CatalogosFactory, $uibModalInstance, ngNotify, $state, Clv_motivo){
+.controller('ModalMotivoReimpDeleteCtrl', function(CatalogosFactory, $uibModalInstance, ngNotify, $state, Clv_motivo,logFactory){
 
     function initData(){
       var ObjMotivo = {
@@ -18,7 +18,19 @@ angular
     
     function DeleteMotivoR(){
         CatalogosFactory.GetBORMOTIVOSFACTURACANCELACION(vm.Clave).then(function(data){
-            if(data.GetBORMOTIVOSFACTURACANCELACIONResult == 1){    
+            if(data.GetBORMOTIVOSFACTURACANCELACIONResult == 1){  
+                
+                var log={
+                    'Modulo':'home.catalogos',
+                    'Submodulo':'home.motivos.ReimpresionFactura',
+                    'Observaciones':'Se eliminó motivo de reimpresión de factura',
+                    'Comando':'',
+                    'Clv_afectada': vm.Clave
+                };
+        
+                logFactory.AddMovSist(log).then(function(result){ console.log('add'); });  
+
+
                 ngNotify.set('CORRECTO, se eliminó un motivo de reimpresión de factura.', 'success');
                 $state.reload('home.motivos.ReimpresionFactura');
                 cancel();

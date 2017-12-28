@@ -2,7 +2,7 @@
 
 angular
   .module('softvApp')
-  .controller('ModalMotivoCancelFactDeleteCtrl', function (CatalogosFactory, $uibModalInstance, ngNotify, $state, Clv_motivo) {
+  .controller('ModalMotivoCancelFactDeleteCtrl', function (CatalogosFactory, $uibModalInstance, logFactory, ngNotify, $state, Clv_motivo) {
 
     function initData(){
       var ObjMotivo = {
@@ -21,6 +21,15 @@ angular
     function DeleteMotivoF(){
         CatalogosFactory.GetBORMOTIVOSFACTURACANCELACION(vm.Clave).then(function(data){
             if(data.GetBORMOTIVOSFACTURACANCELACIONResult == 1){    
+              var log={
+                'Modulo':'home.catalogos',
+                'Submodulo':'home.motivos.CancelacionFactura',
+                'Observaciones':'Se eliminó motivo de cancelación factura ',
+                'Comando':'',
+                'Clv_afectada':vm.Clave
+            };    
+            logFactory.AddMovSist(log).then(function(result){ console.log('add'); });
+
                 ngNotify.set('CORRECTO, se eliminó un motivo de cancelación de factura.', 'success');
                 $state.reload('home.motivos.CancelacionFactura');
                 cancel();

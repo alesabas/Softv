@@ -59,7 +59,6 @@ angular
         .then(function (result) {
           vm.Clv_plaza=result.AddPlazaResult;
           console.log(result);
-
           vm.block = true;
           ngNotify.set('La plaza se ha guardado correctamente ,ahora puede asignar relaciones con estados y ciudades', 'success');
         });

@@ -1,7 +1,7 @@
 
 angular
 .module('softvApp')
-.controller('ModalMotivoReimpFactUpdateCtrl', function (CatalogosFactory, $uibModalInstance, ngNotify, $state, Clv_motivo) {
+.controller('ModalMotivoReimpFactUpdateCtrl', function (CatalogosFactory, $uibModalInstance, ngNotify, $state,logFactory, Clv_motivo) {
  
  function initData(){
     var ObjMotivo = {
@@ -24,7 +24,16 @@ angular
           'Descripcion': vm.Descripcion
       };
       CatalogosFactory.GetMODMOTIVOSFACTURACANCELACION(ObjMotivo).then(function(data){
-          if(data.GetMODMOTIVOSFACTURACANCELACIONResult == 1){    
+          if(data.GetMODMOTIVOSFACTURACANCELACIONResult == 1){ 
+            var log={
+                'Modulo':'home.catalogos',
+                'Submodulo':'home.motivos.ReimpresionFactura',
+                'Observaciones':'Se editó motivo de reimpresión de factura',
+                'Comando':JSON.stringify(ObjMotivo),
+                'Clv_afectada': vm.Clave
+            };
+    
+            logFactory.AddMovSist(log).then(function(result){ console.log('add'); });          
               ngNotify.set('CORRECTO, se guardó un motivo de reimpresión de factura.', 'success');
               $state.reload('home.motivos.ReimpresionFactura');
               cancel();

@@ -64,26 +64,7 @@ angular
             });
         }
 
-        function DetalleMotivoReimpFact(Clv_motivo) {
-            var Clv_motivo = Clv_motivo;
-            var modalInstance = $uibModal.open({
-                animation: true,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: 'views/catalogos/ModalMotivoReimpFactura.html',
-                controller: 'ModalMotivoReimpFactDetalleCtrl',
-                controllerAs: 'ctrl',
-                backdrop: 'static',
-                keyboard: false,
-                class: 'modal-backdrop fade',
-                size: 'md',
-                resolve: {
-                    Clv_motivo: function () {
-                        return Clv_motivo;
-                    }
-                }
-            });
-        }
+      
 
         function EliminarMotivoReimpFact(Clv_motivo) {
             var Clv_motivo = Clv_motivo;
@@ -110,7 +91,7 @@ angular
         vm.GetMotivoReimpresionFList = GetMotivoReimpresionFList;
         vm.AddMotivoReimpFact = AddMotivoReimpFact;
         vm.UpdateMotivoReimpFact = UpdateMotivoReimpFact;
-        vm.DetalleMotivoReimpFact = DetalleMotivoReimpFact;
+       
         vm.EliminarMotivoReimpFact = EliminarMotivoReimpFact;
         initData();
 

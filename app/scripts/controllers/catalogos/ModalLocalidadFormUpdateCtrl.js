@@ -2,7 +2,7 @@
 
 angular
     .module('softvApp')
-    .controller('ModalLocalidadFormUpdateCtrl', function(CatalogosFactory, $uibModalInstance, ngNotify, $state, IdLocalidad, $localStorage){
+    .controller('ModalLocalidadFormUpdateCtrl', function(CatalogosFactory, $uibModalInstance, ngNotify, $state,logFactory, IdLocalidad, $localStorage){
 
         function initData(){
             var ObjCiudad = {
@@ -45,6 +45,15 @@ angular
                     };
                     CatalogosFactory.AddSPRelCiudadLocalidad(objSPRelCiudadLocalidad).then(function(data){
                         if(data.AddSPRelCiudadLocalidadResult == -1){
+                            var log={
+                                'Modulo':'home.catalogos',
+                                'Submodulo':'home.catalogos.localidades',
+                                'Observaciones':'Se agregó relación ciudad-localidad',
+                                'Comando':JSON.stringify(objSPRelCiudadLocalidad),
+                                'Clv_afectada': vm.IdLocalidad
+                            };
+                    
+                            logFactory.AddMovSist(log).then(function(result){ console.log('add'); });
                             ngNotify.set('CORRECTO, se agregó una relación.', 'success');
                             GetRelLocalidad()
                         }else{
@@ -85,6 +94,15 @@ angular
                         'opcion': 3
                     };
                     CatalogosFactory.DeleteSPRelCiudadLocalidad(ObjRel).then(function(data){
+                        var log={
+                            'Modulo':'home.catalogos',
+                            'Submodulo':'home.catalogos.localidades',
+                            'Observaciones':'Se elininó relación ciudad-localidad',
+                            'Comando':JSON.stringify(ObjRel),
+                            'Clv_afectada': vm.IdLocalidad
+                        };
+                
+                        logFactory.AddMovSist(log).then(function(result){ console.log('add'); });
                         ngNotify.set('CORRECTO, se eliminó la relación.', 'success');
                         GetRelLocalidad()
                     });
@@ -111,6 +129,15 @@ angular
                     CatalogosFactory.UpdateLocalidades_New(objLocalidades_New).then(function(data){
                         console.log(data);
                         if(data.UpdateLocalidades_NewResult == -1){
+                            var log={
+                                'Modulo':'home.catalogos',
+                                'Submodulo':'home.catalogos.localidades',
+                                'Observaciones':'Se editó localidad',
+                                'Comando':JSON.stringify(objLocalidades_New),
+                                'Clv_afectada': vm.IdLocalidad
+                            };
+                    
+                            logFactory.AddMovSist(log).then(function(result){ console.log('add'); });
                             ngNotify.set('CORRECTO, se guardó la localidad.', 'success');
                             $state.reload('home.catalogos.localidades');
                             cancel();

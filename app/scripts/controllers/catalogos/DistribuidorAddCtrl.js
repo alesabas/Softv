@@ -2,7 +2,7 @@
 
 angular
   .module('softvApp')
-  .controller('DistribuidorAddCtrl', function (CatalogosFactory, distribuidorFactory, ngNotify, $state) {
+  .controller('DistribuidorAddCtrl', function (CatalogosFactory, distribuidorFactory, ngNotify,logFactory, $state) {
 
     function SaveDistribuidor() {      
       var Parametros = {
@@ -44,10 +44,19 @@ angular
         'municipioComercial': vm.MunicipoDC,
         'estadoComercial': vm.EstadoDC
       };
-      console.log(Parametros);
+     
       distribuidorFactory.AddPlaza_DistribuidoresNew(Parametros)
         .then(function (data) {
-          ngNotify.set('Se ha guardado  el distribuidor correctamente', 'success');          
+          ngNotify.set('Se ha guardado  el distribuidor correctamente', 'success'); 
+          var log={
+            'Modulo':'home.catalogos',
+            'Submodulo':'home.catalogos.distribuidores',
+            'Observaciones':'Se agregó distribuidor',
+            'Comando':JSON.stringify(Parametros),
+            'Clv_afectada': 0
+        };
+
+        logFactory.AddMovSist(log).then(function(result){ console.log('add'); });    
           $state.go('home.catalogos.distribuidores');
         });
 

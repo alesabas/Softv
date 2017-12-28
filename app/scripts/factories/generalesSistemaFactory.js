@@ -33,7 +33,8 @@ angular
       GetguardaPreferencia:'/Configuracion/GetguardaPreferencia',
       GetDetallePreferencias:'/Configuracion/GetDetallePreferencias',
       Getlogos:'/Configuracion/Getlogos',
-      GetGuardalogos:'/Configuracion/GetGuardalogos'
+      GetGuardalogos:'/Configuracion/GetGuardalogos',
+      
     };
 
     /* factory.GetguardaPreferencia = function (file, options, eliminadas) {

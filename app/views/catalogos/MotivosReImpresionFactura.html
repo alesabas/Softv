@@ -67,7 +67,7 @@
           <tr dir-paginate="X in $ctrl.MotivoReimpresionFList|itemsPerPage:7">
             <td>{{ X.Clv_motivo}}</td>
             <td>{{ X.Descripcion }}</td>
-            <td><button type="button" class="btn btn-info btn-xs" ng-click="$ctrl.DetalleMotivoReimpFact(X.Clv_motivo)" title="Consultar motivo "><i class="fa fa-eye"></i> CONSULTAR</button></td>
+            
             <td><button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.UpdateMotivoReimpFact(X.Clv_motivo)" title="Editar motivo "><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
             <td><button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.EliminarMotivoReimpFact(X.Clv_motivo)" title="Elimina motivo "><i class="fa fa-trash"></i> ELIMINAR</button></td>
           </tr>

@@ -53,7 +53,7 @@
                         <tr dir-paginate="X in $ctrl.TipoColoniaList|filter:$ctrl.SearchTipoColonia|itemsPerPage:7" ng-show="$ctrl.ConRegistros">
                             <td>{{ X.Clave }}</td>
                             <td>{{ X.Concepto }}</td>
-                            <td><button type="button" class="btn btn-info btn-xs" ng-click="$ctrl.OpenViewTipoColonia(X.Clave)" title="Consultar Tipo de Colonia"><i class="fa fa-eye"></i> CONSULTAR</button></td>
+                            <td></td>
                             <td><button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.OpenUpdateTipoColonia(X.Clave)" title="Editar Tipo de Colonia"><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
                             <td><button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.OpenDeleteTipoColonia(X.Clave)" title="Eliminar Tipo de Colonia"><i class="fa fa-trash"></i> ELIMINAR</button></td>
                         </tr>

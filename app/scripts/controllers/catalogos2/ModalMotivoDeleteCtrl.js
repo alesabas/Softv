@@ -1,7 +1,7 @@
 
 angular
 .module('softvApp')
-.controller('ModalMotivoDeleteCtrl', function(CatalogosFactory, $uibModalInstance, ngNotify, $state, Clv_motivo){
+.controller('ModalMotivoDeleteCtrl', function(CatalogosFactory, $uibModalInstance, ngNotify, $state, Clv_motivo,logFactory){
 
     function initData(){
         var OjbMotivo = {
@@ -19,8 +19,21 @@ angular
     function DeleteMotivo(){
         CatalogosFactory.GetBORMotivoCancelacion(vm.Clave).then(function(data){
             if(data.GetBORMotivoCancelacionResult == -1){
+
+                var log={
+                    'Modulo':'home.catalogos',
+                    'Submodulo':'home.motivos.MotivosDeCancelacion',
+                    'Observaciones':'Se eliminó motivo de cancelación',
+                    'Comando':'',
+                    'Clv_afectada':vm.Clave
+                };
+
+                logFactory.AddMovSist(log).then(function(result){ console.log('add'); });
+
                 ngNotify.set('CORRECTO, se eliminó el motivo de cancelación.', 'success');
                 $state.reload('home.motivos.MotivosDeCancelacion');
+                 
+               
                 cancel();
             }else{
                 ngNotify.set('ERROR, al eliminar el motivo de cancelación.', 'warn');

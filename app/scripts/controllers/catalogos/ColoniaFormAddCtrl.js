@@ -2,7 +2,7 @@
 
 angular
     .module('softvApp')
-    .controller('ColoniaFormAddCtrl', function(CatalogosFactory, ngNotify, $state){
+    .controller('ColoniaFormAddCtrl', function(CatalogosFactory, ngNotify, $state,logFactory){
 
         function initData(){
             CatalogosFactory.GetTipo_Colonias1_NewList().then(function(data){
@@ -27,6 +27,17 @@ angular
                     CatalogosFactory.AddColonias_New(objColonias_New).then(function(data){
                         var Clv_Colonia = data.AddColonias_NewResult;
                         if(Clv_Colonia > 0){
+                            var log={
+                                'Modulo':'home.catalogos',
+                                'Submodulo':'home.catalogos.colonias',
+                                'Observaciones':'Se registró nueva colonia ',
+                                'Comando':JSON.stringify(objColonias_New),
+                                'Clv_afectada':Clv_Colonia
+                            };
+        
+                            logFactory.AddMovSist(log).then(function(result){ console.log('add'); });
+
+
                             ngNotify.set('CORRECTO, se añadió una colonia nueva.', 'success');
                             $state.go('home.catalogos.colonia_editar', { id:Clv_Colonia });
                         }else{

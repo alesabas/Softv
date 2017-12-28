@@ -12,6 +12,15 @@ angular
             };
             CatalogosFactory.DeleteLocalidades_New(ObjLocalidad).then(function(data){
                 if(data.DeleteLocalidades_NewResult == 0){
+                    var log={
+                        'Modulo':'home.catalogos',
+                        'Submodulo':'home.catalogos.localidades',
+                        'Observaciones':'Se eliminó localidad',
+                        'Comando':JSON.stringify(ObjLocalidad),
+                        'Clv_afectada': vm.IdLocalidad
+                    };
+            
+                    logFactory.AddMovSist(log).then(function(result){ console.log('add'); });
                     ngNotify.set('CORRECTO, se eliminó la localida.', 'success');
                     $state.reload('home.catalogos.localidades');
 				    cancel();
