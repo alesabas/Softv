@@ -924,6 +924,7 @@
                                             <span style="color:#2196f3" ng-switch-when="Paquete" class="fa fa-desktop" aria-hidden="true"></span>
                                         </span>
                                         <a class="text-info" style="font-size:12px" ng-if="node.Tipo == 'A'">{{node.Nombre}} ({{node.Detalle}})</a>
+                                        <a class="text-info" style="font-size:12px" ng-if="node.Tipo == 'P'">{{node.Nombre}}</a>
                                         <a class="text-info" style="font-size:12px" ng-if="node.status == 'C'">{{node.Nombre}} (Contratado)</a>
                                         <a class="text-info" style="font-size:12px" ng-if="node.status == 'I'">{{node.Nombre}} (Instalado)</a>
                                         <a class="text-info" style="font-size:12px" ng-if="node.status == 'D'">{{node.Nombre}} (Desconectado)</a>
@@ -931,7 +932,8 @@
                                         <a class="text-info" style="font-size:12px" ng-if="node.status == 'T'">{{node.Nombre}} (Suspención Temporal)</a>
                                         <a class="text-info" style="font-size:12px" ng-if="node.status == 'F'">{{node.Nombre}} (Fuera de Area)</a>
                                         <a class="text-info" style="font-size:12px" ng-if="node.status == 'B'">{{node.Nombre}} (Baja)</a>
-                                        <button type="button" class="btn btn-primary btn-xs" title="Agregar Paquete Adicional" ng-click="$ctrl.OpenAddPaqueteAdic(node.Clv_UnicaNet)" ng-if="node.Clv_TipSer == 3"><i class="fa fa-plus"></i></button>
+                                        <button type="button" class="btn btn-primary btn-xs" title="Agregar Paquete Adicional" ng-click="$ctrl.OpenAddPaqueteAdic(node.Clv_UnicaNet)" ng-if="node.Clv_TipSer == 3 && node.Tipo == 'S'"><i class="fa fa-plus"></i></button>
+                                        <button type="button" class="btn btn-danger btn-xs" title="Eliminar Paquete Adicional" ng-click="$ctrl.DeleteServicioCliente(node.Clv_UnicaNet)" ng-if="node.Clv_TipSer == 3 && node.Tipo == 'P'"><i class="fa fa-minus"></i></button>
                                     </treecontrol>
                                 </div>
                             </div>
@@ -940,18 +942,21 @@
                                 <fieldset ng-disabled="$ctrl.View">
                                 <div class="col-md-12">
                                     <div class="col-md-offset-6 col-md-2">
-                                        <button type="button" class="btn btn-primary btn-xs" title="Agregar Paquete Adicional" ng-click="$ctrl.OpenAddPaqueteAdic()" ng-show="$ctrl.ShowBtnAddPaq"><i class="fa fa-plus"></i> Paquete</button>
+                                        <button type="button" class="btn btn-primary btn-xs" title="Agregar Paquete Adicional" ng-click="$ctrl.OpenAddPaqueteAdic()" ng-show="$ctrl.ShowBtnAddPaq && $ctrl.ConceptoTipo == 'S'"><i class="fa fa-plus"></i> Paquete</button>
                                     </div>
                                     <div class="col-md-2">
-                                        <button type="submit" class="btn btn-success btn-xs" title="Guardar Detalle del Servicio" ng-disabled="FormDetallServicio.InpUltimoMesServicio.$invalid || FormDetallServicio.InpUltimoAnioServicio.$invalid" ng-show="!$ctrl.View"><i class="glyphicon glyphicon-floppy-disk"></i> GUARDAR</button>
+                                        <button type="submit" class="btn btn-success btn-xs" title="{{ $ctrl.TBtnSaveSP }}" ng-disabled="FormDetallServicio.InpUltimoMesServicio.$invalid || FormDetallServicio.InpUltimoAnioServicio.$invalid" ng-show="!$ctrl.View"><i class="glyphicon glyphicon-floppy-disk"></i> GUARDAR</button>
                                     </div>
                                     <div class="col-md-2">
-                                        <button type="button" class="btn btn-danger btn-xs" title="Eliminar Servicio" ng-click="$ctrl.DeleteServicioCliente()" ng-show="!$ctrl.View"><i class="fa fa-trash"></i> ELIMINAR</button>
+                                        <button type="button" class="btn btn-danger btn-xs" title="{{ $ctrl.TBtnDeleteSP }}" ng-click="$ctrl.DeleteServicioCliente()" ng-show="!$ctrl.View"><i class="fa fa-trash"></i> ELIMINAR</button>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                <div class="col-md-3">
+                                <div class="col-md-3" ng-if="$ctrl.ConceptoTipo == 'S'">
                                     <h4 class="text-primary">Detalle Servicio:</h4>
+                                </div>
+                                <div class="col-md-3" ng-if="$ctrl.ConceptoTipo == 'P'">
+                                    <h4 class="text-primary">Detalle Paquete:</h4>
                                 </div>
                                 <div class="col-md-9">
                                     <h4 class="text-danger">{{ $ctrl.NombreServicio }} - {{ $ctrl.Clv_UnicaNet }}</h4>
