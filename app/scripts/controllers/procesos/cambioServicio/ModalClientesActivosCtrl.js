@@ -8,9 +8,13 @@ angular
     }
 
     function buscar(op) {
-	
-		if(!vm.calle){ vm.calle=''}
-		if(!vm.numero){ vm.numero=''}
+
+      if (!vm.calle) {
+        vm.calle = ''
+      }
+      if (!vm.numero) {
+        vm.numero = ''
+      }
       var Parametros = {
         'contrato': (op == 0) ? vm.contrato.split('-')[0] : 0,
         'nombre': (op == 1) ? vm.nombre : '',
@@ -20,14 +24,18 @@ angular
         'op': op,
         'clvColonia': 0,
         'idcompania': (op == 0) ? vm.contrato.split('-')[1] : 0,
-        'SETUPBOX':  (op == 6) ? vm.SETUPBOX:'',
+        'SETUPBOX': (op == 6) ? vm.SETUPBOX : '',
         'TARJETA': 0,
         'ClvUsuario': $localStorage.currentUser.idUsuario
       };
       procesoFactory.GetuspDameClientesActivos(Parametros).then(function (result) {
-         vm.Clientes=result.GetuspDameClientesActivosResult;
+        vm.Clientes = result.GetuspDameClientesActivosResult;
       });
 
+    }
+
+    function ok(item) {
+      $uibModalInstance.close(item);
     }
 
     function cancel() {
@@ -36,6 +44,8 @@ angular
 
     var vm = this;
     vm.cancel = cancel;
-	initialData();
-	vm.buscar=buscar;
+    initialData();
+    vm.buscar = buscar;
+    vm.ok = ok;
+  
   });

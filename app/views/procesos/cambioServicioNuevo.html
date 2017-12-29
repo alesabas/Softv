@@ -1,123 +1,171 @@
 <style type="text/css">
-    .scrollDiv {
-      height: 100px;
-      overflow: auto;
-      overflow-x: hidden;
-    }
-  
-    .wrapper {
-      height: 140px;
-      overflow: auto;
-    }
-  
-    .form-control {
-      height: 37px;
-      border-bottom-color: rgba(12, 12, 12, 0.12);
-      background: transparent;
-      color: #0c0c0c;
-      -webkit-box-shadow: none;
-      box-shadow: none;
-    }
-  
-    .mac {
-      font-size: 14px;
-      font-weight: bold;
-      color: darkslateblue;
-    }
-  
-    .desc {
-      font-size: 12px;
-      font-weight: bold;
-      color: #252d46;
-    }
-  
-  </style>
-  
-  <div class="card" style="margin-top:20px; padding-bottom:30px;">
-    <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
-      <header>
-        <strong style="font-weight:bold; border:none; margin-left:10px;">Nuevo cambio de servicio</strong>
-        <br />
-        <small class="text-muted" style="font-size:14px; margin-left:10px;">
-          <a href="#">
-            <i class="fa fa-home" aria-hidden="true"></i> Inicio</a>>
-          <a href="#" class="paginaActiva">procesos</a>
-        </small>
-  
-      </header>
-      <div class="tools">
-  
-      </div>
-    </div>
-    <div class="card-body">
-      <div class="card col-md-12 " style="padding: 5px;">
-      
-  
-        <div class="col-md-4">
-          <div class="form-group">
-  
-            <div class="input-group">
-              <div class="input-group-content">
-                <label for="Firstname5"  class="col-sm-4 ">Contrato</label>
-                <div class="col-sm-8">
-                  <input type="text" ng-model="$ctrl.contratoSelected" class="form-control input-sm" placeholder="Ingresa contrato" ng-keyup="$ctrl.EnterContrato($event)">
-                  
-                </div>
+  .scrollDiv {
+    height: 100px;
+    overflow: auto;
+    overflow-x: hidden;
+  }
+
+  .wrapper {
+    height: 140px;
+    overflow: auto;
+  }
+
+  .form-control {
+    height: 37px;
+    border-bottom-color: rgba(12, 12, 12, 0.12);
+    background: transparent;
+    color: #0c0c0c;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+
+  .mac {
+    font-size: 14px;
+    font-weight: bold;
+    color: darkslateblue;
+  }
+
+  .desc {
+    font-size: 12px;
+    font-weight: bold;
+    color: #252d46;
+  }
+
+</style>
+
+<div class="card" style="margin-top:20px; padding-bottom:30px;">
+  <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+    <header>
+      <strong style="font-weight:bold; border:none; margin-left:10px;">Nuevo cambio de servicio</strong>
+      <br />
+      <small class="text-muted" style="font-size:14px; margin-left:10px;">
+        <a href="#">
+          <i class="fa fa-home" aria-hidden="true"></i> Inicio</a>>
+        <a href="#" class="paginaActiva">procesos</a>
+      </small>
+
+    </header>
+    <div class="tools">
+    <button title="Regresar " type="button" ui-sref="home.procesos.cambioservicio" class="btn btn-default-bright btn-sm" name="button">Salir</button>
+  </div>
+  </div>
+  <div class="card-body">
+    <div class="card col-md-12 " style="padding: 5px;">
+
+
+      <div class="col-md-4">
+        <div class="form-group">
+
+          <div class="input-group">
+            <div class="input-group-content">
+              <label for="Firstname5" class="col-sm-4 ">Contrato</label>
+              <div class="col-sm-8">
+                <input type="text" ng-model="$ctrl.contratoSelected" class="form-control input-sm" placeholder="Ingresa contrato" ng-keyup="$ctrl.EnterContrato($event)">
+
               </div>
-              <div class="input-group-btn">
-                <button title="Buscar cliente" ng-click="$ctrl.ModalClientes()" class="btn ink-reaction -action btn-sm btn-default">Buscar cliente ...</button>
-              </div>
+            </div>
+            <div class="input-group-btn">
+              <button title="Buscar cliente" ng-click="$ctrl.ModalClientes()" class="btn ink-reaction btn-sm btn-default">Buscar cliente ...</button>
             </div>
           </div>
         </div>
       </div>
-  
-  
-  
-      <div class="col-md-12">
-      
-       <div class="col-md-6">
-           <p>Servicios actuales del cliente</p>
-        <table class="table" style="font-size: 12px; color:#0c0c0c; font-weight:bold">
-        <thead>
-            <tr>
-                <td>Servicio</td>
-                <td>Aparato</td>
-                <td>Fecha Ultimo pago</td>
-                <td>Mensualidad sin descuento</td>
-                <td>Descuento combo</td>
-                <td>Mensualidad con descuento</td>
-            </tr>
-        </thead>
-        <tbody>
+      <div class="col-md-3">
+        <label>
+          <b>Contrato: </b>{{$ctrl.datosCliente.ContratoCom}} </label>
+        <br>
+        <label>
+          <b>Nombre:</b> {{$ctrl.datosCliente.Nombre}} </label>
+        <br>
+        <label>
+          <b>Calle y número:</b> {{$ctrl.datosCliente.Calle}} #{{$ctrl.datosCliente.NUMERO}} </label>
+        <br>
+        <label>
+          <b>Colonia:</b> {{$ctrl.datosCliente.Col}} </label>
+        <br>
+        <label>
+          <b>Ciudad:</b> {{$ctrl.datosCliente.Cd_Mun}} </label>
+      </div>
+      <div class="col-md-3">
+        
+          <div class="form-group">
+            <label for="Firstname5" class="col-sm-4">Servicio</label>
+            <div class="col-sm-8">
+              <select class="form-control input-sm" ng-model="$ctrl.selectedServicio" ng-change="$ctrl.CambioServicio()"
+               ng-options="v.Concepto for v in $ctrl.servicios track by v.Clv_TipSerPrincipal"></select>
+            </div>
+          </div>
+     
+      </div>
+    
+    </div>
 
-        </tbody>
+
+
+    <div class="col-md-12">
+
+      <div class="col-md-12"  ng-show="$ctrl.muestraServCliente">
+        <h4>
+          <b>Servicios actuales del cliente</b>
+        </h4>
+        <table class="table" style="font-size: 14px; color:#0c0c0c;">
+          <thead>
+            <tr>
+              <td>Servicio</td>
+              <td>Aparato</td>
+              <td>Fecha Ultimo pago</td>
+              <td>Mensualidad sin descuento</td>
+              <td>Descuento combo</td>
+              <td>Mensualidad con descuento</td>
+              <td>Mostrar servicios posibles a cambiar</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="x in $ctrl.serviciosCliente">
+              <td class="text-primary"><b><h4>{{x.servicio}}</h4></b></td>
+              <td>{{x.aparato}}</td>
+              <td>{{x.fechaUltimoPago}}</td>
+              <td>{{x.mensualidad |currency}}</td>
+              <td>{{x.descuentoCombo | currency}}</td>
+              <td>{{x.mensualidadConDescuento | currency}}</td>
+              <td><button ng-click="$ctrl.verOpciones(x)" class="btn btn-primary btn-xs"> servicios posibles a cambiar</button></td>
+            </tr>
+          </tbody>
         </table>
-       </div>
-       <div class="col-md-6">
-            <p>Servicios posibles a cambiar</p>
-            <table class="table" style="font-size: 12px; color:#0c0c0c; font-weight:bold">
-                    <thead>
-                        <tr>
-                            <td>Servicio</td>                           
-                            <td>Mensualidad sin descuento</td>
-                            <td>Descuento combo</td>
-                            <td>Mensualidad con descuento</td>
-                            <td>Cobro</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-            
-                    </tbody>
-                    </table>
-         
-       </div>
+      </div>
+      <div class="col-md-12" ng-show="$ctrl.muestraServPosibles">
+        <h4>
+          <b>Servicios posibles a cambiar</b>
+        </h4>
+        <table class="table" style="font-size: 12px; color:#0c0c0c; ">
+          <thead>
+            <tr>
+              <td>Servicio</td>
+              <td>Mensualidad sin descuento</td>
+              <td>Descuento combo</td>
+              <td>Mensualidad con descuento</td>
+              <td>Cobro</td>
+              <td>Cambiar servicio</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="x in $ctrl.serviciosPosibles"> 
+              <td>{{x.servicio}}</td>
+              <td>{{x.mensualidad | currency}}</td>
+              <td>{{x.descuentoCombo | currency}}</td>
+              <td>{{x.mensualidadConDescuento | currency}}</td>
+              <td>{{x.cobro | currency}}</td>
+              <td><button class="btn btn-success btn-sm"> <i class="fa fa-exchange" aria-hidden="true"></i> Cambiar servicio</button></td>
+            </tr>
+          </tbody>
+        </table>
+
       </div>
     </div>
   </div>
-  </div>
-  </div>
-  <!--end cardbody-->
-  </div>
-  <!--end card-->
-  
+</div>
+</div>
+</div>
+<!--end cardbody-->
+</div>
+<!--end card-->

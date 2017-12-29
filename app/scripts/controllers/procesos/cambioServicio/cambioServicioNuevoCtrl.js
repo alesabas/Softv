@@ -1,34 +1,129 @@
 'use strict';
 
 angular
-    .module('softvApp')
-    .controller('cambioServicioNuevoCtrl', function ( CatalogosFactory,ngNotify, atencionFactory, $uibModal, $localStorage) {
-        
-        function initData(){  
+  .module('softvApp')
+  .controller('cambioServicioNuevoCtrl', function (CatalogosFactory, procesoFactory, ngNotify, atencionFactory, $uibModal, $localStorage) {
 
+    function initData() {
+      procesoFactory.GetDameClv_SessionProceso().then(function (result) {
+        vm.clvsession = result.GetDameClv_SessionProcesoResult;
+
+        atencionFactory.getServicios().then(function (data) {
+          vm.servicios = data.GetMuestraTipSerPrincipalListResult;
+          vm.selectedServicio = vm.servicios[0];
+
+        });
+      });
+    }
+
+    function ModalClientes() {
+      var modalInstance = $uibModal.open({
+        animation: true,
+        ariaLabelledBy: 'modal-title',
+        ariaDescribedBy: 'modal-body',
+        templateUrl: 'views/procesos/ModalClientesActivos.html',
+        controller: 'ModalClientesActivosCtrl',
+        controllerAs: 'ctrl',
+        backdrop: 'static',
+        keyboard: false,
+        size: "lg"
+      });
+
+      modalInstance.result.then(function (selectedItem) {
+        console.log(selectedItem);
+        vm.datosCliente = selectedItem;
+        ServiciosActuales();
+      }, function () {});
+    }
+
+
+    function ServiciosActuales() {
+
+      var Parametros = {
+        'contrato': vm.datosCliente.CONTRATO,
+        'clv_servicio': vm.selectedServicio.Clv_TipSerPrincipal
+      };
+      procesoFactory.GetServiciosClienteActuales(Parametros).then(function (result) {
+        console.log(result.GetServiciosClienteActualesResult);
+        if (result.GetServiciosClienteActualesResult.ServiciosCliente.length > 0) {
+          vm.serviciosCliente = result.GetServiciosClienteActualesResult.ServiciosCliente;
+          vm.muestraServCliente == true;
+
+        } else {
+          ngNotify.set(result.GetServiciosClienteActualesResult.mensaje, 'warn');
+          vm.muestraServCliente == false;
         }
 
-        function ModalClientes() {            
-            var modalInstance = $uibModal.open({
-              animation: true,
-              ariaLabelledBy: 'modal-title',
-              ariaDescribedBy: 'modal-body',
-              templateUrl: 'views/procesos/ModalClientesActivos.html',
-              controller: 'ModalClientesActivosCtrl',
-              controllerAs: 'ctrl',
-              backdrop: 'static',
-              keyboard: false,
-              size: "lg",
-             /*  resolve: {
-                options: function () {
-                  return options;
-                }
-              } */
-            });
-          }
+      });
+    }
 
-        var vm = this;
-        initData();
-        vm.ModalClientes=ModalClientes;
-        
-    });
+    function verOpciones(item) {
+      vm.muestraServPosibles = true;
+      var Parametros = {
+        'contrato': vm.datosCliente.CONTRATO,
+        'clv_tipservicio': vm.selectedServicio.Clv_TipSerPrincipal,
+        'clv_servicio': item.clv_servicio,
+        'ultimomes': item.ultimomes,
+        'ultimoanio': item.ultimoanio,
+        'idcompania': 1,
+        'Clv_Session': vm.clvsession
+      };
+      procesoFactory.GetServiciosClientePosibles(Parametros).then(function (result) {
+        console.log(result);
+        vm.serviciosPosibles = result.GetServiciosClientePosiblesResult.ServiciosCliente;
+      });
+    }
+
+    function CambioServicio() {
+      ServiciosActuales();
+    }
+
+    function DetalleContrato() {
+      if (vm.contratoSelected) {
+        var Parametros = {
+          'contrato': vm.contratoSelected.split('-')[0],
+          'nombre': '',
+          'calle': '',
+          'numero': '',
+          'ciudad': '',
+          'op': 0,
+          'clvColonia': 0,
+          'idcompania': vm.contratoSelected.split('-')[1],
+          'SETUPBOX': '',
+          'TARJETA': 0,
+          'ClvUsuario': $localStorage.currentUser.idUsuario
+        };
+        procesoFactory.GetuspDameClientesActivos(Parametros).then(function (result) {
+          if (result.GetuspDameClientesActivosResult.length > 0) {
+            vm.datosCliente = result.GetuspDameClientesActivosResult[0];
+            ServiciosActuales();
+          } else {
+            ngNotify.set('ingresa un contrato válido', 'danger');
+          }
+        });
+      } else {
+        ngNotify.set('ingresa un contrato válido', 'danger');
+      }
+
+    }
+
+    function EnterContrato(event) {
+      if (event.keyCode == 13) {
+        if (vm.selectedServicio == null) {
+          ngNotify.set('Seleccione el servicio que tiene el cliente', 'error');
+          return;
+        }
+        DetalleContrato();
+
+      }
+    }
+
+    var vm = this;
+    initData();
+    vm.ModalClientes = ModalClientes;
+    vm.verOpciones = verOpciones;
+    vm.muestraServCliente = true;
+    vm.muestraServPosibles = false;
+    vm.CambioServicio = CambioServicio;
+    vm.EnterContrato = EnterContrato;
+  });

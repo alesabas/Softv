@@ -9,11 +9,80 @@ angular
       GetMuestraServiciosPrueba: '/Procesos/GetMuestraServiciosPrueba',
       GetMUESTRACablemodesDelClientePrueba: '/Procesos/GetMUESTRACablemodesDelClientePrueba',
       GetNUEtblPruebaInternet: '/Procesos/GetNUEtblPruebaInternet',
-      GetConCambioServCliente:'/Procesos/GetConCambioServCliente',
-      GetuspDameClientesActivos:'/Procesos/GetuspDameClientesActivos'
+      GetConCambioServCliente: '/Procesos/GetConCambioServCliente',
+      GetuspDameClientesActivos: '/Procesos/GetuspDameClientesActivos',
+      GetServiciosClienteActuales: '/Procesos/GetServiciosClienteActuales',
+      GetServiciosClientePosibles: '/Procesos/GetServiciosClientePosibles',
+      GetDameClv_SessionProceso: '/DameClv_Session/GetDameClv_SessionProceso'
     };
 
     var factory = {};
+
+    factory.GetDameClv_SessionProceso = function (obj) {
+      var deferred = $q.defer();
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+
+      $http.get(globalService.getUrl() + paths.GetDameClv_SessionProceso, config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+    factory.GetServiciosClientePosibles = function (obj) {
+      var deferred = $q.defer();
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      var Parametros = {
+        'parametros': {
+          'contrato': obj.contrato,
+          'clv_tipservicio': obj.clv_tipservicio,
+          'clv_servicio': obj.clv_servicio,
+          'ultimomes': obj.ultimomes,
+          'ultimoanio': obj.ultimoanio,
+          'idcompania': obj.idcompania,
+          'Clv_Session': obj.Clv_Session
+        }
+
+
+      };
+      $http.post(globalService.getUrl() + paths.GetServiciosClientePosibles, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+
+
+    factory.GetServiciosClienteActuales = function (obj) {
+      var deferred = $q.defer();
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      var Parametros = {
+        'contrato': obj.contrato,
+        'clv_servicio': obj.clv_servicio
+      };
+      $http.post(globalService.getUrl() + paths.GetServiciosClienteActuales, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
 
 
     factory.GetuspDameClientesActivos = function (obj) {
@@ -30,11 +99,11 @@ angular
         'numero': obj.numero,
         'ciudad': obj.ciudad,
         'op': obj.op,
-        'clvColonia':obj.clvColonia,
-        'idcompania':obj.idcompania,
-        'SETUPBOX':obj.SETUPBOX,
-        'TARJETA':obj.TARJETA,
-        'ClvUsuario':$localStorage.currentUser.idUsuario
+        'clvColonia': obj.clvColonia,
+        'idcompania': obj.idcompania,
+        'SETUPBOX': obj.SETUPBOX,
+        'TARJETA': obj.TARJETA,
+        'ClvUsuario': $localStorage.currentUser.idUsuario
       };
 
       $http.post(globalService.getUrl() + paths.GetuspDameClientesActivos, JSON.stringify(Parametros), config).then(function (response) {
@@ -61,7 +130,7 @@ angular
         'Clv_TipSer': obj.Clv_TipSer,
         'Op': obj.Op,
         'idcompania': obj.idcompania,
-        'ClvUsuario':$localStorage.currentUser.idUsuario
+        'ClvUsuario': $localStorage.currentUser.idUsuario
       };
 
       $http.post(globalService.getUrl() + paths.GetConCambioServCliente, JSON.stringify(Parametros), config).then(function (response) {
