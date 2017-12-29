@@ -13,12 +13,16 @@ angular
             CatalogosFactory.DeleteLocalidades_New(ObjLocalidad).then(function(data){
                 if(data.DeleteLocalidades_NewResult == 0){
                     ngNotify.set('CORRECTO, se eliminó la localida.', 'success');
-                    $state.reload('home.catalogos.localidades');
-				    cancel();
+                    Ok();
                 }else{
                     ngNotify.set('ERROR, al eliminar la localidad.', 'warn');
+                    cancel();
                 }
             });
+        }
+
+        function Ok(){
+            $uibModalInstance.close();
         }
 
         function cancel() {
