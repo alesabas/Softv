@@ -31,6 +31,7 @@ angular
             };
             CatalogosFactory.GetRelCiudadLocalidadList(ObjRel).then(function(data){
                 vm.RelLocalidadList = data.GetRelCiudadLocalidadListResult;
+                vm.ViewList = (vm.RelLocalidadList.length > 0)? true:false;
             });
         }
 
@@ -109,7 +110,6 @@ angular
                         'clvnuevo': vm.IdLocalidad
                     };
                     CatalogosFactory.UpdateLocalidades_New(objLocalidades_New).then(function(data){
-                        console.log(data);
                         if(data.UpdateLocalidades_NewResult == -1){
                             ngNotify.set('CORRECTO, se guardó la localidad.', 'success');
                             $state.reload('home.catalogos.localidades');

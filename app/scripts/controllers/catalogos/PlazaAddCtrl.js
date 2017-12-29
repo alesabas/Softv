@@ -16,19 +16,18 @@ angular
               vm.estadoselect = vm.estados[1];
               ObtenCiudades();
             });
-
         });
     }
 
     function muestraRelacion() {
-      plazaFactory.GetAgregaEliminaRelCompaniaCiudad2(3, $stateParams.id, 0, 0).then(function (res) {
+      plazaFactory.GetAgregaEliminaRelCompaniaCiudad2(3, vm.Clv_plaza, 0, 0).then(function (res) {
         vm.relaciones = res.GetAgregaEliminaRelCompaniaCiudad2Result;
         console.log(res);
       });
     }
 
     function ObtenCiudades() {
-      plazaFactory.GetMuestra_Ciudad_RelCompania($stateParams.id, vm.estadoselect.Clv_Estado)
+      plazaFactory.GetMuestra_Ciudad_RelCompania(vm.Clv_plaza, vm.estadoselect.Clv_Estado)
         .then(function (data) {
 
           vm.ciudades = data.GetMuestra_Ciudad_RelCompaniaResult;
@@ -37,14 +36,14 @@ angular
     }
 
     function agregaRelacion() {
-      plazaFactory.GetAgregaEliminaRelCompaniaCiudad2(1, $stateParams.id, vm.CiudadPla.Clv_Ciudad, vm.estado2select.Clv_Estado)
+      plazaFactory.GetAgregaEliminaRelCompaniaCiudad2(1, vm.Clv_plaza, vm.CiudadPla.Clv_Ciudad, vm.estado2select.Clv_Estado)
         .then(function (res) {
           muestraRelacion();
         });
     }
 
     function EliminaRelacion(obj) {
-      plazaFactory.GetAgregaEliminaRelCompaniaCiudad2(2, $stateParams.id, obj.Clv_Ciudad, obj.Clv_Estado)
+      plazaFactory.GetAgregaEliminaRelCompaniaCiudad2(2, vm.Clv_plaza, obj.Clv_Ciudad, obj.Clv_Estado)
         .then(function (res) {
           console.log(res);
           muestraRelacion();
@@ -59,13 +58,10 @@ angular
         .then(function (result) {
           vm.Clv_plaza=result.AddPlazaResult;
           console.log(result);
-
           vm.block = true;
-          ngNotify.set('La plaza se ha guardado correctamente ,ahora puede asignar relaciones con estados y ciudades', 'success');
+          ngNotify.set('La plaza se ha guardado correctamente, ahora puede asignar relaciones con estados y ciudades', 'success');
         });
     }
-
-
 
     var vm = this;
     vm.detplaza = {};
