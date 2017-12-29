@@ -46,16 +46,14 @@ angular
             };
             ClienteServicioFactory.GetAddPqueteAdic(ObjServicioCliente).then(function(data){
                 console.log(data);
-                /*vm.Clv_UnicaNet = data.AddClientesServicioResult;
+                vm.Clv_UnicaNet = data.GetAddPqueteAdicResult;
                 if(vm.Clv_UnicaNet > 0){
                     ngNotify.set('CORRECTO, se agregó un servico al cliente.', 'success');
-                    //$rootScope.$emit('LoadServicioCliente', vm.IdContrato);
-                    cancel();
+                    OkCancel();
                 }else{
                     ngNotify.set('ERROR, al agregar un servico al cliente.', 'warn');
-                    //$rootScope.$emit('LoadServicioCliente', vm.IdContrato);
                     cancel();
-                }*/
+                }
             });
         }
 
@@ -72,7 +70,11 @@ angular
         function cancel() {
             $uibModalInstance.dismiss('cancel');
         }
-    
+        
+        function OkCancel(){
+            $uibModalInstance.close(vm.IdContrato);
+        }
+
         var vm = this;
         vm.Titulo = 'Agregar Paquete Adicional';
         vm.Icono = 'fa fa-plus';

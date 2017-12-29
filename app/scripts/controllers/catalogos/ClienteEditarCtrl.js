@@ -564,10 +564,14 @@ angular
         }
 
         function DetalleConcepto(ObjConcepto){
-            if(ObjConcepto.Tipo == 'S'){
+            console.log(ObjConcepto);
+            if(ObjConcepto.Tipo == 'S' || ObjConcepto.Tipo == 'P'){
+                vm.ConceptoTipo = ObjConcepto.Tipo;
                 vm.DivServicio = true;
                 vm.DivAparato = false;
                 vm.ShowServiciosE = false;
+                vm.TBtnSaveSP = (ObjConcepto.Tipo == 'S')? 'Guardar Detalle del Servicio':'Guardar Detalle del Paquete';
+                vm.TBtnDeleteSP = (ObjConcepto.Tipo == 'S')? 'Eliminar Servicio':'Eliminar Paquete';
                 var Clv_UnicaNet = ObjConcepto.Clv_UnicaNet;
                 var IdMedio = ObjConcepto.idMedio;
                 vm.NombreServicio = ObjConcepto.Nombre;
@@ -673,7 +677,9 @@ angular
                         vm.ModeloAparato = data.GetModeloAparatoResult.Nombre;
                     });
                 });
-            }
+            }/*else if(ObjConcepto.Tipo == 'P'){
+
+            }*/
         }
 
         function UpdateServicioCliente(){
@@ -789,25 +795,29 @@ angular
             });
         }
 
-        function DeleteServicioCliente(){
-            CatalogosFactory.GetValidaPapoClienteServicio(vm.Clv_UnicaNet).then(function(data){
+        function DeleteServicioCliente(Clv_UnicaNet){
+            console.log(Clv_UnicaNet);
+            var Clv_UnicaNetD = (Clv_UnicaNet != null && Clv_UnicaNet != undefined)? Clv_UnicaNet:vm.Clv_UnicaNet;
+            CatalogosFactory.GetValidaPapoClienteServicio(Clv_UnicaNetD).then(function(data){
                 var ToDay = GetDateToday();
                 if(data.GetValidaPapoClienteServicioResult == 0 && vm.FechaContratacionP.getTime() == ToDay.getTime()){
                     CatalogosFactory.GetEliminaClienteServicio(vm.Clv_UnicaNet).then(function(data){
-                        ngNotify.set('CORRECTO, se eliminó el servicio.', 'success');
+                        var MSJ = (vm.ConceptoTipo = 'S')? 'CORRECTO, se eliminó el servicio.':'CORRECTO, se eliminó el paquete.'
+                        ngNotify.set(MSJ, 'success');
                         vm.DivServicio = false;
                         vm.DivAparato = false;
                         GetServicios(vm.IdContrato);
                     });
                 }else{
-                    ngNotify.set('ERROR, solo se puede eliminar un servicio el mismo día que se contrató y/o que tenga ningún pago realizado.', 'warn');
+                    var MSJ = (vm.ConceptoTipo = 'S')? 'ERROR, solo se puede eliminar un servicio el mismo día que se contrató y/o que tenga ningún pago realizado.':'ERROR, solo se puede eliminar un paquete el mismo día que se contrató y/o que tenga ningún pago realizado.'
+                    ngNotify.set(MSJ, 'warn');
                 }
             });
         }
 
         function OpenAddPaqueteAdic(Clv_UnicaNet){
             var ObjPaqAdic = {
-                'Clv_UnicaNet': (vm.Clv_UnicaNet != null && vm.Clv_UnicaNet != undefined)? vm.Clv_UnicaNet:Clv_UnicaNet,
+                'Clv_UnicaNet': (Clv_UnicaNet != null && Clv_UnicaNet != undefined)? Clv_UnicaNet:vm.Clv_UnicaNet,
                 'IdContrato': vm.IdContrato
             };
             console.log(ObjPaqAdic);
@@ -827,6 +837,11 @@ angular
                         return ObjPaqAdic;
                     }
                 }
+            });
+            modalInstance.result.then(function (IdContrato) {
+                GetServicios(IdContrato);
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
             });
         }
 
@@ -1021,6 +1036,8 @@ angular
         vm.ShowTipServ1 = false;
         vm.View = false;
         vm.TouchFile = false;
+        vm.TBtnSaveSP = '';
+        vm.TBtnDeleteSP = '';
         vm.tipoUsuario = $localStorage.currentUser.tipoUsuario
         vm.clv_usuario = $localStorage.currentUser
         vm.ValidateRFC = /^[A-Z]{4}\d{6}[a-zA-Z]{3}$|^[A-Z]{4}\d{6}\d{3}$|^[A-Z]{4}\d{6}[A-Z]{2}\d{1}$|^[A-Z]{4}\d{6}[A-Z]{1}\d{2}$|^[A-Z]{4}\d{6}\d{2}[a-zA-Z]{1}$|^[A-Z]{4}\d{6}\d{1}[a-zA-Z]{2}$|^[A-Z]{4}\d{6}\d{1}[A-Z]{1}\d{1}$|^[A-Z]{4}\d{6}[A-Z]{1}\d{1}[a-zA-Z]{1}$/;
