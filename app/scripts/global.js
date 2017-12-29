@@ -38,7 +38,7 @@ angular
     svc.getUrlPrinters = function () {
       return 'http://localhost:50';
     };
-
+*/
 
     return svc;
   });
