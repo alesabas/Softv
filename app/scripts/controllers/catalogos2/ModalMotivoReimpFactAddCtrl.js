@@ -23,7 +23,7 @@ angular
     }
 
     var vm = this;
-    vm.Titulo = 'Nuevo Motivo de Reimpresion de Factura';
+    vm.Titulo = 'Nuevo Motivo de Reimpresión';
     vm.Icono = 'fa fa-plus';
     vm.SaveMotivo = SaveMotivo;
     vm.cancel = cancel;

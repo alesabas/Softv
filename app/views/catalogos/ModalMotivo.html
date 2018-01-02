@@ -13,16 +13,20 @@
     <fieldset ng-disabled="ctrl.blockForm">
         <div class="modal-body">   
         <div class="row">
-            <div class="col-md-5">
-                <div >
-                    <p ><b><small>Clave:</small></b>
-                    <input name="InpClave" type="number" class="form-control input-sm" ng-model="ctrl.Clave" ng-disabled="ctrl.Disable">
-                </p>
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <b><small>Clave:</small></b>
                 </div>
-            </div>
-            <div class="col-md-8">
-                <div>
-                    <p><b><small>Motivo  :</small></b></p>
+                <div class="col-md-12">
+                    <input name="InpClave" type="number" class="form-control input-sm" ng-model="ctrl.Clave" ng-disabled="ctrl.Disable">
+                </div>
+                <div class="col-md-12">
+                    <br>
+                </div>
+                <div class="col-md-12">
+                    <b><small>Motivo:</small></b>
+                </div>
+                <div class="col-md-12">
                     <input name="InpDescripcion" type="text" class="form-control input-sm" ng-model="ctrl.Descripcion"  validate-on="dirty" required required-message="'Obligatorio'">
                 </div>
             </div>
@@ -31,8 +35,10 @@
         </div>
     </fieldset>
     <div class="modal-footer">
-        <button type="button" class="btn btn-default btn-xs" ng-click="ctrl.cancel()" title="Salir"><i class="glyphicon glyphicon-log-out"></i> SALIR</button>
-        <button type="submit" ng-disabled="ctrl.blocksave" class="btn btn-info btn-xs" title="Guardar Dato"><i class="	glyphicon glyphicon-floppy-disk"></i> GUARDAR</button>
-        <button type="button" ng-disabled="ctrl.blockdelete"  class="btn btn-danger btn-xs" ng-click="ctrl.EliminaMotivo()" title="Eliminar Dato "><i class="glyphicon glyphicon-trash"></i> ELIMINAR</button>
+        <!--
+        <button type="button" ng-disabled="ctrl.blockdelete" class="btn btn-danger btn-sm" ng-click="ctrl.EliminaMotivo()" title="Eliminar Dato"><i class="glyphicon glyphicon-trash"></i> ELIMINAR</button>
+        -->
+        <button type="submit" ng-disabled="ctrl.blocksave" class="btn btn-primary btn-sm" title="Guardar Motivo de Cancelación"><i class="glyphicon glyphicon-floppy-disk"></i> GUARDAR</button>
+        <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.cancel()" title="Salir"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
     </div>
 </form>
