@@ -799,19 +799,49 @@ angular
             console.log(Clv_UnicaNet);
             var Clv_UnicaNetD = (Clv_UnicaNet != null && Clv_UnicaNet != undefined)? Clv_UnicaNet:vm.Clv_UnicaNet;
             CatalogosFactory.GetValidaPapoClienteServicio(Clv_UnicaNetD).then(function(data){
+                console.log(Clv_UnicaNetD);
                 var ToDay = GetDateToday();
                 if(data.GetValidaPapoClienteServicioResult == 0 && vm.FechaContratacionP.getTime() == ToDay.getTime()){
-                    CatalogosFactory.GetEliminaClienteServicio(vm.Clv_UnicaNet).then(function(data){
+                    OpenDeleteServicioCliente(Clv_UnicaNetD);
+                    /*CatalogosFactory.GetEliminaClienteServicio(Clv_UnicaNetD).then(function(data){
                         var MSJ = (vm.ConceptoTipo = 'S')? 'CORRECTO, se eliminó el servicio.':'CORRECTO, se eliminó el paquete.'
                         ngNotify.set(MSJ, 'success');
                         vm.DivServicio = false;
                         vm.DivAparato = false;
                         GetServicios(vm.IdContrato);
-                    });
+                    });*/
                 }else{
                     var MSJ = (vm.ConceptoTipo = 'S')? 'ERROR, solo se puede eliminar un servicio el mismo día que se contrató y/o que tenga ningún pago realizado.':'ERROR, solo se puede eliminar un paquete el mismo día que se contrató y/o que tenga ningún pago realizado.'
                     ngNotify.set(MSJ, 'warn');
                 }
+            });
+        }
+
+        function OpenDeleteServicioCliente(Clv_UnicaNet){
+            /*var Clv_UnicaNet = Clv_UnicaNet;*/
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body', 
+                templateUrl: 'views/catalogos/ModalServicioClienteDelete.html',
+                controller: 'ModalServicioClienteDeleteCtrl',
+                controllerAs: 'ctrl',
+                backdrop: 'static',
+                keyboard: false,
+                class: 'modal-backdrop fade',
+                size: 'sm',
+                resolve: {
+                    Clv_UnicaNet: function () {
+                        return Clv_UnicaNet;
+                    }
+                }
+            });
+            modalInstance.result.then(function () {
+                vm.DivServicio = false;
+                vm.DivAparato = false;
+                GetServicios(vm.IdContrato);
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
             });
         }
 

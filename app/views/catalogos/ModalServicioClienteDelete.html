@@ -1,0 +1,13 @@
+<div class="modal-header">
+    <button class="close" type="button" aria-label="close" ng-click="ctrl.cancel()">x</button>
+    <h4 class="modal-title"><i class="fa fa-exclamation-triangle"></i> Eliminar registro - {{ ctrl.Clv_UnicaNet }}</h4>
+</div>
+<div class="modal-body">
+    <p><b>¿Realmente desea eliminar el servicio?</b></p>
+    <p><b>Clave:</b> {{ ctrl.Clv_UnicaNet }}</p>
+    <p><b>Descripción:</b> {{ ctrl.Descripcion }}</p>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-danger btn-sm" type="button" ng-click="ctrl.DeleteServicioCliente()" title="Eliminar Servicio">Eliminar</button>
+    <button class="btn bnt-default btn-sm" type="button" ng-click="ctrl.cancel()" title="Salir">Cancelar</button>
+</div>
