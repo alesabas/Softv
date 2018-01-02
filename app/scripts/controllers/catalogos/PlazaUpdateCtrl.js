@@ -8,25 +8,18 @@ angular
 
       distribuidorFactory.Getplaza(0, '')
         .then(function (data) {
-          vm.distribuidores = data.GetPlaza_DistribuidoresNewResult;          
-
+          vm.distribuidores = data.GetPlaza_DistribuidoresNewResult;          ¡
           plazaFactory.GetObtendatosPlaza($stateParams.id)
             .then(function (data) {
               vm.detplaza = data.GetObtendatosPlazaResult;
-              console.log(vm.detplaza);
               vm.distribuidores.forEach(function(item){
                 if(item.Clv_Plaza===parseInt(vm.detplaza.Clv_plaza)){
                    vm.distribuidor=item;
                 }
               });
-              
-
-             
               vm.Titulo = 'Editar plaza-' + vm.detplaza.Razonsocial;
-
               plazaFactory.GetMuestraEstadosFrmCompania($stateParams.id)
                 .then(function (data) {
-                  
                   vm.estados = data.GetMuestraEstadosFrmCompaniaResult;
                   vm.estadoselect = vm.estados[1];
                   muestraRelacion();
@@ -42,7 +35,6 @@ angular
       });
     }
 
-
     function ObtenCiudades() {
       plazaFactory.GetMuestra_Ciudad_RelCompania($stateParams.id, vm.estadoselect.Clv_Estado)
         .then(function (data) {        
@@ -53,7 +45,6 @@ angular
     function agregaRelacion() {
       plazaFactory.GetAgregaEliminaRelCompaniaCiudad2(1, $stateParams.id, vm.CiudadPla.Clv_Ciudad, vm.estado2select.Clv_Estado)
         .then(function (res) {
-          console.log(res);
           muestraRelacion();
         });
     }
@@ -66,22 +57,21 @@ angular
     }
 
     function SavePlaza() {
-      
       vm.detplaza.Clv_plaza =  vm.distribuidor.Clv_Plaza;
       plazaFactory.EditPlaza(vm.detplaza)
         .then(function (result) {
-          console.log(result);
           $state.go('home.catalogos.plazas');
           ngNotify.set('La plaza se ha editado correctamente ', 'success');
         });
     }
 
-    var vm = this;    
-    initData();
+    var vm = this;
     vm.ObtenCiudades = ObtenCiudades;
     vm.agregaRelacion = agregaRelacion;
     vm.EliminaRelacion = EliminaRelacion;    
     vm.SavePlaza = SavePlaza;
     vm.Clv_plaza=$stateParams.id;
     vm.block = false;
+    initData();
+
   });

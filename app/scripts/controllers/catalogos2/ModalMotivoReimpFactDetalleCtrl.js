@@ -38,7 +38,7 @@ angular
   }
 
   var vm = this;
-  vm.Titulo = 'Editar Motivo de Reimpresion de Factura';
+  vm.Titulo = 'Editar Motivo de Reimpresión';
   vm.Icono = 'fa fa-pencil-square-o';
   vm.SaveMotivo = SaveMotivo;
   vm.cancel = cancel;

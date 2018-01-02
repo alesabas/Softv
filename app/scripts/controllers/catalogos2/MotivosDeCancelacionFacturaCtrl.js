@@ -39,7 +39,7 @@ angular
           backdrop: 'static',
           keyboard: false,
           class: 'modal-backdrop fade',
-          size: 'md'
+          size: 'sm'
         });
       }
 
@@ -55,7 +55,7 @@ angular
           backdrop: 'static',
           keyboard: false,
           class: 'modal-backdrop fade',
-          size: 'md',
+          size: 'sm',
           resolve: {
               Clv_motivo: function () {
                   return Clv_motivo;
@@ -76,7 +76,7 @@ angular
           backdrop: 'static',
           keyboard: false,
           class: 'modal-backdrop fade',
-          size: 'md',
+          size: 'sm',
           resolve: {
               Clv_motivo: function () {
                   return Clv_motivo;
