@@ -38,7 +38,7 @@ angular
     }
 
     var vm = this;
-    vm.Titulo = ' Editar Motivo de Cancelacion de Factura';
+    vm.Titulo = ' Editar Motivo de Cancelación';
     vm.Icono = 'fa fa-pencil-square-o';
     vm.cancel = cancel;
     vm.SaveMotivo = SaveMotivo;
