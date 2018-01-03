@@ -86,8 +86,9 @@ angular
             if(vm.TipoServicio != undefined){
                 if(vm.TipoServicio.Clv_TipSerPrincipal == 3){
                     ClienteServicioFactory.GetValidaTVDigCliente(vm.IdContrato).then(function(data){
+                        console.log(data);
                         var ServicioList = data.GetValidaTVDigClienteResult;
-                        if(ServicioList[0].Clv_Servicio > 0){
+                        if(ServicioList.length > 0){
                             vm.ServicioList = data.GetValidaTVDigClienteResult;
                             vm.Servicio = vm.ServicioList[0];
                         }else{
