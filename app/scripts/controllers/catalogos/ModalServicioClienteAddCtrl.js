@@ -2,7 +2,7 @@
 
 angular
     .module('softvApp')
-    .controller('ModalServicioClienteAddCtrl', function(CatalogosFactory, CatalogosRedIPFactory, $uibModal, $uibModalInstance, ngNotify, $state, $rootScope, IdContrato, $localStorage){
+    .controller('ModalServicioClienteAddCtrl', function(CatalogosFactory, CatalogosRedIPFactory, ClienteServicioFactory, $uibModal, $uibModalInstance, ngNotify, $state, $rootScope, IdContrato, $localStorage){
         
         function initData(){
             CatalogosFactory.GetMuestraTipSerPrincipal_SERList().then(function(data){
@@ -52,7 +52,8 @@ angular
                 'TVCONPAGO': 0,
                 'IdMedio': (vm.Medio != undefined)? vm.Medio.IdMedio:0,
                 'TipServ': vm.TipoServicio.Clv_TipSerPrincipal,
-                'Clv_usuarioCapturo': $localStorage.currentUser.idUsuario
+                'Clv_usuarioCapturo': $localStorage.currentUser.idUsuario,
+                'ParentClv_UnicaNet': 0
             };
             CatalogosFactory.AddClientesServicio(ObjServicioCliente).then(function(data){
                 vm.Clv_UnicaNet = data.AddClientesServicioResult;
@@ -83,12 +84,29 @@ angular
 
         function GetServiciosList(){
             if(vm.TipoServicio != undefined){
-                CatalogosFactory.GetRelTipoServClienteList(vm.TipoServicio.Clv_TipSerPrincipal).then(function(data){
-                    vm.ServicioList = data.GetRelTipoServClienteListResult;
-                });
+                if(vm.TipoServicio.Clv_TipSerPrincipal == 3){
+                    ClienteServicioFactory.GetValidaTVDigCliente(vm.IdContrato).then(function(data){
+                        console.log(data);
+                        var ServicioList = data.GetValidaTVDigClienteResult;
+                        if(ServicioList.length > 0){
+                            vm.ServicioList = data.GetValidaTVDigClienteResult;
+                            vm.Servicio = vm.ServicioList[0];
+                        }else{
+                            GetServiciosListR();
+                        }
+                    });
+                }else{
+                    GetServiciosListR();
+                }  
             }else{
                 vm.ServicioList = '';
             }
+        }
+
+        function GetServiciosListR(){
+            CatalogosFactory.GetRelTipoServClienteList(vm.TipoServicio.Clv_TipSerPrincipal).then(function(data){
+                vm.ServicioList = data.GetRelTipoServClienteListResult;
+            });
         }
 
         function GetMedioList(){

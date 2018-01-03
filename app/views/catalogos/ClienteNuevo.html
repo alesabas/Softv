@@ -202,11 +202,32 @@
 </script>
 <div class="card animated fadeIn" style="margin-top:20px;">
     <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
-        <header>
-            <strong style="font-weight:bold; border:none; margin-left:10px;">{{ $ctrl.Title }} {{ $ctrl.IdCliente }}</strong>
+        <header ng-if="$ctrl.NombreAdi != null && $ctrl.SegundoApe != null">
+            <strong style="font-weight:bold; border:none; margin-left:10px;">{{ $ctrl.Title }} {{ $ctrl.Nombre + ' ' + $ctrl.NombreAdi + ' ' + $ctrl.PrimerApe + ' ' + $ctrl.SegundoApe }} {{ $ctrl.IdCliente }}</strong>
 			<br>
             <small class="text-muted" style="font-size:14px; margin-left:10px;">
-                <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">{{ $ctrl.Title }} {{ $ctrl.IdCliente }}</a>
+                <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">Catálogo Clientes</a>
+            </small>
+        </header>
+        <header ng-if="$ctrl.NombreAdi == null && $ctrl.SegundoApe != null">
+            <strong style="font-weight:bold; border:none; margin-left:10px;">{{ $ctrl.Title }} {{ $ctrl.Nombre + ' ' + $ctrl.PrimerApe + ' ' + $ctrl.SegundoApe }} {{ $ctrl.IdCliente }}</strong>
+			<br>
+            <small class="text-muted" style="font-size:14px; margin-left:10px;">
+                <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">Catálogo Clientes</a>
+            </small>
+        </header>
+        <header ng-if="$ctrl.NombreAdi != null && $ctrl.SegundoApe == null">
+            <strong style="font-weight:bold; border:none; margin-left:10px;">{{ $ctrl.Title }} {{ $ctrl.Nombre + ' ' + $ctrl.NombreAdi + ' ' + $ctrl.PrimerApe }} {{ $ctrl.IdCliente }}</strong>
+			<br>
+            <small class="text-muted" style="font-size:14px; margin-left:10px;">
+                <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">Catálogo Clientes</a>
+            </small>
+        </header>
+        <header ng-if="$ctrl.NombreAdi == null && $ctrl.SegundoApe == null">
+            <strong style="font-weight:bold; border:none; margin-left:10px;">{{ $ctrl.Title }} {{ $ctrl.Nombre + ' ' + $ctrl.PrimerApe }} {{ $ctrl.IdCliente }}</strong>
+			<br>
+            <small class="text-muted" style="font-size:14px; margin-left:10px;">
+                <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">Catálogo Clientes</a>
             </small>
         </header>
         <div class="tools">
@@ -393,7 +414,7 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="col-md-3">
-                                    <input type="text" name="InpClaveElector" class="form-control input-sm" ng-model="$ctrl.ClaveElector" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" maxlength="18" ng-pattern="/^[A-Z]{6}\d{8}[A-Z]{1}\d{3}$/" placeholder="AAAAAA11111111A111" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa 18 caracteres.'">
+                                    <input type="text" name="InpClaveElector" class="form-control input-sm" ng-model="$ctrl.ClaveElector" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" maxlength="18" ng-pattern="/^[A-Z]{6}\d{8}[A-Z]{1}\d{3}$/" placeholder="AAAAAA11111111A111" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, ej. AAAAAA11111111A111.'">
                                 </div>
                                 <div class="col-md-3">
                                     <input type="text" name="InpTelefono" class="form-control input-sm" ng-model="$ctrl.Telefono" validate-on="dirty" validator="$ctrl.Telefono > 0" ng-pattern="/^\d{10}$/" maxlength="10" required required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa 10 dígitos.'">
@@ -647,7 +668,7 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="col-md-12" style="text-align:right">
-                                    <button type="submit" class="btn btn-success btn-sm" ng-disabled="$ctrl.DisableInput" ng-show="!$ctrl.View">Validar</button>
+                                    <button type="submit" class="btn btn-success btn-sm" ng-disabled="$ctrl.DisableInput" ng-show="!$ctrl.View"><i class="fa fa-check"></i> Guardar</button>
                                 </div>
                             </div>
                         </div>
@@ -753,7 +774,7 @@
                             <div class="col-md-12">
                                 <div class="col-md-12" style="text-align:right">
                                     <br ng-show="$ctrl.View">
-                                    <button type="submit" class="btn btn-success btn-sm" ng-disabled="$ctrl.DisableInput" ng-show="!$ctrl.View">Validar</button>
+                                    <button type="submit" class="btn btn-success btn-sm" ng-disabled="$ctrl.DisableInput" ng-show="!$ctrl.View"><i class="fa fa-check"></i> Guardar</button>
                                     <br>
                                     <br>
                                     <br>
@@ -811,7 +832,7 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="col-md-12" style="text-align:right">
-                                    <button type="button" class="btn btn-success btn-sm" ng-click="$ctrl.OpenAddRefPersonal()" title="Agregar Referencia Personal" ng-disabled="$ctrl.DisableInput" ng-show="!$ctrl.View">Agregar</button>
+                                    <button type="button" class="btn btn-success btn-sm" ng-click="$ctrl.OpenAddRefPersonal()" title="Agregar Referencia Personal" ng-disabled="$ctrl.DisableInput" ng-show="!$ctrl.View"><i class="fa fa-plus"></i> Agregar</button>
                                 </div>
                             </div>
                         </div>
@@ -858,7 +879,7 @@
                             <div class="col-md-12">
                                 <div class="col-md-12" style="text-align:right">
                                     <br ng-show="$ctrl.View">
-                                    <button type="submit" class="btn btn-success btn-sm" ng-disabled="$ctrl.DisableInput" ng-show="!$ctrl.View">Validar</button>
+                                    <button type="submit" class="btn btn-success btn-sm" ng-disabled="$ctrl.DisableInput" ng-show="!$ctrl.View"><i class="fa fa-check"></i> Guardar</button>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -900,8 +921,10 @@
                                             <span style="color:#2196f3" ng-switch-when="email" class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
                                             <span style="color:#2196f3" ng-switch-when="home" class="glyphicon glyphicon-home" aria-hidden="true"></span>
                                             <span style="color:#2196f3" ng-switch-when="trash" class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                            <span style="color:#2196f3" ng-switch-when="Paquete" class="fa fa-desktop" aria-hidden="true"></span>
                                         </span>
                                         <a class="text-info" style="font-size:12px" ng-if="node.Tipo == 'A'">{{node.Nombre}} ({{node.Detalle}})</a>
+                                        <a class="text-info" style="font-size:12px" ng-if="node.Tipo == 'P'">{{node.Nombre}}</a>
                                         <a class="text-info" style="font-size:12px" ng-if="node.status == 'C'">{{node.Nombre}} (Contratado)</a>
                                         <a class="text-info" style="font-size:12px" ng-if="node.status == 'I'">{{node.Nombre}} (Instalado)</a>
                                         <a class="text-info" style="font-size:12px" ng-if="node.status == 'D'">{{node.Nombre}} (Desconectado)</a>
@@ -909,6 +932,8 @@
                                         <a class="text-info" style="font-size:12px" ng-if="node.status == 'T'">{{node.Nombre}} (Suspención Temporal)</a>
                                         <a class="text-info" style="font-size:12px" ng-if="node.status == 'F'">{{node.Nombre}} (Fuera de Area)</a>
                                         <a class="text-info" style="font-size:12px" ng-if="node.status == 'B'">{{node.Nombre}} (Baja)</a>
+                                        <button type="button" class="btn btn-primary btn-xs" title="Agregar Paquete Adicional" ng-click="$ctrl.OpenAddPaqueteAdic(node.Clv_UnicaNet)" ng-if="node.Clv_TipSer == 3 && node.Tipo == 'S'"><i class="fa fa-plus"></i></button>
+                                        <button type="button" class="btn btn-danger btn-xs" title="Eliminar Paquete Adicional" ng-click="$ctrl.DeleteServicioCliente(node.Clv_UnicaNet)" ng-if="node.Clv_TipSer == 3 && node.Tipo == 'P'"><i class="fa fa-minus"></i></button>
                                     </treecontrol>
                                 </div>
                             </div>
@@ -916,14 +941,25 @@
                                 <form name="FormDetallServicio" angular-validator-submit="$ctrl.UpdateServicioCliente()" novalidate angular-validator autocomplete="off">
                                 <fieldset ng-disabled="$ctrl.View">
                                 <div class="col-md-12">
-                                <div class="col-md-3">
+                                    <div class="col-md-offset-6 col-md-2">
+                                        <button type="button" class="btn btn-primary btn-xs" title="Agregar Paquete Adicional" ng-click="$ctrl.OpenAddPaqueteAdic()" ng-show="$ctrl.ShowBtnAddPaq && $ctrl.ConceptoTipo == 'S'"><i class="fa fa-plus"></i> Paquete</button>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="submit" class="btn btn-success btn-xs" title="{{ $ctrl.TBtnSaveSP }}" ng-disabled="FormDetallServicio.InpUltimoMesServicio.$invalid || FormDetallServicio.InpUltimoAnioServicio.$invalid" ng-show="!$ctrl.View"><i class="glyphicon glyphicon-floppy-disk"></i> GUARDAR</button>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="button" class="btn btn-danger btn-xs" title="{{ $ctrl.TBtnDeleteSP }}" ng-click="$ctrl.DeleteServicioCliente()" ng-show="!$ctrl.View"><i class="fa fa-trash"></i> ELIMINAR</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                <div class="col-md-3" ng-if="$ctrl.ConceptoTipo == 'S'">
                                     <h4 class="text-primary">Detalle Servicio:</h4>
                                 </div>
-                                <div class="col-md-7">
-                                    <h4 class="text-danger">{{ $ctrl.NombreServicio }} - {{ $ctrl.Clv_UnicaNet }}</h4>
+                                <div class="col-md-3" ng-if="$ctrl.ConceptoTipo == 'P'">
+                                    <h4 class="text-primary">Detalle Paquete:</h4>
                                 </div>
-                                <div class="col-md-2">
-                                    <button type="submit" class="btn btn-success btn-xs" title="Guardar Detalle del Servicio" ng-disabled="FormDetallServicio.InpUltimoMesServicio.$invalid || FormDetallServicio.InpUltimoAnioServicio.$invalid" ng-show="!$ctrl.View"><i class="glyphicon glyphicon-floppy-disk"></i> GUARDAR</button>
+                                <div class="col-md-9">
+                                    <h4 class="text-danger">{{ $ctrl.NombreServicio }} - {{ $ctrl.Clv_UnicaNet }}</h4>
                                 </div>
                                 </div>
                                 <div class="col-md-12">
@@ -1057,11 +1093,6 @@
                                     <div class="col-md-7">
                                         <input type="date" name="InpFechaUltimoPago" class="form-control input-sm" ng-model="$ctrl.FechaUltimoPago" validate-on="dirty" invalid-message="'Inválido.'">
                                     </div>
-                                    <!--
-                                    <div class="col-md-5">
-                                        <small><b>Cancelación:</b></small>
-                                    </div>
-                                    -->
                                     <div class="col-md-7">
                                     </div>
                                 </div>
@@ -1072,11 +1103,6 @@
                             <div class="col-md-7" ng-if="$ctrl.DivAparato">
                                 <form name="FormDetallAparato" angular-validator-submit="$ctrl.UpdateAparatoCliente()" novalidate angular-validator autocomplete="off">
                                 <fieldset ng-disabled="$ctrl.View">
-                                <!--
-                                <div class="col-md-offset-10 col-md-2">
-                                    <button type="submit" class="btn btn-success btn-xs" title="Guardar Detalle del Aparato" ng-show="!$ctrl.View"><i class="glyphicon glyphicon-floppy-disk"></i> GUARDAR</button>
-                                </div>
-                                -->
                                 <div class="col-md-3">
                                     <h4 class="text-primary">Detalle Aparato:</h4>
                                 </div>
@@ -1187,16 +1213,16 @@
                         <div class="col-md-12" style="padding:2%">
                             <fieldset ng-disabled="$ctrl.View">
                             <div class="col-md-4">
-                                <div class="fileUpload btn btn-success btn-xs btn-block">
+                                <div class="fileUpload btn btn-success btn-xs btn-block" ng-disabled="$ctrl.DisableInput" >
                                     <span><i class="fa fa-file"></i> Buscar</span>
-                                    <input type="file" name="InpEvidencia" class="upload" accept=".pdf" ng-model="$ctrl.File" file-model="$ctrl.Evidencia" validate-on="dirty" validator="$ctrl.Evidencia != undefined && $ctrl.Evidencia != null" required-message="''" invalid-message="''">
+                                    <input type="file" name="InpEvidencia" class="upload" accept=".pdf" ng-model="$ctrl.File" file-model="$ctrl.Evidencia" validate-on="dirty" validator="$ctrl.Evidencia != undefined && $ctrl.Evidencia != null" required-message="''" invalid-message="''" ng-disabled="$ctrl.DisableInput">
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <button type="submit" class="btn btn-primary btn-xs btn-block" ng-click="$ctrl.SetTouch()" title="Guardar Documento"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
+                                <button type="submit" class="btn btn-primary btn-xs btn-block" ng-click="$ctrl.SetTouch()" title="Guardar Documento" ng-disabled="$ctrl.DisableInput"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
                             </div>
                             <div class="col-md-4">
-                                <button type="reset" class="btn btn-danger btn-xs btn-block" ng-click="$ctrl.ResetEvidencia()" ng-disabled="($ctrl.Evidencia == null || $ctrl.Evidencia == undefined)" title="Quitar archivo"><i class="fa fa-ban"></i> Quitar</button>
+                                <button type="reset" class="btn btn-danger btn-xs btn-block" ng-click="$ctrl.ResetEvidencia()" ng-disabled="($ctrl.Evidencia == null || $ctrl.Evidencia == undefined || $ctrl.DisableInput == true)" title="Quitar archivo"><i class="fa fa-ban"></i> Quitar</button>
                             </div>
                             </fieldset>
                         </div>

@@ -232,6 +232,15 @@ angular
             });
         }
 
+        function GetDateToday() {
+            var F = new Date();
+            var D = F.getDate();
+            var M = F.getMonth();
+            var Y = F.getFullYear();
+            var ToDay = new Date(Y, M, D);
+            return ToDay;
+        }
+
         function toDate(dateStr) {
             var parts = dateStr.split("/");
             return new Date(parts[2], parts[1] - 1, parts[0]);
@@ -554,10 +563,13 @@ angular
         }
 
         function DetalleConcepto(ObjConcepto){
-            if(ObjConcepto.Tipo == 'S'){
+            if(ObjConcepto.Tipo == 'S' || ObjConcepto.Tipo == 'P'){
+                vm.ConceptoTipo = ObjConcepto.Tipo;
                 vm.DivServicio = true;
                 vm.DivAparato = false;
                 vm.ShowServiciosE = false;
+                vm.TBtnSaveSP = (ObjConcepto.Tipo == 'S')? 'Guardar Detalle del Servicio':'Guardar Detalle del Paquete';
+                vm.TBtnDeleteSP = (ObjConcepto.Tipo == 'S')? 'Eliminar Servicio':'Eliminar Paquete';
                 var Clv_UnicaNet = ObjConcepto.Clv_UnicaNet;
                 var IdMedio = ObjConcepto.idMedio;
                 vm.NombreServicio = ObjConcepto.Nombre;
@@ -571,6 +583,7 @@ angular
                     vm.UltimoMesServicio = ServicioResult.ultimo_mes;
                     vm.UltimoAnioServicio = ServicioResult.ultimo_anio;
                     vm.FechaContratacion = (ServicioResult.fecha_solicitud != null)? toDate(ServicioResult.fecha_solicitud) : null;
+                    vm.FechaContratacionP = (ServicioResult.fecha_solicitud != null)? toDate(ServicioResult.fecha_solicitud) : null;
                     vm.FechaInstalacion = (ServicioResult.fecha_instalacio != null)? toDate(ServicioResult.fecha_instalacio) : null;
                     vm.FechaSuspencion = (ServicioResult.fecha_suspension != null)? toDate(ServicioResult.fecha_suspension) : null;
                     vm.FechaBaja = (ServicioResult.fecha_baja != null)? toDate(ServicioResult.fecha_baja) : null;
@@ -609,6 +622,7 @@ angular
                     CatalogosFactory.GetDeepServicios_New(vm.Clv_Servicio).then(function(data){
                         var Clv_TipSer = data.GetDeepServicios_NewResult.Clv_TipSer;
                         vm.ShowTipServ1 = (data.GetDeepServicios_NewResult.Clv_TipSer == 1)? true : false;
+                        vm.ShowBtnAddPaq = (Clv_TipSer == 3)? true : false;
                         var ObjUsuario = {
                             'CLV_UNICANET': vm.Clv_UnicaNet,
                             'tipo_serv': Clv_TipSer
@@ -661,7 +675,9 @@ angular
                         vm.ModeloAparato = data.GetModeloAparatoResult.Nombre;
                     });
                 });
-            }
+            }/*else if(ObjConcepto.Tipo == 'P'){
+
+            }*/
         }
 
         function UpdateServicioCliente(){
@@ -774,6 +790,75 @@ angular
                         return IdContrato;
                     }
                 }
+            });
+        }
+
+        function DeleteServicioCliente(Clv_UnicaNet){
+            var Clv_UnicaNetD = (Clv_UnicaNet != null && Clv_UnicaNet != undefined)? Clv_UnicaNet:vm.Clv_UnicaNet;
+            CatalogosFactory.GetValidaPapoClienteServicio(Clv_UnicaNetD).then(function(data){
+                var ToDay = GetDateToday();
+                if(data.GetValidaPapoClienteServicioResult == 0 && vm.FechaContratacionP.getTime() == ToDay.getTime()){
+                    OpenDeleteServicioCliente(Clv_UnicaNetD);
+                }else{
+                    var MSJ = (vm.ConceptoTipo = 'S')? 'ERROR, solo se puede eliminar un servicio el mismo día que se contrató y/o que tenga ningún pago realizado.':'ERROR, solo se puede eliminar un paquete el mismo día que se contrató y/o que tenga ningún pago realizado.'
+                    ngNotify.set(MSJ, 'warn');
+                }
+            });
+        }
+
+        function OpenDeleteServicioCliente(Clv_UnicaNet){
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body', 
+                templateUrl: 'views/catalogos/ModalServicioClienteDelete.html',
+                controller: 'ModalServicioClienteDeleteCtrl',
+                controllerAs: 'ctrl',
+                backdrop: 'static',
+                keyboard: false,
+                class: 'modal-backdrop fade',
+                size: 'sm',
+                resolve: {
+                    Clv_UnicaNet: function () {
+                        return Clv_UnicaNet;
+                    }
+                }
+            });
+            modalInstance.result.then(function () {
+                vm.DivServicio = false;
+                vm.DivAparato = false;
+                GetServicios(vm.IdContrato);
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
+            });
+        }
+
+        function OpenAddPaqueteAdic(Clv_UnicaNet){
+            var ObjPaqAdic = {
+                'Clv_UnicaNet': (Clv_UnicaNet != null && Clv_UnicaNet != undefined)? Clv_UnicaNet:vm.Clv_UnicaNet,
+                'IdContrato': vm.IdContrato
+            };
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body', 
+                templateUrl: 'views/catalogos/ModalPaqueteAdicForm.html',
+                controller: 'ModalPaqueteAdicAddCtrl',
+                controllerAs: 'ctrl',
+                backdrop: 'static',
+                keyboard: false,
+                class: 'modal-backdrop fade',
+                size: 'sm',
+                resolve: {
+                    ObjPaqAdic: function () {
+                        return ObjPaqAdic;
+                    }
+                }
+            });
+            modalInstance.result.then(function (IdContrato) {
+                GetServicios(IdContrato);
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
             });
         }
 
@@ -947,7 +1032,7 @@ angular
         
         var vm = this;
         vm.IdContrato = $stateParams.id;
-        vm.Title = 'Cliente - ';
+        vm.Title = 'Editar Cliente - ';
         vm.SetForm = 1;
         vm.ShowAccord = true;
         vm.BlockInput = true;
@@ -968,9 +1053,12 @@ angular
         vm.ShowTipServ1 = false;
         vm.View = false;
         vm.TouchFile = false;
+        vm.TBtnSaveSP = '';
+        vm.TBtnDeleteSP = '';
         vm.tipoUsuario = $localStorage.currentUser.tipoUsuario
         vm.clv_usuario = $localStorage.currentUser
         vm.ValidateRFC = /^[A-Z]{4}\d{6}[a-zA-Z]{3}$|^[A-Z]{4}\d{6}\d{3}$|^[A-Z]{4}\d{6}[A-Z]{2}\d{1}$|^[A-Z]{4}\d{6}[A-Z]{1}\d{2}$|^[A-Z]{4}\d{6}\d{2}[a-zA-Z]{1}$|^[A-Z]{4}\d{6}\d{1}[a-zA-Z]{2}$|^[A-Z]{4}\d{6}\d{1}[A-Z]{1}\d{1}$|^[A-Z]{4}\d{6}[A-Z]{1}\d{1}[a-zA-Z]{1}$/;
+        vm.ShowBtnAddPaq = false;
         vm.AddDatosPersonales = AddDatosPersonales;
         vm.GetCiudadMunicipio = GetCiudadMunicipio;
         vm.GetLocalidad = GetLocalidad;
@@ -997,5 +1085,7 @@ angular
         vm.SetRevisado = SetRevisado;
         vm.SetRecibido = SetRecibido;
         vm.GetDocumentoCliente = GetDocumentoCliente;
+        vm.DeleteServicioCliente = DeleteServicioCliente;
+        vm.OpenAddPaqueteAdic = OpenAddPaqueteAdic;
         initData();
     });

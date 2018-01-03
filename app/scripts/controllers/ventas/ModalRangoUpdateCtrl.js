@@ -32,6 +32,16 @@ angular
         }
 
         function SaveRango(){
+            /*var ObjRango = {
+                'rangoIni': vm.RangoInferior,
+                'rangoFin': vm.RangoSuperior,
+                'idcompania': vm.Plaza.id_compania,
+                'CveRango': vm.CveRango,
+            };
+            SeriesFactory.GetValidaUpdateRango(ObjRango).then(function(data){
+                console.log(data);
+            });*/
+            
             var ObjRango = {
                 'CveRango': vm.CveRango
             };
@@ -54,7 +64,7 @@ angular
                         */
                     });
                 }else{
-                    ngNotify.set('ERROR, No se puede modificar porque al rango ya se le asigno un precio.', 'warn');
+                    ngNotify.set('ERROR, No se puede modificar porque al rango ya se le asigno una comisión.', 'warn');
                 }
             });
         }
