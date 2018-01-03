@@ -1739,7 +1739,6 @@ angular
         'OP': obj.Op,
         'clv_tipser': obj.Clv_TipSer
       };
-      console.log(Parametros);
       var config = {
         headers: {
           'Authorization': $localStorage.currentUser.token

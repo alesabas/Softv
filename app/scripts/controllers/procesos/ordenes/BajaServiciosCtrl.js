@@ -65,7 +65,6 @@
         });
       });
 
-
       //Lleno los servicios instalados del cliente
       var parametros={
         'contrato': items.contrato,
@@ -73,14 +72,10 @@
         'Op': 14,
         'Status':'P'
       };
-
-      console.log(parametros);
-
       ordenesFactory.MuestraServiciosDelCli_porOpcion(parametros).then(function (data) {
-        vm.serviciosActuales=data.GetMuestraServiciosDelCli_porOpcionListResult;
-        
-      });
 
+        vm.serviciosActuales=data.GetMuestraServiciosDelCli_porOpcionListResult;
+      });
 
       ordenesFactory.GetMUESTRAIPAQU_porSOL(items.clv_detalle_orden, items.clv_orden).then(function (data) {
         vm.cableModems2 = data.GetMUESTRAIPAQU_porSOLResult;
@@ -91,7 +86,6 @@
             detalle: items.clv_detalle_orden,
             op: op
           };
-          
           ordenesFactory.detalleCableModem(modem)
             .then(function (data) {             
               item.descripcion = data.GetMUESTRACONTNET_PorOpcionResult[0].DESCRIPCION;
@@ -103,10 +97,7 @@
       });
     }
 
-
     function transfer(element, action) {
-      console.log(element);
-     
       var AddIPAQ = false;
       var AddIPAQUD = false;
       if (items.descripcion.toLowerCase().includes('ipaqu') ||
@@ -122,7 +113,6 @@
       } else {
         AddIPAQUD = true;
       }
-
       if (items.descripcion.toLowerCase().includes('ipaqu') ||
         items.descripcion.toLowerCase().includes('ipaqut') ||
         items.descripcion.toLowerCase().includes('ipaqud')) {
@@ -144,7 +134,6 @@
       ) {
         vm.status = 'I';
       }
-
       var objaddIpaqu = {
         'objIPAQU': {
           'Clave': items.clv_detalle_orden,
@@ -155,8 +144,6 @@
           'Status': vm.status
         }
       }
-     
-
       var objaddIpaqud = {
         'Clave': items.clv_detalle_orden,
         'Clv_Orden': items.clv_orden,
@@ -165,8 +152,6 @@
         'Op': 0,
         'Status': vm.status
       }
-
-
       var Motcan = {
         'Clv_Orden': items.clv_orden,
         'Clv_TipSer': items.servicio.clv_tipser,
@@ -174,21 +159,15 @@
         'Clv_UnicaNet': element.clv_unicanet,
         'Op': 0
       };
-
-
       var ObjdelIPAQ = {
         'Clave': items.clv_detalle_orden,
         'Clv_Orden': items.clv_orden,
         'Contratonet': 0,
-        'Clv_UnicaNet': element.clv_unicanet,
+        'Clv_UnicaNet': element.UnicaNet,
         'Op': 0
       };
-
-
       if (AddIPAQ == true) {
-        
         if (action == 'ADD') {
-
           ordenesFactory.addIpaqu(objaddIpaqu).then(function (data) {            
             if (vm.status == 'B') {
               ordenesFactory.guardaMotivoCancelacion(Motcan).then(function (data) {               
@@ -196,27 +175,19 @@
             }
             Actualizar_contenido();
           });
-
         } else {
-
-
-          ordenesFactory.DeleteIPAQU(ObjdelIPAQ).then(function (data) {          
+          ordenesFactory.DeleteIPAQU(ObjdelIPAQ).then(function (data) {   
             ordenesFactory.GetBorraMotivoCanServ2(Motcan).then(function (result) {              
               Actualizar_contenido();
             });
           });
-
         }
-
       }
-
       if (AddIPAQUD == true) {
-        
         if (action == 'ADD') {
           ordenesFactory.AddIPAQUD(objaddIpaqud).then(function (data) {
             if (vm.status == 'B') {
               ordenesFactory.guardaMotivoCancelacion(Motcan).then(function () {
-
               });
             }
           });
@@ -228,8 +199,10 @@
         }
       }
     }
+
     function cancel() {
       $uibModalInstance.dismiss('cancel');
     }
+
   }
 })();

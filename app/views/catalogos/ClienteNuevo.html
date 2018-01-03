@@ -4,12 +4,10 @@
         overflow:auto;  
         margin-top:20px;
     }
-
     .table-scroll-docs {
         height:300px;
         overflow:auto;  
     }
-
     .input-sm {
         font-size: 12px;
     }
@@ -18,16 +16,13 @@
         float:left;
         font-size: 13px;
     }
-
     .contect-tabs{
         float:left;
     }
-
     .fileUpload {
         position: relative;
         overflow: hidden;
     }
-    
     .fileUpload input.upload {
         position: absolute;
         top: 0;
@@ -36,6 +31,12 @@
         padding: 0;
         cursor: pointer;
         opacity: 0;
+    }
+    .span-info{
+        color: #2196f3;
+    }
+    .span-danger{
+        color: #f44336;
     }
 </style>
 <style type="text/css">
@@ -916,22 +917,22 @@
                                             <span style="color:#2196f3" ng-switch-when="folder" class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
                                             <span style="color:#2196f3" ng-switch-when="pic" class="glyphicon glyphicon-picture" aria-hidden="true"></span>
                                             <span style="color:#2196f3" ng-switch-when="doc" class="glyphicon glyphicon-file" aria-hidden="true"></span>
-                                            <span style="color:#2196f3" ng-switch-when="file" class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+                                            <span ng-class="(node.status != 'B')?'span-info':'span-danger'" ng-switch-when="file" class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
                                             <span style="color:#2196f3" ng-switch-when="movie" class="glyphicon glyphicon-film" aria-hidden="true"></span>
                                             <span style="color:#2196f3" ng-switch-when="email" class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
-                                            <span style="color:#2196f3" ng-switch-when="home" class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                                            <span ng-class="(node.status != 'B')?'span-info':'span-danger'" ng-switch-when="home" class="glyphicon glyphicon-home" aria-hidden="true"></span>
                                             <span style="color:#2196f3" ng-switch-when="trash" class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                            <span style="color:#2196f3" ng-switch-when="Paquete" class="fa fa-desktop" aria-hidden="true"></span>
+                                            <span ng-class="(node.status != 'B')?'span-info':'span-danger'" ng-switch-when="Paquete" class="fa fa-desktop" aria-hidden="true"></span>
                                         </span>
-                                        <a class="text-info" style="font-size:12px" ng-if="node.Tipo == 'A'">{{node.Nombre}} ({{node.Detalle}})</a>
-                                        <a class="text-info" style="font-size:12px" ng-if="node.Tipo == 'P'">{{node.Nombre}}</a>
-                                        <a class="text-info" style="font-size:12px" ng-if="node.status == 'C'">{{node.Nombre}} (Contratado)</a>
-                                        <a class="text-info" style="font-size:12px" ng-if="node.status == 'I'">{{node.Nombre}} (Instalado)</a>
-                                        <a class="text-info" style="font-size:12px" ng-if="node.status == 'D'">{{node.Nombre}} (Desconectado)</a>
-                                        <a class="text-info" style="font-size:12px" ng-if="node.status == 'S'">{{node.Nombre}} (Suspendido)</a>
-                                        <a class="text-info" style="font-size:12px" ng-if="node.status == 'T'">{{node.Nombre}} (Suspención Temporal)</a>
-                                        <a class="text-info" style="font-size:12px" ng-if="node.status == 'F'">{{node.Nombre}} (Fuera de Area)</a>
-                                        <a class="text-info" style="font-size:12px" ng-if="node.status == 'B'">{{node.Nombre}} (Baja)</a>
+                                        <a ng-class="(node.status != 'B')?'text-info':'text-danger'" style="font-size:12px" ng-if="node.Tipo == 'A'">{{node.Nombre}} ({{node.Detalle}})</a>
+                                        <a ng-class="(node.status != 'B')?'text-info':'text-danger'" style="font-size:12px" ng-if="node.Tipo == 'P'">{{node.Nombre}}</a>
+                                        <a class="text-info" style="font-size:12px" ng-if="node.status == 'C' && node.Tipo == 'S'">{{node.Nombre}} (Contratado)</a>
+                                        <a class="text-info" style="font-size:12px" ng-if="node.status == 'I' && node.Tipo == 'S'">{{node.Nombre}} (Instalado)</a>
+                                        <a class="text-info" style="font-size:12px" ng-if="node.status == 'D' && node.Tipo == 'S'">{{node.Nombre}} (Desconectado)</a>
+                                        <a class="text-info" style="font-size:12px" ng-if="node.status == 'S' && node.Tipo == 'S'">{{node.Nombre}} (Suspendido)</a>
+                                        <a class="text-info" style="font-size:12px" ng-if="node.status == 'T' && node.Tipo == 'S'">{{node.Nombre}} (Suspención Temporal)</a>
+                                        <a class="text-info" style="font-size:12px" ng-if="node.status == 'F' && node.Tipo == 'S'">{{node.Nombre}} (Fuera de Area)</a>
+                                        <a class="text-danger" style="font-size:12px" ng-if="node.status == 'B' && node.Tipo == 'S'">{{node.Nombre}} (Baja)</a>
                                         <button type="button" class="btn btn-primary btn-xs" title="Agregar Paquete Adicional" ng-click="$ctrl.OpenAddPaqueteAdic(node.Clv_UnicaNet)" ng-if="node.Clv_TipSer == 3 && node.Tipo == 'S'"><i class="fa fa-plus"></i></button>
                                         <button type="button" class="btn btn-danger btn-xs" title="Eliminar Paquete Adicional" ng-click="$ctrl.DeleteServicioCliente(node.Clv_UnicaNet)" ng-if="node.Clv_TipSer == 3 && node.Tipo == 'P'"><i class="fa fa-minus"></i></button>
                                     </treecontrol>
