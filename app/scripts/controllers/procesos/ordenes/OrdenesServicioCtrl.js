@@ -21,6 +21,7 @@
     vm.buscarSetup = buscarSetup;
     vm.buscarStatus = buscarStatus;
     vm.DetalleOrden = DetalleOrden;
+    vm.PreviewTrabajos = PreviewTrabajos;
     vm.ejecuta = ejecuta;
 
 
@@ -333,7 +334,13 @@
           vm.conRegistros = true;
         }
       });
-
+    }
+    function PreviewTrabajos(clv_orden){
+      vm.trabajosTabla = null;
+      ordenesFactory.consultaTablaServicios(clv_orden).then(function (data) {
+        console.log(data);
+        vm.trabajosTabla = data.GetBUSCADetOrdSerListResult;
+      });
     }
   }
 })();
