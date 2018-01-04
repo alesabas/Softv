@@ -340,7 +340,7 @@ angular
                 backdrop: 'static',
                 keyboard: false,
                 class: 'modal-backdrop fade',
-                size: 'md',
+                size: 'sm',
                 resolve: {
                     ObjConcepto: function () {
                         return ObjConcepto;

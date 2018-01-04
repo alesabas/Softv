@@ -12,6 +12,7 @@ angular
         }
 
         function SaveConcepto(){
+            console.log('s');
             var objValidaPeriodos = {
                 'Clv_LLave': vm.CLV_LLAVE,
                 'Fec_Ini': ToDateStr(vm.FechaInicio),
@@ -23,13 +24,14 @@ angular
                 'Clv_TipoCliente': vm.Clv_TipoCobro 
             };
             CatalogosFactory.AddValidaPeriodos(objValidaPeriodos).then(function(data){
+                console.log('Val');
                 var result = data.AddValidaPeriodosResult;
                 if(result == 0){
                     var objREL_TARIFADOS_SERVICIOS_New = {
                         'CLV_LLAVE': vm.CLV_LLAVE,
                         'CLV_SERVICIO': vm.Clv_Servicio,
                         'CLAVE': vm.TipoConcepto.Clave,
-                        'PRECIO': (vm.Clv_TipSer == 2)? vm.Precio:0,
+                        'PRECIO': SavePrecio(),
                         'DIA_INICIAL': vm.DiaInicial,
                         'DIA_FINAL': vm.DiaFinal,
                         'BRINCA_MES': (vm.AvanzaMes == 'Y')? 1 : 0,
@@ -48,6 +50,7 @@ angular
                         'Clv_TipoCliente': vm.Clv_TipoCobro,
                         'Se_Cobra_Proporcional': (vm.SeCobraMensualidad == 'Y')? 1 : 0
                     };
+                    console.log(objREL_TARIFADOS_SERVICIOS_New);
                     if(vm.AplicaTodos == 'Y'){
                         CatalogosFactory.UpdateREL_TARIFADOS_SERVICIOSAll_New(objREL_TARIFADOS_SERVICIOS_New).then(function(data){
                             ngNotify.set('CORRECTO, se añadió un concepto nuevo.', 'success');
@@ -79,6 +82,21 @@ angular
                     cancel();
                 }
             });
+        }
+
+        function SavePrecio(){
+            console.log('p');
+            var P = 0;
+            if(vm.Clv_TipSer == 2){
+                P = vm.Precio
+            }else if(vm.Clv_TipSer == 3){
+                P = vm.Principal;
+            }else{
+                P = 0;
+            }
+            console.log(P);
+            return P;
+            //(vm.Clv_TipSer == 2)? vm.Precio:0
         }
 
         function SetInsdtalacion(){
@@ -142,9 +160,11 @@ angular
                 'Clv_TipoCliente': ObjConcepto.CLV_TIPOCLIENTE
             };
             CatalogosFactory.GetDeepREL_TARIFADOS_SERVICIOS_New(ObjGetConcepto).then(function(data){
+                console.log(data);
                 var Concepto = data.GetDeepREL_TARIFADOS_SERVICIOS_NewResult;
                 vm.CLV_LLAVE = Concepto.CLV_LLAVE;
                 vm.Clv_Servicio = Concepto.CLV_SERVICIO;
+                vm.Precio = Concepto.PRECIO;
                 vm.FechaInicio = toDate(Concepto.Periodo_Inicial); 
                 vm.FechaFinal = toDate(Concepto.Periodo_Final);
                 vm.DiaInicial = Concepto.DIA_INICIAL,

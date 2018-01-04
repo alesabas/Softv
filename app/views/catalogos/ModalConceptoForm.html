@@ -36,7 +36,7 @@
                     <b>Precio:</b>
                 </div>
                 <div class="col-md-4">
-                    <input type="number" name="Precio" class="form-control input-sm" ng-model="ctrl.Precio" min="1" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido.'">
+                    <input type="number" name="Precio" class="form-control input-sm" ng-model="ctrl.Precio" min="1" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido.'" ng-if="ctrl.Clv_TipSer == 2">
                 </div>
             </div>
         </div>
@@ -118,13 +118,13 @@
                     <b>Día Inicial:</b>
                 </div>
                 <div class="col-md-3">
-                    <input type="number" name="DiaInicial" class="form-control input-sm" ng-model="ctrl.DiaInicial" validate-on="dirty" min="0" max="31" validator="ctrl.DiaInicial < ctrl.DiaFinal" required required-message="'Obligatorio'" invalid-message="'Inválido, debe ser menor al día final.'" ng-change="ctrl.DiaFinal = ctrl.DiaInicial + 1">
+                    <input type="number" name="DiaInicial" class="form-control input-sm" ng-model="ctrl.DiaInicial" validate-on="dirty" min="0" max="31" validator="ctrl.DiaInicial < ctrl.DiaFinal" required required-message="'Obligatorio'" invalid-message="'Inválido, debe ser menor al día final.'">
                 </div>
                 <div class="col-md-offset-1 col-md-2">
                     <b>Día Final:</b>
                 </div>
                 <div class="col-md-3">
-                    <input type="number" name="DiaFinal" class="form-control input-sm" ng-model="ctrl.DiaFinal" validate-on="dirty" min="1" max="32" validator="ctrl.DiaFinal > ctrl.DiaInicial" required required-message="'Obligatorio'" invalid-message="'Inválido, debe ser mayor al día inicial.'" ng-change="ctrl.DiaInicial = ctrl.DiaFinal - 1">
+                    <input type="number" name="DiaFinal" class="form-control input-sm" ng-model="ctrl.DiaFinal" validate-on="dirty" min="1" max="32" validator="ctrl.DiaFinal > ctrl.DiaInicial" required required-message="'Obligatorio'" invalid-message="'Inválido, debe ser mayor al día inicial.'">
                 </div>
             </div>
         </div>
