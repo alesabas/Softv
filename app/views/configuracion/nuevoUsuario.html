@@ -15,30 +15,126 @@
       </div>
     </div>
     <div class="card-body">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="col-md-12">
+            <h4 class="text-danger text-center">Datos del usuario</h4>
+          </div>
+          <div class="col-md-12">
+            <div class="col-md-6">
+              <b>Clave</b>
+            </div>
+            <div class="col-md-6">
+              <b>Nombre del usuario</b>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="col-md-6">
+              <input type="text" style="text-transform: uppercase" class="form-control input-sm" name="Clave" required-message="'Este campo es obligatorio'" ng-required="true" validate-on="dirty" ng-model="$ctrl.Clave" placeholder="Clave de 4 letras">
+            </div>
+            <div class="col-md-6">
+              <input type="text" class="form-control input-sm" name="Nombre" required-message="'Este campo es obligatorio'" ng-required="true" validate-on="dirty" ng-model="$ctrl.Nombre" placeholder="Nombre del usuario">
+            </div>
+          </div>
+          <div class="col-md-12">
+            <br>
+          </div>
+          <div class="col-md-12">
+            <div class="col-md-6">
+              <b>Tipo de usuario</b>
+            </div>
+            <div class="col-md-6">
+              <b>Identificación:</b>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="col-md-6">
+              <select class="form-control input-sm" ng-options="item as item.Nombre for item in $ctrl.Roles track by item.IdRol" name="rol" ng-model="$ctrl.rol">
+                <option value="">selecciona</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <select class="form-control input-sm" name="identificacion" ng-options="item as item.Nombre for item in $ctrl.Indentificaciones track by item.Clave" ng-model="$ctrl.identificacion">
+                <option value="">selecciona</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <br>
+          </div>
+          <div class="col-md-12">
+            <div class="col-md-6">
+              <b>Fecha de Ingreso:</b>
+            </div>
+            <div class="col-md-6">
+              <b>Fecha de Baja:</b>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="col-md-6">
+              <input type="text" class="form-control input-sm" name="fechaingreso" required-message="'Este campo es obligatorio'" ng-required="true" validate-on="dirty" ng-model="$ctrl.fechaingreso" placeholder="DD/MM/YYYY" ui-mask="99/99/9999">
+            </div>
+            <div class="col-md-6">
+              <input type="text" class="form-control input-sm" name="fechabaja" ng-disabled="$ctrl.activo" validate-on="dirty" ng-model="$ctrl.fechabaja" placeholder="DD/MM/YYYY" ui-mask="99/99/9999">
+            </div>
+          </div>
+          <div class="col-md-12">
+            <br>
+          </div>
+          <div class="col-md-12" ng-show="$ctrl.oculta">
+            <div class="col-md-6">
+              <b>Pasaporte</b>
+            </div>
+            <div class="col-md-6">
+              <b> valida Pasaporte</b>
+            </div>
+          </div>
+          <div class="col-md-12" ng-show="$ctrl.oculta">
+            <div class="col-md-6">
+              <input type="password" class="form-control input-sm" name="pass1" required-message="'Este campo es obligatorio'" ng-required="true" validate-on="dirty" ng-model="$ctrl.pass1">
+            </div>
+            <div class="col-md-6">
+              <input type="password" class="form-control input-sm" name="pass2" required-message="'Este campo es obligatorio'" ng-required="true" validate-on="dirty" ng-model="$ctrl.pass2">
+            </div>
+          </div>
+          <div class="col-md-12">
+            <br>
+          </div>
+          <div class="col-md-12">
+            <div class="col-md-6">
+              <label class="checkbox-inline checkbox-styled checkbox-info">
+								<input type="checkbox" name="activo" ng-model="$ctrl.activo" value="option3" checked=""><span>Activo </span>
+							</label>
+            </div>
+            <div class="col-md-6">
+              <label class="checkbox-inline checkbox-styled checkbox-info">
+							  <input type="checkbox" ng-model="$ctrl.recibemensaje" name="recibe"><span>Recibe mensaje</span>
+							</label>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-offset-1 col-md-5">
 
+        </div>
+      </div>
+      <br>
+      <!-- -->
       <div class="col-md-12">
-        
-
         <div class="col-md-3" style="margin: 10px;">
           <fieldset ng-disabled="$ctrl.blockForm">
             <div class="row">
               <label><b>Clave</b></label>
-              <input type="text" style="text-transform: uppercase" class="form-control input-sm" name="Clave" required-message="'Este campo es obligatorio'"
-                ng-required="true" validate-on="dirty" ng-model="$ctrl.Clave" placeholder="Clave de 4 letras">
-
+              <input type="text" style="text-transform: uppercase" class="form-control input-sm" name="Clave" required-message="'Este campo es obligatorio'" ng-required="true" validate-on="dirty" ng-model="$ctrl.Clave" placeholder="Clave de 4 letras">
             </div>
             <div class="row">
               <label><b>Nombre del usuario</b></label>
-              <input type="text" class="form-control input-sm" name="Nombre" required-message="'Este campo es obligatorio'" ng-required="true"
-                validate-on="dirty" ng-model="$ctrl.Nombre" placeholder="Nombre del usuario">
-
+              <input type="text" class="form-control input-sm" name="Nombre" required-message="'Este campo es obligatorio'" ng-required="true" validate-on="dirty" ng-model="$ctrl.Nombre" placeholder="Nombre del usuario">
             </div>
             <div class="row">
               <label><b>Tipo de usuario</b></label>
-              <select class="form-control input-sm" ng-options="item as item.Nombre for item in $ctrl.Roles track by item.IdRol" name="rol"
-                ng-model="$ctrl.rol">
-            <option value="">selecciona</option>
-          </select>
+              <select class="form-control input-sm" ng-options="item as item.Nombre for item in $ctrl.Roles track by item.IdRol" name="rol" ng-model="$ctrl.rol">
+                <option value="">selecciona</option>
+              </select>
             </div>
             <!-- <div class="row">
           <label><b>Domicilio</b></label>
@@ -54,9 +150,7 @@
         </div>-->
             <div class="row" ng-show="$ctrl.oculta">
               <label><b>Pasaporte</b></label>
-              <input type="password" class="form-control input-sm" name="pass1" required-message="'Este campo es obligatorio'" ng-required="true"
-                validate-on="dirty" ng-model="$ctrl.pass1">
-
+              <input type="password" class="form-control input-sm" name="pass1" required-message="'Este campo es obligatorio'" ng-required="true" validate-on="dirty" ng-model="$ctrl.pass1">
             </div>
             <div class="row" ng-show="$ctrl.oculta">
               <label><b> valida Pasaporte</b></label>
