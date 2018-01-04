@@ -49,7 +49,7 @@ angular
                     var objREL_TARIFADOS_SERVICIOS_New = {
                         'CLV_SERVICIO': vm.Clv_Servicio,
                         'CLAVE': vm.TipoConcepto.Clave,
-                        'PRECIO': (vm.Clv_TipSer == 2)? vm.Precio:0,
+                        'PRECIO': SavePrecio(),//(vm.Clv_TipSer == 2)? vm.Precio:0,
                         'DIA_INICIAL': vm.DiaInicial,
                         'DIA_FINAL': vm.DiaFinal,
                         'BRINCA_MES': (vm.AvanzaMes == 'Y')? 1 : 0,
@@ -96,6 +96,17 @@ angular
                     cancel();
                 }
             });
+        }
+
+        function SavePrecio(){
+            var P = 0;
+            if(vm.Clv_TipSer == 2){
+                p = vm.Precio
+            }else if(vm.Clv_TipSer == 3){
+                p = vm.Principal;
+            }
+            return p;
+            //(vm.Clv_TipSer == 2)? vm.Precio:0
         }
 
         function SetInsdtalacion(Clv_Llave){
