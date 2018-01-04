@@ -51,7 +51,7 @@ angular
     }
 
     var vm = this;
-    vm.Titulo = 'Nuevo Registro';
+    vm.Titulo = 'Nueva caja';
     init();
     vm.GetSucursales = GetSucursales;
     vm.SaveCaja = SaveCaja;
