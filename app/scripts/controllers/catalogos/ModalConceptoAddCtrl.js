@@ -101,11 +101,11 @@ angular
         function SavePrecio(){
             var P = 0;
             if(vm.Clv_TipSer == 2){
-                p = vm.Precio
+                P = vm.Precio
             }else if(vm.Clv_TipSer == 3){
-                p = vm.Principal;
+                P = vm.Principal;
             }
-            return p;
+            return P;
             //(vm.Clv_TipSer == 2)? vm.Precio:0
         }
 
