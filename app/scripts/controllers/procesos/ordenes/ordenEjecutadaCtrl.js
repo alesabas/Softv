@@ -416,7 +416,7 @@
       }else if(
           x.Descripcion.toLowerCase().includes('isnet') ||
           x.Descripcion.toLowerCase().includes('isdig') ||
-          x.Descripcion.toLowerCase().includes('isdtv')
+          x.Descripcion.toLowerCase().includes('istva')
           ){
           var items_ = {
             'clv_orden': x.Clv_Orden,
