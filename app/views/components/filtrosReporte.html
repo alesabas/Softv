@@ -30,38 +30,108 @@
         .dualmultiselect .pool ul li a:hover {
           text-decoration: none;
         }
+
+        .confirm{
+          background-color: #f5efef;         
+          margin-top: 30px;
+          padding: 20px;
+        }
+
       </style>
-       {{$ctrl.$ctrl.options}}
-      <div class="dualmultiselect" ng-show="$ctrl.muestraFiltros">
-        <div class="row">
-          <div class="col-lg-5 col-md-5 col-sm-5">
-            <input class="form-control" placeholder="{{$ctrl.options.filterPlaceHolder}}" ng-model="searchTerm">
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-6 col-md-6 col-sm-6">
-            <label>{{$ctrl.options.labelAll}}</label>
-            <button type="button" class="btn btn-warning btn-xs" ng-click="transfer($ctrl.options.items, $ctrl.options.selectedItems, -1)">Seleccionar Todo </button>
-            <div class="pool">
-              <ul>
-                <li ng-click=" $ctrl.transfer($ctrl.options.items, $ctrl.options.selectedItems, $ctrl.options.items.indexOf(item))" ng-repeat="item in $ctrl.options.items | filter: searchTerm | orderBy: $ctrl.options.orderProperty">
-                  <a href="">{{item[$ctrl.options.labelShow]}}</a>
-                </li>
-              </ul>
+    
+
+
+    <div class="col-md-6">
+
+        <div class="dualmultiselect row" ng-show="$ctrl.muestraFiltrosDist">
+            <div class="row">
+              <div class="col-lg-5 col-md-5 col-sm-5">
+                <input class="form-control" placeholder="{{$ctrl.options.filterPlaceHolder}}" ng-model="searchTerm">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <label>{{$ctrl.options.labelAll}}</label>
+                <button type="button" class="btn btn-warning btn-xs" ng-click="transfer($ctrl.options.items, $ctrl.options.selectedItems, -1)">Seleccionar Todo </button>
+                <div class="pool">
+                  <ul>
+                    <li ng-click=" $ctrl.transfer($ctrl.options.items, $ctrl.options.selectedItems, $ctrl.options.items.indexOf(item))" ng-repeat="item in $ctrl.options.items | filter: searchTerm | orderBy: $ctrl.options.orderProperty">
+                      <a href="">{{item[$ctrl.options.labelShow]}}</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <label>{{$ctrl.options.labelSelected}}</label>
+                <button type="button" class="btn btn-warning btn-xs" ng-click="transfer($ctrl.options.selectedItems, $ctrl.options.items, -1)"> Deseleccionar Todo </button>
+                <div class="pool">
+                  <ul>
+                    <li ng-click=" $ctrl.transfer($ctrl.options.selectedItems, $ctrl.options.items, $ctrl.options.selectedItems.indexOf(item))" ng-repeat="item in $ctrl.options.selectedItems | orderBy: $ctrl.options.orderProperty">
+                      <a href="">{{item[$ctrl.options.labelShow]}}</a>
+                    </li>
+                  </ul>
+                </div>
+                <button ng-click="$ctrl.next($ctrl.report)" class="btn btn-primary " >Siguiente</button>
+              </div>
             </div>
           </div>
-          <div class="col-lg-6 col-md-6 col-sm-6">
-            <label>{{$ctrl.options.labelSelected}}</label>
-            <button type="button" class="btn btn-warning btn-xs" ng-click="transfer($ctrl.options.selectedItems, $ctrl.options.items, -1)"> Deseleccionar Todo </button>
-            <div class="pool">
-              <ul>
-                <li ng-click=" $ctrl.transfer($ctrl.options.selectedItems, $ctrl.options.items, $ctrl.options.selectedItems.indexOf(item))" ng-repeat="item in $ctrl.options.selectedItems | orderBy: $ctrl.options.orderProperty">
-                  <a href="">{{item[$ctrl.options.labelShow]}}</a>
-                </li>
-              </ul>
+    
+          <div class="row"  ng-show="$ctrl.muestraRangosFecha">
+    
+           
+            <div class="col-md-9">
+                <div class="alert alert-info" role="alert">
+                    <strong>Atencion !</strong> Selecciona un rango de fechas para el reporte.
+                  </div>
+      
+                  <div class="col-md-6">
+                      <label><i class="md md-today"></i> Fecha Inicial:</label>
+                      <div class="input-group" moment-picker="$ctrl.fechainicio" format="YYYY-MM-DD">
+                        <span class="input-group-addon">
+                        <i class="octicon octicon-calendar"></i>
+                        </span>
+                        <input class="form-control input-sm" placeholder="Fecha de inicio" validate-on="dirty" required required-message="'Este campo es obligatorio.'"
+                          ng-model="$ctrl.fechainicio" ng-model-options="{ updateOn: 'blur' }">
+                      </div>
+                    </div>
+      
+                    <div class="col-md-6">
+                        <label> <i class="md md-today"></i> Fecha final:</label>
+                        <div class="input-group" moment-picker="$ctrl.fechafin" format="YYYY-MM-DD">
+                          <span class="input-group-addon">
+                          <i class="octicon octicon-calendar"></i>
+                          </span>
+                          <input class="form-control input-sm" placeholder="Fecha de inicio" validate-on="dirty" required required-message="'Este campo es obligatorio.'"
+                            ng-model="$ctrl.fechafin" ng-model-options="{ updateOn: 'blur' }">
+                        </div>
+                      </div>
+      
+    
+    
+    
             </div>
-            <button ng-click="$ctrl.next($ctrl.report)" class="btn btn-primary " >Siguiente</button>
+            <div class="col-md-3"></div>
+              
           </div>
-        </div>
-      </div>
+    
+          <div class="row confirm " ng-show="$ctrl.confirm">
+            <div class="col-md-12">
+                <div class="col-md-6 col-md-offset-3">
+                    <button class="btn btn-success btn-block" ng-click="$ctrl.generarReporte()">
+                    <i class="md md-done"></i>  Generar Reporte
+                    
+                    </button>
+                </div>
+            </div>
+          
+           
+          </div>
+
+    </div>
+    <div class="col-md-6">
+    <iframe src="{{$ctrl.url}}"  width="600px;" height="500px;" ></iframe>
+    </div>
+
+
+     
       

@@ -41,8 +41,38 @@ angular
 			getCatalogoOptionsEspeciales: '/CatalogoReportesFac/GetCatalogoRepCorteEspecialFacList',
 			reporteGeneralEspeciales: '/ReporteCortesEspeciales/GetReporteCortesEspGralList',
 			reporteSucursalEspeciales: '/ReporteCortesEspeciales/GetReporteCortesEspSucList',
-			reporteFacturasFiscales: '/RepFacFisEspeciales/GetRepFacFisEspecialesGralList'
+			reporteFacturasFiscales: '/RepFacFisEspeciales/GetRepFacFisEspecialesGralList',
+			//reportes clientes
+			GetReporteProspectos:'/Reportes/GetReporteProspectos'
 		};
+
+
+		factory.GetReporteProspectos = function(distribuidores,plazas,fechaInicial,fechaFinal) {
+			var deferred = $q.defer();
+			var Parametros = {
+				'distribuidores':distribuidores,
+				'plazas':plazas,
+				'fechaInicio':fechaInicial,
+				'fechafin':fechaFinal
+			};
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			$http.post(globalService.getUrl() + paths.GetReporteProspectos, JSON.stringify(Parametros), config).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(response) {
+				deferred.reject(response.data);
+			});
+
+			return deferred.promise;
+		};
+
+
+        
+
+
 
 		factory.getOpcionsMenu = function() {
 			var deferred = $q.defer();
