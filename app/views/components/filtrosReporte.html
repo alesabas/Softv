@@ -113,12 +113,104 @@
             <div class="col-md-3"></div>
               
           </div>
+
+          <div class="row" ng-show="$ctrl.muestrafiltroPeriodo">
+             <div class="col-md-12">
+                 <div class="col-md-6" >
+                   <label>Mes</label>
+                   <input type="number" ng-model="$ctrl.Mes" class="form-control" >
+                 </div>
+                 <div class="col-md-6" >
+                    <label>Año</label>
+                    <input type="number" ng-model="$ctrl.anio" class="form-control" >
+                 </div>
+             </div>
+             <div class="col-md-12">
+               <br>
+               <label><b>Periodo</b></label><br>
+               <label class="radio-inline radio-styled radio-warning">
+                  <input type="radio" checked="" ng-model="$ctrl.fechames" value="1"><span>del 1 al 15 del mes</span>
+                </label>
+                <label class="radio-inline radio-styled radio-warning">
+                    <input type="radio" checked="" ng-model="$ctrl.fechames" value="2"><span>del 1 al 30 del mes </span>
+                  </label>
+              </div>
+              <div class="col-md-12">
+                  <label><b>Selecciona Tipo de reporte</b></label><br>
+                  <label class="radio-inline radio-styled radio-warning">
+                     <input type="radio" checked="" ng-model="$ctrl.tiporepsusc" value="D"><span>Detallado</span>
+                   </label>
+                   <label class="radio-inline radio-styled radio-warning">
+                       <input type="radio" checked="" ng-model="$ctrl.tiporepsusc" value="R"><span>Resumen </span>
+                     </label>
+             </div>
+          </div>
+
+
+          <div class="row" ng-show="$ctrl.muestrafiltroPermanencia">
+              <div class="col-md-12">
+                <label>Selecciona tipo de servicios</label>
+                <select class="form-control" ng-model="$ctrl.servicioPerm" 	ng-options="v.Concepto for v in $ctrl.Tiposervicios track by v.Clv_TipSerPrincipal" >
+                  <option value="">Selecciona</option>
+                </select>
+              </div>
+              <div class="col-md-12">
+                <br><br>
+                <div class="col-md-2">DEL :</div>
+                 <div class="col-md-5">                   
+                    <select ng-model="$ctrl.permInicioMes" class="form-control " ng-options="v.nombre for v in $ctrl.meses track by v.id"> 
+                        <option value="">Seleciona</option>                       
+                    </select>
+                 </div>
+                 <div class="col-md-5">
+                    <select ng-model="$ctrl.permInicioAnio" class="form-control ">
+                        <option value="">Seleciona</option>
+                        <option value="2012">2012</option>
+                        <option value="2013">2013</option>
+                        <option value="2014">2014</option>
+                        <option value="2015">2015</option>
+                        <option value="2017">2017</option>
+                        <option value="2018">2018</option>
+                        <option value="2019">2019</option>
+                        <option value="2020">2020</option>
+                        <option value="2021">2021</option>
+                        <option value="2022">2022</option>
+                        <option value="2023">2023</option>
+                    </select>
+                 </div>
+                 <div class="col-md-2">HASTA :</div>
+                 <div class="col-md-5">
+                    <select ng-model="$ctrl.permFinMes" class="form-control "  ng-options="v.nombre for v in $ctrl.meses track by v.id">
+                        <option value="">Seleciona</option>                        
+                   </select>
+                 </div>
+                <div class="col-md-5">
+                    <select ng-model="$ctrl.permFinAnio" class="form-control ">
+                        <option value="">Seleciona</option>
+                        <option value="2012">2012</option>
+                        <option value="2013">2013</option>
+                        <option value="2014">2014</option>
+                        <option value="2015">2015</option>
+                        <option value="2017">2017</option>
+                        <option value="2018">2018</option>
+                        <option value="2019">2019</option>
+                        <option value="2020">2020</option>
+                        <option value="2021">2021</option>
+                        <option value="2022">2022</option>
+                        <option value="2023">2023</option>
+                    </select>
+                 </div>
+              </div>
+            <div class="col-md-12">
+              <button class="btn btn-warning" ng-click="$ctrl.next($ctrl.report)">Aceptar</button>
+            </div>
+           </div>
     
           <div class="row confirm " ng-show="$ctrl.confirm">
             <div class="col-md-12">
                 <div class="col-md-6 col-md-offset-3">
                     <button class="btn btn-success btn-block" ng-click="$ctrl.generarReporte()">
-                    <i class="md md-done"></i>  Generar Reporte
+                    <i class="md md-done"></i>  Generar Reporte 
                     
                     </button>
                 </div>
@@ -129,7 +221,9 @@
 
     </div>
     <div class="col-md-6">
-    <iframe src="{{$ctrl.url}}"  width="600px;" height="500px;" ></iframe>
+      
+      <a  href="{{$ctrl.url}}"  target="_blank"  class="btn btn-default-bright btn-block"><i class="fa fa-external-link-square" aria-hidden="true"></i> Ver reporte en pantalla completa </a>
+      <iframe src="{{$ctrl.url}}"  width="600px;" height="500px;" ></iframe>
     </div>
 
 

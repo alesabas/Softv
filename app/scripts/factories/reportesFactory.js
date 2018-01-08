@@ -43,8 +43,87 @@ angular
 			reporteSucursalEspeciales: '/ReporteCortesEspeciales/GetReporteCortesEspSucList',
 			reporteFacturasFiscales: '/RepFacFisEspeciales/GetRepFacFisEspecialesGralList',
 			//reportes clientes
-			GetReporteProspectos:'/Reportes/GetReporteProspectos'
+			GetReporteProspectos:'/Reportes/GetReporteProspectos',
+			GetReporteHoteles:'/Reportes/GetReporteHoteles',
+			GetReporteSuscriptores:'/Reportes/GetReporteSuscriptores',
+			GetReportePermanencia:'/Reportes/GetReportePermanencia'
 		};
+
+
+		factory.GetReportePermanencia = function(obj) {
+			var deferred = $q.defer();
+			var Parametros = {
+				'distribuidores':obj.distribuidores,
+				'plazas':obj.plazas,
+				'servicios':obj.servicios,
+				'mesInicio':obj.mesInicio,
+				'anioInicio':obj.anioInicio,
+				'mesFin':obj.mesFin,
+				'anioFin':obj.anioFin,
+				'StrmesInicio':obj.StrmesInicio,
+				'StrmesFin':obj.StrmesFin,
+				'Clv_tipser':obj.Clv_tipser
+			};
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			$http.post(globalService.getUrl() + paths.GetReportePermanencia, JSON.stringify(Parametros), config).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(response) {
+				deferred.reject(response.data);
+			});
+
+			return deferred.promise;
+		};
+
+
+		factory.GetReporteSuscriptores = function(obj) {
+			var deferred = $q.defer();
+			var Parametros = {
+				'distribuidores':obj.distribuidores,
+				'plazas':obj.plazas,
+				'estados':obj.estados,
+				'mes':obj.mes,
+				'anio':obj.anio,
+				'clv_reporte':obj.clv_reporte			
+			};
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			$http.post(globalService.getUrl() + paths.GetReporteSuscriptores, JSON.stringify(Parametros), config).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(response) {
+				deferred.reject(response.data);
+			});
+
+			return deferred.promise;
+		};
+
+
+		factory.GetReporteHoteles = function(distribuidores,plazas) {
+			var deferred = $q.defer();
+			var Parametros = {
+				'distribuidores':distribuidores,
+				'plazas':plazas			
+			};
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			$http.post(globalService.getUrl() + paths.GetReporteHoteles, JSON.stringify(Parametros), config).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(response) {
+				deferred.reject(response.data);
+			});
+
+			return deferred.promise;
+		};
+
 
 
 		factory.GetReporteProspectos = function(distribuidores,plazas,fechaInicial,fechaFinal) {

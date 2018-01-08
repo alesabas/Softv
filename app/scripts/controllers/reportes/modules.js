@@ -134,6 +134,22 @@ angular
 				templateUrl: 'views/reportes/prospectos.html',
 				controller: 'prospectosCtrl',
 				controllerAs: '$ctrl'
+			},
+			{
+				name: 'home.reportes.hoteles',
+				data: {
+					pageTitle: 'SAC | REPORTE DE HOTELES',
+					permissions: {
+						only: ['reportesvariosSelect'],
+						options: {
+							reload: false
+						}
+					}
+				},
+				url: '/reportes/hoteles',
+				templateUrl: 'views/reportes/hoteles.html',
+				controller: 'hotelesCtrl',
+				controllerAs: '$ctrl'
 			}
 
 		];
