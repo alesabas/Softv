@@ -23,7 +23,7 @@
                 </td>
                 <td class="text-center">
                     <label class="checkbox-inline checkbox-styled">
-                        <input type="checkbox" ng-model="x.checado2" ng-change="ctrl.addRecibir(x,x.checado2)"><span></span>
+                        <input type="checkbox" ng-model="x.checado2" ng-disabled="x.checado == false" ng-change="ctrl.addRecibir(x,x.checado2)"><span></span>
                     </label>
                 </td>
             </tr>
