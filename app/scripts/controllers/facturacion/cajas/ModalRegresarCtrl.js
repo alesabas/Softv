@@ -29,6 +29,19 @@ angular
 		// }
 
 		function addCancelar(item, status) {
+			console.log(status);
+			if(status == true){
+				vm.aparatos.forEach(function (element) {
+					element.checado = true;
+				});
+			}else{
+				vm.aparatos.forEach(function (element) {
+					element.checado = false;
+					element.checado2 = false;
+				});
+			}
+
+			
 			if (item.Detalle.toLowerCase().includes('router') || item.Detalle.toLowerCase().includes('ups')) {
 				var aparato = '';
 				if (item.Detalle.toLowerCase().includes('router')) {
