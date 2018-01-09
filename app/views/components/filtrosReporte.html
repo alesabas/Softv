@@ -41,7 +41,25 @@
     
 
 
-    <div class="col-md-6">
+    <div class="col-md-6">     
+       
+        <div class="row" ng-show="$ctrl.muestrafiltrotrabajos">
+          <div class="col-md-6">
+              <label>Selecciona tipo de servicio</label>
+              <select class="form-control" ng-model="$ctrl.tipserTrabajo" ng-change="$ctrl.getTrabajos($ctrl.tipserTrabajo.Clv_TipSerPrincipal)" 	ng-options="v.Concepto for v in $ctrl.Tiposervicios track by v.Clv_TipSerPrincipal" >
+                <option value="">Selecciona</option>
+              </select>
+          </div>
+          <div class="col-md-6">
+              <label>Selecciona tipo de servicio</label>
+              <select class="form-control" ng-model="$ctrl.tipoOrden"  ng-change="$ctrl.getTrabajos($ctrl.tipserTrabajo.Clv_TipSerPrincipal)"	ng-options="v.nombre for v in $ctrl.tipoOrdenList track by v.tipo" >
+                <option value="">Selecciona</option>
+              </select>
+              
+          </div>
+         </div>
+
+
 
         <div class="dualmultiselect row" ng-show="$ctrl.muestraFiltrosDist">
             <div class="row">
@@ -52,7 +70,7 @@
             <div class="row">
               <div class="col-lg-6 col-md-6 col-sm-6">
                 <label>{{$ctrl.options.labelAll}}</label>
-                <button type="button" class="btn btn-warning btn-xs" ng-click="transfer($ctrl.options.items, $ctrl.options.selectedItems, -1)">Seleccionar Todo </button>
+                <button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.transfer($ctrl.options.items, $ctrl.options.selectedItems, -1)">Seleccionar Todo </button>
                 <div class="pool">
                   <ul>
                     <li ng-click=" $ctrl.transfer($ctrl.options.items, $ctrl.options.selectedItems, $ctrl.options.items.indexOf(item))" ng-repeat="item in $ctrl.options.items | filter: searchTerm | orderBy: $ctrl.options.orderProperty">
@@ -63,7 +81,7 @@
               </div>
               <div class="col-lg-6 col-md-6 col-sm-6">
                 <label>{{$ctrl.options.labelSelected}}</label>
-                <button type="button" class="btn btn-warning btn-xs" ng-click="transfer($ctrl.options.selectedItems, $ctrl.options.items, -1)"> Deseleccionar Todo </button>
+                <button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.transfer($ctrl.options.selectedItems, $ctrl.options.items, -1)"> Deseleccionar Todo </button>
                 <div class="pool">
                   <ul>
                     <li ng-click=" $ctrl.transfer($ctrl.options.selectedItems, $ctrl.options.items, $ctrl.options.selectedItems.indexOf(item))" ng-repeat="item in $ctrl.options.selectedItems | orderBy: $ctrl.options.orderProperty">
@@ -76,9 +94,7 @@
             </div>
           </div>
     
-          <div class="row"  ng-show="$ctrl.muestraRangosFecha">
-    
-           
+         <div class="row"  ng-show="$ctrl.muestraRangosFecha">          
             <div class="col-md-9">
                 <div class="alert alert-info" role="alert">
                     <strong>Atencion !</strong> Selecciona un rango de fechas para el reporte.
@@ -104,13 +120,23 @@
                           <input class="form-control input-sm" placeholder="Fecha de inicio" validate-on="dirty" required required-message="'Este campo es obligatorio.'"
                             ng-model="$ctrl.fechafin" ng-model-options="{ updateOn: 'blur' }">
                         </div>
-                      </div>
+                   </div>
       
     
     
     
             </div>
             <div class="col-md-3"></div>
+            <div class="col-md-12">
+              <br>
+                 <label><b>Tipo de Reporte</b></label><br>
+                 <label class="radio-inline radio-styled">
+                    <input type="radio" name="inlineRadioOptions" ng-model="$ctrl.tiporeporte" value="1"><span>Detalle</span>
+                  </label>
+                  <label class="radio-inline radio-styled">
+                      <input type="radio" name="inlineRadioOptions"  ng-model="$ctrl.tiporeporte"  value="2"><span>Resumen</span>
+                    </label>
+            </div>
               
           </div>
 
@@ -145,6 +171,41 @@
                      </label>
              </div>
           </div>
+
+          <div class="row" ng-show="$ctrl.muestrafiltroAgenda">
+            <div class="col-md-12">
+              <label>Selecciona técnico</label>
+              <select class="form-control" ng-model="$ctrl.tecnicoAgenda" 	ng-options="v.tecnico for v in $ctrl.tecnicosAgenda track by v.clv_tecnico" >
+                <option value="">Selecciona</option>
+              </select>
+            </div>
+            <div class="col-md-12">
+              
+              <div class="col-md-6">
+                <label><i class="md md-today"></i> Fecha Inicial:</label>
+                <div class="input-group" moment-picker="$ctrl.fechainicio" format="YYYY-MM-DD">
+                  <span class="input-group-addon">
+                  <i class="octicon octicon-calendar"></i>
+                  </span>
+                  <input class="form-control input-sm" placeholder="Fecha de inicio" validate-on="dirty" required required-message="'Este campo es obligatorio.'"
+                    ng-model="$ctrl.fechainicio" ng-model-options="{ updateOn: 'blur' }">
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                  <label> <i class="md md-today"></i> Fecha final:</label>
+                  <div class="input-group" moment-picker="$ctrl.fechafin" format="YYYY-MM-DD">
+                    <span class="input-group-addon">
+                    <i class="octicon octicon-calendar"></i>
+                    </span>
+                    <input class="form-control input-sm" placeholder="Fecha de inicio" validate-on="dirty" required required-message="'Este campo es obligatorio.'"
+                      ng-model="$ctrl.fechafin" ng-model-options="{ updateOn: 'blur' }">
+                  </div>
+                </div>
+            </div>
+          </div>
+
+          
 
 
           <div class="row" ng-show="$ctrl.muestrafiltroPermanencia">
@@ -205,6 +266,9 @@
               <button class="btn btn-warning" ng-click="$ctrl.next($ctrl.report)">Aceptar</button>
             </div>
            </div>
+
+
+
     
           <div class="row confirm " ng-show="$ctrl.confirm">
             <div class="col-md-12">
@@ -214,8 +278,7 @@
                     
                     </button>
                 </div>
-            </div>
-          
+            </div> 
            
           </div>
 

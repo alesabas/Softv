@@ -46,8 +46,82 @@ angular
 			GetReporteProspectos:'/Reportes/GetReporteProspectos',
 			GetReporteHoteles:'/Reportes/GetReporteHoteles',
 			GetReporteSuscriptores:'/Reportes/GetReporteSuscriptores',
-			GetReportePermanencia:'/Reportes/GetReportePermanencia'
+			GetReportePermanencia:'/Reportes/GetReportePermanencia',
+			GetTecnicosCompania:'/Reportes/GetTecnicosCompania',
+			GetReporteAgendaTecnico:'/Reportes/GetReporteAgendaTecnico',
+			GetReporteListadoActividadesTecnico:'/Reportes/GetReporteListadoActividadesTecnico'
 		};
+
+        factory.GetReporteListadoActividadesTecnico = function(obj) {
+			var deferred = $q.defer();
+			var Parametros = {				
+				'plazas':obj.plazas,	
+				'tecnicos':obj.tecnicos,
+				'fechainicio':obj.fechainicio,
+				'fechafin':obj.fechafin,
+				'resumen':obj.resumen
+			};
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			$http.post(globalService.getUrl() + paths.GetReporteListadoActividadesTecnico, JSON.stringify(Parametros), config).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(response) {
+				deferred.reject(response.data);
+			});
+
+			return deferred.promise;
+		};
+
+
+
+
+		factory.GetReporteAgendaTecnico = function(Clv_tecnico,fechainicio,fechafin) {
+			var deferred = $q.defer();
+			var Parametros = {				
+				'Clv_tecnico':Clv_tecnico,	
+				'fechainicio':fechainicio,
+				'fechafin':fechafin
+			};
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			$http.post(globalService.getUrl() + paths.GetReporteAgendaTecnico, JSON.stringify(Parametros), config).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(response) {
+				deferred.reject(response.data);
+			});
+
+			return deferred.promise;
+		};
+
+
+
+
+		factory.GetTecnicosCompania = function(plazas) {
+			var deferred = $q.defer();
+			var Parametros = {				
+				'plazas':plazas			
+			};
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			$http.post(globalService.getUrl() + paths.GetTecnicosCompania, JSON.stringify(Parametros), config).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(response) {
+				deferred.reject(response.data);
+			});
+
+			return deferred.promise;
+		};
+
+
 
 
 		factory.GetReportePermanencia = function(obj) {

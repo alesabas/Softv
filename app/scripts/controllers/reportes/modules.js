@@ -150,6 +150,102 @@ angular
 				templateUrl: 'views/reportes/hoteles.html',
 				controller: 'hotelesCtrl',
 				controllerAs: '$ctrl'
+			},
+			{
+				name: 'home.reportes.ordenesservicio',
+				data: {
+					pageTitle: 'SAC | REPORTE DE ORDENES DE SERVICIO',
+					permissions: {
+						only: ['reportesvariosSelect'],
+						options: {
+							reload: false
+						}
+					}
+				},
+				url: '/reportes/ordenenesdeservicio',
+				templateUrl: 'views/reportes/reporteordenesServicio.html',
+				controller: 'reporteOrdenesServicioCtrl',
+				controllerAs: '$ctrl'
+			},
+			{
+				name: 'home.reportes.reportes',
+				data: {
+					pageTitle: 'SAC | REPORTES AREA TECNICA',
+					permissions: {
+						only: ['reportesvariosSelect'],
+						options: {
+							reload: false
+						}
+					}
+				},
+				url: '/reportes/reportesareatecnica',
+				templateUrl: 'views/reportes/reportes.html',
+				controller: 'reporteReportesCtrl',
+				controllerAs: '$ctrl'
+			},
+			{
+				name: 'home.reportes.actividadestecnico',
+				data: {
+					pageTitle: 'SAC | REPORTES ACTIVIDADES DE TECNICO',
+					permissions: {
+						only: ['reportesvariosSelect'],
+						options: {
+							reload: false
+						}
+					}
+				},
+				url: '/reportes/actividadestecnico',
+				templateUrl: 'views/reportes/actividadesTecnico.html',
+				controller: 'reporteActividadesTecnicoCtrl',
+				controllerAs: '$ctrl'
+			},
+			{
+				name: 'home.reportes.agendatecnico',
+				data: {
+					pageTitle: 'SAC | AGENDA ACTIVIDADES DE TECNICO',
+					permissions: {
+						only: ['reportesvariosSelect'],
+						options: {
+							reload: false
+						}
+					}
+				},
+				url: '/reportes/agendatecnico',
+				templateUrl: 'views/reportes/agendaTecnico.html',
+				controller: 'reporteAgendaTecnicoCtrl',
+				controllerAs: '$ctrl'
+			},
+			{
+				name: 'home.reportes.devolucionalmacen',
+				data: {
+					pageTitle: 'SAC | DEVOLUCION DE APARATOS AL ALMACEN',
+					permissions: {
+						only: ['reportesvariosSelect'],
+						options: {
+							reload: false
+						}
+					}
+				},
+				url: '/reportes/devolucionalmacen',
+				templateUrl: 'views/reportes/devolucionAlmacen.html',
+				controller: 'reporteDevolucionAlmacenCtrl',
+				controllerAs: '$ctrl'
+			},
+			{
+				name: 'home.reportes.pendientesrealizar',
+				data: {
+					pageTitle: 'SAC | PENDIENTES A REALIZAR',
+					permissions: {
+						only: ['reportesvariosSelect'],
+						options: {
+							reload: false
+						}
+					}
+				},
+				url: '/reportes/pendientesrealizar',
+				templateUrl: 'views/reportes/reportePendientesRealizar.html',
+				controller: 'reportePendientesRealizarCtrl',
+				controllerAs: '$ctrl'
 			}
 
 		];
