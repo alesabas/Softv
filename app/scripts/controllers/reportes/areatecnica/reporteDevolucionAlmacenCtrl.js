@@ -7,4 +7,9 @@ angular
 	var vm=this;
 	vm.report='DEVOLUCIONALMACEN';
 	
+	vm.devalmorder=[
+        {  'step': 1,function: 'getplazas',   confirm: false  },
+        { 'step': 2, function: 'muestraRangosFecha',confirm: true }
+      ]
+	
 });

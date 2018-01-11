@@ -49,8 +49,98 @@ angular
 			GetReportePermanencia:'/Reportes/GetReportePermanencia',
 			GetTecnicosCompania:'/Reportes/GetTecnicosCompania',
 			GetReporteAgendaTecnico:'/Reportes/GetReporteAgendaTecnico',
-			GetReporteListadoActividadesTecnico:'/Reportes/GetReporteListadoActividadesTecnico'
+			GetReporteListadoActividadesTecnico:'/Reportes/GetReporteListadoActividadesTecnico',
+			GetReporteDevolucionAlmacen:'/Reportes/GetReporteDevolucionAlmacen',
+			GetReportePendientesAreaTecnica:'/Reportes/GetReportePendientesAreaTecnica',
+			GetReporteOrdenes:'/Reportes/GetReporteOrdenes'
 		};
+
+
+		factory.GetReporteOrdenes = function(obj) {
+			var deferred = $q.defer();
+			var Parametros = {				
+				'reporte':{
+					'distribuidores':obj.distribuidores,	
+					'plazas':obj.plazas,
+					'ciudades':obj.ciudades,
+					'localidades':obj.localidades,
+					'colonias':obj.colonias,
+					'calles':obj.calles,
+					'estados':obj.estados,
+					'estatus':obj.estatus,
+					'Clv_inicio':obj.Clv_inicio,
+					'Clv_fin':obj.Clv_fin,
+					'fechasolInicial':obj.fechasolInicial,
+					'fechasolFinal':obj.fechasolFinal,
+					'fechaejeInicial':obj.fechaejeInicial,
+					'fechaejeFinal':obj.fechaejeFinal,
+					'Clv_trabajo':obj.Clv_trabajo,
+					'Op':obj.Op,
+					'OpOrdenar':obj.OpOrdenar,
+					'Clv_usuario':obj.Clv_usuario
+				}	
+			};
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			$http.post(globalService.getUrl() + paths.GetReporteOrdenes, JSON.stringify(Parametros), config).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(response) {
+				deferred.reject(response.data);
+			});
+
+			return deferred.promise;
+		};
+
+
+		factory.GetReportePendientesAreaTecnica = function(obj) {
+			var deferred = $q.defer();
+			var Parametros = {				
+				'distribuidores':obj.distribuidores,	
+				'plazas':obj.plazas,
+				'ciudades':obj.ciudades,
+				'localidades':obj.localidades
+			};
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			$http.post(globalService.getUrl() + paths.GetReportePendientesAreaTecnica, JSON.stringify(Parametros), config).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(response) {
+				deferred.reject(response.data);
+			});
+
+			return deferred.promise;
+		};
+
+
+        
+        factory.GetReporteDevolucionAlmacen = function(obj) {
+			var deferred = $q.defer();
+			var Parametros = {				
+				'distribuidores':obj.distribuidores,	
+				'plazas':obj.plazas,
+				'fechainicio':obj.fechainicio,
+				'fechafin':obj.fechafin
+			};
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			$http.post(globalService.getUrl() + paths.GetReporteDevolucionAlmacen, JSON.stringify(Parametros), config).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(response) {
+				deferred.reject(response.data);
+			});
+
+			return deferred.promise;
+		};
+
 
         factory.GetReporteListadoActividadesTecnico = function(obj) {
 			var deferred = $q.defer();

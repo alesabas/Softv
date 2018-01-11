@@ -1,7 +1,15 @@
 'use strict';
 var filtrosReporte = {
   bindings: {
-    report: '='
+    report: '=',
+    pendientesorder:'=',
+    actividadestecnicoorder:'=',
+    devalmorder:'=',
+    agendaorder:'=',
+    permanenciaorder:'=',
+    suscriptoresorder:'=',
+    prospectosorder:'=',
+    meses:'='
   },
   controller: function (reportesVariosFactory, $localStorage, reportesFactory,trabajosFactory, $filter, globalService, $sce, atencionFactory, CatalogosFactory) {
 
@@ -10,6 +18,20 @@ var filtrosReporte = {
         vm.Tiposervicios = result.GetMuestraTipSerPrincipalListResult;
       });
     }
+
+      function getProblemas(){
+      atencionFactory.GetClasificacionProblemas().then(function (data) {
+        vm.Problemas = data.GetuspConsultaTblClasificacionProblemasListResult;
+           })
+      }
+
+    function getTrabajosQuejas(){
+      atencionFactory.MuestraTrabajos(0).then(function(result){
+       vm.trabajosQuejas=result.GetMUESTRATRABAJOSQUEJASListResult;
+       console.log(result);
+      });
+    }
+
 
     function getServicios(tiposer) {
       var obj = {
@@ -123,6 +145,83 @@ var filtrosReporte = {
       });
     }
 
+    function getCiudadesByEstado(plazas,estados){
+
+      reportesVariosFactory.mostrarCiudad(plazas,estados).then(function(result){
+        vm.options = {
+          filterPlaceHolder: 'filtrar ciudades',
+          labelAll: 'Todos las ciudades',
+          labelSelected: 'ciudades seleccionadas',
+          labelShow: 'nombre',
+          orderProperty: 'nombre',
+          items: result.GetCiudadesBy_PlazasEstadoResult,
+          selectedItems: []
+        };
+      });
+    }
+
+
+    function getLocalidadesByCiudades(clv_usuario, Companias, Ciudades, Estados){
+      
+            reportesVariosFactory.mostrarLocalidadByCiudad(clv_usuario, Companias, Ciudades, Estados).then(function(result){
+              console.log(result);
+               vm.options = {
+                filterPlaceHolder: 'filtrar localidades',
+                labelAll: 'Todos las localidades',
+                labelSelected: 'localidades seleccionadas',
+                labelShow: 'Nombre',
+                orderProperty: 'Nombre',
+                items: result.GetLocalidadesbyCiudadResult,
+                selectedItems: []
+               };
+            });
+    }
+
+    function getColoniasByLocalidad(clv_usuario,Companias,Estados,Ciudades,Localidades){  
+    
+      reportesVariosFactory.mostrarColonia(clv_usuario, 0, Companias, Estados, Ciudades, Localidades).then(function(result){
+        console.log(result);
+        vm.options = {
+          filterPlaceHolder: 'filtrar colonias',
+          labelAll: 'Todos las colonias',
+          labelSelected: 'colonias seleccionadas',
+          labelShow: 'Nombre',
+          orderProperty: 'Nombre',
+          items: result.GetColoniasBy_Ciudad_LocalidadResult,
+          selectedItems: []
+         };
+        
+      });
+    }
+
+   function getCallesByColonia(clv_usuario, banderaLocalidad, banderaColonia, Distribuidores, Ciudades, Localidades, Colonias, Companias, Estados){
+
+    reportesVariosFactory.mostrarCalle(clv_usuario, 0, 0, Distribuidores, Ciudades, Localidades, Colonias, Companias, Estados)
+    .then(function(result){
+      console.log(result);
+      vm.options = {
+        filterPlaceHolder: 'filtrar calles',
+        labelAll: 'Todos las calles',
+        labelSelected: 'calles seleccionadas',
+        labelShow: 'Nombre',
+        orderProperty: 'Nombre',
+        items: result.GetCallesBy_Ciudad_Localidad_ColoniaResult,
+        selectedItems: []
+       };
+    });
+   }
+
+   function stepFuntions(functionName,report){
+   if(functionName === 'getplazas'){
+    vm.distribuidores = vm.options.selectedItems;
+       getplazas();
+     }
+     if(functionName==='getEstadosByPlaza'){
+      vm.plazas = vm.options.selectedItems;  
+      getEstadosByPlaza();     
+     }
+
+   }
 
     function transfer(from, to, index) {
       if (index >= 0) {
@@ -137,11 +236,10 @@ var filtrosReporte = {
     };
 
     function next(report) {
-      console.log(report);
+    
       vm.step = vm.step + 1;
       if (report === 'PROSPECTOS') {
-
-        vm.prospectosOrder.forEach(function (item) {
+        vm.prospectosorder.forEach(function (item) {
           if (item.step == vm.step) {
             vm.confirm = item.confirm;
             if (item.function === 'getplazas') {
@@ -155,7 +253,7 @@ var filtrosReporte = {
         })
       }
       if (report === 'HOTELES') {
-        vm.hotelesOrder.forEach(function (item) {
+        vm.hotelesorder.forEach(function (item) {
           if (item.step == vm.step) {
             vm.confirm = item.confirm;
             if (item.function === 'getplazas') {
@@ -166,7 +264,7 @@ var filtrosReporte = {
         })
       }
       if (report === 'SUSCRIPTORES') {
-        vm.suscriptoresOrder.forEach(function (item) {
+        vm.suscriptoresorder.forEach(function (item) {
           if (item.step == vm.step) {
             vm.confirm = item.confirm;
             if (item.function === 'getplazas') {
@@ -185,7 +283,7 @@ var filtrosReporte = {
         })
       }
       if (report == 'PERMANENCIA') {
-        vm.permanenciaOrder.forEach(function (item) {
+        vm.permanenciaorder.forEach(function (item) {
           if (item.step == vm.step) {
             vm.confirm = item.confirm;
             if (item.function === 'getplazas') {
@@ -207,7 +305,7 @@ var filtrosReporte = {
       }
       if (report === 'AGENDATECNICO') {
       
-        vm.agendaOrder.forEach(function (item) {        
+        vm.agendaorder.forEach(function (item) {        
           if (item.step == vm.step) {
             vm.confirm = item.confirm;
             if (item.function === 'getplazas') {
@@ -224,7 +322,7 @@ var filtrosReporte = {
         })
       }
       if(report==='ACTIVIDADESTECNICO'){
-        vm.actTecnicoOrder.forEach(function (item) {        
+        vm.actividadestecnicoorder.forEach(function (item) {        
           if (item.step == vm.step) {
             vm.confirm = item.confirm;
             if (item.function === 'getplazas') {
@@ -251,9 +349,10 @@ var filtrosReporte = {
         })
       }
 
-      if(report==='DEVOLUCIONALMACEN'){
-        vm.devalmOrder.forEach(function (item) {   
-          vm.confirm = item.confirm;
+      if(report==='DEVOLUCIONALMACEN'){       
+        vm.devalmorder.forEach(function (item) {  
+          if (item.step == vm.step) { 
+          vm.confirm = item.confirm;         
           if(item.function === 'getplazas'){
             vm.distribuidores = vm.options.selectedItems;
             getplazas();
@@ -263,16 +362,123 @@ var filtrosReporte = {
             vm.muestraRangosFecha=true;
             vm.muestraFiltrosDist = false;           
           }
+        }
         });
+      
       }
+      if(report==='PENDIENTESREALIZAR'){
+
+          vm.pendientesorder.forEach(function (item) {  
+          if (item.step == vm.step) { 
+          vm.confirm = item.confirm;
+         
+          if(item.function === 'getplazas'){
+            vm.distribuidores = vm.options.selectedItems;
+            getplazas();
+          }
+          if(item.function === 'getEstadosByPlaza'){
+            vm.plazas = vm.options.selectedItems;  
+            getEstadosByPlaza();                   
+          }
+          if(item.function === 'getCiudadesByEstado'){
+            vm.estados = vm.options.selectedItems;  
+            getCiudadesByEstado(vm.plazas,vm.estados);                   
+          }
+          if(item.function==='getLocalidadesByCiudades'){               
+             vm.ciudades=vm.options.selectedItems;
+             getLocalidadesByCiudades($localStorage.currentUser.idUsuario, vm.plazas, vm.ciudades, vm.estados);
+          }
+        }
+      
+      });
+
+      }
+
+      if(report==='ORDENESDESERVICIO'){
+
+        vm.ordenesorder.forEach(function (item) {  
+          if (item.step == vm.step) { 
+          vm.confirm = item.confirm;
+         
+          if(item.function === 'getplazas'){
+            vm.distribuidores = vm.options.selectedItems;
+            getplazas();
+          }
+          if(item.function === 'getEstadosByPlaza'){
+            vm.plazas = vm.options.selectedItems;  
+            getEstadosByPlaza();                   
+          }
+          if(item.function === 'getCiudadesByEstado'){
+            vm.estados = vm.options.selectedItems;  
+            getCiudadesByEstado(vm.plazas,vm.estados);                   
+          }
+          if(item.function==='getLocalidadesByCiudades'){               
+             vm.ciudades=vm.options.selectedItems;
+             getLocalidadesByCiudades($localStorage.currentUser.idUsuario, vm.plazas, vm.ciudades, vm.estados);
+          }
+          if(item.function==='getColoniasByLocalidad'){
+            console.log(vm.options.selectedItems);               
+            vm.localidades=vm.options.selectedItems;
+          
+            getColoniasByLocalidad($localStorage.currentUser.idUsuario, vm.plazas,vm.estados,vm.ciudades,vm.localidades);
+         }
+         if(item.function==='getCallesByColonia'){
+          vm.colonias=vm.options.selectedItems;
+              getCallesByColonia($localStorage.currentUser.idUsuario,0,0, vm.distribuidores, vm.ciudades,vm.localidades, vm.colonias, vm.plazas, vm.estados);
+         }
+         if(item.function==='getfiltrosOrden'){
+           vm.calles=vm.options.selectedItems;
+          vm.muestrafiltroOrdenes=true;
+          vm.muestraFiltrosDist = false;
+         }
+        }
+      
+      });
+
+      }
+      if(report==='REPORTEAREATECNICA'){
+        
+                vm.ordenesorder.forEach(function (item) {  
+                  if (item.step == vm.step) { 
+                  vm.confirm = item.confirm;
+                 
+                  if(item.function === 'getplazas'){
+                    vm.distribuidores = vm.options.selectedItems;
+                    getplazas();
+                  }
+                  if(item.function === 'getEstadosByPlaza'){
+                    vm.plazas = vm.options.selectedItems;  
+                    getEstadosByPlaza();                   
+                  }
+                  if(item.function === 'getCiudadesByEstado'){
+                    vm.estados = vm.options.selectedItems;  
+                    getCiudadesByEstado(vm.plazas,vm.estados);                   
+                  }
+                  if(item.function==='getLocalidadesByCiudades'){               
+                     vm.ciudades=vm.options.selectedItems;
+                     getLocalidadesByCiudades($localStorage.currentUser.idUsuario, vm.plazas, vm.ciudades, vm.estados);
+                  }
+                  if(item.function==='getColoniasByLocalidad'){
+                    console.log(vm.options.selectedItems);               
+                    vm.localidades=vm.options.selectedItems;
+                  
+                    getColoniasByLocalidad($localStorage.currentUser.idUsuario, vm.plazas,vm.estados,vm.ciudades,vm.localidades);
+                 }
+                 if(item.function==='getCallesByColonia'){
+                  vm.colonias=vm.options.selectedItems;
+                      getCallesByColonia($localStorage.currentUser.idUsuario,0,0, vm.distribuidores, vm.ciudades,vm.localidades, vm.colonias, vm.plazas, vm.estados);
+                 }
+                 if(item.function==='getfiltrosOrden'){
+                   vm.calles=vm.options.selectedItems;
+                  vm.muestrafiltroOrdenes=true;
+                  vm.muestraFiltrosDist = false;
+                 }
+                }
+              
+              });
+        
+              }
     }
-
-
-
-
-
-
-
 
     function generarReporte() {
       if (vm.report === 'PROSPECTOS') {
@@ -341,9 +547,51 @@ var filtrosReporte = {
       }
 
       if(vm.report==='DEVOLUCIONALMACEN'){
-       // reportesFactory.GetReporteListadoActividadesTecnico(Parametros).then(function(result){
-       //   vm.url = $sce.trustAsResourceUrl(globalService.getUrlReportes() + '/Reportes/' + result.GetReporteListadoActividadesTecnicoResult);
-       // });
+        var Parametros = {				
+          'distribuidores':vm.distribuidores,	
+          'plazas':vm.plazas,
+          'fechainicio':$filter('date')(vm.fechainicio, 'yyyy/MM/dd'),
+          'fechafin':$filter('date')(vm.fechafin, 'yyyy/MM/dd')
+        };
+        reportesFactory.GetReporteDevolucionAlmacen(Parametros).then(function(result){
+          vm.url = $sce.trustAsResourceUrl(globalService.getUrlReportes() + '/Reportes/' + result.GetReporteDevolucionAlmacenResult);
+        });     
+      }
+      if(vm.report==='PENDIENTESREALIZAR'){
+        var Parametros = {				
+          'distribuidores':vm.distribuidores,	
+          'plazas':vm.plazas,
+          'ciudades':vm.ciudades,
+          'localidades':vm.options.selectedItems
+        };
+        reportesFactory.GetReportePendientesAreaTecnica(Parametros).then(function(result){
+          vm.url = $sce.trustAsResourceUrl(globalService.getUrlReportes() + '/Reportes/' + result.GetReportePendientesAreaTecnicaResult);
+        });    
+      }
+      if(vm.report==='ORDENESDESERVICIO'){
+       var params={
+					'distribuidores':vm.distribuidores,	
+					'plazas':vm.plazas,
+					'ciudades':vm.ciudades,
+					'localidades':vm.localidades,
+					'colonias':vm.colonias,
+					'calles':vm.calles,
+					'estados':vm.estados,
+					'estatus':vm.estatusOrden,
+					'Clv_inicio':vm.clvOrdenInicio,
+          'Clv_fin':vm.clvOrdenFin,          
+					'fechasolInicial':$filter('date')(vm.fechasolInicial, 'dd/MM/yyyy'),
+					'fechasolFinal':$filter('date')(vm.fechasolFinal, 'dd/MM/yyyy'),
+					'fechaejeInicial':$filter('date')(vm.fechaejeInicial, 'dd/MM/yyyy'),
+          'fechaejeFinal':$filter('date')(vm.fechaejeFinal, 'dd/MM/yyyy'),
+          'Op':parseInt(vm.tiporeporteord),
+					'Clv_trabajo':0,
+					'OpOrdenar': parseInt(vm.ordenrepOrdenes),
+					'Clv_usuario':$localStorage.currentUser.idUsuario
+        }       
+        reportesFactory.GetReporteOrdenes(params).then(function(result){
+          vm.url = $sce.trustAsResourceUrl(globalService.getUrlReportes() + '/Reportes/' + result.GetReporteOrdenesResult);
+        });    
       }
 
     }
@@ -361,142 +609,64 @@ var filtrosReporte = {
     vm.muestrafiltroAgenda = false;
     vm.muestrafiltrotrabajos=false;
     vm.getTrabajos=getTrabajos;
+    vm.muestrafiltroOrdenes=false;
+    vm.muestrafiltroQuejas=false;
     //globales
     vm.plazas = [];
     vm.distribuidores = [];
     vm.tecnicos = [];
-    vm.prospectosOrder = [{
-        'step': 1,
-        function: 'getplazas',
-        confirm: false
-      },
-      {
-        'step': 2,
-        function: 'getRangosFechas',
-        confirm: true
-      }
-    ]
-    vm.hotelesOrder = [{
-      'step': 1,
-      function: 'getplazas',
-      confirm: true
-    }]
-    vm.suscriptoresOrder = [{
-        'step': 1,
-        function: 'getplazas',
-        confirm: false
-      },
-      {
-        'step': 2,
-        function: 'getEstadosByPlaza',
-        confirm: false
-      },
-      {
-        'step': 3,
-        function: 'getfiltroPeriodo',
-        confirm: true
-      }
-    ]
-    vm.permanenciaOrder = [{
-        'step': 1,
-        function: 'getplazas',
-        confirm: false
-      },
-      {
-        'step': 3,
-        function: 'getfiltroPermanencia',
-        confirm: false
-      },
-      {
-        'step': 4,
-        function: 'getServicios',
-        confirm: true
-      }
-    ];
-
-    vm.agendaOrder = [{
-        'step': 1,
-        function: 'getplazas',
-        confirm: false
-      },
-      {
-        'step': 2,
-        function: 'muestrafiltroAgenda',
-        confirm: true
-      }
-    ]
-
+    vm.estados = [];
+    vm.localidades=[];
+    vm.ciudades=[];
+    vm.colonias=[];
+    vm.calles=[];
+ 
     
-    vm.actTecnicoOrder = [
-      {  'step': 1,function: 'getplazas',   confirm: false  },
-      { 'step': 2, function: 'getTecnicosByPlaza', confirm: false },
-      { 'step': 3, function: 'muestrafiltrotrabajos',confirm: false},
-      { 'step': 3, function: 'muestrafiltrotrabajos', confirm: false },
-      { 'step': 4, function: 'muestraRangosFecha',confirm: true }
-      ]
-
-      vm.devalmOrder=[
-        {  'step': 1,function: 'getplazas',   confirm: false  },
-        { 'step': 2, function: 'muestraRangosFecha',confirm: true }
-      ]
-
-
-    vm.meses = [{
-        'id': 1,
-        'nombre': 'Enero'
-      },
-      {
-        'id': 2,
-        'nombre': 'Febrero'
-      },
-      {
-        'id': 3,
-        'nombre': 'Marzo'
-      },
-      {
-        'id': 4,
-        'nombre': 'Abril'
-      },
-      {
-        'id': 5,
-        'nombre': 'Mayo'
-      },
-      {
-        'id': 6,
-        'nombre': 'Junio'
-      },
-      {
-        'id': 7,
-        'nombre': 'Julio'
-      },
-      {
-        'id': 8,
-        'nombre': 'Agosto'
-      },
-      {
-        'id': 9,
-        'nombre': 'Septiembre'
-      },
-      {
-        'id': 10,
-        'nombre': 'Octubre'
-      },
-      {
-        'id': 11,
-        'nombre': 'Noviembre'
-      },
-      {
-        'id': 12,
-        'nombre': 'Diciembre'
-      },
-    ]
     vm.tipoOrdenList=[
       {'tipo':'O','nombre':'Ordenes'},
       {'tipo':'Q','nombre':'Reporte'},
       {'tipo':'A','nombre':'Ambas'}      
-    ]
+    ];
+
+    vm.departamentosList=[
+      {'tipo':1,'nombre':'Mantenimiento'},
+      {'tipo':2,'nombre':'Técnico'},
+    
+    ];
+
+    
+  
+
+    vm.ordenesorder=[
+      { 'step': 1, function: 'getplazas',   confirm: false  },
+      { 'step': 2, function: 'getEstadosByPlaza',confirm: false },
+      { 'step': 3, function: 'getCiudadesByEstado',confirm: false },
+      { 'step': 4 ,  function :'getLocalidadesByCiudades',confirm: false },
+      { 'step': 5 ,  function :'getColoniasByLocalidad',confirm: false },
+      { 'step': 6 ,  function :'getCallesByColonia',confirm: false },
+      { 'step': 7 ,  function :'getfiltrosOrden',confirm: true },
+    ];
+
+    vm.reportesorder=[
+      { 'step': 1, function: 'getplazas',   confirm: false  },
+      { 'step': 2, function: 'getEstadosByPlaza',confirm: false },
+      { 'step': 3, function: 'getCiudadesByEstado',confirm: false },
+      { 'step': 4 ,  function :'getLocalidadesByCiudades',confirm: false },
+      { 'step': 5 ,  function :'getColoniasByLocalidad',confirm: false },
+      { 'step': 6 ,  function :'getCallesByColonia',confirm: false },
+      { 'step': 7 ,  function :'getfiltrosQuejas',confirm: true },
+    ];
+
+  /*   vm.opOrdenes=[
+      {'tipo':1,'nombre':'Número de orden'},
+      {'tipo':1,'nombre':'Fecha Solicitud'},
+      {'tipo':1,'nombre':'Fecha ejecución'},
+      {'tipo':1,'nombre':'Servicios al cliente'}
+    ]; */
     getDistribuidores();
     getTipoServicios();
+    getProblemas();
+    getTrabajosQuejas();
   },
   templateUrl: 'views/components/filtrosReporte.html',
   controllerAs: '$ctrl'

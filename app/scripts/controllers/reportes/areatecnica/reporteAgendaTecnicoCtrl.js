@@ -6,5 +6,16 @@ angular
 
 	var vm=this;
 	vm.report='AGENDATECNICO';
+	vm.agendaorder = [{
+        'step': 1,
+        function: 'getplazas',
+        confirm: false
+      },
+      {
+        'step': 2,
+        function: 'muestrafiltroAgenda',
+        confirm: true
+      }
+    ]
 	
 });

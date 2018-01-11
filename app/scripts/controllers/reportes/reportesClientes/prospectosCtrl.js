@@ -6,5 +6,16 @@ angular
 
 	var vm=this;
 	vm.report='PROSPECTOS';
+	vm.prospectosorder = [{
+        'step': 1,
+        function: 'getplazas',
+        confirm: false
+      },
+      {
+        'step': 2,
+        function: 'getRangosFechas',
+        confirm: true
+      }
+    ]
 	
 });
