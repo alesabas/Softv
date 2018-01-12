@@ -303,12 +303,12 @@ angular
           'Authorization': $localStorage.currentUser.token
         }
       };
+      console.log(Parametros);
       $http.post(globalService.getUrl() + paths.GetNueRelOrdenesTecnicos, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
         deferred.reject(response.data);
       });
-
       return deferred.promise;
     };
 
@@ -345,6 +345,7 @@ angular
         'op': op,
         'idcompania': idcompania
       };
+      console.log(Parametros);
       var config = {
         headers: {
           'Authorization': $localStorage.currentUser.token

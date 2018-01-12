@@ -7,6 +7,7 @@ angular
       atencionFactory.getPlazas().then(function (data) {
         vm.plazas = data.GetMuestra_Compania_RelUsuarioListResult;
         vm.Plaza = vm.plazas[0];
+        console.log(vm.plazas);
         ObtenDetalle();
       });
     }
@@ -21,6 +22,7 @@ angular
 
           generalesSistemaFactory.GetMuestra_tecnicosDepartamentos(0)
             .then(function (result) {
+              console.log(result);
               vm.departamentos = result.GetMuestra_tecnicosDepartamentosResult;
 
               generalesSistemaFactory.GetConPuestos(vm.Plaza.id_compania)
@@ -39,11 +41,11 @@ angular
     }
 
     function obtentecnicos() {
-      generalesSistemaFactory.GetMuestra_TecnicosByFamili(vm.Depatamento.clv_puesto)
+      generalesSistemaFactory.GetMuestra_TecnicosByFamili(1, vm.Depatamento.clv_puesto, vm.Plaza.id_compania)
         .then(function (result) {
-          console.log(result);
+          console.log(result)
+          vm.TecnicoList = result.GetMuestra_TecnicosByFamiliResult;
         });
-
     }
 
     function guardamensaje() {
@@ -60,13 +62,27 @@ angular
         });
     }
 
-	
+    function AddRelTecnicoOrdenes(){
+      generalesSistemaFactory.GetNueRelOrdenesTecnicos(vm.Plaza.id_compania, vm.Depatamento.clv_puesto, vm.Tecnico.clv_tecnico).then(function(data){
+        console.log(data);
+        ObtenDetalle();
+      });
+    }
+    
+    function AddRelTecnicoReportes(){
+      generalesSistemaFactory.GetNueRel_Tecnicos_Quejas(vm.Plaza.id_compania, vm.Depatamento.clv_puesto, vm.Tecnico.clv_tecnico).then(function(data){
+        console.log(data);
+        ObtenDetalle();
+      });
+    }
 
     var vm = this;
     init();
+    vm.AddRelTecnicoOrdenes = AddRelTecnicoOrdenes;
     vm.obtentecnicos = obtentecnicos;
     vm.ObtenDetalle = ObtenDetalle;
     vm.guardamensaje = guardamensaje;
-	vm.guardaBonificacion=guardaBonificacion;
-
+	  vm.guardaBonificacion=guardaBonificacion;
+    vm.AddRelTecnicoOrdenes = AddRelTecnicoOrdenes;
+    vm.AddRelTecnicoReportes = AddRelTecnicoReportes;
   });

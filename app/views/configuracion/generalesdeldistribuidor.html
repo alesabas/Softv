@@ -22,7 +22,7 @@
   }
 
   .dualmultiselect .pool ul li {
-    width: 50%;
+    /*width: 50%;*/
     padding: 1px 8px 4px 4px;
     border-bottom: 1px dotted #CFCFCF;
   }
@@ -139,22 +139,21 @@
                         <b>Técnico:</b>
                       </div>
                       <div class="col-md-9">
-                        <select name="SlcTecnico" class="form-control input-sm" ng-model="$ctrl.Tecnico">
+                        <select name="SlcTecnico" class="form-control input-sm" ng-model="$ctrl.Tecnico" ng-options="T as T.tecnico for T in $ctrl.TecnicoList track by T.clv_tecnico">
                           <option value="">Selecciona</option>
                         </select>
                       </div>
                     </div>
                     <div class="col-md-4 col-md-offset-4">
                       <br>
-                      <div class="col-md-4">
+                      <div class="col-md-6">
                         <p class="text-muted">Selecciona un rubro:</p>
                       </div>
-                      <div class="col-md-4">
-                        <button class="btn btn-success btn-xs"> + Ordenes</button>
+                      <div class="col-md-3">
+                        <button class="btn btn-success btn-xs" ng-click="$ctrl.AddRelTecnicoOrdenes()"> + Ordenes</button>
                       </div>
-                      <div class="col-md-4">
-                        
-                        <button class="btn btn-success btn-xs"> + Reportes</button>
+                      <div class="col-md-3">
+                        <button class="btn btn-success btn-xs" ng-click="$ctrl.AddRelTecnicoReportes()"> + Reportes</button>
                       </div>
                     </div>
                   </div>
@@ -166,31 +165,19 @@
                           <div class="pool">
                             <ul>
                               <li ng-repeat="X in $ctrl.tecnicosordenes">                            
-                                  
-                                   
-                                      <a href=""><b>{{ X.tecnico }}</b></a>
-                                   
-                                   
-                                      <button type="button" class="btn ink-reaction  btn-xs btn-danger" ng-click="$ctrl.eliminaOrdenes(x.clv_tecnico)"> Eliminar</button>
-                                 
-                                
-                               
+                                  <a href=""><b>{{ X.tecnico }}</b></a>
+                                   <button type="button" class="btn ink-reaction  btn-xs btn-danger" ng-click="$ctrl.eliminaOrdenes(x.clv_tecnico)"> Eliminar</button>
                               </li>
                             </ul>
                           </div>
                         </div>
-                        
                         <div class="col-lg-5 col-md-5 col-sm-2">
                           <h4 class="text-primary"><b>Técnicos a mostrar en Reportes</b></h4>                
                           <div class="pool">
                             <ul>
                               <li ng-repeat="X in $ctrl.Lista">            
-                                  
                                     <a href=""><b>{{ X.tecnico }}</b></a>   
-                                  
                                     <button type="button" class="btn ink-reaction  btn-xs btn-danger" ng-click="$ctrl.eliminaQuejas(x.clv_tecnico)"> Eliminar</button>
-                                 
-                               
                               </li>
                             </ul>
                           </div>

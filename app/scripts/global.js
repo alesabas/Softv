@@ -39,6 +39,6 @@ angular
       return 'http://localhost:50';
     };
 
-
+*/
     return svc;
   });
