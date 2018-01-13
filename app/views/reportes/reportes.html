@@ -4,15 +4,304 @@
         <header>
           <strong style="font-weight:bold; border:none; margin-left:10px; font-size: 16px;">Area técnica Reportes</strong>
           <br /><small class="text-muted" style="font-size:14px; margin-left:10px;"><i class="fa fa-home" aria-hidden="true"></i> Reportes</small>
-        </header>
-        <div class="tools">
-    
-        </div>
-      </div>
-    
+        </header>      
+      </div>    
       <div class="card-body">
 
-          <filtros-reporte  report="$ctrl.report" ></filtros-reporte>    
-      
-      </div>
+       <div class="col-md-5" ng-show="$ctrl.showfilters">
+        
+          <div class="row">
+              <div class="col-md-12">
+                  <label><b>Selecciona Estatus de la ordenes </b></label>  
+               </div>
+               <div class="col-md-12">
+                  
+                  <div class="col-md-3">
+                      <label class="checkbox-inline checkbox-styled checkbox-success">
+                        <input type="checkbox" value="option3" checked=""><span>Ejecutadas</span>
+                      </label>
+                    </div>              
+                   <div class="col-md-3">
+                     <label class="checkbox-inline checkbox-styled checkbox-success">
+                       <input type="checkbox" value="option3" checked=""><span>Pendientes</span>
+                     </label>
+                   </div>
+                   <div class="col-md-3">
+                     <label class="checkbox-inline checkbox-styled checkbox-success">
+                       <input type="checkbox" value="option3" checked=""><span>Con Visita</span>
+                     </label>
+                   </div>
+                   <div class="col-md-3">
+                      <label class="checkbox-inline checkbox-styled checkbox-success">
+                        <input type="checkbox" value="option3" checked=""><span>Proceso</span>
+                      </label>
+                    </div>
+               </div> 
+                     
+             </div>
+
+
+             <div class="row">               
+                <div class="col-md-12">                    
+                    <div class="col-md-3">
+                    <b>Contrato: </b>                    
+                    </div>
+                    <div class="col-md-6">
+                        <input type="number" 
+                        validate-on="dirty"
+                        ng-disabled="!$ctrl.checknumeroOrden" 
+                        required-message="'Este campo es obligatorio.'"
+                        ng-required="$ctrl.checknumeroOrden"
+                        name="clvOrden"
+                        ng-model="$ctrl.clvOrden" class="form-control input-sm">
+                    </div>   
+                    <div class="col-md-3"> 
+                        <label class="checkbox-inline checkbox-styled checkbox-warning">                      
+                         <input type="checkbox" 
+                        ng-model="$ctrl.checknumeroOrden" 
+                        ng-change="$ctrl.clvOrden=0" ><span>Contrato</span>
+                        </label>
+                     </div>             
+                    
+                </div> 
+              </div>
+
+
+              <div class="row">
+                  <div class="col-md-12">          
+                  <div class="col-md-3">
+                  <b>Reporte:</b>  
+                  </div>                 
+                  <div class="col-md-3">
+                      <input type="number"                        
+                      ng-disabled="!$ctrl.checkrangoOrden"
+                       ng-model="$ctrl.clvOrdenInicio" 
+                       class="form-control input-sm">
+                  </div>
+                  <div class="col-md-3">
+                      <input type="number" 
+                      ng-disabled="!$ctrl.checkrangoOrden" 
+                      ng-model="$ctrl.clvOrdenFin" 
+                      class="form-control input-sm">
+                  </div>
+                  <div class="col-md-3"> 
+                      <label class="checkbox-inline checkbox-styled checkbox-warning">                      
+                          <input type="checkbox" 
+                          ng-model="$ctrl.checkrangoOrden"                           
+                          ng-change="$ctrl.clvOrdenInicio=0;$ctrl.clvOrdenFin=0 " ><span># Reporte</span>
+                      </label>
+                  </div>   
+                </div>  
+                  
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-12">
+                <div class="col-md-3">
+                  <b>Fecha Solicitud: </b>                
+                </div>
+                <div class="col-md-3">
+                    <label> <i class="md md-today"></i> desde:</label>
+                    <div class="input-group" moment-picker="$ctrl.fechasolInicial" format="YYYY-MM-DD">
+                      <span class="input-group-addon">
+                      <i class="octicon octicon-calendar"></i>
+                      </span>
+                      <input class="form-control input-sm" ng-disabled="!$ctrl.checkFechaSol" placeholder="Fecha de inicio" validate-on="dirty" required required-message="'Este campo es obligatorio.'"
+                        ng-model="$ctrl.fechasolInicial" ng-model-options="{ updateOn: 'blur' }">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label> <i class="md md-today"></i> Hasta:</label>
+                    <div class="input-group" moment-picker="$ctrl.fechasolFinal" format="YYYY-MM-DD">
+                      <span class="input-group-addon">
+                      <i class="octicon octicon-calendar"></i>
+                      </span>
+                      <input class="form-control input-sm"
+                      ng-disabled="!$ctrl.checkFechaSol"
+                      placeholder="Fecha de inicio" validate-on="dirty" required required-message="'Este campo es obligatorio.'"
+                        ng-model="$ctrl.fechasolFinal" ng-model-options="{ updateOn: 'blur' }">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label class="checkbox-inline checkbox-styled checkbox-warning">
+                    <input type="checkbox" 
+                    ng-model="$ctrl.checkFechaSol" 
+                    ng-change="$ctrl.fechasolInicial='';$ctrl.fechasolFinal='' " ><span>Fecha Sol.</span>
+                    </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+              <div class="col-md-3">
+                 <b>Fecha Ejec.:</b>                                  
+              </div>
+              <div class="col-md-3">
+                    <label> <i class="md md-today"></i> desde:</label>
+                    <div class="input-group" moment-picker="$ctrl.fechaejeInicial" format="YYYY-MM-DD">
+                      <span class="input-group-addon">
+                      <i class="octicon octicon-calendar"></i>
+                      </span>
+                      <input class="form-control input-sm" 
+                      ng-disabled="!$ctrl.checkFechaEje"
+                      placeholder="Fecha de inicio" validate-on="dirty" required required-message="'Este campo es obligatorio.'"
+                        ng-model="$ctrl.fechaejeInicial" ng-model-options="{ updateOn: 'blur' }">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label> <i class="md md-today"></i> Hasta:</label>
+                    <div class="input-group" moment-picker="$ctrl.fechaejeFinal" format="YYYY-MM-DD">
+                      <span class="input-group-addon">
+                      <i class="octicon octicon-calendar"></i>
+                      </span>
+                      <input class="form-control input-sm" 
+                      ng-disabled="!$ctrl.checkFechaEje"
+                      placeholder="Fecha de inicio" validate-on="dirty" required required-message="'Este campo es obligatorio.'"
+                        ng-model="$ctrl.fechaejeFinal" ng-model-options="{ updateOn: 'blur' }">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label class="checkbox-inline checkbox-styled checkbox-warning">
+                    <input type="checkbox" 
+                    ng-model="$ctrl.checkFechaEje" 
+                    ng-change="$ctrl.fechaejeInicial='';$ctrl.fechaejeFinal='' " ><span>Fecha Eje.</span>
+                  </label>
+                </div>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-12">
+               
+                    
+              <div class="col-md-3">
+                <b>Servicio </b>                      
+              </div>
+             <div class="col-md-6">
+                <select class="form-control input-sm" 
+                ng-disabled="!$ctrl.checkServicio"
+                ng-model="$ctrl.trabajo"	ng-options="v.DESCRIPCION for v in $ctrl.trabajosQuejas track by v.CLV_TRABAJO"  >
+                    <option value="">selecciona servicio cliente</option>
+                </select>
+            </div> 
+            <div class="col-md-3">
+                <label class="checkbox-inline checkbox-styled checkbox-warning">
+                <input type="checkbox" 
+                ng-model="$ctrl.checkServicio"><span>Servicio</span>
+              </label>
+            </div>                
+                
+            </div>
+          </div>
+
+          <div class="row">
+              <div class="col-md-12">
+              <div class="col-md-3">
+             <b>Departamento:</b>             
+              </div>
+              <div class="col-md-6">
+                <select class="form-control input-sm" 
+                ng-disabled="!$ctrl.checkDepartamento" 
+                ng-model="$ctrl.departamento"	ng-options="v.nombre for v in $ctrl.departamentosList track by v.tipo">
+                <option value="">selecciona departamento</option>
+                </select>
+              </div> 
+              <div class="col-md-3">
+                  <label class="checkbox-inline checkbox-styled checkbox-warning">
+                  <input type="checkbox" 
+                  ng-model="$ctrl.checkDepartamento"><span>Departamento</span>
+                  </label>
+              </div> 
+            </div>               
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="col-md-3">
+               <b>Problema:</b>            
+              </div>
+              <div class="col-md-6">
+                <select class="form-control input-sm"
+                ng-disabled="!$ctrl.checkProblema" 
+                ng-model="$ctrl.problema" ng-options="item as item.descripcion for item in $ctrl.Problemas track by item.clvProblema ">
+                <option value="">Selecciona problema</option>
+                </select>
+              </div>
+              <div class="col-md-3">
+                  <label class="checkbox-inline checkbox-styled checkbox-warning">
+                  <input type="checkbox" 
+                  ng-model="$ctrl.checkProblema"> <span>Problema</span>
+                </label>            
+              </div>
+            </div>
+        </div>
+
+        
+        <div class="row">
+            <div class="col-md-3">
+                <label>Ordenar reporte</label>    
+          </div>               
+            <div class="col-md-3">
+                <label class="radio-inline radio-styled">
+                    <input type="radio" name="checkorden" ng-model="$ctrl.ordenrepOrdenes" value="0"><span>Colonia</span>
+                  </label>
+            </div>
+            <div class="col-md-3">
+                <label class="radio-inline radio-styled">
+                    <input type="radio" name="checkorden" ng-model="$ctrl.ordenrepOrdenes" value="1"><span>Colonia y calle</span>
+                  </label>
+            </div>
+            <div class="col-md-3">
+                <label class="radio-inline radio-styled">
+                    <input type="radio" name="checkorden" ng-model="$ctrl.ordenrepOrdenes" value="2"><span>Fecha Solicitud</span>
+                  </label>
+            </div>
+          </div>
+
+
+          <div class="row">
+              <div class="col-md-3">
+              <label>imprimir tipo de reporte</label>    
+            </div>               
+              <div class="col-md-3">
+                  <label class="radio-inline radio-styled">
+                      <input type="radio" name="checktiporep" ng-model="$ctrl.tiporeporteord" value="1"><span> listado</span>
+                    </label>
+              </div>
+              <div class="col-md-3">
+                  <label class="radio-inline radio-styled">
+                      <input type="radio" name="checktiporep" ng-model="$ctrl.tiporeporteord" value="1"><span> listado detallado</span>
+                    </label>
+              </div>
+              <div class="col-md-3">
+                  <label class="radio-inline radio-styled">
+                      <input type="radio" name="checktiporep" ng-model="$ctrl.tiporeporteord" value="2"><span> Reportes</span>
+                    </label>
+              </div>                   
+            </div>
+            <div class="row">
+              <button class="btn btn-warning btn-block" ng-click="$ctrl.GetReport()"><i class="fa fa-line-chart" aria-hidden="true"></i> Generar Reporte</button>
+            </div>
+
+       </div>
+       <div class="col-md-5" ng-show="!$ctrl.showfilters">
+          <filtros-reporte  report="$ctrl.report"
+           reportesorder="$ctrl.reportesorder" 
+           responseparams="$ctrl.responseparams"
+           showfilters="$ctrl.showfilters"
+           >          
+          </filtros-reporte>
+       </div>
+       <div class="col-md-7">      
+          <a  href="{{$ctrl.url}}"  target="_blank"  class="btn btn-default-bright btn-block"><i class="fa fa-external-link-square" aria-hidden="true"></i> Ver reporte en pantalla completa </a>
+          <iframe src="{{$ctrl.url}}"  width="700px;" height="500px;" ></iframe>
+        </div> 
+            
+    </div>          
+            
 </div>
+      
+      

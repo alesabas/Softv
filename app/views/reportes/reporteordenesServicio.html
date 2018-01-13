@@ -12,9 +12,23 @@
     
       <div class="card-body">
          
+          <div class="col-md-5" ng-show="$ctrl.showfilters">
+ 
 
-          <filtros-reporte  report="$ctrl.report" >
-          </filtros-reporte>    
+          </div>
+          <div class="col-md-5" ng-show="!$ctrl.showfilters">
+              <filtros-reporte  report="$ctrl.report"
+               reportesorder="$ctrl.reportesorder" 
+               responseparams="$ctrl.responseparams"
+               showfilters="$ctrl.showfilters"
+               >          
+              </filtros-reporte>
+           </div>
+           <div class="col-md-7">      
+              <a  href="{{$ctrl.url}}"  target="_blank"  class="btn btn-default-bright btn-block"><i class="fa fa-external-link-square" aria-hidden="true"></i> Ver reporte en pantalla completa </a>
+              <iframe src="{{$ctrl.url}}"  width="700px;" height="500px;" ></iframe>
+            </div> 
+          
       
       </div>
 </div>
