@@ -7,7 +7,6 @@ angular
       atencionFactory.getPlazas().then(function (data) {
         vm.plazas = data.GetMuestra_Compania_RelUsuarioListResult;
         vm.Plaza = vm.plazas[0];
-        console.log(vm.plazas);
         ObtenDetalle();
       });
     }
@@ -22,9 +21,9 @@ angular
 
           generalesSistemaFactory.GetMuestra_tecnicosDepartamentos(0)
             .then(function (result) {
-              console.log(result);
               vm.departamentos = result.GetMuestra_tecnicosDepartamentosResult;
-
+              vm.Depatamento = vm.departamentos[0];
+              obtentecnicos();
               generalesSistemaFactory.GetConPuestos(vm.Plaza.id_compania)
                 .then(function (response) {
                   vm.tecnicosordenes = response.GetConPuestosResult;
@@ -32,7 +31,7 @@ angular
 
                   generalesSistemaFactory.GetConsultatecnicosReporte(0, vm.Plaza.id_compania)
                     .then(function (response) {
-                      console.log(response);
+                      vm.TecnicoRepList = (response.GetConsultatecnicosReporteResult.length > 0)? response.GetConsultatecnicosReporteResult[0].tecnicos:null;
                     });
 
                 });
@@ -43,7 +42,6 @@ angular
     function obtentecnicos() {
       generalesSistemaFactory.GetMuestra_TecnicosByFamili(1, vm.Depatamento.clv_puesto, vm.Plaza.id_compania)
         .then(function (result) {
-          console.log(result)
           vm.TecnicoList = result.GetMuestra_TecnicosByFamiliResult;
         });
     }
@@ -64,14 +62,24 @@ angular
 
     function AddRelTecnicoOrdenes(){
       generalesSistemaFactory.GetNueRelOrdenesTecnicos(vm.Plaza.id_compania, vm.Depatamento.clv_puesto, vm.Tecnico.clv_tecnico).then(function(data){
-        console.log(data);
+        ObtenDetalle();
+      });
+    }
+
+    function DeleteRelTecnicoOrdenes(clv_tecnico){
+      generalesSistemaFactory.GetBorRelOrdenesTecnicos(vm.Plaza.id_compania, vm.Depatamento.clv_puesto, clv_tecnico).then(function(data){
         ObtenDetalle();
       });
     }
     
     function AddRelTecnicoReportes(){
       generalesSistemaFactory.GetNueRel_Tecnicos_Quejas(vm.Plaza.id_compania, vm.Depatamento.clv_puesto, vm.Tecnico.clv_tecnico).then(function(data){
-        console.log(data);
+        ObtenDetalle();
+      });
+    }
+
+    function DeleteRelTecnicoReportes(clv_tecnico){
+      generalesSistemaFactory.GetBorRel_Tecnicos_Quejas(vm.Plaza.id_compania, 0, clv_tecnico).then(function(data){
         ObtenDetalle();
       });
     }
@@ -84,5 +92,7 @@ angular
     vm.guardamensaje = guardamensaje;
 	  vm.guardaBonificacion=guardaBonificacion;
     vm.AddRelTecnicoOrdenes = AddRelTecnicoOrdenes;
+    vm.DeleteRelTecnicoOrdenes = DeleteRelTecnicoOrdenes;
     vm.AddRelTecnicoReportes = AddRelTecnicoReportes;
+    vm.DeleteRelTecnicoReportes = DeleteRelTecnicoReportes;
   });
