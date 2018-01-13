@@ -33,6 +33,7 @@ angular
                             ngNotify.set('CORRECTO, se añadió una localidad nueva.', 'success');
                             GetRelLocalidad();
                             vm.ShowUpdate = true;
+                            vm.BtnCanTitulo = 'Salir';
                         }else{
                             ngNotify.set('ERROR, al añadir una localidad nueva.', 'warn');
                             $state.reload('home.catalogos.localidades');
@@ -43,7 +44,6 @@ angular
                     ngNotify.set('ERROR, ya existe una Localidad con el mis nombre.', 'warn');
                 }
             });
-
         }
 
         function GetRelLocalidad(){
@@ -132,7 +132,8 @@ angular
         vm.Icono = 'fa fa-plus';
         vm.ShowUpdate = false;
         vm.View = false;
-        vm.ViewList = false;
+        vm.ViewList = false; 
+        vm.BtnCanTitulo ='Cancelar';
         vm.SaveLocalidad = SaveLocalidad;
         vm.AddEstMun = AddEstMun;
         vm.DeleteEstMun = DeleteEstMun;
