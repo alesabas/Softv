@@ -52,8 +52,61 @@ angular
 			GetReporteListadoActividadesTecnico:'/Reportes/GetReporteListadoActividadesTecnico',
 			GetReporteDevolucionAlmacen:'/Reportes/GetReporteDevolucionAlmacen',
 			GetReportePendientesAreaTecnica:'/Reportes/GetReportePendientesAreaTecnica',
-			GetReporteOrdenes:'/Reportes/GetReporteOrdenes'
+			GetReporteOrdenes:'/Reportes/GetReporteOrdenes',
+			GetReporteQuejas:'/Reportes/GetReporteQuejas'
 		};
+
+
+		factory.GetReporteQuejas = function(obj) {
+			var deferred = $q.defer();
+			var Parametros = {				
+				'reporte':{
+					
+					'Clv_inicio':obj.Clv_inicio,
+					'Clv_fin':obj.Clv_fin,
+					'contrato':obj.contrato,
+					'fechasolInicial':obj.fechasolInicial,
+					'fechasolFinal':obj.fechasolFinal,
+					'fechaejeInicial':obj.fechaejeInicial,
+					'fechaejeFinal':obj.fechaejeFinal,
+					'Clv_trabajo':obj.Clv_trabajo,
+					'op1':obj.op1,
+					'op2':obj.op2,
+					'op3':obj.op3,
+					'op4':obj.op4,
+					'op5':obj.op5,
+					'op6':obj.op6,
+					'op7':obj.op7,
+					'ejecutados':obj.ejecutados,
+					'pendientes':obj.pendientes,
+					'visitados':obj.visitados,
+					'enproceso':obj.enproceso,
+					'OpOrdenar':obj.OpOrdenar,
+					'Op':obj.Op,
+					'clvProblema':obj.clvProblema,
+					'clv_Depto':obj.clv_Depto,
+					'distribuidores':obj.distribuidores,
+					'plazas':obj.plazas,
+					'ciudades':obj.ciudades,
+					'localidades':obj.localidades,
+					'colonias':obj.colonias,
+					'Clv_usuario': $localStorage.currentUser.idUsuario
+				}	
+			};
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			$http.post(globalService.getUrl() + paths.GetReporteQuejas, JSON.stringify(Parametros), config).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(response) {
+				deferred.reject(response.data);
+			});
+
+			return deferred.promise;
+		};
+
 
 
 		factory.GetReporteOrdenes = function(obj) {

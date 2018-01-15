@@ -22,21 +22,64 @@ angular
 	});
 	}
 
-	function GetReport(){
-     console.log(vm.responseparams);
+	function GetReport(){	
+
+   //OP1 POR RANGO DE CONTRATO
+   //OP2 POR FECHA DE SOLICITUD
+   //OP3 POR FECHA DE EJECUCION
+   //OP4 POR SERVICIO
+   //OP6 POR DEPARTAMENTO
+   //OP7 POR CONTRATO
+	var obj={	
+		'Clv_inicio':(vm.clvOrdenInicio)?vm.clvOrdenInicio:0,
+		'Clv_fin':(vm.clvOrdenFin)?vm.clvOrdenFin:0,
+		'contrato':(vm.clvOrden)?vm.clvOrden:'',
+		'fechasolInicial':(vm.fechasolFinal)?vm.fechasolFinal:'01/01/1900',
+		'fechasolFinal':(vm.fechasolFinal)? vm.fechasolFinal:'01/01/1900',
+		'fechaejeInicial':(vm.fechaejeInicial)? vm.fechaejeInicial:'01/01/1900',
+		'fechaejeFinal':(vm.fechaejeFinal)? vm.fechaejeFinal:'01/01/1900',
+		'Clv_trabajo':(vm.trabajo)?vm.trabajo.CLV_TRABAJO:0,
+		'op1':vm.checkrangoOrden,
+		'op2':vm.checkFechaSol,
+		'op3':vm.checkFechaEje,
+		'op4':vm.checkServicio,
+		'op5':false,
+		'op6':vm.checkDepartamento,
+		'op7':vm.checknumeroOrden,
+		'ejecutados':vm.ejecutada,
+		'pendientes':vm.pendiente,
+		'visitados':vm.visita,
+		'enproceso':vm.proceso,
+		'OpOrdenar':parseInt(vm.ordenrepOrdenes),
+		'Op':parseInt(vm.tiporeporteord),
+		'clvProblema':(vm.problema)?vm.problema.clvProblema:0,
+		'clv_Depto':(vm.departamento)?vm.departamento.tipo:0,
+		'distribuidores':vm.responseparams.distribuidores,
+		'plazas':vm.responseparams.plazas,
+		'ciudades':vm.responseparams.ciudades,
+		'localidades':vm.responseparams.localidades,
+		'colonias':vm.responseparams.colonias
+	};
+
+	 console.log(obj);
+	
+	 reportesFactory.GetReporteQuejas(obj).then(function(result){
+		vm.url = $sce.trustAsResourceUrl(globalService.getUrlReportes() + '/Reportes/' + result.GetReporteQuejasResult);
+	 });
+
 	}
 
 	var vm=this;
 	vm.report='REPORTEAREATECNICA';
 	vm.url='';
-	vm.reportesorder=[
+	vm.order=[
 		{ 'step': 1, function: 'getplazas',   confirm: false  },
 		{ 'step': 2, function: 'getEstadosByPlaza',confirm: false },
 		{ 'step': 3, function: 'getCiudadesByEstado',confirm: false },
 		{ 'step': 4 ,  function :'getLocalidadesByCiudades',confirm: false },
 		{ 'step': 5 ,  function :'getColoniasByLocalidad',confirm: false },
 		{ 'step': 6 ,  function :'getCallesByColonia',confirm: false },
-		{ 'step': 7 ,  function :'getfiltrosQuejas',confirm: true },
+		{ 'step': 7 ,  function :'getfiltrosQuejas',confirm: true }
 	  ];
 	  vm.departamentosList=[
 		{'tipo':1,'nombre':'Mantenimiento'},
@@ -58,4 +101,6 @@ angular
 	  getTipoServicios();
 	  getProblemas();
 	  getTrabajosQuejas();
+	  vm.tiporeporteord='0';
+	  vm.ordenrepOrdenes='0';
 });
