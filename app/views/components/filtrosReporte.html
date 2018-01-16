@@ -1,107 +1,125 @@
 <style>
-        .dualmultiselect label {
-          margin: 10px;
-        }
-      
-        .dualmultiselect .btn {
-          margin: 10px;
-        }
-      
-        .dualmultiselect .pool {
-          border: 1px solid #999;
-          border-radius: 4px;
-          padding: 10px;
-          margin: 5px;
-          height: 250px;
-          overflow-y: scroll;
-        }
-      
-        .dualmultiselect .pool ul {
-          list-style: none;
-          padding-left: 0px;
-        }
-      
-        .dualmultiselect .pool ul li {
-          width: 100%;
-          padding: 4px 8px 4px 4px;
-          border-bottom: 1px dotted #CFCFCF;
-        }
-      
-        .dualmultiselect .pool ul li a:hover {
-          text-decoration: none;
-        }
+  .dualmultiselect label {
+    margin: 10px;
+  }
 
-        .confirm{
-          background-color: #f5efef;         
-          margin-top: 30px;
-          padding: 20px;
-        }
+  .dualmultiselect .btn {
+    margin: 10px;
+  }
 
-        .filterrow{
-          margin: 10px;
-       
-        }
+  .dualmultiselect .pool {
+    border: 1px solid #999;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 5px;
+    height: 250px;
+    overflow-y: scroll;
+  }
 
-      </style>
-    
+  .dualmultiselect .pool ul {
+    list-style: none;
+    padding-left: 0px;
+  }
 
-  
-    
-       
-       <!--  <div class="row" ng-show="$ctrl.muestrafiltrotrabajos">
-          <div class="col-md-6">
-              <label>Selecciona tipo de servicio</label>
-              <select class="form-control" ng-model="$ctrl.tipserTrabajo" ng-change="$ctrl.getTrabajos($ctrl.tipserTrabajo.Clv_TipSerPrincipal)" 	ng-options="v.Concepto for v in $ctrl.Tiposervicios track by v.Clv_TipSerPrincipal" >
-                <option value="">Selecciona</option>
-              </select>
-          </div>
-          <div class="col-md-6">
-              <label>Selecciona tipo de servicio</label>
-              <select class="form-control" ng-model="$ctrl.tipoOrden"  ng-change="$ctrl.getTrabajos($ctrl.tipserTrabajo.Clv_TipSerPrincipal)"	ng-options="v.nombre for v in $ctrl.tipoOrdenList track by v.tipo" >
-                <option value="">Selecciona</option>
-              </select>
-              
-          </div>
-         </div> -->
+  .dualmultiselect .pool ul li {
+    width: 100%;
+    padding: 4px 8px 4px 4px;
+    border-bottom: 1px dotted #CFCFCF;
+  }
 
+  .dualmultiselect .pool ul li a:hover {
+    text-decoration: none;
+  }
 
-      <!--tabla de filtros-->
-        <div class="dualmultiselect row">
-            <div class="row">
-              <div class="col-lg-5 col-md-5 col-sm-5">
-                <input class="form-control" placeholder="{{$ctrl.options.filterPlaceHolder}}" ng-model="searchTerm">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-6 col-md-6 col-sm-6">
-                <label>{{$ctrl.options.labelAll}}</label>
-                <button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.transfer($ctrl.options.items, $ctrl.options.selectedItems, -1)">Seleccionar Todo </button>
-                <div class="pool">
-                  <ul>
-                    <li ng-click=" $ctrl.transfer($ctrl.options.items, $ctrl.options.selectedItems, $ctrl.options.items.indexOf(item))" ng-repeat="item in $ctrl.options.items | filter: searchTerm | orderBy: $ctrl.options.orderProperty">
-                      <a href="">{{item[$ctrl.options.labelShow]}}</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div class="col-lg-6 col-md-6 col-sm-6">
-                <label>{{$ctrl.options.labelSelected}}</label>
-                <button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.transfer($ctrl.options.selectedItems, $ctrl.options.items, -1)"> Deseleccionar Todo </button>
-                <div class="pool">
-                  <ul>
-                    <li ng-click=" $ctrl.transfer($ctrl.options.selectedItems, $ctrl.options.items, $ctrl.options.selectedItems.indexOf(item))" ng-repeat="item in $ctrl.options.selectedItems | orderBy: $ctrl.options.orderProperty">
-                      <a href="">{{item[$ctrl.options.labelShow]}}</a>
-                    </li>
-                  </ul>
-                </div>
-                <button  type="button" ng-click="$ctrl.next($ctrl.report)" ty class="btn btn-primary " >Siguiente</button>
-              </div>
-            </div>
-        </div>
+  .confirm {
+    background-color: #f5efef;
+    margin-top: 30px;
+    padding: 20px;
+  }
+
+  .filterrow {
+    margin: 10px;
+  }
+
+</style>
 
 
 
-   <!--ng-show="$ctrl.confirm"-->
+
+
+<div class="row" ng-show="$ctrl.muestrafiltrotrabajos">
+    <div class="col-md-6">
+        <label>Selecciona tipo de servicio</label>
+        <select class="form-control" ng-model="$ctrl.tipserTrabajo" ng-change="$ctrl.getTrabajos($ctrl.tipserTrabajo.Clv_TipSerPrincipal)" 	ng-options="v.Concepto for v in $ctrl.Tiposervicios track by v.Clv_TipSerPrincipal" >
+          <option value="">Selecciona</option>
+        </select>
+    </div>
+    <div class="col-md-6">
+        <label>Selecciona tipo de servicio</label>
+        <select class="form-control" ng-model="$ctrl.tipoOrden"  ng-change="$ctrl.getTrabajos($ctrl.tipserTrabajo.Clv_TipSerPrincipal)"	ng-options="v.nombre for v in $ctrl.tipoOrdenList track by v.tipo" >
+          <option value="">Selecciona</option>
+        </select>
+        
+    </div>
+</div> 
+
+
+<!--tabla de filtros-->
+
+<div class="dualmultiselect row" ng-show="!$ctrl.muestraservicios && !muestrafiltrotrabajos">
+  <div class="row">
+    <div class="col-lg-5 col-md-5 col-sm-5">
+      <input class="form-control" placeholder="{{$ctrl.options.filterPlaceHolder}}" ng-model="searchTerm">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-6">
+      <label>{{$ctrl.options.labelAll}}</label>
+      <button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.transfer($ctrl.options.items, $ctrl.options.selectedItems, -1)">Seleccionar Todo </button>
+      <div class="pool">
+        <ul>
+          <li ng-click=" $ctrl.transfer($ctrl.options.items, $ctrl.options.selectedItems, $ctrl.options.items.indexOf(item))" ng-repeat="item in $ctrl.options.items | filter: searchTerm | orderBy: $ctrl.options.orderProperty">
+            <a href="">{{item[$ctrl.options.labelShow]}}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6">
+      <label>{{$ctrl.options.labelSelected}}</label>
+      <button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.transfer($ctrl.options.selectedItems, $ctrl.options.items, -1)">
+      Deseleccionar Todo </button>
+      <div class="pool">
+        <ul>
+          <li ng-click=" $ctrl.transfer($ctrl.options.selectedItems, $ctrl.options.items, $ctrl.options.selectedItems.indexOf(item))"
+            ng-repeat="item in $ctrl.options.selectedItems | orderBy: $ctrl.options.orderProperty">
+            <a href="">{{item[$ctrl.options.labelShow]}}</a>
+          </li>
+        </ul>
+      </div>
+      <button type="button" ng-click="$ctrl.next($ctrl.report)" ty class="btn btn-primary ">Siguiente</button>
+    </div>
+  </div>
+</div>
+
+<div class="row" ng-show="$ctrl.muestraservicios">
+
+  <div class="col-md-12">
+    <label>Selecciona tipo de servicios</label>
+    <select class="form-control" ng-model="$ctrl.servicioPerm" ng-options="v.Concepto for v in $ctrl.Tiposervicios track by v.Clv_TipSerPrincipal">
+      <option value="">Selecciona</option>
+    </select>
+  </div>
+
+  <div class="col-md-12">
+    <button class="btn btn-warning" ng-click="$ctrl.next($ctrl.report)">Aceptar</button>
+  </div>
+</div>
+</div>
+
+
+
+
+<!--ng-show="$ctrl.confirm"-->
 
 <!--   <div class="col-md-7">      
     <a  href="{{$ctrl.url}}"  target="_blank"  class="btn btn-default-bright btn-block"><i class="fa fa-external-link-square" aria-hidden="true"></i> Ver reporte en pantalla completa </a>
@@ -111,7 +129,7 @@
 
 
 
- <!--  
+<!--  
   <div class="row confirm" >
     <div class="col-md-12">
         <div class="col-md-6 col-md-offset-3">
@@ -123,7 +141,7 @@
  -->
 
 
- <!-- <div class="row"  ng-show="$ctrl.muestraRangosFecha">          
+<!-- <div class="row"  ng-show="$ctrl.muestraRangosFecha">          
   <div class="col-md-12">
       <div class="alert alert-info" role="alert">
           <strong>Atencion !</strong> Selecciona un rango de fechas para el reporte.
@@ -348,66 +366,7 @@
 
 
 
-<!-- <div class="row" ng-show="$ctrl.muestrafiltroPermanencia"> -->
-  
-       <!--    <div class="col-md-12">
-            <label>Selecciona tipo de servicios</label>
-            <select class="form-control" ng-model="$ctrl.servicioPerm" 	ng-options="v.Concepto for v in $ctrl.Tiposervicios track by v.Clv_TipSerPrincipal" >
-              <option value="">Selecciona</option>
-            </select>
-          </div>
-                <div class="col-md-12">
-                  <br><br>
-                  <div class="col-md-2">DEL :</div>
-                   <div class="col-md-5">                   
-                      <select ng-model="$ctrl.permInicioMes" class="form-control " ng-options="v.nombre for v in $ctrl.meses track by v.id"> 
-                          <option value="">Seleciona</option>                       
-                      </select>
-                   </div>
-                   <div class="col-md-5">
-                      <select ng-model="$ctrl.permInicioAnio" class="form-control ">
-                          <option value="">Seleciona</option>
-                          <option value="2012">2012</option>
-                          <option value="2013">2013</option>
-                          <option value="2014">2014</option>
-                          <option value="2015">2015</option>
-                          <option value="2017">2017</option>
-                          <option value="2018">2018</option>
-                          <option value="2019">2019</option>
-                          <option value="2020">2020</option>
-                          <option value="2021">2021</option>
-                          <option value="2022">2022</option>
-                          <option value="2023">2023</option>
-                      </select>
-                   </div>
-                   <div class="col-md-2">HASTA :</div>
-                   <div class="col-md-5">
-                      <select ng-model="$ctrl.permFinMes" class="form-control "  ng-options="v.nombre for v in $ctrl.meses track by v.id">
-                          <option value="">Seleciona</option>                        
-                     </select>
-                   </div>
-                  <div class="col-md-5">
-                      <select ng-model="$ctrl.permFinAnio" class="form-control ">
-                          <option value="">Seleciona</option>
-                          <option value="2012">2012</option>
-                          <option value="2013">2013</option>
-                          <option value="2014">2014</option>
-                          <option value="2015">2015</option>
-                          <option value="2017">2017</option>
-                          <option value="2018">2018</option>
-                          <option value="2019">2019</option>
-                          <option value="2020">2020</option>
-                          <option value="2021">2021</option>
-                          <option value="2022">2022</option>
-                          <option value="2023">2023</option>
-                      </select>
-                   </div>
-                </div>
-              <div class="col-md-12">
-                <button class="btn btn-warning" ng-click="$ctrl.next($ctrl.report)">Aceptar</button>
-              </div>
-        </div>
-      </div> -->
+
 
 
 

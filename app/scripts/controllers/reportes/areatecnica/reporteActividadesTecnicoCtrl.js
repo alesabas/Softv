@@ -1,18 +1,32 @@
 'use strict';
 angular
 	.module('softvApp')
-	.controller('reporteActividadesTecnicoCtrl', function($state,reportesFactory,reportesVariosFactory,globalService,$sce,$localStorage) {	
+	.controller('reporteActividadesTecnicoCtrl', function($state,reportesFactory,reportesVariosFactory,$filter,globalService,$sce,$localStorage) {	
 		
-
+    function GetReport(){
+		var Parametros = {
+			'plazas': vm.responseparams.plazas,
+			'tecnicos': vm.responseparams.tecnicosAgenda,
+			'fechainicio': $filter('date')(vm.fechainicio, 'yyyy/MM/dd'),
+			'fechafin': $filter('date')(vm.fechafin, 'yyyy/MM/dd'),
+			'resumen': (vm.tiporeporte == 2) ? 1 : 0
+		  };
+		  reportesFactory.GetReporteListadoActividadesTecnico(Parametros).then(function (result) {
+			vm.url = $sce.trustAsResourceUrl(globalService.getUrlReportes() + '/Reportes/' + result.GetReporteListadoActividadesTecnicoResult);
+  
+		  });
+	}
 		
 	var vm=this;
 	vm.report='ACTIVIDADESTECNICO';
-	vm.actividadestecnicoorder = [
+	vm.GetReport=GetReport;
+	vm.responseparams={};
+	vm.showfilters=false;
+	vm.order = [
 		{  'step': 1,function: 'getplazas',   confirm: false  },
-		{ 'step': 2, function: 'getTecnicosByPlaza', confirm: false },
-		{ 'step': 3, function: 'muestrafiltrotrabajos',confirm: false},
-		{ 'step': 3, function: 'muestrafiltrotrabajos', confirm: false },
-		{ 'step': 4, function: 'muestraRangosFecha',confirm: true }
+		{ 'step': 2, function: 'muestrafiltroAgenda', confirm: false },
+		{ 'step': 3, function: 'muestrafiltrotrabajos',confirm: false},	
+		{ 'step': 4, function: 'getRangosFechas',confirm: true }
 		]
 	
 });

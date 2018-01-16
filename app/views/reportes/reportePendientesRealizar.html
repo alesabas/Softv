@@ -12,7 +12,27 @@
     
       <div class="card-body">
 
-          <filtros-reporte  report="$ctrl.report" pendientesorder="$ctrl.pendientesorder" ></filtros-reporte>    
+          <div class="col-md-5" ng-show="$ctrl.showfilters">
+              <form angular-validator-submit="$ctrl.GetReport()" name="contratoForm" novalidate angular-validator>              
+              <div class="col-md-12">          
+              <button class="btn btn-warning btn-block" type="submit">
+                <i class="fa fa-line-chart" aria-hidden="true"></i> Generar Reporte</button>                  
+             </div>
+              </form>
+           </div>
+
+          <div class="col-md-5" ng-show="!$ctrl.showfilters">
+              <filtros-reporte  report="$ctrl.report"
+               order="$ctrl.order" 
+               responseparams="$ctrl.responseparams"
+               showfilters="$ctrl.showfilters">          
+              </filtros-reporte>
+            
+           </div>
+           <div class="col-md-7">      
+              <a  href="{{$ctrl.url}}"  target="_blank"  class="btn btn-default-bright btn-block"><i class="fa fa-external-link-square" aria-hidden="true"></i> Ver reporte en pantalla completa </a>
+              <iframe src="{{$ctrl.url}}"  width="700px;" height="500px;" ></iframe>
+            </div> 
       
       </div>
 </div>

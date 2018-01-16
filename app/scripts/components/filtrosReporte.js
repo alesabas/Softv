@@ -10,7 +10,11 @@ var filtrosReporte = {
   },
   controller: function (reportesVariosFactory, $localStorage, reportesFactory, trabajosFactory, $filter, globalService, $sce, atencionFactory, CatalogosFactory) {
 
-
+    function getTipoServicios() { 
+      atencionFactory.getServicios().then(function (result) { 
+        vm.Tiposervicios = result.GetMuestraTipSerPrincipalListResult; 
+      }); 
+    } 
 
 
     function getServicios(tiposer) {
@@ -76,6 +80,7 @@ var filtrosReporte = {
         reportesFactory.GetTecnicosCompania(plazas)
           .then(function (result) {
             vm.tecnicosAgenda = result.GetTecnicosCompaniaResult;
+            vm.responseparams.tecnicosAgenda=vm.tecnicosAgenda;
           });
       } else {
         reportesFactory.GetTecnicosCompania(plazas)
@@ -93,6 +98,10 @@ var filtrosReporte = {
       }
 
 
+    }
+
+    function muestraServicios(){
+      vm.muestraservicios=true;
     }
 
     function getEstadosByPlaza() {
@@ -205,36 +214,52 @@ var filtrosReporte = {
 
     function next(report){
       vm.step = vm.step + 1;
-      vm.order.forEach(function (item) {
-        console.log(report,item.function);
+      vm.order.forEach(function (item) {      
         if (item.function=== 'getplazas'  && item.step==vm.step) {
           vm.distribuidores = vm.options.selectedItems;
           getplazas();        
         }
         if (item.function=== 'getRangosFechas' && item.step==vm.step){
+              
           vm.showfilters=true;
         }
         if(item.function==='getEstadosByPlaza' && item.step==vm.step){
           vm.plazas = vm.options.selectedItems;
           getEstadosByPlaza();
         }
+        if(item.function==='getReporBtn' && item.step==vm.step){ 
+          vm.showfilters=true;
+        }
         if(item.function==='getfiltroPeriodo' && item.step==vm.step){ 
           vm.showfilters=true;
         }
-        if(item.function==='getServicios' && item.step==vm.step){
-          vm.plazas = vm.options.selectedItems;    
+        if(item.function==='getServicios' && item.step==vm.step){          
+          vm.muestraservicios=false;    
           getServicios(vm.servicioPerm.Clv_TipSerPrincipal);        
         }
+        if(item.function==='muestraServicios' && item.step==vm.step){
+          vm.plazas = vm.options.selectedItems;
+          muestraServicios();
+        }
+        
         if(item.function==='getfiltroPermanencia' && item.step==vm.step){
-            vm.showfilters=true;
+          vm.servicios=vm.options.selectedItems;          
+           vm.showfilters=true;
         }
         if(item.function==='muestrafiltroAgenda' && item.step==vm.step){
+          alert('filtros agenda');
           vm.plazas = vm.options.selectedItems;
-          getTecnicosByPlaza(vm.plazas, 1);
-          vm.showfilters=true;
+          if(report==='AGENDATECNICO'){
+            getTecnicosByPlaza(vm.plazas, 1);          
+            vm.showfilters=true;
+          }else{
+            
+            getTecnicosByPlaza(vm.plazas,0); 
+          }
+         
         }
         if(item.function==='muestrafiltrotrabajos' && item.step==vm.step){
-          vm.tecnicos = vm.options.selectedItems;
+          vm.tecnicosAgenda = vm.options.selectedItems;
           vm.muestrafiltrotrabajos = true;
           vm.tipserTrabajo = vm.Tiposervicios[1];
           vm.tipoOrden = vm.tipoOrdenList[1];
@@ -278,6 +303,9 @@ var filtrosReporte = {
             'colonias': vm.colonias,
             'calles': vm.calles,
             'estados': vm.estados,
+            'servicios':vm.servicios,
+            'tiposervicio':(vm.servicioPerm)?vm.servicioPerm.Clv_TipSerPrincipal:0,
+            'tecnicosAgenda':vm.tecnicosAgenda
           }            
           vm.responseparams=par;
         }   
@@ -290,6 +318,9 @@ var filtrosReporte = {
     vm.transfer = transfer;
     vm.options = {};
     vm.step = 0;
+    vm.muestraservicios=false;
+    vm.muestrafiltrotrabajos=false;
+    vm.getTrabajos=getTrabajos;
     //globales
     vm.plazas = [];
     vm.distribuidores = [];
@@ -299,8 +330,8 @@ var filtrosReporte = {
     vm.ciudades = [];
     vm.colonias = [];
     vm.calles = [];
-
-
+    vm.servicios=[];
+    vm.tecnicosAgenda=[];
     vm.tipoOrdenList = [{
         'tipo': 'O',
         'nombre': 'Ordenes'
@@ -316,6 +347,7 @@ var filtrosReporte = {
     ];
 
     getDistribuidores();
+    getTipoServicios();
 
   },
   templateUrl: 'views/components/filtrosReporte.html',

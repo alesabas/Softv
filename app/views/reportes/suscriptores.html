@@ -11,8 +11,75 @@
       </div>
     
       <div class="card-body">
+          <div class="col-md-5" ng-show="$ctrl.showfilters">
+              <form angular-validator-submit="$ctrl.GetReport()" name="contratoForm" novalidate angular-validator>
+              <div class="col-md-12">
+                  <div class="alert alert-info" role="alert">
+                      <strong>Atencion !</strong> Selecciona un rango de fechas para el reporte.
+                    </div>
 
-          <filtros-reporte  report="$ctrl.report" suscriptoresorder="$ctrl.suscriptoresorder" ></filtros-reporte>    
+                    <div class="col-md-12">
+                        <div class="col-md-6" >
+                          <label>Mes</label>
+                          <input type="number" ng-model="$ctrl.Mes" class="form-control" >
+                        </div>
+                        <div class="col-md-6" >
+                           <label>Año</label>
+                           <input type="number" ng-model="$ctrl.anio" class="form-control" >
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                      <br>
+                      <label><b>Periodo</b></label><br>
+                      <label class="radio-inline radio-styled radio-warning">
+                         <input type="radio" checked="" ng-model="$ctrl.fechames" value="1"><span>del 1 al 15 del mes</span>
+                       </label>
+                       <label class="radio-inline radio-styled radio-warning">
+                           <input type="radio" checked="" ng-model="$ctrl.fechames" value="2"><span>del 1 al 30 del mes </span>
+                         </label>
+                     </div>
+                     <div class="col-md-12">
+                         <label><b>Selecciona Tipo de reporte</b></label><br>
+                         <label class="radio-inline radio-styled radio-warning">
+                            <input type="radio" checked="" ng-model="$ctrl.tiporepsusc" value="D"><span>Detallado</span>
+                          </label>
+                          <label class="radio-inline radio-styled radio-warning">
+                              <input type="radio" checked="" ng-model="$ctrl.tiporepsusc" value="R"><span>Resumen </span>
+                            </label>
+                    </div>
+            
+            
+                 
+              </div>
+              <div class="col-md-12">
+          
+              <button class="btn btn-warning btn-block" type="submit">
+                <i class="fa fa-line-chart" aria-hidden="true"></i> Generar Reporte</button>
+                  
+             </div>
+              </form>
+           </div>
+
+          <div class="col-md-5" ng-show="!$ctrl.showfilters">
+              <filtros-reporte  report="$ctrl.report"
+               order="$ctrl.order" 
+               responseparams="$ctrl.responseparams"
+               showfilters="$ctrl.showfilters">          
+              </filtros-reporte>
+            
+           </div>
+           <div class="col-md-7">      
+              <a  href="{{$ctrl.url}}"  target="_blank"  class="btn btn-default-bright btn-block"><i class="fa fa-external-link-square" aria-hidden="true"></i> Ver reporte en pantalla completa </a>
+              <iframe src="{{$ctrl.url}}"  width="700px;" height="500px;" ></iframe>
+            </div> 
+
+          
+    
+    
+      
+  
+
+       
       
       </div>
 </div>
