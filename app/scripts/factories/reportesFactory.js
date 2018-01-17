@@ -53,7 +53,54 @@ angular
 			GetReporteDevolucionAlmacen:'/Reportes/GetReporteDevolucionAlmacen',
 			GetReportePendientesAreaTecnica:'/Reportes/GetReportePendientesAreaTecnica',
 			GetReporteOrdenes:'/Reportes/GetReporteOrdenes',
-			GetReporteQuejas:'/Reportes/GetReporteQuejas'
+			GetReporteQuejas:'/Reportes/GetReporteQuejas',
+			GetReporteAtencion:'/Reportes/GetReporteAtencion'
+		};
+
+		factory.GetReporteAtencion = function(obj) {
+			var deferred = $q.defer();
+			var Parametros = {				
+				'reporte':{					
+					'Clv_TipSer':obj.Clv_TipSer,   
+					'op0':obj.op0,   
+					'op1':obj.op1,
+					'op2':obj.op2,
+					'op3':obj.op3,
+					'op4':obj.op4,
+					'op5':obj.op5,
+					'op6':obj.op6,
+					'sinqueja':obj.sinqueja,
+					'conQueja':obj.conQueja,
+					'ambas':obj.ambas,
+					'Clv_inicio':obj.Clv_inicio,
+					'Clv_fin':obj.Clv_fin,
+					'fechasolInicial':obj.fechasolInicial,
+					'fechasolFinal':obj.fechasolFinal,
+					'Clv_trabajo':obj.Clv_trabajo,
+					'clvQueja':obj.clvQueja,
+					'Op':obj.Op,
+					'Clv_usuario':obj.Clv_usuario,
+					'estatus':obj.estatus,
+					'contrato':obj.contrato,        
+					'distribuidores':obj.distribuidores,
+					'plazas':obj.plazas,
+					'ciudades':obj.ciudades,
+					'localidades':obj.localidades,
+					'colonias':obj.colonias
+				}	
+			};
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			$http.post(globalService.getUrl() + paths.GetReporteAtencion, JSON.stringify(Parametros), config).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(response) {
+				deferred.reject(response.data);
+			});
+
+			return deferred.promise;
 		};
 
 

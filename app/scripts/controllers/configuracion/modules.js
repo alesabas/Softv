@@ -167,6 +167,22 @@ angular
         templateUrl: 'views/configuracion/changepassword.html',
         controller: 'changePasswordCtrl',
         controllerAs: '$ctrl'
+      },
+      {
+        name: 'home.configuracion.interfaz',
+        data: {
+          pageTitle: 'SAC | INTERFAZ DE CABLEMODEMS',
+          permissions: {
+           
+            options: {
+              reload: false
+            }
+          }
+        },
+        url: '/configuracion/interfazcablemodems',
+        templateUrl: 'views/configuracion/interfazCablemodems.html',
+        controller: 'interfazCablemodemsCtrl',
+        controllerAs: '$ctrl'
       }
 
 

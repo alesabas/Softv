@@ -246,8 +246,26 @@ angular
 				templateUrl: 'views/reportes/reportePendientesRealizar.html',
 				controller: 'reportePendientesRealizarCtrl',
 				controllerAs: '$ctrl'
+			},
+			{
+				name: 'home.reportes.atenciotelefonica',
+				data: {
+					pageTitle: 'SAC | ATENCION TELEFONICA',
+					permissions: {
+						only: ['reportesvariosSelect'],
+						options: {
+							reload: false
+						}
+					}
+				},
+				url: '/reportes/atenciontelefonica',
+				templateUrl: 'views/reportes/reporteAtencionTelefonica.html',
+				controller: 'reporteAtencionTelefonicaCtrl',
+				controllerAs: '$ctrl'
 			}
 
+
+			
 		];
 		states.forEach(function(state) {
 			$stateProvider.state(state);

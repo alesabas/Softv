@@ -1,10 +1,11 @@
 'use strict';
 angular
 	.module('softvApp')
-	.controller('reporteReportesCtrl', function($state,reportesFactory,reportesVariosFactory,globalService,$sce,$localStorage,atencionFactory ) {	
+	.controller('reporteReportesCtrl', function($state,reportesFactory,atencionFactory ,reportesVariosFactory,globalService,$sce,$localStorage ) {	
 	
 	function getTipoServicios() {
 	atencionFactory.getServicios().then(function (result) {
+		
 		vm.Tiposervicios = result.GetMuestraTipSerPrincipalListResult;
 	});
 	}

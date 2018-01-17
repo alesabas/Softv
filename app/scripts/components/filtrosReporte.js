@@ -294,7 +294,12 @@ var filtrosReporte = {
         if (item.function === 'getfiltrosQuejas' && item.step==vm.step) {
           vm.calles = vm.options.selectedItems;            
           vm.showfilters=true;
-        }else{
+        }
+        if (item.function === 'getfiltrosAtencion' && item.step==vm.step) {
+          vm.colonias = vm.options.selectedItems;            
+          vm.showfilters=true;
+        }
+        else{
           var par= {
             'distribuidores': vm.distribuidores,
             'plazas': vm.plazas,
