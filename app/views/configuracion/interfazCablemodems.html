@@ -17,46 +17,109 @@
       <div class="col-md-3">
        <div class="col-md-12">
            <label>Distribuidor</label>
-           <select class="form-control input-sm" ng-model="$ctrl.distribuidor" >
-            <option value=""></option>
+           <select class="form-control input-sm" 
+           ng-model="$ctrl.distribuidor"
+           ng-change="$ctrl.cambioDistribuidor()"
+           ng-options="item as item.Nombre for item in $ctrl.Distribuidores track by item.Clv_Plaza" >
+            <option value="">--Selecciona distribuidor--</option>
            </select>
        </div>
 
        <div class="col-md-12">
            <label>Plaza</label>
-            <select class="form-control input-sm" ng-model="$ctrl.plaza" >
-             <option value=""></option>
+            <select class="form-control input-sm" ng-model="$ctrl.plaza"  
+            ng-change="$ctrl.filtrar(1)"
+            ng-options="item as item.razon_social for item in $ctrl.Plazas track by item.id_compania" >
+             <option value="">--Selecciona plaza--</option>
             </select>
         </div>
         <div class="col-md-12">
                 <label>Tipo servicio</label>
-                 <select class="form-control input-sm" ng-model="$ctrl.plaza" >
-                  <option value=""></option>
+                 <select class="form-control input-sm" 
+                 ng-change="$ctrl.filtrar(1)"
+                 ng-model="$ctrl.servicio" ng-options="item as item.Concepto for item in $ctrl.Servicios track by item.Clv_TipSer" >
+                  <option value="">Selecciona tipo servicio</option>
                  </select>
          </div>
 
-         <div class="col-md-12">         
-             <label>Contrato</label>
-            <input type="text" class="form-control" ng-model="$ctrl.contrato">           
-         </div>
-         <div class="col-md-12">
+            <div class="col-md-9">         
+                <label>Contrato</label>
+                <input type="text" class="form-control" ng-model="$ctrl.contrato">           
+            </div>
+            <div class="col-md-3"> 
+                <br>        
+                 <button class="btn btn-xs btn-warning"   ng-click="$ctrl.filtrar(2)" ><i class="fa fa-search"></i> Buscar</button>           
+            </div>
+         <div class="col-md-9">
                 <label>Orden</label>
-                <input type="text" class="form-control" ng-model="$ctrl.clvorden">
+                <input type="text" class="form-control"   ng-model="$ctrl.clvorden">
          </div> 
-         <div class="col-md-12">
+         <div class="col-md-3"> 
+           <br>     
+            <button class="btn btn-xs btn-warning"    ng-click="$ctrl.filtrar(3)"><i class="fa fa-search"></i> Buscar</button>           
+       </div>
+         <div class="col-md-9">
                 <label>MAC Adress</label>
                 <input type="text" class="form-control" ng-model="$ctrl.mac">
          </div> 
-         <div class="col-md-12">
+         <div class="col-md-3"> 
+           <br>   
+            <button class="btn btn-xs btn-warning"   ng-click="$ctrl.filtrar(4)" ><i class="fa fa-search"></i> Buscar</button>           
+       </div>
+         <div class="col-md-9">
                 <label>fecha solicitud</label>
-                <input type="text" class="form-control" ng-model="$ctrl.fechasolicitud">
+                <input type="date" class="form-control" ng-model="$ctrl.fechasolicitud">
          </div> 
+         <div class="col-md-3">
+           <br>
+            <button class="btn btn-xs btn-warning "   ng-click="$ctrl.filtrar(5)"><i class="fa fa-search"></i> Buscar</button>           
+       </div>
 
       </div>
-      <div class="col-md-5"></div>
-      <div class="col-md-4"></div>
+      <div class="col-md-9">
+        <table class="table" style="font-size:13px;">
+          <thead>
+            <tr>
+              <th>Tipo de servicio</th>
+              <th>Servicio</th>
+              <th>Medio</th>
+              <th>MacAddress</th>
+              <th>Comando</th>
+              <th>Fecha Solicitud</th>   
+              <th># Orden </th>            
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr dir-paginate="x in $ctrl.datos|orderBy:$ctrl.sortKey:reverse|filter:$ctrl.search|itemsPerPage:10" >
+              <td>{{x.TIPOSERVICIO}}</td>
+              <td>{{x.SERVICIO}}</td>
+              <td>{{x.MEDIO}}</td>
+              <td>{{x.MacAddress}}</td>
+              <td>{{x.Comando}}</td>
+              <td>{{x.fecha_habilitar}}</td>  
+              <td>{{x.Clv_Orden}}</td>            
+            </tr>
+          </tbody>
+        </table>
+        <div style="padding-left: 20px;">
+          <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true">
+          </dir-pagination-controls>
+        </div>
+
+      </div>
+    
   </div>
   
     </div>
   </div>
   
+  <style>
+  .table > thead > tr > th, .table > thead > tr > td, .table > tbody > tr > td{
+     padding: 3px 4px !important; 
+    line-height: 1.846153846;
+    vertical-align: top;
+    border-top: 1px solid rgba(189, 193, 193, 0.2);
+  
+  }
+  </style>

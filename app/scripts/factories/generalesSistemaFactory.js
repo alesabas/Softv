@@ -29,11 +29,12 @@ angular
       GetBorRelOrdenesTecnicos: '/Configuracion/GetBorRelOrdenesTecnicos',
       GetBorRel_Tecnicos_Quejas: '/Configuracion/GetBorRel_Tecnicos_Quejas',
       GetNUEBonificacionCajeras: '/Configuracion/GetNUEBonificacionCajeras',
-      GetvalidaAccesoFacturacion:'/Configuracion/GetvalidaAccesoFacturacion',
-      GetguardaPreferencia:'/Configuracion/GetguardaPreferencia',
-      GetDetallePreferencias:'/Configuracion/GetDetallePreferencias',
-      Getlogos:'/Configuracion/Getlogos',
-      GetGuardalogos:'/Configuracion/GetGuardalogos'
+      GetvalidaAccesoFacturacion: '/Configuracion/GetvalidaAccesoFacturacion',
+      GetguardaPreferencia: '/Configuracion/GetguardaPreferencia',
+      GetDetallePreferencias: '/Configuracion/GetDetallePreferencias',
+      Getlogos: '/Configuracion/Getlogos',
+      GetGuardalogos: '/Configuracion/GetGuardalogos',
+      GetFILTROSINTERFAZ_CABLEMODEMS: '/Configuracion/GetFILTROSINTERFAZ_CABLEMODEMS'
     };
 
     /* factory.GetguardaPreferencia = function (file, options, eliminadas) {
@@ -64,16 +65,48 @@ angular
     }; */
 
 
-    factory.Getlogos = function () {
+
+    factory.GetFILTROSINTERFAZ_CABLEMODEMS = function (obj) {
       var deferred = $q.defer();
-     
+      var Parametros ={
+        'obj':{
+          'CLVDISTRIBUIDOR': obj.CLVDISTRIBUIDOR,
+          'CLVPLAZA': obj.CLVPLAZA,
+          'CLVTIPSER':obj.CLVTIPSER,
+          'Clv_Orden':obj.Clv_Orden,
+          'MacAddress':obj.MacAddress,
+          'fecha_habilitar':obj.fecha_habilitar,
+          'contratocompuesto':obj.contratocompuesto,
+          'Op':obj.Op
+        }
+      };
 
       var config = {
         headers: {
-          'Authorization': $localStorage.currentUser.token          
+          'Authorization': $localStorage.currentUser.token
         }
       };
-      
+
+      $http.post(globalService.getUrl() + paths.GetFILTROSINTERFAZ_CABLEMODEMS, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+
+      return deferred.promise;
+    };
+
+
+    factory.Getlogos = function () {
+      var deferred = $q.defer();
+
+
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+
       $http.get(globalService.getUrl() + paths.Getlogos, config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
@@ -85,14 +118,14 @@ angular
 
     factory.GetDetallePreferencias = function () {
       var deferred = $q.defer();
-     
+
 
       var config = {
         headers: {
-          'Authorization': $localStorage.currentUser.token          
+          'Authorization': $localStorage.currentUser.token
         }
       };
-      
+
       $http.get(globalService.getUrl() + paths.GetDetallePreferencias, config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
@@ -104,12 +137,12 @@ angular
 
 
 
-    factory.GuardaLogos = function (file,options, eliminadas) {
+    factory.GuardaLogos = function (file, options, eliminadas) {
       var deferred = $q.defer();
       var data = new FormData();
       for (var i = 0; i < file.length; i++) {
         data.append('file' + i, file[i]);
-      }      
+      }
       data.append('options', JSON.stringify(options));
       data.append('eliminadas', JSON.stringify(eliminadas));
       var config = {
@@ -118,7 +151,7 @@ angular
           'Content-Type': undefined
         }
       };
-      
+
       $http.post(globalService.getUrl() + paths.GetGuardalogos, data, config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
@@ -133,26 +166,26 @@ angular
 
     factory.GetguardaPreferencia = function (obj) {
       var deferred = $q.defer();
-     
+
       var data = {
-       'preferencias':{ 
-          'NombreSistema':obj.NombreSistema,
-          'TituloNav':obj.TituloNav,
-          'ColorMenu':obj.ColorMenu,
-          'ColorMenuLetra':obj.ColorMenuLetra,
-          'ColorNav':obj.ColorNav,
-          'ColorNavLetra':obj.ColorNavLetra,
-          'MensajeHome':obj.MensajeHome,
-          'ColorFondo':obj.ColorFondo
-       }
+        'preferencias': {
+          'NombreSistema': obj.NombreSistema,
+          'TituloNav': obj.TituloNav,
+          'ColorMenu': obj.ColorMenu,
+          'ColorMenuLetra': obj.ColorMenuLetra,
+          'ColorNav': obj.ColorNav,
+          'ColorNavLetra': obj.ColorNavLetra,
+          'MensajeHome': obj.MensajeHome,
+          'ColorFondo': obj.ColorFondo
+        }
       };
 
       var config = {
         headers: {
-          'Authorization': $localStorage.currentUser.token          
+          'Authorization': $localStorage.currentUser.token
         }
       };
-      
+
       $http.post(globalService.getUrl() + paths.GetguardaPreferencia, data, config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
@@ -168,7 +201,7 @@ angular
 
 
 
-   factory.GetvalidaAccesoFacturacion = function () {
+    factory.GetvalidaAccesoFacturacion = function () {
       var deferred = $q.defer();
       var Parametros = {
         'op': 0,
