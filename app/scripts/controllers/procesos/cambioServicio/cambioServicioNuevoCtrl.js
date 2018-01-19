@@ -2,7 +2,7 @@
 
 angular
   .module('softvApp')
-  .controller('cambioServicioNuevoCtrl', function (CatalogosFactory, procesoFactory, ngNotify, atencionFactory, $uibModal, $localStorage) {
+  .controller('cambioServicioNuevoCtrl', function (CatalogosFactory, procesoFactory, ngNotify, $state, atencionFactory, $uibModal, $localStorage) {
 
     function initData() {
       procesoFactory.GetDameClv_SessionProceso().then(function (result) {
@@ -58,6 +58,8 @@ angular
     }
 
     function verOpciones(item) {
+      console.log(item);
+      vm.servicioActual=item;
       vm.muestraServPosibles = true;
       var Parametros = {
         'contrato': vm.datosCliente.CONTRATO,
@@ -96,7 +98,8 @@ angular
         procesoFactory.GetuspDameClientesActivos(Parametros).then(function (result) {
           if (result.GetuspDameClientesActivosResult.length > 0) {
             vm.datosCliente = result.GetuspDameClientesActivosResult[0];
-            ServiciosActuales();
+            console.log();
+            ServiciosActuales(vm.datosCliente,'datos cliente');
           } else {
             ngNotify.set('ingresa un contrato válido', 'danger');
           }
@@ -118,12 +121,34 @@ angular
       }
     }
 
+    function CambiarServicio(item){
+      var Parametros = {        
+        'contrato':  vm.datosCliente.CONTRATO,
+        'contratoNet': vm.servicioActual.contratonet,
+        'clvtipser': vm.selectedServicio.Clv_TipSerPrincipal,
+        'Clv_ServOld': vm.servicioActual.clv_servicio,
+        'Clv_ServNew': item.clv_servicio,
+        'Monto': item.cobro,
+        'Clv_Session':  vm.clvsession,
+        'Id':item.id
+      };
+      console.log(Parametros);
+    procesoFactory.GetCambiaServCliente(Parametros).then(function(result){
+      $state.go('home.procesos.cambioservicio');
+     
+        ngNotify.set('El cambio de servicio se guardo correctamemnte','success');
+      });
+     
+    }
+
     var vm = this;
     initData();
+    vm.servicioActual={};
     vm.ModalClientes = ModalClientes;
     vm.verOpciones = verOpciones;
     vm.muestraServCliente = true;
     vm.muestraServPosibles = false;
     vm.CambioServicio = CambioServicio;
     vm.EnterContrato = EnterContrato;
+    vm.CambiarServicio=CambiarServicio;
   });

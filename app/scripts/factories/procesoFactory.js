@@ -13,10 +13,38 @@ angular
       GetuspDameClientesActivos: '/Procesos/GetuspDameClientesActivos',
       GetServiciosClienteActuales: '/Procesos/GetServiciosClienteActuales',
       GetServiciosClientePosibles: '/Procesos/GetServiciosClientePosibles',
-      GetDameClv_SessionProceso: '/DameClv_Session/GetDameClv_SessionProceso'
+      GetDameClv_SessionProceso: '/DameClv_Session/GetDameClv_SessionProceso',
+      GetCambiaServCliente:'/Procesos/GetCambiaServCliente'
     };
 
     var factory = {};
+
+
+    factory.GetCambiaServCliente = function (obj) {
+      var deferred = $q.defer();
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      var Parametros = {        
+          'contrato': obj.contrato,
+          'contratoNet': obj.contratoNet,
+          'clvtipser': obj.clvtipser,
+          'Clv_ServOld': obj.Clv_ServOld,
+          'Clv_ServNew': obj.Clv_ServNew,
+          'Monto': obj.Monto,
+          'Clv_Session': obj.Clv_Session,
+          'Id':obj.Id
+        };
+      $http.post(globalService.getUrl() + paths.GetCambiaServCliente, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
 
     factory.GetDameClv_SessionProceso = function (obj) {
       var deferred = $q.defer();

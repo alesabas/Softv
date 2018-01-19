@@ -5,23 +5,34 @@ angular
   .controller('cambioServicioCtrl', function (procesoFactory, CatalogosFactory, ngNotify, atencionFactory, $uibModal, $localStorage) {
 
     function initData() {
-    var obj={
+      filtros(0);
+
+    }
+
+    function getPlazas(){
+      atencionFactory.getPlazas().then(function (data) {
+        vm.plazas = data.GetMuestra_Compania_RelUsuarioListResult;
+      });
+    }
+
+    function filtros(op){
+      var obj={
         'clave':0,
         'Contrato': 0,
         'Nombre': '',
         'Clv_TipSer': 0,
-        'Op':0,
-        'idcompania': 488        
+        'Op':op,
+        'idcompania': (vm.selectedPlaza)?vm.selectedPlaza.id_compania:0       
         }
       procesoFactory.GetConCambioServCliente(obj).then(function (result) {
-        console.log(result.GetConCambioServClienteResult);
+        vm.cambios=result.GetConCambioServClienteResult;
       });
-
     }
 
     
 
     var vm = this;
-    initData();
-   
+    vm.filtros=filtros;
+    initData();    
+    getPlazas();
   });
