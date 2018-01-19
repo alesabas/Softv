@@ -1,0 +1,58 @@
+<div class="modal-header">
+    <button class="close" aria-label="Close" type="button" ng-click="ctrl.cancel()">×</button>
+    <h4 class="modal-title">Selecciona el Aparato</h4>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <div class="col-md-12">
+                <b class="text-primary">Aparato a Cambiar</b>
+            </div>
+        </div>
+        <div class="col-md-offset-1 col-md-10">
+            <div class="col-md-4">
+                <b>Aparato:</b>
+            </div>
+            <div class="col-md-8">
+                <select name="SlcAparatoC" class="form-control input-sm" ng-model="ctrl.AparatoC">
+                    <option value="">Selecciona</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-offset-1 col-md-10">
+            <br>
+        </div>
+        <div class="col-md-offset-1 col-md-10">
+            <div class="col-md-4">
+                <b>Estado del aparato:</b>
+            </div>
+            <div class="col-md-8">
+                <select name="SlcStatusAparatoC" class="form-control input-sm" ng-model="ctrl.StatusAparatoC">
+                    <option value="">Selecciona</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-offset-1 col-md-10">
+            <br>
+        </div>
+        <div class="col-md-offset-1 col-md-10">
+            <div class="col-md-12">
+                <b><h4 class="text-primary">Aparato a Asignar</h4></b>
+            </div>
+        </div>
+        <div class="col-md-offset-1 col-md-10">
+            <div class="col-md-4">
+                <b>Aparato:</b>
+            </div>
+            <div class="col-md-8">
+                <select name="SlcAparatoA" class="form-control input-sm" ng-model="ctrl.AparatoA">
+                    <option value="">Selecciona</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default btn-sm" type="button" ng-click="ctrl.cancel()">Cancelar</button>
+    <button class="btn btn-primary btn-sm" ng-disabled="ctrl.Detalle" type="submit">Aceptar</button>
+</div>

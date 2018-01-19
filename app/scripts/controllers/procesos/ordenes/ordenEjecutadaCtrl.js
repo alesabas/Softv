@@ -254,7 +254,7 @@
     }
 
     function detalleTrabajo(trabajo, x) {
-
+      console.log(x);
       if (vm.selectedTecnico == undefined) {
         ngNotify.set('Selecciona a un técnico.', 'warn');
         return;
@@ -440,7 +440,27 @@
               }
             }
           });
-      } else {
+      }else if(
+        x.Descripcion.toLowerCase().includes('capag') ||
+        x.Descripcion.toLowerCase().includes('capat')
+      ){          
+        var modalInstance = $uibModal.open({
+          animation: vm.animationsEnabled,
+          ariaLabelledBy: 'modal-title',
+          ariaDescribedBy: 'modal-body',
+          templateUrl: 'views/procesos/ModalCambioAparatos.html',
+          controller: 'ModalCambioAparatosIgualCtrl',
+          controllerAs: 'ctrl',
+          backdrop: 'static',
+          keyboard: false,
+          size: 'md',
+          /*resolve: {
+            options: function () {
+              return options;
+            }
+          }*/
+        });
+      }else{
         console.log('este trabajo no esta implementado');
       }
 

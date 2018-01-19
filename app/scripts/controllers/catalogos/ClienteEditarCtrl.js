@@ -564,6 +564,7 @@ angular
         }
 
         function DetalleConcepto(ObjConcepto){
+            console.log(ObjConcepto);
             if(ObjConcepto.Tipo == 'S' || ObjConcepto.Tipo == 'P'){
                 vm.ConceptoTipo = ObjConcepto.Tipo;
                 vm.DivServicio = true;
@@ -718,7 +719,8 @@ angular
                     'Clv_UnicaNet': vm.Clv_UnicaNet,
                     'Nombre': vm.NombreServicio,
                     'Detalle': vm.DetalleServicio,
-                    'Tipo': 'S'
+                    'Tipo': 'S',
+                    'idMedio': vm.IdMedioServicio
                 };
                 if(data.UpdateClientesServicioResult == -1){
                     ngNotify.set('CORRECTO, se guardó detalle del servicio.', 'success');
