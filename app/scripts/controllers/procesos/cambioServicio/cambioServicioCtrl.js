@@ -15,6 +15,31 @@ angular
       });
     }
 
+    function eliminaCambio(item){
+      var info=item;
+      var modalInstance = $uibModal.open({
+        animation: vm.animationsEnabled,
+        ariaLabelledBy: 'modal-title',
+        ariaDescribedBy: 'modal-body',
+        templateUrl: 'views/procesos/ModalEliminaCambioServicio.html',
+        controller: 'ModalEliminaCambioServicioCtrl',
+        controllerAs: '$ctrl',
+        backdrop: 'static',
+        keyboard: false,
+        size: 'sm',
+        resolve: {
+          info: function () {
+            return info;
+          }
+        }
+      });
+
+      modalInstance.result.then(function (result) {
+        filtros(0);
+      }, function () {});
+
+    }
+
     function filtros(op){
       var obj={
         'clave':0,
@@ -33,6 +58,8 @@ angular
 
     var vm = this;
     vm.filtros=filtros;
+    vm.eliminaCambio=eliminaCambio;
     initData();    
     getPlazas();
+    
   });

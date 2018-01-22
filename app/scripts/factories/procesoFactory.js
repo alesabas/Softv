@@ -14,10 +14,32 @@ angular
       GetServiciosClienteActuales: '/Procesos/GetServiciosClienteActuales',
       GetServiciosClientePosibles: '/Procesos/GetServiciosClientePosibles',
       GetDameClv_SessionProceso: '/DameClv_Session/GetDameClv_SessionProceso',
-      GetCambiaServCliente:'/Procesos/GetCambiaServCliente'
+      GetCambiaServCliente:'/Procesos/GetCambiaServCliente',
+      GetBorCambioServCliente:'/Procesos/GetBorCambioServCliente'
     };
 
     var factory = {};
+
+
+    factory.GetBorCambioServCliente = function (Clave) {
+      var deferred = $q.defer();
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      var Parametros = {        
+          'Clave':Clave,
+          'Op': 0         
+        };
+      $http.post(globalService.getUrl() + paths.GetBorCambioServCliente, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
 
 
     factory.GetCambiaServCliente = function (obj) {
