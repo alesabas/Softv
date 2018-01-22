@@ -30,7 +30,8 @@ angular
       });
 
       modalInstance.result.then(function (selectedItem) {
-        console.log(selectedItem);
+        vm.serviciosCliente=[];
+        vm.serviciosPosibles=[];
         vm.datosCliente = selectedItem;
         ServiciosActuales();
       }, function () {});
@@ -77,10 +78,14 @@ angular
     }
 
     function CambioServicio() {
+      vm.serviciosCliente=[];
+      vm.serviciosPosibles=[];
       ServiciosActuales();
     }
 
     function DetalleContrato() {
+      vm.serviciosCliente=[];
+      vm.serviciosPosibles=[];
       if (vm.contratoSelected) {
         var Parametros = {
           'contrato': vm.contratoSelected.split('-')[0],
@@ -98,7 +103,7 @@ angular
         procesoFactory.GetuspDameClientesActivos(Parametros).then(function (result) {
           if (result.GetuspDameClientesActivosResult.length > 0) {
             vm.datosCliente = result.GetuspDameClientesActivosResult[0];
-            console.log();
+           
             ServiciosActuales(vm.datosCliente,'datos cliente');
           } else {
             ngNotify.set('ingresa un contrato válido', 'danger');
