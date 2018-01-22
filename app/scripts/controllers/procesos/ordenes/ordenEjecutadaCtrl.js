@@ -148,6 +148,7 @@
             vm.idTecnicoBitacora = data.GetchecaBitacoraTecnicoResult.clvTecnico;
           }
           ordenesFactory.MuestraRelOrdenesTecnicos(orden).then(function (data) {
+            console.log(data);
             vm.tecnico = data.GetMuestraRelOrdenesTecnicosListResult;
             if (vm.idTecnicoBitacora > 0) {
               for (var a = 0; a < vm.tecnico.length; a++) {
@@ -443,7 +444,13 @@
       }else if(
         x.Descripcion.toLowerCase().includes('capag') ||
         x.Descripcion.toLowerCase().includes('capat')
-      ){          
+      ){
+        var ObjOrdenSer = {
+          'Clv_Orden': x.Clv_Orden,
+          'Trabajo': x.Descripcion.split(' '),
+          'IdContrato': vm.contrato,
+          'ClvTecnico': vm.selectedTecnico.CLV_TECNICO
+        };
         var modalInstance = $uibModal.open({
           animation: vm.animationsEnabled,
           ariaLabelledBy: 'modal-title',
@@ -454,11 +461,11 @@
           backdrop: 'static',
           keyboard: false,
           size: 'md',
-          /*resolve: {
-            options: function () {
-              return options;
+          resolve: {
+            ObjOrdenSer: function () {
+              return ObjOrdenSer;
             }
-          }*/
+          }
         });
       }else{
         console.log('este trabajo no esta implementado');

@@ -2,7 +2,7 @@
 
 angular
     .module('softvApp')
-    .controller('ModalCambioAparatosIgualCtrl', function(CatalogosFactory, $uibModal, $uibModalInstance, ngNotify, $state){
+    .controller('ModalCambioAparatosIgualCtrl', function(CatalogosFactory, $uibModal, $uibModalInstance, ngNotify, $state, ObjOrdenSer){
 
         function initdata(){
 
@@ -15,5 +15,5 @@ angular
         var vm = this;
         vm.cancel = cancel;
         initdata();
-
+        console.log(ObjOrdenSer);
     });
