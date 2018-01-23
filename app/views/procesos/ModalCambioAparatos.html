@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-md-offset-1 col-md-10">
             <div class="col-md-12">
-                <b class="text-primary">Aparato a Cambiar</b>
+                <b><h4 class="text-primary">Aparato a Cambiar</h4></b>
             </div>
         </div>
         <div class="col-md-offset-1 col-md-10">
@@ -14,7 +14,7 @@
                 <b>Aparato:</b>
             </div>
             <div class="col-md-8">
-                <select name="SlcAparatoC" class="form-control input-sm" ng-model="ctrl.AparatoC">
+                <select name="SlcAparatoC" class="form-control input-sm" ng-model="ctrl.AparatoC" ng-options="AC as AC.Mac for AC in ctrl.AparatoList track by AC.Clv_Aparato" ng-change="ctrl.SetAparatoList()">
                     <option value="">Selecciona</option>
                 </select>
             </div>
@@ -27,7 +27,7 @@
                 <b>Estado del aparato:</b>
             </div>
             <div class="col-md-8">
-                <select name="SlcStatusAparatoC" class="form-control input-sm" ng-model="ctrl.StatusAparatoC">
+                <select name="SlcStatusAparatoC" class="form-control input-sm" ng-model="ctrl.StatusAparatoC" ng-options="SA as SA.Concepto for SA in ctrl.StatusAparatoList track by SA.Clv_StatusCableModem">
                     <option value="">Selecciona</option>
                 </select>
             </div>
@@ -40,17 +40,17 @@
                 <b><h4 class="text-primary">Aparato a Asignar</h4></b>
             </div>
         </div>
-        <div class="col-md-offset-1 col-md-10">
+        <div class="col-md-offset-1 col-md-10" ng-if="!ctrl.ShowTipoCambio">
             <div class="col-md-4">
                 <b>Tipo Aparato:</b>
             </div>
             <div class="col-md-8">
-                <select name="SlcTipoAparatoA" class="form-control input-sm" ng-model="ctrl.TipoAparatoA">
+                <select name="SlcTipoAparatoA" class="form-control input-sm" ng-model="ctrl.TipoAparatoA" ng-options="TA as TA.Nombre for TA in ctrl.TipoAparatoList track by TA.IdArticulo" ng-if="!ctrl.ShowTipoCambio" ng-change="ctrl.GetAparatosDispList()">
                     <option value="">Selecciona</option>
                 </select>
             </div>
         </div>
-        <div class="col-md-offset-1 col-md-10">
+        <div class="col-md-offset-1 col-md-10" ng-if="!ctrl.ShowTipoCambio">
             <br>
         </div>
         <div class="col-md-offset-1 col-md-10">
@@ -58,7 +58,7 @@
                 <b>Aparato:</b>
             </div>
             <div class="col-md-8">
-                <select name="SlcAparatoA" class="form-control input-sm" ng-model="ctrl.AparatoA">
+                <select name="SlcAparatoA" class="form-control input-sm" ng-model="ctrl.AparatoA" ng-options="SA as SA.Descripcion for SA in ctrl.AparatoDispList track by SA.Clv_Aparato">
                     <option value="">Selecciona</option>
                 </select>
             </div>
@@ -66,6 +66,6 @@
     </div>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-default btn-sm" type="button" ng-click="ctrl.cancel()">Cancelar</button>
-    <button class="btn btn-primary btn-sm" ng-disabled="ctrl.Detalle" type="submit">Aceptar</button>
+    <button class="btn btn-default btn-sm" type="button" ng-click="ctrl.cancel()"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
+    <button class="btn btn-primary btn-sm" ng-disabled="ctrl.Detalle" type="submit"><i class="glyphicon glyphicon-floppy-disk"></i> Aceptar</button>
 </div>

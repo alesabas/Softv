@@ -445,10 +445,11 @@
         x.Descripcion.toLowerCase().includes('capag') ||
         x.Descripcion.toLowerCase().includes('capat')
       ){
+        var Trabajo = x.Descripcion.split(' ');
         var ObjOrdenSer = {
           'Clv_Orden': x.Clv_Orden,
-          'Trabajo': x.Descripcion.split(' '),
-          'IdContrato': vm.contrato,
+          'Trabajo': Trabajo[0],
+          'IdContrato': vm.contratoBueno,
           'ClvTecnico': vm.selectedTecnico.CLV_TECNICO
         };
         var modalInstance = $uibModal.open({
