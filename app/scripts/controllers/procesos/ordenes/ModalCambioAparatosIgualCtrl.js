@@ -60,17 +60,32 @@ angular
             });
         }
 
+        function SaveCambioAparato(){
+            var ObjCambioAparato = {
+                'ContratoNet': vm.AparatoC.ControNet,
+                'ClvAparato': vm.AparatoA.Clv_Aparato,
+                'ClvOrden': vm.Clv_Orden,
+                'Trabajo': vm.Trabajo,
+                'Status': vm.StatusAparatoC.Clv_StatusCableModem
+            };
+            ordenesFactory.GetSetCambioAparato(ObjCambioAparato).then(function(data){
+                ngNotify.set('CORRECTO, se agrego cambio de aparato.', 'success');
+            })
+        }
+
         function cancel() {
             $uibModalInstance.dismiss('cancel');
         }
 
         var vm = this;
+        vm.Clv_Orden = ObjOrdenSer.Clv_Orden;
         vm.IdContrato = ObjOrdenSer.IdContrato;
         vm.ClvTecnico = ObjOrdenSer.ClvTecnico;
         vm.Trabajo = ObjOrdenSer.Trabajo
         vm.ShowTipoCambio = (vm.Trabajo == 'CAPAG')? true:false;
         vm.SetAparatoList = SetAparatoList;
         vm.GetAparatosDispList = GetAparatosDispList;
+        vm.SaveCambioAparato = SaveCambioAparato;
         vm.cancel = cancel;
         initdata();
         console.log(ObjOrdenSer);
