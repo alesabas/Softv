@@ -614,7 +614,7 @@
             } else {
               console.log("well done");
               ordenesFactory.PreejecutaOrden(vm.clv_orden).then(function (details) {
-                ordenesFactory.GetDeepSP_GuardaOrdSerAparatos(vm.clv_orden).then(function (result) {
+                ordenesFactory.GetDeepSP_GuardaOrdSerAparatos(vm.clv_orden, vm.status).then(function (result) {
                   var descripcion = 'Se generó la';
                   ordenesFactory.AddSP_LLena_Bitacora_Ordenes(descripcion, vm.clv_orden).then(function (data) {
                     ordenesFactory.Imprime_Orden(vm.clv_orden).then(function (data) {

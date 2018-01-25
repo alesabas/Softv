@@ -11,14 +11,12 @@ angular
 
         function GetListClienteAparatos(){
             ordenesFactory.GetListClienteAparatos(vm.IdContrato).then(function(data){
-                console.log(data);
                 vm.AparatoList = data.GetListClienteAparatosResult;
             });
         }
         
         function GetStatusAparato(){
             ordenesFactory.GetSP_StatusAparatosList().then(function(data){
-                console.log(data);
                 vm.StatusAparatoList = data.GetSP_StatusAparatosListResult;
             });
         }
@@ -42,7 +40,6 @@ angular
                     'Id_Articulo': (vm.Trabajo == 'CAPAG')? vm.AparatoC.idArticulo:vm.TipoAparatoA.IdArticulo
                 };
                 ordenesFactory.GetListAparatosDisponiblesByIdArticulo(ObjAparato).then(function(data){
-                    console.log(data);
                     vm.AparatoDispList = data.GetListAparatosDisponiblesByIdArticuloResult;
                 });
             }
@@ -55,7 +52,6 @@ angular
                 'ContratoNet': vm.AparatoC.ControNet,
             };
             ordenesFactory.GetListTipoAparatosByIdArticulo(ObjAparato).then(function(data){
-                console.log(data);
                 vm.TipoAparatoList = data.GetListTipoAparatosByIdArticuloResult;
             });
         }
@@ -70,6 +66,7 @@ angular
             };
             ordenesFactory.GetSetCambioAparato(ObjCambioAparato).then(function(data){
                 ngNotify.set('CORRECTO, se agrego cambio de aparato.', 'success');
+                cancel();
             })
         }
 
@@ -88,5 +85,4 @@ angular
         vm.SaveCambioAparato = SaveCambioAparato;
         vm.cancel = cancel;
         initdata();
-        console.log(ObjOrdenSer);
     });

@@ -563,12 +563,12 @@ angular
     };
 
 
-    factory.GetDeepSP_GuardaOrdSerAparatos = function (ClvOrden) {
+    factory.GetDeepSP_GuardaOrdSerAparatos = function (ClvOrden, Status) {
       var deferred = $q.defer();
       var Parametros = {
         'ClvOrden': ClvOrden,
         'Op': 'M',
-        'Status': 'E',
+        'Status': Status,
         'Op2': 0
       };
       var config = {
