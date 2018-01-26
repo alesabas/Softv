@@ -133,6 +133,7 @@
         vm.observaciones = vm.datosOrden.Obs;
         ordenesFactory.consultaTablaServicios(vm.clv_orden).then(function (data) {
           vm.trabajosTabla = data.GetBUSCADetOrdSerListResult;
+          console.log(vm.trabajosTabla);
           vm.trabajosTabla.forEach(function (row) {
             row.recibi = false;
 
@@ -447,6 +448,7 @@
       ){
         var Trabajo = x.Descripcion.split(' ');
         var ObjOrdenSer = {
+          'Clave': x.Clave,
           'Clv_Orden': x.Clv_Orden,
           'Trabajo': Trabajo[0],
           'IdContrato': vm.contratoBueno,

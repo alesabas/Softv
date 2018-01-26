@@ -80,7 +80,8 @@ angular
       GetListAparatosDisponiblesByIdArticulo: '/MuestraAparatosDisponibles/GetListAparatosDisponiblesByIdArticulo',
       GetSP_StatusAparatosList: '/MuestraAparatosDisponibles/GetSP_StatusAparatosList',
       GetListTipoAparatosByIdArticulo: '/MuestraAparatosDisponibles/GetListTipoAparatosByIdArticulo',
-      GetSetCambioAparato: '/MuestraAparatosDisponibles/GetSetCambioAparato'
+      GetSetCambioAparato: '/MuestraAparatosDisponibles/GetSetCambioAparato',
+      GetCambioAparatoDeep: '/MuestraAparatosDisponibles/GetCambioAparatoDeep'
     };
 
 
@@ -1822,6 +1823,18 @@ angular
       var config = {headers: {'Authorization': $localStorage.currentUser.token}};
       var Parametros = {ObjCambioAparato: ObjCambioAparato};
       $http.post(globalService.getUrl() + paths.GetSetCambioAparato, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+    factory.GetCambioAparatoDeep = function (Clv_Orden, Clave) {
+      var deferred = $q.defer();
+      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+      var Parametros = {'Clv_Orden': Clv_Orden, 'Clave': Clave};
+      $http.post(globalService.getUrl() + paths.GetCambioAparatoDeep, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
         deferred.reject(response);

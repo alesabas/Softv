@@ -5,19 +5,37 @@ angular
     .controller('ModalCambioAparatosIgualCtrl', function(ordenesFactory, $uibModal, $uibModalInstance, ngNotify, $state, ObjOrdenSer){
 
         function initdata(){
-            GetListClienteAparatos();
-            GetStatusAparato();
+            GetCambioAparato();
         }
 
         function GetListClienteAparatos(){
             ordenesFactory.GetListClienteAparatos(vm.IdContrato).then(function(data){
                 vm.AparatoList = data.GetListClienteAparatosResult;
+                if(vm.AparatoCliente != null){
+                    for(var i = 0; vm.AparatoList.length > i; i++){
+                        if(vm.AparatoList[i].Clv_Aparato == vm.AparatoCliente){
+                            vm.AparatoC = vm.AparatoList[i];
+                            if(vm.Trabajo == 'CAPAG'){
+                                GetAparatosDispList();
+                            }else if(vm.Trabajo == 'CAPAT'){
+                                GetTipoAparatosDispList();
+                            }
+                        }
+                    }
+                }
             });
         }
         
         function GetStatusAparato(){
             ordenesFactory.GetSP_StatusAparatosList().then(function(data){
                 vm.StatusAparatoList = data.GetSP_StatusAparatosListResult;
+                if(vm.StatusEntrega != null){
+                    for(var i = 0; vm.StatusAparatoList.length > i; i++){
+                        if(vm.StatusAparatoList[i].Clv_StatusCableModem == vm.StatusEntrega){
+                            vm.StatusAparatoC = vm.StatusAparatoList[i];
+                        }
+                    }
+                }
             });
         }
 
@@ -41,6 +59,13 @@ angular
                 };
                 ordenesFactory.GetListAparatosDisponiblesByIdArticulo(ObjAparato).then(function(data){
                     vm.AparatoDispList = data.GetListAparatosDisponiblesByIdArticuloResult;
+                    if(vm.AparatoAsignar != null){
+                        for(var i = 0; vm.AparatoDispList.length > i; i ++){
+                            if(vm.AparatoDispList[i].Clv_Aparato == vm.AparatoAsignar){
+                                vm.AparatoA = vm.AparatoDispList[i];
+                            }
+                        }
+                    }
                 });
             }
         }
@@ -53,6 +78,14 @@ angular
             };
             ordenesFactory.GetListTipoAparatosByIdArticulo(ObjAparato).then(function(data){
                 vm.TipoAparatoList = data.GetListTipoAparatosByIdArticuloResult;
+                if(vm.TipoAparatoAsignar != null){
+                    for(var i = 0; vm.TipoAparatoList.length > i; i++){
+                        if(vm.TipoAparatoList[i].IdArticulo == vm.TipoAparatoAsignar){
+                            vm.TipoAparatoA = vm.TipoAparatoList[i];
+                            GetAparatosDispList();
+                        }
+                    }
+                }
             });
         }
 
@@ -70,11 +103,24 @@ angular
             })
         }
 
+        function GetCambioAparato(){
+            ordenesFactory.GetCambioAparatoDeep(vm.Clv_Orden, vm.Clave).then(function(data){
+                var CambioAparato = data.GetCambioAparatoDeepResult;
+                vm.AparatoCliente = CambioAparato.AparatoCliente;
+                vm.StatusEntrega = CambioAparato.StatusEntrega;
+                vm.AparatoAsignar = CambioAparato.AparatoAsignar;
+                vm.TipoAparatoAsignar = CambioAparato.TipoAparatoAsignar;
+                GetListClienteAparatos();
+                GetStatusAparato();
+            });
+        }
+
         function cancel() {
             $uibModalInstance.dismiss('cancel');
         }
 
         var vm = this;
+        vm.Clave = ObjOrdenSer.Clave
         vm.Clv_Orden = ObjOrdenSer.Clv_Orden;
         vm.IdContrato = ObjOrdenSer.IdContrato;
         vm.ClvTecnico = ObjOrdenSer.ClvTecnico;
