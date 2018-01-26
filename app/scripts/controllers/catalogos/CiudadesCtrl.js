@@ -5,6 +5,10 @@ angular
     .controller('CiudadesCtrl', function(CatalogosFactory, $uibModal){
 
         function initData(){
+            GetCiuadadList();
+        }
+
+        function GetCiuadadList(){
             var ObjCiudad = {
                 'Clv_Ciudad': 0,
                 'Nombre': '',
@@ -35,6 +39,11 @@ angular
                 class: 'modal-backdrop fade',
                 size: 'md'
             });
+            modalInstance.result.then(function () {
+                GetCiuadadList();
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
+            });
         }
 
         function OpenUpdateCiudad(IdMunicipio){
@@ -56,6 +65,11 @@ angular
                     }
                 }
             });
+            modalInstance.result.then(function () {
+                GetCiuadadList();
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
+            });
         }
 
         function OpenDeleteCiudad(IdMunicipio){
@@ -76,6 +90,11 @@ angular
                         return IdMunicipio;
                     }
                 }
+            });
+            modalInstance.result.then(function () {
+                GetCiuadadList();
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
             });
         }
 

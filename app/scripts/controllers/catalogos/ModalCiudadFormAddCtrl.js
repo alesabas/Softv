@@ -4,20 +4,14 @@ angular
     .module('softvApp')
     .controller('ModalCiudadFormAddCtrl', function(CatalogosFactory, $uibModalInstance, $uibModal, ngNotify, $state){
 
-        function initData(){
-            //GetEstadoList(vm.IdMunicipio);
-        }
-
         function SaveCiudad(){
             var ObjCiudad = {
                 'Nombre': vm.Ciudad,
                 'Id':0
-
             };
             CatalogosFactory.GetAddCiudades(ObjCiudad).then(function(data){
                 if(data.GetAddCiudadesResult[0].mismoNombre == 0){
                     vm.IdCiudad = data.GetAddCiudadesResult[0].Clv_Ciudad;
-                    $state.reload('home.catalogos.ciudades');
                     ngNotify.set('CORRECTO, se añadió una ciudad nueva, ahora puedes comenzar a agregar relaciones', 'success');
                     vm.ShowEdit = false;
                     vm.ShowAdd = true;
@@ -26,29 +20,7 @@ angular
                     ngNotify.set('ERROR, Ya existe una ciudad con el mismo nombre.', 'warn');
                 }else{
                     ngNotify.set('ERROR, al añadir una ciudad nueva.', 'warn');
-                    $state.reload('home.catalogos.ciudades');
                     cancel();
-                }
-            });
-        }
-
-        function OpenUpdateCiudad(IdMunicipio){
-            var IdMunicipio = IdMunicipio;
-            var modalInstance = $uibModal.open({
-                animation: true,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: 'views/catalogos/ModalCiudadForm.html',
-                controller: 'ModalCiudadFormUpdateCtrl',
-                controllerAs: 'ctrl',
-                backdrop: 'static',
-                keyboard: false,
-                class: 'modal-backdrop fade',
-                size: 'md',
-                resolve: {
-                    IdMunicipio: function () {
-                        return IdMunicipio;
-                    }
                 }
             });
         }
@@ -103,18 +75,17 @@ angular
                 }else{
                     GetRelEstMun(vm.IdCiudad);
                     ngNotify.set('ERROR, al eliminar la relación.', 'warn');
-                    $state.reload('home.catalogos.ciudades');
                     cancel();
                 }
-            })
+            });
         }
 
         function cancel() {
-            $uibModalInstance.dismiss('cancel');
+            $uibModalInstance.close();
         }
 
         var vm = this;
-        vm.Titulo = 'Nuevo Registro';
+        vm.Titulo = 'Nueva Ciudad';
         vm.Icono = 'fa fa-plus';
         vm.ShowEdit = true;
         vm.ShowAdd = false;
@@ -125,6 +96,5 @@ angular
         vm.AddRelEst = AddRelEst;
         vm.DeleteRelEst = DeleteRelEst;
         vm.cancel = cancel;
-        initData();
 
     });

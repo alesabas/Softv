@@ -24,11 +24,11 @@ angular
                 CatalogosFactory.DeleteCiudades_New(vm.IdCiudad).then(function(data){
                     if(data.DeleteCiudades_NewResult == -1){
                         ngNotify.set('CORRECTO, se eliminó la ciudad.', 'success');
-                        $state.reload('home.catalogos.ciudades');
+                        /*$state.reload('home.catalogos.ciudades');*/
                         cancel();
                     }else{
                         ngNotify.set('ERROR, al eliminar la ciudad.', 'warn');
-                        $state.reload('home.catalogos.ciudades');
+                        /*$state.reload('home.catalogos.ciudades');*/
                         cancel();
                     }
                 });
@@ -38,7 +38,7 @@ angular
         }
 
         function cancel() {
-            $uibModalInstance.dismiss('cancel');
+            $uibModalInstance.close();
         }
 
         var vm = this;
