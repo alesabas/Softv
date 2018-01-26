@@ -34,7 +34,6 @@ angular
                 class: 'modal-backdrop fade',
                 size: 'md'
             });
-
             modalInstance.result.then(function () {
                 GetLocalidadList();
             }, function () {
@@ -103,7 +102,6 @@ angular
                     }
                 }
             });
-
             modalInstance.result.then(function () {
                 GetLocalidadList();
             }, function () {

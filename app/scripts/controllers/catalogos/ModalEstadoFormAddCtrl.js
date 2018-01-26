@@ -19,11 +19,9 @@ angular
                     CatalogosFactory.AddEstados_New(objEstados_New).then(function(data){
                         if(data.AddEstados_NewResult > 0){
                             ngNotify.set('CORRECTO, se añadió un estado nuevo.', 'success');
-                            $state.reload('home.catalogos.estados');
                             cancel();
                         }else{
                             ngNotify.set('ERROR, al añadir un estado nuevo.', 'warn');
-                            $state.reload('home.catalogos.estados');
                             cancel();
                         }
                     });
@@ -34,11 +32,11 @@ angular
         }
 
         function cancel(){
-            $uibModalInstance.dismiss('cancel');
+            $uibModalInstance.close();
         }
 
         var vm = this;
-        vm.Titulo = 'Nuevo Registro';
+        vm.Titulo = 'Nuevo Estado';
         vm.Icono = 'fa fa-plus';
         vm.View = false;
         vm.SaveEstado = SaveEstado;

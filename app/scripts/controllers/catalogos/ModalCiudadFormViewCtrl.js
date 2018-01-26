@@ -94,7 +94,7 @@ angular
         }
 
         var vm = this;
-        vm.Titulo = 'Detalle Registro - ';
+        vm.Titulo = 'Detalle Ciudad - ';
         vm.Icono = 'fa fa-pencil-square-o';
         vm.ShowEdit = false;
         vm.ShowAdd = false;
