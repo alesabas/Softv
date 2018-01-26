@@ -4,19 +4,16 @@
       <header>
         <strong style="font-weight:bold; border:none; margin-left:10px;">{{$ctrl.titulo}}</strong>
         <br /><small class="text-muted" style="font-size:14px; margin-left:10px;"> <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Configuración</a>><a href="#" class="paginaActiva">usuarios</a></small>
-
       </header>
       <div class="tools">
-        <div class="btn-group">
-          <button title="Crear un usuario nuevo" ng-disabled="$ctrl.blocksave" type="submit" class="btn btn-primary btn-sm" type="button"
-            permission permission-only="'usuariosAdd'"><i class="fa fa-save" aria-hidden="true"></i> Guardar</button>
+          <button title="Guardar Usuario" ng-disabled="$ctrl.blocksave" type="submit" class="btn btn-primary btn-sm" type="button" permission permission-only="'usuariosAdd'"><i class="fa fa-save" aria-hidden="true"></i> Guardar</button>
           <button title="regresar" class="btn btn-default btn-sm" type="button" ui-sref="home.configuracion.usuarios">Regresar</button>
-        </div>
       </div>
     </div>
     <div class="card-body">
       <div class="row">
         <div class="col-md-6">
+          <fieldset ng-disabled="$ctrl.blockForm">
           <div class="col-md-12">
             <h4 class="text-danger text-center">Datos del usuario</h4>
           </div>
@@ -81,44 +78,103 @@
           <div class="col-md-12">
             <br>
           </div>
-          <div class="col-md-12" ng-show="$ctrl.oculta">
-            <div class="col-md-6">
+          <div class="col-md-6">
+            <div class="col-md-12" ng-show="$ctrl.oculta">
               <b>Pasaporte</b>
             </div>
-            <div class="col-md-6">
-              <b> valida Pasaporte</b>
-            </div>
-          </div>
-          <div class="col-md-12" ng-show="$ctrl.oculta">
-            <div class="col-md-6">
+            <div class="col-md-12" ng-show="$ctrl.oculta">
               <input type="password" class="form-control input-sm" name="pass1" required-message="'Este campo es obligatorio'" ng-required="true" validate-on="dirty" ng-model="$ctrl.pass1">
             </div>
-            <div class="col-md-6">
+            <div class="col-md-12" ng-show="$ctrl.oculta">
+              <br>
+            </div>
+            <div class="col-md-12" ng-show="$ctrl.oculta">
+              <b>Valida Pasaporte</b>
+            </div>
+            <div class="col-md-12" ng-show="$ctrl.oculta">
               <input type="password" class="form-control input-sm" name="pass2" required-message="'Este campo es obligatorio'" ng-required="true" validate-on="dirty" ng-model="$ctrl.pass2">
             </div>
           </div>
-          <div class="col-md-12">
-            <br>
-          </div>
-          <div class="col-md-12">
-            <div class="col-md-6">
+          <div class="col-md-6">
+            <div class="col-md-12">
               <label class="checkbox-inline checkbox-styled checkbox-info">
 								<input type="checkbox" name="activo" ng-model="$ctrl.activo" value="option3" checked=""><span>Activo </span>
 							</label>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-12">
+              <br>
+            </div>
+            <div class="col-md-12">
               <label class="checkbox-inline checkbox-styled checkbox-info">
 							  <input type="checkbox" ng-model="$ctrl.recibemensaje" name="recibe"><span>Recibe mensaje</span>
 							</label>
             </div>
           </div>
+          </fieldset>
         </div>
-        <div class="col-md-offset-1 col-md-5">
-
+        <div class="col-md-6">
+          <div class="col-md-12">
+            <div class="col-md-12">
+              <h4 class="text-danger text-center">Relación plaza-usuario</h4>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="col-md-5">
+              <b>Distribuidor:</b>
+            </div>
+            <div class="col-md-5">
+              <b>Plazas:</b>
+            </div>
+            <div class="col-md-2"> 
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="col-md-5">
+              <select class="form-control input-sm" ng-change="$ctrl.muestraplazas()" ng-options="item as item.Nombre for item in $ctrl.distribuidores track by item.Clv_Plaza" ng-model="$ctrl.distribuidor" name="distribuidor">
+                <option value="">selecciona</option>
+              </select>
+            </div>
+            <div class="col-md-5">
+              <select class="form-control input-sm" name="plaza" ng-options="item as item.razon_social for item in $ctrl.plazas track by item.id_compania" ng-model="$ctrl.plaza">
+                <option value="">selecciona</option>
+              </select>
+            </div>
+            <div class="col-md-2">
+              <button type="button" ng-disabled="$ctrl.IdUser === 0" class="btn btn-success btn-xs" ng-click="$ctrl.agregaRelacion()" title="Agregar Relación Plaza-Usuario"><i class="fa fa-plus"></i> Agregar</button>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <br>
+            <br>
+          </div>
+          <div class="col-md-12">
+            <div class="col-md-12">
+              <h4 class="text-danger text-center">Relación Distribuidor-Usuario</h4>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="col-md-12">
+              <table class="table">
+                <thead>
+                  <th width="40%">Distribuidor</th>
+                  <th width="40%">Plaza</th>
+                  <th width="20%">Opciones</th>
+                </thead>
+                <tbody>
+                  <tr ng-repeat=" x in $ctrl.relaciones">
+                    <td>{{x.nombre}}</td>
+                    <td>{{x.razon_social}}</td>
+                    <td><button type="button" ng-click="$ctrl.eliminarelacion(x)" class="btn btn-xs btn-danger" title="Eliminar Relación Plaza-Usuario"><i class="fa fa-trash"></i> Eliminar</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
       <br>
-      <!-- -->
+                 
+      <!-- 
       <div class="col-md-12">
         <div class="col-md-3" style="margin: 10px;">
           <fieldset ng-disabled="$ctrl.blockForm">
@@ -136,18 +192,7 @@
                 <option value="">selecciona</option>
               </select>
             </div>
-            <!-- <div class="row">
-          <label><b>Domicilio</b></label>
-          <input type="text" class="form-control input-sm" name="npregunta" required-message="'Este campo es obligatorio'" ng-required="true"
-            validate-on="dirty" ng-model="$ctrl.NombreEnc" placeholder="Nombre de la encuesta">
 
-        </div>
-        <div class="row">
-          <label><b>Colonia</b></label>
-          <input type="text" class="form-control input-sm" name="npregunta" required-message="'Este campo es obligatorio'" ng-required="true"
-            validate-on="dirty" ng-model="$ctrl.NombreEnc" placeholder="Nombre de la encuesta">
-
-        </div>-->
             <div class="row" ng-show="$ctrl.oculta">
               <label><b>Pasaporte</b></label>
               <input type="password" class="form-control input-sm" name="pass1" required-message="'Este campo es obligatorio'" ng-required="true" validate-on="dirty" ng-model="$ctrl.pass1">
@@ -162,12 +207,6 @@
         </div>
         <div class="col-md-3" style="margin: 10px;">
           <fieldset ng-disabled="$ctrl.blockForm">
-            <!--  <div class="row">
-          <label><b>Grupo de ventas:</b></label>
-          <input type="text" class="form-control input-sm" name="npregunta" required-message="'Este campo es obligatorio'" ng-required="true"
-            validate-on="dirty" ng-model="$ctrl.NombreEnc" placeholder="Nombre de la encuesta">
-
-        </div>-->
             <div class="row">
               <label><b>Identificación:</b></label>
               <select class="form-control input-sm" name="identificacion" ng-options="item as item.Nombre for item in $ctrl.Indentificaciones track by item.Clave"
@@ -266,7 +305,7 @@
 
       </div>
 
-
+      -->
     </div>
 
   </div>

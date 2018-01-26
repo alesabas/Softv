@@ -24,13 +24,11 @@ angular
                         vm.Clv_Calle = data.AddCalles_NewResult;
                         if(vm.Clv_Calle > 0){
                             ngNotify.set('CORRECTO, se añadió una calle nueva, ahora puedes comenzar a agregar relaciones', 'success');
-                            $state.reload('home.catalogos.calles');
                             vm.Disable = false;
                             vm.DisableAdd = true;
                             GetRelCalle();
                         }else{
                             ngNotify.set('ERROR, al añadir una calle nueva.', 'warn');
-                            $state.reload('home.catalogos.calles');
                         }
                     });
                 }else if(data.AddValidaNombreCalleResult == 1){
@@ -136,7 +134,7 @@ angular
         }
 
         function cancel() {
-            $uibModalInstance.dismiss('cancel');
+            $uibModalInstance.close();
         }
 
         var vm = this;

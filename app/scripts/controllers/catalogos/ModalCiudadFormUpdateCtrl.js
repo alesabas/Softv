@@ -44,7 +44,6 @@ angular
                 }else{
                     GetRelEstMun(vm.IdCiudad);
                     ngNotify.set('ERROR, al agregar la relación.', 'warn');
-                    $state.reload('home.catalogos.ciudades');
                     cancel();
                 }
             });
@@ -78,23 +77,21 @@ angular
             CatalogosFactory.UpdateCiudades_New(objCiudades_New).then(function(data){
                 if(data.UpdateCiudades_NewResult == -1){
                     ngNotify.set('CORRECTO, se guardó la ciudad.', 'success');
-                    $state.reload('home.catalogos.ciudades');
                     cancel();
                 }else{
                     GetRelEstMun(vm.IdCiudad);
                     ngNotify.set('ERROR, al guardar la ciudad.', 'warn');
-                    $state.reload('home.catalogos.ciudades');
                     cancel();
                 }
             });
         }
         
         function cancel() {
-            $uibModalInstance.dismiss('cancel');
+            $uibModalInstance.close();
         }
 
         var vm = this;
-        vm.Titulo = 'Editar Registro - ';
+        vm.Titulo = 'Editar Ciudad - ';
         vm.Icono = 'fa fa-pencil-square-o';
         vm.ShowEdit = false;
         vm.ShowAdd = false;

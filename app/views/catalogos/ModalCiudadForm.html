@@ -12,51 +12,53 @@
     </div>
     <div class="modal-body">
         <fieldset ng-disabled="ctrl.View">
-        <div class="row">
-            <div class="col-md-12">
-                <p><b>Nombre de la ciudad:</b></p>
-            </div>
-            <div class="col-md-12">
-                <input type="text" name="InpCiudad" class="form-control input-sm" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" ng-model="ctrl.Ciudad" validate-on="dirty" required required-message="'Obligatorio'">
-            </div>
-            <div class="col-md-12" ng-disabled="ctrl.DisableUpdate">
-                <br>
-            </div>
-            <div class="col-md-12" ng-disabled="ctrl.DisableUpdate">
-                <p><b>Estado(s):</b></p>
-            </div>
-            <div class="col-md-9" ng-disabled="ctrl.DisableUpdate">
-                <select name="SltEstado" class="form-control input-sm" ng-model="ctrl.Estado" ng-options="E.Nombre for E in ctrl.EstadoList track by E.Clv_Estado" ng-disabled="ctrl.ShowEdit">
-                    <option value="">Selecciona</option>
-                </select>
-            </div>
-            <div class="col-md-3" style="text-align:right" ng-disabled="ctrl.DisableUpdate">
-                <button type="button" class="btn btn-success btn-sm" title="Agregar Relación Estado" ng-click="ctrl.AddRelEst()" ng-disabled="ctrl.ShowEdit">Agregar</button>
-            </div>
-        </div>
-        <br>
-        <div class="row" ng-disabled="ctrl.DisableUpdate">
-            <div class="col-md-12">
-                <div class="col-md-12 table-scroll">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th width="10%"><b>Id</b></th>
-                                <th width="70%"><b>Estado</b></th>
-                                <th width="20%"><b>Acciones</b></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="X in ctrl.RelEstList">
-                                <td>{{ X.Clv_Estado }}</td>
-                                <td>{{ X.Nombre }}</td>
-                                <td><button type="button" class="btn btn-danger btn-xs" title="Eliminar Estado" ng-click="ctrl.DeleteRelEst(X.Clv_Estado)"><i class="fa fa-trash"></i> Eliminar</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <div class="row">
+                <div class="col-md-offset-1 col-md-10">
+                    <div class="col-md-12">
+                        <p><b>Nombre de la ciudad:</b></p>
+                    </div>
+                    <div class="col-md-12">
+                        <input type="text" name="InpCiudad" class="form-control input-sm" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" ng-model="ctrl.Ciudad" validate-on="dirty" required required-message="'Obligatorio'">
+                    </div>
+                    <div class="col-md-12" ng-disabled="ctrl.DisableUpdate">
+                        <br>
+                    </div>
+                    <div class="col-md-12" ng-disabled="ctrl.DisableUpdate">
+                        <p><b>Estado(s):</b></p>
+                    </div>
+                    <div class="col-md-9" ng-disabled="ctrl.DisableUpdate">
+                        <select name="SltEstado" class="form-control input-sm" ng-model="ctrl.Estado" ng-options="E.Nombre for E in ctrl.EstadoList track by E.Clv_Estado" ng-disabled="ctrl.ShowEdit">
+                            <option value="">Selecciona</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3" style="text-align:right" ng-disabled="ctrl.DisableUpdate">
+                        <button type="button" class="btn btn-success btn-sm" title="Agregar Relación Estado" ng-click="ctrl.AddRelEst()" ng-disabled="ctrl.ShowEdit">Agregar</button>
+                    </div>
                 </div>
             </div>
-        </div>
+            <br>
+            <div class="row" ng-disabled="ctrl.DisableUpdate">
+                <div class="col-md-offset-1 col-md-10">
+                    <div class="col-md-12 table-scroll">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th width="10%"><b>Id</b></th>
+                                    <th width="70%"><b>Estado</b></th>
+                                    <th width="20%"><b>Acciones</b></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="X in ctrl.RelEstList">
+                                    <td>{{ X.Clv_Estado }}</td>
+                                    <td>{{ X.Nombre }}</td>
+                                    <td><button type="button" class="btn btn-danger btn-xs" title="Eliminar Estado" ng-click="ctrl.DeleteRelEst(X.Clv_Estado)"><i class="fa fa-trash"></i> Eliminar</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </fieldset>
     </div>
     <div class="modal-footer">
