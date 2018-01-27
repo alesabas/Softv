@@ -2,22 +2,15 @@
 
 angular
     .module('softvApp')
-    .controller('ColoniaFormUpdateCtrl', function(CatalogosFactory, ngNotify, $state, $stateParams){
+    .controller('ColoniaFormUpdateCtrl', function(CatalogosFactory, ngNotify, $state, $stateParams, $uibModal){
 
         function initData(){
             CatalogosFactory.GetTipo_Colonias1_NewList().then(function(data){
                 vm.TipoColoniaList = data.GetTipo_Colonias1_NewListResult;
                 GetColonia();
             });
-            CatalogosFactory.GetTipServ_NewList().then(function(data){
-                vm.TipoServicioList = data.GetTipServ_NewListResult;
-            });
             CatalogosFactory.GetMuestraEstados_RelColList().then(function(data){
                 vm.EstadoList = data.GetMuestraEstados_RelColListResult;
-            });
-            var Obj = {};
-            CatalogosFactory.GetMuestraMedios_NewList(Obj).then(function(data){
-                vm.MedioList = data.GetMuestraMedios_NewListResult;
             });
             GetRelLocColList();
         }
@@ -159,98 +152,23 @@ angular
             });
         }
 
-        function SetRelCol(ObjRelCol){
-            vm.ObjRelCol = ObjRelCol;
-            vm.ObjRelColSer = {
-                'Clv_Colonia': vm.ObjRelCol.Clv_Colonia,
-                'Clv_Localidad': vm.ObjRelCol.Clv_Localidad,
-                'Clv_Ciudad': vm.ObjRelCol.Clv_Ciudad
-            };
-            GetRelColSerList();
-            GetRelColMedList();
-        }
-
-        function GetRelColSerList(){
-            CatalogosFactory.GetRelColoniasSerList(vm.ObjRelColSer).then(function(data){
-                vm.RelColSerList = data.GetRelColoniasSerListResult;
-                vm.ShowRel = true;
-            });
-        }
-        
-        function AddRelColSer(){
-            var objRelColoniasSer = {
-                'Clv_Localidad': vm.ObjRelCol.Clv_Localidad,
-                'Clv_Ciudad': vm.ObjRelCol.Clv_Ciudad,
-                'Clv_Colonia': vm.ObjRelCol.Clv_Colonia,
-                'Clv_TipSer': vm.TipoServicio.Clv_TipSer
-            };
-            CatalogosFactory.AddRelColoniasSer(objRelColoniasSer).then(function(data){
-                if(data.AddRelColoniasSerResult == -1){
-                    ngNotify.set('CORRECTO, se agregó la relación con el Tipo de Servicio.', 'success');
-                    GetRelColSerList();
-                }else{
-                    ngNotify.set('ERROR, al agregar la relación con el Tipo de Servicio.', 'warn');
-                    GetRelColSerList();
-                }
-            });
-        }
-
-        function DeleteRelColSer(ObjRelColSer){
-            var ObjRelColSerD = {
-                'Clv_Localidad': vm.ObjRelColSer.Clv_Localidad,
-                'Clv_Ciudad': vm.ObjRelColSer.Clv_Ciudad,
-                'Clv_Colonia': vm.ObjRelColSer.Clv_Colonia,
-                'Clv_TipSer': ObjRelColSer.Clv_TipSer
-            };
-            CatalogosFactory.DeleteRelColoniasSer(ObjRelColSerD).then(function(data){
-                if(data.DeleteRelColoniasSerResult == -1){
-                    ngNotify.set('CORRECTO, se eliminoó la relación con el Tipo de Servicio.', 'success');
-                    GetRelColSerList();
-                }else{
-                    ngNotify.set('ERROR, al eliminarar la relación con el Tipo de Servicio.', 'warn');
-                    GetRelColSerList();
-                }
-            });
-        }
-
-        function GetRelColMedList(){
-            CatalogosFactory.GetRelColoniaMedioList(vm.ObjRelColSer).then(function(data){
-                vm.RelColMesList = data.GetRelColoniaMedioListResult;
-            });
-        }
-
-        function AddRelColMed(){
-            var objRelColoniaMedio = {
-                'Clv_Localidad': vm.ObjRelCol.Clv_Localidad,
-                'Clv_Ciudad': vm.ObjRelCol.Clv_Ciudad,
-                'Clv_Colonia': vm.ObjRelCol.Clv_Colonia,
-                'IdMedio': vm.Medio.IdMedio
-            };
-            CatalogosFactory.AddRelColoniaMedio(objRelColoniaMedio).then(function(data){
-                if(data.AddRelColoniaMedioResult == -1){
-                    ngNotify.set('CORRECTO, se agregó la relación con el Medio.', 'success');
-                    GetRelColMedList();
-                }else{
-                    ngNotify.set('ERROR, al agregar la relación con el Medio.', 'warn');
-                    GetRelColMedList();
-                }
-            });
-        }
-
-        function DeleteRelColMed(ObjRelColMed){
-            var ObjRelColMedD = {
-                'Clv_Localidad': vm.ObjRelColSer.Clv_Localidad,
-                'Clv_Ciudad': vm.ObjRelColSer.Clv_Ciudad,
-                'Clv_Colonia': vm.ObjRelColSer.Clv_Colonia,
-                'IdMedio': ObjRelColMed.IdMedio
-            };
-            CatalogosFactory.DeleteRelColoniaMedio(ObjRelColMedD).then(function(data){
-                if(data.DeleteRelColoniaMedioResult == -1){
-                    ngNotify.set('CORRECTO, se eliminoó la relación con el Medio.', 'success');
-                    GetRelColMedList();
-                }else{
-                    ngNotify.set('ERROR, al eliminarar la relación con el Medio.', 'warn');
-                    GetRelColMedList();
+        function OpenRelServicios(ObjRelColonia){
+            var ObjRelColonia = ObjRelColonia;
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'views/catalogos/ModalRelColoniaServicios.html',
+                controller: 'ModalRelColoniaServiciosCtrl',
+                controllerAs: 'ctrl',
+                backdrop: 'static',
+                keyboard: false,
+                class: 'modal-backdrop fade',
+                size: 'md',
+                resolve: {
+                    ObjRelColonia: function () {
+                        return ObjRelColonia;
+                    }
                 }
             });
         }
@@ -271,10 +189,6 @@ angular
         vm.GetLocalidadList = GetLocalidadList;
         vm.AddRelEstCiuLocCol = AddRelEstCiuLocCol;
         vm.DeleteRelEstCiuLocCol = DeleteRelEstCiuLocCol;
-        vm.AddRelColSer = AddRelColSer;
-        vm.DeleteRelColSer = DeleteRelColSer;
-        vm.SetRelCol = SetRelCol;
-        vm.AddRelColMed = AddRelColMed;
-        vm.DeleteRelColMed = DeleteRelColMed;
+        vm.OpenRelServicios = OpenRelServicios;
         initData();
     });
