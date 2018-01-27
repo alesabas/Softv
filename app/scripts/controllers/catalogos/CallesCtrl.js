@@ -9,6 +9,7 @@ angular
         }
 
         function GetCallesList(){
+            vm.SearchCalle = '';
             CatalogosFactory.GetCalles_NewList().then(function(data){
                 vm.CalleList = data.GetCalles_NewListResult;
                 if (vm.CalleList.length == 0) {

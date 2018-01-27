@@ -1,11 +1,10 @@
 <style type="text/css">
     .table-scroll {
         height:150px;
-        overflow:auto;  
-        margin-top:20px;
+        overflow:auto;
     }
 </style>
-<form name="FormColonia" angular-validator-submit="$ctrl.SaveColonia()" novalidate angular-validator>
+<form name="FormColonia" angular-validator-submit="$ctrl.SaveColonia()" novalidate angular-validator autocomplete="off">
     <div class="card animated fadeIn fast" style="margin-top:20px;">
         <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
             <header>
@@ -14,11 +13,141 @@
                 <small class="text-muted" style="font-size:14px; margin-left:10px;"> <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">Catálogos</a></small>
             </header>
             <div class="tools">
-                <button type="submit" class="btn btn-primary btn-sm" title="Guardar Distribuidor" ng-show="!$ctrl.View"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
+                <button type="submit" class="btn btn-primary btn-sm" title="Guardar Distribuidor" ng-show="$ctrl.SaveBtnS"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
 			    <button type="button" class="btn btn-default-bright btn-sm" ui-sref="home.catalogos.colonias" title="Cancelar cambios"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
             </div>
         </div>
         <div class="card-body">
+            <fieldset ng-disabled="$ctrl.View">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <h4 class="text-danger text-center">Datos Colonia</h4>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <br>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <b><small>Nombre:</small></b>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <input name="InpColonia" type="text" class="form-control input-sm" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" ng-model="$ctrl.Colonia" validate-on="dirty" required required-message="'Obligatorio'">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <br>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <b><small>Tipo:</small></b>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <select name="SlcTipoColonia" class="form-control input-sm" ng-model="$ctrl.TipoColonia" ng-options="TC.Concepto for TC in $ctrl.TipoColoniaList track by TC.Clave" validate-on="dirty" required required-message="'Obligatorio'">
+                                    <option value="">Selecciona</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <br>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <b><small>Fecha Entrega:</small></b>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <input type="date" name="InpFechaEntrega" class="form-control input-sm" ng-model="$ctrl.FechaEntrega" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido'">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <h4 class="text-danger text-center">Relación Colonia - Localidad</h4>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <br>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-3">
+                                <b><small>Estado:</small></b>
+                            </div>
+                            <div class="col-md-3">
+                                <b><small>Ciudad:</small></b>
+                            </div>
+                            <div class="col-md-3">
+                                <b><small>Localidad:</small></b>
+                            </div>
+                            <div class="col-md-2">
+                                <b><small>Código Postal:</small></b>
+                            </div>
+                            <div class="col-md-1">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-3">
+                                <select name="SlcEstado" class="form-control input-sm" ng-model="$ctrl.Estado" ng-options="E.Nombre for E in $ctrl.EstadoList track by E.Clv_Estado" ng-change="$ctrl.GetCiudadList()" validate-on="dirty" ng-disabled="$ctrl.Disable">
+                                    <option value="">Selecciona</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <select name="InpCiudad" class="form-control input-sm" ng-model="$ctrl.Ciudad" ng-options="C.Nombre for C in $ctrl.CiudadList track by C.Clv_Ciudad" ng-change="$ctrl.GetLocalidadList()" validate-on="dirty" ng-disabled="$ctrl.Disable">
+                                    <option value="">Selecciona</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <select name="SlcLocalidad" class="form-control input-sm" ng-model="$ctrl.Localidad" ng-options="L.Nombre for L in $ctrl.LocalidadList track by L.Clv_Localidad" validate-on="dirty" ng-disabled="$ctrl.Disable">
+                                    <option value="">Selecciona</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <input name="InpCPRel" type="text" class="form-control input-sm" ng-model="$ctrl.CPRel" ui-mask="99999" ng-disabled="$ctrl.Disable" invalid-message="'Inválido, Ingresa 5 dígitos.'">
+                            </div>
+                            <div class="col-md-1">
+                                <button type="button" class="btn btn-success btn-xs" title="Agregar Relación" ng-click="$ctrl.AddRelEstCiuLocCol()" ng-disabled="($ctrl.CPRel == null || $ctrl.CPRel == 0) || ($ctrl.Estado == undefined || $ctrl.Estado == '') || ($ctrl.Ciudad == undefined || $ctrl.Ciudad == '') || ($ctrl.Localidad == undefined || $ctrl.Localidad == '')"><i class="fa fa-plus"></i> Agregar</button>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <br>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-12 table-scroll">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th width="25%"><b>Localidad</b></th>
+                                            <th width="25%"><b>Ciudad</b></th>
+                                            <th width="25%"><b>Código Postal</b></th>
+                                            <th width="20%" class="text-center" colspan="2"><b>Acciones</b></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="X in $ctrl.RelColLocList" style="font-size: 10px">
+                                            <td>{{ X.Localidad }}</td>
+                                            <td>{{ X.Ciudad }}</td>
+                                            <td>{{ X.CodigoPostal }}</td>
+                                            <td><button type="button" class="btn btn-warning btn-xs" title="Ver Relación Colonia - Servicios" ng-click="$ctrl.OpenRelServicios(X)" style="font-size: 10px"><i class="fa fa-signal"></i> Servicios</button></td>
+                                            <td><button type="button" class="btn btn-danger btn-xs" title="Eliminar Ciudad" ng-click="$ctrl.DeleteRelEstCiuLocCol(X)" ng-show="!$ctrl.View" style="font-size: 10px"><i class="fa fa-trash"></i> Eliminar</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <br>
+
+            <!--
             <fieldset ng-disabled="$ctrl.View">
             <div class="row">
                 <div class="col-md-12">
@@ -29,7 +158,7 @@
                         <b><small>Tipo de Colonia:</small></b>
                     </div>
                     <div class="col-md-3">
-                        <b><small>Fecha de entrga:</small></b>
+                        <b><small>Fecha de entrega:</small></b>
                     </div>
                 </div>
                 <div class="col-md-offset-1 col-md-12">
@@ -224,6 +353,7 @@
                     </div>
                 </div>
             </div>
+            -->
         </div>
     </div>
 </form>
