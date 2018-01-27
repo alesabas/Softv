@@ -123,11 +123,9 @@ angular
                     CatalogosFactory.UpdateCalles_New(objCalles_New).then(function(data){
                         if(data.UpdateCalles_NewResult = -1){
                             ngNotify.set('CORRECTO, se guardó la calle.', 'success');
-                            $state.reload('home.catalogos.calles');
                             GetCalle();
                         }else{
                             ngNotify.set('ERROR, al guardar la calle.', 'warn');
-                            $state.reload('home.catalogos.calles');
                             GetCalle();
                         }
                     });
@@ -145,7 +143,7 @@ angular
         }
 
         function cancel() {
-            $uibModalInstance.dismiss('cancel');
+            $uibModalInstance.close();
         }
 
         var vm = this;

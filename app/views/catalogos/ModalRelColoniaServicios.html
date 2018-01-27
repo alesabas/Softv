@@ -1,0 +1,118 @@
+<style type="text/css">
+    .table-scroll {
+        height:600px;
+        overflow:auto;
+    }
+</style>
+<form name="FormEstado" angular-validator-submit="ctrl.AddRelColSer()" novalidate angular-validator autocomplete="off">
+    <div class="modal-header">
+        <button class="close" type="button" aria-label="close" ng-click="ctrl.cancel()">x</button>
+        <h4 class="modal-title"><i ng-class="ctrl.Icono"></i> Relación Colonia - Servicios {{ ctrl.IdEstado }}</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-offset-1 col-md-10">
+                <uib-tabset active="active">
+                    <uib-tab index="0">
+                        <uib-tab-heading>
+                            Tipos de Servicio
+                        </uib-tab-heading>
+                            <div class="col-md-12">
+                                <div class="col-md-12">
+                                    <p class="text-danger">Relación de la Colonia con los Tipos de Servicio</p>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <form name="FormRelColSer" angular-validator-submit="ctrl.AddRelColSer()" novalidate angular-validator autocomplete="off">
+                                    <div class="col-md-4">
+                                        <b><small>Tipo de Servicios:</small></b>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <select name="SltServicios" class="form-control input-sm" ng-model="ctrl.TipoServicio" ng-options="TS.Concepto for TS in ctrl.TipoServicioList track by TS.Clv_TipSer" validate-on="dirty" required required-message="'Obligatorio'">
+                                            <option value="">Selecciona</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="submit" class="btn btn-success btn-xs" title="Agregar Relación"><i class="fa fa-plus"></i> Agregar</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-12 table-scroll">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th width="75%"><b>Tipo Servicio</b></th>
+                                                <th width="25%"><b>Acciones</b></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="X in ctrl.RelColSerList">
+                                                <td>{{ X.Concepto }}</td>
+                                                <td><button type="button" class="btn btn-danger btn-xs" title="Eliminar Relació con el servicio" ng-click="ctrl.DeleteRelColSer(X)"><i class="fa fa-trash"></i> Eliminar</button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        <footer>
+                            <p class="text-right"></p>
+                        </footer>
+                    </uib-tab>
+                    <uib-tab index="1">
+                        <uib-tab-heading>
+                            Medios
+                        </uib-tab-heading>
+                            <div class="col-md-12">
+                                <div class="col-md-12">
+                                    <p class="text-danger">Relación de la Colonia con los Medios</p>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-8">
+                                    <b><small>Medio</small></b>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <form name="FormRelColMed" angular-validator-submit="ctrl.AddRelColMed()" novalidate angular-validator autocomplete="off">
+                                    <div class="col-md-8">
+                                        <select name="SltMedio" class="form-control input-sm" ng-model="ctrl.Medio" ng-options="TM.Descripcion for TM in ctrl.MedioList track by TM.IdMedio" validate-on="dirty" required required-message="'Obligatorio'">
+                                            <option value="">Selecciona</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button type="submit" class="btn btn-success btn-xs" title="Agregar Medio" ><i class="fa fa-plus"></i> Agregar</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-12 table-scroll">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th width="75%"><b>Medio</b></th>
+                                                <th width="25%"><b>Acciones</b></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="X in ctrl.RelColMesList">
+                                                <td>{{ X.Descripcion }}</td>
+                                                <td><button type="button" class="btn btn-danger btn-xs" title="Eliminar Relació con el medio" ng-click="ctrl.DeleteRelColMed(X)"><i class="fa fa-trash"></i> Eliminar</button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        <footer>
+                            <p class="text-right"></p>
+                        </footer>
+                    </uib-tab>
+                </uib-tabset>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary btn-sm" title="Guardar estado" ng-show="!ctrl.View"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
+        <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.cancel()" title="Salir"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
+    </div>
+</form>
