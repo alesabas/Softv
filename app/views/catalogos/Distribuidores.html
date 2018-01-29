@@ -47,10 +47,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr dir-paginate="X in $ctrl.distribuidores|filter:$ctrl.SearchDistribuidor|itemsPerPage:7" >
+                        <tr ng-show="!$ctrl.ViewList">
+							<td class="text-center" colspan="5">SIN REGISTROS</td>
+						</tr>
+                        <tr dir-paginate="X in $ctrl.distribuidores|filter:$ctrl.SearchDistribuidor|itemsPerPage:7" ng-show="$ctrl.ViewList">
                             <td>{{ X.Clv_Plaza }}</td>
                             <td>{{ X.Nombre }}</td>
-                            <td><button type="button" class="btn btn-info btn-xs" ui-sref="home.catalogos.detalle_distribuidor({ id: X.Clv_Plaza })" title="Editar Distribuidor"><i class="fa fa-eye"></i> consultar</button></td>
+                            <td><button type="button" class="btn btn-info btn-xs" ui-sref="home.catalogos.detalle_distribuidor({ id: X.Clv_Plaza })" title="Consultar Distribuidor"><i class="fa fa-eye"></i> consultar</button></td>
                             <td><button type="button" class="btn btn-warning btn-xs" ui-sref="home.catalogos.distribuidor_editar({ id: X.Clv_Plaza })" title="Editar Distribuidor"><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
                             <td><button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.OpenDeleteDistribuidor(X)" title="Eliminar Distribuidor"><i class="fa fa-trash"></i> ELIMINAR</button></td>
                         </tr>
@@ -61,7 +64,6 @@
 					<dir-pagination-controls max-size="7" direction-links="true" boundary-links="true" >
 					</dir-pagination-controls>
 				</div>
-                <br>
             </div>
         </div>
     </div>

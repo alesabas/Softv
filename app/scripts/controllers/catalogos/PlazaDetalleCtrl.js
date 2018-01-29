@@ -8,7 +8,7 @@ angular
       plazaFactory.GetObtendatosPlaza($stateParams.id)
         .then(function (data) {
           vm.detplaza = data.GetObtendatosPlazaResult;
-          vm.Titulo = 'Consulta plaza-' + vm.detplaza.Razonsocial;
+          vm.Titulo = 'Consulta plaza - ' + vm.detplaza.Razonsocial;
           plazaFactory.GetMuestraEstadosFrmCompania($stateParams.id)
             .then(function (data) {
               vm.estados = data.GetMuestraEstadosFrmCompaniaResult;

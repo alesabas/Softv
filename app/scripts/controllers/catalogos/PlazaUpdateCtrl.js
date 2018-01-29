@@ -8,7 +8,7 @@ angular
 
       distribuidorFactory.Getplaza(0, '')
         .then(function (data) {
-          vm.distribuidores = data.GetPlaza_DistribuidoresNewResult;          ¡
+          vm.distribuidores = data.GetPlaza_DistribuidoresNewResult;
           plazaFactory.GetObtendatosPlaza($stateParams.id)
             .then(function (data) {
               vm.detplaza = data.GetObtendatosPlazaResult;
@@ -17,7 +17,7 @@ angular
                    vm.distribuidor=item;
                 }
               });
-              vm.Titulo = 'Editar plaza-' + vm.detplaza.Razonsocial;
+              vm.Titulo = 'Editar plaza - ' + vm.detplaza.Razonsocial;
               plazaFactory.GetMuestraEstadosFrmCompania($stateParams.id)
                 .then(function (data) {
                   vm.estados = data.GetMuestraEstadosFrmCompaniaResult;
