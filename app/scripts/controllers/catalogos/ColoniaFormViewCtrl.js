@@ -265,6 +265,7 @@ angular
         vm.ShowRel = false;
         vm.Disable = false;
         vm.View = true;
+        vm.SaveBtnS = false; 
         vm.Clv_Colonia = $stateParams.id;
         vm.SaveColonia = SaveColonia;
         vm.GetCiudadList = GetCiudadList;
@@ -277,4 +278,5 @@ angular
         vm.AddRelColMed = AddRelColMed;
         vm.DeleteRelColMed = DeleteRelColMed;
         initData();
+
     });

@@ -131,8 +131,9 @@ angular
         }
 
         var vm = this;
-        vm.Titulo = 'Detalle Registro - ';
+        vm.Titulo = 'Detalle Localidad - ';
         vm.Icono = 'fa fa-pencil-square-o';
+        vm.BtnCanTitulo = 'Salir';
         vm.ShowUpdate = true;
         vm.View = true;
         vm.SaveLocalidad = SaveLocalidad;

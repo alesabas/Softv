@@ -9,7 +9,6 @@ angular
 
       distribuidorFactory.Getplaza($stateParams.id, '')
         .then(function (result) {
-          console.log(result.GetPlaza_DistribuidoresNewResult);
           var Distribuidor = result.GetPlaza_DistribuidoresNewResult[0];
           vm.Titulo = 'Detalle  Distribuidor - ' + Distribuidor.Nombre;
           vm.Nombre = Distribuidor.Nombre;
@@ -31,7 +30,6 @@ angular
 
           distribuidorFactory.Getdatoscomerciales($stateParams.id)
             .then(function (data) {
-              console.log(data);
               var Distribuidor = data.GetdatoscomercialesResult[0];
               vm.NombreDC = Distribuidor.Nombre;
               vm.EstadoDC = Distribuidor.Estado;

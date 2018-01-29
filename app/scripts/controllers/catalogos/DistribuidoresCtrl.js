@@ -6,16 +6,8 @@ angular
 
         function initData(){
             distribuidorFactory.Getplaza(0,"").then(function(data){
-                console.log(data.GetPlaza_DistribuidoresNewResult);
-                vm.distribuidores=data.GetPlaza_DistribuidoresNewResult;
-               /* vm.DistribuidoresList = data.GetDistribuidorListResult;
-                if (vm.DistribuidoresList.length == 0) {
-					vm.SinRegistros = true;
-					vm.ConRegistros = false;
-				} else {
-					vm.SinRegistros = false;
-					vm.ConRegistros = true;
-				}*/
+                vm.distribuidores = data.GetPlaza_DistribuidoresNewResult;
+                vm.ViewList = (vm.distribuidores.length > 0)? true:false;
             });
         }
 

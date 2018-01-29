@@ -8,7 +8,6 @@ angular
 
       distribuidorFactory.Getplaza($stateParams.id, '')
         .then(function (result) {
-          
           var Distribuidor = result.GetPlaza_DistribuidoresNewResult[0];
           vm.Nombre = Distribuidor.Nombre;
           vm.Titulo = 'Editar Distribuidor - '+ Distribuidor.Nombre;
@@ -103,7 +102,6 @@ angular
       distribuidorFactory.UpdatePlaza_DistribuidoresNew(Parametros)
         .then(function (data) {
           ngNotify.set('Se ha editado el distribuidor correctamente', 'success');
-          console.log(data);
           $state.go('home.catalogos.distribuidores');
         });
 

@@ -23,9 +23,10 @@ angular
         }
 
         var vm = this;
-        vm.IdDistribuidor = DistribuidorObj.IdDistribuidor;
+        vm.IdDistribuidor = DistribuidorObj.Clv_Plaza;
         vm.Distribuidor = DistribuidorObj.Nombre;
         vm.DeleteDistribuidor = DeleteDistribuidor;
         vm.cancel = cancel;
+        console.log(DistribuidorObj);
 
     });

@@ -11,15 +11,6 @@ angular
             CatalogosFactory.GetMuestraMedios_NewList().then(function(data){
                 vm.MedioList = data.GetMuestraMedios_NewListResult;
             });
-            SetRelCol();
-        }
-
-        function SetRelCol(){
-            vm.ObjRelColSer = {
-                'Clv_Colonia': vm.ObjRelCol.Clv_Colonia,
-                'Clv_Localidad': vm.ObjRelCol.Clv_Localidad,
-                'Clv_Ciudad': vm.ObjRelCol.Clv_Ciudad
-            };
             GetRelColSerList();
             GetRelColMedList();
         }
@@ -32,14 +23,12 @@ angular
         }
         
         function AddRelColSer(){
-            console.log('A');
             var objRelColoniasSer = {
                 'Clv_Localidad': vm.ObjRelCol.Clv_Localidad,
                 'Clv_Ciudad': vm.ObjRelCol.Clv_Ciudad,
                 'Clv_Colonia': vm.ObjRelCol.Clv_Colonia,
                 'Clv_TipSer': vm.TipoServicio.Clv_TipSer
             };
-            console.log(objRelColoniasSer);
             CatalogosFactory.AddRelColoniasSer(objRelColoniasSer).then(function(data){
                 if(data.AddRelColoniasSerResult == -1){
                     ngNotify.set('CORRECTO, se agregó la relación con el Tipo de Servicio.', 'success');
@@ -116,13 +105,17 @@ angular
         }
 
         var vm = this;
+        vm.ObjRelColSer = {
+            'Clv_Colonia': ObjRelColonia.Clv_Colonia,
+            'Clv_Localidad': ObjRelColonia.Clv_Localidad,
+            'Clv_Ciudad': ObjRelColonia.Clv_Ciudad
+        };
         vm.ObjRelCol = ObjRelColonia;
         vm.AddRelColSer = AddRelColSer;
         vm.DeleteRelColSer = DeleteRelColSer;
         vm.AddRelColMed = AddRelColMed;
         vm.DeleteRelColMed = DeleteRelColMed;
         vm.cancel = cancel;
-        console.log(vm.ObjRelCol);
         initData();
 
     });
