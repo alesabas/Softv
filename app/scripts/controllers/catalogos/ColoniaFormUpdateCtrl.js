@@ -183,6 +183,7 @@ angular
         vm.ShowRel = false;
         vm.Disable = false;
         vm.View = false;
+        vm.SaveBtnS = true; 
         vm.Clv_Colonia = $stateParams.id;
         vm.SaveColonia = SaveColonia;
         vm.GetCiudadList = GetCiudadList;
@@ -191,4 +192,5 @@ angular
         vm.DeleteRelEstCiuLocCol = DeleteRelEstCiuLocCol;
         vm.OpenRelServicios = OpenRelServicios;
         initData();
+        
     });

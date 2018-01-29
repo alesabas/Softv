@@ -60,6 +60,9 @@ angular
                     }
                 }
             });
+            modalInstance.result.then(function () {
+                GetLocalidadList();
+            });
         }
 
         function OpenViewLocalidad(IdLocalidad){
@@ -104,8 +107,6 @@ angular
             });
             modalInstance.result.then(function () {
                 GetLocalidadList();
-            }, function () {
-                $log.info('Modal dismissed at: ' + new Date());
             });
         }
 

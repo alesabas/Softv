@@ -31,12 +31,13 @@ angular
                         vm.IdLocalidad = data.AddLocalidades_NewResult;
                         if(vm.IdLocalidad > 0){
                             ngNotify.set('CORRECTO, se añadió una localidad nueva.', 'success');
-                            GetRelLocalidad();
-                            vm.ShowUpdate = true;
+                            vm.ShowUpdate = false;
+                            vm.ShowSave = true;
+                            vm.Titulo = 'Nueva Localidad - ';
                             vm.BtnCanTitulo = 'Salir';
+                            GetRelLocalidad();
                         }else{
                             ngNotify.set('ERROR, al añadir una localidad nueva.', 'warn');
-                            $state.reload('home.catalogos.localidades');
                             cancel();
                         }
                     });
@@ -119,10 +120,6 @@ angular
             return (ResultExists > 0)? true : false;
         }
 
-        function Ok(){
-            $uibModalInstance.close();
-        }
-
         function cancel() {
             $uibModalInstance.close();
         }
@@ -130,7 +127,8 @@ angular
         var vm = this;
         vm.Titulo = 'Nueva Localidad';
         vm.Icono = 'fa fa-plus';
-        vm.ShowUpdate = false;
+        vm.ShowUpdate = true;
+        vm.ShowSave = false;
         vm.View = false;
         vm.ViewList = false; 
         vm.BtnCanTitulo ='Cancelar';
