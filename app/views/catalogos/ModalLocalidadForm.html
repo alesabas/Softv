@@ -13,39 +13,35 @@
         <fieldset ng-disabled="ctrl.View">
         <div class="row">
             <div class="col-md-12">
-                <div class="col-md-offset-2 col-md-8">
-                    <b><small>Nombre de la Localidad:</small></b>
+                <div class="col-md-offset-1 col-md-3">
+                    <b><small>Nombre Localidad:</small></b>
                 </div>
-            </div>
-            <div class="col-md-12">
-                <div class="col-md-offset-2 col-md-8">
-                    <input type="text" name="InpLocalidad" class="form-control input-sm" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" ng-model="ctrl.Localidad" validate-on="dirty" required required-message="'Obligatorio'" ng-disabled="ctrl.ShowUpdate">
+                <div class="col-md-7">
+                    <input type="text" name="InpLocalidad" class="form-control input-sm" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" ng-model="ctrl.Localidad" validate-on="dirty" required required-message="'Obligatorio'" ng-disabled="ctrl.ShowSave">
                 </div>
             </div>
         </div>
         <br>
         <div class="row">
-            <fieldset ng-disabled="!ctrl.ShowUpdate">
+            <fieldset ng-disabled="ctrl.ShowUpdate">
             <div class="col-md-12">
-                <div class="col-md-offset-2 col-md-8">
+                <div class="col-md-offset-1 col-md-3">
                     <b><small>Ciudad:</small></b>
                 </div>
-            </div>
-            <div class="col-md-12">
-                <div class="col-md-offset-2 col-md-6">
+                <div class="col-md-5">
                     <select name="SltCiudad" class="form-control input-sm" ng-model="ctrl.Ciudad" ng-options="C.Nombre for C in ctrl.CiudadLista track by C.Clv_Ciudad">
                         <option value="">Selecciona</option>
                     </select>
                 </div>
                 <div class="col-md-2 text-center">
-                    <button type="button" class="btn btn-success btn-xs" title="Agregar Relación Estado y Ciudad" ng-click="ctrl.AddEstMun()">Agregar</button>
+                    <button type="button" class="btn btn-success btn-xs" title="Agregar Relación con la Ciudad" ng-click="ctrl.AddEstMun()">Agregar</button>
                 </div>
             </div>
             </fieldset>
         </div>
         <br>
         <div class="row">
-            <fieldset ng-disabled="!ctrl.ShowUpdate">
+            <fieldset ng-disabled="ctrl.ShowUpdate">
             <div class="col-md-12">
                 <div class="col-md-offset-1 col-md-10 table-scroll">
                     <table class="table">
