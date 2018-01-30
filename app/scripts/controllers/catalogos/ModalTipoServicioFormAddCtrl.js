@@ -12,23 +12,22 @@ angular
             CatalogosFactory.AddTipServ_New(objTipServ_New).then(function(data){
                 if(data.AddTipServ_NewResult > 0){
                     ngNotify.set('CORRECTO, se añadió un tipo de servicio nuevo.', 'success');
-                    $state.reload('home.catalogos.tipos_servicios');
-				    cancel();
+                    cancel();
                 }else{
                     ngNotify.set('ERROR, al añadir un tipo de servicio nuevo.', 'warn');
-                    $state.reload('home.catalogos.tipos_servicios');
 				    cancel();
                 }
             });
         }
 
         function cancel() {
-            $uibModalInstance.dismiss('cancel');
+            $uibModalInstance.close();
         }
 
         var vm = this;
-        vm.Titulo = 'Nuevo Registro';
+        vm.Titulo = 'Nuevo tipo de Servicio';
         vm.Icono = 'fa fa-plus';
+        vm.InpDis = false;
         vm.SaveTipoServicio = SaveTipoServicio;
         vm.cancel = cancel;
     });

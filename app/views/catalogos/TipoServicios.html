@@ -9,7 +9,7 @@
         </header>
         <div class="tools">
 			<div class="btn-group">
-			    <button type="button" class="btn btn-primary btn-sm" ng-click="$ctrl.OpenAddTipoServicio()" title="Crear un tipo de servicio nuevo">NUEVO TIPO DE SERVICIO</button>
+			    <button type="button" class="btn btn-primary btn-sm" ng-click="$ctrl.OpenAddTipoServicio()" title="Crear un tipo de servicio nuevo"><i class="glyphicon glyphicon-floppy-disk"></i> NUEVO TIPO DE SERVICIO</button>
 			</div>
         </div>
     </div>
@@ -35,8 +35,8 @@
                     <thead>
                         <tr>
                             <th width="10%"><b>Id</b></th>
-                            <th width="70%"><b>Nombre del tipo de servicio</b></th>
-                            <th width="20%" colspan="2"><b>Acciones</b></th>
+                            <th width="60%"><b>Nombre del tipo de servicio</b></th>
+                            <th width="30%" colspan="3"><b>Acciones</b></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -46,6 +46,7 @@
                         <tr dir-paginate="X in $ctrl.TipoServicioList|filter:$ctrl.SearchTipoServicio|itemsPerPage:7" ng-show="$ctrl.ConRegistros">
                             <td>{{ X.Clv_TipSer }}</td>
                             <td>{{ X.Concepto }}</td>
+                            <td><button type="button" class="btn btn-info btn-xs" ng-click="$ctrl.OpenViewTipoServicio(X.Clv_TipSer)" title="Consultar Tipo de Servicio"><i class="fa fa-eye"></i> CONSULTAR</button></td>
                             <td><button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.OpenUpdateTipoServicio(X.Clv_TipSer)" title="Editar Tipo de Servicio"><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
                             <td><button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.OpenDeleteTipoServicio(X.Clv_TipSer)" title="Eliminar Tipo de Servicio"><i class="fa fa-trash"></i> ELIMINAR</button></td>
                         </tr>

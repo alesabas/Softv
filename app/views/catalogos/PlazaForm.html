@@ -112,8 +112,7 @@
               </div>
               <div class="col-md-6">
                 <b><small>Email:</small></b>
-                <input name="InpEmail" type="email" class="form-control input-sm" ng-model="$ctrl.detplaza.Email" validate-on="dirty" required
-                  required-message="'Obligatorio'" invalid-message="'Inválido.'">
+                <input name="InpEmail" type="email" class="form-control input-sm" ng-model="$ctrl.detplaza.Email" validate-on="dirty" ng-pattern="/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/" required required-message="'Obligatorio'" invalid-message="'Inválido.'">
               </div>
             </div>
           </div>

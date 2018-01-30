@@ -1,10 +1,3 @@
-<style type="text/css">
-    .table-scroll {
-        height: 150px;
-        overflow: auto;
-        margin-top: 20px;
-    }
-</style>
 <form name="FormMotivo" angular-validator-submit="ctrl.SaveMotivo()" novalidate angular-validator autocomplete="off">
     <div class="modal-header">
         <button class="close" type="button" aria-label="close" title="Salir" ng-click="ctrl.cancel()">x</button>
@@ -14,18 +7,24 @@
         <div class="modal-body">   
         <div class="row">
             <div class="col-md-12">
-                <div class="col-md-12">
+                <div class="col-md-3">
                     <b><small>Clave:</small></b>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-9">
                     <input name="InpClave" type="number" class="form-control input-sm" ng-model="ctrl.Clave" ng-disabled="ctrl.Disable">
                 </div>
+            </div>
+            <div class="col-md-12">
                 <div class="col-md-12">
                     <br>
                 </div>
+            </div>
+            <div class="col-md-12">
                 <div class="col-md-12">
                     <b><small>Motivo:</small></b>
                 </div>
+            </div>
+            <div class="col-md-12">
                 <div class="col-md-12">
                     <input name="InpDescripcion" type="text" class="form-control input-sm" ng-model="ctrl.Descripcion"  validate-on="dirty" required required-message="'Obligatorio'">
                 </div>
@@ -35,9 +34,6 @@
         </div>
     </fieldset>
     <div class="modal-footer">
-        <!--
-        <button type="button" ng-disabled="ctrl.blockdelete" class="btn btn-danger btn-sm" ng-click="ctrl.EliminaMotivo()" title="Eliminar Dato"><i class="glyphicon glyphicon-trash"></i> ELIMINAR</button>
-        -->
         <button type="submit" ng-disabled="ctrl.blocksave" class="btn btn-primary btn-sm" title="Guardar Motivo de Cancelación"><i class="glyphicon glyphicon-floppy-disk"></i> GUARDAR</button>
         <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.cancel()" title="Salir"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
     </div>

@@ -22,11 +22,14 @@
                         <span class="input-group-addon"><i class="fa fa-search"></i></span>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-2 text-right">
+                    <b>Tipo de Servcio:</b>
                 </div>
                 <div class="col-md-3" style="text-align:right">
                     <select name="SlcTipoServicio" class="form-control input-sm" ng-model="$ctrl.TipoServicio" ng-options="T.Concepto for T in $ctrl.TipoServicioList track by T.Clv_TipSerPrincipal" ng-change="$ctrl.GetServiciosList()">
-                        <option value="">Selecciona</option>
+                        <option value="" ng-disabled="true">Selecciona</option>
                     </select>
 			    </div>
 			</div>
