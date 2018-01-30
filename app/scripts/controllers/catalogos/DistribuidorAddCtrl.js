@@ -52,11 +52,29 @@ angular
 
     }
 
+    function ValidateNum(Inp){
+      var Num = (Inp == 0)? vm.telefonocont : vm.celularcont;
+      if((vm.emailcont != null && vm.emailcont != '') ||
+      (vm.nombrecont != null && vm.nombrecont != '') ||
+      (vm.respcomcont != null && vm.respcomcont != '') ||
+      (vm.respopcont != null && vm.respopcont != '') ||
+      (vm.resatencont != null && vm.resatencont != '')){
+        if (!/^\d{10}$/.test(Num)){
+          return false;
+        }else{
+          return true;
+        }
+      }else{
+        return true;
+      }
+    }
+
     var vm = this;
     vm.Titulo = 'Nuevo Distribuidor';
     vm.Icono = 'fa fa-plus';
     vm.block = false;
     vm.ValidateRFC = /^[A-Z]{4}\d{6}[A-Z]{3}$|^[A-Z]{4}\d{6}\d{3}$|^[A-Z]{4}\d{6}[A-Z]{2}\d{1}$|^[A-Z]{4}\d{6}[A-Z]{1}\d{2}$|^[A-Z]{4}\d{6}\d{2}[A-Z]{1}$|^[A-Z]{4}\d{6}\d{1}[A-Z]{2}$|^[A-Z]{4}\d{6}\d{1}[A-Z]{1}\d{1}$|^[A-Z]{4}\d{6}[A-Z]{1}\d{1}[A-Z]{1}$/;
     vm.SaveDistribuidor = SaveDistribuidor;
+    vm.ValidateNum = ValidateNum
 
   });

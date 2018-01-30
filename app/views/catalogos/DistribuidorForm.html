@@ -247,10 +247,22 @@
                     </div>
                     <div class="col-md-12">
                         <div class="col-md-6">
-                            <input name="InpNombreRG" type="text" class="form-control input-sm" ng-model="$ctrl.nombrecont" ng-required="">
+                            <input name="InpNombreRG" type="text" class="form-control input-sm" ng-model="$ctrl.nombrecont" validate-on="dirty" required-message="'Obligatorio'"
+                            ng-required="($ctrl.emailcont != null && $ctrl.emailcont != '') ||
+                            ($ctrl.celularcont != null && $ctrl.celularcont != '') ||
+                            ($ctrl.telefonocont != null && $ctrl.telefonocont != '') ||
+                            ($ctrl.respcomcont != null && $ctrl.respcomcont != '') ||
+                            ($ctrl.respopcont != null && $ctrl.respopcont != '') ||
+                            ($ctrl.resatencont != null && $ctrl.resatencont != '')">
                         </div>
                         <div class="col-md-6">
-                            <input name="InpTelefonoRG" type="text" class="form-control input-sm" ng-model="$ctrl.telefonocont">
+                            <input name="InpTelefonoRG" type="text" class="form-control input-sm" ng-model="$ctrl.telefonocont" validate-on="dirty" validator="$ctrl.ValidateNum(0)" maxlength="10" required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa 10 dígitos.'"
+                            ng-required="($ctrl.emailcont != null && $ctrl.emailcont != '') ||
+                            ($ctrl.celularcont != null && $ctrl.celularcont != '') ||
+                            ($ctrl.nombrecont != null && $ctrl.nombrecont != '') ||
+                            ($ctrl.respcomcont != null && $ctrl.respcomcont != '') ||
+                            ($ctrl.respopcont != null && $ctrl.respopcont != '') ||
+                            ($ctrl.resatencont != null && $ctrl.resatencont != '')">
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -263,12 +275,22 @@
                     </div>
                     <div class="col-md-12">
                         <div class="col-md-6">
-                            <input name="InpCelularRG" type="text" class="form-control input-sm" ng-model="$ctrl.celularcont"
+                            <input name="InpCelularRG" type="text" class="form-control input-sm" ng-model="$ctrl.celularcont" validate-on="dirty" validator="$ctrl.ValidateNum(1)" maxlength="10" required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa 10 dígitos.'"
                             ng-required="($ctrl.emailcont != null && $ctrl.emailcont != '') ||
-                            ($ctrl.nombrecont != null && $ctrl.nombrecont != '')">
+                            ($ctrl.nombrecont != null && $ctrl.nombrecont != '') ||
+                            ($ctrl.telefonocont != null && $ctrl.telefonocont != '') ||
+                            ($ctrl.respcomcont != null && $ctrl.respcomcont != '') ||
+                            ($ctrl.respopcont != null && $ctrl.respopcont != '') ||
+                            ($ctrl.resatencont != null && $ctrl.resatencont != '')"> 
                         </div>
                         <div class="col-md-6">
-                            <input name="InpEmailRG" type="text" class="form-control input-sm" ng-model="$ctrl.emailcont">
+                            <input name="InpEmailRG" type="text" class="form-control input-sm" ng-model="$ctrl.emailcont"  validate-on="dirty" ng-pattern="/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/" required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa un correo válido'"
+                            ng-required="($ctrl.celularcont != null && $ctrl.celularcont != '') ||
+                            ($ctrl.nombrecont != null && $ctrl.nombrecont != '') ||
+                            ($ctrl.telefonocont != null && $ctrl.telefonocont != '') ||
+                            ($ctrl.respcomcont != null && $ctrl.respcomcont != '') ||
+                            ($ctrl.respopcont != null && $ctrl.respopcont != '') ||
+                            ($ctrl.resatencont != null && $ctrl.resatencont != '')">
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -276,21 +298,39 @@
                             <b><small>Responsable Comercial:</small></b>
                         </div>
                         <div class="col-md-4">
-                            <b><small>Responsable de operaciones:</small></b>
+                            <b><small>Responsable de Operaciones:</small></b>
                         </div>
                         <div class="col-md-4">
-                            <b><small>Responsable de atención:</small></b>
+                            <b><small>Responsable de Atención:</small></b>
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="col-md-4">
-                            <input name="InpNombreRC" type="text" class="form-control input-sm" ng-model="$ctrl.respcomcont">
+                            <input name="InpNombreRC" type="text" class="form-control input-sm" ng-model="$ctrl.respcomcont" validate-on="dirty" required-message="'Obligatorio'"
+                            ng-required="($ctrl.celularcont != null && $ctrl.celularcont != '') ||
+                            ($ctrl.nombrecont != null && $ctrl.nombrecont != '') ||
+                            ($ctrl.telefonocont != null && $ctrl.telefonocont != '') ||
+                            ($ctrl.emailcont != null && $ctrl.emailcont != '') ||
+                            ($ctrl.respopcont != null && $ctrl.respopcont != '') ||
+                            ($ctrl.resatencont != null && $ctrl.resatencont != '')">
                         </div>
                         <div class="col-md-4">
-                            <input name="InpNombreRO" type="text" class="form-control input-sm" ng-model="$ctrl.respopcont">
+                            <input name="InpNombreRO" type="text" class="form-control input-sm" ng-model="$ctrl.respopcont" validate-on="dirty" required-message="'Obligatorio'"
+                            ng-required="($ctrl.celularcont != null && $ctrl.celularcont != '') ||
+                            ($ctrl.nombrecont != null && $ctrl.nombrecont != '') ||
+                            ($ctrl.telefonocont != null && $ctrl.telefonocont != '') ||
+                            ($ctrl.emailcont != null && $ctrl.emailcont != '') ||
+                            ($ctrl.respcomcont != null && $ctrl.respcomcont != '') ||
+                            ($ctrl.resatencont != null && $ctrl.resatencont != '')">
                         </div>
                         <div class="col-md-4">
-                            <input name="InpNombreRA" type="text" class="form-control input-sm" ng-model="$ctrl.resatencont">
+                            <input name="InpNombreRA" type="text" class="form-control input-sm" ng-model="$ctrl.resatencont" validate-on="dirty" required-message="'Obligatorio'"
+                            ng-required="($ctrl.celularcont != null && $ctrl.celularcont != '') ||
+                            ($ctrl.nombrecont != null && $ctrl.nombrecont != '') ||
+                            ($ctrl.telefonocont != null && $ctrl.telefonocont != '') ||
+                            ($ctrl.emailcont != null && $ctrl.emailcont != '') ||
+                            ($ctrl.respcomcont != null && $ctrl.respcomcont != '') ||
+                            ($ctrl.respopcont != null && $ctrl.respopcont != '')">
                         </div>
                     </div>
                 </div>
