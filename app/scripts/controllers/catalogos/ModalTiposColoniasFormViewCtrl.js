@@ -35,8 +35,8 @@ angular
         }
 
         var vm = this;
-        vm.Titulo = 'Detalle Registro - ';
-        vm.Icono = 'fa fa-pencil-square-o';
+        vm.Titulo = 'Detalle Tipo de Colonia - ';
+        vm.Icono = 'fa fa-eye';
         vm.View = true;
         vm.SaveTipoColonia = SaveTipoColonia;
         vm.cancel = cancel;

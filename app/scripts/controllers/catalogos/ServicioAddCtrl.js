@@ -44,7 +44,6 @@ angular
                 'Gb': 0,
                 'dolares':vm.dolares
             };
-            console.log(objServicios_New);
             
             CatalogosFactory.AddServicios_New(objServicios_New).then(function(data){
                 var Clv_Servicio = data.AddServicios_NewResult;

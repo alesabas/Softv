@@ -32,18 +32,16 @@ angular
             CatalogosFactory.Deletetbl_politicasFibra(id).then(function(data){
                 if(data.Deletetbl_politicasFibraResult == -1){
                     ngNotify.set('CORRECTO, se eliminó la política.', 'success');
-                    $state.reload('home.catalogos.VelocidadInternet');
                     cancel();
                 }else{
                     ngNotify.set('ERROR, al eliminar la política.', 'warn');
-                    $state.reload('home.catalogos.VelocidadInternet');
                     cancel();
                 }
             });
         }
 
         function cancel() {
-            $uibModalInstance.dismiss('cancel');
+            $uibModalInstance.close();
         }
 
         var vm = this;

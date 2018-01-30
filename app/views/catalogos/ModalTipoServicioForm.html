@@ -5,16 +5,20 @@
     </div>
     <div class="modal-body">
         <div class="row">
-            <div class="col-md-12">
-                <p><b>Nombre del Tipo Servicio:</b></p>
-            </div>
-            <div class="col-md-12">
-                <input type="text" name="InpTipoServicio" class="form-control input-sm" ng-model="ctrl.TipoServicio" validate-on="dirty" required required-message="'Obligatorio'">
-            </div>
+            <fieldset ng-disabled="ctrl.InpDis">
+                <div class="col-md-offset-1 col-md-10">
+                    <div class="col-md-12">
+                        <p><b>Nombre del Tipo Servicio:</b></p>
+                    </div>
+                    <div class="col-md-12">
+                        <input type="text" name="InpTipoServicio" class="form-control input-sm" ng-model="ctrl.TipoServicio" validate-on="dirty" required required-message="'Obligatorio'">
+                    </div>
+                </div>
+            </fieldset>
         </div>
     </div>
     <div class="modal-footer">
-        <button type="submit" class="btn btn-primary btn-sm" title="Guardar Tipo Servicio">Guardar</button>
-        <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.cancel()" title="Salir">Cancelar</button>
+        <button type="submit" class="btn btn-primary btn-sm" title="Guardar Tipo Servicio" ng-show="!ctrl.InpDis"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
+        <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.cancel()" title="Salir"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
     </div>
 </form>
