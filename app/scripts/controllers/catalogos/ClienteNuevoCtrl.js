@@ -155,8 +155,8 @@ angular
         vm.ShowServiciosE = 8;
         vm.SetForm = 1;
         vm.TipoPersona = "F";
-        vm.Title = 'Nuevo Cliente';
-        vm.View = false;
+        vm.Title = 'Cliente Nuevo';
+        vm.View = true;
         vm.ValidateRFC = /^[A-Z]{4}\d{6}[A-Z]{3}$|^[A-Z]{4}\d{6}\d{3}$|^[A-Z]{4}\d{6}[A-Z]{2}\d{1}$|^[A-Z]{4}\d{6}[A-Z]{1}\d{2}$|^[A-Z]{4}\d{6}\d{2}[A-Z]{1}$|^[A-Z]{4}\d{6}\d{1}[A-Z]{2}$|^[A-Z]{4}\d{6}\d{1}[A-Z]{1}\d{1}$|^[A-Z]{4}\d{6}[A-Z]{1}\d{1}[A-Z]{1}$/;
         vm.AddDatosPersonales = AddDatosPersonales;
         vm.GetEstado = GetEstado;
