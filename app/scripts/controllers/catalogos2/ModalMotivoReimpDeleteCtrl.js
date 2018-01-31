@@ -20,7 +20,6 @@ angular
         CatalogosFactory.GetBORMOTIVOSFACTURACANCELACION(vm.Clave).then(function(data){
             if(data.GetBORMOTIVOSFACTURACANCELACIONResult == 1){    
                 ngNotify.set('CORRECTO, se eliminó un motivo de reimpresión de factura.', 'success');
-                $state.reload('home.motivos.ReimpresionFactura');
                 cancel();
             }else{
                 ngNotify.set('ERROR, al eliminar un motivo de reimpresión de factura.', 'warn');
@@ -29,7 +28,7 @@ angular
     }
 
     function cancel() {
-        $uibModalInstance.dismiss('cancel');
+        $uibModalInstance.close();
     }
 
     var vm = this;

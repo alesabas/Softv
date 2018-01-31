@@ -41,7 +41,6 @@ angular
                 var Msj = data.GetSp_guardaPoliticaResult[0].Msj;
                 if(Msj == 'Politica cambiada correctamente'){
                     ngNotify.set(Msj + '.', 'success');
-                    $state.reload('home.catalogos.VelocidadInternet');
                     cancel();
                 }else{
                     ngNotify.set(Msj + '.', 'warn');
@@ -50,7 +49,7 @@ angular
         }
 
         function cancel() {
-            $uibModalInstance.dismiss('cancel');
+            $uibModalInstance.close();
         }
 
         var vm = this;

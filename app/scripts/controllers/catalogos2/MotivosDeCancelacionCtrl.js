@@ -16,8 +16,7 @@ angular
       };
       CatalogosFactory.GetBuscaMotivoCancelacion(OjbMotivo).then(function(data){
         vm.MotivoCancelacionList = data.GetBuscaMotivoCancelacionResult;
-        vm.clave = null
-        ;
+        vm.clave = null;
         vm.descripcion = null;
       });
     }
@@ -34,6 +33,9 @@ angular
           keyboard: false,
           class: 'modal-backdrop fade',
           size: 'sm'
+        });
+        modalInstance.result.then(function () {
+            GetListMotivo(3);
         });
       }
 
@@ -76,6 +78,9 @@ angular
               }
           }
         });
+        modalInstance.result.then(function () {
+            GetListMotivo(3);
+        });
       }
       
       function EliminaMotivo(Clv_motivo) {
@@ -96,6 +101,9 @@ angular
                   return Clv_motivo;
               }
           }
+        });
+        modalInstance.result.then(function () {
+            GetListMotivo(3);
         });
       }
 

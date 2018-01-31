@@ -21,7 +21,7 @@
                     <input type="text" name="InpClaveEquivalente" class="form-control input-sm" ng-model="$ctrl.ClaveEquivalente" placeholder="Clave Equivalente" validate-on="dirty" ng-pattern="/^[a-zA-Z0-9]+$/" invalid-message="'Inválido.'">
                 </div>
                 <div class="col-md-2">
-                    <button type="submit" class="btn btn-warning btn-xs" title="Buscar"><i class="fa fa-search"></i> BUSCAR</button>
+                    <button type="submit" class="btn btn-info btn-xs" title="Buscar"><i class="fa fa-search"></i> BUSCAR</button>
                 </div>
                 </form>
 			</div>
@@ -44,9 +44,9 @@
 						</tr>
                         <tr dir-paginate="X in $ctrl.VelocidadInternetList|filter:$ctrl.SearchVelocidad|itemsPerPage:7" ng-show="$ctrl.ConRegistros">
                             <td>{{ X.Clv_equivalente }}</td>
-                            <td>{{ X.VelSub }}</td>
-                            <td>{{ X.VelBaj }}</td>
-                            <td><button type="button" class="btn btn-info btn-xs" ng-click="$ctrl.OpenViewVelocidadInternet(X.id)" title="Editar Velocidad de Internet"><i class="fa fa-eye"></i> CONSULTAR</button></td>
+                            <td>{{ X.VelSub }} {{ X.UnidadSub }}</td>
+                            <td>{{ X.VelBaj }} {{ X.UnidadBaj }}</td>
+                            <td><button type="button" class="btn btn-info btn-xs" ng-click="$ctrl.OpenViewVelocidadInternet(X.id)" title="Consultar Velocidad de Internet"><i class="fa fa-eye"></i> CONSULTAR</button></td>
                             <td><button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.OpenUpdateVelocidadInternet(X.id)" title="Editar Velocidad de Internet"><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
                             <td><button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.OpenDeleteVelocidadInternet(X.id)" title="Eliminar Velocidad de Internet"><i class="fa fa-trash"></i> ELIMINAR</button></td>
                         </tr>

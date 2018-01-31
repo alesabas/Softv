@@ -7,6 +7,8 @@ angular
         function initData(){
             CatalogosFactory.GetDameUnidadesMedidasDeVelocidadList().then(function(data){
                 vm.UnidadMedidaList = data.GetDameUnidadesMedidasDeVelocidadListResult;
+                vm.UnidadMedidaSubida = vm.UnidadMedidaList[0];
+                vm.UnidadMedidaBajada = vm.UnidadMedidaList[0];
             });
         }
 
@@ -23,7 +25,6 @@ angular
                 var Msj = data.GetSp_guardaPoliticaResult[0].Msj;
                 if(Msj == 'Nueva politica guardada correctamente'){
                     ngNotify.set(Msj + '.', 'success');
-                    $state.reload('home.catalogos.VelocidadInternet');
                     cancel();
                 }else{
                     ngNotify.set(Msj + '.', 'warn');
@@ -32,7 +33,7 @@ angular
         }
 
         function cancel() {
-            $uibModalInstance.dismiss('cancel');
+            $uibModalInstance.close();
         }
 
         var vm = this;

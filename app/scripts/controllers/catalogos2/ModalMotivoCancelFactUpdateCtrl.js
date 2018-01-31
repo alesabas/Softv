@@ -25,7 +25,6 @@ angular
         CatalogosFactory.GetMODMOTIVOSFACTURACANCELACION(ObjMotivo).then(function(data){
             if(data.GetMODMOTIVOSFACTURACANCELACIONResult == 1){    
                 ngNotify.set('CORRECTO, se guardó un motivo de cancelación de factura.', 'success');
-                $state.reload('home.motivos.CancelacionFactura');
                 cancel();
             }else{
                 ngNotify.set('ERROR, al guardar un motivo de cancelación de factura.', 'warn');
@@ -34,7 +33,7 @@ angular
     }
 
     function cancel() {
-      $uibModalInstance.dismiss('cancel');
+      $uibModalInstance.close();
     }
 
     var vm = this;

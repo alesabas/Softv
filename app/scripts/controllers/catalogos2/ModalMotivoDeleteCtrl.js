@@ -20,7 +20,6 @@ angular
         CatalogosFactory.GetBORMotivoCancelacion(vm.Clave).then(function(data){
             if(data.GetBORMotivoCancelacionResult == -1){
                 ngNotify.set('CORRECTO, se eliminó el motivo de cancelación.', 'success');
-                $state.reload('home.motivos.MotivosDeCancelacion');
                 cancel();
             }else{
                 ngNotify.set('ERROR, al eliminar el motivo de cancelación.', 'warn');
@@ -29,11 +28,11 @@ angular
     }
 
     function cancel() {
-        $uibModalInstance.dismiss('cancel');
+        $uibModalInstance.close();
     }
 
     var vm = this;
-    vm.Titulo = 'Eliminar Registro';
+    vm.Titulo = 'Eliminar Motivo de Cancelación';
     vm.Icono = 'fa fa-less';
     vm.DeleteMotivo = DeleteMotivo;
     vm.cancel = cancel;

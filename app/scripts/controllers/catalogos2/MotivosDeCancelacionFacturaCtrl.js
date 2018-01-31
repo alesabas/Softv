@@ -5,26 +5,20 @@ angular
   .controller('MotivosDeCancelacionFacturaCtrl', function (CatalogosFactory, atencionFactory,$uibModal) {
 
     function initData(){
-      var ObjMotivo = {
-        'Clv_Motivo': 0 ,
-        'Descripcion': '',
-        'Bandera': 0,    
-        'op': 2
-      };
-      CatalogosFactory.GetBuscaMotivosFacturaCancelada(ObjMotivo).then(function(data){
-        vm.MotivoCancelacionFList = data.GetBuscaMotivosFacturaCanceladaResult;
-      });
+      GetMotivoCancelacionFList(2);
     }
 
     function GetMotivoCancelacionFList(Opc){
       var ObjMotivo = {
-        'Clv_Motivo': (Opc == 0)? (vm.clave != undefined)? vm.clave:0 :0,
-        'Descripcion': (Opc == 1)? (vm.descripcion != undefined)? vm.descripcion:'' :'',
+        'Clv_Motivo': (Opc != 2 && Opc != 1 && vm.clave != undefined && vm.clave != null && vm.clave > 0)? vm.clave:0,
+        'Descripcion': (Opc != 2 && Opc != 0 && vm.descripcion != undefined && vm.descripcion != null && vm.descripcion != '')? vm.descripcion:0,
         'Bandera': 0,
-        'op': Opc
+        'op': (Opc != 2 && ((Opc == 0 && vm.clave != undefined && vm.clave != null && vm.clave > 0) || (Opc == 1 && vm.descripcion != undefined && vm.descripcion != null && vm.descripcion != '')))? Opc:2
       };
       CatalogosFactory.GetBuscaMotivosFacturaCancelada(ObjMotivo).then(function(data){
         vm.MotivoCancelacionFList = data.GetBuscaMotivosFacturaCanceladaResult;
+        vm.clave = null;
+        vm.descripcion = null;
       });
     }
 
@@ -40,6 +34,9 @@ angular
           keyboard: false,
           class: 'modal-backdrop fade',
           size: 'sm'
+        });
+        modalInstance.result.then(function () {
+          GetMotivoCancelacionFList(2);
         });
       }
 
@@ -61,6 +58,9 @@ angular
                   return Clv_motivo;
               }
           }
+        });
+        modalInstance.result.then(function () {
+          GetMotivoCancelacionFList(2);
         });
       }
 
@@ -103,6 +103,9 @@ angular
                   return Clv_motivo;
               }
           }
+        });
+        modalInstance.result.then(function () {
+          GetMotivoCancelacionFList(2);
         });
       }
   
