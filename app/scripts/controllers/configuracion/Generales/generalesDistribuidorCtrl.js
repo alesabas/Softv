@@ -11,7 +11,6 @@ angular
       });
     }
 
-
     function ObtenDetalle() {
       generalesSistemaFactory.GetGeneralDistribuidor(vm.Plaza.id_compania)
         .then(function (result) {
@@ -27,8 +26,6 @@ angular
               generalesSistemaFactory.GetConPuestos(vm.Plaza.id_compania)
                 .then(function (response) {
                   vm.tecnicosordenes = response.GetConPuestosResult;
-
-
                   generalesSistemaFactory.GetConsultatecnicosReporte(0, vm.Plaza.id_compania)
                     .then(function (response) {
                       vm.TecnicoRepList = (response.GetConsultatecnicosReporteResult.length > 0)? response.GetConsultatecnicosReporteResult[0].tecnicos:null;
