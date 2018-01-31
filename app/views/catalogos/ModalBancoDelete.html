@@ -3,10 +3,10 @@
     <h4 class="modal-title"><i class="fa fa-exclamation-triangle"></i> Eliminar Banco - {{ ctrl.IdBanco }}</h4>
 </div>
 <div class="modal-body">
-    <p>¿Realmente desea eliminar el banco?</p>
+    <p><b>¿Realmente desea eliminar el banco?</b></p>
     <p><b>Nombre:</b> {{ ctrl.Banco }}</p>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-danger btn-sm" type="button" ng-click="ctrl.DeleteBanco()" title="Eliminar Banco">Eliminar</button>
-    <button class="btn bnt-default btn-sm" type="button" ng-click="ctrl.cancel()" title="Salir">Cancelar</button>
+    <button class="btn btn-danger btn-sm" type="button" ng-click="ctrl.DeleteBanco()" title="Eliminar Banco"><i class="fa fa-trash"></i> Eliminar</button>
+    <button class="btn bnt-default btn-sm" type="button" ng-click="ctrl.cancel()" title="Salir"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
 </div>

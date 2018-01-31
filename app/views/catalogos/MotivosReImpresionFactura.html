@@ -1,10 +1,3 @@
-<style type="text/css">
-  .scrollDiv {
-    height: 500px;
-    overflow: auto;
-    overflow-x: hidden;
-  }
-</style>
 <div class="card animated fadeIn" style="margin-top:20px;">
   <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
     <header>
@@ -22,26 +15,32 @@
     <div class="row">
       <div class="col-md-12">
         <div class="col-md-12">
-          <b>Buscar Motivo por:</b>
+          <h4><b><i class="fa fa-search"></i> Buscar Motivo:</b></h4>
         </div>
       </div>
       <div class="col-md-12">
+          <div class="col-md-1">
+            <b>Clave:</b>
+          </div>
           <div class="col-md-3" style="text-align:right">
             <div class="input-group">
               <input type="text" name="InpSearchSucursal" class="form-control input-sm" ng-model="$ctrl.clave" placeholder="Clave">
               <span class="input-group-btn">
-                <button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.GetMotivoReimpresionFList(0);" title="Buscar por nombre "><i class="glyphicon glyphicon-search"></i> BUSCAR</button>
+                <button type="button" class="btn btn-info btn-xs" ng-click="$ctrl.GetMotivoReimpresionFList(0);" title="Buscar por Clave"><i class="glyphicon glyphicon-search"></i> BUSCAR</button>
               </span>
             </div>
           </div>
-          <div class="col-md-offset-1 col-md-3" style="text-align:right">
-            <div class="input-group">
-              <input type="text" name="InpSearchSucursal2" class="form-control input-sm" ng-model="$ctrl.descripcion" placeholder="Motivo de Reimpresion">
-              <span class="input-group-btn">
-                <button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.GetMotivoReimpresionFList(1);" title="Buscar por nombre "><i class="glyphicon glyphicon-search"></i> BUSCAR</button>
-              </span>
-            </div>
+        <div class="col-md-offset-1 col-md-1">
+          <b>Descripción</b>
+        </div>
+        <div class="col-md-3" style="text-align:right">
+          <div class="input-group">
+            <input type="text" name="InpSearchSucursal2" class="form-control input-sm" ng-model="$ctrl.descripcion" placeholder="Descripción">
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-info btn-xs" ng-click="$ctrl.GetMotivoReimpresionFList(1);" title="Buscar por Descripción"><i class="glyphicon glyphicon-search"></i> BUSCAR</button>
+            </span>
           </div>
+        </div>
       </div>
       <div class="col-md-12">
         <br>
@@ -52,7 +51,7 @@
             <thead>
               <tr>
                 <th width="10%" style="text-align:center"><b>Clave</b></th>
-                <th width="60%" style="text-align:center"><b>Descripcion</b></th>
+                <th width="60%" style="text-align:center"><b>Descripción</b></th>
                 <th width="30%" colspan="3"><b>Acciones</b></th>
               </tr>
             </thead>
@@ -60,9 +59,9 @@
               <tr dir-paginate="X in $ctrl.MotivoReimpresionFList|itemsPerPage:7">
                 <td>{{ X.Clv_motivo}}</td>
                 <td>{{ X.Descripcion }}</td>
-                <td><button type="button" class="btn btn-info btn-xs" ng-click="$ctrl.DetalleMotivoReimpFact(X.Clv_motivo)" title="Consultar motivo "><i class="fa fa-eye"></i> CONSULTAR</button></td>
-                <td><button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.UpdateMotivoReimpFact(X.Clv_motivo)" title="Editar motivo "><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
-                <td><button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.EliminarMotivoReimpFact(X.Clv_motivo)" title="Elimina motivo "><i class="fa fa-trash"></i> ELIMINAR</button></td>
+                <td><button type="button" class="btn btn-info btn-xs" ng-click="$ctrl.DetalleMotivoReimpFact(X.Clv_motivo)" title="Consultar Motivo de Reimpresión de Factura"><i class="fa fa-eye"></i> CONSULTAR</button></td>
+                <td><button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.UpdateMotivoReimpFact(X.Clv_motivo)" title="Editar Motivo de Reimpresión de Factura"><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
+                <td><button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.EliminarMotivoReimpFact(X.Clv_motivo)" title="Elimina Motivo de Reimpresión de Factura"><i class="fa fa-trash"></i> ELIMINAR</button></td>
               </tr>
             </tbody>
           </table>
@@ -71,7 +70,6 @@
             <dir-pagination-controls max-size="7" direction-links="true" boundary-links="true">
             </dir-pagination-controls>
           </div>
-          <br>
         </div>
       </div>
     </div>

@@ -23,7 +23,6 @@ angular
         CatalogosFactory.GetMODMotivoCancelacion(ObjMotivo).then(function(data){
             if(data.GetMODMotivoCancelacionResult == -1){
                 ngNotify.set('CORRECTO, se guardó el motivo de cancelación.', 'success');
-                $state.reload('home.motivos.MotivosDeCancelacion');
                 cancel();
             }else{
                 ngNotify.set('ERROR, al guardar el motivo de cancelación.', 'warn');
@@ -54,7 +53,7 @@ angular
       }
 
     function cancel() {
-        $uibModalInstance.dismiss('cancel');
+        $uibModalInstance.close();
     }
 
     var vm = this;

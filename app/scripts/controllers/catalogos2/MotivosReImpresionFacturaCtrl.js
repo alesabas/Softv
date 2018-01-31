@@ -5,26 +5,20 @@ angular
     .controller('MotivosReImpresionFacturaCtrl', function (CatalogosFactory, atencionFactory, $uibModal) {
 
         function initData(){
-            var ObjMotivo = {
-                'Clv_Motivo': 0 ,
-                'Descripcion': '',
-                'Bandera': 1,    
-                'op': 2
-            };
-            CatalogosFactory.GetBuscaMotivosFacturaCancelada(ObjMotivo).then(function(data){
-                vm.MotivoReimpresionFList = data.GetBuscaMotivosFacturaCanceladaResult;
-            });
+            GetMotivoReimpresionFList(2);
         }
 
         function GetMotivoReimpresionFList(Opc){
             var ObjMotivo = {
-                'Clv_Motivo': (Opc == 0)? (vm.clave != undefined)? vm.clave:0 :0,
-                'Descripcion': (Opc == 1)? (vm.descripcion != undefined)? vm.descripcion:'' :'',
+                'Clv_Motivo': (Opc != 2 && Opc != 1 && vm.clave != undefined && vm.clave != null && vm.clave > 0)? vm.clave:0,
+                'Descripcion': (Opc != 2 && Opc != 0 && vm.descripcion != undefined && vm.descripcion != null && vm.descripcion != '')? vm.descripcion:0,
                 'Bandera': 1,
-                'op': Opc
+                'op': (Opc != 2 && ((Opc == 0 && vm.clave != undefined && vm.clave != null && vm.clave > 0) || (Opc == 1 && vm.descripcion != undefined && vm.descripcion != null && vm.descripcion != '')))? Opc:2
             };
             CatalogosFactory.GetBuscaMotivosFacturaCancelada(ObjMotivo).then(function(data){
                 vm.MotivoReimpresionFList = data.GetBuscaMotivosFacturaCanceladaResult;
+                vm.clave = null;
+                vm.descripcion = null;
             });
         }
 
@@ -40,6 +34,9 @@ angular
                 keyboard: false,
                 class: 'modal-backdrop fade',
                 size: 'sm'
+            });
+            modalInstance.result.then(function () {
+                GetMotivoReimpresionFList(2);
             });
         }
         
@@ -57,10 +54,13 @@ angular
                 class: 'modal-backdrop fade',
                 size: 'sm',
                 resolve: {
-                Clv_motivo: function () {
-                    return Clv_motivo;
+                    Clv_motivo: function () {
+                        return Clv_motivo;
+                    }
                 }
-            }
+            });
+            modalInstance.result.then(function () {
+                GetMotivoReimpresionFList(2);
             });
         }
 
@@ -103,6 +103,9 @@ angular
                         return Clv_motivo;
                     }
                 }
+            });
+            modalInstance.result.then(function () {
+                GetMotivoReimpresionFList(2);
             });
         }
 
