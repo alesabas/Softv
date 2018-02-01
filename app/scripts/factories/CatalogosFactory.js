@@ -224,7 +224,8 @@ angular
       GetDameClv_Descuento:'/CatMedios/GetDameClv_Descuento',
       GetModDescuentoCombo:'/CatMedios/GetModDescuentoCombo',
       GetValidaPapoClienteServicio:'/ClientesServicio/GetValidaPapoClienteServicio',
-      GetEliminaClienteServicio:'/ClientesServicio/GetEliminaClienteServicio'
+      GetEliminaClienteServicio:'/ClientesServicio/GetEliminaClienteServicio',
+      AddMovSist: '/MovSist/AddMovSist'
     };
 
 
@@ -3672,6 +3673,19 @@ angular
       });
       return deferred.promise;
     };
+
+    factory.AddMovSist = function(objMovSist) { 
+      var deferred = $q.defer(); 
+      var config = {headers:{'Authorization': $localStorage.currentUser.token}};
+      var Parametros = {objMovSist: objMovSist};
+      console.log(Parametros);
+      $http.post(globalService.getUrl() + paths.AddMovSist, JSON.stringify(Parametros), config).then(function(response) { 
+        deferred.resolve(response.data); 
+      }).catch(function(response) { 
+        deferred.reject(response.data); 
+      });
+      return deferred.promise; 
+    }; 
 
     return factory;
 

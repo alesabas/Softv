@@ -16,7 +16,6 @@ angular
             CatalogosFactory.GetBancoList().then(function(data){
                 vm.BancoList = data.GetBancoListResult;
             });
-
         }
 
         function AddDatosPersonales(){
@@ -61,8 +60,19 @@ angular
                     };
                     CatalogosFactory.AddRELCLIENTEOBS(objRELCLIENTEOBS).then(function(data){
                         CatalogosFactory.AddRoboDeSeñal_New(objRoboDeSeñal_New).then(function(data){
-                            ngNotify.set('CORRECTO, se añadió un cliente nuevo.', 'success');
-                            $state.go('home.catalogos.cliente_editar', { id:IdCliente });
+                            var objMovSist = {
+                                'Clv_usuario': $localStorage.currentUser.idUsuario, 
+                                'Modulo': 'home.catalogos', 
+                                'Submodulo': 'home.catalogos.cliente_nuevo', 
+                                'Observaciones': 'Se registró nuevo cliente', 
+                                'Usuario': $localStorage.currentUser.usuario, 
+                                'Comando': JSON.stringify(ObjCliente), 
+                                'Clv_afectada': IdCliente
+                            };
+                            CatalogosFactory.AddMovSist(objMovSist).then(function(data){
+                                ngNotify.set('CORRECTO, se añadió un cliente nuevo.', 'success');
+                                $state.go('home.catalogos.cliente_editar', { id:IdCliente });
+                            });
                         });
                     });
                 }else{

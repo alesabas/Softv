@@ -226,6 +226,7 @@ angular
                 if(data.UpdateCLIENTES_NewResult == -1){
                     ngNotify.set('CORRECTO, se guardaron datos personales.', 'success');
                     GetDatosClientes(vm.IdContrato);
+                    SaveMovimientoSistema('Se editó cliente', objCLIENTES_New);
                 }else{
                     ngNotify.set('ERROR, al guardar datos personales.', 'warn');
                 }
@@ -390,6 +391,7 @@ angular
                     if(DatosFiscales == -1){
                         ngNotify.set('CORRECTO, se guardaron datos fiscales.', 'success');
                         GetDatosFiscal(vm.IdContrato);
+                        SaveMovimientoSistema('Se Agregó datos fiscales a cliente', objDatosFiscales);
                     }else{
                         ngNotify.set('ERROR, al guardar datos fiscales.', 'warn');
                     }
@@ -546,7 +548,6 @@ angular
 
         function GetServicios(IdContrato){
             CatalogosFactory.GetMuestraArbolServicios_ClientesList(IdContrato).then(function(data){
-                console.log(data);
                 vm.ServicioList = data.GetMuestraArbolServicios_ClientesListResult;
                 vm.expandedNodes=[];
                 angular.forEach(vm.ServicioList, function(value, key) {
@@ -564,7 +565,6 @@ angular
         }
 
         function DetalleConcepto(ObjConcepto){
-            console.log(ObjConcepto);
             if(ObjConcepto.Tipo == 'S' || ObjConcepto.Tipo == 'P'){
                 vm.ConceptoTipo = ObjConcepto.Tipo;
                 vm.DivServicio = true;
@@ -1031,6 +1031,21 @@ angular
         
         function SetTouch(){
             vm.TouchFile = true;
+        }
+
+        function SaveMovimientoSistema(Observaciones, Comando){
+            var objMovSist = {
+                'Clv_usuario': $localStorage.currentUser.idUsuario, 
+                'Modulo': 'home.catalogos', 
+                'Submodulo': 'home.catalogos.cliente_editar', 
+                'Observaciones': Observaciones, 
+                'Usuario': $localStorage.currentUser.usuario, 
+                'Comando': JSON.stringify(Comando), 
+                'Clv_afectada': vm.IdContrato
+            };
+            CatalogosFactory.AddMovSist(objMovSist).then(function(data){
+                console.log(data);
+            });
         }
         
         var vm = this;
