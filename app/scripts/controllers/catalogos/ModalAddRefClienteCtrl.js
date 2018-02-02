@@ -2,7 +2,7 @@
 
 angular
     .module('softvApp')
-    .controller('ModalAddRefClienteCtrl', function($uibModalInstance, $uibModal, CatalogosFactory, $state, $rootScope, ngNotify, IdContrato){
+    .controller('ModalAddRefClienteCtrl', function($uibModalInstance, $uibModal, CatalogosFactory, $state, $rootScope, ngNotify, IdContrato, $localStorage){
         
         function UpdateRefPersonal(){
             if(vm.IdContrato != undefined){
@@ -19,11 +19,13 @@ angular
                 CatalogosFactory.AddtblReferenciasClietes(objtblReferenciasClietes).then(function(data){
                     if(data.AddtblReferenciasClietesResult == -1){
                         ngNotify.set('CORRECTO, se guardó la referencia personal.', 'success');
-                        $rootScope.$emit('LoadRefPersonal', vm.IdContrato);
+                        SaveMovimientoSistema(objtblReferenciasClietes);
+                        //$rootScope.$emit('LoadRefPersonal', vm.IdContrato);
                         cancel();
                     }else{
                         ngNotify.set('ERROR, al guardar la referencia personal.', 'warn');
-                        $rootScope.$emit('LoadRefPersonal', vm.IdContrato);
+                        SaveMovimientoSistema(objtblReferenciasClietes);
+                        //$rootScope.$emit('LoadRefPersonal', vm.IdContrato);
                         cancel();
                     }
                 });
@@ -32,8 +34,23 @@ angular
             }
         }
 
+        function SaveMovimientoSistema(Comando){
+            var objMovSist = {
+                'Clv_usuario': $localStorage.currentUser.idUsuario, 
+                'Modulo': 'home.catalogos', 
+                'Submodulo': 'home.catalogos.clientes', 
+                'Observaciones': 'Se agregó referencia a cliente', 
+                'Usuario': $localStorage.currentUser.usuario, 
+                'Comando': JSON.stringify(Comando), 
+                'Clv_afectada': vm.IdContrato
+            };
+            CatalogosFactory.AddMovSist(objMovSist).then(function(data){
+                console.log(data);
+            });
+        }
+
         function cancel() {
-            $uibModalInstance.dismiss('cancel');
+            $uibModalInstance.close();
         }
 
         var vm = this;

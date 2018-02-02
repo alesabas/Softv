@@ -2,25 +2,38 @@
 
 angular
     .module('softvApp')
-    .controller('ModalEliminarRefClienteCtrl', function($uibModalInstance, $uibModal, ObjRefCliente, CatalogosFactory, $state, $rootScope, ngNotify){
+    .controller('ModalEliminarRefClienteCtrl', function($uibModalInstance, $uibModal, ObjRefCliente, CatalogosFactory, $state, $rootScope, ngNotify, $localStorage){
 
         function DeletRefPersonal(){
             var IdReferencia = vm.IdReferencia;
             CatalogosFactory.DeletetblReferenciasClietes(IdReferencia).then(function(data){
                 if(data.DeletetblReferenciasClietesResult == -1){
                     ngNotify.set('CORRECTO, se eliminó la referencia personal.', 'success');
-                    $rootScope.$emit('LoadRefPersonal', vm.IdContrato);
+                    SaveMovimientoSistema();
                     cancel();
                 }else{
                     ngNotify.set('ERROR, al eliminar la referencia personal.', 'warn');
-                    $rootScope.$emit('LoadRefPersonal', vm.IdContrato);
                     cancel();
                 }
             });
         }
 
+        function SaveMovimientoSistema(){
+            var objMovSist = {
+                'Clv_usuario': $localStorage.currentUser.idUsuario, 
+                'Modulo': 'home.catalogos', 
+                'Submodulo': 'home.catalogos.clientes', 
+                'Observaciones': 'Se eliminó referencia a cliente', 
+                'Usuario': $localStorage.currentUser.usuario, 
+                'Comando': '', 
+                'Clv_afectada': vm.IdContrato
+            };
+            CatalogosFactory.AddMovSist(objMovSist).then(function(data){
+            });
+        }
+
         function cancel() {
-            $uibModalInstance.dismiss('cancel');
+            $uibModalInstance.close();
         }
 
         var vm = this;

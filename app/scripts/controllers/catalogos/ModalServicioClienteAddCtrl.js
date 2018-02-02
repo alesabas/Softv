@@ -62,7 +62,8 @@ angular
                         CatalogosRedIPFactory.Get_ActivaIP().then(function(data){
                             vm.ActivaIP = data.Get_ActivaIPResult.ActivaIP
                             if(vm.ActivaIP == true){
-                                    SetServicoIP();
+                                SaveMovimientoSistema(ObjServicioCliente);
+                                SetServicoIP();
                             }else{
                                 ngNotify.set('CORRECTO, se agregó un servico al cliente.', 'success');
                                 $rootScope.$emit('LoadServicioCliente', vm.IdContrato);
@@ -86,7 +87,6 @@ angular
             if(vm.TipoServicio != undefined){
                 if(vm.TipoServicio.Clv_TipSerPrincipal == 3){
                     ClienteServicioFactory.GetValidaTVDigCliente(vm.IdContrato).then(function(data){
-                        console.log(data);
                         var ServicioList = data.GetValidaTVDigClienteResult;
                         if(ServicioList.length > 0){
                             vm.ServicioList = data.GetValidaTVDigClienteResult;
@@ -163,6 +163,20 @@ angular
                     $rootScope.$emit('LoadServicioCliente', vm.IdContrato);
                     cancel();
                 }
+            });
+        }
+
+        function SaveMovimientoSistema(Comando){
+            var objMovSist = {
+                'Clv_usuario': $localStorage.currentUser.idUsuario, 
+                'Modulo': 'home.catalogos', 
+                'Submodulo': 'home.catalogos.clientes', 
+                'Observaciones': 'Se agregó servicio a cliente', 
+                'Usuario': $localStorage.currentUser.usuario, 
+                'Comando': JSON.stringify(Comando), 
+                'Clv_afectada': vm.IdContrato
+            };
+            CatalogosFactory.AddMovSist(objMovSist).then(function(data){
             });
         }
 

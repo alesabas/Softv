@@ -347,6 +347,7 @@ angular
 
         function GetNotas(IdContrato){
             CatalogosFactory.GetDeepRELCLIENTEOBS(IdContrato).then(function(data){
+                console.log(data);
                 var DataObser = data.GetDeepRELCLIENTEOBSResult;
                 vm.Observaciones = DataObser.Obs;
                 if(DataObser.Obs != null){
@@ -357,6 +358,7 @@ angular
             });
 
             CatalogosFactory.GetDeepRoboDeSeñal_New(IdContrato).then(function(data){
+                console.log(data);
                 var DataNota = data.GetDeepRoboDeSeñal_NewResult;
                 if(DataNota != null){
                     vm.Notas = DataNota.Descripcion;
@@ -417,6 +419,7 @@ angular
                     CatalogosFactory.AddRELCLIBANCO(objRELCLIBANCO).then(function(data){
                         if(data.AddRELCLIBANCOResult == 1){
                             ngNotify.set('CORRECTO, se guardaron datos bancarios.', 'success');
+                            SaveMovimientoSistema('Se agregó datos bancarios a cliente', objRELCLIBANCO);
                             GetDatosBancario(vm.IdContrato);
                         }else{
                             ngNotify.set('ERROR, al guardar datos bancarios.', 'warn');
@@ -426,37 +429,13 @@ angular
                     CatalogosFactory.UpdateRELCLIBANCO(objRELCLIBANCO).then(function(data){
                         if(data.UpdateRELCLIBANCOResult == 1){
                             ngNotify.set('CORRECTO, se guardaron datos bancarios.', 'success');
+                            SaveMovimientoSistema('Se agregó datos bancarios a cliente', objRELCLIBANCO);
                             GetDatosBancario(vm.IdContrato);
                         }else{
                             ngNotify.set('ERROR, al guardar datos bancarios.', 'warn');
                         }
                     });
                 }
-            }else{
-                ngNotify.set('Aun no se han registrado los datos personales.', 'warn');
-            }
-        }
-
-        function AddRefPersonales(){
-            if(vm.IdContrato != undefined){
-                var objtblReferenciasClietes = {
-                    'contrato': vm.IdContrato,
-                    'nombre': vm.NombreRef,
-                    'direccion': vm.DireccionRef,
-                    'email': vm.EmailRef,
-                    'telefono': vm.TelefonoRef,
-                    'id_referencia': 0,
-                    'op': 0,
-                    'tipo': 'C'
-                };
-                CatalogosFactory.AddtblReferenciasClietes(objtblReferenciasClietes).then(function(data){
-                    if(data.AddtblReferenciasClietesResult == -1){
-                        ngNotify.set('CORRECTO, se guardó la referencia personal.', 'success');
-                        GetReferenciasPersonales(vm.IdContrato);
-                    }else{
-                        ngNotify.set('ERROR, al guardar la referencia personal.', 'warn');
-                    }
-                });
             }else{
                 ngNotify.set('Aun no se han registrado los datos personales.', 'warn');
             }
@@ -474,12 +453,15 @@ angular
                 backdrop: 'static',
                 keyboard: false,
                 class: 'modal-backdrop fade',
-                size: 'lg',
+                size: 'sm',
                 resolve: {
                     IdContrato: function () {
                         return IdContrato;
                     }
                 }
+            });
+            modalInstance.result.then(function () {
+                GetReferenciasPersonales(vm.IdContrato);
             });
         }
 
@@ -495,12 +477,15 @@ angular
                 backdrop: 'static',
                 keyboard: false,
                 class: 'modal-backdrop fade',
-                size: 'lg',
+                size: 'sm',
                 resolve: {
                     ObjRefCliente: function () {
                         return ObjRefCliente;
                     }
                 }
+            });
+            modalInstance.result.then(function () {
+                GetReferenciasPersonales(vm.IdContrato);
             });
         }
 
@@ -523,11 +508,10 @@ angular
                     }
                 }
             });
+            modalInstance.result.then(function () {
+                GetReferenciasPersonales(vm.IdContrato);
+            });
         }
-
-        $rootScope.$on('LoadRefPersonal', function(e, IdContrato){
-            GetReferenciasPersonales(IdContrato);
-        });
 
         function AddNotas(){
             var objRELCLIENTEOBS = {
@@ -538,6 +522,9 @@ angular
                 'Contrato': vm.IdContrato,
                 'Descripcion': vm.Notas
             };
+            var ObjNotas = {
+
+            }
             CatalogosFactory.UpdateRELCLIENTEOBS(objRELCLIENTEOBS).then(function(data){
                 CatalogosFactory.UpdateRoboDeSeñal_New(objRoboDeSeñal_New).then(function(data){
                     ngNotify.set('CORRECTO, se guardó observaciones y notas.', 'success');
@@ -796,20 +783,24 @@ angular
             });
         }
 
-        function DeleteServicioCliente(Clv_UnicaNet){
+        function DeleteServicioCliente(Clv_UnicaNet, ConceptoTipo){
             var Clv_UnicaNetD = (Clv_UnicaNet != null && Clv_UnicaNet != undefined)? Clv_UnicaNet:vm.Clv_UnicaNet;
+            var ObjServDel = {
+                'Clv_UnicaNetD': Clv_UnicaNetD,
+                'ConceptoTipo': (ConceptoTipo != null && ConceptoTipo != undefined)? ConceptoTipo:vm.ConceptoTipo
+            }
             CatalogosFactory.GetValidaPapoClienteServicio(Clv_UnicaNetD).then(function(data){
                 var ToDay = GetDateToday();
                 if(data.GetValidaPapoClienteServicioResult == 0 && vm.FechaContratacionP.getTime() == ToDay.getTime()){
-                    OpenDeleteServicioCliente(Clv_UnicaNetD);
+                    OpenDeleteServicioCliente(ObjServDel);
                 }else{
-                    var MSJ = (vm.ConceptoTipo = 'S')? 'ERROR, solo se puede eliminar un servicio el mismo día que se contrató y/o que tenga ningún pago realizado.':'ERROR, solo se puede eliminar un paquete el mismo día que se contrató y/o que tenga ningún pago realizado.'
+                    var MSJ = (vm.ConceptoTipo == 'S')? 'ERROR, solo se puede eliminar un servicio el mismo día que se contrató y/o que tenga ningún pago realizado.':'ERROR, solo se puede eliminar un paquete el mismo día que se contrató y/o que tenga ningún pago realizado.'
                     ngNotify.set(MSJ, 'warn');
                 }
             });
         }
 
-        function OpenDeleteServicioCliente(Clv_UnicaNet){
+        function OpenDeleteServicioCliente(ObjServDel){
             var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
@@ -822,8 +813,8 @@ angular
                 class: 'modal-backdrop fade',
                 size: 'sm',
                 resolve: {
-                    Clv_UnicaNet: function () {
-                        return Clv_UnicaNet;
+                    ObjServDel: function () {
+                        return ObjServDel;
                     }
                 }
             });
@@ -831,8 +822,6 @@ angular
                 vm.DivServicio = false;
                 vm.DivAparato = false;
                 GetServicios(vm.IdContrato);
-            }, function () {
-                $log.info('Modal dismissed at: ' + new Date());
             });
         }
 
@@ -1037,14 +1026,13 @@ angular
             var objMovSist = {
                 'Clv_usuario': $localStorage.currentUser.idUsuario, 
                 'Modulo': 'home.catalogos', 
-                'Submodulo': 'home.catalogos.cliente_editar', 
+                'Submodulo': 'home.catalogos.clientes', 
                 'Observaciones': Observaciones, 
                 'Usuario': $localStorage.currentUser.usuario, 
                 'Comando': JSON.stringify(Comando), 
                 'Clv_afectada': vm.IdContrato
             };
             CatalogosFactory.AddMovSist(objMovSist).then(function(data){
-                console.log(data);
             });
         }
         
