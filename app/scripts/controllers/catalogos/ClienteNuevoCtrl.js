@@ -63,7 +63,7 @@ angular
                             var objMovSist = {
                                 'Clv_usuario': $localStorage.currentUser.idUsuario, 
                                 'Modulo': 'home.catalogos', 
-                                'Submodulo': 'home.catalogos.cliente_nuevo', 
+                                'Submodulo': 'home.catalogos.clientes', 
                                 'Observaciones': 'Se registró nuevo cliente', 
                                 'Usuario': $localStorage.currentUser.usuario, 
                                 'Comando': JSON.stringify(ObjCliente), 

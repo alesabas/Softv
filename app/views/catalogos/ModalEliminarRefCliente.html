@@ -3,7 +3,7 @@
     <h4 class="modal-title"><i class="fa fa-exclamation-triangle"></i> Confirmar</h4>
 </div>
 <div class="modal-body">
-    <p>¿Realmente desea eliminar esta referencia del cliente?</p>
+    <p><b>¿Realmente desea eliminar esta referencia del cliente?</b></p>
     <p><b>Id:</b> {{ ctrl.IdReferencia }}</p>
     <p><b>Nombre:</b> {{ ctrl.NombreRef }}</p>
     <p><b>Teléfono:</b> {{ ctrl.TelefonoRef }}</p>
@@ -11,6 +11,6 @@
     <p><b>Dirección:</b> {{ ctrl.DireccionRef }}</p>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-danger btn-sm" type="button" ng-click="ctrl.DeletRefPersonal()" title="Eliminar Referencia Personal">Eliminar</button>
-    <button class="btn bnt-default btn-sm" type="button" ng-click="ctrl.cancel()" title="Salir">Cancelar</button>
+    <button class="btn btn-danger btn-sm" type="button" ng-click="ctrl.DeletRefPersonal()" title="Eliminar Referencia Personal"><i class="fa fa-trash"></i> Eliminar</button>
+    <button class="btn bnt-default btn-sm" type="button" ng-click="ctrl.cancel()" title="Salir"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
 </div>

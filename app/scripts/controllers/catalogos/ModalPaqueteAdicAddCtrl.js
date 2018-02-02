@@ -48,12 +48,27 @@ angular
                 console.log(data);
                 vm.Clv_UnicaNet = data.GetAddPqueteAdicResult;
                 if(vm.Clv_UnicaNet > 0){
+                    SaveMovimientoSistema(ObjServicioCliente);
                     ngNotify.set('CORRECTO, se agregó un servico al cliente.', 'success');
                     OkCancel();
                 }else{
                     ngNotify.set('ERROR, al agregar un servico al cliente.', 'warn');
                     cancel();
                 }
+            });
+        }
+
+        function SaveMovimientoSistema(Comando){
+            var objMovSist = {
+                'Clv_usuario': $localStorage.currentUser.idUsuario, 
+                'Modulo': 'home.catalogos', 
+                'Submodulo': 'home.catalogos.clientes', 
+                'Observaciones': 'Se agregó paquete adicional a cliente', 
+                'Usuario': $localStorage.currentUser.usuario, 
+                'Comando': JSON.stringify(Comando), 
+                'Clv_afectada': vm.IdContrato
+            };
+            CatalogosFactory.AddMovSist(objMovSist).then(function(data){
             });
         }
 

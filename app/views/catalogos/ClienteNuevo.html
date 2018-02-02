@@ -937,7 +937,7 @@
                                         <a class="text-info" style="font-size:12px" ng-if="node.status == 'F' && node.Tipo == 'S'">{{node.Nombre}} (Fuera de Area)</a>
                                         <a class="text-danger" style="font-size:12px" ng-if="node.status == 'B' && node.Tipo == 'S'">{{node.Nombre}} (Baja)</a>
                                         <button type="button" class="btn btn-primary btn-xs" title="Agregar Paquete Adicional" ng-click="$ctrl.OpenAddPaqueteAdic(node.Clv_UnicaNet)" ng-if="node.Clv_TipSer == 3 && node.Tipo == 'S'"><i class="fa fa-plus"></i></button>
-                                        <button type="button" class="btn btn-danger btn-xs" title="Eliminar Paquete Adicional" ng-click="$ctrl.DeleteServicioCliente(node.Clv_UnicaNet)" ng-if="node.Clv_TipSer == 3 && node.Tipo == 'P'"><i class="fa fa-minus"></i></button>
+                                        <button type="button" class="btn btn-danger btn-xs" title="Eliminar Paquete Adicional" ng-click="$ctrl.DeleteServicioCliente(node.Clv_UnicaNet, node.Tipo)" ng-if="node.Clv_TipSer == 3 && node.Tipo == 'P'"><i class="fa fa-minus"></i></button>
                                     </treecontrol>
                                 </div>
                             </div>
