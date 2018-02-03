@@ -1,9 +1,8 @@
 'use strict';
 angular
   .module('softvApp')
-  .controller('hotelesCtrl', function ($state, reportesFactory, reportesVariosFactory, globalService, $sce, $localStorage) {
-
-
+  .controller('hotelesCtrl',
+   function ($state, reportesFactory,reportesVariosFactory,globalService,$sce,$localStorage,trabajosFactory,$filter,atencionFactory,CatalogosFactory) {
     function GetReport() {
 		reportesFactory.GetReporteHoteles(vm.responseparams.distribuidores, vm.responseparams.plazas)
 		.then(function (data) {

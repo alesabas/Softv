@@ -8,7 +8,8 @@ var filtrosReporte = {
     responseparams:'=',
     showfilters:'='
   },
-  controller: function (reportesVariosFactory, $localStorage, reportesFactory, trabajosFactory, $filter, globalService, $sce, atencionFactory, CatalogosFactory) {
+  controller: ['reportesVariosFactory','$localStorage','reportesFactory','trabajosFactory','$filter','globalService','$sce','atencionFactory','CatalogosFactory',
+  function (reportesVariosFactory,$localStorage,reportesFactory,trabajosFactory,$filter, globalService,$sce,atencionFactory,CatalogosFactory) {
 
     function getTipoServicios() { 
       atencionFactory.getServicios().then(function (result) { 
@@ -25,11 +26,11 @@ var filtrosReporte = {
         'Clv_Txt': '',
         'Op': 2,
         'idcompania': 1
-      }
+      };
       CatalogosFactory.GetServicios_NewList(obj).then(function (result) {
         var servicios = [];
         result.GetServicios_NewListResult.forEach(function (item) {
-          if (item.Es_Principal == true) {
+          if (item.Es_Principal === true) {
             servicios.push(item);
           }
         });
@@ -58,7 +59,7 @@ var filtrosReporte = {
             selectedItems: []
           };
         });
-    };
+    }
 
     function getplazas() {
       reportesVariosFactory.mostrarPlazaByDistribuidor($localStorage.currentUser.idUsuario, vm.options.selectedItems)
@@ -76,7 +77,7 @@ var filtrosReporte = {
     }
 
     function getTecnicosByPlaza(plazas, op) {
-      if (op == 1) {
+      if (op === 1) {
         reportesFactory.GetTecnicosCompania(plazas)
           .then(function (result) {
             vm.tecnicosAgenda = result.GetTecnicosCompaniaResult;
@@ -210,44 +211,43 @@ var filtrosReporte = {
         }
         from.length = 0;
       }
-    };
+    }
 
     function next(report){
       vm.step = vm.step + 1;
       vm.order.forEach(function (item) {      
-        if (item.function=== 'getplazas'  && item.step==vm.step) {
+        if (item.function === 'getplazas'  && item.step===vm.step) {
           vm.distribuidores = vm.options.selectedItems;
           getplazas();        
         }
-        if (item.function=== 'getRangosFechas' && item.step==vm.step){
+        if (item.function=== 'getRangosFechas' && item.step===vm.step){
               
           vm.showfilters=true;
         }
-        if(item.function==='getEstadosByPlaza' && item.step==vm.step){
+        if(item.function==='getEstadosByPlaza' && item.step===vm.step){
           vm.plazas = vm.options.selectedItems;
           getEstadosByPlaza();
         }
-        if(item.function==='getReporBtn' && item.step==vm.step){ 
+        if(item.function==='getReporBtn' && item.step===vm.step){ 
           vm.showfilters=true;
         }
-        if(item.function==='getfiltroPeriodo' && item.step==vm.step){ 
+        if(item.function==='getfiltroPeriodo' && item.step===vm.step){ 
           vm.showfilters=true;
         }
-        if(item.function==='getServicios' && item.step==vm.step){          
+        if(item.function==='getServicios' && item.step===vm.step){          
           vm.muestraservicios=false;    
           getServicios(vm.servicioPerm.Clv_TipSerPrincipal);        
         }
-        if(item.function==='muestraServicios' && item.step==vm.step){
+        if(item.function==='muestraServicios' && item.step===vm.step){
           vm.plazas = vm.options.selectedItems;
           muestraServicios();
         }
         
-        if(item.function==='getfiltroPermanencia' && item.step==vm.step){
+        if(item.function==='getfiltroPermanencia' && item.step===vm.step){
           vm.servicios=vm.options.selectedItems;          
            vm.showfilters=true;
         }
-        if(item.function==='muestrafiltroAgenda' && item.step==vm.step){
-          alert('filtros agenda');
+        if(item.function==='muestrafiltroAgenda' && item.step===vm.step){        
           vm.plazas = vm.options.selectedItems;
           if(report==='AGENDATECNICO'){
             getTecnicosByPlaza(vm.plazas, 1);          
@@ -258,32 +258,32 @@ var filtrosReporte = {
           }
          
         }
-        if(item.function==='muestrafiltrotrabajos' && item.step==vm.step){
+        if(item.function==='muestrafiltrotrabajos' && item.step===vm.step){
           vm.tecnicosAgenda = vm.options.selectedItems;
           vm.muestrafiltrotrabajos = true;
           vm.tipserTrabajo = vm.Tiposervicios[1];
           vm.tipoOrden = vm.tipoOrdenList[1];
           getTrabajos(vm.Tiposervicios[1].Clv_TipSerPrincipal);
         }
-        if(item.function==='muestraRangosFecha' && item.step==vm.step){
+        if(item.function==='muestraRangosFecha' && item.step===vm.step){
           if(report==='DEVOLUCIONALMACEN'){
             vm.plazas = vm.options.selectedItems;
           }
           vm.showfilters=true;
         }
-        if(item.function==='getCiudadesByEstado' && item.step==vm.step){
+        if(item.function==='getCiudadesByEstado' && item.step===vm.step){
           vm.estados = vm.options.selectedItems;
           getCiudadesByEstado(vm.plazas, vm.estados);
         }
-        if(item.function==='getLocalidadesByCiudades' && item.step==vm.step){
+        if(item.function==='getLocalidadesByCiudades' && item.step===vm.step){
           vm.ciudades = vm.options.selectedItems;
           getLocalidadesByCiudades($localStorage.currentUser.idUsuario, vm.plazas, vm.ciudades, vm.estados);
         }
-        if (item.function === 'getColoniasByLocalidad' && item.step==vm.step) {        
+        if (item.function === 'getColoniasByLocalidad' && item.step===vm.step) {        
           vm.localidades = vm.options.selectedItems;
           getColoniasByLocalidad($localStorage.currentUser.idUsuario, vm.plazas, vm.estados, vm.ciudades, vm.localidades);
         }
-        if (item.function === 'getCallesByColonia' && item.step==vm.step) {
+        if (item.function === 'getCallesByColonia' && item.step===vm.step) {
           vm.colonias = vm.options.selectedItems;
           getCallesByColonia($localStorage.currentUser.idUsuario, 0, 0, vm.distribuidores, vm.ciudades, vm.localidades, vm.colonias, vm.plazas, vm.estados);
         }
@@ -291,11 +291,11 @@ var filtrosReporte = {
           vm.calles = vm.options.selectedItems;
           vm.showfilters=true;
         }
-        if (item.function === 'getfiltrosQuejas' && item.step==vm.step) {
+        if (item.function === 'getfiltrosQuejas' && item.step===vm.step) {
           vm.calles = vm.options.selectedItems;            
           vm.showfilters=true;
         }
-        if (item.function === 'getfiltrosAtencion' && item.step==vm.step) {
+        if (item.function === 'getfiltrosAtencion' && item.step===vm.step) {
           vm.colonias = vm.options.selectedItems;            
           vm.showfilters=true;
         }
@@ -311,7 +311,7 @@ var filtrosReporte = {
             'servicios':vm.servicios,
             'tiposervicio':(vm.servicioPerm)?vm.servicioPerm.Clv_TipSerPrincipal:0,
             'tecnicosAgenda':vm.tecnicosAgenda
-          }            
+          };            
           vm.responseparams=par;
         }   
       });
@@ -354,7 +354,7 @@ var filtrosReporte = {
     getDistribuidores();
     getTipoServicios();
 
-  },
+  }],
   templateUrl: 'views/components/filtrosReporte.html',
   controllerAs: '$ctrl'
 };
