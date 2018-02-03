@@ -21,18 +21,16 @@ angular
             CatalogosFactory.DeleteEstados_New(ObjEstado).then(function(data){
                 if(data.DeleteEstados_NewResult == -1){
                     ngNotify.set('CORRECTO, se eliminó el estado.', 'success');
-                    $state.reload('home.catalogos.estados');
                     cancel();
                 }else{
                     ngNotify.set('ERROR, al eliminar el estado.', 'warn');
-                    $state.reload('home.catalogos.estados');
                     cancel();
                 }
             });
         }
 
         function cancel() {
-            $uibModalInstance.dismiss('cancel');
+            $uibModalInstance.close();
         }
 
         var vm = this;

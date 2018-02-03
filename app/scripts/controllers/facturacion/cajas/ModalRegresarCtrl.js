@@ -4,7 +4,9 @@ angular
 	.controller('ModalRegresarCtrl', function ($uibModalInstance, cajasFactory, items, $rootScope, ngNotify, $uibModal) {
 
 		function initialData() {
+			console.log(items);
 			cajasFactory.dameAparatosAdeudo(items.Contrato, items.Session, items.CLV_DETALLE).then(function (data) {
+				console.log(data);
 				vm.aparatos = data.GetMuestraAparatosCobroAdeudoListResult;
 				vm.aparatos.forEach(function (element) {
 					element.checado = false;
@@ -27,6 +29,19 @@ angular
 		// }
 
 		function addCancelar(item, status) {
+			console.log(status);
+			if(status == true){
+				vm.aparatos.forEach(function (element) {
+					element.checado = true;
+				});
+			}else{
+				vm.aparatos.forEach(function (element) {
+					element.checado = false;
+					element.checado2 = false;
+				});
+			}
+
+			
 			if (item.Detalle.toLowerCase().includes('router') || item.Detalle.toLowerCase().includes('ups')) {
 				var aparato = '';
 				if (item.Detalle.toLowerCase().includes('router')) {

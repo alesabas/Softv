@@ -13,7 +13,6 @@ angular
              CatalogosFactory.AddBanco(objBanco).then(function(data){
                 if(data.AddBancoResult > 0){
                     ngNotify.set('CORRECTO, se añadió un banco nuevo.', 'success');
-                    $state.reload('home.catalogos.bancos');
                     cancel();
                 }else{
                     ngNotify.set('ERROR, al añadir un banco nuevo.', 'warn');
@@ -22,12 +21,13 @@ angular
         }
 
         function cancel() {
-            $uibModalInstance.dismiss('cancel');
+            $uibModalInstance.close();
         }
 
         var vm = this;
         vm.Titulo = 'Nuevo Banco';
         vm.Icono = 'fa fa-plus';
+        vm.InpDes = false;
         vm.SaveBanco = SaveBanco;
         vm.cancel = cancel;
 

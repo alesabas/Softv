@@ -22,7 +22,6 @@
   }
 
   .dualmultiselect .pool ul li {
-    /*width: 50%;*/
     padding: 1px 8px 4px 4px;
     border-bottom: 1px dotted #CFCFCF;
   }
@@ -47,11 +46,8 @@
           <b>Plaza:</b>
         </div>
         <div class="col-md-3">
-          <select name="SlcPlaza"
-          ng-change="$ctrl.ObtenDetalle()"
-           ng-options="item as item.razon_social for item in $ctrl.plazas track by item.id_compania"
-            class="form-control input-sm" ng-model="$ctrl.Plaza">
-            <option value="">Selecciona</option>
+          <select name="SlcPlaza" ng-change="$ctrl.ObtenDetalle()" ng-options="item as item.razon_social for item in $ctrl.plazas track by item.id_compania" class="form-control input-sm" ng-model="$ctrl.Plaza">
+            <option value="" ng-disabled="true">Selecciona</option>
           </select>
         </div>
       </div>
@@ -114,7 +110,6 @@
                     <p class="text-right"></p>
                 </footer>
             </uib-tab>-->
-
            <uib-tab index="0">
                 <uib-tab-heading>
                     Ordenes y Reportes
@@ -129,7 +124,7 @@
                       </div>
                       <div class="col-md-9">
                         <select name="SlcDepatamento" ng-change="$ctrl.obtentecnicos()" class="form-control input-sm" ng-options="item as item.puesto for item in $ctrl.departamentos track by item.clv_puesto"   ng-model="$ctrl.Depatamento">
-                          <!--<option value="">Selecciona</option>-->
+                          <option value="" ng-disabled="true">Selecciona</option>
                         </select>
                         <br>
                       </div>
@@ -140,7 +135,7 @@
                       </div>
                       <div class="col-md-9">
                         <select name="SlcTecnico" class="form-control input-sm" ng-model="$ctrl.Tecnico" ng-options="T as T.tecnico for T in $ctrl.TecnicoList track by T.clv_tecnico">
-                          <option value="">Selecciona</option>
+                          <option value="" ng-disabled="true">Selecciona</option>
                         </select>
                       </div>
                     </div>
@@ -150,10 +145,10 @@
                         <p class="text-muted">Selecciona un rubro:</p>
                       </div>
                       <div class="col-md-3">
-                        <button class="btn btn-success btn-xs" ng-click="$ctrl.AddRelTecnicoOrdenes()"> + Ordenes</button>
+                        <button class="btn btn-success btn-xs" ng-click="$ctrl.AddRelTecnicoOrdenes()" title="Agregar Técnico a mostrar en Ordenes"> + Ordenes</button>
                       </div>
                       <div class="col-md-3">
-                        <button class="btn btn-success btn-xs" ng-click="$ctrl.AddRelTecnicoReportes()"> + Reportes</button>
+                        <button class="btn btn-success btn-xs" ng-click="$ctrl.AddRelTecnicoReportes()" title="Agregar Técnico a mostrar en Reportes"> + Reportes</button>
                       </div>
                     </div>
                   </div>
@@ -169,7 +164,7 @@
                                   <b>{{ X.tecnico }}</b>
                                 </div>
                                 <div class="col-md-3"></div>
-                                  <button type="button" class="btn ink-reaction  btn-xs btn-danger" ng-click="$ctrl.DeleteRelTecnicoOrdenes(X.clv_tecnico)"><i class="fa fa-trash"></i> Eliminar</button>
+                                  <button type="button" class="btn ink-reaction  btn-xs btn-danger" ng-click="$ctrl.DeleteRelTecnicoOrdenes(X.clv_tecnico)" title="Eliminar Técnico a mostrar de Ordenes"><i class="fa fa-trash"></i> Eliminar</button>
                               </div>
                             </ul>
                           </div>
@@ -183,7 +178,7 @@
                                   <b>{{ X.tecnico }}</b>
                                 </div>
                                 <div class="col-md-3"></div>
-                                  <button type="button" class="btn ink-reaction  btn-xs btn-danger" ng-click="$ctrl.DeleteRelTecnicoReportes(X.clv_tecnico)"><i class="fa fa-trash"></i> Eliminar</button>
+                                  <button type="button" class="btn ink-reaction  btn-xs btn-danger" ng-click="$ctrl.DeleteRelTecnicoReportes(X.clv_tecnico)" title="Eliminar Técnico a mostrar de Reportes"><i class="fa fa-trash"></i> Eliminar</button>
                               </div>
                             </ul>
                           </div>

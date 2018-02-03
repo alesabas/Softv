@@ -1,30 +1,36 @@
-<form name="FormBanco" angular-validator-submit="ctrl.SaveBanco()" novalidate angular-validator>
+<form name="FormBanco" angular-validator-submit="ctrl.SaveBanco()" novalidate angular-validator autocomplete="off">
     <div class="modal-header">
         <button class="close" type="button" aria-label="close" ng-click="ctrl.cancel()">x</button>
         <h4 class="modal-title"><i ng-class="ctrl.Icono"></i> {{ ctrl.Titulo }} {{ ctrl.IdBanco }}</h4>
     </div>
     <div class="modal-body">
         <div class="row">
-            <div class="col-md-12">
-                <div class="col-md-4">
-                    <b>Clave:</b>
+            <fieldset ng-disabled="ctrl.InpDes">
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <b>Clave:</b>
+                    </div>
                 </div>
-                <div class="col-md-8">
-                    <b>Nombre del Banco</b>
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <input type="text" name="InpClave" class="form-control input-sm" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" ng-model="ctrl.Clave" maxlength="5" ng-pattern="/^[a-zA-Z0-9]{5}$/" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa 5 caracteres.'">
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-12">
-                <div class="col-md-4">
-                    <input type="text" name="InpClave" class="form-control input-sm" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" ng-model="ctrl.Clave" maxlength="5" ng-pattern="/^[a-zA-Z0-9]{5}$/" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa 5 caracteres.'">
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <b>Nombre del Banco</b>
+                    </div>
                 </div>
-                <div class="col-md-8">
-                    <input type="text" name="InpBlanco" class="form-control input-sm" ng-model="ctrl.Banco" validate-on="dirty" required required-message="'Obligatorio'">
+                 <div class="col-md-12">
+                    <div class="col-md-12">
+                        <input type="text" name="InpBlanco" class="form-control input-sm" ng-model="ctrl.Banco" validate-on="dirty" required required-message="'Obligatorio'">
+                    </div>
                 </div>
-            </div>
+            </fieldset>
         </div>
     </div>
     <div class="modal-footer">
-        <button type="submit" class="btn btn-primary btn-sm" title="Guardar Plaza">Guardar</button>
-        <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.cancel()" title="Salir">Cancelar</button>
+        <button type="submit" class="btn btn-primary btn-sm" title="Guardar Banco" ng-show="!ctrl.InpDes"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
+        <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.cancel()" title="Salir"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
     </div>
 </form>

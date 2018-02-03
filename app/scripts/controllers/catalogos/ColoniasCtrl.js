@@ -26,5 +26,5 @@ angular
 
         var vm = this;
         initData();
-        vm.GetColoniaList = GetColoniaList;
+        
     });

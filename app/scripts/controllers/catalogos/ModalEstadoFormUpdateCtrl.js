@@ -40,22 +40,20 @@ angular
             CatalogosFactory.UpdateEstados_New(objEstados_New).then(function(data){
                 if(data.UpdateEstados_NewResult == -1){
                     ngNotify.set('CORRECTO, se guardó el estado.', 'success');
-                    $state.reload('home.catalogos.estados');
                     cancel();
                 }else{
                     ngNotify.set('ERROR, al guardar el estado.', 'warn');
-                    $state.reload('home.catalogos.estados');
                     cancel();
                 }
             });
         }
 
         function cancel() {
-            $uibModalInstance.dismiss('cancel');
+            $uibModalInstance.close();
         }
 
         var vm = this;
-        vm.Titulo = 'Editar Registro - ';
+        vm.Titulo = 'Editar Estado - ';
         vm.Icono = 'fa fa-pencil-square-o';
         vm.View = false;
         vm.SaveEstado = SaveEstado;

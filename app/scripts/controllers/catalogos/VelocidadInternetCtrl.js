@@ -29,6 +29,7 @@ angular
                 };
                 CatalogosFactory.GetSp_filtroPoliticas(SearchObj).then(function(data){
                     vm.VelocidadInternetList = data.GetSp_filtroPoliticasResult;
+                    console.log(vm.VelocidadInternetList);
                     if(vm.VelocidadInternetList.length > 0){
                         vm.ConRegistros = true;
                         vm.SinRegistros = false;
@@ -57,6 +58,9 @@ angular
                 class: 'modal-backdrop fade',
                 size: 'md'
             });
+            modalInstance.result.then(function () {
+                GetVelocidaInternetList();
+            });
         }
 
         function OpenUpdateVelocidadInternet(id){
@@ -77,6 +81,9 @@ angular
                         return id;
                     }
                 }
+            });
+            modalInstance.result.then(function () {
+                GetVelocidaInternetList();
             });
         }
 
@@ -119,6 +126,9 @@ angular
                         return id;
                     }
                 }
+            });
+            modalInstance.result.then(function () {
+                GetVelocidaInternetList();
             });
         }
 

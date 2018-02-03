@@ -4,12 +4,10 @@
         overflow:auto;  
         margin-top:20px;
     }
-
     .table-scroll-docs {
         height:300px;
         overflow:auto;  
     }
-
     .input-sm {
         font-size: 12px;
     }
@@ -18,16 +16,13 @@
         float:left;
         font-size: 13px;
     }
-
     .contect-tabs{
         float:left;
     }
-
     .fileUpload {
         position: relative;
         overflow: hidden;
     }
-    
     .fileUpload input.upload {
         position: absolute;
         top: 0;
@@ -36,6 +31,12 @@
         padding: 0;
         cursor: pointer;
         opacity: 0;
+    }
+    .span-info{
+        color: #2196f3;
+    }
+    .span-danger{
+        color: #f44336;
     }
 </style>
 <style type="text/css">
@@ -414,7 +415,10 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="col-md-3">
+                                    <input type="text" name="InpClaveElector" class="form-control input-sm" ng-model="$ctrl.ClaveElector" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" ui-options="$ctrl.maskOptions" ui-mask="AAAAAA99999999A999" validate-on="dirty" required required-message="'Obligatorio, ej. AAAAAA11111111A111A'" invalid-message="'Inválido, ej. AAAAAA11111111A111.'">
+                                    <!--
                                     <input type="text" name="InpClaveElector" class="form-control input-sm" ng-model="$ctrl.ClaveElector" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" maxlength="18" ng-pattern="/^[A-Z]{6}\d{8}[A-Z]{1}\d{3}$/" placeholder="AAAAAA11111111A111" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, ej. AAAAAA11111111A111.'">
+                                    -->
                                 </div>
                                 <div class="col-md-3">
                                     <input type="text" name="InpTelefono" class="form-control input-sm" ng-model="$ctrl.Telefono" validate-on="dirty" validator="$ctrl.Telefono > 0" ng-pattern="/^\d{10}$/" maxlength="10" required required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa 10 dígitos.'">
@@ -562,10 +566,10 @@
                                     <input type="text" name="InpRazonSoc" class="form-control input-sm" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" ng-model="$ctrl.RazonSoc" validate-on="dirty" required required-message="'Obligatorio'">
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="text" name="InpRFC" class="form-control input-sm" ng-model="$ctrl.RFC" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" maxlength="13" ng-pattern="$ctrl.ValidateRFC" placeholder="AAAA111111AAA" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Error, Ingresa RFC válido.'">
+                                    <input type="text" name="InpRFC" class="form-control input-sm" ng-model="$ctrl.RFC" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" ui-options="$ctrl.maskOptions" ui-mask="AAAA999999***" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, Ej. AAAA111111AAA.'">
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="text" name="InpCURP" class="form-control input-sm" ng-model="$ctrl.CURP" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" maxlength="18" ng-pattern="/^[A-Z]{4}\d{6}[A-Z]{6}\d{2}$/" placeholder="AAAA111111AAAAAA11" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Error, Ingresa CURP válido.'">
+                                    <input type="text" name="InpCURP" class="form-control input-sm" ng-model="$ctrl.CURP" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" ui-options="$ctrl.maskOptions" ui-mask="AAAA999999AAAAAA99" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, Ej. AAAA111111AAAAAA11.'">
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -916,22 +920,22 @@
                                             <span style="color:#2196f3" ng-switch-when="folder" class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
                                             <span style="color:#2196f3" ng-switch-when="pic" class="glyphicon glyphicon-picture" aria-hidden="true"></span>
                                             <span style="color:#2196f3" ng-switch-when="doc" class="glyphicon glyphicon-file" aria-hidden="true"></span>
-                                            <span style="color:#2196f3" ng-switch-when="file" class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+                                            <span ng-class="(node.status != 'B')?'span-info':'span-danger'" ng-switch-when="file" class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
                                             <span style="color:#2196f3" ng-switch-when="movie" class="glyphicon glyphicon-film" aria-hidden="true"></span>
                                             <span style="color:#2196f3" ng-switch-when="email" class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
-                                            <span style="color:#2196f3" ng-switch-when="home" class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                                            <span ng-class="(node.status != 'B')?'span-info':'span-danger'" ng-switch-when="home" class="glyphicon glyphicon-home" aria-hidden="true"></span>
                                             <span style="color:#2196f3" ng-switch-when="trash" class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                            <span style="color:#2196f3" ng-switch-when="Paquete" class="fa fa-desktop" aria-hidden="true"></span>
+                                            <span ng-class="(node.status != 'B')?'span-info':'span-danger'" ng-switch-when="Paquete" class="fa fa-desktop" aria-hidden="true"></span>
                                         </span>
-                                        <a class="text-info" style="font-size:12px" ng-if="node.Tipo == 'A'">{{node.Nombre}} ({{node.Detalle}})</a>
-                                        <a class="text-info" style="font-size:12px" ng-if="node.Tipo == 'P'">{{node.Nombre}}</a>
-                                        <a class="text-info" style="font-size:12px" ng-if="node.status == 'C'">{{node.Nombre}} (Contratado)</a>
-                                        <a class="text-info" style="font-size:12px" ng-if="node.status == 'I'">{{node.Nombre}} (Instalado)</a>
-                                        <a class="text-info" style="font-size:12px" ng-if="node.status == 'D'">{{node.Nombre}} (Desconectado)</a>
-                                        <a class="text-info" style="font-size:12px" ng-if="node.status == 'S'">{{node.Nombre}} (Suspendido)</a>
-                                        <a class="text-info" style="font-size:12px" ng-if="node.status == 'T'">{{node.Nombre}} (Suspención Temporal)</a>
-                                        <a class="text-info" style="font-size:12px" ng-if="node.status == 'F'">{{node.Nombre}} (Fuera de Area)</a>
-                                        <a class="text-info" style="font-size:12px" ng-if="node.status == 'B'">{{node.Nombre}} (Baja)</a>
+                                        <a ng-class="(node.status != 'B')?'text-info':'text-danger'" style="font-size:12px" ng-if="node.Tipo == 'A'">{{node.Nombre}} ({{node.Detalle}})</a>
+                                        <a ng-class="(node.status != 'B')?'text-info':'text-danger'" style="font-size:12px" ng-if="node.Tipo == 'P'">{{node.Nombre}}</a>
+                                        <a class="text-info" style="font-size:12px" ng-if="node.status == 'C' && node.Tipo == 'S'">{{node.Nombre}} (Contratado)</a>
+                                        <a class="text-info" style="font-size:12px" ng-if="node.status == 'I' && node.Tipo == 'S'">{{node.Nombre}} (Instalado)</a>
+                                        <a class="text-info" style="font-size:12px" ng-if="node.status == 'D' && node.Tipo == 'S'">{{node.Nombre}} (Desconectado)</a>
+                                        <a class="text-info" style="font-size:12px" ng-if="node.status == 'S' && node.Tipo == 'S'">{{node.Nombre}} (Suspendido)</a>
+                                        <a class="text-info" style="font-size:12px" ng-if="node.status == 'T' && node.Tipo == 'S'">{{node.Nombre}} (Suspención Temporal)</a>
+                                        <a class="text-info" style="font-size:12px" ng-if="node.status == 'F' && node.Tipo == 'S'">{{node.Nombre}} (Fuera de Area)</a>
+                                        <a class="text-danger" style="font-size:12px" ng-if="node.status == 'B' && node.Tipo == 'S'">{{node.Nombre}} (Baja)</a>
                                         <button type="button" class="btn btn-primary btn-xs" title="Agregar Paquete Adicional" ng-click="$ctrl.OpenAddPaqueteAdic(node.Clv_UnicaNet)" ng-if="node.Clv_TipSer == 3 && node.Tipo == 'S'"><i class="fa fa-plus"></i></button>
                                         <button type="button" class="btn btn-danger btn-xs" title="Eliminar Paquete Adicional" ng-click="$ctrl.DeleteServicioCliente(node.Clv_UnicaNet)" ng-if="node.Clv_TipSer == 3 && node.Tipo == 'P'"><i class="fa fa-minus"></i></button>
                                     </treecontrol>
@@ -1197,7 +1201,7 @@
                         <div class="col-md-12">
                             <fieldset ng-disabled="$ctrl.View">
                             <div class="col-md-12">
-                                <select name="SlcDocumento" class="form-control input-sm" ng-model="$ctrl.Documento" ng-options="DC.Documento for DC in $ctrl.DocumentoList track by DC.IdDocumento"  validate-on="dirty" required required-message="'Obligatorio'">
+                                <select name="SlcDocumento" class="form-control input-sm" ng-model="$ctrl.Documento" ng-options="DC.Documento for DC in $ctrl.DocumentoList track by DC.IdDocumento"  validate-on="dirty" required required-message="'Obligatorio'" ng-disabled="$ctrl.DisableInput">
                                     <option value="">Selecciona Documento</option>
                                 </select>
                             </div>

@@ -5,8 +5,11 @@ angular
     .controller('LocalidadesCtrl', function(CatalogosFactory, $uibModal){
 
         function initData(){
+            GetLocalidadList();
+        }
+
+        function GetLocalidadList(){
             CatalogosFactory.GetLocalidades_NewList().then(function(data){
-                console.log(data);
                 vm.LocalidadList = data.GetLocalidades_NewListResult;
                 if (vm.LocalidadList.length == 0) {
 					vm.SinRegistros = true;
@@ -31,6 +34,11 @@ angular
                 class: 'modal-backdrop fade',
                 size: 'md'
             });
+            modalInstance.result.then(function () {
+                GetLocalidadList();
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
+            });
         }
 
         function OpenUpdateLocalidad(IdLocalidad){
@@ -51,6 +59,9 @@ angular
                         return IdLocalidad;
                     }
                 }
+            });
+            modalInstance.result.then(function () {
+                GetLocalidadList();
             });
         }
 
@@ -93,6 +104,9 @@ angular
                         return LocalidadObj;
                     }
                 }
+            });
+            modalInstance.result.then(function () {
+                GetLocalidadList();
             });
         }
 

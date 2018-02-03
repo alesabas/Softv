@@ -133,6 +133,7 @@
         vm.observaciones = vm.datosOrden.Obs;
         ordenesFactory.consultaTablaServicios(vm.clv_orden).then(function (data) {
           vm.trabajosTabla = data.GetBUSCADetOrdSerListResult;
+          console.log(vm.trabajosTabla);
           vm.trabajosTabla.forEach(function (row) {
             row.recibi = false;
 
@@ -148,6 +149,7 @@
             vm.idTecnicoBitacora = data.GetchecaBitacoraTecnicoResult.clvTecnico;
           }
           ordenesFactory.MuestraRelOrdenesTecnicos(orden).then(function (data) {
+            console.log(data);
             vm.tecnico = data.GetMuestraRelOrdenesTecnicosListResult;
             if (vm.idTecnicoBitacora > 0) {
               for (var a = 0; a < vm.tecnico.length; a++) {
@@ -254,7 +256,7 @@
     }
 
     function detalleTrabajo(trabajo, x) {
-
+      console.log(x);
       if (vm.selectedTecnico == undefined) {
         ngNotify.set('Selecciona a un técnico.', 'warn');
         return;
@@ -416,7 +418,7 @@
       }else if(
           x.Descripcion.toLowerCase().includes('isnet') ||
           x.Descripcion.toLowerCase().includes('isdig') ||
-          x.Descripcion.toLowerCase().includes('isdtv')
+          x.Descripcion.toLowerCase().includes('istva')
           ){
           var items_ = {
             'clv_orden': x.Clv_Orden,
@@ -440,7 +442,35 @@
               }
             }
           });
-      } else {
+      }else if(
+        x.Descripcion.toLowerCase().includes('capag') ||
+        x.Descripcion.toLowerCase().includes('capat')
+      ){
+        var Trabajo = x.Descripcion.split(' ');
+        var ObjOrdenSer = {
+          'Clave': x.Clave,
+          'Clv_Orden': x.Clv_Orden,
+          'Trabajo': Trabajo[0],
+          'IdContrato': vm.contratoBueno,
+          'ClvTecnico': vm.selectedTecnico.CLV_TECNICO
+        };
+        var modalInstance = $uibModal.open({
+          animation: vm.animationsEnabled,
+          ariaLabelledBy: 'modal-title',
+          ariaDescribedBy: 'modal-body',
+          templateUrl: 'views/procesos/ModalCambioAparatos.html',
+          controller: 'ModalCambioAparatosIgualCtrl',
+          controllerAs: 'ctrl',
+          backdrop: 'static',
+          keyboard: false,
+          size: 'md',
+          resolve: {
+            ObjOrdenSer: function () {
+              return ObjOrdenSer;
+            }
+          }
+        });
+      }else{
         console.log('este trabajo no esta implementado');
       }
 
@@ -586,7 +616,7 @@
             } else {
               console.log("well done");
               ordenesFactory.PreejecutaOrden(vm.clv_orden).then(function (details) {
-                ordenesFactory.GetDeepSP_GuardaOrdSerAparatos(vm.clv_orden).then(function (result) {
+                ordenesFactory.GetDeepSP_GuardaOrdSerAparatos(vm.clv_orden, vm.status).then(function (result) {
                   var descripcion = 'Se generó la';
                   ordenesFactory.AddSP_LLena_Bitacora_Ordenes(descripcion, vm.clv_orden).then(function (data) {
                     ordenesFactory.Imprime_Orden(vm.clv_orden).then(function (data) {

@@ -75,7 +75,13 @@ angular
       MuestraAparatosDisponibles: '/MuestraAparatosDisponibles/GetMuestraAparatosDisponiblesList',
       AsignaAparatosAlServicio: '/AsignaAparatosAlServicio/GetAsignaAparatosAlServicioList',
       MuestraServiciosDelCli_porOpcion: '/MuestraServiciosDelCli_porOpcion/GetMuestraServiciosDelCli_porOpcionList',
-      Addinstalaservicios: '/instalaservicios/Addinstalaservicios'
+      Addinstalaservicios: '/instalaservicios/Addinstalaservicios',
+      GetListClienteAparatos: '/MuestraAparatosDisponibles/GetListClienteAparatos',
+      GetListAparatosDisponiblesByIdArticulo: '/MuestraAparatosDisponibles/GetListAparatosDisponiblesByIdArticulo',
+      GetSP_StatusAparatosList: '/MuestraAparatosDisponibles/GetSP_StatusAparatosList',
+      GetListTipoAparatosByIdArticulo: '/MuestraAparatosDisponibles/GetListTipoAparatosByIdArticulo',
+      GetSetCambioAparato: '/MuestraAparatosDisponibles/GetSetCambioAparato',
+      GetCambioAparatoDeep: '/MuestraAparatosDisponibles/GetCambioAparatoDeep'
     };
 
 
@@ -558,12 +564,12 @@ angular
     };
 
 
-    factory.GetDeepSP_GuardaOrdSerAparatos = function (ClvOrden) {
+    factory.GetDeepSP_GuardaOrdSerAparatos = function (ClvOrden, Status) {
       var deferred = $q.defer();
       var Parametros = {
         'ClvOrden': ClvOrden,
         'Op': 'M',
-        'Status': 'E',
+        'Status': Status,
         'Op2': 0
       };
       var config = {
@@ -1739,7 +1745,6 @@ angular
         'OP': obj.Op,
         'clv_tipser': obj.Clv_TipSer
       };
-      console.log(Parametros);
       var config = {
         headers: {
           'Authorization': $localStorage.currentUser.token
@@ -1759,6 +1764,77 @@ angular
       var config = {headers: {'Authorization': $localStorage.currentUser.token}};
       var Parametros = {'objinstalaservicios': objinstalaservicios};
       $http.post(globalService.getUrl() + paths.Addinstalaservicios, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+    factory.GetListClienteAparatos = function (Contrato) {
+      var deferred = $q.defer();
+      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+      var Parametros = {'Contrato': Contrato};
+      $http.post(globalService.getUrl() + paths.GetListClienteAparatos, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+    factory.GetListAparatosDisponiblesByIdArticulo = function (ObjAparato) {
+      var deferred = $q.defer();
+      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+      var Parametros = ObjAparato;
+      $http.post(globalService.getUrl() + paths.GetListAparatosDisponiblesByIdArticulo, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+    factory.GetSP_StatusAparatosList = function () {
+      var deferred = $q.defer();
+      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+      $http.get(globalService.getUrl() + paths.GetSP_StatusAparatosList, config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+    factory.GetListTipoAparatosByIdArticulo = function (ObjAparato) {
+      var deferred = $q.defer();
+      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+      var Parametros = ObjAparato;
+      $http.post(globalService.getUrl() + paths.GetListTipoAparatosByIdArticulo, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+    factory.GetSetCambioAparato = function (ObjCambioAparato) {
+      var deferred = $q.defer();
+      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+      var Parametros = {ObjCambioAparato: ObjCambioAparato};
+      $http.post(globalService.getUrl() + paths.GetSetCambioAparato, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+    factory.GetCambioAparatoDeep = function (Clv_Orden, Clave) {
+      var deferred = $q.defer();
+      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+      var Parametros = {'Clv_Orden': Clv_Orden, 'Clave': Clave};
+      $http.post(globalService.getUrl() + paths.GetCambioAparatoDeep, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
         deferred.reject(response);

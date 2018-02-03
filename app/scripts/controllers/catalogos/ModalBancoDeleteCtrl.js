@@ -8,7 +8,6 @@ angular
             CatalogosFactory.DeleteBanco(vm.IdBanco).then(function(data){
                 if(data.DeleteBancoResult == -1){
                     ngNotify.set('CORRECTO, se eliminó el banco.', 'success');
-                    $state.reload('home.catalogos.bancos');
                     cancel();
                 }else{
                     ngNotify.set('ERROR, al eliminar el banco.', 'warn');
@@ -18,7 +17,7 @@ angular
         }
 
         function cancel() {
-            $uibModalInstance.dismiss('cancel');
+            $uibModalInstance.close();
         }
 
         var vm = this;

@@ -10,7 +10,6 @@ angular
         CatalogosFactory.GetNUEMOTIVOSFACTURACANCELACION(ObjMotivo).then(function(data){
             if(data.GetNUEMOTIVOSFACTURACANCELACIONResult == 1){    
                 ngNotify.set('CORRECTO, se añadió un motivo de cancelación de factura nuevo.', 'success');
-                $state.reload('home.motivos.CancelacionFactura');
                 cancel();
             }else{
                 ngNotify.set('ERROR, al añadir un motivo de cancelación de factura nuevo.', 'warn');
@@ -19,11 +18,11 @@ angular
     }
 
     function cancel() {
-        $uibModalInstance.dismiss('cancel');
+        $uibModalInstance.close();
     }
 
     var vm = this;
-    vm.Titulo = 'Nuevo Motivo de Cancelacion de Factura';
+    vm.Titulo = 'Nuevo Motivo de Cancelación';
     vm.Icono = 'fa fa-plus';
     vm.SaveMotivo = SaveMotivo;
     vm.cancel = cancel;

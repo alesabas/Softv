@@ -5,24 +5,19 @@ angular
   .controller('MotivosDeCancelacionCtrl', function (CatalogosFactory, atencionFactory,$uibModal) {
   
     function initData(){
-      var OjbMotivo = {
-          'Clv_MOTCAN': 0,
-          'MOTCAN': 0,
-          'op': 3
-        };
-        CatalogosFactory.GetBuscaMotivoCancelacion(OjbMotivo).then(function(data){
-          vm.MotivoCancelacionList = data.GetBuscaMotivoCancelacionResult;
-        });
+      GetListMotivo(3);
     }
 
     function GetListMotivo(Opc){
       var OjbMotivo = {
-        'Clv_MOTCAN': (Opc == 0)? (vm.clave != undefined)? vm.clave:0 :0,
-        'MOTCAN': (Opc == 1)? (vm.descripcion != undefined)? vm.descripcion:0 :0,
-        'op': Opc
+        'Clv_MOTCAN': (Opc != 3 && Opc != 1 && vm.clave != undefined && vm.clave != null && vm.clave > 0)? vm.clave:0,
+        'MOTCAN': (Opc != 3 && Opc != 0 && vm.descripcion != undefined && vm.descripcion != null && vm.descripcion != '')? vm.descripcion:0,
+        'op': (Opc != 3 && ((Opc == 0 && vm.clave != undefined && vm.clave != null && vm.clave > 0) || (Opc == 1 && vm.descripcion != undefined && vm.descripcion != null && vm.descripcion != '')))? Opc:3
       };
       CatalogosFactory.GetBuscaMotivoCancelacion(OjbMotivo).then(function(data){
         vm.MotivoCancelacionList = data.GetBuscaMotivoCancelacionResult;
+        vm.clave = null;
+        vm.descripcion = null;
       });
     }
     
@@ -37,7 +32,10 @@ angular
           backdrop: 'static',
           keyboard: false,
           class: 'modal-backdrop fade',
-          size: 'md'
+          size: 'sm'
+        });
+        modalInstance.result.then(function () {
+            GetListMotivo(3);
         });
       }
 
@@ -52,7 +50,7 @@ angular
           backdrop: 'static',
           keyboard: false,
           class: 'modal-backdrop fade',
-          size: 'md',
+          size: 'sm',
           resolve: {
               Clv_motivo: function () {
                   return Clv_motivo;
@@ -73,12 +71,15 @@ angular
           backdrop: 'static',
           keyboard: false,
           class: 'modal-backdrop fade',
-          size: 'md',
+          size: 'sm',
           resolve: {
               Clv_motivo: function () {
                   return Clv_motivo;
               }
           }
+        });
+        modalInstance.result.then(function () {
+            GetListMotivo(3);
         });
       }
       
@@ -100,6 +101,9 @@ angular
                   return Clv_motivo;
               }
           }
+        });
+        modalInstance.result.then(function () {
+            GetListMotivo(3);
         });
       }
 

@@ -5,6 +5,11 @@ angular
     .controller('CallesCtrl', function(CatalogosFactory, $uibModal){
 
         function initData(){
+            GetCallesList();
+        }
+
+        function GetCallesList(){
+            vm.SearchCalle = '';
             CatalogosFactory.GetCalles_NewList().then(function(data){
                 vm.CalleList = data.GetCalles_NewListResult;
                 if (vm.CalleList.length == 0) {
@@ -29,6 +34,11 @@ angular
                 keyboard: false,
                 class: 'modal-backdrop fade',
                 size: 'lg'
+            });
+            modalInstance.result.then(function () {
+                GetCallesList();
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
             });
         }
 
@@ -71,6 +81,11 @@ angular
                         return IdCalle;
                     }
                 }
+            });
+            modalInstance.result.then(function () {
+                GetCallesList();
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
             });
         }
 

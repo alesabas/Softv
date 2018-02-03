@@ -390,7 +390,6 @@
 
       ordenesFactory.buscarCliPorContrato(contrato).then(function (data) {
         vm.datosCli = data.GetDeepBUSCLIPORCONTRATO_OrdSerResult;
-        console.log(vm.datosCli);
       });
     }
 

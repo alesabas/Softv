@@ -546,6 +546,7 @@ angular
 
         function GetServicios(IdContrato){
             CatalogosFactory.GetMuestraArbolServicios_ClientesList(IdContrato).then(function(data){
+                console.log(data);
                 vm.ServicioList = data.GetMuestraArbolServicios_ClientesListResult;
                 vm.expandedNodes=[];
                 angular.forEach(vm.ServicioList, function(value, key) {
@@ -563,6 +564,7 @@ angular
         }
 
         function DetalleConcepto(ObjConcepto){
+            console.log(ObjConcepto);
             if(ObjConcepto.Tipo == 'S' || ObjConcepto.Tipo == 'P'){
                 vm.ConceptoTipo = ObjConcepto.Tipo;
                 vm.DivServicio = true;
@@ -717,7 +719,8 @@ angular
                     'Clv_UnicaNet': vm.Clv_UnicaNet,
                     'Nombre': vm.NombreServicio,
                     'Detalle': vm.DetalleServicio,
-                    'Tipo': 'S'
+                    'Tipo': 'S',
+                    'idMedio': vm.IdMedioServicio
                 };
                 if(data.UpdateClientesServicioResult == -1){
                     ngNotify.set('CORRECTO, se guardó detalle del servicio.', 'success');
@@ -1057,8 +1060,12 @@ angular
         vm.TBtnDeleteSP = '';
         vm.tipoUsuario = $localStorage.currentUser.tipoUsuario
         vm.clv_usuario = $localStorage.currentUser
-        vm.ValidateRFC = /^[A-Z]{4}\d{6}[a-zA-Z]{3}$|^[A-Z]{4}\d{6}\d{3}$|^[A-Z]{4}\d{6}[A-Z]{2}\d{1}$|^[A-Z]{4}\d{6}[A-Z]{1}\d{2}$|^[A-Z]{4}\d{6}\d{2}[a-zA-Z]{1}$|^[A-Z]{4}\d{6}\d{1}[a-zA-Z]{2}$|^[A-Z]{4}\d{6}\d{1}[A-Z]{1}\d{1}$|^[A-Z]{4}\d{6}[A-Z]{1}\d{1}[a-zA-Z]{1}$/;
         vm.ShowBtnAddPaq = false;
+        vm.maskOptions = {
+            maskDefinitions:{'A': /[a-zA-Z]/, '9': /[0-9]/, '*': /[a-zA-Z0-9]/},
+            clearOnBlur: false,
+            eventsToHandle:['input', 'keyup', 'click']
+        };
         vm.AddDatosPersonales = AddDatosPersonales;
         vm.GetCiudadMunicipio = GetCiudadMunicipio;
         vm.GetLocalidad = GetLocalidad;

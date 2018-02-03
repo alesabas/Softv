@@ -1,10 +1,3 @@
-<style type="text/css">
-	.scrollDiv {
-		height: 500px;
-		overflow: auto;
-		overflow-x: hidden;
-	}
-</style>
 <div class="card animated fadeIn" style="margin-top:20px;">
     <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
         <header>
@@ -48,7 +41,7 @@
                     </thead>
                     <tbody>
                         <tr ng-show="$ctrl.SinRegistros">
-							<td class="text-center" colspan="4">SIN REGISTROS</td>
+							<td class="text-center" colspan="5">SIN REGISTROS</td>
 						</tr>
                         <tr dir-paginate="X in $ctrl.LocalidadList|filter:$ctrl.SearchLocalidad|itemsPerPage:7" ng-show="$ctrl.ConRegistros">
                             <td>{{ X.Clv_Localidad }}</td>
@@ -64,7 +57,6 @@
 					<dir-pagination-controls max-size="7" direction-links="true" boundary-links="true">
 					</dir-pagination-controls>
 				</div>
-                <br>
             </div>
         </div>
     </div>

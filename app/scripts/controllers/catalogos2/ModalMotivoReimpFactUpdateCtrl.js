@@ -26,7 +26,6 @@ angular
       CatalogosFactory.GetMODMOTIVOSFACTURACANCELACION(ObjMotivo).then(function(data){
           if(data.GetMODMOTIVOSFACTURACANCELACIONResult == 1){    
               ngNotify.set('CORRECTO, se guardó un motivo de reimpresión de factura.', 'success');
-              $state.reload('home.motivos.ReimpresionFactura');
               cancel();
           }else{
               ngNotify.set('ERROR, al guardar un motivo de reimpresión de factura.', 'warn');
@@ -35,11 +34,11 @@ angular
   }
 
   function cancel() {
-    $uibModalInstance.dismiss('cancel');
+    $uibModalInstance.close();
   }
 
   var vm = this;
-  vm.Titulo = ' Editar Motivo de Reimpresion de Factura';
+  vm.Titulo = ' Editar Motivo de Reimpresión';
   vm.Icono = 'fa fa-pencil-square-o';
   vm.SaveMotivo = SaveMotivo;
   vm.cancel = cancel;

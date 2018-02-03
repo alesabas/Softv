@@ -5,6 +5,10 @@ angular
     .controller('TiposColoniasCtrl', function(CatalogosFactory, $uibModal){
 
         function initData(){
+            GetTipoColoniaList();
+        }
+
+        function GetTipoColoniaList(){
             CatalogosFactory.GetTipo_Colonias1_NewList().then(function(data){
                 vm.TipoColoniaList = data.GetTipo_Colonias1_NewListResult;
                 if (vm.TipoColoniaList.length == 0) {
@@ -30,6 +34,9 @@ angular
                 class: 'modal-backdrop fade',
                 size: 'md'
             });
+            modalInstance.result.then(function () {
+                GetTipoColoniaList();
+            });
         }
 
         function OpenUpdateTipoColonia(Clave){
@@ -50,6 +57,9 @@ angular
                         return Clave;
                     }
                 }
+            });
+            modalInstance.result.then(function () {
+                GetTipoColoniaList();
             });
         }
 
@@ -92,6 +102,9 @@ angular
                         return Clave;
                     }
                 }
+            });
+            modalInstance.result.then(function () {
+                GetTipoColoniaList();
             });
         }
 

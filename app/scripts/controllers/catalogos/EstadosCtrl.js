@@ -5,6 +5,10 @@ angular
     .controller('EstadosCtrl', function(CatalogosFactory, $uibModal){
 
         function initData(){
+            GetEstadoList();
+        }
+
+        function GetEstadoList(){
             CatalogosFactory.GetEstados_NewList().then(function(data){
                 vm.EstadoList = data.GetEstados_NewListResult;
                 if (vm.EstadoList.length == 0) {
@@ -29,6 +33,11 @@ angular
                 keyboard: false,
                 class: 'modal-backdrop fade',
                 size: 'md'
+            });
+            modalInstance.result.then(function () {
+                GetEstadoList();
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
             });
         }
 
@@ -72,6 +81,11 @@ angular
                     }
                 }
             });
+            modalInstance.result.then(function () {
+                GetEstadoList();
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
+            });
         }
 
         function OpenDeleteEstado(Clv_Estado){
@@ -92,6 +106,11 @@ angular
                         return Clv_Estado;
                     }
                 }
+            });
+            modalInstance.result.then(function () {
+                GetEstadoList();
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
             });
         }
 

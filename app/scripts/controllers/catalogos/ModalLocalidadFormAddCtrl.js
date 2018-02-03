@@ -2,7 +2,7 @@
 
 angular
     .module('softvApp')
-    .controller('ModalLocalidadFormAddCtrl', function(CatalogosFactory, $uibModalInstance, $uibModal, ngNotify, $state){
+    .controller('ModalLocalidadFormAddCtrl', function(CatalogosFactory, $uibModalInstance, $uibModal, ngNotify, $state, $localStorage){
 
         function initData(){
             var ObjCiudad = {
@@ -28,15 +28,16 @@ angular
                         'opcion': 0
                     };
                     CatalogosFactory.AddLocalidades_New(objLocalidades_New).then(function(data){
-                        var IdLocalidad = data.AddLocalidades_NewResult;
-                        if(IdLocalidad > 0){
+                        vm.IdLocalidad = data.AddLocalidades_NewResult;
+                        if(vm.IdLocalidad > 0){
                             ngNotify.set('CORRECTO, se añadió una localidad nueva.', 'success');
-                            $state.reload('home.catalogos.localidades');
-                            cancel();
-                            OpenUpdateLocalidad(IdLocalidad);
+                            vm.ShowUpdate = false;
+                            vm.ShowSave = true;
+                            vm.Titulo = 'Nueva Localidad - ';
+                            vm.BtnCanTitulo = 'Salir';
+                            GetRelLocalidad();
                         }else{
                             ngNotify.set('ERROR, al añadir una localidad nueva.', 'warn');
-                            $state.reload('home.catalogos.localidades');
                             cancel();
                         }
                     });
@@ -44,40 +45,96 @@ angular
                     ngNotify.set('ERROR, ya existe una Localidad con el mis nombre.', 'warn');
                 }
             });
-
         }
 
-        function OpenUpdateLocalidad(IdLocalidad){
-            var IdLocalidad = IdLocalidad;
-            var modalInstance = $uibModal.open({
-                animation: true,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: 'views/catalogos/ModalLocalidadForm.html',
-                controller: 'ModalLocalidadFormUpdateCtrl',
-                controllerAs: 'ctrl',
-                backdrop: 'static',
-                keyboard: false,
-                class: 'modal-backdrop fade',
-                size: 'md',
-                resolve: {
-                    IdLocalidad: function () {
-                        return IdLocalidad;
-                    }
+        function GetRelLocalidad(){
+            var ObjRel = {
+                'clv_usuario': $localStorage.currentUser.idUsuario,
+                'clv_localidad': vm.IdLocalidad,
+                'clv_ciudad': 0,
+                'opcion': 1
+            };
+            CatalogosFactory.GetRelCiudadLocalidadList(ObjRel).then(function(data){
+                vm.RelLocalidadList = data.GetRelCiudadLocalidadListResult;
+                vm.ViewList = (vm.RelLocalidadList.length > 0)? true:false;
+            });
+        }
+
+        function AddEstMun(){
+            if(vm.Ciudad != undefined && vm.Ciudad != 0){
+                if(ExistsEstMun(vm.Ciudad.Clv_Ciudad) == false){
+                    var objSPRelCiudadLocalidad = {
+                        'clv_usuario':  $localStorage.currentUser.idUsuario,
+                        'clv_localidad': vm.IdLocalidad,
+                        'clv_ciudad': vm.Ciudad.Clv_Ciudad,
+                        'opcion': 2
+                    };
+                    CatalogosFactory.AddSPRelCiudadLocalidad(objSPRelCiudadLocalidad).then(function(data){
+                        if(data.AddSPRelCiudadLocalidadResult == -1){
+                            ngNotify.set('CORRECTO, se agregó una relación.', 'success');
+                            GetRelLocalidad();
+                        }else{
+                            ngNotify.set('ERROR, al agregar una relación.', 'warn');
+                            GetRelLocalidad();
+                        }
+                    });
+                }else{
+                    ngNotify.set('ERROR, Ya existe esta relación.', 'warn');
+                }
+            }else{
+                ngNotify.set('ERROR, Selecciona una ciudad.', 'warn');
+            }
+        }
+
+        function DeleteEstMun(IdMunicipio){
+            var ObjValidate = {
+                'clv_localidad': vm.IdLocalidad,
+                'clv_ciudad': IdMunicipio
+            };
+            CatalogosFactory.GetDeepValidaEliminaRelLocalidadCiudad(ObjValidate).then(function(data){
+                var MsjError = data.GetDeepValidaEliminaRelLocalidadCiudadResult.error; 
+                if(MsjError == null){
+                    var ObjRel = {
+                        'clv_usuario': $localStorage.currentUser.idUsuario,
+                        'clv_localidad': vm.IdLocalidad,
+                        'clv_ciudad': IdMunicipio,
+                        'opcion': 3
+                    };
+                    CatalogosFactory.DeleteSPRelCiudadLocalidad(ObjRel).then(function(data){
+                        ngNotify.set('CORRECTO, se eliminó la relación.', 'success');
+                        GetRelLocalidad()
+                    });
+                }else{
+                    ngNotify.set('ERROR, ' + MsjError, 'warn');
                 }
             });
         }
 
+        function ExistsEstMun(IdMunicipio){
+            var ResultExists = 0;
+            for(var i = 0; vm.RelLocalidadList.length > i; i ++){
+                if(vm.RelLocalidadList[i].clv_ciudad == IdMunicipio){
+                    ResultExists = ResultExists + 1
+                }
+            }
+            return (ResultExists > 0)? true : false;
+        }
+
         function cancel() {
-            $uibModalInstance.dismiss('cancel');
+            $uibModalInstance.close();
         }
 
         var vm = this;
-        vm.Titulo = 'Nuevo Registro';
+        vm.Titulo = 'Nueva Localidad';
         vm.Icono = 'fa fa-plus';
-        vm.ShowUpdate = false;
+        vm.ShowUpdate = true;
+        vm.ShowSave = false;
         vm.View = false;
+        vm.ViewList = false; 
+        vm.BtnCanTitulo ='Cancelar';
         vm.SaveLocalidad = SaveLocalidad;
+        vm.AddEstMun = AddEstMun;
+        vm.DeleteEstMun = DeleteEstMun;
         vm.cancel = cancel;
         initData();
         

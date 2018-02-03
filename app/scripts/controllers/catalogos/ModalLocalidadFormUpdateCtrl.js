@@ -31,6 +31,7 @@ angular
             };
             CatalogosFactory.GetRelCiudadLocalidadList(ObjRel).then(function(data){
                 vm.RelLocalidadList = data.GetRelCiudadLocalidadListResult;
+                vm.ViewList = (vm.RelLocalidadList.length > 0)? true:false;
             });
         }
 
@@ -109,15 +110,10 @@ angular
                         'clvnuevo': vm.IdLocalidad
                     };
                     CatalogosFactory.UpdateLocalidades_New(objLocalidades_New).then(function(data){
-                        console.log(data);
                         if(data.UpdateLocalidades_NewResult == -1){
                             ngNotify.set('CORRECTO, se guardó la localidad.', 'success');
-                            $state.reload('home.catalogos.localidades');
-                            cancel();
                         }else{
                             ngNotify.set('ERROR, al guardar la localidad.', 'warn');
-                            $state.reload('home.catalogos.localidades');
-                            cancel();
                         }
                     });
                 }else if(data.AddValidaNombreLocalidadResult == 1){
@@ -127,13 +123,15 @@ angular
         }
 
         function cancel() {
-            $uibModalInstance.dismiss('cancel');
+            $uibModalInstance.close();
         }
 
         var vm = this;
-        vm.Titulo = 'Editar Registro - ';
+        vm.Titulo = 'Editar Localidad - ';
         vm.Icono = 'fa fa-pencil-square-o';
-        vm.ShowUpdate = true;
+        vm.BtnCanTitulo = 'Salir';
+        vm.ShowUpdate = false;
+        vm.ShowSave = false;
         vm.View = false;
         vm.SaveLocalidad = SaveLocalidad;
         vm.AddEstMun = AddEstMun;

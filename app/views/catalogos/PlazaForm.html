@@ -6,7 +6,6 @@
   }
 
 </style>
-
 <form name="FormPlaza" angular-validator-submit="$ctrl.SavePlaza()" novalidate angular-validator autocomplete="off">
   <div class="card animated fadeIn" style="margin-top:20px;">
     <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
@@ -113,8 +112,7 @@
               </div>
               <div class="col-md-6">
                 <b><small>Email:</small></b>
-                <input name="InpEmail" type="email" class="form-control input-sm" ng-model="$ctrl.detplaza.Email" validate-on="dirty" required
-                  required-message="'Obligatorio'" invalid-message="'Inválido.'">
+                <input name="InpEmail" type="email" class="form-control input-sm" ng-model="$ctrl.detplaza.Email" validate-on="dirty" ng-pattern="/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/" required required-message="'Obligatorio'" invalid-message="'Inválido.'">
               </div>
             </div>
           </div>
