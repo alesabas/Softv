@@ -10,7 +10,6 @@ angular
 
         function GetServicio(){
             CatalogosFactory.GetClientesServicioList(ObjServDel.Clv_UnicaNetD).then(function(data){
-                console.log(data);
                 var ClienteServicio = data.GetClientesServicioListResult[0];
                 vm.Clv_UnicaNet = ClienteServicio.Clv_UnicaNet;
                 vm.Clv_Servicio = ClienteServicio.Clv_Servicio;
@@ -24,8 +23,7 @@ angular
 
         function DeleteServicioCliente(){
             CatalogosFactory.GetEliminaClienteServicio(vm.Clv_UnicaNet).then(function(data){
-                console.log(data);
-                var MSJ = (vm.ConceptoTipo = 'S')? 'CORRECTO, se eliminó el servicio.':'CORRECTO, se eliminó el paquete.'
+                var MSJ = (vm.ConceptoTipo == 'S')? 'CORRECTO, se eliminó el servicio.':'CORRECTO, se eliminó el paquete.'
                 ngNotify.set(MSJ, 'success');
                 SaveMovimientoSistema();
                 ok();
@@ -37,7 +35,7 @@ angular
                 'Clv_usuario': $localStorage.currentUser.idUsuario, 
                 'Modulo': 'home.catalogos', 
                 'Submodulo': 'home.catalogos.clientes', 
-                'Observaciones': 'Se eliminó servicio a cliente', 
+                'Observaciones': (vm.ConceptoTipo == 'S')? 'Se eliminó servicio a cliente':'Se eliminó paquete a cliente', 
                 'Usuario': $localStorage.currentUser.usuario, 
                 'Comando': '', 
                 'Clv_afectada': vm.IdContrato
@@ -60,7 +58,6 @@ angular
         vm.ConceptoTipo = ObjServDel.ConceptoTipo;
         vm.DeleteServicioCliente = DeleteServicioCliente;
         vm.cancel = cancel;
-        console.log(ObjServDel);
         initData();
 
     });

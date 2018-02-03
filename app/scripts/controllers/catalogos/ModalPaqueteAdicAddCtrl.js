@@ -6,7 +6,6 @@ angular
         
         function initData(){
             ClienteServicioFactory.GetListServicioAdicTvDig().then(function(data){
-                console.log(data);
                 vm.ServicioList = data.GetListServicioAdicTvDigResult;
             });
         }
@@ -45,7 +44,6 @@ angular
                 'ParentClv_UnicaNet': vm.ParentClv_UnicaNet
             };
             ClienteServicioFactory.GetAddPqueteAdic(ObjServicioCliente).then(function(data){
-                console.log(data);
                 vm.Clv_UnicaNet = data.GetAddPqueteAdicResult;
                 if(vm.Clv_UnicaNet > 0){
                     SaveMovimientoSistema(ObjServicioCliente);
