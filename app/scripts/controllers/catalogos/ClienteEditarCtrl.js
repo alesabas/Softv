@@ -347,7 +347,6 @@ angular
 
         function GetNotas(IdContrato){
             CatalogosFactory.GetDeepRELCLIENTEOBS(IdContrato).then(function(data){
-                console.log(data);
                 var DataObser = data.GetDeepRELCLIENTEOBSResult;
                 vm.Observaciones = DataObser.Obs;
                 if(DataObser.Obs != null){
@@ -358,7 +357,6 @@ angular
             });
 
             CatalogosFactory.GetDeepRoboDeSeñal_New(IdContrato).then(function(data){
-                console.log(data);
                 var DataNota = data.GetDeepRoboDeSeñal_NewResult;
                 if(DataNota != null){
                     vm.Notas = DataNota.Descripcion;
@@ -932,6 +930,7 @@ angular
                         ngNotify.set('CORRECTO, Correcto se guardó el documento para el cliente.', 'success');
                         GetDocumentosCliente();
                         ResetEvidencia();
+                        SaveMovimientoSistema('Se agregó documento: ' + vm.Documento.Documento + ', a cliente', '');
                     });
                 }else{
                     ngNotify.set('ERROR, el tamaño del archivo es invalido.', 'warn');
@@ -1029,7 +1028,7 @@ angular
                 'Submodulo': 'home.catalogos.clientes', 
                 'Observaciones': Observaciones, 
                 'Usuario': $localStorage.currentUser.usuario, 
-                'Comando': JSON.stringify(Comando), 
+                'Comando': (Comando != '')? JSON.stringify(Comando):'', 
                 'Clv_afectada': vm.IdContrato
             };
             CatalogosFactory.AddMovSist(objMovSist).then(function(data){
