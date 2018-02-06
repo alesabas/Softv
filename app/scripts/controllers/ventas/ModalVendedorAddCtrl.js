@@ -2,7 +2,7 @@
 
 angular
     .module('softvApp')
-    .controller('ModalVendedorAddCtrl', function(VentasFactory, $localStorage, $uibModalInstance, $uibModal, ngNotify, $state, $rootScope){
+    .controller('ModalVendedorAddCtrl', function(VentasFactory, CatalogosFactory, $localStorage, $uibModalInstance, $uibModal, ngNotify, $state, $rootScope){
         
         function initData(){
             VentasFactory.GetMuestra_PlazasPorUsuarioList($localStorage.currentUser.idUsuario).then(function(data){
@@ -24,24 +24,12 @@ angular
             };
             VentasFactory.AddVendedores(objVendedores).then(function(data){
                 if(data.AddVendedoresResult > 0){
-                    var ObjMovimientoSistema = {
-                        'usuario': $localStorage.currentUser.usuario,
-                        'contrato': 0,
-                        'Sistema': 'Softv',
-                        'Pantalla': 'Catálogo de Vendedores',
-                        'control': 'Nuevo Vendedor',
-                        'valorant': '',
-                        'valornuevo': 'Vendedor: ' + vm.Nombre,
-                        'clv_ciudad': 'AG'
-                    };
-                    VentasFactory.GetInserta_MovSist(ObjMovimientoSistema).then(function(data){
-                        ngNotify.set('CORRECTO, se guardó el Vendedor.', 'success');
-                        $rootScope.$emit('LoadVendedorList');
-                        cancel();
-                    });
+                    vm.Clv_Vendedor = data.AddVendedoresResult;
+                    SaveMovimientoSistema(objVendedores);
+                    ngNotify.set('CORRECTO, se guardó el Vendedor.', 'success');
+                    cancel();
                 }else{
                     ngNotify.set('ERROR, al guardar el Vendedor.', 'warn');
-                    $rootScope.$emit('LoadVendedorList');
                     cancel();
                 }
             });
@@ -54,8 +42,22 @@ angular
             return FechaD + '/' + FechaM + '/' + FechaY;
         }
 
+        function SaveMovimientoSistema(Comando){
+            var objMovSist = {
+                'Clv_usuario': $localStorage.currentUser.idUsuario, 
+                'Modulo': 'home.ventas', 
+                'Submodulo': 'home.ventas.vendedores', 
+                'Observaciones': 'Se agregó un vendedor nuevo', 
+                'Usuario': $localStorage.currentUser.usuario, 
+                'Comando': JSON.stringify(Comando), 
+                'Clv_afectada': vm.Clv_Vendedor
+            };
+            CatalogosFactory.AddMovSist(objMovSist).then(function(data){
+            });
+        }
+
         function cancel() {
-            $uibModalInstance.dismiss('cancel');
+            $uibModalInstance.close();
         }
 
         var vm = this;
@@ -68,5 +70,4 @@ angular
         vm.SaveVendedor = SaveVendedor;
         vm.cancel = cancel;
         initData();
-        console.log($localStorage);
     });

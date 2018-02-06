@@ -2,7 +2,7 @@
 
 angular
     .module('softvApp')
-    .controller('ModalSerieDeleteCtrl', function(VentasFactory, SeriesFactory, $uibModalInstance, $uibModal, ngNotify, $state, $rootScope, Clave, $localStorage){
+    .controller('ModalSerieDeleteCtrl', function(VentasFactory, SeriesFactory, CatalogosFactory, $uibModalInstance, $uibModal, ngNotify, $state, $rootScope, Clave, $localStorage){
         
         function initData(){
             SeriesFactory.GetDeepCatalogoSeries(Clave).then(function(data){
@@ -14,32 +14,33 @@ angular
 
         function DeleteSerie(){
             SeriesFactory.DeleteCatalogoSeries(vm.Clave).then(function(data){
-                var ObjMovimientoSistema = {
-                    'usuario': $localStorage.currentUser.usuario,
-                    'contrato': 0,
-                    'Sistema': 'Softv',
-                    'Pantalla': 'Catálogo de Series',
-                    'control': 'Se Eliminó Serie',
-                    'valorant': 'Serie:' + vm.Serie,
-                    'valornuevo': '',
-                    'clv_ciudad': 'AG'
-                };
-                VentasFactory.GetInserta_MovSist(ObjMovimientoSistema).then(function(data){
-                    ngNotify.set('CORRECTO, se eliminó la Serie.', 'success');
-                    $rootScope.$emit('LoadSerieList');
-                    cancel();
-                });
+                SaveMovimientoSistema();
+                ngNotify.set('CORRECTO, se eliminó la Serie.', 'success');
+                cancel();
+            });
+        }
+
+        function SaveMovimientoSistema(){
+            var objMovSist = {
+                'Clv_usuario': $localStorage.currentUser.idUsuario, 
+                'Modulo': 'home.ventas', 
+                'Submodulo': 'home.ventas.series', 
+                'Observaciones': 'Se eliminó una serie', 
+                'Usuario': $localStorage.currentUser.usuario, 
+                'Comando': '', 
+                'Clv_afectada': vm.Clave
+            };
+            CatalogosFactory.AddMovSist(objMovSist).then(function(data){
             });
         }
 
         function cancel() {
-            $uibModalInstance.dismiss('cancel');
+            $uibModalInstance.close();
         }
 
         var vm = this;
         vm.DeleteSerie = DeleteSerie;
         vm.cancel = cancel;
         initData();
-        console.log(Clave);
         
     });

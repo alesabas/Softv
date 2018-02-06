@@ -44,7 +44,6 @@ angular
                     if(Result.Res == 0){
                         SaveMovimientoSistema(ObjGrupo);
                         GetGrupoList();
-                        OpenFormGrupo(0);
                         ngNotify.set('CORRECTO, Se guardo el Grupo de Ventas.', 'success');
                     }else{
                         ngNotify.set('ERROR, ' + Result.Msj, 'warn');
@@ -61,8 +60,7 @@ angular
                     if(Result.Res == 0){
                         ngNotify.set('CORRECTO, Se guardo el Grupo de Ventas.', 'success');
                         GetGrupoList();
-                        OpenFormGrupo(0);
-                        SaveMovimientoSistema(ObjGrupo, vm.Clave);
+                        SaveMovimientoSistema(ObjGrupo);
                     }else{
                         ngNotify.set('ERROR, ' + Result.Msj, 'warn');
                         GetGrupoList();
@@ -72,7 +70,7 @@ angular
             }
         }
 
-        function SaveMovimientoSistema(Comando, Clave){
+        function SaveMovimientoSistema(Comando){
             var objMovSist = {
                 'Clv_usuario': $localStorage.currentUser.idUsuario, 
                 'Modulo': 'home.ventas', 
@@ -80,9 +78,11 @@ angular
                 'Observaciones': (vm.Op == 1)? 'Se agregó grupo de ventas':'Se editó grupo de ventas', 
                 'Usuario': $localStorage.currentUser.usuario, 
                 'Comando': JSON.stringify(Comando), 
-                'Clv_afectada': (vm.Op == 1)? 0:Clave
+                'Clv_afectada': (vm.Op == 1)? 0:vm.Clave
             };
-            CatalogosFactory.AddMovSist(objMovSist).then(function(data){});
+            CatalogosFactory.AddMovSist(objMovSist).then(function(data){
+                OpenFormGrupo(0);
+            });
         }
 
         var vm = this;

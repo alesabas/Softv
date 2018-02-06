@@ -2,7 +2,7 @@
 
 angular
     .module('softvApp')
-    .controller('ModalSerieAddCtrl', function(VentasFactory, SeriesFactory, $uibModalInstance, $uibModal, ngNotify, $state, $rootScope, $localStorage){
+    .controller('ModalSerieAddCtrl', function(VentasFactory, SeriesFactory, CatalogosFactory, $uibModalInstance, $uibModal, ngNotify, $state, $rootScope, $localStorage){
 
         function initData(){
             var ObjVendedorList = {
@@ -34,24 +34,12 @@ angular
                     };
                     SeriesFactory.AddCatalogoSeries(objCatalogoSeries).then(function(data){
                         if(data.AddCatalogoSeriesResult > 0){
-                            var ObjMovimientoSistema = {
-                                'usuario': $localStorage.currentUser.usuario,
-                                'contrato': 0,
-                                'Sistema': 'Softv',
-                                'Pantalla': 'Catálogo de Series',
-                                'control': 'Nueva Serie',
-                                'valorant': '',
-                                'valornuevo': 'Serie:' + vm.Serie + ' / Vendedor:' + vm.Vendedor.Nombre,
-                                'clv_ciudad': 'AG'
-                            };
-                            VentasFactory.GetInserta_MovSist(ObjMovimientoSistema).then(function(data){
-                                ngNotify.set('CORRECTO, se guardó la Serie.', 'success');
-                                $rootScope.$emit('LoadSerieList');
-                                cancel();
-                            });
+                            vm.ClvSerie = data.AddCatalogoSeriesResult;
+                            SaveMovimientoSistema(objCatalogoSeries);
+                            ngNotify.set('CORRECTO, se guardó la Serie.', 'success');
+                            cancel();
                         }else{
                             ngNotify.set('ERROR, al guardar la Serie.', 'warn');
-                            $rootScope.$emit('LoadSerieList');
                             cancel();
                         }
                     });
@@ -61,8 +49,22 @@ angular
             });
         }
 
+        function SaveMovimientoSistema(Comando){
+            var objMovSist = {
+                'Clv_usuario': $localStorage.currentUser.idUsuario, 
+                'Modulo': 'home.ventas', 
+                'Submodulo': 'home.ventas.series', 
+                'Observaciones': 'Se agregó una serie nueva', 
+                'Usuario': $localStorage.currentUser.usuario, 
+                'Comando': JSON.stringify(Comando), 
+                'Clv_afectada': vm.ClvSerie
+            };
+            CatalogosFactory.AddMovSist(objMovSist).then(function(data){
+            });
+        }
+
         function cancel() {
-            $uibModalInstance.dismiss('cancel');
+            $uibModalInstance.close();
         }
 
         var vm = this;
