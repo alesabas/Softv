@@ -30,11 +30,7 @@ angular
                 vm.NombreVendedor = null;
             });
         }
-
-        $rootScope.$on('LoadSerieList', function(e){
-            GetSerieList(4);
-        });
-
+        
         function OpenSerieAdd(){
             var modalInstance = $uibModal.open({
                 animation: true,
@@ -47,6 +43,9 @@ angular
                 keyboard: false,
                 class: 'modal-backdrop fade',
                 size: 'md'
+            });
+            modalInstance.result.then(function () {
+                GetSerieList(4);
             });
         }
 
@@ -68,6 +67,9 @@ angular
                         return Clave;
                     }
                 }
+            });
+            modalInstance.result.then(function () {
+                GetSerieList(4);
             });
         }
 
@@ -110,6 +112,9 @@ angular
                         return Clave;
                     }
                 }
+            });
+            modalInstance.result.then(function () {
+                GetSerieList(4);
             });
         }
 
