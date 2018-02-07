@@ -1,3 +1,8 @@
+<style type="text/css">
+    .input-sm {
+        font-size: 11px;
+    }
+</style>
 <div class="card animated fadeIn" style="margin-top:20px;">
     <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
         <header>
@@ -17,8 +22,18 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="col-md-12">
-                    <b>Buscar por:</b>
-                    <br>
+                    <b><h4><i class="fa fa-search"></i> Buscar Vendedor:</h4></b>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-3">
+                    <b>Distribuidor</b>
+                </div>
+                <div class="col-md-3">
+                    <b>Clave</b>
+                </div>
+                <div class="col-md-3">
+                    <b>Nombre</b>
                 </div>
             </div>
             <div class="col-md-12">
@@ -30,9 +45,9 @@
                 <div class="col-md-3">
                     <form name="FormVendedor" angular-validator-submit="$ctrl.GetVendedorList(0);" novalidate angular-validator autocomplete="off">
                         <div class="input-group">
-                            <input type="number" name="InpClave" class="form-control input-sm" ng-model="$ctrl.Clave" placeholder="Calve" min="0" validate-on="dirty" invalid-message="'Inválido'">
+                            <input type="number" name="InpClave" class="form-control input-sm" ng-model="$ctrl.Clave" placeholder="Clave" min="0" validate-on="dirty" invalid-message="'Inválido'">
                             <span class="input-group-btn">
-                                <button type="submit" class="btn btn-warning btn-xs"><i class="fa fa-search"></i> Buscar</button>
+                                <button type="submit" class="btn btn-info btn-xs"><i class="fa fa-search"></i> Buscar</button>
                             </span>
                         </div>
                     </form>
@@ -41,7 +56,7 @@
                     <div class="input-group">
                         <input name="InpNombre" class="form-control input-sm" ng-model="$ctrl.Nombre" placeholder="Nombre">
                         <span class="input-group-btn">
-                            <button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.GetVendedorList(1);"><i class="fa fa-search"></i> Buscar</button>
+                            <button type="button" class="btn btn-info btn-xs" ng-click="$ctrl.GetVendedorList(1);"><i class="fa fa-search"></i> Buscar</button>
                         </span>
                     </div>
                 </div>
