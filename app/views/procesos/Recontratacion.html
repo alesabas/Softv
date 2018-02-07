@@ -1,0 +1,118 @@
+<div class="card animated fadeIn" style="margin-top:20px;">
+    <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+        <header>
+            <strong style="font-weight:bold; border:none; margin-left:10px;">Recontratación</strong>
+			<br>
+            <small class="text-muted" style="font-size:14px; margin-left:10px;">
+                <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">Recontratación</a>
+            </small>
+        </header>
+        <div class="tools">
+			<div class="btn-group">
+				<button type="button" class="btn btn-primary btn-sm" ng-click="$ctrl.OpenVendedorAdd();" title="Recontratar"><i class="glyphicon glyphicon-floppy-disk"></i> Recontratar</button>
+			</div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-offset-1 col-md-10">
+                <div class="col-md-1">
+                    <b>Contrato:</b>
+                </div>
+                <div class="col-md-3">
+                    <div class="input-group">
+                        <input type="text" name="InpContrato" class="form-control input-sm" ng-model="$ctrl.Contrato">
+                        <div class="input-group-btn">
+                            <button type="button" class="btn ink-reaction btn-floating-action btn-sm btn-default" ng-click="$ctrl.OpenSearchCliente()" title="Buscar Contrato"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-offset-1 col-md-10">
+                <div class="col-md-12">
+                    <h4 class="text-primary">Datos del Cliente:</h4>
+                </div>
+            </div>
+            <div class="col-md-offset-1 col-md-10">
+                <div class="col-md-1">
+                    <b>Nombre:</b>
+                </div>
+                <div class="col-md-5">
+                </div>
+                <div class="col-md-1">
+                    <b>Ciudad:</b>
+                </div>
+                 <div class="col-md-5">
+                </div>
+            </div>
+            <div class="col-md-offset-1 col-md-10">
+                <div class="col-md-1">
+                    <b>Calle:</b>
+                </div>
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-1">
+                    <b>#:</b>
+                </div>
+                <div class="col-md-1">
+                    <b>Colonia:</b>
+                </div>
+                 <div class="col-md-5">
+                </div>
+            </div>
+            <div class="col-md-offset-1 col-md-10">
+                <div class="col-md-1">
+                    <b>Teléfono:</b>
+                </div>
+                <div class="col-md-5">
+                </div>
+                <div class="col-md-1">
+                    <b>Celular:</b>
+                </div>
+                 <div class="col-md-5">
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-offset-1 col-md-10">
+                <div class="col-md-2">
+                    <h4 class="text-primary">Adeudo a Pagar:</h4>
+                </div>
+                <div class="col-md-10">
+                    <textarea name="TxaAdeudoPagar" rows="2" class="form-control input-sm" ng-model="AdeudoPagar"></textarea>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-offset-1 col-md-10">
+                <div class="col-md-12">
+                    <uib-tabset active="active">
+                        <uib-tab index="0">
+                            <uib-tab-heading>
+                                Internet
+                            </uib-tab-heading>
+                            <br>
+                            <footer>
+                                <p class="text-right"></p>
+                            </footer>
+                        </uib-tab>
+                        <uib-tab index="1">
+                            <uib-tab-heading>
+                                Digital
+                            </uib-tab-heading>
+                            <br>
+                            <footer>
+                                <p class="text-right"></p>
+                            </footer>
+                        </uib-tab>
+                    </uib-tabset>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

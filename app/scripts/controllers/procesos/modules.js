@@ -198,10 +198,23 @@ angular
         templateUrl: 'views/procesos/pruebaInternet.html',
         controller: 'pruebaInternetCtrl',
         controllerAs: '$ctrl'
-      }
-      
-
-      
+      },
+      {
+        name: 'home.procesos.recontratacion',
+        data: {
+          pageTitle: 'SOFTV | RECONTRATACIÓN',
+          /*permissions: {
+            only: ['atenciontelefonicaSelect'],
+            options: {
+              reload: false
+            }
+          }*/
+        },
+        url: '/recontratacion',
+        templateUrl: 'views/procesos/Recontratacion.html',
+        controller: 'RecontratacionCtrl',
+        controllerAs: '$ctrl'
+      },
     ];
     states.forEach(function (state) {
       $stateProvider.state(state);
