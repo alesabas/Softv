@@ -200,6 +200,22 @@ angular
         controllerAs: '$ctrl'
       },
       {
+        name: 'home.procesos.recontratacion',
+        data: {
+          pageTitle: 'SOFTV | RECONTRATACIÓN',
+          /*permissions: {
+            only: ['atenciontelefonicaSelect'],
+            options: {
+              reload: false
+            }
+          }*/
+        url: '/recontratacion',
+        templateUrl: 'views/procesos/Recontratacion.html',
+        controller: 'RecontratacionCtrl',
+        controllerAs: '$ctrl'
+      },
+      },
+      {
         name: 'home.procesos.cambioservicio',
         data: {
           pageTitle: 'SOFTV | CAMBIO DE SERVICIO',
@@ -208,7 +224,6 @@ angular
         templateUrl: 'views/procesos/cambioServicio.html',
         controller: 'cambioServicioCtrl',
         controllerAs: '$ctrl'
-      },
       {
         name: 'home.procesos.cambioservicionuevo',
         data: {
@@ -224,6 +239,7 @@ angular
       
 
       
+      },
     ];
     states.forEach(function (state) {
       $stateProvider.state(state);
