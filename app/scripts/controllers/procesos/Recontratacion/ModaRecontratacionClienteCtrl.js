@@ -5,7 +5,7 @@ angular
     .controller('ModaRecontratacionClienteCtrl', function($uibModalInstance, $uibModal, ngNotify, $state, $localStorage){
 
         function initData(){
-            
+            vm.ViewList = true;
         }
 
         function cancel() {
