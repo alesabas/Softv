@@ -48,6 +48,7 @@ angular
 
         function GetDatosClientes(IdContratoCliente){
             CatalogosFactory.GetConsultaClientesList(IdContratoCliente).then(function(data){
+                console.log(data);
                 var DatosCliente = data.GetConsultaClientesListResult[0];
                 vm.CONTRATO = DatosCliente.CONTRATO;
                 vm.IdCliente = DatosCliente.ContratoCom;
@@ -58,6 +59,7 @@ angular
                 vm.NombreAdi = DatosCliente.SegundoNombre;
                 vm.PrimerApe = DatosCliente.Apellido_Paterno;
                 vm.SegundoApe = DatosCliente.Apellido_Materno;
+                //vm.NombreCompleto = SetNombreCompleto(DatosCliente.Nombre, DatosCliente.SegundoNombre, DatosCliente.Apellido_Paterno, DatosCliente.Apellido_Materno);
                 vm.ClaveElector = DatosCliente.ClaveElector;
                 vm.Telefono = DatosCliente.TELEFONO;
                 vm.Celular = DatosCliente.CELULAR;
@@ -103,7 +105,13 @@ angular
 
             });
         }
+        /*
+        function SetNombreCompleto(Nombre, NombreAdi, ApellidoP, ApellidoM){
+            if(Nombre != null NombreAdi, ApellidoP, ApellidoM){
 
+            }
+        }
+        */
         function GetCiudadMunicipio(IdMunicipio){
             if(vm.Estado != undefined){
                 var RelEstMun = {

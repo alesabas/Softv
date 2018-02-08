@@ -1,6 +1,6 @@
 <div class="modal-header">
     <button class="close" type="button" aria-label="close" ng-click="ctrl.cancel()">x</button>
-    <h4 class="modal-title"><i class="fa fa-search"></i> Buscar Cliente</h4>
+    <h4 class="modal-title"><i class="fa fa-check-square-o"></i> Seleccionar Cliente</h4>
 </div>
 <div class="modal-body">
     <div class="row">
@@ -8,7 +8,7 @@
             <div class="panel-group" id="accordion3">
                 <div class="card panel">
                     <div class="card-head card-head-xs collapsed" data-toggle="collapse" data-parent="#accordion3" data-target="#accordion3-1" aria-expanded="false">
-                        <header>Filtros</header>
+                        <header><i class="fa fa-search"></i> Filtros</header>
                         <div class="tools">
                             <a class="btn btn-icon-toggle"><i class="fa fa-angle-down"></i></a>
                         </div>
@@ -20,6 +20,39 @@
                                     <uib-tab-heading>
                                         <i class="md md-content-paste"></i> Contrato
                                     </uib-tab-heading>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="col-md-4">
+                                                <b>Contrato:</b>
+                                            </div>
+                                            <div class="col-md-2">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <b>Set Up Box:</b>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="col-md-4">
+                                                <div class="input-group">
+                                                    <input type="text" name="InpContrato" class="form-control input-sm" ng-model="ctrl.Contrato">
+                                                    <span class="input-group-btn">
+                                                        <button type="button" class="btn btn-info btn-xs"><i class="fa fa-search"></i> Buscar</button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="input-group">
+                                                    <input type="text" name="InpSetUpBox" class="form-control input-sm" ng-model="ctrl.SetUpBox">
+                                                    <span class="input-group-btn">
+                                                        <button type="button" class="btn btn-info btn-xs"><i class="fa fa-search"></i> Buscar</button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <footer>
                                         <p class="text-right"></p>
                                     </footer>
@@ -28,6 +61,36 @@
                                     <uib-tab-heading>
                                         <i class="fa fa-user"></i> Nombre
                                     </uib-tab-heading>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="col-md-3">
+                                                <b>Nombre:</b>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <b>Apellido Paterno:</b>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <b>Apellido Materno:</b>
+                                            </div>
+                                            <div class="col-md-3">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="col-md-3">
+                                                <input type="text" name="InpNombre" class="form-control input-sm" ng-model="ctrl.Nombre">
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input type="text" name="InpApellidoP" class="form-control input-sm" ng-model="ctrl.ApellidoP">
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input type="text" name="InpApellidoM" class="form-control input-sm" ng-model="ctrl.ApellidoM">
+                                            </div>
+                                            <div class="col-md-3">
+                                                <button type="button" class="btn btn-info btn-xs"><i class="fa fa-search"></i> Buscar</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <footer>
                                         <p class="text-right"></p>
                                     </footer>
@@ -36,6 +99,44 @@
                                     <uib-tab-heading>
                                         <i class="fa fa-home"></i> Dirección
                                     </uib-tab-heading>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="col-md-3"> 
+                                                <b>Calle:</b>
+                                            </div>
+                                            <div class="col-md-3"> 
+                                                <b>Número:</b>
+                                            </div>
+                                            <div class="col-md-3"> 
+                                                <b>Colonia</b>
+                                            </div>
+                                            <div class="col-md-3"> 
+                                                <b>Ciudad:</b>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="col-md-3"> 
+                                                <input type="text" name="InpCalle" class="form-control input-sm" ng-model="ctrl.Calle">
+                                            </div>
+                                            <div class="col-md-3"> 
+                                                <input type="text" name="InpNumero" class="form-control input-sm" ng-model="ctrl.Numero">
+                                            </div>
+                                            <div class="col-md-3"> 
+                                                <select name="SlcColonia" class="form-control input-sm" ng-model="ctrl.Colonia">
+                                                    <option value="" ng-disabled="true">Seleccionar</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-3"> 
+                                                <input type="text" name="InpCiudad" class="form-control input-sm" ng-model="ctrl.Ciudad">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="col-md-12 text-right">
+                                                <button type="button" class="btn btn-info btn-xs"><i class="fa fa-search"></i> Buscar</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <footer>
                                         <p class="text-right"></p>
                                     </footer>
@@ -49,10 +150,43 @@
     </div>
     <div class="row">
         <div class="col-md-12">
+            <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th width="19%"><b><small>Contrato</small></b></th>
+                            <th width="19%"><b><small>Nombre</small></b></th>
+                            <th width="19%"><b><small>Apellido Paterno</small></b></th>
+                            <th width="19%"><b><small>Apellido Materno</small></b></th>
+                            <th width="19%"><b><small>Calle</small></b></th>
+                            <th width="5%"><b><small>Seleccionar</small></b></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-show="!ctrl.ViewList">
+                            <td class="text-center" colspan="6">SIN REGISTROS</td>
+                        </tr>
+                        <!--
+                        <tr dir-paginate="X in !ctrl.ClienteList|orderBy:'IdContrato':true|itemsPerPage:7" ng-show="ctrl.ViewList">
+                        -->
+                        <tr>
+                            <td><small>{{ X.ContratoCom }}</small></td>
+                            <td><small>{{ X.ContratoCom }}</small></td>
+                            <td><small>{{ X.ContratoCom }}</small></td>
+                            <td><small>{{ X.ContratoCom }}</small></td>
+                            <td><small>{{ X.ContratoCom }}</small></td>
+                            <td><button type="button" class="btn btn-warning btn-xs" title="Seleccionar Cliente"><i class="fa fa-check"></i></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br>
+                <div style="margin-top:-40px;">
+                    <dir-pagination-controls max-size="7" direction-links="true" boundary-links="true" ng-if="$ctrl.ClienteList.length > 0"></dir-pagination-controls>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 <div class="modal-footer">
-    <button type="submit" class="btn btn-primary btn-sm" title="Guardar estado" ng-show="!ctrl.View"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
     <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.cancel()" title="Salir"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
 </div>
