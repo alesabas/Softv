@@ -154,34 +154,45 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th width="19%"><b><small>Contrato</small></b></th>
-                            <th width="19%"><b><small>Nombre</small></b></th>
-                            <th width="19%"><b><small>Apellido Paterno</small></b></th>
-                            <th width="19%"><b><small>Apellido Materno</small></b></th>
-                            <th width="19%"><b><small>Calle</small></b></th>
-                            <th width="5%"><b><small>Seleccionar</small></b></th>
+                            <th><b><small>Contrato</small></b></th>
+                            <th><b><small>Nombre</small></b></th>
+                            <th><b><small>Apellido Paterno</small></b></th>
+                            <th><b><small>Apellido Materno</small></b></th>
+                            <th><b><small>Calle</small></b></th>
+                            <th><b><small>Número</small></b></th>
+                            <th><b><small>Colonia</small></b></th>
+                            <th><b><small>Ciudad</small></b></th>
+                            <th><b><small>Solo Internet</small></b></th>
+                            <th><b><small>Es Hotel</small></b></th>
+                            <th><b><small></small></b></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-show="!ctrl.ViewList">
                             <td class="text-center" colspan="6">SIN REGISTROS</td>
                         </tr>
-                        <!--
-                        <tr dir-paginate="X in !ctrl.ClienteList|orderBy:'IdContrato':true|itemsPerPage:7" ng-show="ctrl.ViewList">
-                        -->
-                        <tr>
+                        <tr dir-paginate="X in ctrl.ClienteList|itemsPerPage:7" ng-show="ctrl.ViewList" style="font-size:10px;">
                             <td><small>{{ X.ContratoCom }}</small></td>
-                            <td><small>{{ X.ContratoCom }}</small></td>
-                            <td><small>{{ X.ContratoCom }}</small></td>
-                            <td><small>{{ X.ContratoCom }}</small></td>
-                            <td><small>{{ X.ContratoCom }}</small></td>
+                            <td><small>{{ X.Nombre + ' ' + X.SegundoNombre }}</small></td>
+                            <td><small>{{ X.Apellido_Paterno }}</small></td>
+                            <td><small>{{ X.Apellido_Materno }}</small></td>
+                            <td><small>{{ X.Calle }}</small></td>
+                            <td><small>{{ X.NUMERO }}</small></td>
+                            <td><small>{{ X.Col }}</small></td>
+                            <td><small>{{ X.Cd_Mun }}</small></td>
+                            <td>
+                                <label class="checkbox-inline checkbox-styled">
+                                    <input type="checkbox" name="CbxPrimerMen" ng-model="X.eshotel">
+                                </label>
+                            </td>
+                            <td><small>{{ X.eshotel }}</small></td>
                             <td><button type="button" class="btn btn-warning btn-xs" title="Seleccionar Cliente"><i class="fa fa-check"></i></button></td>
                         </tr>
                     </tbody>
                 </table>
                 <br>
                 <div style="margin-top:-40px;">
-                    <dir-pagination-controls max-size="7" direction-links="true" boundary-links="true" ng-if="$ctrl.ClienteList.length > 0"></dir-pagination-controls>
+                    <dir-pagination-controls max-size="7" direction-links="true" boundary-links="true" ng-if="ctrl.ClienteList.length > 0"></dir-pagination-controls>
                 </div>
             </div>
         </div>
