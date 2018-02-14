@@ -21,7 +21,7 @@
                 </div>
                 <div class="col-md-3">
                     <div class="input-group">
-                        <input type="text" name="InpContrato" class="form-control input-sm" ng-model="$ctrl.Contrato">
+                        <input type="text" name="InpContrato" class="form-control input-sm" ng-model="$ctrl.Cliente.ContratoCom">
                         <div class="input-group-btn">
                             <button type="button" class="btn ink-reaction btn-floating-action btn-sm btn-default" ng-click="$ctrl.OpenSearchCliente()" title="Buscar Cliente"><i class="fa fa-search"></i></button>
                         </div>
@@ -41,11 +41,13 @@
                     <b>Nombre:</b>
                 </div>
                 <div class="col-md-5">
+                    {{ $ctrl.Nombre }}
                 </div>
                 <div class="col-md-1">
                     <b>Ciudad:</b>
                 </div>
                  <div class="col-md-5">
+                     {{ $ctrl.Cliente.Cd_Mun }}
                 </div>
             </div>
             <div class="col-md-offset-2 col-md-8">
@@ -53,14 +55,16 @@
                     <b>Calle:</b>
                 </div>
                 <div class="col-md-3">
+                    {{ $ctrl.Cliente.Calle }}
                 </div>
                 <div class="col-md-2">
-                    <b>#:</b>
+                    <b>#: </b>{{ $ctrl.Cliente.NUMERO }}
                 </div>
                 <div class="col-md-1">
                     <b>Colonia:</b>
                 </div>
                  <div class="col-md-5">
+                     {{ $ctrl.Cliente.Col }}
                 </div>
             </div>
             <div class="col-md-offset-2 col-md-8">
@@ -68,15 +72,18 @@
                     <b>Teléfono:</b>
                 </div>
                 <div class="col-md-5">
+                    {{ $ctrl.Cliente.TELEFONO }}
                 </div>
                 <div class="col-md-1">
                     <b>Celular:</b>
                 </div>
                  <div class="col-md-5">
+                     {{ $ctrl.Cliente.CELULAR }}
                 </div>
             </div>
         </div>
         <br>
+        <!--
         <div class="row">
             <div class="col-md-offset-2 col-md-8">
                 <div class="col-md-3">
@@ -111,6 +118,19 @@
                             </footer>
                         </uib-tab>
                     </uib-tabset>
+                </div>
+            </div>
+        </div>
+        -->
+        <div class="row">
+            <div class="col-md-offset-2 col-md-8">
+                <div class="col-md-12">
+                    <h4 class="text-primary">Servicios:</h4>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-offset-4 col-md-2">
+                        <button type="button" class="btn btn-success btn-xs" ng-click="$ctrl.OpenAddServicioRecontratacion()" title="Agregar Servicio" ng-if="$ctrl.ShowServicios"><i class="fa fa-share"></i> AGREGAR</button>
+                    </div>
                 </div>
             </div>
         </div>

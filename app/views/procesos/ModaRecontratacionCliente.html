@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <button class="close" type="button" aria-label="close" ng-click="ctrl.cancel()">x</button>
+    <button class="close" type="button" aria-label="close" ng-click="ctrl.Cancel()">x</button>
     <h4 class="modal-title"><i class="fa fa-check-square-o"></i> Seleccionar Cliente</h4>
 </div>
 <div class="modal-body">
@@ -22,35 +22,35 @@
                                     </uib-tab-heading>
                                     <br>
                                     <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="col-md-4">
-                                                <b>Contrato:</b>
-                                            </div>
-                                            <div class="col-md-2">
-                                            </div>
-                                            <div class="col-md-4">
-                                                <b>Set Up Box:</b>
-                                            </div>
+                                        <div class="col-md-offset-1 col-md-4">
+                                            <form name="FormBuscarContrato" angular-validator-submit="ctrl.GetClienteList(1)" novalidate angular-validator autocomplete="off">
+                                                <div class="col-md-12">
+                                                    <b>Contrato:</b>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="input-group">
+                                                        <input type="text" name="InpContrato" class="form-control input-sm" ng-model="ctrl.Contrato" ng-pattern="/^\d{1,9}-\d{1,9}$/" validate-on="dirty" invalid-message="'Inválido, ej. (123-456).'">
+                                                        <span class="input-group-btn">
+                                                            <button type="submit" class="btn btn-info btn-xs"><i class="fa fa-search"></i> Buscar</button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </form>
                                         </div>
-                                        <div class="col-md-12">
-                                            <div class="col-md-4">
-                                                <div class="input-group">
-                                                    <input type="text" name="InpContrato" class="form-control input-sm" ng-model="ctrl.Contrato">
-                                                    <span class="input-group-btn">
-                                                        <button type="button" class="btn btn-info btn-xs"><i class="fa fa-search"></i> Buscar</button>
-                                                    </span>
+                                        <div class="col-md-offset-2 col-md-4">
+                                            <form name="FormBuscarSetUpBox" angular-validator-submit="ctrl.GetClienteList(2)" novalidate angular-validator autocomplete="off">
+                                                <div class="col-md-12">
+                                                    <b>Set Up Box:</b>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-2">
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="input-group">
-                                                    <input type="text" name="InpSetUpBox" class="form-control input-sm" ng-model="ctrl.SetUpBox">
-                                                    <span class="input-group-btn">
-                                                        <button type="button" class="btn btn-info btn-xs"><i class="fa fa-search"></i> Buscar</button>
-                                                    </span>
+                                                <div class="col-md-12">
+                                                    <div class="input-group">
+                                                        <input type="text" name="InpSetUpBox" class="form-control input-sm" ng-model="ctrl.SetUpBox" ng-pattern="/^[a-zA-Z0-9 ._-]+$/" validate-on="dirty" invalid-message="'Inválido.'">
+                                                        <span class="input-group-btn">
+                                                            <button type="submit" class="btn btn-info btn-xs"><i class="fa fa-search"></i> Buscar</button>
+                                                        </span>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            </form>
                                         </div>
                                     </div>
                                     <footer>
@@ -63,33 +63,35 @@
                                     </uib-tab-heading>
                                     <br>
                                     <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="col-md-3">
-                                                <b>Nombre:</b>
+                                        <form name="FormBuscarNombre" angular-validator-submit="ctrl.GetClienteList(3)" novalidate angular-validator autocomplete="off">
+                                            <div class="col-md-12">
+                                                <div class="col-md-3">
+                                                    <b>Nombre:</b>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <b>Apellido Paterno:</b>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <b>Apellido Materno:</b>
+                                                </div>
+                                                <div class="col-md-3">
+                                                </div>
                                             </div>
-                                            <div class="col-md-3">
-                                                <b>Apellido Paterno:</b>
+                                            <div class="col-md-12">
+                                                <div class="col-md-3">
+                                                    <input type="text" name="InpNombre" class="form-control input-sm" ng-model="ctrl.Nombre" ng-pattern="/^[a-zA-Z0-9 ._-]+$/" validate-on="dirty" invalid-message="'Inválido.'">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <input type="text" name="InpApellidoP" class="form-control input-sm" ng-model="ctrl.ApellidoP" ng-pattern="/^[a-zA-Z0-9 ._-]+$/" validate-on="dirty" invalid-message="'Inválido.'">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <input type="text" name="InpApellidoM" class="form-control input-sm" ng-model="ctrl.ApellidoM" ng-pattern="/^[a-zA-Z0-9 ._-]+$/" validate-on="dirty" invalid-message="'Inválido.'">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <button type="submit" class="btn btn-info btn-xs"><i class="fa fa-search"></i> Buscar</button>
+                                                </div>
                                             </div>
-                                            <div class="col-md-3">
-                                                <b>Apellido Materno:</b>
-                                            </div>
-                                            <div class="col-md-3">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="col-md-3">
-                                                <input type="text" name="InpNombre" class="form-control input-sm" ng-model="ctrl.Nombre">
-                                            </div>
-                                            <div class="col-md-3">
-                                                <input type="text" name="InpApellidoP" class="form-control input-sm" ng-model="ctrl.ApellidoP">
-                                            </div>
-                                            <div class="col-md-3">
-                                                <input type="text" name="InpApellidoM" class="form-control input-sm" ng-model="ctrl.ApellidoM">
-                                            </div>
-                                            <div class="col-md-3">
-                                                <button type="button" class="btn btn-info btn-xs"><i class="fa fa-search"></i> Buscar</button>
-                                            </div>
-                                        </div>
+                                        </form>
                                     </div>
                                     <footer>
                                         <p class="text-right"></p>
@@ -101,41 +103,42 @@
                                     </uib-tab-heading>
                                     <br>
                                     <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="col-md-3"> 
-                                                <b>Calle:</b>
+                                        <form name="FormBuscarDireccion" angular-validator-submit="ctrl.GetClienteList(4)" novalidate angular-validator autocomplete="off">
+                                            <div class="col-md-12">
+                                                <div class="col-md-3"> 
+                                                    <b>Calle:</b>
+                                                </div>
+                                                <div class="col-md-3"> 
+                                                    <b>Número:</b>
+                                                </div>
+                                                <div class="col-md-3"> 
+                                                    <b>Colonia</b>
+                                                </div>
+                                                <div class="col-md-3"> 
+                                                    <b>Ciudad:</b>
+                                                </div>
                                             </div>
-                                            <div class="col-md-3"> 
-                                                <b>Número:</b>
+                                            <div class="col-md-12">
+                                                <div class="col-md-3"> 
+                                                    <input type="text" name="InpCalle" class="form-control input-sm" ng-model="ctrl.Calle"  ng-pattern="/^[a-zA-Z0-9 ._-]+$/" validate-on="dirty" invalid-message="'Inválido.'">
+                                                </div>
+                                                <div class="col-md-3"> 
+                                                    <input type="text" name="InpNumero" class="form-control input-sm" ng-model="ctrl.Numero"  ng-pattern="/^[a-zA-Z0-9 ._-]+$/" validate-on="dirty" invalid-message="'Inválido.'">
+                                                </div>
+                                                <div class="col-md-3"> 
+                                                    <select name="SlcColonia" class="form-control input-sm" ng-model="ctrl.Colonia" ng-options="C.Nombre for C in ctrl.ColoniaList track by C.Clv_Colonia" ng-change="ctrl.GetClienteList(0)">
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3"> 
+                                                    <input type="text" name="InpCiudad" class="form-control input-sm" ng-model="ctrl.Ciudad" ng-pattern="/^[a-zA-Z0-9 ._-]+$/" validate-on="dirty" invalid-message="'Inválido.'">
+                                                </div>
                                             </div>
-                                            <div class="col-md-3"> 
-                                                <b>Colonia</b>
+                                            <div class="col-md-12">
+                                                <div class="col-md-12 text-right">
+                                                    <button type="submit" class="btn btn-info btn-xs"><i class="fa fa-search"></i> Buscar</button>
+                                                </div>
                                             </div>
-                                            <div class="col-md-3"> 
-                                                <b>Ciudad:</b>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="col-md-3"> 
-                                                <input type="text" name="InpCalle" class="form-control input-sm" ng-model="ctrl.Calle">
-                                            </div>
-                                            <div class="col-md-3"> 
-                                                <input type="text" name="InpNumero" class="form-control input-sm" ng-model="ctrl.Numero">
-                                            </div>
-                                            <div class="col-md-3"> 
-                                                <select name="SlcColonia" class="form-control input-sm" ng-model="ctrl.Colonia">
-                                                    <option value="" ng-disabled="true">Seleccionar</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-3"> 
-                                                <input type="text" name="InpCiudad" class="form-control input-sm" ng-model="ctrl.Ciudad">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="col-md-12 text-right">
-                                                <button type="button" class="btn btn-info btn-xs"><i class="fa fa-search"></i> Buscar</button>
-                                            </div>
-                                        </div>
+                                        </form>
                                     </div>
                                     <footer>
                                         <p class="text-right"></p>
@@ -169,7 +172,7 @@
                     </thead>
                     <tbody>
                         <tr ng-show="!ctrl.ViewList">
-                            <td class="text-center" colspan="6">SIN REGISTROS</td>
+                            <td class="text-center" colspan="11">SIN REGISTROS</td>
                         </tr>
                         <tr dir-paginate="X in ctrl.ClienteList|itemsPerPage:7" ng-show="ctrl.ViewList" style="font-size:10px;">
                             <td><small>{{ X.ContratoCom }}</small></td>
@@ -182,11 +185,15 @@
                             <td><small>{{ X.Cd_Mun }}</small></td>
                             <td>
                                 <label class="checkbox-inline checkbox-styled">
-                                    <input type="checkbox" name="CbxPrimerMen" ng-model="X.eshotel">
+                                    <input type="checkbox" name="CbxSoloInt" ng-model="X.SoloInternet" ng-disabled="true"><span></span>
                                 </label>
                             </td>
-                            <td><small>{{ X.eshotel }}</small></td>
-                            <td><button type="button" class="btn btn-warning btn-xs" title="Seleccionar Cliente"><i class="fa fa-check"></i></button></td>
+                            <td>
+                                <label class="checkbox-inline checkbox-styled">
+                                    <input type="checkbox" name="CbxEsHotel" ng-model="X.eshotel" ng-disabled="true"><span></span>
+                                </label>
+                            </td>
+                            <td><button type="button" class="btn btn-warning btn-xs" title="Seleccionar Cliente" ng-click="ctrl.SetCliente(X.CONTRATO)"><i class="fa fa-check"></i></button></td>
                         </tr>
                     </tbody>
                 </table>
@@ -199,5 +206,5 @@
     </div>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.cancel()" title="Salir"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
+    <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.Cancel()" title="Salir"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
 </div>
