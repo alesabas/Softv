@@ -25,14 +25,32 @@ angular
                     }
                 }*/
             });
-            modalInstance.result.then(function (ContratoS) {
-                GetCliente(ContratoS);
+            modalInstance.result.then(function (ObjCliente) {
+                console.log(ObjCliente);
+                GetCliente(ObjCliente.Op, ObjCliente.IdContrato, ObjCliente.ContratoCompuesto);
             });
         }
 
-        function GetCliente(ContratoS){
-            console.log(ContratoS);
-            RecontratacionFactory.GetInfoContratoEnBaja(ContratoS).then(function(data){
+        function SetCliente(){
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                GetCliente(1, 0, vm.Cliente.ContratoCom);
+                /*if (vm.clv_orden == 0) {
+                    detalleContrato();
+                } else {
+                    PreguntaAtencion(1);
+                }*/
+            }
+        }
+
+        function GetCliente(Op, IdContrato, ContratoCompuesto){
+            console.log(Op, IdContrato, ContratoCompuesto);
+            var ObjCliente = {
+                'Op': Op,
+                'IdContrato': IdContrato,
+                'ContratoCompania': ContratoCompuesto
+            }
+            RecontratacionFactory.GetInfoContratoEnBaja(ObjCliente).then(function(data){
                 console.log(data);
                 vm.Cliente = data.GetInfoContratoEnBajaResult;
                 vm.IdContrato = vm.Cliente.CONTRATO;
@@ -52,6 +70,7 @@ angular
                 'IdContrato': vm.IdContrato,
                 'ClvSession': vm.ClvSession
             };
+            console.log(ObjCliente);
             var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
@@ -62,7 +81,7 @@ angular
                 backdrop: 'static',
                 keyboard: false,
                 class: 'modal-backdrop fade',
-                size: 'sm',
+                size: 'md',
                 resolve: {
                     ObjCliente: function () {
                         return ObjCliente;
@@ -89,6 +108,7 @@ angular
         var vm = this;
         vm.ShowServicios = false;
         vm.OpenSearchCliente = OpenSearchCliente;
+        vm.SetCliente = SetCliente;
         vm.OpenAddServicioRecontratacion = OpenAddServicioRecontratacion;
         initData();
 

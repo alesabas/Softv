@@ -8,8 +8,13 @@ angular
             CatalogosFactory.GetMuestraTipSerPrincipal_SERList().then(function(data){
                 vm.TipoServicioList = data.GetMuestraTipSerPrincipal_SERListResult;
             });
-
-            RecontratacionFactory.GetInfoContratoEnBaja(ObjCliente.IdContrato).then(function(data){
+            var ObjCliente2 = {
+                'Op': 0,
+                'IdContrato': ObjCliente.IdContrato,
+                'ContratoCompania': ''
+            };
+            console.log(ObjCliente2);
+            RecontratacionFactory.GetInfoContratoEnBaja(ObjCliente2).then(function(data){
                 console.log(data);
                 var Cliente = data.GetInfoContratoEnBajaResult;
                 vm.IdContrato = Cliente.CONTRATO;
@@ -68,6 +73,7 @@ angular
         }
 
         function SaveRecontratacionServicio(){
+            /*
             var ObjRecontracion = {
                 'ClvSession': vm.ClvSession,
                 'IdContrato': vm.IdContrato,
@@ -81,17 +87,51 @@ angular
                 console.log(data);
                 vm.IdRecon = data.GetAddServiciosEnBajaResult;
                 if(vm.IdRecon > 0){
-                    Cancel();
-                    OpenAddAparatoRecontratacion();
+                    vm.ViewAparatos = true;
+                    GetAparatoList();
                 }else{
                     ngNotify.set('ERROR, al añadir un servicio.', 'warn');
                 }
             });
+            */
         }
 
+        function GetAparatoList(){
+            var ObjDet = {
+                'ClvTipoServ': vm.TipoServicio.Clv_TipSerPrincipal,
+                'Clv_Unicanet': vm.Servicio.Clv_UnicaNet,
+                'IdMedio': (vm.Medio != undefined)? vm.Medio.IdMedio:0
+            };
+            console.log(ObjDet);
+            RecontratacionFactory.GetListaAparatosEnBaja(ObjDet).then(function(data){
+                console.log(data);
+                vm.AparatoList = data.GetListaAparatosEnBajaResult;
+            });
+        }
+
+        function AddAparatoRecon(){
+            if(vm.Aparato != undefined){
+                vm.AparatoReconTmp ={
+
+                };
+                /*vm.AparatosRecon.push(vm.Aparato);
+                console.log(vm.AparatosRecon);*/
+            }
+        }
+
+        
+    function EliminarArticulo(clave) {
+      for (var i = 0; i < vm.articulos_.length; i++)
+        if (vm.articulos_[i].NoArticulo === clave) {
+          vm.articulos_.splice(i, 1);
+          break;
+        }
+    }
+
+        /*
         function OpenAddAparatoRecontratacion(){
             var ObjSession = {
-                'IdContrato': vm.IdContrato,
+                'IdRecon': vm.IdRecon,
                 'ClvSession': vm.ClvSession
             };
             var modalInstance = $uibModal.open({
@@ -112,17 +152,24 @@ angular
                 }
             });
         }
+        */
 
         function Cancel() {
             $uibModalInstance.dismiss('cancel');
         }
 
         var vm = this;
+        //vm.ViewAparatos = false;
+        console.log('2');
+        console.log(ObjCliente);
+        vm.AparatosRecon = [];
         vm.ClvSession = ObjCliente.ClvSession;
         vm.GetServiciosList = GetServiciosList;
+        vm.GetAparatoList = GetAparatoList;
+        vm.AddAparatoRecon = AddAparatoRecon;
         vm.SaveRecontratacionServicio = SaveRecontratacionServicio;
         vm.Cancel = Cancel;
+        console.log('3');
         initData();
-        console.log('2');
 
     });

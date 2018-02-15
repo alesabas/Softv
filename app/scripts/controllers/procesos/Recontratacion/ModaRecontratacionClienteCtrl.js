@@ -49,8 +49,14 @@ angular
             });
         }
 
-        function SetCliente(ContratoS) {
-            $uibModalInstance.close(ContratoS);
+        function SetCliente(IdContrato) {
+            var ObjCliente = {
+                'Op': 0,
+                'IdContrato': IdContrato,
+                'ContratoCompuesto': ''
+            }
+            console.log(ObjCliente);
+            $uibModalInstance.close(ObjCliente);
         }
 
         function Cancel() {
