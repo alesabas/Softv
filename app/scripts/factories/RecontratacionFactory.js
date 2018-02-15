@@ -39,10 +39,10 @@ angular
             return deferred.promise;
         };
 
-        factory.GetInfoContratoEnBaja = function(IdContrato){
+        factory.GetInfoContratoEnBaja = function(ObjCliente){
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
-            var Parametros = {'IdContrato': IdContrato};
+            var Parametros = ObjCliente;
             $http.post(globalService.getUrl() + paths.GetInfoContratoEnBaja, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -90,6 +90,7 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = ObjDet;
+            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetListaAparatosEnBaja, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){

@@ -15,19 +15,21 @@
     </div>
     <div class="card-body">
         <div class="row">
-            <div class="col-md-offset-2 col-md-8">
-                <div class="col-md-1">
-                    <b>Contrato:</b>
-                </div>
-                <div class="col-md-3">
-                    <div class="input-group">
-                        <input type="text" name="InpContrato" class="form-control input-sm" ng-model="$ctrl.Cliente.ContratoCom">
-                        <div class="input-group-btn">
-                            <button type="button" class="btn ink-reaction btn-floating-action btn-sm btn-default" ng-click="$ctrl.OpenSearchCliente()" title="Buscar Cliente"><i class="fa fa-search"></i></button>
+            <form name="FormBuscarContrato" angular-validator-submit="ctrl.SetCliente()" novalidate angular-validator autocomplete="off">
+                <div class="col-md-offset-2 col-md-8">
+                    <div class="col-md-1">
+                        <b>Contrato:</b>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <input type="text" name="InpContrato" class="form-control input-sm" ng-model="$ctrl.Cliente.ContratoCom" ng-pattern="/^\d{1,9}-\d{1,9}$/" validate-on="dirty" invalid-message="'Ej. (123-456).'" ng-keydown="$ctrl.SetCliente($event)" >
+                            <div class="input-group-btn">
+                                <button type="button" class="btn ink-reaction btn-floating-action btn-sm btn-default" ng-click="$ctrl.OpenSearchCliente()" title="Buscar Cliente"><i class="fa fa-search"></i></button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
         <br>
         <div class="row">

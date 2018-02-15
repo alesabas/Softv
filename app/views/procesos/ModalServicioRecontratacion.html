@@ -5,11 +5,11 @@
     </div>
     <div class="modal-body">
         <div class="row">
-            <div class="col-md-12">
-                <div class="col-md-12">
-                    <b><small>Tipo Servicio:</small></b>
+            <div class="col-md-offset-1 col-md-10">
+                <div class="col-md-3">
+                    <b>Tipo Servicio:</b>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-9">
                     <select name="SlcTipoServicio" class="form-control input-sm" ng-model="ctrl.TipoServicio" ng-options="T.Concepto for T in ctrl.TipoServicioList track by T.Clv_TipSerPrincipal" ng-change="ctrl.GetServiciosList()" validate-on="dirty" required required-message="'Obligatorio'">
                         <option value="">Selecciona</option>
                     </select>
@@ -20,11 +20,11 @@
                     <br>
                 </div>
             </div>
-            <div class="col-md-12">
-                <div class="col-md-12">
-                    <b><small>Servicio:</small></b>
+            <div class="col-md-offset-1 col-md-10">
+                <div class="col-md-3">
+                    <b>Servicio:</b>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-9">
                     <select name="Servicio" class="form-control input-sm" ng-model="ctrl.Servicio" ng-options="S.Descripcion for S in ctrl.ServicioList track by S.Clv_Servicio" validate-on="dirty" required required-message="'Obligatorio'">
                         <option value="">Selecciona</option>
                     </select>
@@ -35,14 +35,54 @@
                     <br>
                 </div>
             </div>
-            <div class="col-md-12">
-                <div class="col-md-12">
-                    <b><small>Medio:</small></b>
+            <div class="col-md-offset-1 col-md-10">
+                <div class="col-md-3">
+                    <b>Medio:</b>
                 </div>
-                <div class="col-md-12">
-                    <select name="SlcMedio" class="form-control input-sm" ng-model="ctrl.Medio" ng-options="M.Descripcion disable when M.Activo != true for M in ctrl.MedioList track by M.IdMedio">
+                <div class="col-md-9">
+                    <select name="SlcMedio" class="form-control input-sm" ng-model="ctrl.Medio" ng-options="M.Descripcion disable when M.Activo != true for M in ctrl.MedioList track by M.IdMedio" ng-change="ctrl.GetAparatoList()" validate-on="dirty" required-message="'Obligatorio'">
                         <option value="" ng-disabled="ctrl.BlokMedioInst">Definir en la instalación</option>
                     </select>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-offset-1 col-md-10">
+                <div class="col-md-3">
+                    <b>Aparato:</b>
+                </div>
+                <div class="col-md-6">
+                    <select name="SlcAparato" class="form-control input-sm" ng-model="ctrl.Aparato" ng-options="A.MacCableModem for A in ctrl.AparatoList track by A.Clv_CableModem" validate-on="dirty" ng-required="(ctrl.Medio != undefined && ctrl.AparatosList.length > 0)" required-message="'Obligatorio'">
+                        <option value="">Seleccionar Apaarato</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-success btn-xs" ng-click="ctrl.AddAparatoRecon()" title="Agregar Articulo"><i class="fa fa-plus"></i> Agregar</button>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-offset-1 col-md-10">
+                <div class="col-md-12">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th><b><small>Aparato</small></b></th>
+                                <th><b><small></small></b></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-show="!ctrl.ViewList">
+                                <td class="text-center" colspan="2">SIN REGISTROS</td>
+                            </tr>
+                            <tr dir-paginate="X in ctrl.ClienteList|itemsPerPage:7" ng-show="ctrl.ViewList" style="font-size:10px;">
+                                <td><small>{{ X.ContratoCom }}</small></td>
+                                <td><button type="button" class="btn btn-warning btn-xs" title="Seleccionar Cliente" ng-click="ctrl.SetCliente(X.CONTRATO)"><i class="fa fa-check"></i></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

@@ -5,8 +5,28 @@
     </div>
     <div class="modal-body">
         <div class="row">
+            
+        </div>
+        <div class="row">
             <div class="col-md-12">
                 <div class="col-md-12">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th><b><small>Aparato</small></b></th>
+                                <th><b><small></small></b></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-show="!ctrl.ViewList">
+                                <td class="text-center" colspan="11">SIN REGISTROS</td>
+                            </tr>
+                            <tr dir-paginate="X in ctrl.ClienteList|itemsPerPage:7" ng-show="ctrl.ViewList" style="font-size:10px;">
+                                <td><small>{{ X.ContratoCom }}</small></td>
+                                <td><button type="button" class="btn btn-warning btn-xs" title="Seleccionar Cliente" ng-click="ctrl.SetCliente(X.CONTRATO)"><i class="fa fa-check"></i></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

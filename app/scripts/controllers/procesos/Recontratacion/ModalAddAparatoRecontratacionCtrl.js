@@ -9,8 +9,10 @@ angular
                 'IdRecon': ObjSession.IdRecon,
                 'ClvSession': ObjSession.ClvSession
             }
-            RecontratacionFactory.GetListaAparatosEnBaja().then(function(data){
+            console.log(ObjDet);
+            RecontratacionFactory.GetListaAparatosEnBaja(ObjDet).then(function(data){
                 console.log(data);
+                vm.AparatoList = data.GetListaAparatosEnBajaResult;
             });
         }
 
