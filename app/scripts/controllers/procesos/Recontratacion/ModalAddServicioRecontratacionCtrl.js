@@ -28,21 +28,35 @@ angular
         }
 
         function GetServiciosList(){
-            var Obj = {
-                'IdContrato': vm.IdContrato,
-                'Clv_TipSer': vm.TipoServicio.Clv_TipSerPrincipal
-            };
-            RecontratacionFactory.GetServiciosEnBaja(Obj).then(function(data){
-                console.log(data);
-                vm.ServicioList = data.GetServiciosEnBajaResult;
-            });
+            if(vm.TipoServicio != undefined){
+                vm.ServicioList = null;
+                vm.AparatoList = null;
+                vm.AparatosRecon = null;
+                vm.ViewAparatos = false;
+                vm.Medio = vm.MedioList[vm.MR];
+                var Obj = {
+                    'IdContrato': vm.IdContrato,
+                    'Clv_TipSer': vm.TipoServicio.Clv_TipSerPrincipal
+                };
+                RecontratacionFactory.GetServiciosEnBaja(Obj).then(function(data){
+                    console.log(data);
+                    vm.ServicioList = data.GetServiciosEnBajaResult;
+                });
+            }else{
+                vm.ServicioList = null;
+                vm.AparatoList = null;
+                vm.AparatosRecon = [];
+                vm.ViewAparatos = false;
+                vm.Medio = vm.MedioList[vm.MR];
+            }
         }
 
-        /*
-        function SetCliente(ContratoS) {
-            $uibModalInstance.close(ContratoS);
+        function SetServicio(){
+            vm.AparatoList = null;
+            vm.AparatosRecon = [];
+            vm.ViewAparatos = false;
+            vm.Medio = vm.MedioList[vm.MR];
         }
-        */
 
         function GetMedioList(){
             var ObjMedioList = {
@@ -54,6 +68,14 @@ angular
             CatalogosRedIPFactory.GetCatMedioByCiuLocCol(ObjMedioList).then(function(data){
                 console.log(data);
                 vm.MedioList = data.GetCatMedioByCiuLocColResult;
+                vm.MedioList.push(MedioList);
+                for(var i = 0; vm.MedioList.length > i; i ++){
+                    if(vm.MedioList[i].IdMedio == 0){
+                        vm.Medio = vm.MedioList[i];
+                        vm.MR = i;
+                        break
+                    }
+                }
                 var count = 0;
                 for (var i = 0; vm.MedioList.length > i; i ++){
                     if(vm.MedioList[i].Activo == 1){
@@ -72,8 +94,82 @@ angular
             });
         }
 
-        function SaveRecontratacionServicio(){
-            /*
+        function GetAparatoList(){
+            vm.AparatoList = null;
+            vm.AparatosRecon = [];
+            vm.ViewAparatos = false;
+            var ObjDet = {
+                'ClvTipoServ': vm.TipoServicio.Clv_TipSerPrincipal,
+                'Clv_Unicanet': vm.Servicio.Clv_UnicaNet,
+                'IdMedio': (vm.Medio != undefined)? vm.Medio.IdMedio:0
+            };
+            console.log(ObjDet);
+            RecontratacionFactory.GetListaAparatosEnBaja(ObjDet).then(function(data){
+                console.log(data);
+                vm.AparatoList = data.GetListaAparatosEnBajaResult;
+                vm.ViewAparatos = (vm.AparatoList.length > 0)? true:false;
+            });
+            vm.AparatosRecon = [];
+        }
+
+        function SetAparatoList(){
+            vm.ViewList = (vm.AparatosRecon.length > 0)? true:false;
+        }
+
+        function AddAparatoRecon(){
+            if(vm.Aparato != undefined){
+                var AparatoReconTmp = {
+                    'Clv_CableModem': vm.Aparato.Clv_CableModem,
+                    'Clv_UnicaNet': vm.Aparato.Clv_UnicaNet,
+                    'ContratoNet': vm.Aparato.ContratoNet,
+                    'IdArticulo': vm.Aparato.IdArticulo,
+                    'IdMedio': vm.Aparato.IdMedio,
+                    'IdServicio': vm.Aparato.IdServicio,
+                    'MacCableModem': vm.Aparato.MacCableModem
+                };
+                if(ValidAparato(AparatoReconTmp.Clv_CableModem) == false){
+                    console.log(AparatoReconTmp);
+                    vm.AparatosRecon.push(AparatoReconTmp);
+                    console.log(vm.AparatosRecon);
+                    SetAparatoList();
+                }
+            }
+        }
+
+        function ValidAparato(Clv_CableModem){
+            var Check = 0;
+            console.log(Clv_CableModem);
+            if(vm.AparatosRecon.length > 0){
+                for(var i = 0; vm.AparatosRecon.length > i; i++){
+                    if(vm.AparatosRecon[i].Clv_CableModem == Clv_CableModem){
+                        Check = Check + 1;
+                    }
+                }
+            }
+            return (Check > 0)? true:false;
+        }
+
+        function DeleteAparatoRecon(Clv_CableModem){
+            for(var i = 0; vm.AparatosRecon.length > i; i++){
+                if(vm.AparatosRecon[i].Clv_CableModem == Clv_CableModem){
+                    vm.AparatosRecon.splice(i, 1);
+                    SetAparatoList();
+                    break;
+                }
+            }
+        }
+
+        function SaveRecontratacion(){
+            if(vm.AparatosRecon.length == 0 && vm.ViewAparatos == false){
+                SaveServicioRecontratacion()
+            }else if(vm.AparatosRecon.length > 0 && vm.ViewAparatos == true){
+                SaveServicioRecontratacion()
+            }else if(vm.AparatosRecon.length == 0 && vm.ViewAparatos == true){
+                ngNotify.set('ERROR, aun no se agrega ningún aparato.', 'warn');
+            }
+        }
+
+        function SaveServicioRecontratacion(){
             var ObjRecontracion = {
                 'ClvSession': vm.ClvSession,
                 'IdContrato': vm.IdContrato,
@@ -88,85 +184,40 @@ angular
                 vm.IdRecon = data.GetAddServiciosEnBajaResult;
                 if(vm.IdRecon > 0){
                     vm.ViewAparatos = true;
-                    GetAparatoList();
+                    if(vm.AparatoList.length > 0){
+                        SaveRecontratacionAparato();
+                    }
                 }else{
                     ngNotify.set('ERROR, al añadir un servicio.', 'warn');
                 }
             });
-            */
-        }
-
-        function GetAparatoList(){
-            var ObjDet = {
-                'ClvTipoServ': vm.TipoServicio.Clv_TipSerPrincipal,
-                'Clv_Unicanet': vm.Servicio.Clv_UnicaNet,
-                'IdMedio': (vm.Medio != undefined)? vm.Medio.IdMedio:0
-            };
-            console.log(ObjDet);
-            RecontratacionFactory.GetListaAparatosEnBaja(ObjDet).then(function(data){
-                console.log(data);
-                vm.AparatoList = data.GetListaAparatosEnBajaResult;
-            });
-        }
-
-        function AddAparatoRecon(){
-            if(vm.Aparato != undefined){
-                vm.AparatoReconTmp ={
-
-                };
-                /*vm.AparatosRecon.push(vm.Aparato);
-                console.log(vm.AparatosRecon);*/
-            }
-        }
-
-        
-    function EliminarArticulo(clave) {
-      for (var i = 0; i < vm.articulos_.length; i++)
-        if (vm.articulos_[i].NoArticulo === clave) {
-          vm.articulos_.splice(i, 1);
-          break;
-        }
     }
 
-        /*
-        function OpenAddAparatoRecontratacion(){
-            var ObjSession = {
-                'IdRecon': vm.IdRecon,
-                'ClvSession': vm.ClvSession
-            };
-            var modalInstance = $uibModal.open({
-                animation: true,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body', 
-                templateUrl: 'views/procesos/ModalAparatoRecontratacion.html',
-                controller: 'ModalAddAparatoRecontratacionCtrl',
-                controllerAs: 'ctrl',
-                backdrop: 'static',
-                keyboard: false,
-                class: 'modal-backdrop fade',
-                size: 'sm',
-                resolve: {
-                    ObjSession: function () {
-                        return ObjSession;
-                    }
-                }
-            });
+        function SaveRecontratacionAparato(){
+            console.log('Save Aparatos');
         }
-        */
 
         function Cancel() {
             $uibModalInstance.dismiss('cancel');
         }
 
         var vm = this;
-        //vm.ViewAparatos = false;
+        vm.BlokMedioInst = false;
+        var MedioList = {
+            'IdMedio': 0,
+            'Descripcion': 'Definir en la instalación',
+            'Activo': true
+        };
+        vm.AparatosRecon = [];
+        vm.ViewAparatos = false;
         console.log('2');
         console.log(ObjCliente);
-        vm.AparatosRecon = [];
         vm.ClvSession = ObjCliente.ClvSession;
+        vm.SetServicio = SetServicio;
         vm.GetServiciosList = GetServiciosList;
         vm.GetAparatoList = GetAparatoList;
         vm.AddAparatoRecon = AddAparatoRecon;
+        vm.DeleteAparatoRecon = DeleteAparatoRecon;
         vm.SaveRecontratacionServicio = SaveRecontratacionServicio;
         vm.Cancel = Cancel;
         console.log('3');
