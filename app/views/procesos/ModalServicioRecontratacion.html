@@ -25,7 +25,7 @@
                     <b>Servicio:</b>
                 </div>
                 <div class="col-md-9">
-                    <select name="Servicio" class="form-control input-sm" ng-model="ctrl.Servicio" ng-options="S.Descripcion for S in ctrl.ServicioList track by S.Clv_Servicio" validate-on="dirty" required required-message="'Obligatorio'">
+                    <select name="Servicio" class="form-control input-sm" ng-model="ctrl.Servicio" ng-options="S.Descripcion for S in ctrl.ServicioList track by S.Clv_Servicio" validate-on="dirty" required required-message="'Obligatorio'" ng-change="ctrl.SetServicio();">
                         <option value="">Selecciona</option>
                     </select>
                 </div>
@@ -40,14 +40,13 @@
                     <b>Medio:</b>
                 </div>
                 <div class="col-md-9">
-                    <select name="SlcMedio" class="form-control input-sm" ng-model="ctrl.Medio" ng-options="M.Descripcion disable when M.Activo != true for M in ctrl.MedioList track by M.IdMedio" ng-change="ctrl.GetAparatoList()" validate-on="dirty" required-message="'Obligatorio'">
-                        <option value="" ng-disabled="ctrl.BlokMedioInst">Definir en la instalación</option>
+                    <select name="SlcMedio" class="form-control input-sm" ng-model="ctrl.Medio" ng-options="M.Descripcion disable when M.Activo != true for M in ctrl.MedioList | orderBy:'IdMedio' track by M.IdMedio" ng-change="ctrl.GetAparatoList()" validate-on="dirty" required-message="'Obligatorio'" ng-disabled="ctrl.BlokMedioInst">
                     </select>
                 </div>
             </div>
         </div>
         <br>
-        <div class="row">
+        <div class="row" ng-if="ctrl.ViewAparatos">
             <div class="col-md-offset-1 col-md-10">
                 <div class="col-md-3">
                     <b>Aparato:</b>
@@ -58,28 +57,28 @@
                     </select>
                 </div>
                 <div class="col-md-3">
-                    <button type="button" class="btn btn-success btn-xs" ng-click="ctrl.AddAparatoRecon()" title="Agregar Articulo"><i class="fa fa-plus"></i> Agregar</button>
+                    <button type="button" class="btn btn-success btn-xs" ng-click="ctrl.AddAparatoRecon()" title="Agregar Aparato"><i class="fa fa-plus"></i> Agregar</button>
                 </div>
             </div>
         </div>
-        <br>
-        <div class="row">
+        <br ng-if="ctrl.ViewAparatos">
+        <div class="row" ng-if="ctrl.ViewAparatos">
             <div class="col-md-offset-1 col-md-10">
                 <div class="col-md-12">
                     <table class="table">
                         <thead>
                             <tr>
-                                <th><b><small>Aparato</small></b></th>
-                                <th><b><small></small></b></th>
+                                <th width="75%"><b><small>Aparato</small></b></th>
+                                <th width="25%"><b><small></small></b></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr ng-show="!ctrl.ViewList">
-                                <td class="text-center" colspan="2">SIN REGISTROS</td>
+                                <td class="text-center" colspan="2">SIN APARATOS</td>
                             </tr>
-                            <tr dir-paginate="X in ctrl.ClienteList|itemsPerPage:7" ng-show="ctrl.ViewList" style="font-size:10px;">
-                                <td><small>{{ X.ContratoCom }}</small></td>
-                                <td><button type="button" class="btn btn-warning btn-xs" title="Seleccionar Cliente" ng-click="ctrl.SetCliente(X.CONTRATO)"><i class="fa fa-check"></i></button></td>
+                            <tr ng-repeat="X in ctrl.AparatosRecon" ng-show="ctrl.ViewList">
+                                <td><small>{{ X.MacCableModem }}</small></td>
+                                <td><button type="button" class="btn btn-danger btn-xs" title="Eliminar Aparato" ng-click="ctrl.DeleteAparatoRecon(X.Clv_CableModem)"><i class="fa fa-trash"></i> Eliminar</button></td>
                             </tr>
                         </tbody>
                     </table>
