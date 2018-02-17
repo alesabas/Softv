@@ -118,18 +118,25 @@ angular
 
         function AddAparatoRecon(){
             if(vm.Aparato != undefined){
-                var AparatoReconTmp = {
-                    'Clv_CableModem': vm.Aparato.Clv_CableModem,
-                    'Clv_UnicaNet': vm.Aparato.Clv_UnicaNet,
-                    'ContratoNet': vm.Aparato.ContratoNet,
-                    'IdArticulo': vm.Aparato.IdArticulo,
-                    'IdMedio': vm.Aparato.IdMedio,
-                    'IdServicio': vm.Aparato.IdServicio,
-                    'MacCableModem': vm.Aparato.MacCableModem
-                };
-                if(ValidAparato(AparatoReconTmp.Clv_CableModem) == false){
-                    console.log(AparatoReconTmp);
+                if(ValidAparato(vm.Aparato.Clv_CableModem) == false){
+                    /*console.log(AparatoReconTmp);*/
+                    var AparatoReconListTmp = {
+                        'MacCableModem': vm.Aparato.MacCableModem,
+                        'IdArticulo': vm.Aparato.IdArticulo
+                    };
+                    var AparatoReconTmp = {
+                        'ClvSession': vm.ClvSession,
+                        'Clv_Cablemodem': vm.Aparato.Clv_CableModem,
+                        'ContratoNet': vm.Aparato.ContratoNet,
+                        'Clv_Unicanet': vm.Servicio.Clv_UnicaNet,
+                        'ClvTipoServ': vm.TipoServicio.Clv_TipSerPrincipal,
+                        'Clv_Servicio': vm.Servicio.Clv_Servicio,
+                        'ClvOrden': 0,
+                        'ClvDetalleOrd': 0
+                    };
+                    vm.AparatosReconList.push(AparatoReconListTmp);
                     vm.AparatosRecon.push(AparatoReconTmp);
+                    console.log(vm.AparatosReconList);
                     console.log(vm.AparatosRecon);
                     SetAparatoList();
                 }
@@ -170,7 +177,7 @@ angular
         }
 
         function SaveServicioRecontratacion(){
-            var ObjRecontracion = {
+            var ObjRecontratacion = {
                 'ClvSession': vm.ClvSession,
                 'IdContrato': vm.IdContrato,
                 'Clv_Unicanet': vm.Servicio.Clv_UnicaNet,
@@ -178,23 +185,37 @@ angular
                 'Clv_Servicio': vm.Servicio.Clv_Servicio,
                 'IdMedio': vm.Medio.IdMedio,
             };
-            console.log(ObjRecontracion);
-            RecontratacionFactory.GetAddServiciosEnBaja(ObjRecontracion).then(function(data){
+            console.log('Recon: ', ObjRecontratacion);
+            RecontratacionFactory.GetAddServiciosEnBaja(ObjRecontratacion).then(function(data){
                 console.log(data);
                 vm.IdRecon = data.GetAddServiciosEnBajaResult;
                 if(vm.IdRecon > 0){
-                    vm.ViewAparatos = true;
                     if(vm.AparatoList.length > 0){
-                        SaveRecontratacionAparato();
+                        SaveAparatoRecontratacion();
+                    }else{
+                        ngNotify.set('CORRECTO, se agregó el servicio.', 'success');
                     }
                 }else{
                     ngNotify.set('ERROR, al añadir un servicio.', 'warn');
                 }
             });
-    }
+        }
 
-        function SaveRecontratacionAparato(){
+        function SaveAparatoRecontratacion(){
             console.log('Save Aparatos');
+            vm.AparatosRecon.forEach(AddIdReconClvUnic);
+            /*var ObjAparatos = {
+                'IdRecon': vm.IdRecon,
+            'ObjRecontratacion': vm.AparatosRecon
+        }*/
+            console.log(vm.AparatosRecon);
+            RecontratacionFactory.GetAddApararoEnBaja(vm.AparatosRecon).then(function(data){
+                console.log(data);
+            });
+        }
+
+        function AddIdReconClvUnic(item, index){
+            vm.AparatosRecon[index].IdRecon = vm.IdRecon;
         }
 
         function Cancel() {
@@ -208,6 +229,7 @@ angular
             'Descripcion': 'Definir en la instalación',
             'Activo': true
         };
+        vm.AparatosReconList = [];
         vm.AparatosRecon = [];
         vm.ViewAparatos = false;
         console.log('2');
@@ -218,7 +240,7 @@ angular
         vm.GetAparatoList = GetAparatoList;
         vm.AddAparatoRecon = AddAparatoRecon;
         vm.DeleteAparatoRecon = DeleteAparatoRecon;
-        vm.SaveRecontratacionServicio = SaveRecontratacionServicio;
+        vm.SaveRecontratacion = SaveRecontratacion;
         vm.Cancel = Cancel;
         console.log('3');
         initData();
