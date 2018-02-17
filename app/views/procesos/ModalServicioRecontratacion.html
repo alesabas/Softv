@@ -1,4 +1,4 @@
-<form name="FormAddServicioCliente" angular-validator-submit="ctrl.SaveRecontratacionServicio()" novalidate angular-validator autocomplete="off">
+<form name="FormAddServicioCliente" angular-validator-submit="ctrl.SaveRecontratacion()" novalidate angular-validator autocomplete="off">
     <div class="modal-header">
         <button class="close" type="button" aria-label="close" ng-click="ctrl.Cancel()">x</button>
         <h4 class="modal-title"><i ng-class="ctrl.Icono"></i> Agregar Servicio</h4>
@@ -76,7 +76,7 @@
                             <tr ng-show="!ctrl.ViewList">
                                 <td class="text-center" colspan="2">SIN APARATOS</td>
                             </tr>
-                            <tr ng-repeat="X in ctrl.AparatosRecon" ng-show="ctrl.ViewList">
+                            <tr ng-repeat="X in ctrl.AparatosReconList" ng-show="ctrl.ViewList">
                                 <td><small>{{ X.MacCableModem }}</small></td>
                                 <td><button type="button" class="btn btn-danger btn-xs" title="Eliminar Aparato" ng-click="ctrl.DeleteAparatoRecon(X.Clv_CableModem)"><i class="fa fa-trash"></i> Eliminar</button></td>
                             </tr>
@@ -87,7 +87,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="submit" class="btn btn-primary btn-sm" title="Guardar Servico" ng-disabled="ctrl.DisableAdd"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
+        <button type="submit" class="btn btn-primary btn-sm" title="Guardar Servico"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
         <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.Cancel()" title="Salir"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
     </div>
 </form>

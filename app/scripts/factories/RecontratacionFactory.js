@@ -12,7 +12,8 @@ angular
             GetDameClv_Session: '/Recontratacion/GetDameClv_Session',
             GetServiciosEnBaja: '/Recontratacion/GetServiciosEnBaja',
             GetAddServiciosEnBaja: '/Recontratacion/GetAddServiciosEnBaja',
-            GetListaAparatosEnBaja: '/Recontratacion/GetListaAparatosEnBaja'
+            GetListaAparatosEnBaja: '/Recontratacion/GetListaAparatosEnBaja',
+            GetAddApararoEnBaja: '/Recontratacion/GetAddApararoEnBaja'
         };
 
         factory.Get_uspConsultaColoniasPorUsuario = function(){
@@ -78,6 +79,7 @@ angular
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'ObjRecontracion': ObjRecontracion};
+            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetAddServiciosEnBaja, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
@@ -92,6 +94,19 @@ angular
             var Parametros = ObjDet;
             console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetListaAparatosEnBaja, JSON.stringify(Parametros), config).then(function(response){
+                deferred.resolve(response.data);
+            }).catch(function(response){
+                deferred.reject(response);
+            });
+            return deferred.promise;
+        };
+
+        factory.GetAddApararoEnBaja = function(ObjRecontratacion){
+            var deferred = $q.defer();
+            var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+            var Parametros = {'ObjRecontratacion': ObjRecontratacion};
+            console.log(JSON.stringify(Parametros))
+            $http.post(globalService.getUrl() + paths.GetAddApararoEnBaja, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
                 deferred.reject(response);
