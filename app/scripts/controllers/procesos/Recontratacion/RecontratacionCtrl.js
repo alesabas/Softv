@@ -88,9 +88,20 @@ angular
                     }
                 }
             });
-            /*modalInstance.result.then(function (ContratoS) {
-                GetCliente(ContratoS);
-            });*/
+            modalInstance.result.then(function () {
+                GetServicioList();
+            });
+        }
+
+        function GetServicioList(){
+            RecontratacionFactory.GetArbolRecontratacion(vm.ClvSession).then(function(data){
+                console.log(data);
+                vm.ServicioList = data.GetArbolRecontratacionResult;
+                vm.expandedNodes=[];
+                angular.forEach(vm.ServicioList, function(value, key) {
+                    vm.expandedNodes.push(value);
+                });
+            });
         }
 
         function SetNombre(N, S, AP, AM){

@@ -122,6 +122,7 @@ angular
                     /*console.log(AparatoReconTmp);*/
                     var AparatoReconListTmp = {
                         'MacCableModem': vm.Aparato.MacCableModem,
+                        'Clv_Cablemodem': vm.Aparato.Clv_CableModem,
                         'IdArticulo': vm.Aparato.IdArticulo
                     };
                     var AparatoReconTmp = {
@@ -148,7 +149,7 @@ angular
             console.log(Clv_CableModem);
             if(vm.AparatosRecon.length > 0){
                 for(var i = 0; vm.AparatosRecon.length > i; i++){
-                    if(vm.AparatosRecon[i].Clv_CableModem == Clv_CableModem){
+                    if(vm.AparatosRecon[i].Clv_Cablemodem == Clv_CableModem){
                         Check = Check + 1;
                     }
                 }
@@ -158,8 +159,9 @@ angular
 
         function DeleteAparatoRecon(Clv_CableModem){
             for(var i = 0; vm.AparatosRecon.length > i; i++){
-                if(vm.AparatosRecon[i].Clv_CableModem == Clv_CableModem){
+                if(vm.AparatosRecon[i].Clv_Cablemodem == Clv_CableModem){
                     vm.AparatosRecon.splice(i, 1);
+                    vm.AparatosReconList.splice(i, 1)
                     SetAparatoList();
                     break;
                 }
@@ -211,11 +213,16 @@ angular
             console.log(vm.AparatosRecon);
             RecontratacionFactory.GetAddApararoEnBaja(vm.AparatosRecon).then(function(data){
                 console.log(data);
+                OK();
             });
         }
 
         function AddIdReconClvUnic(item, index){
             vm.AparatosRecon[index].IdRecon = vm.IdRecon;
+        }
+
+        function OK(){
+            $uibModalInstance.close();
         }
 
         function Cancel() {
