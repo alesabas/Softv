@@ -13,7 +13,8 @@ angular
             GetServiciosEnBaja: '/Recontratacion/GetServiciosEnBaja',
             GetAddServiciosEnBaja: '/Recontratacion/GetAddServiciosEnBaja',
             GetListaAparatosEnBaja: '/Recontratacion/GetListaAparatosEnBaja',
-            GetAddApararoEnBaja: '/Recontratacion/GetAddApararoEnBaja'
+            GetAddApararoEnBaja: '/Recontratacion/GetAddApararoEnBaja',
+            GetArbolRecontratacion: '/Recontratacion/GetArbolRecontratacion'
         };
 
         factory.Get_uspConsultaColoniasPorUsuario = function(){
@@ -107,6 +108,19 @@ angular
             var Parametros = {'ObjRecontratacion': ObjRecontratacion};
             console.log(JSON.stringify(Parametros))
             $http.post(globalService.getUrl() + paths.GetAddApararoEnBaja, JSON.stringify(Parametros), config).then(function(response){
+                deferred.resolve(response.data);
+            }).catch(function(response){
+                deferred.reject(response);
+            });
+            return deferred.promise;
+        };
+
+        factory.GetArbolRecontratacion = function(ClvSession){
+            var deferred = $q.defer();
+            var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+            var Parametros = {'ClvSession': ClvSession};
+            console.log(JSON.stringify(Parametros))
+            $http.post(globalService.getUrl() + paths.GetArbolRecontratacion, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
                 deferred.reject(response);
