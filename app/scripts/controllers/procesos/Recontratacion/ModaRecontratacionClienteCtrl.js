@@ -11,7 +11,6 @@ angular
 
         function GetColoniaList(){
             RecontratacionFactory.Get_uspConsultaColoniasPorUsuario().then(function(data){
-                console.log(data);
                 vm.ColoniaList = data.Get_uspConsultaColoniasPorUsuarioResult;
                 vm.Colonia = vm.ColoniaList[0];
             });
@@ -31,13 +30,9 @@ angular
                 'Cd_Mun': (vm.Ciudad != null && vm.Ciudad != undefined)? vm.Ciudad:'',
                 'Clv_Colonia': (vm.Colonia != null && vm.Colonia != undefined)? vm.Colonia.Clv_Colonia:0
             };
-            console.log(ObjCliente);
             RecontratacionFactory.Get_uspBusCliPorContratoSeparadoEnBaja(ObjCliente).then(function(data){
-                console.log(data);
                 vm.ClienteList = data.Get_uspBusCliPorContratoSeparadoEnBajaResult;
-                console.log(vm.ClienteList);
                 vm.ViewList = (vm.ClienteList.length > 0)? true:false;
-                console.log(vm.ViewList);
                 vm.Contrato = null;
                 vm.SetUpBox = null;
                 vm.Nombre = null;
@@ -54,8 +49,7 @@ angular
                 'Op': 0,
                 'IdContrato': IdContrato,
                 'ContratoCompuesto': ''
-            }
-            console.log(ObjCliente);
+            };
             $uibModalInstance.close(ObjCliente);
         }
 
