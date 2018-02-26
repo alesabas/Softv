@@ -18,15 +18,9 @@ angular
                 backdrop: 'static',
                 keyboard: false,
                 class: 'modal-backdrop fade',
-                size: 'lg'/*
-                resolve: {
-                    Clv_UnicaNet: function () {
-                        return Clv_UnicaNet;
-                    }
-                }*/
+                size: 'lg'
             });
             modalInstance.result.then(function (ObjCliente) {
-                console.log(ObjCliente);
                 GetCliente(ObjCliente.Op, ObjCliente.IdContrato, ObjCliente.ContratoCompuesto);
             });
         }
@@ -35,42 +29,39 @@ angular
             if (event.keyCode === 13) {
                 event.preventDefault();
                 GetCliente(1, 0, vm.Cliente.ContratoCom);
-                /*if (vm.clv_orden == 0) {
-                    detalleContrato();
-                } else {
-                    PreguntaAtencion(1);
-                }*/
             }
         }
 
         function GetCliente(Op, IdContrato, ContratoCompuesto){
-            console.log(Op, IdContrato, ContratoCompuesto);
+            ResetMod();
             var ObjCliente = {
                 'Op': Op,
                 'IdContrato': IdContrato,
                 'ContratoCompania': ContratoCompuesto
             }
             RecontratacionFactory.GetInfoContratoEnBaja(ObjCliente).then(function(data){
-                console.log(data);
-                vm.Cliente = data.GetInfoContratoEnBajaResult;
-                vm.IdContrato = vm.Cliente.CONTRATO;
-                vm.Nombre = SetNombre(vm.Cliente.Nombre, vm.Cliente.SegundoNombre, vm.Cliente.Apellido_Paterno, vm.Cliente.Apellido_Materno);
-                vm.ShowServicios = true;
-                RecontratacionFactory.GetDameClv_Session().then(function(data){
-                    console.log(data);
-                    vm.ClvSession = data.GetDameClv_SessionResult;
-                    console.log(vm.ClvSession);
-                });
+                var ClienteResult = data.GetInfoContratoEnBajaResult;
+                if(ClienteResult.CONTRATO != null){
+                    vm.Cliente = ClienteResult;
+                    vm.IdContrato = vm.Cliente.CONTRATO;
+                    vm.Nombre = SetNombre(vm.Cliente.Nombre, vm.Cliente.SegundoNombre, vm.Cliente.Apellido_Paterno, vm.Cliente.Apellido_Materno);
+                    vm.ShowServicios = true;
+                    RecontratacionFactory.GetDameClv_Session().then(function(data){
+                        vm.ClvSession = data.GetDameClv_SessionResult;
+                    });
+                }else{
+                    ngNotify.set('ERROR, no se encontró algún resultado con este contrato.', 'warn');
+                    ResetMod();
+                }
             });
         }
 
         function OpenAddServicioRecontratacion(){
-            console.log('1');
             var ObjCliente = {
                 'IdContrato': vm.IdContrato,
-                'ClvSession': vm.ClvSession
+                'ClvSession': vm.ClvSession,
+                'IdRecon': vm.IdRecon
             };
-            console.log(ObjCliente);
             var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
@@ -88,20 +79,36 @@ angular
                     }
                 }
             });
-            modalInstance.result.then(function () {
+            modalInstance.result.then(function (IdRecon) {
+                vm.IdRecon = IdRecon;
                 GetServicioList();
             });
         }
 
         function GetServicioList(){
             RecontratacionFactory.GetArbolRecontratacion(vm.ClvSession).then(function(data){
-                console.log(data);
                 vm.ServicioList = data.GetArbolRecontratacionResult;
-                vm.expandedNodes=[];
+                vm.expandedNodes = [];
                 angular.forEach(vm.ServicioList, function(value, key) {
                     vm.expandedNodes.push(value);
                 });
             });
+        }
+
+        function SaveRecontratacion(){
+            if(vm.IdContrato > 0 && vm.ClvSession > 0 && vm.ServicioList.length > 0){
+                var ObjRecontratacion = {
+                    'Contrato': vm.IdContrato,
+                    'Clv_Usuario': $localStorage.currentUser.usuario,
+                    'ClvSession': vm.ClvSession
+                };
+                RecontratacionFactory.GetGrabaReContratacion(ObjRecontratacion).then(function(data){
+                    ngNotify.set('CORRECTO, se guardó recontratación.', 'success');
+                    ResetMod();
+                });
+            }else{
+                ngNotify.set('ERROR, aun no se ha seleccionado el cliente y/o no se han agregado los servicios a recontratar.', 'warn');
+            }
         }
 
         function SetNombre(N, S, AP, AM){
@@ -116,11 +123,34 @@ angular
             }
         }
 
+        function ResetMod(){
+            vm.Cliente = null;
+            vm.IdContrato = 0;
+            vm.Nombre = '';
+            vm.ServicioList = [];
+            vm.ShowServicios = false;
+            if(vm.ClvSession > 0){
+                DeleteClvSession();
+            }
+        }
+
+        function DeleteClvSession(){
+            RecontratacionFactory.GetBorReconSession(vm.ClvSession).then(function(data){
+                vm.ClvSession = 0;
+            });
+        }
+
         var vm = this;
+        vm.IdContrato = 0;
+        vm.ClvSession = 0;
+        vm.ServicioList = [];
+        vm.IdRecon = 0;
         vm.ShowServicios = false;
         vm.OpenSearchCliente = OpenSearchCliente;
         vm.SetCliente = SetCliente;
         vm.OpenAddServicioRecontratacion = OpenAddServicioRecontratacion;
+        vm.SaveRecontratacion = SaveRecontratacion;
+        vm.ResetMod = ResetMod;
         initData();
-
+        
     });

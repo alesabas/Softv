@@ -13,9 +13,7 @@ angular
                 'IdContrato': ObjCliente.IdContrato,
                 'ContratoCompania': ''
             };
-            console.log(ObjCliente2);
             RecontratacionFactory.GetInfoContratoEnBaja(ObjCliente2).then(function(data){
-                console.log(data);
                 var Cliente = data.GetInfoContratoEnBajaResult;
                 vm.IdContrato = Cliente.CONTRATO;
                 vm.IdCompania = Cliente.IdCompania;
@@ -36,10 +34,10 @@ angular
                 vm.Medio = vm.MedioList[vm.MR];
                 var Obj = {
                     'IdContrato': vm.IdContrato,
-                    'Clv_TipSer': vm.TipoServicio.Clv_TipSerPrincipal
+                    'Clv_TipSer': vm.TipoServicio.Clv_TipSerPrincipal,
+                    'ClvSession': vm.ClvSession
                 };
                 RecontratacionFactory.GetServiciosEnBaja(Obj).then(function(data){
-                    console.log(data);
                     vm.ServicioList = data.GetServiciosEnBajaResult;
                 });
             }else{
@@ -64,9 +62,7 @@ angular
                 'Clv_Localidad': vm.Clv_Localidad,
                 'Clv_Colonia': vm.Clv_Colonia,
             };
-            console.log(ObjMedioList);
             CatalogosRedIPFactory.GetCatMedioByCiuLocCol(ObjMedioList).then(function(data){
-                console.log(data);
                 vm.MedioList = data.GetCatMedioByCiuLocColResult;
                 vm.MedioList.push(MedioList);
                 for(var i = 0; vm.MedioList.length > i; i ++){
@@ -101,11 +97,11 @@ angular
             var ObjDet = {
                 'ClvTipoServ': vm.TipoServicio.Clv_TipSerPrincipal,
                 'Clv_Unicanet': vm.Servicio.Clv_UnicaNet,
-                'IdMedio': (vm.Medio != undefined)? vm.Medio.IdMedio:0
+                'IdMedio': (vm.Medio != undefined)? vm.Medio.IdMedio:0,
+                'IdRecon': vm.IdRecon,
+                'ClvSession': vm.ClvSession
             };
-            console.log(ObjDet);
             RecontratacionFactory.GetListaAparatosEnBaja(ObjDet).then(function(data){
-                console.log(data);
                 vm.AparatoList = data.GetListaAparatosEnBajaResult;
                 vm.ViewAparatos = (vm.AparatoList.length > 0)? true:false;
             });
@@ -119,26 +115,20 @@ angular
         function AddAparatoRecon(){
             if(vm.Aparato != undefined){
                 if(ValidAparato(vm.Aparato.Clv_CableModem) == false){
-                    /*console.log(AparatoReconTmp);*/
                     var AparatoReconListTmp = {
                         'MacCableModem': vm.Aparato.MacCableModem,
                         'Clv_Cablemodem': vm.Aparato.Clv_CableModem,
                         'IdArticulo': vm.Aparato.IdArticulo
                     };
                     var AparatoReconTmp = {
+                        'IdContrato': vm.IdContrato,
                         'ClvSession': vm.ClvSession,
                         'Clv_Cablemodem': vm.Aparato.Clv_CableModem,
                         'ContratoNet': vm.Aparato.ContratoNet,
-                        'Clv_Unicanet': vm.Servicio.Clv_UnicaNet,
-                        'ClvTipoServ': vm.TipoServicio.Clv_TipSerPrincipal,
-                        'Clv_Servicio': vm.Servicio.Clv_Servicio,
-                        'ClvOrden': 0,
-                        'ClvDetalleOrd': 0
+                        'Clv_Unicanet': vm.Servicio.Clv_UnicaNet
                     };
                     vm.AparatosReconList.push(AparatoReconListTmp);
                     vm.AparatosRecon.push(AparatoReconTmp);
-                    console.log(vm.AparatosReconList);
-                    console.log(vm.AparatosRecon);
                     SetAparatoList();
                 }
             }
@@ -146,7 +136,6 @@ angular
 
         function ValidAparato(Clv_CableModem){
             var Check = 0;
-            console.log(Clv_CableModem);
             if(vm.AparatosRecon.length > 0){
                 for(var i = 0; vm.AparatosRecon.length > i; i++){
                     if(vm.AparatosRecon[i].Clv_Cablemodem == Clv_CableModem){
@@ -187,9 +176,7 @@ angular
                 'Clv_Servicio': vm.Servicio.Clv_Servicio,
                 'IdMedio': vm.Medio.IdMedio,
             };
-            console.log('Recon: ', ObjRecontratacion);
             RecontratacionFactory.GetAddServiciosEnBaja(ObjRecontratacion).then(function(data){
-                console.log(data);
                 vm.IdRecon = data.GetAddServiciosEnBajaResult;
                 if(vm.IdRecon > 0){
                     if(vm.AparatoList.length > 0){
@@ -204,15 +191,8 @@ angular
         }
 
         function SaveAparatoRecontratacion(){
-            console.log('Save Aparatos');
             vm.AparatosRecon.forEach(AddIdReconClvUnic);
-            /*var ObjAparatos = {
-                'IdRecon': vm.IdRecon,
-            'ObjRecontratacion': vm.AparatosRecon
-        }*/
-            console.log(vm.AparatosRecon);
             RecontratacionFactory.GetAddApararoEnBaja(vm.AparatosRecon).then(function(data){
-                console.log(data);
                 OK();
             });
         }
@@ -222,10 +202,10 @@ angular
         }
 
         function OK(){
-            $uibModalInstance.close();
+            $uibModalInstance.close(vm.IdRecon);
         }
 
-        function Cancel() {
+        function Cancel(){
             $uibModalInstance.dismiss('cancel');
         }
 
@@ -239,9 +219,8 @@ angular
         vm.AparatosReconList = [];
         vm.AparatosRecon = [];
         vm.ViewAparatos = false;
-        console.log('2');
-        console.log(ObjCliente);
         vm.ClvSession = ObjCliente.ClvSession;
+        vm.IdRecon = (ObjCliente.IdRecon != null)? ObjCliente.IdRecon:0;
         vm.SetServicio = SetServicio;
         vm.GetServiciosList = GetServiciosList;
         vm.GetAparatoList = GetAparatoList;
@@ -249,7 +228,6 @@ angular
         vm.DeleteAparatoRecon = DeleteAparatoRecon;
         vm.SaveRecontratacion = SaveRecontratacion;
         vm.Cancel = Cancel;
-        console.log('3');
         initData();
 
     });

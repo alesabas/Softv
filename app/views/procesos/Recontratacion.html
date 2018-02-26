@@ -17,8 +17,9 @@
         </header>
         <div class="tools">
 			<div class="btn-group">
-				<button type="button" class="btn btn-primary btn-sm" ng-click="$ctrl.OpenVendedorAdd();" title="Recontratar"><i class="glyphicon glyphicon-floppy-disk"></i> Recontratar</button>
-			</div>
+				<button type="button" class="btn btn-primary btn-sm" ng-click="$ctrl.SaveRecontratacion();" title="Recontratar"><i class="glyphicon glyphicon-floppy-disk"></i> Recontratar</button>
+                <button type="button" class="btn btn-default-bright btn-sm" ng-click="$ctrl.ResetMod();" title="Cancelar cambios"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
+            </div>
         </div>
     </div>
     <div class="card-body">
@@ -137,13 +138,17 @@
                 <div class="col-md-12">
                     <h4 class="text-primary">Servicios:</h4>
                 </div>
-                <div class="col-md-12">
-                    <div class="col-md-offset-4 col-md-2">
-                        <button type="button" class="btn btn-success btn-xs" ng-click="$ctrl.OpenAddServicioRecontratacion()" title="Agregar Servicio" ng-if="$ctrl.ShowServicios"><i class="fa fa-share"></i> AGREGAR</button>
+                <div class="col-md-12" ng-if="$ctrl.ShowServicios">
+                    <div class="col-md-4">
+                        <h5 class="text-primary">Asignados</h5>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="button" class="btn btn-success btn-xs" ng-click="$ctrl.OpenAddServicioRecontratacion()" title="Agregar Servicio" ng-if="$ctrl.ShowServicios"><i class="fa fa-plus"></i> AGREGAR</button>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="col-md-12">
+                        <br>
                         <treecontrol class="tree-light" tree-model="$ctrl.ServicioList" expanded-nodes="$ctrl.expandedNodes" on-selection="$ctrl.DetalleConcepto(node)"> 
                             <span ng-switch="" on="node.Type">
                                 <span style="color:#2196f3" ng-switch-when="folder" class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
