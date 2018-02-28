@@ -16,7 +16,8 @@ angular
             GetAddApararoEnBaja: '/Recontratacion/GetAddApararoEnBaja',
             GetArbolRecontratacion: '/Recontratacion/GetArbolRecontratacion',
             GetGrabaReContratacion: '/Recontratacion/GetGrabaReContratacion',
-            GetBorReconSession: '/Recontratacion/GetBorReconSession'
+            GetBorReconSession: '/Recontratacion/GetBorReconSession',
+            GetuspCobraAdeudo_CuandoRecontrata_Msj: '/Recontratacion/GetuspCobraAdeudo_CuandoRecontrata_Msj'
         };
 
         factory.Get_uspConsultaColoniasPorUsuario = function(){
@@ -143,6 +144,18 @@ angular
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'CLVSESSION': CLVSESSION};
             $http.post(globalService.getUrl() + paths.GetBorReconSession, JSON.stringify(Parametros), config).then(function(response){
+                deferred.resolve(response.data);
+            }).catch(function(response){
+                deferred.reject(response);
+            });
+            return deferred.promise;
+        };
+
+        factory.GetuspCobraAdeudo_CuandoRecontrata_Msj = function(IdContrato){
+            var deferred = $q.defer();
+            var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+            var Parametros = {'IdContrato': IdContrato};
+            $http.post(globalService.getUrl() + paths.GetuspCobraAdeudo_CuandoRecontrata_Msj, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
                 deferred.reject(response);

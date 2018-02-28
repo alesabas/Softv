@@ -48,6 +48,10 @@ angular
                     vm.ShowServicios = true;
                     RecontratacionFactory.GetDameClv_Session().then(function(data){
                         vm.ClvSession = data.GetDameClv_SessionResult;
+                        RecontratacionFactory.GetuspCobraAdeudo_CuandoRecontrata_Msj(vm.IdContrato).then(function(data){
+                            console.log(data);
+                            vm.CobroAdeudo = data.GetuspCobraAdeudo_CuandoRecontrata_MsjResult.MSJ;
+                        });
                     });
                 }else{
                     ngNotify.set('ERROR, no se encontró algún resultado con este contrato.', 'warn');
@@ -129,6 +133,7 @@ angular
             vm.Nombre = '';
             vm.ServicioList = [];
             vm.ShowServicios = false;
+            vm.CobroAdeudo = '';
             if(vm.ClvSession > 0){
                 DeleteClvSession();
             }
