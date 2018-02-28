@@ -203,29 +203,8 @@
 </script>
 <div class="card animated fadeIn" style="margin-top:20px;">
     <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
-        <header ng-if="$ctrl.NombreAdi != null && $ctrl.SegundoApe != null">
-            <strong style="font-weight:bold; border:none; margin-left:10px;">{{ $ctrl.Title }} {{ $ctrl.Nombre + ' ' + $ctrl.NombreAdi + ' ' + $ctrl.PrimerApe + ' ' + $ctrl.SegundoApe }} {{ $ctrl.IdCliente }}</strong>
-			<br>
-            <small class="text-muted" style="font-size:14px; margin-left:10px;">
-                <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">Catálogo Clientes</a>
-            </small>
-        </header>
-        <header ng-if="$ctrl.NombreAdi == null && $ctrl.SegundoApe != null">
-            <strong style="font-weight:bold; border:none; margin-left:10px;">{{ $ctrl.Title }} {{ $ctrl.Nombre + ' ' + $ctrl.PrimerApe + ' ' + $ctrl.SegundoApe }} {{ $ctrl.IdCliente }}</strong>
-			<br>
-            <small class="text-muted" style="font-size:14px; margin-left:10px;">
-                <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">Catálogo Clientes</a>
-            </small>
-        </header>
-        <header ng-if="$ctrl.NombreAdi != null && $ctrl.SegundoApe == null">
-            <strong style="font-weight:bold; border:none; margin-left:10px;">{{ $ctrl.Title }} {{ $ctrl.Nombre + ' ' + $ctrl.NombreAdi + ' ' + $ctrl.PrimerApe }} {{ $ctrl.IdCliente }}</strong>
-			<br>
-            <small class="text-muted" style="font-size:14px; margin-left:10px;">
-                <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">Catálogo Clientes</a>
-            </small>
-        </header>
-        <header ng-if="$ctrl.NombreAdi == null && $ctrl.SegundoApe == null">
-            <strong style="font-weight:bold; border:none; margin-left:10px;">{{ $ctrl.Title }} {{ $ctrl.Nombre + ' ' + $ctrl.PrimerApe }} {{ $ctrl.IdCliente }}</strong>
+        <header>
+            <strong style="font-weight:bold; border:none; margin-left:10px;">{{ $ctrl.Title }} {{ $ctrl.NombreCompleto }} {{ $ctrl.IdCliente }}</strong>
 			<br>
             <small class="text-muted" style="font-size:14px; margin-left:10px;">
                 <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">Catálogo Clientes</a>
@@ -239,11 +218,8 @@
         <div class="panel-group" id="accordion3" ng-show="$ctrl.ShowAccord">
 			<div class="card panel">
                 <div class="card-head card-head-xs collapsed" style="background-color:#66a3ef; color:#3a3a3a;" data-toggle="collapse" data-parent="#accordion3" data-target="#accordion3-1" aria-expanded="false">
-					<header ng-if="$ctrl.NombreAdi != null && $ctrl.SegundoApe != null"><i class="fa fa-user"></i> {{ $ctrl.Nombre + ' ' + $ctrl.NombreAdi + ' ' + $ctrl.PrimerApe + ' ' + $ctrl.SegundoApe + ', ' + 'Contrato: ' + $ctrl.IdCliente }}</header>
-                    <header ng-if="$ctrl.NombreAdi == null && $ctrl.SegundoApe != null"><i class="fa fa-user"></i> {{ $ctrl.Nombre + ' ' + $ctrl.PrimerApe + ' ' + $ctrl.SegundoApe + ', ' + 'Contrato: ' + $ctrl.IdCliente }}</header>
-                    <header ng-if="$ctrl.NombreAdi != null && $ctrl.SegundoApe == null"><i class="fa fa-user"></i> {{ $ctrl.Nombre + ' ' + $ctrl.NombreAdi + ' ' + $ctrl.PrimerApe + ', ' + 'Contrato: ' + $ctrl.IdCliente }}</header>
-                    <header ng-if="$ctrl.NombreAdi == null && $ctrl.SegundoApe == null"><i class="fa fa-user"></i> {{ $ctrl.Nombre + ' ' + $ctrl.PrimerApe + ', ' + 'Contrato: ' + $ctrl.IdCliente }}</header>
-					<div class="tools">
+					<header><i class="fa fa-user"></i> {{ $ctrl.NombreCompleto + ', ' + 'Contrato: ' + $ctrl.IdCliente }}</header>
+                    <div class="tools">
 						<a class="btn btn-icon-toggle"><i class="fa fa-angle-down"></i></a>
 					</div>
 				</div>

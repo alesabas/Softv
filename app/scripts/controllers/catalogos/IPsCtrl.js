@@ -5,15 +5,24 @@ angular
     .controller('IPsCtrl', function(CatalogosRedIPFactory, ngNotify, $uibModal, $state, $stateParams, $rootScope, $localStorage){
 
         function initData(){
-             GetList();
+            var ObjRedList = {
+                'IdRed': 0, 
+                'Op': 0
+            };
+            CatalogosRedIPFactory.GetListCatalogo_Ips(ObjRedList).then(function(data){
+                console.log(data);
+                vm.RedList = data.GetListCatalogo_IpsResult;
+            });
+            GetList();
         }
 
         function GetList(){
             var ObjIPList = {
-                'IdRed': 0, 
-                'Op': 0,
+                'IdRed': (vm.Red != null && vm.Red != undefined)? vm.Red.IdRed:0, 
+                'Op': (vm.Red != null && vm.Red != undefined)? 1:0,
                 'IdIP': 0
             };
+            console.log(ObjIPList);
             CatalogosRedIPFactory.GetcatalogoIps_dosList(ObjIPList).then(function(data){
                 vm.IPList = data.GetcatalogoIps_dosListResult;
                 vm.ViewList = (vm.IPList.length > 0)? true:false;
@@ -70,6 +79,7 @@ angular
         vm.blockE = true;
         vm.OpenUpdateIP = OpenUpdateIP;
         vm.OpenViewIP = OpenViewIP;
+        vm.GetList = GetList;
         initData();
 
     });
