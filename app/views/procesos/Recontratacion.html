@@ -44,7 +44,7 @@
         <div class="row">
             <div class="col-md-offset-2 col-md-8">
                 <div class="col-md-12">
-                    <h4 class="text-primary">Datos del Cliente:</h4>
+                    <h4 class="text-primary"><i class="fa fa-user"></i> Datos del Cliente:</h4>
                 </div>
             </div>
             <div class="col-md-offset-2 col-md-8">
@@ -94,14 +94,13 @@
             </div>
         </div>
         <br>
-        <!--
         <div class="row">
             <div class="col-md-offset-2 col-md-8">
-                <div class="col-md-3">
-                    <h4 class="text-primary">Adeudo a Pagar:</h4>
+                <div class="col-md-12">
+                    <h4 class="text-primary"><i class="fa fa-money"></i> Adeudo a Pagar:</h4>
                 </div>
-                <div class="col-md-9">
-                    <textarea name="TxaAdeudoPagar" rows="2" class="form-control input-sm" ng-model="AdeudoPagar"></textarea>
+                <div class="col-md-offset-2 col-md-10">
+                    <textarea name="TxaAdeudoPagar" rows="1" class="form-control input-sm" ng-model="$ctrl.CobroAdeudo" ng-disabled="true"></textarea>
                 </div>
             </div>
         </div>
@@ -109,37 +108,10 @@
         <div class="row">
             <div class="col-md-offset-2 col-md-8">
                 <div class="col-md-12">
-                    <uib-tabset active="active">
-                        <uib-tab index="0">
-                            <uib-tab-heading>
-                                Internet
-                            </uib-tab-heading>
-                            <br>
-                            <footer>
-                                <p class="text-right"></p>
-                            </footer>
-                        </uib-tab>
-                        <uib-tab index="1">
-                            <uib-tab-heading>
-                                Digital
-                            </uib-tab-heading>
-                            <br>
-                            <footer>
-                                <p class="text-right"></p>
-                            </footer>
-                        </uib-tab>
-                    </uib-tabset>
-                </div>
-            </div>
-        </div>
-        -->
-        <div class="row">
-            <div class="col-md-offset-2 col-md-8">
-                <div class="col-md-12">
-                    <h4 class="text-primary">Servicios:</h4>
+                    <h4 class="text-primary"><i class="fa fa-list-ol"></i> Servicios:</h4>
                 </div>
                 <div class="col-md-12" ng-if="$ctrl.ShowServicios">
-                    <div class="col-md-4">
+                    <div class="col-md-8">
                         <h5 class="text-primary">Asignados</h5>
                     </div>
                     <div class="col-md-2">
@@ -148,7 +120,6 @@
                 </div>
                 <div class="col-md-12">
                     <div class="col-md-12">
-                        <br>
                         <treecontrol class="tree-light" tree-model="$ctrl.ServicioList" expanded-nodes="$ctrl.expandedNodes" on-selection="$ctrl.DetalleConcepto(node)"> 
                             <span ng-switch="" on="node.Type">
                                 <span style="color:#2196f3" ng-switch-when="folder" class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
