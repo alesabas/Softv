@@ -73,6 +73,7 @@ angular
                 vm.NumExt = DatosCliente.NUMERO;
                 vm.NumInt = DatosCliente.NumInt;
                 vm.CodigoPos = DatosCliente.CP;
+                vm.NombreCompleto = GetNombre(DatosCliente);
                 for (var b = 0; b < vm.TipoCobroList.length; b++) {
                     if(vm.TipoCobroList[b].CLV_TIPOCLIENTE == vm.IdTipoCliente) {
                         vm.TipoCobro = vm.TipoCobroList[b];
@@ -975,6 +976,20 @@ angular
             DocVendedorClienteFactory.GetModificaRecibido(ObjRecibido).then(function(data){
                 GetDocumentosCliente();
             });
+        }
+
+        function GetNombre(Cli){
+            var NC = '';
+            if(Cli.SegundoNombre != null && Cli.Apellido_Materno != null){
+                NC = Cli.Nombre + ' ' + Cli.SegundoNombre + ' ' + Cli.Apellido_Paterno + ' ' + Cli.Apellido_Materno;
+            }else if(Cli.SegundoNombre == null && Cli.Apellido_Materno == null){
+                NC = Cli.Nombre + ' ' + Cli.Apellido_Paterno;
+            }else if(Cli.SegundoNombre != null && Cli.Apellido_Materno == null){
+                NC = Cli.Nombre + ' ' + Cli.SegundoNombre + ' ' + Cli.Apellido_Paterno;
+            }else if(Cli.SegundoNombre == null && Cli.Apellido_Materno != null){
+                NC = Cli.Nombre + ' ' + Cli.Apellido_Paterno + ' ' + Cli.Apellido_Materno;
+            }
+            return NC;
         }
 
         function GetNumber(num){
