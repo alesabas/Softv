@@ -89,8 +89,39 @@ angular
             });
         }
 
+        function OpenAddServicioAdicionalRecontratacion(IdRecon, Clv_UnicaNet){
+            var ObjCliente = {
+                'IdContrato': vm.IdContrato,
+                'ClvSession': vm.ClvSession,
+                'IdRecon': IdRecon,
+                'Clv_UnicaNet': Clv_UnicaNet
+            };
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body', 
+                templateUrl: 'views/procesos/ModalServicioAdicionalRecontratacion.html',
+                controller: 'ModalServicioAdicionalRecontratacionAddCtrl',
+                controllerAs: 'ctrl',
+                backdrop: 'static',
+                keyboard: false,
+                class: 'modal-backdrop fade',
+                size: 'sm',
+                resolve: {
+                    ObjCliente: function () {
+                        return ObjCliente;
+                    }
+                }
+            });
+            modalInstance.result.then(function (IdRecon) {
+                vm.IdRecon = IdRecon;
+                GetServicioList();
+            });
+        }
+
         function GetServicioList(){
             RecontratacionFactory.GetArbolRecontratacion(vm.ClvSession).then(function(data){
+                console.log(data);
                 vm.ServicioList = data.GetArbolRecontratacionResult;
                 vm.expandedNodes = [];
                 angular.forEach(vm.ServicioList, function(value, key) {
@@ -154,6 +185,7 @@ angular
         vm.OpenSearchCliente = OpenSearchCliente;
         vm.SetCliente = SetCliente;
         vm.OpenAddServicioRecontratacion = OpenAddServicioRecontratacion;
+        vm.OpenAddServicioAdicionalRecontratacion = OpenAddServicioAdicionalRecontratacion;
         vm.SaveRecontratacion = SaveRecontratacion;
         vm.ResetMod = ResetMod;
         initData();
