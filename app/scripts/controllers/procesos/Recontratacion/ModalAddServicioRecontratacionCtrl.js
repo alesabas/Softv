@@ -183,6 +183,7 @@ angular
                         SaveAparatoRecontratacion();
                     }else{
                         ngNotify.set('CORRECTO, se agregó el servicio.', 'success');
+                        OK();
                     }
                 }else{
                     ngNotify.set('ERROR, al añadir un servicio.', 'warn');
