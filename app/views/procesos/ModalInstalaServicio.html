@@ -5,7 +5,7 @@
   </div>
   <div class="modal-body">
       <div class="tools" align="right"> 
-        <button type="button" title="Eliminar orden de servicio" ng-disabled="ctrl.Detalle" class="btn btn-danger btn-sm" ng-click="ctrl.Eliminar();"><i class="fa fa-trash"></i> Eliminar</button>
+        <button type="button" title="Eliminar orden de servicio" ng-disabled="ctrl.Detalle" class="btn btn-danger btn-xs" ng-click="ctrl.Eliminar();"><i class="fa fa-trash"></i> Eliminar</button>
       </div>
 
 
@@ -45,7 +45,7 @@
 
                 &nbsp;
                 <div class="tools" align="right">
-                  <button  title="Guardar orden de servicio" class="btn btn-primary btn-sm" ng-click="ctrl.AgregaAparato()" ng-disabled="ctrl.Detalle"><i class="glyphicon glyphicon-plus" aria-hidden="true" ></i> Agregar</button>    
+                  <button  title="Guardar orden de servicio" class="btn btn-primary btn-xs" ng-click="ctrl.AgregaAparato()" ng-disabled="ctrl.Detalle"><i class="glyphicon glyphicon-plus" aria-hidden="true" ></i> Agregar</button>    
                 </div>
 
 
@@ -78,8 +78,8 @@
 
   </div>
   <div class="modal-footer">
-    <button class="btn btn-default btn-sm" type="button" ng-click="ctrl.cancel()">Cancelar</button>
-    <button class="btn btn-primary btn-sm" ng-disabled="ctrl.Detalle" type="submit" ng-click="ctrl.guardar()">Aceptar</button>
+    <button class="btn btn-default btn-sm" type="button" ng-click="ctrl.cancel()"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
+    <button class="btn btn-primary btn-sm" ng-disabled="ctrl.Detalle" type="submit" ng-click="ctrl.guardar()"><i class="glyphicon glyphicon-floppy-disk"></i> Aceptar</button>
   </div>
 </form>
 

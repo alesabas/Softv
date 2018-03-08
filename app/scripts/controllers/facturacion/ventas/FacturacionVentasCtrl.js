@@ -44,30 +44,28 @@ angular
     });
 
     function getVendedores() {
-      vm.selectedVendedor = '';
-      vm.selectedSerie = '';
-      vm.selectedFolio = '';
+      vm.series = null;
+      vm.folios = null;
       cajasFactory.getVendedoresByUser(vm.Cliente.Contrato).then(function (data) {
         vm.vendedores = data.GetMuestraVendedores2ListResult;
       });
     }
 
     function changeVendedor() {
-      vm.folios = '';
-      if (vm.selectedVendedor != undefined) {
+      vm.series = null;
+      vm.folios = null;
+      if(vm.selectedVendedor != undefined){
         cajasFactory.getSerieByUser(vm.selectedVendedor.Clv_Vendedor, vm.Cliente.Contrato).then(function (data) {
           vm.series = data.GetUltimoSerieYFolioListResult;
-          vm.folios = '';
         });
       }
     }
 
     function changeSerie() {
+      vm.folios = null;
       if (vm.selectedSerie != undefined) {
         cajasFactory.folioDisponible(vm.selectedVendedor.Clv_Vendedor, vm.selectedSerie.SERIE, vm.Cliente.Contrato).then(function (data) {
-          if (data.GetFolioDisponibleListResult.length > 0) {
-            vm.folios = data.GetFolioDisponibleListResult;
-          }
+          vm.folios = data.GetFolioDisponibleListResult;
         });
       }
     }

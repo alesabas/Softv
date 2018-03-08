@@ -6,7 +6,6 @@ angular
         
         function initData(){
            ClienteServicioFactory.GetListServicioAdicTvDig().then(function(data){
-                console.log(data);
                 vm.ServicioList = data.GetListServicioAdicTvDigResult;
             }); 
         }
@@ -42,7 +41,6 @@ angular
         var vm = this;
         vm.Cancel = Cancel;
         vm.SavePaqueteAdic = SavePaqueteAdic;
-        console.log(ObjCliente);
         initData();
 
     });

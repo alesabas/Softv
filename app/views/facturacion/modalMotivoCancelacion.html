@@ -1,15 +1,18 @@
 <div class="modal-header">
     <button class="close" aria-label="Close" type="button" ng-click="ctrl.cancel()">×</button>
+	<h5 class="modal-title">Selecciona Motivo de Cancelación</h5>
 </div>
 <div class="modal-body" style="padding-top:20px;">
 	<div class="row">
 		<div class="col-md-12">
-			<label class="form-control" style="font-size: 14px;">Motivo de Cancelación</label>
-			<select class="form-control" ng-model="ctrl.selectedMotivo" ng-options="v.MOTCAN for v in ctrl.motivos track by v.Clv_MOTCAN"></select>
+			<p>Motivo de Cancelación:</p>
+		</div>
+		<div class="col-md-12">
+			<select class="form-control input-sm" ng-model="ctrl.selectedMotivo" ng-options="v.MOTCAN for v in ctrl.motivos track by v.Clv_MOTCAN"></select>
 		</div>
 	</div>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-default btn-sm" type="button" ng-click="ctrl.cancel()">Cancelar</button>
-    <button class="btn btn-primary btn-sm" type="button" ng-click="ctrl.ok()">Aceptar</button>
+    <button class="btn btn-default btn-sm" type="button" ng-click="ctrl.cancel()"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
+    <button class="btn btn-primary btn-sm" type="button" ng-click="ctrl.ok()"><i class="glyphicon glyphicon-floppy-disk"></i> Aceptar</button>
 </div>
