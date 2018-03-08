@@ -116,6 +116,9 @@
 
     function SeleccionaTipoAparato(){
       //llena servicios posibles
+      vm.ServiciosPosibles = {};
+      vm.AparatosDisponibles = {};
+      vm.selectedListServicios = [];
       var Parametros= vm.Servicios;
       Parametros.obj.Id=vm.TipoAparato.IdArticulo;
       console.log('Parametros');

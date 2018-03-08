@@ -49,12 +49,11 @@ angular
                     RecontratacionFactory.GetDameClv_Session().then(function(data){
                         vm.ClvSession = data.GetDameClv_SessionResult;
                         RecontratacionFactory.GetuspCobraAdeudo_CuandoRecontrata_Msj(vm.IdContrato).then(function(data){
-                            console.log(data);
                             vm.CobroAdeudo = data.GetuspCobraAdeudo_CuandoRecontrata_MsjResult.MSJ;
                         });
                     });
                 }else{
-                    ngNotify.set('ERROR, no se encontró algún resultado con este contrato.', 'warn');
+                    ngNotify.set('ERROR, no se encontró algún resultado con este contrato o aun no le han instalado servicios.', 'warn');
                     ResetMod();
                 }
             });
@@ -76,7 +75,7 @@ angular
                 backdrop: 'static',
                 keyboard: false,
                 class: 'modal-backdrop fade',
-                size: 'md',
+                size: 'sm',
                 resolve: {
                     ObjCliente: function () {
                         return ObjCliente;
@@ -121,7 +120,6 @@ angular
 
         function GetServicioList(){
             RecontratacionFactory.GetArbolRecontratacion(vm.ClvSession).then(function(data){
-                console.log(data);
                 vm.ServicioList = data.GetArbolRecontratacionResult;
                 vm.expandedNodes = [];
                 angular.forEach(vm.ServicioList, function(value, key) {

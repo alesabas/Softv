@@ -190,16 +190,21 @@
                       <h5 style="font-size: 12px;" class="text-center"><strong>Ventas</strong></h5>
                       <div class="col-md-12">
                         <samll style="font-size: 11px;">Vendedor:</samll>
-                        <select class="form-control input-sm" ng-model="ctrl.selectedVendedor" ng-change="ctrl.changeVendedor()" ng-options="v.Nombre for v in ctrl.vendedores track by v.Clv_Vendedor" name="ventas" validate-on="dirty" required="" required-message="'Este campo es obligatorio.'"></select>
+                        <select class="form-control input-sm" ng-model="ctrl.selectedVendedor" ng-change="ctrl.changeVendedor()" ng-options="v.Nombre for v in ctrl.vendedores track by v.Clv_Vendedor" name="ventas" validate-on="dirty" required="" required-message="'Obligatorio.'">
+                          <option value="">selecciona</option>
+                        </select>
                       </div>
                       <div class="col-md-12">
                         <samll style="font-size: 11px;">Serie:</samll>
-                        <select class="form-control input-sm" ng-model="ctrl.selectedSerie" ng-change="ctrl.changeSerie()" ng-options="v.SERIE for v in ctrl.series track by v.ULTIMOFOLIO_USADO" name="serie" validate-on="dirty" required="" required-message="'Este campo es obligatorio.'">
-                                </select>
+                        <select class="form-control input-sm" ng-model="ctrl.selectedSerie" ng-change="ctrl.changeSerie()" ng-options="v.SERIE for v in ctrl.series track by v.ULTIMOFOLIO_USADO" name="serie" validate-on="dirty" required="" required-message="'Obligatorio.'">
+                          <option value="">selecciona</option>
+                        </select>
                       </div>
                       <div class="col-md-12">
                         <samll style="font-size: 11px;">Folio:</samll>
-                        <select class="form-control input-sm" ng-model="ctrl.selectedFolio" ng-options="v.Folio for v in ctrl.folios track by v.Folio" name="folio" validate-on="dirty" required="" required-message="'Este campo es obligatorio.'"></select>
+                        <select class="form-control input-sm" ng-model="ctrl.selectedFolio" ng-options="v.Folio for v in ctrl.folios track by v.Folio" name="folio" validate-on="dirty" required="" required-message="'Obligatorio.'">
+                          <option value="">selecciona</option>
+                        </select>
                       </div>
                     </div>
                     <div class="col-md-4">
