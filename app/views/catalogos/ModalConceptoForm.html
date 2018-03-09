@@ -104,26 +104,26 @@
                     <b>Inicio:</b>
                 </div>
                 <div class="col-md-4">
-                    <input type="date" name="InpFechaInicio" class="form-control input-sm" ng-model="ctrl.FechaInicio" validate-on="dirty" required required-message="'Obligatorio'">
+                    <input type="date" name="InpFechaInicio" class="form-control input-sm" ng-model="ctrl.FechaInicio" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Invalido'">
                 </div>
                 <div class="col-md-2">
                     <b>Final:</b>
                 </div>
                 <div class="col-md-4">
-                    <input type="date" name="InpFechaFinal" class="form-control input-sm" ng-model="ctrl.FechaFinal" validate-on="dirty" required required-message="'Obligatorio'">
+                    <input type="date" name="InpFechaFinal" class="form-control input-sm" ng-model="ctrl.FechaFinal" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Invalido'">
                 </div>
             </div>
             <div class="col-md-12">
-                <div class="col-md-offset-1 col-md-2">
+                <div class="col-md-2">
                     <b>Día Inicial:</b>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <input type="number" name="DiaInicial" class="form-control input-sm" ng-model="ctrl.DiaInicial" validate-on="dirty" min="0" max="31" validator="ctrl.DiaInicial < ctrl.DiaFinal" required required-message="'Obligatorio'" invalid-message="'Inválido, debe ser menor al día final.'">
                 </div>
-                <div class="col-md-offset-1 col-md-2">
+                <div class="col-md-2">
                     <b>Día Final:</b>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <input type="number" name="DiaFinal" class="form-control input-sm" ng-model="ctrl.DiaFinal" validate-on="dirty" min="1" max="32" validator="ctrl.DiaFinal > ctrl.DiaInicial" required required-message="'Obligatorio'" invalid-message="'Inválido, debe ser mayor al día inicial.'">
                 </div>
             </div>
