@@ -349,21 +349,22 @@ angular
         function GetNotas(IdContrato){
             CatalogosFactory.GetDeepRELCLIENTEOBS(IdContrato).then(function(data){
                 var DataObser = data.GetDeepRELCLIENTEOBSResult;
-                vm.Observaciones = DataObser.Obs;
                 if(DataObser.Obs != null){
                     vm.UpdateObs = true;
+                    vm.Observaciones = DataObser.Obs;
                 }else{
                     vm.UpdateObs = false;
+                    vm.Observaciones = null;
                 }
             });
-
             CatalogosFactory.GetDeepRoboDeSeñal_New(IdContrato).then(function(data){
                 var DataNota = data.GetDeepRoboDeSeñal_NewResult;
                 if(DataNota != null){
                     vm.Notas = DataNota.Descripcion;
-                    vm.UpdateNot = true;
+                    vm.UpdateNota = true;
                 }else{
-                    vm.UpdateNot = false;
+                    vm.Notas = null;
+                    vm.UpdateNota = false;
                 }
             });
         }
@@ -512,24 +513,48 @@ angular
             });
         }
 
-        function AddNotas(){
-            var objRELCLIENTEOBS = {
-                'Contrato': vm.IdContrato,
-                'Obs': vm.Observaciones
-            };
-            var objRoboDeSeñal_New = {
-                'Contrato': vm.IdContrato,
-                'Descripcion': vm.Notas
-            };
-            var ObjNotas = {
-
-            }
-            CatalogosFactory.UpdateRELCLIENTEOBS(objRELCLIENTEOBS).then(function(data){
-                CatalogosFactory.UpdateRoboDeSeñal_New(objRoboDeSeñal_New).then(function(data){
-                    ngNotify.set('CORRECTO, se guardó observaciones y notas.', 'success');
+        function AddObservaciones(){
+            if(vm.UpdateObs == false){
+                var objRELCLIENTEOBS = {
+                    'Contrato': vm.IdContrato,
+                    'Obs': vm.Observaciones
+                };
+                CatalogosFactory.AddRELCLIENTEOBS(objRELCLIENTEOBS).then(function(data){
+                    ngNotify.set('CORRECTO, se guardó las observaciones.', 'success');
                     GetNotas(vm.IdContrato);
                 });
-            });
+            }else{
+                var objRELCLIENTEOBS = {
+                    'Contrato': vm.IdContrato,
+                    'Obs': vm.Observaciones
+                };
+                CatalogosFactory.UpdateRELCLIENTEOBS(objRELCLIENTEOBS).then(function(data){
+                    ngNotify.set('CORRECTO, se guardó las observaciones.', 'success');
+                    GetNotas(vm.IdContrato);
+                });
+            }
+        }
+
+        function AddNotas(){
+            if(vm.UpdateNota == false){
+                var objRoboDeSeñal_New = {
+                    'Contrato': vm.IdContrato,
+                    'Descripcion': vm.Notas
+                };
+                CatalogosFactory.AddRoboDeSeñal_New(objRoboDeSeñal_New).then(function(data){
+                    ngNotify.set('CORRECTO, se guardó las notas.', 'success');
+                    GetNotas(vm.IdContrato);
+                });
+            }else{
+                var objRoboDeSeñal_New = {
+                    'Contrato': vm.IdContrato,
+                    'Descripcion': vm.Notas
+                };
+                CatalogosFactory.UpdateRoboDeSeñal_New(objRoboDeSeñal_New).then(function(data){
+                    ngNotify.set('CORRECTO, se guardó las notas.', 'success');
+                    GetNotas(vm.IdContrato);
+                });
+            }
         }
 
         function GetServicios(IdContrato){
@@ -663,9 +688,7 @@ angular
                         vm.ModeloAparato = data.GetModeloAparatoResult.Nombre;
                     });
                 });
-            }/*else if(ObjConcepto.Tipo == 'P'){
-
-            }*/
+            }
         }
 
         function UpdateServicioCliente(){
@@ -1081,7 +1104,11 @@ angular
         vm.maskOptions = {
             maskDefinitions:{'A': /[a-zA-Z]/, '9': /[0-9]/, '*': /[a-zA-Z0-9]/},
             clearOnBlur: false,
-            eventsToHandle:['input', 'keyup', 'click']
+            clearOnBlurPlaceholder: true,
+            eventsToHandle:['input', 'keyup', 'click'],
+            addDefaultPlaceholder: true,
+            escChar: '\\',
+            allowInvalidValue: false
         };
         vm.AddDatosPersonales = AddDatosPersonales;
         vm.GetCiudadMunicipio = GetCiudadMunicipio;
@@ -1094,6 +1121,7 @@ angular
         vm.OpenAddRefPersonal = OpenAddRefPersonal;
         vm.OpenEditRefPersonal = OpenEditRefPersonal;
         vm.OpenDeleteRefPersonal = OpenDeleteRefPersonal;
+        vm.AddObservaciones = AddObservaciones;
         vm.AddNotas = AddNotas;
         vm.DetalleConcepto = DetalleConcepto;
         vm.OpenAddServicioCliente = OpenAddServicioCliente;

@@ -91,10 +91,6 @@
         text-indent: 20px;
         line-height: 40px;
     }
-    /*.sidebar-nav li:hover {
-        background-color: black;
-        border-radius: 0px 10px 10px 0px;
-    }*/
     .sidebar-nav li a {
         display: block;
         text-decoration: none;
@@ -103,7 +99,6 @@
     .sidebar-nav li a:hover {
         text-decoration: none;
         color: #9a9a9a;
-        /*background: #312A25;*/
     }
     .sidebar-nav li a:active,
     .sidebar-nav li a:focus {
@@ -391,7 +386,7 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="col-md-3">
-                                    <input type="text" name="InpClaveElector" class="form-control input-sm" ng-model="$ctrl.ClaveElector" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" ui-options="$ctrl.maskOptions" ui-mask="AAAAAA99999999A999" validate-on="dirty" required required-message="'Obligatorio, ej. AAAAAA11111111A111A'" invalid-message="'Inválido, ej. AAAAAA11111111A111.'">
+                                    <input type="text" name="InpClaveElector" class="form-control input-sm" ng-model="$ctrl.ClaveElector" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" ui-options="$ctrl.maskOptions" ui-mask="AAAAAA99999999A999" placeholder="@@@@@@########@###" validate-on="dirty" required required-message="'Obligatorio, ej. AAAAAA11111111A111A'" invalid-message="'Inválido, ej. AAAAAA11111111A111.'">
                                     <!--
                                     <input type="text" name="InpClaveElector" class="form-control input-sm" ng-model="$ctrl.ClaveElector" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" maxlength="18" ng-pattern="/^[A-Z]{6}\d{8}[A-Z]{1}\d{3}$/" placeholder="AAAAAA11111111A111" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, ej. AAAAAA11111111A111.'">
                                     -->
@@ -542,10 +537,10 @@
                                     <input type="text" name="InpRazonSoc" class="form-control input-sm" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" ng-model="$ctrl.RazonSoc" validate-on="dirty" required required-message="'Obligatorio'">
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="text" name="InpRFC" class="form-control input-sm" ng-model="$ctrl.RFC" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" ui-options="$ctrl.maskOptions" ui-mask="AAAA999999***" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, Ej. AAAA111111AAA.'">
+                                    <input type="text" name="InpRFC" class="form-control input-sm" ng-model="$ctrl.RFC" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" ui-options="$ctrl.maskOptions" ui-mask="AAAA999999***" placeholder="@@@@######@@@" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, Ej. AAAA111111AAA.'">
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="text" name="InpCURP" class="form-control input-sm" ng-model="$ctrl.CURP" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" ui-options="$ctrl.maskOptions" ui-mask="AAAA999999AAAAAA99" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, Ej. AAAA111111AAAAAA11.'">
+                                    <input type="text" name="InpCURP" class="form-control input-sm" ng-model="$ctrl.CURP" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" ui-options="$ctrl.maskOptions" ui-mask="AAAA999999AAAAAA99" placeholder="@@@@######@@@@@@##" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, Ej. AAAA111111AAAAAA11.'">
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -821,58 +816,61 @@
                 </form>
             </div>
             <div class="col-md-12" ng-show="$ctrl.SetForm == 5">
-                <form name="FormNotas" angular-validator-submit="$ctrl.AddNotas()" novalidate angular-validator autocomplete="off">
-                    <fieldset ng-disabled="$ctrl.View">
+                <div class="col-md-12">
                     <div class="col-md-12">
                         <div class="col-md-12">
                             <div class="col-md-12">
-                                <div class="col-md-12">
-                                    <b class="text-primary" style="font-size:18px;"><i class="fa fa-comment"></i> Notas</b>
-                                </div>
+                                <b class="text-primary" style="font-size:18px;"><i class="fa fa-comment"></i> Notas</b>
                             </div>
+                        </div>
+                        <div class="col-md-12">
                             <div class="col-md-12">
-                                <div class="col-md-12">
-                                    <br>
-                                </div>
+                                <br>
                             </div>
-                            <div class="col-md-12">
-                                <div class="col-md-6">
-                                    <small><b>Observaciones generales:</b></small>
-                                </div>
-                                <div class="col-md-6">
-                                    <small><b>Notas por robo de señal:</b></small>
-                                </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-5">
+                                <form name="FormObservaciones" angular-validator-submit="$ctrl.AddObservaciones()" novalidate angular-validator autocomplete="off">
+                                    <fieldset ng-disabled="$ctrl.View">
+                                    <div class="col-md-9">
+                                        <small><b>Observaciones generales:</b></small>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="submit" class="btn btn-success btn-xs" ng-disabled="$ctrl.DisableInput" ng-show="!$ctrl.View"><i class="fa fa-check"></i> Guardar</button>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <textarea name="TxaObservaciones" class="form-control input-sm" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" rows="6" ng-model="$ctrl.Observaciones" validate-on="dirty" required required-message="'Obligatorio'"></textarea>
+                                    </div>
+                                    </fieldset>
+                                </form>
                             </div>
-                            <div class="col-md-12">
-                                <div class="col-md-6">
-                                    <textarea name="TxaObservaciones" class="form-control input-sm" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" rows="5" ng-model="$ctrl.Observaciones" validate-on="dirty"></textarea>
-                                </div>
-                                <div class="col-md-6">
-                                    <textarea name="TxaDireccionRef" class="form-control input-sm" rows="5" ng-model="$ctrl.Notas" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" validate-on="dirty"></textarea>
-                                </div>
+                            <div class="col-md-offset-2 col-md-5">
+                                <form name="FormNotas" angular-validator-submit="$ctrl.AddNotas()" novalidate angular-validator autocomplete="off">
+                                    <fieldset ng-disabled="$ctrl.View">
+                                    <div class="col-md-9">
+                                        <small><b>Notas por robo de señal:</b></small>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="submit" class="btn btn-success btn-xs" ng-disabled="$ctrl.DisableInput" ng-show="!$ctrl.View"><i class="fa fa-check"></i> Guardar</button>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <textarea name="TxaNotas" class="form-control input-sm" rows="6" ng-model="$ctrl.Notas" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" validate-on="dirty" required required-message="'Obligatorio'"></textarea>
+                                    </div>
+                                    </fieldset>
+                                </form>
                             </div>
+                        </div>
+                        <div class="col-md-12">
                             <div class="col-md-12">
-                                <div class="col-md-12">
-                                    <br>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="col-md-12" style="text-align:right">
-                                    <br ng-show="$ctrl.View">
-                                    <button type="submit" class="btn btn-success btn-sm" ng-disabled="$ctrl.DisableInput" ng-show="!$ctrl.View"><i class="fa fa-check"></i> Guardar</button>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="col-md-12">
-                                    <br>
-                                    <br>
-                                    <br>
-                                </div>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
                             </div>
                         </div>
                     </div>
-                    </fieldset>
-                </form>
+                </div>
             </div>
             <div class="col-md-12" ng-show="$ctrl.SetForm == 6">
                 <div class="col-md-12">
@@ -896,23 +894,23 @@
                                             <span style="color:#2196f3" ng-switch-when="folder" class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
                                             <span style="color:#2196f3" ng-switch-when="pic" class="glyphicon glyphicon-picture" aria-hidden="true"></span>
                                             <span style="color:#2196f3" ng-switch-when="doc" class="glyphicon glyphicon-file" aria-hidden="true"></span>
-                                            <span ng-class="(node.status != 'B')?'span-info':'span-danger'" ng-switch-when="file" class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+                                            <span ng-class="(node.status != 'B' && node.status != 'F')?'span-info':'span-danger'" ng-switch-when="file" class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
                                             <span style="color:#2196f3" ng-switch-when="movie" class="glyphicon glyphicon-film" aria-hidden="true"></span>
                                             <span style="color:#2196f3" ng-switch-when="email" class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
-                                            <span ng-class="(node.status != 'B')?'span-info':'span-danger'" ng-switch-when="home" class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                                            <span ng-class="(node.status != 'B' && node.status != 'F')?'span-info':'span-danger'" ng-switch-when="home" class="glyphicon glyphicon-home" aria-hidden="true"></span>
                                             <span style="color:#2196f3" ng-switch-when="trash" class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                            <span ng-class="(node.status != 'B')?'span-info':'span-danger'" ng-switch-when="Paquete" class="fa fa-desktop" aria-hidden="true"></span>
+                                            <span ng-class="(node.status != 'B' && node.status != 'F')?'span-info':'span-danger'" ng-switch-when="Paquete" class="fa fa-desktop" aria-hidden="true"></span>
                                         </span>
-                                        <a ng-class="(node.status != 'B')?'text-info':'text-danger'" style="font-size:12px" ng-if="node.Tipo == 'A'">{{node.Nombre}} ({{node.Detalle}})</a>
-                                        <a ng-class="(node.status != 'B')?'text-info':'text-danger'" style="font-size:12px" ng-if="node.Tipo == 'P'">{{node.Nombre}}</a>
+                                        <a ng-class="(node.status != 'B' && node.status != 'F')?'text-info':'text-danger'" style="font-size:12px" ng-if="node.Tipo == 'A'">{{node.Nombre}} ({{node.Detalle}})</a>
+                                        <a ng-class="(node.status != 'B' && node.status != 'F')?'text-info':'text-danger'" style="font-size:12px" ng-if="node.Tipo == 'P'">{{node.Nombre}}</a>
                                         <a class="text-info" style="font-size:12px" ng-if="node.status == 'C' && node.Tipo == 'S'">{{node.Nombre}} (Contratado)</a>
                                         <a class="text-info" style="font-size:12px" ng-if="node.status == 'I' && node.Tipo == 'S'">{{node.Nombre}} (Instalado)</a>
                                         <a class="text-info" style="font-size:12px" ng-if="node.status == 'D' && node.Tipo == 'S'">{{node.Nombre}} (Desconectado)</a>
                                         <a class="text-info" style="font-size:12px" ng-if="node.status == 'S' && node.Tipo == 'S'">{{node.Nombre}} (Suspendido)</a>
                                         <a class="text-info" style="font-size:12px" ng-if="node.status == 'T' && node.Tipo == 'S'">{{node.Nombre}} (Suspención Temporal)</a>
-                                        <a class="text-info" style="font-size:12px" ng-if="node.status == 'F' && node.Tipo == 'S'">{{node.Nombre}} (Fuera de Area)</a>
+                                        <a class="text-danger" style="font-size:12px" ng-if="node.status == 'F' && node.Tipo == 'S'">{{node.Nombre}} (Fuera de Area)</a>
                                         <a class="text-danger" style="font-size:12px" ng-if="node.status == 'B' && node.Tipo == 'S'">{{node.Nombre}} (Baja)</a>
-                                        <button type="button" class="btn btn-primary btn-xs" title="Agregar Paquete Adicional" ng-click="$ctrl.OpenAddPaqueteAdic(node.Clv_UnicaNet)" ng-if="node.Clv_TipSer == 3 && node.Tipo == 'S'"><i class="fa fa-plus"></i></button>
+                                        <button type="button" class="btn btn-primary btn-xs" title="Agregar Paquete Adicional" ng-click="$ctrl.OpenAddPaqueteAdic(node.Clv_UnicaNet)" ng-if="node.Clv_TipSer == 3 && node.Tipo == 'S' && (node.status != 'B' && node.status != 'F')"><i class="fa fa-plus"></i></button>
                                         <button type="button" class="btn btn-danger btn-xs" title="Eliminar Paquete Adicional" ng-click="$ctrl.DeleteServicioCliente(node.Clv_UnicaNet, node.Tipo)" ng-if="node.Clv_TipSer == 3 && node.Tipo == 'P'"><i class="fa fa-minus"></i></button>
                                     </treecontrol>
                                 </div>
@@ -922,7 +920,7 @@
                                 <fieldset ng-disabled="$ctrl.View">
                                 <div class="col-md-12">
                                     <div class="col-md-offset-6 col-md-2">
-                                        <button type="button" class="btn btn-primary btn-xs" title="Agregar Paquete Adicional" ng-click="$ctrl.OpenAddPaqueteAdic()" ng-show="$ctrl.ShowBtnAddPaq && $ctrl.ConceptoTipo == 'S'"><i class="fa fa-plus"></i> Paquete</button>
+                                        <button type="button" class="btn btn-primary btn-xs" title="Agregar Paquete Adicional" ng-click="$ctrl.OpenAddPaqueteAdic()" ng-show="$ctrl.ShowBtnAddPaq && $ctrl.ConceptoTipo == 'S' && ($ctrl.ClvStatus != 'B' && $ctrl.ClvStatus != 'F')"><i class="fa fa-plus"></i> Paquete</button>
                                     </div>
                                     <div class="col-md-2">
                                         <button type="submit" class="btn btn-success btn-xs" title="{{ $ctrl.TBtnSaveSP }}" ng-disabled="FormDetallServicio.InpUltimoMesServicio.$invalid || FormDetallServicio.InpUltimoAnioServicio.$invalid" ng-show="!$ctrl.View"><i class="glyphicon glyphicon-floppy-disk"></i> GUARDAR</button>
