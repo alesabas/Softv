@@ -86,8 +86,8 @@ angular
 			ReporteEstadoCuentaNuevo: '/ReporteEstadoCuentaNuevo/GetReporteEstadoCuentaNuevoList',
 			EnviaCorreoEstadoCuenta: '/ObtieneInformacionEnvioCorreo/GetObtieneInformacionEnvioCorreoList',
 			btnconsultaReporte: '/ReporteEstadoCuentaNuevo/GetReporteEstadoCuentaNuevo2List',
-			getContratoAdeudo: '/ConsultaContratoNetCAdeudo/GetConsultaContratoNetCAdeudo'
-
+			getContratoAdeudo: '/ConsultaContratoNetCAdeudo/GetConsultaContratoNetCAdeudo',
+			GetValidaServioPaqueteAdic: '/CobraAdeudo/GetValidaServioPaqueteAdic'
 		};
 
 		factory.getContratoAdeudo = function (clv, aparato) {
@@ -1841,6 +1841,18 @@ angular
 				}
 			};
 			$http.post(globalService.getUrl() + paths.btnconsultaReporte, JSON.stringify(Parametros), config).then(function (response) {
+				deferred.resolve(response.data);
+			}).catch(function (response) {
+				deferred.reject(response);
+			});
+			return deferred.promise;
+		};
+
+		factory.GetValidaServioPaqueteAdic = function (Clv_UnicaNet) {
+			var deferred = $q.defer();
+			var Parametros = {'Clv_UnicaNet': Clv_UnicaNet};
+			var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+			$http.post(globalService.getUrl() + paths.GetValidaServioPaqueteAdic, JSON.stringify(Parametros), config).then(function (response) {
 				deferred.resolve(response.data);
 			}).catch(function (response) {
 				deferred.reject(response);
