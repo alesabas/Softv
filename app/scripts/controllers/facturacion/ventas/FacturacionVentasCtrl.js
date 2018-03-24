@@ -329,22 +329,46 @@ angular
           Contrato: vm.Cliente.Contrato,
           Session: vm.session
         };
-        vm.animationsEnabled = true;
-        var modalInstance = $uibModal.open({
-          animation: vm.animationsEnabled,
-          ariaLabelledBy: 'modal-title',
-          ariaDescribedBy: 'modal-body',
-          templateUrl: 'views/facturacion/modalRegresar.html',
-          controller: 'ModalRegresarCtrl',
-          controllerAs: 'ctrl',
-          backdrop: 'static',
-          keyboard: false,
-          size: 'lg',
-          resolve: {
-            items: function () {
-              return items;
-            }
+        cajasFactory.GetValidaServioPaqueteAdic(vm.selectAparato.Clv_UnicaNet).then(function(data){
+          vm.ValidaSer = data.GetValidaServioPaqueteAdicResult;
+          vm.ValidaSer = data.GetValidaServioPaqueteAdicResult;
+          if(vm.ValidaSer.Resultado == true){
+            vm.animationsEnabled = true;
+            var modalInstance = $uibModal.open({
+              animation: vm.animationsEnabled,
+              ariaLabelledBy: 'modal-title',
+              ariaDescribedBy: 'modal-body',
+              templateUrl: 'views/facturacion/modalRegresar.html',
+              controller: 'ModalRegresarCtrl',
+              controllerAs: 'ctrl',
+              backdrop: 'static',
+              keyboard: false,
+              size: 'lg',
+              resolve: {
+                items: function () {
+                  return items;
+                }
+              }
+            });
+          }else if(vm.ValidaSer.Resultado == false){
+            var modalInstance = $uibModal.open({
+              animation: true,
+              ariaLabelledBy: 'modal-title',
+              ariaDescribedBy: 'modal-body',
+              templateUrl: 'views/facturacion/modalMotivoCancelacion.html',
+              controller: 'ModalMotivoCancelacionCtrl',
+              controllerAs: 'ctrl',
+              backdrop: 'static',
+              keyboard: false,
+              size: 'sm',
+              resolve: {
+                items: function () {
+                  return items;
+                }
+              }
+            });
           }
+          vm.selectAparato = undefined;
         });
       }
 

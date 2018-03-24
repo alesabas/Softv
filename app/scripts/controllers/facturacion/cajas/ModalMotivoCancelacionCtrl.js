@@ -35,5 +35,6 @@ angular
 		var vm = this;
 		vm.cancel = cancel;
 		vm.ok = ok;
+		console.log(items);
 		initialData();
 	});

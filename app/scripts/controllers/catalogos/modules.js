@@ -549,7 +549,7 @@ angular
                 name: 'home.catalogos.red_ip',
                 data: {pageTitle: 'SOFTV | CATÁLOGO IP'},
                 url: '/catalogo/redes/ip/:mod/:id/',
-                templateUrl: 'views/catalogos/Ips.html',
+                templateUrl: 'views/catalogos/IPs.html',
                 controller: 'RedesIPCtrl',
                 controllerAs: '$ctrl'
             },
@@ -564,7 +564,7 @@ angular
                     }
                 },
                 url: '/catalogo/ip',
-                templateUrl: 'views/catalogos/Ips.html',
+                templateUrl: 'views/catalogos/IPs.html',
                 controller: 'IPsCtrl',
                 controllerAs: '$ctrl'
             },
