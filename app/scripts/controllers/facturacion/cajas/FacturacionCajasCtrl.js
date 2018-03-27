@@ -286,11 +286,12 @@ angular
         ngNotify.set('Solo se puede cobrar adeudos a conceptos de mensualidad.', 'error');
       } else {
         vm.elaparato = '';
-        if (vm.selectAparato.MacCableModem.length > 11) {
+        console.log(vm.selectAparato);
+        /*if (vm.selectAparato.MacCableModem.length > 11) {
           vm.elaparato = vm.selectAparato.MacCableModem.substr(0, 11)
         } else {
           vm.elaparato = vm.selectAparato.MacCableModem;
-        }
+        }*/
         if (vm.selectAparato.CLAVE == 2 && vm.elaparato != 'Por Asignar') {
           vm.labandera = true;
         } else {

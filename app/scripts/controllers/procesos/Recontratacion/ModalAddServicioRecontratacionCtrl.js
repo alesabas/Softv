@@ -28,7 +28,7 @@ angular
         function GetServiciosList(){
             if(vm.TipoServicio != undefined){
                 vm.ServicioList = null;
-                vm.AparatoList = null;
+                vm.AparatoList = [];
                 vm.AparatosRecon = null;
                 vm.ViewAparatos = false;
                 vm.Medio = vm.MedioList[vm.MR];
@@ -42,7 +42,7 @@ angular
                 });
             }else{
                 vm.ServicioList = null;
-                vm.AparatoList = null;
+                vm.AparatoList = [];
                 vm.AparatosRecon = [];
                 vm.ViewAparatos = false;
                 vm.Medio = vm.MedioList[vm.MR];
@@ -50,7 +50,7 @@ angular
         }
 
         function SetServicio(){
-            vm.AparatoList = null;
+            vm.AparatoList = [];
             vm.AparatosRecon = [];
             vm.ViewAparatos = false;
             vm.Medio = vm.MedioList[vm.MR];
@@ -91,7 +91,7 @@ angular
         }
 
         function GetAparatoList(){
-            vm.AparatoList = null;
+            vm.AparatoList = [];
             vm.AparatosRecon = [];
             vm.ViewAparatos = false;
             var ObjDet = {
@@ -193,9 +193,13 @@ angular
 
         function SaveAparatoRecontratacion(){
             vm.AparatosRecon.forEach(AddIdReconClvUnic);
-            RecontratacionFactory.GetAddApararoEnBaja(vm.AparatosRecon).then(function(data){
+            if(vm.Medio.IdMedio != 0){
+                RecontratacionFactory.GetAddApararoEnBaja(vm.AparatosRecon).then(function(data){
+                    OK();
+                });
+            }else{
                 OK();
-            });
+            }
         }
 
         function AddIdReconClvUnic(item, index){
