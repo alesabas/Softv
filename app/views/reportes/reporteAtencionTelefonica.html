@@ -113,31 +113,27 @@
           </div>
           <div class="col-md-4">
             <label>
-              <i class="md md-today"></i> desde:</label>
-            <div class="input-group" moment-picker="$ctrl.fechasolInicial" format="YYYY-MM-DD">
-              <span class="input-group-addon">
-                <i class="octicon octicon-calendar"></i>
-              </span>
+              <i class="md md-today"></i> desde:</label>    
+             
               <input class="form-control input-sm"
               name="checkFechaSol"
+              type="date"
               ng-required="$ctrl.checkFechaSol" ng-disabled="!$ctrl.checkFechaSol" placeholder="Fecha de inicio"
-                validate-on="dirty" required-message="'Este campo es obligatorio.'" ng-model="$ctrl.fechasolInicial" ng-model-options="{ updateOn: 'blur' }">
-            </div>
+                validate-on="dirty" required-message="'Este campo es obligatorio.'" ng-model="$ctrl.fechasolInicial">
+           
           </div>
           <div class="col-md-4">
             <label>
               <i class="md md-today"></i> Hasta:</label>
-            <div class="input-group" moment-picker="$ctrl.fechasolFinal" format="YYYY-MM-DD">
-              <span class="input-group-addon">
-                <i class="octicon octicon-calendar"></i>
-              </span>
+          
+              
               <input class="form-control input-sm" 
-              name="checkFechaSol"
+              name="checkFechaSol" type="date"
               ng-disabled="!$ctrl.checkFechaSol" placeholder="Fecha de inicio" validate-on="dirty"
-                ng-required="$ctrl.checkFechaSol" required-message="'Este campo es obligatorio.'" ng-model="$ctrl.fechasolFinal"
-                ng-model-options="{ updateOn: 'blur' }">
+                ng-required="$ctrl.checkFechaSol" required-message="'Este campo es obligatorio.'" ng-model="$ctrl.fechasolFinal">
+               
             </div>
-          </div>
+         
 
         </div>
 
@@ -245,8 +241,12 @@
         </div>
         <div class="row">
           <br>
-          <button class="btn btn-warning btn-block" type="submit">
-            <i class="fa fa-line-chart" aria-hidden="true"></i> Generar Reporte</button>
+          <div class="col-md-6">
+              <button class="btn btn-warning btn-block"><i class="fa fa-line-chart" aria-hidden="true"></i> Generar Reporte</button>
+          </div>
+          <div class="col-md-6">
+              <button class="btn btn-default btn-block" type="button" onclick="location.reload();" ><i class="fa fa-repeat" aria-hidden="true"></i> Volver Elegir</button>
+          </div>
         </div>
       </form>
     </div>

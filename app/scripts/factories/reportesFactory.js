@@ -159,26 +159,7 @@ angular
 		factory.GetReporteOrdenes = function(obj) {
 			var deferred = $q.defer();
 			var Parametros = {				
-				'reporte':{
-					'distribuidores':obj.distribuidores,	
-					'plazas':obj.plazas,
-					'ciudades':obj.ciudades,
-					'localidades':obj.localidades,
-					'colonias':obj.colonias,
-					'calles':obj.calles,
-					'estados':obj.estados,
-					'estatus':obj.estatus,
-					'Clv_inicio':obj.Clv_inicio,
-					'Clv_fin':obj.Clv_fin,
-					'fechasolInicial':obj.fechasolInicial,
-					'fechasolFinal':obj.fechasolFinal,
-					'fechaejeInicial':obj.fechaejeInicial,
-					'fechaejeFinal':obj.fechaejeFinal,
-					'Clv_trabajo':obj.Clv_trabajo,
-					'Op':obj.Op,
-					'OpOrdenar':obj.OpOrdenar,
-					'Clv_usuario':obj.Clv_usuario
-				}	
+				'reporte':	obj 	
 			};
 			var config = {
 				headers: {

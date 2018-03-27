@@ -1,7 +1,7 @@
 'use strict';
 angular
 	.module('softvApp')
-	.controller('reporteReportesCtrl', function($state,reportesFactory,atencionFactory ,reportesVariosFactory,globalService,$sce,$localStorage ) {	
+	.controller('reporteReportesCtrl', function($state,reportesFactory,atencionFactory,$filter ,reportesVariosFactory,globalService,$sce,$localStorage ) {	
 	
 	function getTipoServicios() {
 	atencionFactory.getServicios().then(function (result) {
@@ -35,10 +35,10 @@ angular
 		'Clv_inicio':(vm.clvOrdenInicio)?vm.clvOrdenInicio:0,
 		'Clv_fin':(vm.clvOrdenFin)?vm.clvOrdenFin:0,
 		'contrato':(vm.clvOrden)?vm.clvOrden:'',
-		'fechasolInicial':(vm.fechasolFinal)?vm.fechasolFinal:'01/01/1900',
-		'fechasolFinal':(vm.fechasolFinal)? vm.fechasolFinal:'01/01/1900',
-		'fechaejeInicial':(vm.fechaejeInicial)? vm.fechaejeInicial:'01/01/1900',
-		'fechaejeFinal':(vm.fechaejeFinal)? vm.fechaejeFinal:'01/01/1900',
+		'fechasolInicial':(vm.fechasolInicial)? $filter('date')(vm.fechasolInicial, 'yyyy/MM/dd') :'1900/01/01',
+		'fechasolFinal':(vm.fechasolFinal)? $filter('date')(vm.fechasolFinal, 'yyyy/MM/dd'):'1900/01/01',
+		'fechaejeInicial':(vm.fechaejeInicial)? vm.fechaejeInicial:'1900/01/01',
+		'fechaejeFinal':(vm.fechaejeFinal)? vm.fechaejeFinal:'1900/01/01',
 		'Clv_trabajo':(vm.trabajo)?vm.trabajo.CLV_TRABAJO:0,
 		'op1':vm.checkrangoOrden,
 		'op2':vm.checkFechaSol,

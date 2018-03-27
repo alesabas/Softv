@@ -21,23 +21,17 @@
                 
                         <div class="col-md-6">
                             <label><i class="md md-today"></i> Fecha Inicial:</label>
-                            <div class="input-group" moment-picker="$ctrl.fechainicio" format="YYYY-MM-DD">
-                              <span class="input-group-addon">
-                              <i class="octicon octicon-calendar"></i>
-                              </span>
-                              <input class="form-control input-sm" placeholder="Fecha de inicio" validate-on="dirty" required required-message="'Este campo es obligatorio.'"
-                                ng-model="$ctrl.fechainicio" ng-model-options="{ updateOn: 'blur' }">
+                            <div class="input-group">                            
+                              <input class="form-control input-sm" type="date" placeholder="Fecha de inicio" validate-on="dirty" required required-message="'Este campo es obligatorio.'"
+                                ng-model="$ctrl.fechainicio" >
                             </div>
                         </div>
                 
                       <div class="col-md-6">
                           <label> <i class="md md-today"></i> Fecha final:</label>
-                          <div class="input-group" moment-picker="$ctrl.fechafin" format="YYYY-MM-DD">
-                            <span class="input-group-addon">
-                            <i class="octicon octicon-calendar"></i>
-                            </span>
-                            <input class="form-control input-sm" placeholder="Fecha de inicio" validate-on="dirty" required required-message="'Este campo es obligatorio.'"
-                              ng-model="$ctrl.fechafin" ng-model-options="{ updateOn: 'blur' }">
+                          <div class="input-group">                           
+                            <input class="form-control input-sm" type="date" placeholder="Fecha de inicio" validate-on="dirty" required required-message="'Este campo es obligatorio.'"
+                              ng-model="$ctrl.fechafin" >
                           </div>
                       </div>   
                   </div>
@@ -54,9 +48,14 @@
                   </div>
                
                 <div class="col-md-12">
-                  <button class="btn btn-warning btn-block" type="submit">
-                    <i class="fa fa-line-chart" aria-hidden="true"></i> Generar Reporte</button>
-                </div>
+                  <br>
+                  <br>
+                  <div class="col-md-6">
+                      <button class="btn btn-warning btn-block"><i class="fa fa-line-chart" aria-hidden="true"></i> Generar Reporte</button>
+                  </div>
+                  <div class="col-md-6">
+                      <button class="btn btn-default btn-block" type="button" onclick="location.reload();" ><i class="fa fa-repeat" aria-hidden="true"></i> Volver Elegir</button>
+                  </div>
         
               </form>
             </div>

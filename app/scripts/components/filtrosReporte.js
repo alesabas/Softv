@@ -212,10 +212,13 @@ var filtrosReporte = {
         from.length = 0;
       }
     }
-
+  var colonias=[];
     function next(report){
+      
       vm.step = vm.step + 1;
+      console.log(vm.step,report);
       vm.order.forEach(function (item) {      
+        
         if (item.function === 'getplazas'  && item.step===vm.step) {
           vm.distribuidores = vm.options.selectedItems;
           getplazas();        
@@ -295,11 +298,17 @@ var filtrosReporte = {
           vm.calles = vm.options.selectedItems;            
           vm.showfilters=true;
         }
-        if (item.function === 'getfiltrosAtencion' && item.step===vm.step) {
-          vm.colonias = vm.options.selectedItems;            
-          vm.showfilters=true;
+        
+        if (item.function === 'getcoloniasAtencion' && item.step===vm.step) {       
+          vm.colonias = vm.options.selectedItems;                   
+         //vm.showfilters=true;          
         }
+        if(item.function === 'getfiltrosAtencion' && item.step===vm.step){
+          vm.showfilters=true;   
+        }
+        
         else{
+          
           var par= {
             'distribuidores': vm.distribuidores,
             'plazas': vm.plazas,
@@ -311,7 +320,8 @@ var filtrosReporte = {
             'servicios':vm.servicios,
             'tiposervicio':(vm.servicioPerm)?vm.servicioPerm.Clv_TipSerPrincipal:0,
             'tecnicosAgenda':vm.tecnicosAgenda
-          };            
+          };  
+          console.log(colonias);          
           vm.responseparams=par;
         }   
       });
