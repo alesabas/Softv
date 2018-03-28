@@ -2,7 +2,7 @@
 
 angular
     .module('softvApp')
-    .controller('ModalVendedorDeleteCtrl', function(VentasFactory, $uibModalInstance, $uibModal, ngNotify, $state, $rootScope, $localStorage, Clv_Vendedor){
+    .controller('ModalVendedorDeleteCtrl', function(VentasFactory, $uibModalInstance, CatalogosFactory, $uibModal, ngNotify, $state, $rootScope, $localStorage, Clv_Vendedor){
         
         function initData(){
             VentasFactory.GetDeepVendedores(Clv_Vendedor).then(function(data){
@@ -17,26 +17,28 @@ angular
 
         function DeleteVendedor(){
             VentasFactory.DeleteVendedores(vm.Clv_Vendedor).then(function(data){
-                var ObjMovimientoSistema = {
-                    'usuario': $localStorage.currentUser.usuario,
-                    'contrato': 0,
-                    'Sistema': 'Softv',
-                    'Pantalla': 'Catálogo de Vendedores',
-                    'control': 'Se Eliminó Vendedor',
-                    'valorant': 'Vendedor: ' + vm.Nombre,
-                    'valornuevo': '',
-                    'clv_ciudad': 'AG'
-                };
-                VentasFactory.GetInserta_MovSist(ObjMovimientoSistema).then(function(data){
-                    ngNotify.set('CORRECTO, se eliminó Vendedor.', 'success');
-                    $rootScope.$emit('LoadVendedorList');
-                    cancel();
-                });
+                SaveMovimientoSistema();
+                ngNotify.set('CORRECTO, se eliminó Vendedor.', 'success');
+                cancel();
+            });
+        }
+
+        function SaveMovimientoSistema(){
+            var objMovSist = {
+                'Clv_usuario': $localStorage.currentUser.idUsuario, 
+                'Modulo': 'home.ventas', 
+                'Submodulo': 'home.ventas.vendedores', 
+                'Observaciones': 'Se eliminó un vendedor', 
+                'Usuario': $localStorage.currentUser.usuario, 
+                'Comando': '', 
+                'Clv_afectada': vm.Clv_Vendedor
+            };
+            CatalogosFactory.AddMovSist(objMovSist).then(function(data){
             });
         }
         
         function cancel() {
-            $uibModalInstance.dismiss('cancel');
+            $uibModalInstance.close();
         }
 
         var vm = this;

@@ -101,13 +101,14 @@
   <!-- endbuild -->
 
   <!-- build:js({.tmp,app}) scripts/scripts.js -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nanoscroller/0.8.7/javascripts/jquery.nanoscroller.min.js"></script>
+ 
   <script src="scripts/app.js"></script>
   <script src="scripts/global.js"></script>
   <script src="scripts/modules.js"></script>
   <script src="scripts/factories/authFactory.js"></script>
   <script src="scripts/factories/inMenu.js"></script>
   <script src="scripts/components/multiSelect.js"></script>
+  <script src="scripts/components/filtrosReporte.js"></script>
   <script src="scripts/directives/ngThumb.js"></script>
   <script src="scripts/controllers/main.js"></script>
   <script src="scripts/controllers/home/home.js"></script>
@@ -219,6 +220,12 @@
   <script src="scripts/controllers/procesos/Recontratacion/ModalAddServicioRecontratacionCtrl.js"></script>
   <script src="scripts/controllers/procesos/Recontratacion/ModalServicioAdicionalRecontratacionAddCtrl.js"></script>
 
+  <script src="scripts/controllers/procesos/cambioServicio/cambioServicioCtrl.js"></script>
+  <script src="scripts/controllers/procesos/cambioServicio/cambioServicioNuevoCtrl.js"></script>
+  <script src="scripts/controllers/procesos/cambioServicio/ModalClientesActivosCtrl.js"></script>
+  <script src="scripts/controllers/procesos/cambioServicio/ModalEliminaCambioServicioCtrl.js"></script>
+  
+  
   <script src="scripts/factories/rolFactory.js"></script>
   <script src="scripts/factories/permisosFactory.js"></script>
   <script src="scripts/factories/permisosFactory.js"></script>
@@ -335,8 +342,10 @@
   <script src="scripts/controllers/configuracion/Usuarios/changePasswordCtrl.js"></script>
   <script src="scripts/controllers/configuracion/Generales/generalesDistribuidorCtrl.js"></script>
   <script src="scripts/controllers/configuracion/Generales/generalesSistemaCtrl.js"></script>
+  <script src="scripts/controllers/configuracion/Generales/interfazCablemodemsCtrl.js"></script>
   <script src="scripts/factories/generalesSistemaFactory.js"></script>
-
+ 
+  
   <!--Comisiones -->
 
   <script src="scripts/controllers/comisiones/modules.js"></script>
@@ -525,6 +534,7 @@
   <script src="scripts/controllers/procesos/agenda/agendaCtrl.js"></script>
   <script src="scripts/controllers/procesos/agenda/ModalTecnicoTrabajoCtrl.js"></script>
 
+
   <!--Area tecnica-->
   <script src="scripts/controllers/areatecnica/modules.js"></script>
   <script src="scripts/controllers/areatecnica/ClusterCtrl.js"></script>
@@ -561,7 +571,23 @@
   <script src="scripts/factories/areaTecnicaFactory.js"></script>
   <script src="scripts/factories/agendaFactory.js"></script>
 
+<!--Reportes-->
+  <script src="scripts/controllers/reportes/reportesClientes/clientesDocumentosCtrl.js"></script>
+  <script src="scripts/controllers/reportes/reportesClientes/prospectosCtrl.js"></script>
+  <script src="scripts/controllers/reportes/reportesClientes/reportePermanenciaCtrl.js"></script>
+  <script src="scripts/controllers/reportes/reportesClientes/suscriptoresCtrl.js"></script>
+  <script src="scripts/controllers/reportes/reportesClientes/hotelesCtrl.js"></script>
 
+  <script src="scripts/controllers/reportes/areatecnica/reporteActividadesTecnicoCtrl.js"></script>
+  <script src="scripts/controllers/reportes/areatecnica/reporteAgendaTecnicoCtrl.js"></script>
+  <script src="scripts/controllers/reportes/areatecnica/reporteDevolucionAlmacenCtrl.js"></script>
+  <script src="scripts/controllers/reportes/areatecnica/reporteOrdenesServicioCtrl.js"></script>
+  <script src="scripts/controllers/reportes/areatecnica/reporteReportesCtrl.js"></script>
+  <script src="scripts/controllers/reportes/areatecnica/reportePendientesRealizarCtrl.js"></script>
+  <script src="scripts/controllers/reportes/areatecnica/reporteAtencionTelefonicaCtrl.js"></script>
+
+ 
+ 
   <!-- endbuild -->
 </body>
 

@@ -1,0 +1,102 @@
+<div class="card animated fadeIn" style="margin-top:20px;">
+
+  <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+    <header>
+      <strong style="font-weight:bold; border:none; margin-left:10px; font-size: 16px;">Reporte de permanencia</strong>
+      <br />
+      <small class="text-muted" style="font-size:14px; margin-left:10px;">
+        <i class="fa fa-home" aria-hidden="true"></i> Reportes</small>
+    </header>
+    <div class="tools">
+
+    </div>
+  </div>
+
+  <div class="card-body">
+   <div class="row">
+      <div class="col-md-5" ng-show="$ctrl.showfilters">
+          <form angular-validator-submit="$ctrl.GetReport()" name="contratoForm" novalidate angular-validator>
+              
+            <div class="col-md-12">
+              <br><br>
+              <div class="col-md-2">DEL :</div>
+                <div class="col-md-5">                   
+                  <select ng-model="$ctrl.permInicioMes" class="form-control " ng-options="v.nombre for v in $ctrl.meses track by v.id"> 
+                      <option value="">Seleciona</option>                       
+                  </select>
+                </div>
+                <div class="col-md-5">
+                  <select ng-model="$ctrl.permInicioAnio" class="form-control ">
+                      <option value="">Seleciona</option>
+                      <option value="2012">2012</option>
+                      <option value="2013">2013</option>
+                      <option value="2014">2014</option>
+                      <option value="2015">2015</option>
+                      <option value="2017">2017</option>
+                      <option value="2018">2018</option>
+                      <option value="2019">2019</option>
+                      <option value="2020">2020</option>
+                      <option value="2021">2021</option>
+                      <option value="2022">2022</option>
+                      <option value="2023">2023</option>
+                  </select>
+                </div>
+                <div class="col-md-2">HASTA :</div>
+                <div class="col-md-5">
+                  <select ng-model="$ctrl.permFinMes" class="form-control "  ng-options="v.nombre for v in $ctrl.meses track by v.id">
+                      <option value="">Seleciona</option>                        
+                  </select>
+                </div>
+              <div class="col-md-5">
+                  <select ng-model="$ctrl.permFinAnio" class="form-control ">
+                      <option value="">Seleciona</option>
+                      <option value="2012">2012</option>
+                      <option value="2013">2013</option>
+                      <option value="2014">2014</option>
+                      <option value="2015">2015</option>
+                      <option value="2017">2017</option>
+                      <option value="2018">2018</option>
+                      <option value="2019">2019</option>
+                      <option value="2020">2020</option>
+                      <option value="2021">2021</option>
+                      <option value="2022">2022</option>
+                      <option value="2023">2023</option>
+                  </select>
+                </div>
+            </div>    
+            
+            <div class="col-md-12">                
+                <div class="col-md-6">
+                    <button class="btn btn-warning btn-block"><i class="fa fa-line-chart" aria-hidden="true"></i> Generar Reporte</button>
+                </div>
+                <div class="col-md-6">
+                    <button class="btn btn-default btn-block" type="button" onclick="location.reload();" ><i class="fa fa-repeat" aria-hidden="true"></i> Volver Elegir</button>
+                </div>   
+            </div>
+    
+          </form>
+        </div>
+    
+        <div class="col-md-5" ng-show="!$ctrl.showfilters">
+           
+          <filtros-reporte report="$ctrl.report"
+             order="$ctrl.order"
+             responseparams="$ctrl.responseparams"
+             showfilters="$ctrl.showfilters"
+             
+             >
+          </filtros-reporte>
+    
+        </div>
+        <div class="col-md-6">
+          <a href="{{$ctrl.url}}" target="_blank" class="btn btn-default-bright btn-block">
+            <i class="fa fa-external-link-square" aria-hidden="true"></i> Ver reporte en pantalla completa </a>
+          <iframe src="{{$ctrl.url}}" width="700px;" height="500px;"></iframe>
+        </div>
+
+
+   </div>
+  
+
+  </div>
+</div>

@@ -530,10 +530,7 @@ angular.module('softvApp')
 			return deferred.promise;
 		};
 
-		factory.mostrarCalle = function (clv_usuario, banderaLocalidad, banderaColonia, Distribuidores, Ciudades, Localidades, Colonias, Companias, Estados) {
-			console.log('MOSTRAR CALLE FACTORY');
-			console.log (clv_usuario, banderaLocalidad, banderaColonia, Distribuidores, Ciudades, Localidades, Colonias);
-
+		factory.mostrarCalle = function (clv_usuario, banderaLocalidad, banderaColonia, Distribuidores, Ciudades, Localidades, Colonias, Companias, Estados) {			
 			var deferred = $q.defer();
 			var Parametros = {
 				'clv_usuario': clv_usuario,

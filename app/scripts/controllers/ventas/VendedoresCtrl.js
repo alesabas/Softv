@@ -27,11 +27,11 @@ angular
                 vm.Nombre = null;
             });
         }
-
+        /*
         $rootScope.$on('LoadVendedorList', function(e){
             GetVendedorList(3);
         });
-
+        */
         function OpenVendedorAdd(){
             var modalInstance = $uibModal.open({
                 animation: true,
@@ -44,6 +44,9 @@ angular
                 keyboard: false,
                 class: 'modal-backdrop fade',
                 size: 'lg'
+            });
+            modalInstance.result.then(function () {
+                GetVendedorList(3);
             });
         }
 
@@ -65,6 +68,9 @@ angular
                         return Clv_Vendedor;
                     }
                 }
+            });
+            modalInstance.result.then(function () {
+                GetVendedorList(3);
             });
         }
 
@@ -107,6 +113,9 @@ angular
                         return Clv_Vendedor;
                     }
                 }
+            });
+            modalInstance.result.then(function () {
+                GetVendedorList(3);
             });
         }
 

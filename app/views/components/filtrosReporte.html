@@ -1,0 +1,404 @@
+<style>
+  .dualmultiselect label {
+    margin: 10px;
+  }
+
+  .dualmultiselect .btn {
+    margin: 10px;
+  }
+
+  .dualmultiselect .pool {
+    border: 1px solid #999;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 5px;
+    height: 250px;
+    overflow-y: scroll;
+  }
+
+  .dualmultiselect .pool ul {
+    list-style: none;
+    padding-left: 0px;
+  }
+
+  .dualmultiselect .pool ul li {
+    width: 100%;
+    padding: 4px 8px 4px 4px;
+    border-bottom: 1px dotted #CFCFCF;
+  }
+
+  .dualmultiselect .pool ul li a:hover {
+    text-decoration: none;
+  }
+
+  .confirm {
+    background-color: #f5efef;
+    margin-top: 30px;
+    padding: 20px;
+  }
+
+  .filterrow {
+    margin: 10px;
+  }
+
+</style>
+
+
+
+
+
+<div class="row" ng-show="$ctrl.muestrafiltrotrabajos">
+    <div class="col-md-6">
+        <label>Selecciona tipo de servicio</label>
+        <select class="form-control" ng-model="$ctrl.tipserTrabajo" ng-change="$ctrl.getTrabajos($ctrl.tipserTrabajo.Clv_TipSerPrincipal)" 	ng-options="v.Concepto for v in $ctrl.Tiposervicios track by v.Clv_TipSerPrincipal" >
+          <option value="">Selecciona</option>
+        </select>
+    </div>
+    <div class="col-md-6">
+        <label>Selecciona tipo de servicio</label>
+        <select class="form-control" ng-model="$ctrl.tipoOrden"  ng-change="$ctrl.getTrabajos($ctrl.tipserTrabajo.Clv_TipSerPrincipal)"	ng-options="v.nombre for v in $ctrl.tipoOrdenList track by v.tipo" >
+          <option value="">Selecciona</option>
+        </select>
+        
+    </div>
+</div> 
+
+
+<!--tabla de filtros-->
+
+<div class="dualmultiselect row" ng-show="!$ctrl.muestraservicios && !muestrafiltrotrabajos">
+  <div class="row">
+    <div class="col-lg-5 col-md-5 col-sm-5">
+      <input class="form-control" placeholder="{{$ctrl.options.filterPlaceHolder}}" ng-model="searchTerm">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-6">
+      <label>{{$ctrl.options.labelAll}}</label>
+      <button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.transfer($ctrl.options.items, $ctrl.options.selectedItems, -1)">Seleccionar Todo </button>
+      <div class="pool">
+        <ul>
+          <li ng-click=" $ctrl.transfer($ctrl.options.items, $ctrl.options.selectedItems, $ctrl.options.items.indexOf(item))" ng-repeat="item in $ctrl.options.items | filter: searchTerm | orderBy: $ctrl.options.orderProperty">
+            <a href="">{{item[$ctrl.options.labelShow]}}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6">
+      <label>{{$ctrl.options.labelSelected}}</label>
+      <button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.transfer($ctrl.options.selectedItems, $ctrl.options.items, -1)">
+      Deseleccionar Todo </button>
+      <div class="pool">
+        <ul>
+          <li ng-click=" $ctrl.transfer($ctrl.options.selectedItems, $ctrl.options.items, $ctrl.options.selectedItems.indexOf(item))"
+            ng-repeat="item in $ctrl.options.selectedItems | orderBy: $ctrl.options.orderProperty">
+            <a href="">{{item[$ctrl.options.labelShow]}}</a>
+          </li>
+        </ul>
+      </div>
+      <button type="button" ng-click="$ctrl.next($ctrl.report)" ty class="btn btn-primary ">Siguiente</button>
+    </div>
+  </div>
+</div>
+
+<div class="row" ng-show="$ctrl.muestraservicios">
+
+  <div class="col-md-12">
+    <label>Selecciona tipo de servicios</label>
+    <select class="form-control" ng-model="$ctrl.servicioPerm" ng-options="v.Concepto for v in $ctrl.Tiposervicios track by v.Clv_TipSerPrincipal">
+      <option value="">Selecciona</option>
+    </select>
+  </div>
+
+  <div class="col-md-12">
+    <button class="btn btn-warning" ng-click="$ctrl.next($ctrl.report)">Aceptar</button>
+  </div>
+</div>
+</div>
+
+
+
+
+<!--ng-show="$ctrl.confirm"-->
+
+<!--   <div class="col-md-7">      
+    <a  href="{{$ctrl.url}}"  target="_blank"  class="btn btn-default-bright btn-block"><i class="fa fa-external-link-square" aria-hidden="true"></i> Ver reporte en pantalla completa </a>
+    <iframe src="{{$ctrl.url}}"  width="700px;" height="500px;" ></iframe>
+  </div> -->
+
+
+
+
+<!--  
+  <div class="row confirm" >
+    <div class="col-md-12">
+        <div class="col-md-6 col-md-offset-3">
+            <button class="btn btn-success btn-block" type="submit"> <i class="md md-done"></i>  Generar Reporte </button>
+        </div>
+    </div> 
+   
+  </div>
+ -->
+
+
+<!-- <div class="row"  ng-show="$ctrl.muestraRangosFecha">          
+  <div class="col-md-12">
+      <div class="alert alert-info" role="alert">
+          <strong>Atencion !</strong> Selecciona un rango de fechas para el reporte.
+        </div>
+
+        <div class="col-md-6">
+            <label><i class="md md-today"></i> Fecha Inicial:</label>
+            <div class="input-group" moment-picker="$ctrl.fechainicio" format="YYYY-MM-DD">
+              <span class="input-group-addon">
+              <i class="octicon octicon-calendar"></i>
+              </span>
+              <input class="form-control input-sm" placeholder="Fecha de inicio" validate-on="dirty" required required-message="'Este campo es obligatorio.'"
+                ng-model="$ctrl.fechainicio" ng-model-options="{ updateOn: 'blur' }">
+            </div>
+        </div>
+
+      <div class="col-md-6">
+          <label> <i class="md md-today"></i> Fecha final:</label>
+          <div class="input-group" moment-picker="$ctrl.fechafin" format="YYYY-MM-DD">
+            <span class="input-group-addon">
+            <i class="octicon octicon-calendar"></i>
+            </span>
+            <input class="form-control input-sm" placeholder="Fecha de inicio" validate-on="dirty" required required-message="'Este campo es obligatorio.'"
+              ng-model="$ctrl.fechafin" ng-model-options="{ updateOn: 'blur' }">
+          </div>
+      </div>   
+  </div>
+ 
+  <div class="col-md-12">
+    <br>
+      <label><b>Tipo de Reporte</b></label><br>
+      <label class="radio-inline radio-styled">
+      <input type="radio" name="inlineRadioOptions" ng-model="$ctrl.tiporeporte" value="1"><span>Detalle</span>
+      </label>
+      <label class="radio-inline radio-styled">
+        <input type="radio" name="inlineRadioOptions"  ng-model="$ctrl.tiporeporte"  value="2"><span>Resumen</span>
+      </label>
+  </div>
+    
+</div> -->
+
+
+<!-- <div class="row" ng-show="$ctrl.muestrafiltroOrdenes">
+  
+    <div class="row filterrow">
+      <div class="col-md-3">
+          <label><b>Selecciona el estatus</b></label>    
+      </div>               
+      <div class="col-md-3">
+          <label class="radio-inline radio-styled">
+              <input type="radio" name="checkestatus" ng-model="$ctrl.estatusOrden" value="P"><span>Pendientes</span>
+            </label>
+      </div>
+      <div class="col-md-3">
+          <label class="radio-inline radio-styled">
+              <input type="radio" name="checkestatus" ng-model="$ctrl.estatusOrden" value="E"><span>Ejecutadas</span>
+            </label>
+      </div>
+      <div class="col-md-3">
+          <label class="radio-inline radio-styled">
+              <input type="radio" name="checkestatus" ng-model="$ctrl.estatusOrden" value="V"><span>Con visista</span>
+            </label>
+      </div>
+    </div>
+  
+    <div class="row filterrow">
+        
+        <div class="col-md-4">
+        <b>Orden de servicio:</b> <input type="checkbox" ng-model="$ctrl.checknumeroOrden" >
+        </div>
+        <div class="col-md-4">
+            <input type="number" ng-disabled="$ctrl.checknumeroOrden" ng-model="$ctrl.clvOrdenInicio" class="form-control input-sm">
+        </div>
+        <div class="col-md-4">
+            <input type="number" ng-disabled="$ctrl.checknumeroOrden" ng-model="$ctrl.clvOrdenFin" class="form-control input-sm">
+        </div>
+    </div>
+   
+    <div class="row filterrow">
+        
+        <div class="col-md-4">
+         <b>Fecha de solicitud:</b>
+        </div>
+        <div class="col-md-4">
+            <label> <i class="md md-today"></i> desde:</label>
+            <div class="input-group" moment-picker="$ctrl.fechasolInicial" format="YYYY-MM-DD">
+              <span class="input-group-addon">
+              <i class="octicon octicon-calendar"></i>
+              </span>
+              <input class="form-control input-sm" placeholder="Fecha de inicio" validate-on="dirty" required required-message="'Este campo es obligatorio.'"
+                ng-model="$ctrl.fechasolInicial" ng-model-options="{ updateOn: 'blur' }">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label> <i class="md md-today"></i> Hasta:</label>
+            <div class="input-group" moment-picker="$ctrl.fechasolFinal" format="YYYY-MM-DD">
+              <span class="input-group-addon">
+              <i class="octicon octicon-calendar"></i>
+              </span>
+              <input class="form-control input-sm" placeholder="Fecha de inicio" validate-on="dirty" required required-message="'Este campo es obligatorio.'"
+                ng-model="$ctrl.fechasolFinal" ng-model-options="{ updateOn: 'blur' }">
+            </div>
+        </div>
+    </div>
+ 
+    <div class="row filterrow">
+        
+        <div class="col-md-4">
+        <b>Fecha de ejecución:</b>
+        </div>
+        <div class="col-md-4">
+            <label> <i class="md md-today"></i> desde:</label>
+            <div class="input-group" moment-picker="$ctrl.fechaejeInicial" format="YYYY-MM-DD">
+              <span class="input-group-addon">
+              <i class="octicon octicon-calendar"></i>
+              </span>
+              <input class="form-control input-sm" placeholder="Fecha de inicio" validate-on="dirty" required required-message="'Este campo es obligatorio.'"
+                ng-model="$ctrl.fechaejeInicial" ng-model-options="{ updateOn: 'blur' }">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label> <i class="md md-today"></i> Hasta:</label>
+            <div class="input-group" moment-picker="$ctrl.fechaejeFinal" format="YYYY-MM-DD">
+              <span class="input-group-addon">
+              <i class="octicon octicon-calendar"></i>
+              </span>
+              <input class="form-control input-sm" placeholder="Fecha de inicio" validate-on="dirty" required required-message="'Este campo es obligatorio.'"
+                ng-model="$ctrl.fechaejeFinal" ng-model-options="{ updateOn: 'blur' }">
+            </div>
+        </div>
+    </div>
+ 
+    <div class="row filterrow">
+        
+        <div class="col-md-4">
+        <b> Servicio al cliente:</b> 
+        </div>
+        <div class="col-md-8">
+          <select class="form-control input-sm">
+
+          </select>
+        </div>                  
+    </div>
+     
+     <hr>
+    <div class="row">
+        <div class="col-md-3">
+            <label><b> Ordenar reporte</b></label>    
+      </div>               
+        <div class="col-md-3">
+            <label class="radio-inline radio-styled">
+                <input type="radio" name="checkorden" ng-model="$ctrl.ordenrepOrdenes" value="0"><span>Colonia</span>
+              </label>
+        </div>
+        <div class="col-md-3">
+            <label class="radio-inline radio-styled">
+                <input type="radio" name="checkorden" ng-model="$ctrl.ordenrepOrdenes" value="1"><span>Colonia y calle</span>
+              </label>
+        </div>
+        <div class="col-md-3">
+            <label class="radio-inline radio-styled">
+                <input type="radio" name="checkorden" ng-model="$ctrl.ordenrepOrdenes" value="2"><span>Fecha Solicitud</span>
+              </label>
+        </div>
+      </div>
+
+
+      <div class="row">
+          <div class="col-md-4">
+          <label><b>Seleciona tipo de reporte</b></label>    
+        </div>               
+          <div class="col-md-4">
+              <label class="radio-inline radio-styled">
+                  <input type="radio" name="checktiporep" ng-model="$ctrl.tiporeporteord" value="1"><span>Imprimir listado</span>
+                </label>
+          </div>
+          <div class="col-md-4">
+              <label class="radio-inline radio-styled">
+                  <input type="radio" name="checktiporep" ng-model="$ctrl.tiporeporteord" value="2"><span>Imprimir Ordenes</span>
+                </label>
+          </div>                   
+        </div>
+
+    
+</div> -->
+
+
+
+
+<!-- <div class="row" ng-show="$ctrl.muestrafiltroAgenda">
+  <div class="col-md-12">
+    <label>Selecciona técnico</label>
+    <select class="form-control" ng-model="$ctrl.tecnicoAgenda" 	ng-options="v.tecnico for v in $ctrl.tecnicosAgenda track by v.clv_tecnico" >
+      <option value="">Selecciona</option>
+    </select>
+  </div>
+  <div class="col-md-12">
+    
+    <div class="col-md-6">
+      <label><i class="md md-today"></i> Fecha Inicial:</label>
+      <div class="input-group" moment-picker="$ctrl.fechainicio" format="YYYY-MM-DD">
+        <span class="input-group-addon">
+        <i class="octicon octicon-calendar"></i>
+        </span>
+        <input class="form-control input-sm" placeholder="Fecha de inicio" validate-on="dirty" required required-message="'Este campo es obligatorio.'"
+          ng-model="$ctrl.fechainicio" ng-model-options="{ updateOn: 'blur' }">
+      </div>
+    </div>
+
+    <div class="col-md-6">
+        <label> <i class="md md-today"></i> Fecha final:</label>
+        <div class="input-group" moment-picker="$ctrl.fechafin" format="YYYY-MM-DD">
+          <span class="input-group-addon">
+          <i class="octicon octicon-calendar"></i>
+          </span>
+          <input class="form-control input-sm" placeholder="Fecha de inicio" validate-on="dirty" required required-message="'Este campo es obligatorio.'"
+            ng-model="$ctrl.fechafin" ng-model-options="{ updateOn: 'blur' }">
+        </div>
+      </div>
+  </div>
+</div> -->
+
+
+
+
+
+
+
+<!-- 
+      <div class="row" ng-show="$ctrl.muestrafiltroPeriodo">
+        <div class="col-md-12">
+            <div class="col-md-6" >
+              <label>Mes</label>
+              <input type="number" ng-model="$ctrl.Mes" class="form-control" >
+            </div>
+            <div class="col-md-6" >
+               <label>Año</label>
+               <input type="number" ng-model="$ctrl.anio" class="form-control" >
+            </div>
+        </div>
+        <div class="col-md-12">
+          <br>
+          <label><b>Periodo</b></label><br>
+          <label class="radio-inline radio-styled radio-warning">
+             <input type="radio" checked="" ng-model="$ctrl.fechames" value="1"><span>del 1 al 15 del mes</span>
+           </label>
+           <label class="radio-inline radio-styled radio-warning">
+               <input type="radio" checked="" ng-model="$ctrl.fechames" value="2"><span>del 1 al 30 del mes </span>
+             </label>
+         </div>
+         <div class="col-md-12">
+             <label><b>Selecciona Tipo de reporte</b></label><br>
+             <label class="radio-inline radio-styled radio-warning">
+                <input type="radio" checked="" ng-model="$ctrl.tiporepsusc" value="D"><span>Detallado</span>
+              </label>
+              <label class="radio-inline radio-styled radio-warning">
+                  <input type="radio" checked="" ng-model="$ctrl.tiporepsusc" value="R"><span>Resumen </span>
+                </label>
+        </div>
+     </div> -->

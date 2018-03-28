@@ -77,11 +77,11 @@ angular
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
   }])
   .constant('APP_CONFIG', window.appConfig)
-  .run(['$rootScope','$window', '$state', '$stateParams', '$localStorage', '$location', 'PermPermissionStore', 'PermRoleStore', 'inMenu', function ($rootScope,$window ,$state, $stateParams, $localStorage, $location, PermPermissionStore, PermRoleStore, inMenu) {
+  .run(['$rootScope','$window', '$state', '$stateParams', '$localStorage', '$location', 'PermPermissionStore', 'PermRoleStore', 'inMenu','amMoment', function ($rootScope,$window ,$state, $stateParams, $localStorage, $location, PermPermissionStore, PermRoleStore, inMenu,amMoment) {
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
 
-   
+    amMoment.changeLocale('es');
 
 
     if ($localStorage.currentUser) {

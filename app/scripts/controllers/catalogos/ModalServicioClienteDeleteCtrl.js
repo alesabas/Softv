@@ -2,21 +2,19 @@
 
 angular
     .module('softvApp')
-    .controller('ModalServicioClienteDeleteCtrl', function(CatalogosFactory, $uibModal, $uibModalInstance, ngNotify, $state, Clv_UnicaNet){
+    .controller('ModalServicioClienteDeleteCtrl', function(CatalogosFactory, $uibModal, $uibModalInstance, ngNotify, $state, ObjServDel, $localStorage){
 
         function initData(){
             GetServicio();
         }
 
         function GetServicio(){
-            console.log(Clv_UnicaNet);
-            CatalogosFactory.GetClientesServicioList(Clv_UnicaNet).then(function(data){
-                console.log(data);
+            CatalogosFactory.GetClientesServicioList(ObjServDel.Clv_UnicaNetD).then(function(data){
                 var ClienteServicio = data.GetClientesServicioListResult[0];
                 vm.Clv_UnicaNet = ClienteServicio.Clv_UnicaNet;
                 vm.Clv_Servicio = ClienteServicio.Clv_Servicio;
+                vm.IdContrato = ClienteServicio.Contrato;
                 CatalogosFactory.GetDeepServicios_New(vm.Clv_Servicio).then(function(data){
-                    console.log(data);
                     var Servicio = data.GetDeepServicios_NewResult;
                     vm.Descripcion = Servicio.Descripcion;
                 });
@@ -25,9 +23,24 @@ angular
 
         function DeleteServicioCliente(){
             CatalogosFactory.GetEliminaClienteServicio(vm.Clv_UnicaNet).then(function(data){
-                var MSJ = (vm.ConceptoTipo = 'S')? 'CORRECTO, se eliminó el servicio.':'CORRECTO, se eliminó el paquete.'
+                var MSJ = (vm.ConceptoTipo == 'S')? 'CORRECTO, se eliminó el servicio.':'CORRECTO, se eliminó el paquete.'
                 ngNotify.set(MSJ, 'success');
+                SaveMovimientoSistema();
                 ok();
+            });
+        }
+
+        function SaveMovimientoSistema(){
+            var objMovSist = {
+                'Clv_usuario': $localStorage.currentUser.idUsuario, 
+                'Modulo': 'home.catalogos', 
+                'Submodulo': 'home.catalogos.clientes', 
+                'Observaciones': (vm.ConceptoTipo == 'S')? 'Se eliminó servicio a cliente':'Se eliminó paquete a cliente', 
+                'Usuario': $localStorage.currentUser.usuario, 
+                'Comando': '', 
+                'Clv_afectada': vm.IdContrato
+            };
+            CatalogosFactory.AddMovSist(objMovSist).then(function(data){
             });
         }
 
@@ -42,6 +55,7 @@ angular
         var vm = this;
         vm.Titulo = 'Nueva Calle';
         vm.Icono = 'fa fa-plus';
+        vm.ConceptoTipo = ObjServDel.ConceptoTipo;
         vm.DeleteServicioCliente = DeleteServicioCliente;
         vm.cancel = cancel;
         initData();

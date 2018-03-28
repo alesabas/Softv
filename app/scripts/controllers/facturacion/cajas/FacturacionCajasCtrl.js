@@ -292,7 +292,6 @@ angular
         } else {
           vm.elaparato = vm.selectAparato.MacCableModem;
         }*/
-        vm.elaparato = vm.selectAparato.MacCableModem;
         if (vm.selectAparato.CLAVE == 2 && vm.elaparato != 'Por Asignar') {
           vm.labandera = true;
         } else {

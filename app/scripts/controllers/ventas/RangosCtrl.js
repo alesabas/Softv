@@ -35,7 +35,10 @@ angular
                 keyboard: false, 
                 class: 'modal-backdrop fade', 
                 size: 'md'
-            }); 
+            });
+            modalInstance.result.then(function () {
+                GetRangoList();
+            });
         } 
 
         function OpenRangoUpdate(CveRango){
@@ -56,6 +59,9 @@ angular
                         return CveRango;
                     }
                 }
+            });
+            modalInstance.result.then(function () {
+                GetRangoList();
             });
         }
 
@@ -99,11 +105,14 @@ angular
                     }
                 }
             });
+            modalInstance.result.then(function () {
+                GetRangoList();
+            });
         }
 
-        $rootScope.$on('LoadRangoList', function(e, IdContrato){
+        /*$rootScope.$on('LoadRangoList', function(e, IdContrato){
             GetRangoList();
-        });
+        });*/
 
         var vm = this;
         vm.GetRangoList = GetRangoList;

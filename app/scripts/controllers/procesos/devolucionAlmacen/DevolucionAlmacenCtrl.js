@@ -20,17 +20,34 @@ angular
         }
 
         function buscar(N){
-           var ObjDevolucion = {
-                'OP': 0,
-                'CLV_ORDEN': (N == 0) ? vm.clave : 0,
-                'SERIE': '',
-                'FOLIO': 0,
-                'TIPOAPARATO': '',
-                'MACCABLEMODEM': (N == 1) ? vm.Caja : '',
-                'CLV_USUARIO': (N == 2) ? 'user' : '',
-                'CLV_UsuarioLogin': $localStorage.currentUser.idUsuario
-            };
-            GetDevolucionList(ObjDevolucion);
+            if(vm.clave){
+                var ObjDevolucion = {
+                    'OP': N,
+                    'CLV_ORDEN': (N == 1) ? vm.clave : 0,
+                    'SERIE': '',
+                    'FOLIO': 0,
+                    'TIPOAPARATO': '',
+                    'MACCABLEMODEM': (N == 4) ? vm.Mac : '',
+                    'CLV_USUARIO':  '',
+                    'CLV_UsuarioLogin': $localStorage.currentUser.idUsuario
+                };
+                GetDevolucionList(ObjDevolucion);
+            }else{
+                var Obj = {
+                    'OP': 0,
+                    'CLV_ORDEN': 0,
+                    'SERIE': '',
+                    'FOLIO': 0,
+                    'TIPOAPARATO': '',
+                    'MACCABLEMODEM': '',
+                    'CLV_USUARIO': '',
+                    'CLV_UsuarioLogin': $localStorage.currentUser.idUsuario
+                };                
+                   
+                    GetDevolucionList(Obj);
+            }
+           
+           
         }
 
         function RegresaAlmacen(Obj){
@@ -40,19 +57,23 @@ angular
                 'CLV_CABLEMODEM': Obj.CLV_CABLEMODEM,
                 'MACCABLEMODEM': Obj.MACCABLEMODEM,
                 'ESTADOAPARATO': Obj.ESTADOAPARATO,                              
-                'PROVIENE': Obj.PROVIENE,
+                'PROVIENE': Obj.PROVIENEDE,
                 'MARCA': Obj.MARCA
             };
             DevolucionAlmacenFactory.GetPROCESODevolucionAparatosAlmacen(ObjDevolucion).then(function(data){
-                console.log(data);
-                var DevolucionResult = data.GetPROCESODevolucionAparatosAlmacenResult;
-                if(DevolucionResult > 0){
+                var Obj = {
+                    'OP': 0,
+                    'CLV_ORDEN': 0,
+                    'SERIE': '',
+                    'FOLIO': 0,
+                    'TIPOAPARATO': '',
+                    'MACCABLEMODEM': '',
+                    'CLV_USUARIO': '',
+                    'CLV_UsuarioLogin': $localStorage.currentUser.idUsuario
+                };                
                     ngNotify.set('El aparato  se regresó correctamente al almacén.', 'success');
-                    GetDevolucionList(ObjDevolucion);
-                }else{
-                    ngNotify.set('Ocurrió un error  al regresar el apratato al almacén.', 'warn');
-                    GetDevolucionList(ObjDevolucion);
-                }
+                    GetDevolucionList(Obj);
+                
             });
         }
 

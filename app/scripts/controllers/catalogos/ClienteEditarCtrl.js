@@ -75,6 +75,7 @@ angular
                 vm.NumExt = DatosCliente.NUMERO;
                 vm.NumInt = DatosCliente.NumInt;
                 vm.CodigoPos = DatosCliente.CP;
+                vm.NombreCompleto = GetNombre(DatosCliente);
                 for (var b = 0; b < vm.TipoCobroList.length; b++) {
                     if(vm.TipoCobroList[b].CLV_TIPOCLIENTE == vm.IdTipoCliente) {
                         vm.TipoCobro = vm.TipoCobroList[b];
@@ -234,6 +235,7 @@ angular
                 if(data.UpdateCLIENTES_NewResult == -1){
                     ngNotify.set('CORRECTO, se guardaron datos personales.', 'success');
                     GetDatosClientes(vm.IdContrato);
+                    SaveMovimientoSistema('Se editó cliente', objCLIENTES_New);
                 }else{
                     ngNotify.set('ERROR, al guardar datos personales.', 'warn');
                 }
@@ -355,21 +357,22 @@ angular
         function GetNotas(IdContrato){
             CatalogosFactory.GetDeepRELCLIENTEOBS(IdContrato).then(function(data){
                 var DataObser = data.GetDeepRELCLIENTEOBSResult;
-                vm.Observaciones = DataObser.Obs;
                 if(DataObser.Obs != null){
                     vm.UpdateObs = true;
+                    vm.Observaciones = DataObser.Obs;
                 }else{
                     vm.UpdateObs = false;
+                    vm.Observaciones = null;
                 }
             });
-
             CatalogosFactory.GetDeepRoboDeSeñal_New(IdContrato).then(function(data){
                 var DataNota = data.GetDeepRoboDeSeñal_NewResult;
                 if(DataNota != null){
                     vm.Notas = DataNota.Descripcion;
-                    vm.UpdateNot = true;
+                    vm.UpdateNota = true;
                 }else{
-                    vm.UpdateNot = false;
+                    vm.Notas = null;
+                    vm.UpdateNota = false;
                 }
             });
         }
@@ -398,6 +401,7 @@ angular
                     if(DatosFiscales == -1){
                         ngNotify.set('CORRECTO, se guardaron datos fiscales.', 'success');
                         GetDatosFiscal(vm.IdContrato);
+                        SaveMovimientoSistema('Se Agregó datos fiscales a cliente', objDatosFiscales);
                     }else{
                         ngNotify.set('ERROR, al guardar datos fiscales.', 'warn');
                     }
@@ -423,6 +427,7 @@ angular
                     CatalogosFactory.AddRELCLIBANCO(objRELCLIBANCO).then(function(data){
                         if(data.AddRELCLIBANCOResult == 1){
                             ngNotify.set('CORRECTO, se guardaron datos bancarios.', 'success');
+                            SaveMovimientoSistema('Se agregó datos bancarios a cliente', objRELCLIBANCO);
                             GetDatosBancario(vm.IdContrato);
                         }else{
                             ngNotify.set('ERROR, al guardar datos bancarios.', 'warn');
@@ -432,37 +437,13 @@ angular
                     CatalogosFactory.UpdateRELCLIBANCO(objRELCLIBANCO).then(function(data){
                         if(data.UpdateRELCLIBANCOResult == 1){
                             ngNotify.set('CORRECTO, se guardaron datos bancarios.', 'success');
+                            SaveMovimientoSistema('Se agregó datos bancarios a cliente', objRELCLIBANCO);
                             GetDatosBancario(vm.IdContrato);
                         }else{
                             ngNotify.set('ERROR, al guardar datos bancarios.', 'warn');
                         }
                     });
                 }
-            }else{
-                ngNotify.set('Aun no se han registrado los datos personales.', 'warn');
-            }
-        }
-
-        function AddRefPersonales(){
-            if(vm.IdContrato != undefined){
-                var objtblReferenciasClietes = {
-                    'contrato': vm.IdContrato,
-                    'nombre': vm.NombreRef,
-                    'direccion': vm.DireccionRef,
-                    'email': vm.EmailRef,
-                    'telefono': vm.TelefonoRef,
-                    'id_referencia': 0,
-                    'op': 0,
-                    'tipo': 'C'
-                };
-                CatalogosFactory.AddtblReferenciasClietes(objtblReferenciasClietes).then(function(data){
-                    if(data.AddtblReferenciasClietesResult == -1){
-                        ngNotify.set('CORRECTO, se guardó la referencia personal.', 'success');
-                        GetReferenciasPersonales(vm.IdContrato);
-                    }else{
-                        ngNotify.set('ERROR, al guardar la referencia personal.', 'warn');
-                    }
-                });
             }else{
                 ngNotify.set('Aun no se han registrado los datos personales.', 'warn');
             }
@@ -480,12 +461,15 @@ angular
                 backdrop: 'static',
                 keyboard: false,
                 class: 'modal-backdrop fade',
-                size: 'lg',
+                size: 'sm',
                 resolve: {
                     IdContrato: function () {
                         return IdContrato;
                     }
                 }
+            });
+            modalInstance.result.then(function () {
+                GetReferenciasPersonales(vm.IdContrato);
             });
         }
 
@@ -501,12 +485,15 @@ angular
                 backdrop: 'static',
                 keyboard: false,
                 class: 'modal-backdrop fade',
-                size: 'lg',
+                size: 'sm',
                 resolve: {
                     ObjRefCliente: function () {
                         return ObjRefCliente;
                     }
                 }
+            });
+            modalInstance.result.then(function () {
+                GetReferenciasPersonales(vm.IdContrato);
             });
         }
 
@@ -529,32 +516,57 @@ angular
                     }
                 }
             });
+            modalInstance.result.then(function () {
+                GetReferenciasPersonales(vm.IdContrato);
+            });
         }
 
-        $rootScope.$on('LoadRefPersonal', function(e, IdContrato){
-            GetReferenciasPersonales(IdContrato);
-        });
-
-        function AddNotas(){
-            var objRELCLIENTEOBS = {
-                'Contrato': vm.IdContrato,
-                'Obs': vm.Observaciones
-            };
-            var objRoboDeSeñal_New = {
-                'Contrato': vm.IdContrato,
-                'Descripcion': vm.Notas
-            };
-            CatalogosFactory.UpdateRELCLIENTEOBS(objRELCLIENTEOBS).then(function(data){
-                CatalogosFactory.UpdateRoboDeSeñal_New(objRoboDeSeñal_New).then(function(data){
-                    ngNotify.set('CORRECTO, se guardó observaciones y notas.', 'success');
+        function AddObservaciones(){
+            if(vm.UpdateObs == false){
+                var objRELCLIENTEOBS = {
+                    'Contrato': vm.IdContrato,
+                    'Obs': vm.Observaciones
+                };
+                CatalogosFactory.AddRELCLIENTEOBS(objRELCLIENTEOBS).then(function(data){
+                    ngNotify.set('CORRECTO, se guardó las observaciones.', 'success');
                     GetNotas(vm.IdContrato);
                 });
-            });
+            }else{
+                var objRELCLIENTEOBS = {
+                    'Contrato': vm.IdContrato,
+                    'Obs': vm.Observaciones
+                };
+                CatalogosFactory.UpdateRELCLIENTEOBS(objRELCLIENTEOBS).then(function(data){
+                    ngNotify.set('CORRECTO, se guardó las observaciones.', 'success');
+                    GetNotas(vm.IdContrato);
+                });
+            }
+        }
+
+        function AddNotas(){
+            if(vm.UpdateNota == false){
+                var objRoboDeSeñal_New = {
+                    'Contrato': vm.IdContrato,
+                    'Descripcion': vm.Notas
+                };
+                CatalogosFactory.AddRoboDeSeñal_New(objRoboDeSeñal_New).then(function(data){
+                    ngNotify.set('CORRECTO, se guardó las notas.', 'success');
+                    GetNotas(vm.IdContrato);
+                });
+            }else{
+                var objRoboDeSeñal_New = {
+                    'Contrato': vm.IdContrato,
+                    'Descripcion': vm.Notas
+                };
+                CatalogosFactory.UpdateRoboDeSeñal_New(objRoboDeSeñal_New).then(function(data){
+                    ngNotify.set('CORRECTO, se guardó las notas.', 'success');
+                    GetNotas(vm.IdContrato);
+                });
+            }
         }
 
         function GetServicios(IdContrato){
             CatalogosFactory.GetMuestraArbolServicios_ClientesList(IdContrato).then(function(data){
-                console.log(data);
                 vm.ServicioList = data.GetMuestraArbolServicios_ClientesListResult;
                 vm.expandedNodes=[];
                 angular.forEach(vm.ServicioList, function(value, key) {
@@ -572,7 +584,6 @@ angular
         }
 
         function DetalleConcepto(ObjConcepto){
-            console.log(ObjConcepto);
             if(ObjConcepto.Tipo == 'S' || ObjConcepto.Tipo == 'P'){
                 vm.ConceptoTipo = ObjConcepto.Tipo;
                 vm.DivServicio = true;
@@ -685,9 +696,7 @@ angular
                         vm.ModeloAparato = data.GetModeloAparatoResult.Nombre;
                     });
                 });
-            }/*else if(ObjConcepto.Tipo == 'P'){
-
-            }*/
+            }
         }
 
         function UpdateServicioCliente(){
@@ -804,20 +813,24 @@ angular
             });
         }
 
-        function DeleteServicioCliente(Clv_UnicaNet){
+        function DeleteServicioCliente(Clv_UnicaNet, ConceptoTipo){
             var Clv_UnicaNetD = (Clv_UnicaNet != null && Clv_UnicaNet != undefined)? Clv_UnicaNet:vm.Clv_UnicaNet;
+            var ObjServDel = {
+                'Clv_UnicaNetD': Clv_UnicaNetD,
+                'ConceptoTipo': (ConceptoTipo != null && ConceptoTipo != undefined)? ConceptoTipo:vm.ConceptoTipo
+            }
             CatalogosFactory.GetValidaPapoClienteServicio(Clv_UnicaNetD).then(function(data){
                 var ToDay = GetDateToday();
                 if(data.GetValidaPapoClienteServicioResult == 0 && vm.FechaContratacionP.getTime() == ToDay.getTime()){
-                    OpenDeleteServicioCliente(Clv_UnicaNetD);
+                    OpenDeleteServicioCliente(ObjServDel);
                 }else{
-                    var MSJ = (vm.ConceptoTipo = 'S')? 'ERROR, solo se puede eliminar un servicio el mismo día que se contrató y/o que tenga ningún pago realizado.':'ERROR, solo se puede eliminar un paquete el mismo día que se contrató y/o que tenga ningún pago realizado.'
+                    var MSJ = (vm.ConceptoTipo == 'S')? 'ERROR, solo se puede eliminar un servicio el mismo día que se contrató y/o que tenga ningún pago realizado.':'ERROR, solo se puede eliminar un paquete el mismo día que se contrató y/o que tenga ningún pago realizado.'
                     ngNotify.set(MSJ, 'warn');
                 }
             });
         }
 
-        function OpenDeleteServicioCliente(Clv_UnicaNet){
+        function OpenDeleteServicioCliente(ObjServDel){
             var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
@@ -830,8 +843,8 @@ angular
                 class: 'modal-backdrop fade',
                 size: 'sm',
                 resolve: {
-                    Clv_UnicaNet: function () {
-                        return Clv_UnicaNet;
+                    ObjServDel: function () {
+                        return ObjServDel;
                     }
                 }
             });
@@ -839,8 +852,6 @@ angular
                 vm.DivServicio = false;
                 vm.DivAparato = false;
                 GetServicios(vm.IdContrato);
-            }, function () {
-                $log.info('Modal dismissed at: ' + new Date());
             });
         }
 
@@ -951,6 +962,7 @@ angular
                         ngNotify.set('CORRECTO, Correcto se guardó el documento para el cliente.', 'success');
                         GetDocumentosCliente();
                         ResetEvidencia();
+                        SaveMovimientoSistema('Se agregó documento: ' + vm.Documento.Documento + ', a cliente', '');
                     });
                 }else{
                     ngNotify.set('ERROR, el tamaño del archivo es invalido.', 'warn');
@@ -997,6 +1009,20 @@ angular
             });
         }
 
+        function GetNombre(Cli){
+            var NC = '';
+            if(Cli.SegundoNombre != null && Cli.Apellido_Materno != null){
+                NC = Cli.Nombre + ' ' + Cli.SegundoNombre + ' ' + Cli.Apellido_Paterno + ' ' + Cli.Apellido_Materno;
+            }else if(Cli.SegundoNombre == null && Cli.Apellido_Materno == null){
+                NC = Cli.Nombre + ' ' + Cli.Apellido_Paterno;
+            }else if(Cli.SegundoNombre != null && Cli.Apellido_Materno == null){
+                NC = Cli.Nombre + ' ' + Cli.SegundoNombre + ' ' + Cli.Apellido_Paterno;
+            }else if(Cli.SegundoNombre == null && Cli.Apellido_Materno != null){
+                NC = Cli.Nombre + ' ' + Cli.Apellido_Paterno + ' ' + Cli.Apellido_Materno;
+            }
+            return NC;
+        }
+
         function GetNumber(num){
             var res = [];
             for (var i = 0; i < num; i++) {
@@ -1040,6 +1066,20 @@ angular
         function SetTouch(){
             vm.TouchFile = true;
         }
+
+        function SaveMovimientoSistema(Observaciones, Comando){
+            var objMovSist = {
+                'Clv_usuario': $localStorage.currentUser.idUsuario, 
+                'Modulo': 'home.catalogos', 
+                'Submodulo': 'home.catalogos.clientes', 
+                'Observaciones': Observaciones, 
+                'Usuario': $localStorage.currentUser.usuario, 
+                'Comando': (Comando != '')? JSON.stringify(Comando):'', 
+                'Clv_afectada': vm.IdContrato
+            };
+            CatalogosFactory.AddMovSist(objMovSist).then(function(data){
+            });
+        }
         
         var vm = this;
         vm.IdContrato = $stateParams.id;
@@ -1072,7 +1112,11 @@ angular
         vm.maskOptions = {
             maskDefinitions:{'A': /[a-zA-Z]/, '9': /[0-9]/, '*': /[a-zA-Z0-9]/},
             clearOnBlur: false,
-            eventsToHandle:['input', 'keyup', 'click']
+            clearOnBlurPlaceholder: true,
+            eventsToHandle:['input', 'keyup', 'click'],
+            addDefaultPlaceholder: true,
+            escChar: '\\',
+            allowInvalidValue: false
         };
         vm.AddDatosPersonales = AddDatosPersonales;
         vm.GetCiudadMunicipio = GetCiudadMunicipio;
@@ -1085,6 +1129,7 @@ angular
         vm.OpenAddRefPersonal = OpenAddRefPersonal;
         vm.OpenEditRefPersonal = OpenEditRefPersonal;
         vm.OpenDeleteRefPersonal = OpenDeleteRefPersonal;
+        vm.AddObservaciones = AddObservaciones;
         vm.AddNotas = AddNotas;
         vm.DetalleConcepto = DetalleConcepto;
         vm.OpenAddServicioCliente = OpenAddServicioCliente;

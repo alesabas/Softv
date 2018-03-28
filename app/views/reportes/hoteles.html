@@ -1,0 +1,35 @@
+<div class="card animated fadeIn" style="margin-top:20px;">
+    
+      <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+        <header>
+          <strong style="font-weight:bold; border:none; margin-left:10px; font-size: 16px;">Reporte de hoteles con fecha de último pago</strong>
+          <br /><small class="text-muted" style="font-size:14px; margin-left:10px;"><i class="fa fa-home" aria-hidden="true"></i> Reportes</small>
+        </header>
+        <div class="tools">
+    
+        </div>
+      </div>
+    
+      <div class="card-body">
+          <div class="col-md-5">
+              <filtros-reporte  report="$ctrl.report"
+               order="$ctrl.order" 
+               responseparams="$ctrl.responseparams"
+               showfilters="$ctrl.showfilters">          
+              </filtros-reporte>
+              <div class="row"  ng-show="$ctrl.showfilters">
+                  <button class="btn btn-warning btn-block" ng-click="$ctrl.GetReport()">
+                    <i class="fa fa-line-chart" aria-hidden="true"></i> Generar Reporte</button>
+                </div> 
+           </div>
+           <div class="col-md-7">      
+              <a  href="{{$ctrl.url}}"  target="_blank"  class="btn btn-default-bright btn-block"><i class="fa fa-external-link-square" aria-hidden="true"></i> Ver reporte en pantalla completa </a>
+              <iframe src="{{$ctrl.url}}"  width="700px;" height="500px;" ></iframe>
+            </div> 
+
+
+
+        
+      
+      </div>
+</div>

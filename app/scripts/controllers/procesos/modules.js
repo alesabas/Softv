@@ -214,7 +214,28 @@ angular
         templateUrl: 'views/procesos/Recontratacion.html',
         controller: 'RecontratacionCtrl',
         controllerAs: '$ctrl'
+      
+    },     
+      {
+        name: 'home.procesos.cambioservicio',
+        data: {
+          pageTitle: 'SOFTV | CAMBIO DE SERVICIO',
+        },
+        url: '/cambioservicio',
+        templateUrl: 'views/procesos/cambioServicio.html',
+        controller: 'cambioServicioCtrl',
+        controllerAs: '$ctrl'
       },
+      {
+        name: 'home.procesos.cambioservicionuevo',
+        data: {
+          pageTitle: 'SOFTV | NUEVO CAMBIO DE SERVICIO',
+        },
+        url: '/cambioservicio/nuevo',
+        templateUrl: 'views/procesos/cambioServicioNuevo.html',
+        controller: 'cambioServicioNuevoCtrl',
+        controllerAs: '$ctrl'
+      }
     ];
     states.forEach(function (state) {
       $stateProvider.state(state);

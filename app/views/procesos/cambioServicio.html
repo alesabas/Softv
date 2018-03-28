@@ -1,0 +1,96 @@
+<style type="text/css">
+  .scrollDiv {
+    height: 500px;
+    overflow: auto;
+    overflow-x: hidden;
+  }
+
+</style>
+<div class="card animated fadeIn" style="margin-top:20px;">
+  <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+    <header>
+      <strong style="font-weight:bold; border:none; margin-left:10px;">Cambio de servicio</strong>
+      <br>
+      <small class="text-muted" style="font-size:14px; margin-left:10px;">
+        <a href="#">
+          <i class="fa fa-home" aria-hidden="true"></i> Inicio</a> >
+        <a href="#" class="paginaActiva">Procesos</a>
+      </small>
+    </header>
+    <div class="tools">
+			<div class="btn-group">
+				<a class="btn btn-primary btn-sm" ui-sref="home.procesos.cambioservicionuevo" title="Crear una nuevo cambio de servicio"> nuevo proceso</a>
+			</div>
+		</div>
+  </div>
+  <div class="card-body">
+    <div class="row">
+
+      <div class="col-md-12">
+
+        <div class="col-md-4">
+          <label>Plaza</label>
+          <select id="idplaza" 
+          ng-change="$ctrl.filtros(4)" 
+          class="form-control input-sm" 
+          name="plaza"
+          ng-model="$ctrl.selectedPlaza" 
+          ng-options="v.razon_social for v in $ctrl.plazas track by v.id_compania">
+          <option value="">Selecciona</option>
+        </select>
+        </div>
+       
+        <div class="col-md-2">
+          <label>Buscar Contrato</label>
+          <input type="text" name="InpSearchAparato2" placeholder="Ingresa contrato" class="form-control input-sm" ng-model="$ctrl.contrato">
+        </div>          
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="col-md-12">
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th> <b>#Contrato</b></th>
+          <th><b>Nombre</b></th>
+          <th><b>Proceso</b></th>
+          <th><b>Tipo servicio</b></th>
+          <th><b>Servicio Anterior</b></th>
+          <th><b>Servicio Actual</b></th>
+          <th><b>Fecha</b></th>
+          <th><b>Hora</b></th>
+          <th><b>Opciones</b></th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr dir-paginate="x in $ctrl.cambios|filter:$ctrl.contrato|itemsPerPage:7">
+          <td>{{x.NumContrato}}</td>
+          <td>{{x.Nombre}}</td>
+          <td>{{x.Status}}</td>
+          <td>{{x.Concepto}}</td>
+          <td>{{x.Servicio_Anterior}}</td>
+          <td>{{x.Servicio_Actual}}</td>
+          <td>{{x.fecha}}</td>
+          <td>{{x.hora}}</td>
+          <td>
+            <button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.eliminaCambio(x)" title="Eliminar cambio de servicio">
+              <i class="fa fa-trash"></i> Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <div style="margin-top:-40px;">
+      <dir-pagination-controls max-size="7" direction-links="true" boundary-links="true">
+      </dir-pagination-controls>
+    </div>
+    <br>
+
+  </div>
+</div>
+</div>

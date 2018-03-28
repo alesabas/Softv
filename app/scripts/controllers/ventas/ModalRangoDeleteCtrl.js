@@ -2,7 +2,7 @@
 
 angular
     .module('softvApp')
-    .controller('ModalRangoDeleteCtrl', function(SeriesFactory, VentasFactory, $uibModalInstance, $uibModal, ngNotify, $state, $rootScope, CveRango, $localStorage){
+    .controller('ModalRangoDeleteCtrl', function(SeriesFactory, VentasFactory, CatalogosFactory, $uibModalInstance, $uibModal, ngNotify, $state, $rootScope, CveRango, $localStorage){
         
         function initData(){
             var ObjRango = {
@@ -23,26 +23,9 @@ angular
             SeriesFactory.GetValidaRangosAEliminar(ObjRango).then(function(data){
                 if(data.GetValidaRangosAEliminarResult == 0){
                     SeriesFactory.GetBorCatalogoDeRangos(ObjRango).then(function(data){
-                        var ObjMovimientoSistema = {
-                            'usuario': $localStorage.currentUser.usuario,
-                            'contrato': 0,
-                            'Sistema': 'Softv',
-                            'Pantalla': 'Rangos',
-                            'control': 'Se Eliminó Rango',
-                            'valorant': '',
-                            'valornuevo': 'Rango: ' + vm.RangoInferior + ' - ' + vm.RangoSuperior,
-                            'clv_ciudad': 'AG'
-                        };
-                        VentasFactory.GetInserta_MovSist(ObjMovimientoSistema).then(function(data){
-                            ngNotify.set('CORRECTO, Se guardo el Rango.', 'success');
-                            $rootScope.$emit('LoadRangoList');
-                            cancel();
-                        });
-                        /*
+                        SaveMovimientoSistema();
                         ngNotify.set('CORRECTO, Se guardo el Rango.', 'success');
-                        $rootScope.$emit('LoadRangoList');
                         cancel();
-                        */
                     });
                 }else{
                     ngNotify.set('ERROR, No se puede eliminar porque al rango ya se le asigno un precio.', 'warn');
@@ -50,8 +33,22 @@ angular
             });
         }
 
+        function SaveMovimientoSistema(Comando){
+            var objMovSist = {
+                'Clv_usuario': $localStorage.currentUser.idUsuario, 
+                'Modulo': 'home.ventas', 
+                'Submodulo': 'home.ventas.rangos', 
+                'Observaciones': 'Se eliminó rango', 
+                'Usuario': $localStorage.currentUser.usuario, 
+                'Comando': '', 
+                'Clv_afectada': vm.CveRango
+            };
+            CatalogosFactory.AddMovSist(objMovSist).then(function(data){
+            });
+        }
+
         function cancel() {
-            $uibModalInstance.dismiss('cancel');
+            $uibModalInstance.close();
         }
 
         var vm = this;

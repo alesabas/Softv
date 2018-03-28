@@ -16,7 +16,6 @@ angular
             CatalogosFactory.GetBancoList().then(function(data){
                 vm.BancoList = data.GetBancoListResult;
             });
-
         }
 
         function AddDatosPersonales(){
@@ -51,19 +50,19 @@ angular
                 vm.Cliente = data.GetCLIENTES_NewListResult;
                 if(vm.Cliente.length == 1){
                     var IdCliente = vm.Cliente[0].CONTRATO;
-                    var objRELCLIENTEOBS = {
-                        'Contrato': IdCliente,
-                        'Obs': vm.Observaciones
+                    var objMovSist = {
+                        'Clv_usuario': $localStorage.currentUser.idUsuario, 
+                        'Modulo': 'home.catalogos', 
+                        'Submodulo': 'home.catalogos.clientes', 
+                        'Observaciones': 'Se registró nuevo cliente', 
+                        'Usuario': $localStorage.currentUser.usuario, 
+                        'Comando': JSON.stringify(ObjCliente), 
+                        'Clv_afectada': IdCliente
                     };
-                    var objRoboDeSeñal_New = {
-                        'Contrato': IdCliente,
-                        'Descripcion': vm.Notas
-                    };
-                    CatalogosFactory.AddRELCLIENTEOBS(objRELCLIENTEOBS).then(function(data){
-                        CatalogosFactory.AddRoboDeSeñal_New(objRoboDeSeñal_New).then(function(data){
-                            ngNotify.set('CORRECTO, se añadió un cliente nuevo.', 'success');
-                            $state.go('home.catalogos.cliente_editar', { id:IdCliente });
-                        });
+                    
+                    CatalogosFactory.AddMovSist(objMovSist).then(function(data){
+                        ngNotify.set('CORRECTO, se añadió un cliente nuevo.', 'success');
+                        $state.go('home.catalogos.cliente_editar', { id:IdCliente });
                     });
                 }else{
                     ngNotify.set('ERROR, al añadir un cliente nuevo.', 'warn');

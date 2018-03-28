@@ -157,7 +157,8 @@ angular
         templateUrl: 'views/areatecnica/nuevoNap.html',
         controller: 'nuevoNapCtrl',
         controllerAs: '$ctrl'
-      }
+      }    
+      
     ];
     states.forEach(function (state) {
       $stateProvider.state(state);

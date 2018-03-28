@@ -27,8 +27,7 @@ angular
     
     function GetAgendaList(Opc){
       var ObjAgenda = {
-        'idcompania': (vm.Plaza != undefined)? vm.Plaza.id_compania:0,
-        'idcompania': (Opc == 1 && (vm.Contrato != undefined && vm.Contrato != ''))? CheckContrato(vm.Contrato,'P'):ValidaPlaza(),
+        'idcompania': (vm.Plaza != undefined)? vm.Plaza.id_compania:0,        
         'ClvUsuario': $localStorage.currentUser.idUsuario,
         'opSetupBoxTarjeta': 1,
         'CLV_TECNICO': (vm.Tecnico != undefined)? vm.Tecnico.clv_tecnico : 0,

@@ -2,7 +2,7 @@
 
 angular
     .module('softvApp')
-    .controller('Grupo_VentasCtrl', function(SeriesFactory, VentasFactory, GrupoVentaFactory, ngNotify, $uibModal, $rootScope, $state, $localStorage, $scope){
+    .controller('Grupo_VentasCtrl', function(SeriesFactory, VentasFactory, GrupoVentaFactory, CatalogosFactory, ngNotify, $uibModal, $rootScope, $state, $localStorage, $scope){
         
         function initData(){
             SeriesFactory.GetMuestra_Compania_RelUsuarioList($localStorage.currentUser.idUsuario).then(function(data){
@@ -42,21 +42,9 @@ angular
                 GrupoVentaFactory.GetNueGrupoVentas(ObjGrupo).then(function(data){
                     var Result = data.GetNueGrupoVentasResult;
                     if(Result.Res == 0){
-                        var ObjMovimientoSistema = {
-                            'usuario': $localStorage.currentUser.usuario,
-                            'contrato': 0,
-                            'Sistema': 'Softv',
-                            'Pantalla': 'Grupo de Ventas',
-                            'control': 'Nuevo Grupo Ventas',
-                            'valorant': '',
-                            'valornuevo': vm.Grupo,
-                            'clv_ciudad': 'AG'
-                        };
-                        VentasFactory.GetInserta_MovSist(ObjMovimientoSistema).then(function(data){
-                            ngNotify.set('CORRECTO, Se guardo el Grupo de Ventas.', 'success');
-                            GetGrupoList();
-                            OpenFormGrupo(0);
-                        });
+                        SaveMovimientoSistema(ObjGrupo);
+                        GetGrupoList();
+                        ngNotify.set('CORRECTO, Se guardo el Grupo de Ventas.', 'success');
                     }else{
                         ngNotify.set('ERROR, ' + Result.Msj, 'warn');
                         GetGrupoList();
@@ -70,21 +58,9 @@ angular
                 GrupoVentaFactory.GetModGrupoVentas(ObjGrupo).then(function(data){
                     var Result = data.GetModGrupoVentasResult;
                     if(Result.Res == 0){
-                        var ObjMovimientoSistema = {
-                            'usuario': $localStorage.currentUser.usuario,
-                            'contrato': 0,
-                            'Sistema': 'Softv',
-                            'Pantalla': 'Grupo de Ventas',
-                            'control': 'Grupo Ventas',
-                            'valorant': vm.GrupoP,
-                            'valornuevo': vm.Grupo,
-                            'clv_ciudad': 'AG'
-                        };
-                        VentasFactory.GetInserta_MovSist(ObjMovimientoSistema).then(function(data){
-                            ngNotify.set('CORRECTO, Se guardo el Grupo de Ventas.', 'success');
-                            GetGrupoList();
-                            OpenFormGrupo(0);
-                        });
+                        ngNotify.set('CORRECTO, Se guardo el Grupo de Ventas.', 'success');
+                        GetGrupoList();
+                        SaveMovimientoSistema(ObjGrupo);
                     }else{
                         ngNotify.set('ERROR, ' + Result.Msj, 'warn');
                         GetGrupoList();
@@ -92,6 +68,21 @@ angular
                     }
                 });
             }
+        }
+
+        function SaveMovimientoSistema(Comando){
+            var objMovSist = {
+                'Clv_usuario': $localStorage.currentUser.idUsuario, 
+                'Modulo': 'home.ventas', 
+                'Submodulo': 'home.ventas.grupo_ventas', 
+                'Observaciones': (vm.Op == 1)? 'Se agregó grupo de ventas':'Se editó grupo de ventas', 
+                'Usuario': $localStorage.currentUser.usuario, 
+                'Comando': JSON.stringify(Comando), 
+                'Clv_afectada': (vm.Op == 1)? 0:vm.Clave
+            };
+            CatalogosFactory.AddMovSist(objMovSist).then(function(data){
+                OpenFormGrupo(0);
+            });
         }
 
         var vm = this;

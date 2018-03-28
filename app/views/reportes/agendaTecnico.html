@@ -1,0 +1,72 @@
+<div class="card animated fadeIn" style="margin-top:20px;">
+
+  <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+    <header>
+      <strong style="font-weight:bold; border:none; margin-left:10px; font-size: 16px;">Reporte Agenda de actividades del técnico</strong>
+      <br />
+      <small class="text-muted" style="font-size:14px; margin-left:10px;">
+        <i class="fa fa-home" aria-hidden="true"></i> Reportes</small>
+    </header>
+    <div class="tools">
+
+    </div>
+  </div>
+
+  <div class="card-body">
+
+    <div class="col-md-5" ng-show="$ctrl.showfilters">
+      <form angular-validator-submit="$ctrl.GetReport()" name="contratoForm" novalidate angular-validator>
+
+        <div class="col-md-12">
+          <label>Selecciona técnico</label>
+          <select class="form-control" ng-model="$ctrl.tecnicoAgenda" ng-options="v.tecnico for v in $ctrl.responseparams.tecnicosAgenda track by v.clv_tecnico">
+            <option value="">Selecciona</option>
+          </select>
+        </div>
+
+        <div class="col-md-12">
+          <div class="col-md-6">
+            <label>
+              <i class="md md-today"></i> Fecha Inicial:</label>           
+              <input class="form-control input-sm" input type="date" placeholder="Fecha de inicio" validate-on="dirty" required required-message="'Este campo es obligatorio.'"
+                ng-model="$ctrl.fechainicio">
+            
+          </div>
+
+          <div class="col-md-6">
+            <label>
+              <i class="md md-today"></i> Fecha final:</label>             
+                       
+              <input class="form-control input-sm" type="date" placeholder="Fecha de inicio" validate-on="dirty" required required-message="'Este campo es obligatorio.'"
+                ng-model="$ctrl.fechafin" >
+            
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <br>
+          <br>
+          <div class="col-md-6">
+              <button class="btn btn-warning btn-block"><i class="fa fa-line-chart" aria-hidden="true"></i> Generar Reporte</button>
+          </div>
+          <div class="col-md-6">
+              <button class="btn btn-default btn-block" type="button" onclick="location.reload();" ><i class="fa fa-repeat" aria-hidden="true"></i> Volver Elegir</button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+
+    <div class="col-md-5" ng-show="!$ctrl.showfilters">
+      <filtros-reporte report="$ctrl.report" order="$ctrl.order" responseparams="$ctrl.responseparams" showfilters="$ctrl.showfilters">
+      </filtros-reporte>
+
+    </div>
+    <div class="col-md-7">
+      <a href="{{$ctrl.url}}" target="_blank" class="btn btn-default-bright btn-block">
+        <i class="fa fa-external-link-square" aria-hidden="true"></i> Ver reporte en pantalla completa </a>
+      <iframe src="{{$ctrl.url}}" width="700px;" height="500px;"></iframe>
+    </div>
+
+  </div>
+</div>

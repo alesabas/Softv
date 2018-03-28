@@ -1,3 +1,5 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nanoscroller/0.8.7/javascripts/jquery.nanoscroller.min.js">
+</script>
 <header id="header">
   <div class="headerbar">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -6,7 +8,8 @@
         <li class="header-nav-brand">
           <div class="brand-holder">
             <a ui-sref="home.dashboard">
-              <img src="images/logo.png"><span class="text-lg text-bold text-primary">SOFTV WEB</span>
+              <img src="images/logo.png">
+              <span class="text-lg text-bold text-primary">SOFTV WEB</span>
             </a>
           </div>
         </li>
@@ -30,8 +33,14 @@
             </span>
           </a>
           <ul class="dropdown-menu animation-dock">
-            <li><a href="" ng-click="$ctrl.logout()"><i class="fa fa-fw fa-power-off text-danger"></i> Logout</a></li>
-            <li><a href="" ng-click="$ctrl.changepassword()"><i class="fa fa-fw fa-key text-danger"></i> cambiar contraseña</a></li>
+            <li>
+              <a href="" ng-click="$ctrl.logout()">
+                <i class="fa fa-fw fa-power-off text-danger"></i> Logout</a>
+            </li>
+            <li>
+              <a href="" ng-click="$ctrl.changepassword()">
+                <i class="fa fa-fw fa-key text-danger"></i> cambiar contraseña</a>
+            </li>
           </ul>
           <!--end .dropdown-menu -->
         </li>
@@ -50,6 +59,26 @@
     <section>
       <div ui-view></div>
     </section>
+    <div class="offcanvas">
+      <!-- BEGIN OFFCANVAS SEARCH -->
+      <div id="offcanvas-search" class="offcanvas-pane" style="width:1000px;">
+        <div class="offcanvas-head">
+          <header class="text-primary" id="titulocanvas"></header>
+          <div class="offcanvas-tools">
+            <a class="btn btn-icon-toggle btn-danger pull-right" data-dismiss="offcanvas">
+              <i class="md md-close"></i>
+            </a>
+          </div>
+        </div>
+        <div class="offcanvas-body no-padding">
+          <iframe id="framecanvas" src="" style="position:absolute;top:0px;width:100%;height:100vh;"></iframe>
+
+        </div>
+        <!--end .offcanvas-body -->
+      </div>
+
+
+    </div>
   </div>
   <!--end #content-->
   <!-- END CONTENT -->
@@ -66,22 +95,34 @@
       <ul id="main-menu" class="gui-controls">
         <li class="gui-folder" ng-repeat="x in $ctrl.menus | orderBy:'SortOrder'" ui-sref-active="active">
           <a ui-sref="{{ x.Class }}" ng-if="x.MenuChild.length == 0">
-            <div class="gui-icon"><i class="{{ x.Icon }}"></i></div>
+            <div class="gui-icon">
+              <i class="{{ x.Icon }}"></i>
+            </div>
             <span class="title">{{ x.Title }}</span>
           </a>
           <a ng-if="x.MenuChild.length > 0">
-            <div class="gui-icon"><i class="{{ x.Icon }}"></i></div>
+            <div class="gui-icon">
+              <i class="{{ x.Icon }}"></i>
+            </div>
             <span class="title">{{ x.Title }}</span>
           </a>
           <!--start submenu -->
-          <ul style="overflow: hidden; height: 308px; padding-top: 0px; margin-top: 0px; padding-bottom: 0px; margin-bottom: 0px;" ng-if="x.MenuChild.length > 0">
+          <ul style="overflow: hidden; height: 308px; padding-top: 0px; margin-top: 0px; padding-bottom: 0px; margin-bottom: 0px;"
+            ng-if="x.MenuChild.length > 0">
             <li ng-repeat="y in x.MenuChild | orderBy:'SortOrder'" ng-class="{'gui-folder': y.MenuChild.length > 0}">
-              <a ui-sref="{{ y.Class }}" ng-class="{active:$state.includes(y.Class)}" ng-if="y.MenuChild.length == 0"><span class="title">{{ y.Title }}</span></a>
-              <a ng-class="{active:$state.includes(y.Class)}" ng-if="y.MenuChild.length > 0"><span class="title">{{ y.Title }}</span></a>
+              <a ui-sref="{{ y.Class }}" ng-class="{active:$state.includes(y.Class)}" ng-if="y.MenuChild.length == 0">
+                <span class="title">{{ y.Title }}</span>
+              </a>
+              <a ng-class="{active:$state.includes(y.Class)}" ng-if="y.MenuChild.length > 0">
+                <span class="title">{{ y.Title }}</span>
+              </a>
 
-              <ul style="overflow: hidden; height: 308px; padding-top: 0px; margin-top: 0px; padding-bottom: 0px; margin-bottom: 0px;" ng-if="y.MenuChild.length > 0">
+              <ul style="overflow: hidden; height: 308px; padding-top: 0px; margin-top: 0px; padding-bottom: 0px; margin-bottom: 0px;"
+                ng-if="y.MenuChild.length > 0">
                 <li ng-repeat="z in y.MenuChild">
-                  <a ui-sref="{{ z.Class }}" ng-class="{active:$state.includes(z.Class)}"><span class="title">{{ z.Title }}</span></a>
+                  <a ui-sref="{{ z.Class }}" ng-class="{active:$state.includes(z.Class)}">
+                    <span class="title">{{ z.Title }}</span>
+                  </a>
                 </li>
               </ul>
             </li>
@@ -92,7 +133,8 @@
 
       <div class="menubar-foot-panel">
         <small class="no-linebreak hidden-folded">
-          <span class="opacity-75">Copyright &copy; 2017</span> <strong>SOFTV</strong>
+          <span class="opacity-75">Copyright &copy; 2017</span>
+          <strong>SOFTV</strong>
         </small>
       </div>
     </div>
