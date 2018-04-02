@@ -12,9 +12,9 @@ angular
 			'resumen': (vm.tiporeporte == 2) ? 1 : 0
 		  };
 		  reportesFactory.GetReporteListadoActividadesTecnico(Parametros).then(function (result) {
+			vm.rptpanel=true;
 			vm.url = $sce.trustAsResourceUrl(globalService.getUrlReportes() + '/Reportes/' + result.GetReporteListadoActividadesTecnicoResult);
-  
-		  });
+		 });
 	}
 		
 	var vm=this;
@@ -22,6 +22,7 @@ angular
 	vm.GetReport=GetReport;
 	vm.responseparams={};
 	vm.showfilters=false;
+	vm.rptpanel=false;
 	vm.order = [
 		{  'step': 1,function: 'getplazas',   confirm: false  },
 		{ 'step': 2, function: 'muestrafiltroAgenda', confirm: false },

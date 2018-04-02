@@ -292,6 +292,7 @@ angular
         } else {
           vm.elaparato = vm.selectAparato.MacCableModem;
         }*/
+        vm.elaparato = vm.selectAparato.MacCableModem;
         if (vm.selectAparato.CLAVE == 2 && vm.elaparato != 'Por Asignar') {
           vm.labandera = true;
         } else {
@@ -306,8 +307,11 @@ angular
             Contrato: vm.Cliente.Contrato,
             Session: vm.session
           };
-          cajasFactory.validaAparatos(vm.session, vm.selectAparato.CLV_DETALLE).then(function (data) {
-            if (data.GetValidaPideAparatosListResult[0].Valor == true) {
+          console.log(vm.session, vm.selectAparato.CLV_DETALLE);
+          /*cajasFactory.validaAparatos(vm.session, vm.selectAparato.CLV_DETALLE).then(function (data) {
+            console.log(data);*/
+            console.log('Yes');
+            /*if (data.GetValidaPideAparatosListResult[0].Valor == true) {*/
               vm.animationsEnabled = true;
               var modalInstance = $uibModal.open({
                 animation: vm.animationsEnabled,
@@ -325,7 +329,7 @@ angular
                   }
                 }
               });
-            } else {
+            /*} else {
               var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
@@ -342,8 +346,8 @@ angular
                   }
                 }
               });
-            }
-          });
+            }*/
+          /*});*/
         }
       }
       vm.selectAparato = undefined;

@@ -11,6 +11,7 @@ angular
         'localidades': vm.responseparams.localidades
       };
       reportesFactory.GetReportePendientesAreaTecnica(Parametros).then(function (result) {
+        vm.rptpanel=true;
         vm.url = $sce.trustAsResourceUrl(globalService.getUrlReportes() + '/Reportes/' + result.GetReportePendientesAreaTecnicaResult);
       });
     }
@@ -20,6 +21,7 @@ angular
   vm.GetReport=GetReport;
   vm.responseparams={};
   vm.showfilters=false;
+  vm.rptpanel=false;
   vm.GetReport=GetReport;
 	vm.order=[
         { 'step': 1,function: 'getplazas',   confirm: false  },
