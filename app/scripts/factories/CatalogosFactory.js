@@ -10,6 +10,8 @@ angular
       GetTipoClienteList_WebSoftvnew: '/TipoCliente/GetTipoClienteList_WebSoftvnew',
       GetClientesFiltosNew: '/CLIENTES_New/GetClientesFiltosNew',
       GetCLIENTES_NewList: '/CLIENTES_New/GetCLIENTES_NewList',
+      GetConsultaClientes_Filtros_List: '/CLIENTES_New/GetConsultaClientes_Filtros_List',
+      GetEstadoByPlaza: '/Estados_New/GetEstadoByPlaza',
       GetConsultaClientesList: '/CLIENTES_New/GetConsultaClientesList',
       GetMuestraCiudadesEstadoList: '/MuestraCiudadesEstado/GetMuestraCiudadesEstadoList',
       GetMuestraLocalidadCiudadList: '/MuestraLocalidadCiudad/GetMuestraLocalidadCiudadList',
@@ -677,6 +679,24 @@ angular
       return deferred.promise;
     };
 
+    factory.GetConsultaClientes_Filtros_List = function (lstCliente) {
+      var deferred = $q.defer();
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      var Parametros = {
+        'lstCliente': lstCliente
+      };
+      $http.post(globalService.getUrl() + paths.GetConsultaClientes_Filtros_List, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
     factory.GetConsultaClientesList = function (CONTRATO) {
       var deferred = $q.defer();
       var config = {
@@ -707,6 +727,24 @@ angular
         'Nombre': ''
       };
       $http.post(globalService.getUrl() + paths.GetEstados_NewList, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+    factory.GetEstadoByPlaza = function (IdCompania) {
+      var deferred = $q.defer();
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      var Parametros = {
+        'IdCompania': IdCompania
+      };
+      $http.post(globalService.getUrl() + paths.GetEstadoByPlaza, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
         deferred.reject(response);
