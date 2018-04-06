@@ -1,0 +1,67 @@
+<div class="modal-header">
+    <button class="close" type="button" aria-label="close" ng-click="ctrl.cancel()">x</button>
+    <h4 class="modal-title"><i class="fa fa-exchange"></i> {{ ctrl.Titulo }}</h4>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <form name="FormServicios" angular-validator-submit="ctrl.AddClvEquivalente()" novalidate angular-validator autocomplete="off">
+            <div class="col-md-12">
+                <div class="col-md-5">
+                    <b>Tecnología:</b>
+                </div>
+                <div class="col-md-5">
+                    <b>Clave Equivalente</b>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-5">
+                    <select name="SlcMedio" class="form-control input-sm" ng-model="ctrl.Medio" ng-options="M.Descripcion for M in ctrl.MedioList track by M.IdMedio" validate-on="dirty" required required-message="'Obligatorio'">
+                        <option value="">Selecciona</option>
+                    </select>
+                </div>
+                <div class="col-md-5">
+                    <select name="SlcClvEquivalente" class="form-control input-sm" ng-model="ctrl.ClvEquivalente" ng-options="CE.Clv_equivalente for CE in ctrl.ClvEquiNetList track by CE.id" validate-on="dirty" required required-message="'Obligatorio'">
+                        <option value="">Selecciona</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-success btn-xs" title="Agregar Clave Equivalente"><i class="fa fa-plus"></i> Agregar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th width="50%"><b>Tecnología</b></th>
+                            <th width="50%"><b>Calve Equivalente</b></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-show="!ctrl.ViewList">
+							<td class="text-center" colspan="2">SIN REGISTROS</td>
+						</tr>
+                        <tr dir-paginate="X in ctrl.ClvEquivalenteList|itemsPerPage:5" ng-show="ctrl.ViewList">
+                            <td>{{ X.Descripcion }}</td>
+                            <td>{{ X.ClvEqui }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br>
+                <div style="margin-top:-40px;">
+					<dir-pagination-controls max-size="5" direction-links="true" boundary-links="true" ng-if="ctrl.ClvEquivalenteList.length > 0">
+					</dir-pagination-controls>
+				</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary btn-sm" ng-click="ctrl.OK()" title="Guardar Localidad"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
+    <button type="button" class="btn bnt-default btn-sm" ng-click="ctrl.Cancel()" title="Salir"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
+</div>

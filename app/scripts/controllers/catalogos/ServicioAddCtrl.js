@@ -1,7 +1,7 @@
 'use strict'
 angular
     .module('softvApp')
-    .controller('ServicioAddCtrl', function(CatalogosFactory, ngNotify, $uibModal, $state, $stateParams, $rootScope){
+    .controller('ServicioAddCtrl', function(CatalogosFactory, ServiciosFactory, ngNotify, $uibModal, $state, $stateParams, $rootScope){
 
         function initData(){
             CatalogosFactory.GetDeepTipServ_New(vm.Clv_TipSer).then(function(data){
@@ -15,9 +15,10 @@ angular
                         CatalogosFactory.GetTipoClienteList_WebSoftvnew().then(function(data){
                             vm.TipoCobroList = data.GetTipoClienteList_WebSoftvnewResult;
                         });
-                        CatalogosFactory.Gettbl_politicasFibraList().then(function(data){
+                        /*CatalogosFactory.Gettbl_politicasFibraList().then(function(data){
+                            console.log(data);
                             vm.ClvEquiNetList = data.Gettbl_politicasFibraListResult;
-                        });
+                        });*/
                     }else{
                         ngNotify.set('ERROR, el tipo se servicio que seleccionó no es válido.', 'warn');
                         $state.go('home.catalogos.servicios');
@@ -83,6 +84,8 @@ angular
                                 CatalogosFactory.AddNUEPuntos_Pago_Adelantado(objNUEPuntos_Pago_Adelantado).then(function(data){
                                     if(vm.Clv_TipSer == 2){
                                         if(vm.ClvEquiNet != undefined){
+                                            /*Chek*/
+                                            /*
                                             var ObjClvEquiNet = {
                                                 'Clv_Txt': vm.Clave, 
                                                 'Clv_Eq': vm.ClvEquiNet.Clv_equivalente, 
@@ -90,6 +93,17 @@ angular
                                             };
                                             CatalogosFactory.GetTblNetList(ObjClvEquiNet).then(function(data){
                                                 vm.AddClvEquiNet = data.GetTblNetListResult[0];
+                                                SaveServicio2(Clv_Servicio);
+                                            });
+                                            */
+                                            /* foreach*/
+                                            var ObjClvEquivalente = {
+                                                'ClvServicio': Clv_Servicio,
+                                                'Id': vm.ClvEquivalenteList.Id,
+                                                'IdMedio': vm.ClvEquivalenteList.IdMedio
+                                            };
+                                            ServiciosFactory.GetAddServicioClvEqMedio(ObjClvEquivalente).then(function(data){
+                                                console.log(data);
                                                 SaveServicio2(Clv_Servicio);
                                             });
                                         }else{
@@ -200,7 +214,7 @@ angular
                     ngNotify.set('CORRECTO, se añadió un servicio nuevo.', 'success');
                     $state.go('home.catalogos.servicio_editar', {'id':vm.Clv_Servicio});
                 }else{
-                    ngNotify.set('ERROR, al agregar clave equivalente al servicio nuevo.', 'warn');
+                    ngNotify.set('ERROR, al agregar uivalente al servicio nuevo.', 'warn');
                     $state.go('home.catalogos.servicios');
                 }
             });
@@ -319,6 +333,25 @@ angular
             });
         }
 
+        function OpenClvEquivalente(){
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'views/catalogos/ModalClvEquivalenteForm.html',
+                controller: 'ModalClvEquivalenteAddCtrl',
+                controllerAs: 'ctrl',
+                backdrop: 'static',
+                keyboard: false,
+                class: 'modal-backdrop fade',
+                size: 'md'
+            });
+            modalInstance.result.then(function (ClvEquivalenteList) {
+                vm.ClvEquivalenteList = ClvEquivalenteList;
+                console.log(vm.ClvEquivalenteList);
+            });
+        }
+
         function SetTipoCobro(){
             if(vm.CobroMensual == 'Y'){
                 vm.ShowCobroMensual = true;
@@ -377,6 +410,7 @@ angular
         vm.View = false;
         vm.ActiveTab = 1;
         vm.AddClvEquiNet = '';
+        vm.ClvEquivalenteList = [];
         vm.Clv_TipSer = $stateParams.id;
         vm.SetTipoCobro = SetTipoCobro;
         vm.SetOrden = SetOrden;
@@ -386,6 +420,7 @@ angular
         vm.SaveServicios = SaveServicios;
         vm.GetTarifa = GetTarifa;
         vm.OpenConfigurar = OpenConfigurar;
+        vm.OpenClvEquivalente = OpenClvEquivalente;
         vm.SetClvEquiNet = SetClvEquiNet;
         initData();
     });

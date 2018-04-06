@@ -54,7 +54,7 @@
                         </label>
                     </div>
                     <div class="col-md-2">
-                        <button type="button" class="btn btn-primary btn-sm" ng-if="$ctrl.Clv_Servicio > 0 && $ctrl.Principal == 'Y'" ng-click="$ctrl.OpenConfigurar()" title="Agregar Configuración"><i class="fa fa-cogs"></i> Conrfigurar Servicios</button>
+                        <button type="button" class="btn btn-primary btn-sm btn-block" ng-if="$ctrl.Clv_Servicio > 0 && $ctrl.Principal == 'Y'" ng-click="$ctrl.OpenConfigurar()" title="Agregar Configuración"><i class="fa fa-cogs"></i> Conrfiguración</button>
                     </div>
                 </div>
             </div>
@@ -75,7 +75,9 @@
                         <p ng-show="$ctrl.ShowOrden"><b>Trabajo:</b></p>
                     </div>
                     <div class="col-md-2">
+                        <!--
                         <p ng-show="$ctrl.ShowClaveEquivalente || $ctrl.ShowClaveEquivalenteNet"><b>Clave Equivalente:</b></p>
+                        -->
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -97,9 +99,12 @@
                         <input type="text" name="InpClaveEquivalente" class="form-control input-sm" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" ng-model="$ctrl.ClaveEquivalente"  maxlength="5" ng-pattern="/^[a-zA-Z0-9]{5}$/" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa 5 caracteres.'" ng-if="$ctrl.ShowClaveEquivalente">
                     </div>
                     <div class="col-md-2" ng-if="$ctrl.ShowClaveEquivalenteNet">
+                        <!--
                         <select name="SlcClvEquiNet" class="form-control input-sm" ng-model="$ctrl.ClvEquiNet" ng-options="CEN.Clv_equivalente for CEN in $ctrl.ClvEquiNetList track by CEN.Clv_equivalente" ng-if="$ctrl.ShowClaveEquivalenteNet" validate-on="dirty" required required-message="'Obligatorio'">
                             <option value="">Selecciona</option>
                         </select>
+                        -->
+                        <button type="button" class="btn btn-primary btn-sm btn-block" ng-if="$ctrl.ShowClaveEquivalenteNet" ng-click="$ctrl.OpenClvEquivalente()" title="Claves Equivalentes"><i class="fa fa-exchange"></i> Clave Equivalente</button>
                     </div>
                 </div>
             </div>
