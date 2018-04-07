@@ -2,19 +2,12 @@
 
 angular
     .module('softvApp')
-    .controller('ModalClvEquivalenteAddCtrl', function($uibModalInstance, $uibModal, ServiciosFactory, CatalogosFactory, $state, ngNotify){
+    .controller('ModalClvEquivalenteAddCtrl', function($uibModalInstance, $uibModal, ServiciosFactory, CatalogosFactory, $state, ngNotify, ClvEquiList){
         
         function initData(){
             GetMedioList();
             GetClvEquivalenteList();
-            SetClvEquivalenteList();
-        }
-
-        function GetMedioList(){
-            ServiciosFactory.GetMedioList().then(function(data){
-                console.log(data);
-                vm.MedioList = data.GetMedioListResult;
-            });
+            /*SetClvEquivalenteList();*/
         }
 
         function GetClvEquivalenteList(){
@@ -23,7 +16,49 @@ angular
                 vm.ClvEquiNetList = data.Gettbl_politicasFibraListResult;
             });
         }
+
+        function GetMedioList(){
+            console.log('X');
+            console.log(ClvEquiListM.length > 0);
+            if (ClvEquiListM.length > 0){
+                console.log('2');
+                vm.MedioList = ClvEquiListM;
+                vm.ViewList = (vm.MedioList.length > 0)? true:false;
+            }else{
+                console.log('1');
+                ServiciosFactory.GetMedioList().then(function(data){
+                    console.log(data);
+                    var MedioList = data.GetMedioListResult;
+                    angular.forEach(MedioList, function(value, key){
+                        var Obj = {
+                            'IdMedio': value.IdMedio,
+                            'Descripcion': value.Descripcion,
+                            'ClvEqui': null
+                        };
+                        vm.MedioList.push(Obj);
+                    });
+                    vm.ViewList = (vm.MedioList.length > 0)? true:false;
+                });
+            }
+        }
         
+        function AddClvEquivalente(ObjClvEqui){
+            console.log(ObjClvEqui);
+            console.log(vm.MedioList);
+        }
+
+        function Save(){
+            vm.ClvEquivalenteList = vm.MedioList;
+            OK();
+        }
+
+        function DontSave(){
+            console.log(ClvEquiListO);
+            vm.ClvEquivalenteList = ClvEquiListO;
+            Cancel();
+        }
+        
+        /*
         function SetClvEquivalenteList(){
             vm.ViewList = (vm.ClvEquivalenteList.length > 0)? true:false;
         }
@@ -76,21 +111,25 @@ angular
             console.log(Count);
             return (Count > 0)? false:true;
         }
-
+        */
         function OK(){
             $uibModalInstance.close(vm.ClvEquivalenteList);
         }
-
+        
         function Cancel() {
             $uibModalInstance.dismiss('cancel');
         }
-
+        
         var vm = this;
         vm.Titulo = 'Clave Equivalente';
+        vm.MedioList = [];
         vm.ClvEquivalenteList = [];
         vm.AddClvEquivalente = AddClvEquivalente;
-        vm.OK = OK;
-        vm.Cancel = Cancel;
+        vm.Save = Save;
+        vm.DontSave = DontSave;
+        console.log(ClvEquiList);
+        var ClvEquiListO = ClvEquiList;
+        var ClvEquiListM = ClvEquiList;
         initData();
 
     });

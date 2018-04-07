@@ -4,6 +4,38 @@
 </div>
 <div class="modal-body">
     <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th width="50%"><b>Tecnología</b></th>
+                            <th width="50%"><b>Calve Equivalente</b></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-show="!ctrl.ViewList">
+							<td class="text-center" colspan="2">SIN REGISTROS</td>
+						</tr>
+                        <tr dir-paginate="X in ctrl.MedioList|itemsPerPage:5" ng-show="ctrl.ViewList">
+                            <td>{{ X.Descripcion }}</td>
+                            <td><select name="SlcClvEquivalente_{{ X.IdMedio }}" class="form-control input-sm" ng-model="X.ClvEqui" ng-options="CE.Clv_equivalente for CE in ctrl.ClvEquiNetList track by CE.id" validate-on="dirty" required required-message="'Obligatorio'" ng-change="ctrl.AddClvEquivalente(X)">
+                                    <option value="">Selecciona</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br>
+                <div style="margin-top:-40px;">
+					<dir-pagination-controls max-size="5" direction-links="true" boundary-links="true" ng-if="ctrl.ClvEquivalenteList.length > 0">
+					</dir-pagination-controls>
+				</div>
+            </div>
+        </div>
+    </div>
+    <!--
+    <div class="row">
         <form name="FormServicios" angular-validator-submit="ctrl.AddClvEquivalente()" novalidate angular-validator autocomplete="off">
             <div class="col-md-12">
                 <div class="col-md-5">
@@ -60,8 +92,9 @@
             </div>
         </div>
     </div>
+    -->
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-primary btn-sm" ng-click="ctrl.OK()" title="Guardar Localidad"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
-    <button type="button" class="btn bnt-default btn-sm" ng-click="ctrl.Cancel()" title="Salir"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
+    <button type="button" class="btn btn-primary btn-sm" ng-click="ctrl.Save()" title="Guardar Localidad"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
+    <button type="button" class="btn bnt-default btn-sm" ng-click="ctrl.DontSave()" title="Salir"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
 </div>

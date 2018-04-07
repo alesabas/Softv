@@ -102,6 +102,14 @@ angular
                                                 'Id': vm.ClvEquivalenteList.Id,
                                                 'IdMedio': vm.ClvEquivalenteList.IdMedio
                                             };
+                                            angular.forEach(vm.ClvEquivalenteList, function(value, key){
+                                                var Obj = {
+                                                    'ClvServicio': Clv_Servicio,
+                                                    'Id': value.Id,
+                                                    'IdMedio': value.IdMedio
+                                                };
+                                                ObjClvEquivalente.push(Obj);
+                                            });
                                             ServiciosFactory.GetAddServicioClvEqMedio(ObjClvEquivalente).then(function(data){
                                                 console.log(data);
                                                 SaveServicio2(Clv_Servicio);
@@ -334,6 +342,7 @@ angular
         }
 
         function OpenClvEquivalente(){
+            var ClvEquiList = vm.ClvEquivalenteList;
             var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
@@ -344,7 +353,12 @@ angular
                 backdrop: 'static',
                 keyboard: false,
                 class: 'modal-backdrop fade',
-                size: 'md'
+                size: 'md',
+                resolve: {
+                    ClvEquiList: function () {
+                        return ClvEquiList;
+                    }
+                }
             });
             modalInstance.result.then(function (ClvEquivalenteList) {
                 vm.ClvEquivalenteList = ClvEquivalenteList;
@@ -410,6 +424,7 @@ angular
         vm.View = false;
         vm.ActiveTab = 1;
         vm.AddClvEquiNet = '';
+        var ObjClvEquivalente = [];
         vm.ClvEquivalenteList = [];
         vm.Clv_TipSer = $stateParams.id;
         vm.SetTipoCobro = SetTipoCobro;
