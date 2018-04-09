@@ -9,9 +9,9 @@ angular
                 vm.TipoCobro = vm.TipoCobroList[0];
                 GetTarifa();
             });
-            CatalogosFactory.Gettbl_politicasFibraList().then(function(data){
+            /*CatalogosFactory.Gettbl_politicasFibraList().then(function(data){
                 vm.ClvEquiNetList = data.Gettbl_politicasFibraListResult;
-            });
+            });*/
             GetServicio();
         }
 
@@ -55,7 +55,7 @@ angular
                     });
 
                     if(Servicio.Sale_en_Cartera == true && Servicio.Es_Principal == true && vm.Clv_TipSer == 2){
-                        GetClvEquiNet();
+                        /*GetClvEquiNet();*/
                     }else if(Servicio.Sale_en_Cartera == true && vm.Clv_TipSer == 3){
                         GetClvEqui();                       
                     }
@@ -77,7 +77,7 @@ angular
             });
         }
 
-        function GetClvEquiNet(){
+        /*function GetClvEquiNet(){
             CatalogosFactory.GetDeepTblNet(vm.Clave).then(function(data){
                 var ClvEquiNet = data.GetDeepTblNetResult.Clv_Eq;
                 for(var i = 0; vm.ClvEquiNetList.length > i; i ++){
@@ -86,9 +86,9 @@ angular
                     }
                 }
             });
-        }
-
-        function GetClvEqui(){
+        }*/
+        
+        /*function GetClvEqui(){
             var ObjClvEqui = {
                 'Op':0,
                 'Clv_txt': vm.Clave
@@ -96,7 +96,7 @@ angular
             CatalogosFactory.GetCONSULTAClv_Equi(ObjClvEqui).then(function(data){
                 vm.ClaveEquivalente = data.GetCONSULTAClv_EquiResult.Clv_Equivalente;
             });
-        }
+        }*/
 
         function GetTarifa(){
             if(vm.TipoCobro != undefined){
@@ -398,6 +398,33 @@ angular
             });
         }
 
+        function OpenClvEquivalente(){
+            var Clv_Servicio = vm.Clv_Servicio;
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'views/catalogos/ModalClvEquivalenteForm.html',
+                controller: 'ModalClvEquivalenteUpdateCtrl',
+                controllerAs: 'ctrl',
+                backdrop: 'static',
+                keyboard: false,
+                class: 'modal-backdrop fade',
+                size: 'md',
+                resolve: {
+                    Clv_Servicio: function () {
+                        return Clv_Servicio;
+                    }
+                }
+            });
+            /*
+            modalInstance.result.then(function (ClvEquiListResponse) {
+                vm.ClvEquiListForm = ClvEquiListResponse;
+                console.log(vm.ClvEquiListForm);
+            });
+            */
+        }
+
         $rootScope.$on('LoadConceptos', function(e, Clv_Servicio){
             GetTarifa(Clv_Servicio);
         });
@@ -465,6 +492,7 @@ angular
         vm.OpenAddConcepto = OpenAddConcepto;
         vm.OpenUpdateConcepto = OpenUpdateConcepto;
         vm.OpenDeleteConcepto = OpenDeleteConcepto;
+        vm.OpenClvEquivalente = OpenClvEquivalente;
         vm.SaveServicios = SaveServicios;
         vm.OpenConfigurar = OpenConfigurar;
         vm.GetTarifa = GetTarifa;

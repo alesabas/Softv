@@ -83,7 +83,9 @@ angular
                                 };
                                 CatalogosFactory.AddNUEPuntos_Pago_Adelantado(objNUEPuntos_Pago_Adelantado).then(function(data){
                                     if(vm.Clv_TipSer == 2){
-                                        if(vm.ClvEquiNet != undefined){
+                                        console.log(vm.ClvEquiListForm.length);
+                                        if(vm.ClvEquiListForm.length > 0){
+                                            console.log('Clv');
                                             /*Chek*/
                                             /*
                                             var ObjClvEquiNet = {
@@ -97,19 +99,16 @@ angular
                                             });
                                             */
                                             /* foreach*/
-                                            var ObjClvEquivalente = {
-                                                'ClvServicio': Clv_Servicio,
-                                                'Id': vm.ClvEquivalenteList.Id,
-                                                'IdMedio': vm.ClvEquivalenteList.IdMedio
-                                            };
-                                            angular.forEach(vm.ClvEquivalenteList, function(value, key){
+                                            var ObjClvEquivalente = [];
+                                            angular.forEach(vm.ClvEquiListForm, function(value, key){
                                                 var Obj = {
                                                     'ClvServicio': Clv_Servicio,
-                                                    'Id': value.Id,
+                                                    'Id': value.id,
                                                     'IdMedio': value.IdMedio
                                                 };
                                                 ObjClvEquivalente.push(Obj);
                                             });
+                                            console.log(ObjClvEquivalente);
                                             ServiciosFactory.GetAddServicioClvEqMedio(ObjClvEquivalente).then(function(data){
                                                 console.log(data);
                                                 SaveServicio2(Clv_Servicio);
@@ -159,8 +158,11 @@ angular
                         'Clv_Servicio': Clv_Servicio
                     }
                     CatalogosFactory.AddNueAplicaSoloInternet(objNueAplicaSoloInternet).then(function(data){
-                        if(data.AddNueAplicaSoloInternetResult == -1){
-                            if(vm.AddClvEquiNet != ''){
+                        /*if(data.AddNueAplicaSoloInternetResult == -1){*/
+                            ngNotify.set('CORRECTO, se añadió un servicio nuevo.', 'success');
+                            $state.go('home.catalogos.servicio_editar', {'id':Clv_Servicio});
+                        /*
+                        if(vm.AddClvEquiNet != ''){
                                 var Msg = (vm.AddClvEquiNet.Msg != null)? 'CORRECTO, se añadió un servicio nuevo, ' + vm.AddClvEquiNet.Msg + '.':'CORRECTO, se añadió un servicio nuevo.';
                             }else{
                                 var Msg = 'CORRECTO, se añadió un servicio nuevo.';
@@ -176,7 +178,7 @@ angular
                             }
                             ngNotify.set(Msg, 'warn');
                             $state.go('home.catalogos.servicios');
-                        }
+                        }*/
                     });
                 }else if(ValildaInternetResult == 1){
                     CatalogosFactory.DeleteBorAplicaSoloInternet(Clv_Servicio).then(function(data){
@@ -342,7 +344,8 @@ angular
         }
 
         function OpenClvEquivalente(){
-            var ClvEquiList = vm.ClvEquivalenteList;
+            var ClvEquiListPost = vm.ClvEquiListForm;
+            console.log(ClvEquiListPost);
             var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
@@ -355,14 +358,14 @@ angular
                 class: 'modal-backdrop fade',
                 size: 'md',
                 resolve: {
-                    ClvEquiList: function () {
-                        return ClvEquiList;
+                    ClvEquiListPost: function () {
+                        return ClvEquiListPost;
                     }
                 }
             });
-            modalInstance.result.then(function (ClvEquivalenteList) {
-                vm.ClvEquivalenteList = ClvEquivalenteList;
-                console.log(vm.ClvEquivalenteList);
+            modalInstance.result.then(function (ClvEquiListResponse) {
+                vm.ClvEquiListForm = ClvEquiListResponse;
+                console.log(vm.ClvEquiListForm);
             });
         }
 
@@ -424,8 +427,9 @@ angular
         vm.View = false;
         vm.ActiveTab = 1;
         vm.AddClvEquiNet = '';
-        var ObjClvEquivalente = [];
-        vm.ClvEquivalenteList = [];
+        /*var ObjClvEquivalente = [];*/
+        /*vm.ClvEquivalenteList = [];*/
+        vm.ClvEquiListForm = [];
         vm.Clv_TipSer = $stateParams.id;
         vm.SetTipoCobro = SetTipoCobro;
         vm.SetOrden = SetOrden;
