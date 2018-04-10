@@ -7,7 +7,8 @@ angular
         var paths = {
             GetMedioList: '/MuestraMedios_New/GetMedioList',
             GetServicioClvEqMedioList: '/TblNet/GetServicioClvEqMedioList',
-            GetAddServicioClvEqMedio: '/TblNet/GetAddServicioClvEqMedio'
+            GetAddServicioClvEqMedio: '/TblNet/GetAddServicioClvEqMedio',
+            GetUpdateServicioClvEqMedio: '/TblNet/GetUpdateServicioClvEqMedio'
         };
 
         factory.GetMedioList = function() { 
@@ -25,7 +26,6 @@ angular
             var deferred = $q.defer();
             var Parametros = {'ClvServicio': ClvServicio};
             var config = {headers:{'Authorization': $localStorage.currentUser.token}};
-            console.log(Parametros);
             $http.post(globalService.getUrl() + paths.GetServicioClvEqMedioList, JSON.stringify(Parametros), config).then(function(response) { 
                 deferred.resolve(response.data); 
             }).catch(function(response) { 
@@ -39,6 +39,18 @@ angular
             var Parametros = {'ObjClvEquivalente': ObjClvEquivalente};
             var config = {headers:{'Authorization': $localStorage.currentUser.token}};
             $http.post(globalService.getUrl() + paths.GetAddServicioClvEqMedio, JSON.stringify(Parametros), config).then(function(response) { 
+                deferred.resolve(response.data); 
+            }).catch(function(response) { 
+                deferred.reject(response.data); 
+            });
+            return deferred.promise; 
+        };
+
+        factory.GetUpdateServicioClvEqMedio = function(ObjClvEquivalente) { 
+            var deferred = $q.defer();
+            var Parametros = {'ObjClvEquivalente': ObjClvEquivalente};
+            var config = {headers:{'Authorization': $localStorage.currentUser.token}};
+            $http.post(globalService.getUrl() + paths.GetUpdateServicioClvEqMedio, JSON.stringify(Parametros), config).then(function(response) { 
                 deferred.resolve(response.data); 
             }).catch(function(response) { 
                 deferred.reject(response.data); 

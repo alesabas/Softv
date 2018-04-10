@@ -1,7 +1,7 @@
 'use strict';
 angular
     .module('softvApp')
-    .controller('ModalClvEquivalenteUpdateCtrl', function($uibModalInstance, $uibModal, ServiciosFactory, CatalogosFactory, $state, ngNotify, Clv_Servicio){
+    .controller('ModalClvEquivalenteViewCtrl', function($uibModalInstance, $uibModal, ServiciosFactory, CatalogosFactory, $state, ngNotify, Clv_Servicio){
         
         function initData(){
             GetClvEquiNetList();
@@ -79,7 +79,7 @@ angular
         }
 
         var vm = this;
-        vm.disable = false;
+        vm.disable = true;
         vm.Titulo = 'Clave Equivalente';
         vm.ClvEquiList = [];
         vm.Save = Save;

@@ -9,9 +9,6 @@ angular
                 vm.TipoCobro = vm.TipoCobroList[0];
                 GetTarifa();
             });
-            /*CatalogosFactory.Gettbl_politicasFibraList().then(function(data){
-                vm.ClvEquiNetList = data.Gettbl_politicasFibraListResult;
-            });*/
             GetServicio();
         }
 
@@ -53,10 +50,7 @@ angular
                             vm.Trabajo == undefined;
                         }
                     });
-
-                    if(Servicio.Sale_en_Cartera == true && Servicio.Es_Principal == true && vm.Clv_TipSer == 2){
-                        /*GetClvEquiNet();*/
-                    }else if(Servicio.Sale_en_Cartera == true && vm.Clv_TipSer == 3){
+                    if(Servicio.Sale_en_Cartera == true && vm.Clv_TipSer == 3){
                         GetClvEqui();                       
                     }
                 }else{
@@ -76,19 +70,8 @@ angular
                 }
             });
         }
-
-        /*function GetClvEquiNet(){
-            CatalogosFactory.GetDeepTblNet(vm.Clave).then(function(data){
-                var ClvEquiNet = data.GetDeepTblNetResult.Clv_Eq;
-                for(var i = 0; vm.ClvEquiNetList.length > i; i ++){
-                    if(vm.ClvEquiNetList[i].Clv_equivalente == ClvEquiNet){
-                        vm.ClvEquiNet = vm.ClvEquiNetList[i];
-                    }
-                }
-            });
-        }*/
         
-        /*function GetClvEqui(){
+        function GetClvEqui(){
             var ObjClvEqui = {
                 'Op':0,
                 'Clv_txt': vm.Clave
@@ -96,7 +79,7 @@ angular
             CatalogosFactory.GetCONSULTAClv_Equi(ObjClvEqui).then(function(data){
                 vm.ClaveEquivalente = data.GetCONSULTAClv_EquiResult.Clv_Equivalente;
             });
-        }*/
+        }
 
         function GetTarifa(){
             if(vm.TipoCobro != undefined){
@@ -169,31 +152,7 @@ angular
                                     };
                                     CatalogosFactory.AddNUEPuntos_Pago_Adelantado(objNUEPuntos_Pago_Adelantado).then(function(data){
                                         if(vm.Clv_TipSer == 2){
-                                            if(vm.ClvEquiNet != undefined){
-                                                CatalogosFactory.GetDeepTblNet(vm.Clave).then(function(data){
-                                                    if(data.GetDeepTblNetResult != null){
-                                                        var objTblNet = {
-                                                            'Clv_Txt': vm.Clave, 
-                                                            'Clv_Eq': vm.ClvEquiNet.Clv_equivalente
-                                                        }
-                                                        CatalogosFactory.UpdateTblNet(objTblNet).then(function(data){
-                                                            SaveServicio2();
-                                                        });
-                                                    }else{
-                                                        var ObjClvEquiNet = {
-                                                            'Clv_Txt': vm.Clave, 
-                                                            'Clv_Eq': vm.ClvEquiNet.Clv_equivalente, 
-                                                            'Id': 0
-                                                        };
-                                                        CatalogosFactory.GetTblNetList(ObjClvEquiNet).then(function(data){
-                                                            vm.AddClvEquiNet = data.GetTblNetListResult[0];
-                                                            SaveServicio2();
-                                                        });
-                                                    }
-                                                });
-                                            }else{
-                                               SaveServicio2();
-                                            }
+                                            SaveServicio2();
                                         }else if(vm.Clv_TipSer == 3){
                                             SaveServicio3();
                                         }else{
@@ -235,52 +194,14 @@ angular
                         'Clv_Servicio': vm.Clv_Servicio
                     }
                     CatalogosFactory.AddNueAplicaSoloInternet(objNueAplicaSoloInternet).then(function(data){
-                        if(data.AddNueAplicaSoloInternetResult == -1){
-                            if(vm.AddClvEquiNet != ''){
-                                var Msg = (vm.AddClvEquiNet.Msg != null)? 'CORRECTO, se guardó el servicio, ' + vm.AddClvEquiNet.Msg + '.':'CORRECTO, se añadió un servicio nuevo.';
-                            }else{
-                                var Msg = 'CORRECTO, se guardó el servicio.';
-                            }
-                            ngNotify.set(Msg, 'success');
-                            GetServicio();
-                        }else{
-                            if(vm.AddClvEquiNet != ''){
-                                var Msg = (vm.AddClvEquiNet.Msg != null)? 'ERROR, al validar solo internet, ' + vm.AddClvEquiNet.Msg + '.':'ERROR, al validar solo internet.';
-                            }else{
-                                var Msg = 'ERROR, al validar solo internet.';
-                            }
-                            ngNotify.set(Msg, 'warn');
-                            GetServicio();
-                        }
+                        ngNotify.set('CORRECTO, se guardó el servicio.', 'success');
+                        GetServicio();
                     });
                 }else if(ValildaInternetResult == 1){
                     CatalogosFactory.DeleteBorAplicaSoloInternet(vm.Clv_Servicio).then(function(data){
-                        if(data.DeleteBorAplicaSoloInternetResult == -1){
-                            if(vm.AddClvEquiNet != ''){
-                                var Msg = (vm.AddClvEquiNet.Msg != null)? 'CORRECTO, se guardó servicio, ' + vm.AddClvEquiNet.Msg + '.':'CORRECTO, se añadió un servicio nuevo.';
-                            }else{
-                                var Msg = 'CORRECTO, se guardoó el servicio.';
-                            }
-                            ngNotify.set(Msg, 'success');
-                            GetServicio();
-                        }else{
-                            if(vm.AddClvEquiNet != ''){
-                                var Msg = (vm.AddClvEquiNet.Msg != null)? 'ERROR, al validar solo internet, ' + vm.AddClvEquiNet.Msg + '.':'ERROR, al validar solo internet.';
-                            }else{
-                                var Msg = 'ERROR, al validar solo internet.';
-                            }
-                            ngNotify.set(Msg, 'warn');
-                            GetServicio();
-                        }
+                        ngNotify.set('CORRECTO, se guardó el servicio.', 'success');
+                        GetServicio();
                     });
-                }else{
-                    if(vm.AddClvEquiNet != ''){
-                        var Msg = (vm.AddClvEquiNet.Msg != null)? 'ERROR, al validar solo internet, ' + vm.AddClvEquiNet.Msg + '.':'ERROR, al validar solo internet.';
-                    }else{
-                        var Msg = 'ERROR, al validar solo internet.';
-                    }
-                    ngNotify.set(Msg, 'warn');
-                    GetServicio();
                 }
             });
         }
@@ -417,12 +338,6 @@ angular
                     }
                 }
             });
-            /*
-            modalInstance.result.then(function (ClvEquiListResponse) {
-                vm.ClvEquiListForm = ClvEquiListResponse;
-                console.log(vm.ClvEquiListForm);
-            });
-            */
         }
 
         $rootScope.$on('LoadConceptos', function(e, Clv_Servicio){
@@ -484,7 +399,6 @@ angular
         vm.Disable = true;
         vm.View = false;
         vm.ActiveTab = 0;
-        vm.AddClvEquiNet = '';
         vm.ShowClaveEquivalente = false;
         vm.ShowClaveEquivalenteNet = false;
         vm.SetTipoCobro = SetTipoCobro;
@@ -498,4 +412,5 @@ angular
         vm.GetTarifa = GetTarifa;
         vm.SetClvEquiNet = SetClvEquiNet;
         initData();
+        
     });

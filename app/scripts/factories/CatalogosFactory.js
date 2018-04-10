@@ -208,9 +208,6 @@ angular
       GetDameUnidadesMedidasDeVelocidadList: '/DameUnidadesMedidasDeVelocidad/GetDameUnidadesMedidasDeVelocidadList',
       Deletetbl_politicasFibra: '/tbl_politicasFibra/Deletetbl_politicasFibra',
       GetDeepRel_Trabajos_NoCobroMensual: '/Rel_Trabajos_NoCobroMensual/GetDeepRel_Trabajos_NoCobroMensual',
-      GetTblNetList: '/TblNet/GetTblNetList',
-      GetDeepTblNet: '/TblNet/GetDeepTblNet',
-      UpdateTblNet: '/TblNet/UpdateTblNet',
       GetCONSULTAClv_Equi: '/NUEVOClv_Equi/GetCONSULTAClv_Equi',
       GetCatMediosList: '/CatMedios/GetCatMediosList',
       GetConDescuentoCombo:'/CatMedios/GetConDescuentoCombo',
@@ -227,7 +224,6 @@ angular
       GetEliminaClienteServicio:'/ClientesServicio/GetEliminaClienteServicio',
       AddMovSist: '/MovSist/AddMovSist'
     };
-
 
     factory.GetModDescuentoCombo = function (Clv_Descuento,Clv_TipoCliente,Descripcion) {
       var deferred = $q.defer();
@@ -3572,42 +3568,6 @@ angular
       var config = {headers: {'Authorization': $localStorage.currentUser.token}};
       var Parametros = {Clv_Servicio: Clv_Servicio};
       $http.post(globalService.getUrl() + paths.GetDeepRel_Trabajos_NoCobroMensual, JSON.stringify(Parametros), config).then(function (response) {
-        deferred.resolve(response.data);
-      }).catch(function (response) {
-        deferred.reject(response);
-      });
-      return deferred.promise;
-    };
-
-    factory.GetTblNetList = function (ObjClvEquiNet) {
-      var deferred = $q.defer();
-      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
-      var Parametros = ObjClvEquiNet;
-      $http.post(globalService.getUrl() + paths.GetTblNetList, JSON.stringify(Parametros), config).then(function (response) {
-        deferred.resolve(response.data);
-      }).catch(function (response) {
-        deferred.reject(response);
-      });
-      return deferred.promise;
-    };
-
-    factory.GetDeepTblNet = function (Clv_Txt) {
-      var deferred = $q.defer();
-      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
-      var Parametros = {Clv_Txt: Clv_Txt};
-      $http.post(globalService.getUrl() + paths.GetDeepTblNet, JSON.stringify(Parametros), config).then(function (response) {
-        deferred.resolve(response.data);
-      }).catch(function (response) {
-        deferred.reject(response);
-      });
-      return deferred.promise;
-    };
-
-    factory.UpdateTblNet = function (objTblNet) {
-      var deferred = $q.defer();
-      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
-      var Parametros = {objTblNet: objTblNet};
-      $http.post(globalService.getUrl() + paths.UpdateTblNet, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
         deferred.reject(response);
