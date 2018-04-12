@@ -37,7 +37,7 @@
                                     <i class="md md-content-paste"></i> Contrato
                                 </uib-tab-heading>
                                 <br>
-                                <form name="FormSearchContrato" angular-validator-submit="$ctrl.SearchContrato()" novalidate angular-validator autocomplete="off">
+                                <form name="FormSearchContrato" angular-validator-submit="$ctrl.GetClienteList(1)" novalidate angular-validator autocomplete="off">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="col-md-3">
@@ -46,7 +46,7 @@
                                         </div>
                                         <div class="col-md-12">
                                             <div class="col-md-3">
-                                                <input type="text" name="InpContrato" class="form-control input-sm" ng-model="$ctrl.Contrato" ng-pattern="/^\d{1,9}-\d{1,9}$/" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa un contrato.'">
+                                                <input type="text" name="InpContrato" class="form-control input-sm" ng-model="$ctrl.Contrato" ng-pattern="/^\d{1,9}-\d{1,9}$/" validate-on="dirty" required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa un contrato.'">
                                             </div>
                                             <div class="col-md-2" style="text-align:center">
                                                 <button type="submit" class="btn btn-info btn-sm"><i class="fa fa-search"></i> Buscar</button>
@@ -68,7 +68,7 @@
                                     <i class="fa fa-home"></i> Dirección
                                 </uib-tab-heading>
                                 <br>
-                                <form name="FormSearchDireccion" angular-validator-submit="$ctrl.SearchDireccion()" novalidate angular-validator autocomplete="off">
+                                <form name="FormSearchDireccion" angular-validator-submit="$ctrl.GetClienteList(3)" novalidate angular-validator autocomplete="off">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="col-md-3">
@@ -86,22 +86,21 @@
                                         </div>
                                         <div class="col-md-12">
                                             <div class="col-md-3">
-                                                <select name="SltEstado" class="form-control input-sm" ng-model="$ctrl.Estado" ng-options="E.Nombre for E in $ctrl.EstadoList track by E.Clv_Estado" ng-change="$ctrl.GetCiudadMunicipio()" validate-on="dirty" required required-message="'Obligatorio'">
+                                                <select name="SltEstado" class="form-control input-sm" ng-model="$ctrl.Estado" ng-options="E.Nombre for E in $ctrl.EstadoList track by E.Clv_Estado" ng-change="$ctrl.GetCiudadMunicipio()" validate-on="dirty" invalid-message="'Obligatorio'">
+                                                </select>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <select name="CiuMun" class="form-control input-sm" ng-model="$ctrl.CiuMun" ng-options="CM.Nombre for CM in $ctrl.CiudadMunicipioList track by CM.Clv_Ciudad" ng-change="$ctrl.GetLocalidad()" validate-on="dirty" validator="($ctrl.Estado.Clv_Estado == 0) || ($ctrl.Estado.Clv_Estado > 0 && ($ctrl.CiuMun != undefined || $ctrl.CiuMun != null))" invalid-message="'Obligatorio'">
                                                     <option value="">Selecciona</option>
                                                 </select>
                                             </div>
                                             <div class="col-md-3">
-                                                <select name="CiuMun" class="form-control input-sm" ng-model="$ctrl.CiuMun" ng-options="CM.Nombre for CM in $ctrl.CiudadMunicipioList track by CM.Clv_Ciudad" ng-change="$ctrl.GetLocalidad()" validate-on="dirty" required required-message="'Obligatorio'">
+                                                <select name="SltLocalida" class="form-control input-sm" ng-model="$ctrl.Localidad" ng-options="L.NOMBRE for L in $ctrl.LocalidadList track by L.Clv_Localidad" ng-change="$ctrl.GetColonia()" validate-on="dirty" validator="($ctrl.Estado.Clv_Estado == 0) || ($ctrl.Estado.Clv_Estado > 0 && ($ctrl.Localidad != undefined || $ctrl.Localidad != null))" invalid-message="'Obligatorio'">
                                                     <option value="">Selecciona</option>
                                                 </select>
                                             </div>
                                             <div class="col-md-3">
-                                                <select name="SltLocalida" class="form-control input-sm" ng-model="$ctrl.Localidad" ng-options="L.NOMBRE for L in $ctrl.LocalidadList track by L.Clv_Localidad" ng-change="$ctrl.GetColonia()" validate-on="dirty" required required-message="'Obligatorio'">
-                                                    <option value="">Selecciona</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <select name="SltColonia" class="form-control input-sm" ng-model="$ctrl.Colonia" ng-options="C.Nombre for C in $ctrl.ColoniaList track by C.CLV_COLONIA" ng-change="$ctrl.GetCalle()" validate-on="dirty" required required-message="'Obligatorio'">
+                                                <select name="SltColonia" class="form-control input-sm" ng-model="$ctrl.Colonia" ng-options="C.Nombre for C in $ctrl.ColoniaList track by C.CLV_COLONIA" ng-change="$ctrl.GetCalle()" validate-on="dirty" validator="($ctrl.Estado.Clv_Estado == 0) || ($ctrl.Estado.Clv_Estado > 0 && ($ctrl.Colonia != undefined || $ctrl.Colonia != null))" invalid-message="'Obligatorio'">
                                                     <option value="">Selecciona</option>
                                                 </select>
                                             </div>
@@ -123,7 +122,7 @@
                                         </div>
                                         <div class="col-md-12">
                                             <div class="col-md-3">
-                                                <select name="SltCalle" class="form-control input-sm" ng-model="$ctrl.Calle" ng-options="C.Nombre for C in $ctrl.CalleList track by C.Clv_Calle" validate-on="dirty" required required-message="'Obligatorio'">
+                                                <select name="SltCalle" class="form-control input-sm" ng-model="$ctrl.Calle" ng-options="C.Nombre for C in $ctrl.CalleList track by C.Clv_Calle" validate-on="dirty" validator="($ctrl.Estado.Clv_Estado == 0) || ($ctrl.Estado.Clv_Estado > 0 && ($ctrl.Calle != undefined || $ctrl.Calle != null))" invalid-message="'Obligatorio'">
                                                     <option value="">Selecciona</option>
                                                 </select>
                                             </div>
@@ -147,7 +146,7 @@
                                     <i class="fa fa-user"></i> Nombre
                                 </uib-tab-heading>
                                 <br>
-                                <form name="FormSearchNombre" angular-validator-submit="$ctrl.SearchNombre()" novalidate angular-validator autocomplete="off">
+                                <form name="FormSearchNombre" angular-validator-submit="$ctrl.GetClienteList(2)" novalidate angular-validator autocomplete="off">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="col-md-12">
@@ -156,7 +155,7 @@
                                         </div>
                                         <div class="col-md-12">
                                             <div class="col-md-3">
-                                                <input type="text" name="InpNombre" class="form-control input-sm" ng-model="$ctrl.Nombre" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa un nombre.'">
+                                                <input type="text" name="InpNombre" class="form-control input-sm" ng-model="$ctrl.Nombre" validate-on="dirty" required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa un nombre.'">
                                             </div>
                                             <div class="col-md-2" style="text-align:center">
                                                 <button type="submit" class="btn btn-info btn-sm"><i class="fa fa-search"></i> Buscar</button>
@@ -173,7 +172,7 @@
                                     <i class="fa fa-building"></i> Plaza
                                 </uib-tab-heading>
                                 <br>
-                                <form name="FormSearchPlaza" angular-validator-submit="$ctrl.SearchPlaza()" novalidate angular-validator autocomplete="off">
+                                <form name="FormSearchPlaza" angular-validator-submit="$ctrl.GetClienteList(0)" novalidate angular-validator autocomplete="off">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="col-md-12">
@@ -182,7 +181,7 @@
                                         </div>
                                         <div class="col-md-12">
                                             <div class="col-md-3">
-                                                <select type="text" name="SltPlaza" class="form-control input-sm" ng-model="$ctrl.Plaza" ng-options="P.razon_social for P in $ctrl.PlazaList track by P.id_compania" validate-on="dirty" required required-message="'Obligatorio'">
+                                                <select type="text" name="SltPlaza" class="form-control input-sm" ng-model="$ctrl.Plaza" ng-options="P.razon_social for P in $ctrl.PlazaList track by P.id_compania" validate-on="dirty" required required-message="'Obligatorio'" ng-change="$ctrl.GetEstadoList()">
                                                     <option value="">Selecciona</option>
                                                 </select>
                                             </div>
@@ -219,7 +218,7 @@
                     <tr ng-show="$ctrl.SinRegistros">
                         <td class="text-center" colspan="10">SIN REGISTROS</td>
                     </tr>
-                    <tr dir-paginate="X in $ctrl.ClienteList|orderBy:'IdContrato':true|itemsPerPage:7" ng-show="$ctrl.ConRegistros">
+                    <tr dir-paginate="X in $ctrl.ClienteList|itemsPerPage:7" ng-show="$ctrl.ConRegistros">
                         <td><small>{{ X.ContratoCom }}</small></td>
                         <td ng-if="X.SegundoNombre != null && X.Apellido_Materno != null"><small>{{ X.Nombre + ' ' + X.SegundoNombre + ' ' + X.Apellido_Paterno + ' ' + X.Apellido_Materno }}</small></td>
                         <td ng-if="X.SegundoNombre != null && X.Apellido_Materno == null"><small>{{ X.Nombre + ' ' + X.SegundoNombre + ' ' + X.Apellido_Paterno }}</small></td>
