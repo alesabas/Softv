@@ -386,6 +386,27 @@ angular
             });
         }
 
+        function OpenClvEquivalente(){
+            var Clv_Servicio = vm.Clv_Servicio;
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'views/catalogos/ModalClvEquivalenteForm.html',
+                controller: 'ModalClvEquivalenteViewCtrl',
+                controllerAs: 'ctrl',
+                backdrop: 'static',
+                keyboard: false,
+                class: 'modal-backdrop fade',
+                size: 'md',
+                resolve: {
+                    Clv_Servicio: function () {
+                        return Clv_Servicio;
+                    }
+                }
+            });
+        }
+
         $rootScope.$on('LoadConceptos', function(e, Clv_Servicio){
             GetTarifa(Clv_Servicio);
         });
@@ -449,6 +470,7 @@ angular
         vm.ShowClaveEquivalenteNet = false;
         vm.SetTipoCobro = SetTipoCobro;
         vm.SetOrden = SetOrden;
+        vm.OpenClvEquivalente = OpenClvEquivalente;
         vm.OpenAddConcepto = OpenAddConcepto;
         vm.OpenUpdateConcepto = OpenUpdateConcepto;
         vm.OpenDeleteConcepto = OpenDeleteConcepto;

@@ -1,7 +1,7 @@
 'use strict'
 angular
     .module('softvApp')
-    .controller('ServicioAddCtrl', function(CatalogosFactory, ngNotify, $uibModal, $state, $stateParams, $rootScope){
+    .controller('ServicioAddCtrl', function(CatalogosFactory, ServiciosFactory, ngNotify, $uibModal, $state, $stateParams, $rootScope){
 
         function initData(){
             CatalogosFactory.GetDeepTipServ_New(vm.Clv_TipSer).then(function(data){
@@ -14,9 +14,6 @@ angular
                         });
                         CatalogosFactory.GetTipoClienteList_WebSoftvnew().then(function(data){
                             vm.TipoCobroList = data.GetTipoClienteList_WebSoftvnewResult;
-                        });
-                        CatalogosFactory.Gettbl_politicasFibraList().then(function(data){
-                            vm.ClvEquiNetList = data.Gettbl_politicasFibraListResult;
                         });
                     }else{
                         ngNotify.set('ERROR, el tipo se servicio que seleccionó no es válido.', 'warn');
@@ -82,14 +79,17 @@ angular
                                 };
                                 CatalogosFactory.AddNUEPuntos_Pago_Adelantado(objNUEPuntos_Pago_Adelantado).then(function(data){
                                     if(vm.Clv_TipSer == 2){
-                                        if(vm.ClvEquiNet != undefined){
-                                            var ObjClvEquiNet = {
-                                                'Clv_Txt': vm.Clave, 
-                                                'Clv_Eq': vm.ClvEquiNet.Clv_equivalente, 
-                                                'Id': 0
-                                            };
-                                            CatalogosFactory.GetTblNetList(ObjClvEquiNet).then(function(data){
-                                                vm.AddClvEquiNet = data.GetTblNetListResult[0];
+                                        if(vm.ClvEquiListForm.length > 0){
+                                            var ObjClvEquivalente = [];
+                                            angular.forEach(vm.ClvEquiListForm, function(value, key){
+                                                var Obj = {
+                                                    'ClvServicio': Clv_Servicio,
+                                                    'Id': value.id,
+                                                    'IdMedio': value.IdMedio
+                                                };
+                                                ObjClvEquivalente.push(Obj);
+                                            });
+                                            ServiciosFactory.GetAddServicioClvEqMedio(ObjClvEquivalente).then(function(data){
                                                 SaveServicio2(Clv_Servicio);
                                             });
                                         }else{
@@ -121,7 +121,6 @@ angular
                     });
                 }else{
                     ngNotify.set('ERROR, al añadir un servicio nuevo, posiblemente la clave que ingresó ya existe.', 'warn');
-                    //$state.go('home.catalogos.servicios');
                 }
             });
         }
@@ -137,54 +136,14 @@ angular
                         'Clv_Servicio': Clv_Servicio
                     }
                     CatalogosFactory.AddNueAplicaSoloInternet(objNueAplicaSoloInternet).then(function(data){
-                        if(data.AddNueAplicaSoloInternetResult == -1){
-                            if(vm.AddClvEquiNet != ''){
-                                var Msg = (vm.AddClvEquiNet.Msg != null)? 'CORRECTO, se añadió un servicio nuevo, ' + vm.AddClvEquiNet.Msg + '.':'CORRECTO, se añadió un servicio nuevo.';
-                            }else{
-                                var Msg = 'CORRECTO, se añadió un servicio nuevo.';
-                            }
-                            vm.Clv_Servicio = Clv_Servicio;
-                            ngNotify.set(Msg, 'success');
-                            $state.go('home.catalogos.servicio_editar', {'id':vm.Clv_Servicio});
-                        }else{
-                            if(vm.AddClvEquiNet != ''){
-                                var Msg = (vm.AddClvEquiNet.Msg != null)? 'ERROR, al validar solo internet, ' + vm.AddClvEquiNet.Msg + '.':'ERROR, al validar solo internet.';
-                            }else{
-                                var Msg = 'ERROR, al validar solo internet.';
-                            }
-                            ngNotify.set(Msg, 'warn');
-                            $state.go('home.catalogos.servicios');
-                        }
+                        ngNotify.set('CORRECTO, se añadió un servicio nuevo.', 'success');
+                        $state.go('home.catalogos.servicio_editar', {'id':Clv_Servicio});
                     });
                 }else if(ValildaInternetResult == 1){
                     CatalogosFactory.DeleteBorAplicaSoloInternet(Clv_Servicio).then(function(data){
-                        if(data.DeleteBorAplicaSoloInternetResult == -1){
-                            if(vm.AddClvEquiNet != ''){
-                                var Msg = (vm.AddClvEquiNet.Msg != null)? 'CORRECTO, se añadió un servicio nuevo, ' + vm.AddClvEquiNet.Msg + '.':'CORRECTO, se añadió un servicio nuevo.';
-                            }else{
-                                var Msg = 'CORRECTO, se añadió un servicio nuevo.';
-                            }
-                            vm.Clv_Servicio = Clv_Servicio;
-                            ngNotify.set(Msg, 'success');
-                            $state.go('home.catalogos.servicio_editar', {'id':vm.Clv_Servicio});
-                        }else{
-                            if(vm.AddClvEquiNet != ''){
-                                var Msg = (vm.AddClvEquiNet.Msg != null)? 'ERROR, al validar solo internet, ' + vm.AddClvEquiNet.Msg + '.':'ERROR, al validar solo internet.';
-                            }else{
-                                var Msg = 'ERROR, al validar solo internet.';
-                            }
-                            ngNotify.set(Msg, 'warn');
-                            $state.go('home.catalogos.servicios');
-                        }
+                        ngNotify.set('CORRECTO, se añadió un servicio nuevo.', 'success');
+                        $state.go('home.catalogos.servicio_editar', {'id':Clv_Servicio});
                     });
-                }else{
-                    if(vm.AddClvEquiNet != ''){
-                        var Msg = (vm.AddClvEquiNet.Msg != null)? 'ERROR, al validar solo internet, ' + vm.AddClvEquiNet.Msg + '.':'ERROR, al validar solo internet.';
-                    }else{
-                        var Msg = 'ERROR, al validar solo internet.';
-                    }
-                    ngNotify.set(Msg, 'warn');
-                    $state.go('home.catalogos.servicios');
                 }
             });
         }
@@ -200,7 +159,7 @@ angular
                     ngNotify.set('CORRECTO, se añadió un servicio nuevo.', 'success');
                     $state.go('home.catalogos.servicio_editar', {'id':vm.Clv_Servicio});
                 }else{
-                    ngNotify.set('ERROR, al agregar clave equivalente al servicio nuevo.', 'warn');
+                    ngNotify.set('ERROR, al agregar uivalente al servicio nuevo.', 'warn');
                     $state.go('home.catalogos.servicios');
                 }
             });
@@ -319,6 +278,30 @@ angular
             });
         }
 
+        function OpenClvEquivalente(){
+            var ClvEquiListPost = vm.ClvEquiListForm;
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'views/catalogos/ModalClvEquivalenteForm.html',
+                controller: 'ModalClvEquivalenteAddCtrl',
+                controllerAs: 'ctrl',
+                backdrop: 'static',
+                keyboard: false,
+                class: 'modal-backdrop fade',
+                size: 'md',
+                resolve: {
+                    ClvEquiListPost: function () {
+                        return ClvEquiListPost;
+                    }
+                }
+            });
+            modalInstance.result.then(function (ClvEquiListResponse) {
+                vm.ClvEquiListForm = ClvEquiListResponse;
+            });
+        }
+
         function SetTipoCobro(){
             if(vm.CobroMensual == 'Y'){
                 vm.ShowCobroMensual = true;
@@ -376,7 +359,7 @@ angular
         vm.Disable = false;
         vm.View = false;
         vm.ActiveTab = 1;
-        vm.AddClvEquiNet = '';
+        vm.ClvEquiListForm = [];
         vm.Clv_TipSer = $stateParams.id;
         vm.SetTipoCobro = SetTipoCobro;
         vm.SetOrden = SetOrden;
@@ -386,6 +369,8 @@ angular
         vm.SaveServicios = SaveServicios;
         vm.GetTarifa = GetTarifa;
         vm.OpenConfigurar = OpenConfigurar;
+        vm.OpenClvEquivalente = OpenClvEquivalente;
         vm.SetClvEquiNet = SetClvEquiNet;
         initData();
+        
     });
