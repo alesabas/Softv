@@ -1,15 +1,26 @@
 'use strict';
 angular
   .module('softvApp')
-  .controller('nuevoUsuarioCtrl', function ($state, usuarioFactory, globalService,ngNotify ,$uibModal, $filter, rolFactory, encuestasFactory) {
+  .controller('nuevoUsuarioCtrl', function ($state, usuarioFactory, globalService,ngNotify ,$uibModal, $filter, rolFactory, encuestasFactory, $localStorage) {
 
     this.$onInit = function () {
+      console.log($localStorage);
       rolFactory.GetRolList().then(function (data) {
         vm.Roles = data.GetRolListResult;
         usuarioFactory.GetConsultaIdentificacionUsuario(0, '').then(function (result) {
           vm.Indentificaciones = result.GetConsultaIdentificacionUsuarioResult;
           encuestasFactory.GetMuestra_DistribuidoresEncList().then(function (data) {
             vm.distribuidores = data.GetMuestra_DistribuidoresEncListResult;
+            console.log('gv');
+            var ObjGrupoVenta = {
+              'Clv_Grupo': 0,
+              'Op': 1,
+              'Clv_Usuario': $localStorage.currentUser.idUsuario
+            };
+            usuarioFactory.GetConGrupoVentas(ObjGrupoVenta).then(function(data){
+              console.log(data);
+              vm.GrupoVentaList = data.GetConGrupoVentasResult;
+            });
           });
         });
       });
@@ -67,12 +78,13 @@ angular
         'Mizar_AN': 0,
         'RecibeMensaje': vm.recibemensaje,
         'NotaDeCredito': 0,
-        'Clv_IdentificacionUsuario': vm.identificacion.Clave,
+        /*'Clv_IdentificacionUsuario': vm.identificacion.Clave,*/
         'RecibeMensajeDocumentos': 0,
         'Nombre': vm.Nombre
       };
 
       usuarioFactory.GetAddUsuarioSoftv(Parametros).then(function (data) {
+        console.log(data);
         vm.IdUser = data.GetAddUsuarioSoftvResult.Clave;
         vm.blockForm=true;
         vm.blockrelaciones=false;

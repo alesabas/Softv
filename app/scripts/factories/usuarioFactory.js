@@ -8,9 +8,9 @@ angular.module('softvApp')
       GetAddUsuarioSoftv: '/Usuario/GetAddUsuarioSoftv',
       GetAgregaEliminaRelCompaniaUsuario: '/Usuario/GetAgregaEliminaRelCompaniaUsuario',
       GetSoftvweb_GetUsuarioSoftvbyId: '/Usuario/GetSoftvweb_GetUsuarioSoftvbyId',
-      GetEditUsuarioSoftv: '/Usuario/GetEditUsuarioSoftv'
+      GetEditUsuarioSoftv: '/Usuario/GetEditUsuarioSoftv',
+      GetConGrupoVentas: '/Usuario/GetConGrupoVentas'
     };
-
 
     factory.GetEditUsuarioSoftv = function (object) {
       var deferred = $q.defer();
@@ -42,7 +42,6 @@ angular.module('softvApp')
         }
 
       };
-      console.log(Parametros);
       $http.post(globalService.getUrl() + paths.GetEditUsuarioSoftv, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
@@ -50,11 +49,6 @@ angular.module('softvApp')
       });
       return deferred.promise;
     };
-
-
-
-
-
 
     factory.GetAgregaEliminaRelCompaniaUsuario = function (clv_usuario, idcompania, opcion) {
       var deferred = $q.defer();
@@ -68,7 +62,6 @@ angular.module('softvApp')
         'idcompania': idcompania,
         'opcion': opcion
       };
-      console.log(Parametros);
       $http.post(globalService.getUrl() + paths.GetAgregaEliminaRelCompaniaUsuario, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
@@ -76,7 +69,6 @@ angular.module('softvApp')
       });
       return deferred.promise;
     };
-
 
     factory.GetSoftvweb_GetUsuarioSoftvbyId = function (Id) {
       var deferred = $q.defer();
@@ -89,7 +81,6 @@ angular.module('softvApp')
         'Id': Id,
 
       };
-      console.log(Parametros);
       $http.post(globalService.getUrl() + paths.GetSoftvweb_GetUsuarioSoftvbyId, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
@@ -97,14 +88,6 @@ angular.module('softvApp')
       });
       return deferred.promise;
     };
-
-
-
-
-
-
-
-
 
     factory.GetAddUsuarioSoftv = function (object) {
       var deferred = $q.defer();
@@ -133,12 +116,9 @@ angular.module('softvApp')
           'Clv_IdentificacionUsuario': object.Clv_IdentificacionUsuario,
           'RecibeMensajeDocumentos': object.RecibeMensajeDocumentos,
           'Nombre': object.Nombre
-
-
         }
 
       };
-      console.log(Parametros);
       $http.post(globalService.getUrl() + paths.GetAddUsuarioSoftv, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
@@ -146,10 +126,6 @@ angular.module('softvApp')
       });
       return deferred.promise;
     };
-
-
-
-
 
     factory.GetConsultaIdentificacionUsuario = function (clave, Nombre) {
       var deferred = $q.defer();
@@ -162,7 +138,6 @@ angular.module('softvApp')
         'clave': clave,
         'Nombre': Nombre
       };
-      console.log(Parametros);
       $http.post(globalService.getUrl() + paths.GetConsultaIdentificacionUsuario, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
@@ -170,9 +145,6 @@ angular.module('softvApp')
       });
       return deferred.promise;
     };
-
-
-
 
     factory.GetRolList = function () {
       var deferred = $q.defer();
@@ -189,7 +161,6 @@ angular.module('softvApp')
       return deferred.promise;
     };
 
-
     factory.GetUsuarioSoftvList = function (object) {
       var deferred = $q.defer();
       var config = {
@@ -203,8 +174,20 @@ angular.module('softvApp')
         'Op': object.Op,
         'idcompania': object.idcompania
       };
-      console.log(Parametros);
       $http.post(globalService.getUrl() + paths.GetUsuarioSoftvList, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+    factory.GetConGrupoVentas = function (ObjGrupoVenta) {
+      var deferred = $q.defer();
+      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+      var Parametros = ObjGrupoVenta;
+      console.log(Parametros);
+      $http.post(globalService.getUrl() + paths.GetConGrupoVentas, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
         deferred.reject(response);

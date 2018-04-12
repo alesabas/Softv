@@ -13,6 +13,7 @@ angular
           encuestasFactory.GetMuestra_DistribuidoresEncList().then(function (data) {
             vm.distribuidores = data.GetMuestra_DistribuidoresEncListResult;
             usuarioFactory.GetSoftvweb_GetUsuarioSoftvbyId($stateParams.id).then(function (data) {
+              console.log(data);
               var user = data.GetSoftvweb_GetUsuarioSoftvbyIdResult;
               vm.Clave = user.Clv_Usuario;
               vm.Nombre = user.Nombre;
