@@ -43,9 +43,9 @@
                 <i class="fa fa-search"></i> Buscar </button>
             </div>
           <div class="col-md-3">
-            <label>Distribuidor:</label>
+            <label>Empresa:</label>
             <select class="form-control input-sm" ng-options="item as item.Nombre for item in $ctrl.distribuidores track by item.Clv_Plaza" ng-model="$ctrl.distribuidor">
-              <option value="">Selecciona - Distribuidor</option>
+              <option value="">Selecciona - Empresa</option>
             </select>
           </div>
           <div class="col-md-1">
@@ -93,7 +93,7 @@
         <table class="table" style="font-size:10px;">
           <thead>
             <tr>
-              <th>Distribuidor </th>
+              <th>Empresa </th>
               <th># contrato</th>
               <th>Razón social</th>
               <th>Fecha de Vencimiento</th>

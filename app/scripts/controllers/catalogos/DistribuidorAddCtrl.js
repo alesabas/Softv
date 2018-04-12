@@ -46,7 +46,7 @@ angular
       };
       distribuidorFactory.AddPlaza_DistribuidoresNew(Parametros)
         .then(function (data) {
-          ngNotify.set('Se ha guardado  el distribuidor correctamente', 'success');          
+          ngNotify.set('Se ha guardado  la empresa correctamente', 'success');          
           $state.go('home.catalogos.distribuidores');
         });
 
@@ -70,7 +70,7 @@ angular
     }
 
     var vm = this;
-    vm.Titulo = 'Nuevo Distribuidor';
+    vm.Titulo = 'Nueva Empresa';
     vm.Icono = 'fa fa-plus';
     vm.block = false;
     vm.ValidateRFC = /^[A-Z]{4}\d{6}[A-Z]{3}$|^[A-Z]{4}\d{6}\d{3}$|^[A-Z]{4}\d{6}[A-Z]{2}\d{1}$|^[A-Z]{4}\d{6}[A-Z]{1}\d{2}$|^[A-Z]{4}\d{6}\d{2}[A-Z]{1}$|^[A-Z]{4}\d{6}\d{1}[A-Z]{2}$|^[A-Z]{4}\d{6}\d{1}[A-Z]{1}\d{1}$|^[A-Z]{4}\d{6}[A-Z]{1}\d{1}[A-Z]{1}$/;

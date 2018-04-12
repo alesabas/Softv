@@ -16,21 +16,21 @@
   <div class="row">
       <div class="col-md-3">
        <div class="col-md-12">
-           <label>Distribuidor</label>
+           <label>Empresa</label>
            <select class="form-control input-sm" 
            ng-model="$ctrl.distribuidor"
            ng-change="$ctrl.cambioDistribuidor()"
            ng-options="item as item.Nombre for item in $ctrl.Distribuidores track by item.Clv_Plaza" >
-            <option value="">--Selecciona distribuidor--</option>
+            <option value="">--Selecciona Empresa--</option>
            </select>
        </div>
 
        <div class="col-md-12">
-           <label>Plaza</label>
+           <label>Región</label>
             <select class="form-control input-sm" ng-model="$ctrl.plaza"  
             ng-change="$ctrl.filtrar(1)"
             ng-options="item as item.razon_social for item in $ctrl.Plazas track by item.id_compania" >
-             <option value="">--Selecciona plaza--</option>
+             <option value="">--Selecciona Región--</option>
             </select>
         </div>
         <div class="col-md-12">

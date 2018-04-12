@@ -10,7 +10,7 @@ angular
         .then(function (result) {
           var Distribuidor = result.GetPlaza_DistribuidoresNewResult[0];
           vm.Nombre = Distribuidor.Nombre;
-          vm.Titulo = 'Editar Distribuidor - '+ Distribuidor.Nombre;
+          vm.Titulo = 'Editar Empresa - '+ Distribuidor.Nombre;
           vm.RFC = Distribuidor.RFC;
           vm.NumExt = Distribuidor.NumEx;
           vm.NumInt = Distribuidor.NumIn;
@@ -101,7 +101,7 @@ angular
 
       distribuidorFactory.UpdatePlaza_DistribuidoresNew(Parametros)
         .then(function (data) {
-          ngNotify.set('Se ha editado el distribuidor correctamente', 'success');
+          ngNotify.set('Se ha editado el empresa correctamente', 'success');
           $state.go('home.catalogos.distribuidores');
         });
 

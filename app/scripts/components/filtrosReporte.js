@@ -50,9 +50,9 @@ var filtrosReporte = {
       reportesVariosFactory.mostrarDistribuidorByUsuario($localStorage.currentUser.idUsuario)
         .then(function (data) {
           vm.options = {
-            filterPlaceHolder: 'filtrar distribuidor',
-            labelAll: 'Todos los distribuidores',
-            labelSelected: 'Distribuidores seleccionados',
+            filterPlaceHolder: 'filtrar Empresa',
+            labelAll: 'Todas las Empresas',
+            labelSelected: 'Empresa seleccionadas',
             labelShow: 'Nombre',
             orderProperty: 'Nombre',
             items: data.GetDistribuidorByUsuarioResult,

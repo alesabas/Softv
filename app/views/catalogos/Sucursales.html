@@ -15,7 +15,7 @@
             </small>
     </header>
     <div class="tools">
-      <button type="button" class="btn btn-primary btn-sm" ui-sref="home.catalogos.sucursal_nueva" title="Crear una plaza nueva "><i class="glyphicon glyphicon-plus"></i> NUEVA SUCURSAL</button>
+      <button type="button" class="btn btn-primary btn-sm" ui-sref="home.catalogos.sucursal_nueva" title="Crear una Región nueva "><i class="glyphicon glyphicon-plus"></i> NUEVA SUCURSAL</button>
     </div>
   </div>
   <div class="card-body">
@@ -32,9 +32,9 @@
           <div>
             <div class="col-md-3" style="text-align:left">
 
-              <select name="SltPlaza" class="form-control input-sm" ng-model="$ctrl.Plaza" ng-change="$ctrl.buscar(2)" aria-placeholder="Seleccione la plaza"
+              <select name="SltPlaza" class="form-control input-sm" ng-model="$ctrl.Plaza" ng-change="$ctrl.buscar(2)" aria-placeholder="Seleccione la Región"
                 ng-options="item as item.razon_social for item in $ctrl.plazas track by item.id_compania">
-                           <option value="">Selecciona plaza</option>
+                           <option value="">Selecciona Región</option>
                         
                         </select>
             </div>
