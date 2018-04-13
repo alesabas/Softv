@@ -7,41 +7,29 @@ angular
         function initData(){
             SeriesFactory.GetMuestra_Compania_RelUsuarioList($localStorage.currentUser.idUsuario).then(function(data){
                 vm.PlazaList = data.GetMuestra_Compania_RelUsuarioListResult;
-                vm.Plaza = vm.PlazaList[0];
+                vm.PlazaB = vm.PlazaList[0];
+                OpenFormGrupo(vm.Op);
                 GetGrupoList();
             });
         }
 
         function GetGrupoList(){
-            GrupoVentaFactory.GetConGrupoVentas1(vm.Plaza.id_compania).then(function(data){
-                vm.GrupoList = data.GetConGrupoVentas1Result;
+            GrupoVentaFactory.GetGrupoVentaIdCompaniaList(vm.PlazaB.id_compania).then(function(data){
+                vm.GrupoList = data.GetGrupoVentaIdCompaniaListResult;
                 vm.ViewList = (vm.GrupoList.length > 0)? true:false;
             });
-        }
-
-        function OpenFormGrupo(Op, ObjGrupo){
-            vm.Clave = (Op != 2)? null:ObjGrupo.Clv_Grupo;
-            vm.Grupo = (Op != 2)? null:ObjGrupo.Grupo; 
-            vm.GrupoP = (Op != 2)? null:ObjGrupo.Grupo;
-            vm.ReqGrupo = (Op == 0)? false:true;
-            vm.DisGrupo = (Op == 0)? true:false;
-            vm.DisBtnGuardar = (Op == 0)? false:true;
-            vm.DisBtnNuevo = (Op == 0)? true:false;
-            vm.DisBtnCancelar = (Op == 0)? false:true;
-            vm.DisPlaza = (Op == 2)? true:false;
-            vm.DisBtnEditar = (Op == 0)? false:true;
-            vm.Op = Op;
         }
 
         function SaveGrupo(){
             if(vm.Op == 1){
                 var ObjGrupo = {
                     'Grupo': vm.Grupo,
-                    'idcompania': vm.Plaza.id_compania
+                    'idcompania': 0
                 };
                 GrupoVentaFactory.GetNueGrupoVentas(ObjGrupo).then(function(data){
                     var Result = data.GetNueGrupoVentasResult;
                     if(Result.Res == 0){
+                        vm.Clave = Result.Clv_Grupo;
                         SaveMovimientoSistema(ObjGrupo);
                         GetGrupoList();
                         ngNotify.set('CORRECTO, Se guardo el Grupo de Ventas.', 'success');
@@ -50,7 +38,7 @@ angular
                         GetGrupoList();
                     }
                 });
-            }else if(vm.Op == 2){
+            }else if(vm.Op == 3){
                 var ObjGrupo = {
                     'Clv_Grupo': vm.Clave,
                     'Grupo': vm.Grupo
@@ -70,6 +58,36 @@ angular
             }
         }
 
+        function RelPlaza(Op, IdCompania){
+            var ObjGrupoRel = {
+                'ClvGrupo': vm.Clave,
+                'IdCompania': (Op == 1)? vm.Plaza.id_compania:IdCompania,
+                'Op': Op
+            };
+            GrupoVentaFactory.GetAddRelGrupoVentaPlaza(ObjGrupoRel).then(function(data){
+                var Result = data.GetAddRelGrupoVentaPlazaResult.Res;
+                if(Result == 1){
+                    var Msj = (Op == 1)?  'Se guardó la relación con la Región':'Se eliminó la relación con la Región.';
+                    ngNotify.set('CORRECTO, ' + Msj, 'success');
+                }else{
+                    ngNotify.set('ERROR, La relación con la Región ya existe', 'warn');
+                }
+                var Obj = {
+                    'Clv_Grupo': vm.Clave,
+                    'Grupo': vm.Grupo
+                };
+                GetGrupoList();
+                OpenFormGrupo(vm.Op, Obj);
+            });
+        }
+
+        function GetRelPlazaList(){
+            GrupoVentaFactory.GetRelGrupoVentaPlazaList(vm.Clave).then(function(data){
+                vm.RelPlazaList = data.GetRelGrupoVentaPlazaListResult;
+                vm.ViewPList = (vm.RelPlazaList.length > 0)? true:false;
+            });
+        }
+
         function SaveMovimientoSistema(Comando){
             var objMovSist = {
                 'Clv_usuario': $localStorage.currentUser.idUsuario, 
@@ -81,22 +99,37 @@ angular
                 'Clv_afectada': (vm.Op == 1)? 0:vm.Clave
             };
             CatalogosFactory.AddMovSist(objMovSist).then(function(data){
-                OpenFormGrupo(0);
+                var Obj = {
+                    'Clv_Grupo': vm.Clave,
+                    'Grupo': vm.Grupo
+                };
+                var Op = (vm.Op == 1)? 2:vm.Op;
+                OpenFormGrupo(Op, Obj);
             });
         }
 
+        function OpenFormGrupo(Op, ObjGrupo){
+            vm.DisPlaza = (Op == 1)? true:false;
+            vm.DisGrupo = (Op == 2)? true:false;
+            vm.Clave = (Op != 1)? ObjGrupo.Clv_Grupo:null; 
+            vm.Grupo = (Op != 1)? ObjGrupo.Grupo:null;
+            vm.DisBtnEditar = (Op == 3)? true:false;
+            vm.DisBtnCancelar = (Op == 3)? true:false;
+            vm.Op = Op;
+            if(vm.Op == 2 || vm.Op == 3){
+                GetRelPlazaList();
+            }else{
+                vm.RelPlazaList = [];
+                vm.ViewPList = (vm.RelPlazaList.length > 0)? true:false;
+            }
+        }
+
         var vm = this;
-        vm.Op = 0;
-        vm.DisGrupo = true;
-        vm.DisPlaza = false;
-        vm.DisBtnGuardar = false;
-        vm.DisBtnNuevo = true;
-        vm.DisBtnCancelar = false;
-        vm.DisBtnEditar = false;
-        var OriginForm = angular.copy(vm.Grupo);
+        vm.Op = 1;
         vm.OpenFormGrupo = OpenFormGrupo;
         vm.GetGrupoList = GetGrupoList;
         vm.SaveGrupo = SaveGrupo;
+        vm.RelPlaza = RelPlaza;
         initData();
  
     });

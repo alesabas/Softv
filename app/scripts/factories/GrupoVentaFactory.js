@@ -6,16 +6,18 @@ angular
 
         var factory = {};
         var paths = {
-            GetConGrupoVentas1: '/GrupoVentas/GetConGrupoVentas1',
+            GetGrupoVentaIdCompaniaList: '/GrupoVentas/GetGrupoVentaIdCompaniaList',
             GetNueGrupoVentas: '/GrupoVentas/GetNueGrupoVentas',
-            GetModGrupoVentas:'/GrupoVentas/GetModGrupoVentas'
+            GetModGrupoVentas:'/GrupoVentas/GetModGrupoVentas',
+            GetRelGrupoVentaPlazaList: '/GrupoVentas/GetRelGrupoVentaPlazaList',
+            GetAddRelGrupoVentaPlaza: '/GrupoVentas/GetAddRelGrupoVentaPlaza'
         };
 
-        factory.GetConGrupoVentas1 = function(idcompania){
+        factory.GetGrupoVentaIdCompaniaList = function(IdCompania){
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
-            var Parametros = {'idcompania': idcompania};
-            $http.post(globalService.getUrl() + paths.GetConGrupoVentas1, JSON.stringify(Parametros), config).then(function(response){
+            var Parametros = {'IdCompania': IdCompania};
+            $http.post(globalService.getUrl() + paths.GetGrupoVentaIdCompaniaList, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
                 deferred.reject(response);
@@ -40,6 +42,30 @@ angular
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
             var Parametros = {'ObjGrupo': ObjGrupo};
             $http.post(globalService.getUrl() + paths.GetModGrupoVentas, JSON.stringify(Parametros), config).then(function(response){
+                deferred.resolve(response.data);
+            }).catch(function(response){
+                deferred.reject(response);
+            });
+            return deferred.promise;
+        };
+        
+        factory.GetRelGrupoVentaPlazaList = function(ClvGrupo){
+            var deferred = $q.defer();
+            var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+            var Parametros = {'ClvGrupo': ClvGrupo};
+            $http.post(globalService.getUrl() + paths.GetRelGrupoVentaPlazaList, JSON.stringify(Parametros), config).then(function(response){
+                deferred.resolve(response.data);
+            }).catch(function(response){
+                deferred.reject(response);
+            });
+            return deferred.promise;
+        };
+
+        factory.GetAddRelGrupoVentaPlaza = function(ObjGrupoRel){
+            var deferred = $q.defer();
+            var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+            var Parametros = ObjGrupoRel;
+            $http.post(globalService.getUrl() + paths.GetAddRelGrupoVentaPlaza, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){
                 deferred.reject(response);
