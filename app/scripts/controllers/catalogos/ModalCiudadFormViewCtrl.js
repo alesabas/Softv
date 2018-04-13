@@ -9,6 +9,7 @@ angular
                 var Ciudad = data.GetMuestraCiudadByIdResult[0];
                 vm.IdCiudad = Ciudad.Clv_Ciudad;
                 vm.Ciudad = Ciudad.Nombre;
+                vm.Titulo = 'Detalle Ciudad - '+ Ciudad.Nombre;
             });
             GetRelEstMun(IdMunicipio);
             GetEstadoList(IdMunicipio);
@@ -94,7 +95,7 @@ angular
         }
 
         var vm = this;
-        vm.Titulo = 'Detalle Ciudad - ';
+       
         vm.Icono = 'fa fa-pencil-square-o';
         vm.ShowEdit = false;
         vm.ShowAdd = false;

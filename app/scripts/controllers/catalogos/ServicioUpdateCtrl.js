@@ -16,6 +16,7 @@ angular
             CatalogosFactory.GetDeepServicios_New(vm.Clv_Servicio).then(function(data){
                 var Servicio = data.GetDeepServicios_NewResult;
                 if(Servicio != null){
+                    vm.Titulo = 'Servicio - '+Servicio.Clv_Txt +' '+Servicio.Descripcion;
                     vm.Clv_Servicio = Servicio.Clv_Servicio;
                     vm.Clv_TipSer = Servicio.Clv_TipSer;
                     vm.Descripcion = Servicio.Descripcion;
@@ -391,7 +392,7 @@ angular
         }
 
         var vm = this;
-        vm.Titulo = 'Servicio - ';
+        
         vm.Clv_Servicio = $stateParams.id
         vm.ShowCobroMensual = false;
         vm.HideCobroMensual = true;

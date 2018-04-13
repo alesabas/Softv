@@ -20,6 +20,7 @@ angular
                 var Colonia = data.GetDeepColonias_NewResult;
                 vm.Clv_Colonia = Colonia.Clv_Colonia;
                 vm.Colonia = Colonia.Nombre;
+                vm.Titulo = 'Editar Colonia - '+vm.Colonia;
                 vm.FechaEntrega = toDate(Colonia.FechaEntrega);
                 var TipoColoniaClave = Colonia.Clv_Tipo;
                 for(var i = 0; vm.TipoColoniaList.length > i; i ++){
@@ -179,7 +180,7 @@ angular
         }
 
         var vm = this;
-        vm.Titulo = 'Editar Colonia - ';
+        
         vm.ShowRel = false;
         vm.Disable = false;
         vm.View = false;

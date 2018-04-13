@@ -3,7 +3,7 @@
   <div class="card animated fadeIn fast" style="margin-top:20px;">
     <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
          <header>
-        <strong style="font-weight:bold; border:none; margin-left:10px;">Interfaz de cablemodems</strong>
+        <strong style="font-weight:bold; border:none; margin-left:10px;">Interfaz de Aparatos</strong>
         <br />
         <small class="text-muted" style="font-size:14px; margin-left:10px;">
           <a href="#">
@@ -41,10 +41,18 @@
                   <option value="">Selecciona tipo servicio</option>
                  </select>
          </div>
+         <div class="col-md-12">
+          <label>Tipo de tecnologia</label>
+           <select class="form-control input-sm" 
+           ng-change="$ctrl.filtrar(1)"
+           ng-model="$ctrl.tecnologia" ng-options="item as item.Descripcion for item in $ctrl.tecnologias track by item.IdMedio" >
+            <option value="">Selecciona tipo tecnologia</option>
+           </select>
+   </div>
 
             <div class="col-md-9">         
                 <label>Contrato</label>
-                <input type="text" class="form-control" ng-model="$ctrl.contrato">           
+                <input type="text" class="form-control input-sm" ng-model="$ctrl.contrato">           
             </div>
             <div class="col-md-3"> 
                 <br>        
@@ -52,7 +60,7 @@
             </div>
          <div class="col-md-9">
                 <label>Orden</label>
-                <input type="text" class="form-control"   ng-model="$ctrl.clvorden">
+                <input type="text" class="form-control input-sm"   ng-model="$ctrl.clvorden">
          </div> 
          <div class="col-md-3"> 
            <br>     
@@ -60,7 +68,7 @@
        </div>
          <div class="col-md-9">
                 <label>MAC Adress</label>
-                <input type="text" class="form-control" ng-model="$ctrl.mac">
+                <input type="text" class="form-control input-sm" ng-model="$ctrl.mac">
          </div> 
          <div class="col-md-3"> 
            <br>   
@@ -68,7 +76,7 @@
        </div>
          <div class="col-md-9">
                 <label>fecha solicitud</label>
-                <input type="date" class="form-control" ng-model="$ctrl.fechasolicitud">
+                <input type="date" class="form-control input-sm" ng-model="$ctrl.fechasolicitud">
          </div> 
          <div class="col-md-3">
            <br>
@@ -91,7 +99,7 @@
           </thead>
           <tbody>
 
-            <tr dir-paginate="x in $ctrl.datos|orderBy:$ctrl.sortKey:reverse|filter:$ctrl.search|itemsPerPage:10" >
+            <tr dir-paginate="x in $ctrl.datos|orderBy:$ctrl.sortKey:reverse|filter:$ctrl.search|itemsPerPage:15" >
               <td>{{x.TIPOSERVICIO}}</td>
               <td>{{x.SERVICIO}}</td>
               <td>{{x.MEDIO}}</td>

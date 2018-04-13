@@ -77,6 +77,7 @@ angular
           'MacAddress':obj.MacAddress,
           'fecha_habilitar':obj.fecha_habilitar,
           'contratocompuesto':obj.contratocompuesto,
+          'IdMedio':obj.IdMedio,
           'Op':obj.Op
         }
       };

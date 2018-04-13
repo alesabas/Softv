@@ -10,6 +10,7 @@ angular
                 vm.IdEstado = EstadoResult.Clv_Estado;
                 vm.Estado = EstadoResult.Nombre;
                 vm.EstadoRef = EstadoResult.Nombre;
+                vm.Titulo = 'Editar Estado - '+vm.Estado;
             });
         }
 
@@ -53,7 +54,7 @@ angular
         }
 
         var vm = this;
-        vm.Titulo = 'Editar Estado - ';
+       
         vm.Icono = 'fa fa-pencil-square-o';
         vm.View = false;
         vm.SaveEstado = SaveEstado;
