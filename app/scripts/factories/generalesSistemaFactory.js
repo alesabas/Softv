@@ -633,7 +633,8 @@ angular
           'siIEPS': obj.siIEPS,
           'Cta_IEPS': obj.Cta_IEPS,
           'Calculo1': obj.Calculo1,
-          'idcompania': obj.idcompania
+          'idcompania': obj.idcompania,
+          'ivaFrontera':obj.ivaFrontera
         }
 
       };
