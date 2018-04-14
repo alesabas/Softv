@@ -14,7 +14,11 @@
   <a class="btn btn-icon-toggle btn-default" style="display:none;" id="repo" href="#offcanvas-search"  data-toggle="offcanvas" data-backdrop="false"> <i class="fa fa-ellipsis-v"></i></a>
   <div class="card-body">
  
-    <div class="col-md-5" ng-show="$ctrl.showfilters">
+      <pageslide ps-open="$ctrl.rptpanel" ps-size="1000px" >
+          <iframe src="{{$ctrl.url}}" width="1000px;" height="800px;" ps-zindex="9999"></iframe>
+      </pageslide>
+      
+    <div class="col-md-7 col-md-offset-3" ng-show="$ctrl.showfilters">
         <form angular-validator-submit="$ctrl.GetReport()" name="contratoForm" novalidate angular-validator>
             <div class="row">
                 <br>
@@ -158,15 +162,11 @@
         </form>
     </div>
 
-    <div class="col-md-5" ng-show="!$ctrl.showfilters">
+    <div class="col-md-7 col-md-offset-3" ng-show="!$ctrl.showfilters">
       <filtros-reporte report="$ctrl.report" order="$ctrl.order" responseparams="$ctrl.responseparams" showfilters="$ctrl.showfilters">
       </filtros-reporte>
     </div>
-    <div class="col-md-7">
-      <a href="{{$ctrl.url}}" target="_blank" class="btn btn-default-bright btn-block">
-        <i class="fa fa-external-link-square" aria-hidden="true"></i> Ver reporte en pantalla completa </a>
-      <iframe src="{{$ctrl.url}}" width="700px;" height="500px;"></iframe>
-    </div>
+    
 
 
   </div>

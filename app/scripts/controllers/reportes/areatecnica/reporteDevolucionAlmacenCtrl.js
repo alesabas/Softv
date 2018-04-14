@@ -11,6 +11,7 @@ angular
 			'fechafin': $filter('date')(vm.fechafin, 'yyyy/MM/dd')
 		  };
 		  reportesFactory.GetReporteDevolucionAlmacen(Parametros).then(function (result) {
+				vm.rptpanel=true;
 			vm.url = $sce.trustAsResourceUrl(globalService.getUrlReportes() + '/Reportes/' + result.GetReporteDevolucionAlmacenResult);
 		  });
 	}
@@ -21,6 +22,7 @@ angular
 	vm.responseparams={};
 	vm.showfilters=false;
 	vm.GetReport=GetReport;
+	vm.rptpanel=false;
 	vm.order=[
         {  'step': 1,function: 'getplazas',   confirm: false  },
         { 'step': 2, function: 'muestraRangosFecha',confirm: true }

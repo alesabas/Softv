@@ -65,6 +65,9 @@ module.exports = function(config) {
       'bower_components/angular-moment/angular-moment.js',
       'bower_components/angular-moment-picker/dist/angular-moment-picker.min.js',
       'bower_components/angular-file-upload/dist/angular-file-upload.min.js',
+      'bower_components/angular-pageslide-directive/dist/angular-pageslide-directive.js',
+      'bower_components/angular-percentage-filter/percentage.js',
+      'bower_components/ng-percent/dist/ng-percent.min.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

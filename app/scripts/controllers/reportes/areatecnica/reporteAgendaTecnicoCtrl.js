@@ -7,6 +7,7 @@ angular
   reportesFactory.GetReporteAgendaTecnico(vm.tecnicoAgenda.clv_tecnico, $filter('date')(vm.fechainicio, 'yyyy/MM/dd'), $filter('date')(vm.fechafin, 'yyyy/MM/dd'))
   .then(function (data) {
     console.log(data);
+    vm.rptpanel=true;
     vm.url = $sce.trustAsResourceUrl(globalService.getUrlReportes() + '/Reportes/' + data.GetReporteAgendaTecnicoResult);
   });
  }
@@ -17,6 +18,7 @@ angular
   vm.GetReport=GetReport;
   vm.responseparams={};
   vm.showfilters=false;
+  vm.rptpanel=false;
 	vm.order = [{
         'step': 1,
         function: 'getplazas',

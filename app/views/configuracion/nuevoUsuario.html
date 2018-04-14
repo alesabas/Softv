@@ -115,12 +115,12 @@
         <div class="col-md-6">
           <div class="col-md-12">
             <div class="col-md-12">
-              <h4 class="text-danger text-center">Relación plaza-usuario</h4>
+              <h4 class="text-danger text-center">Relación Región-usuario</h4>
             </div>
           </div>
           <div class="col-md-12">
             <div class="col-md-5">
-              <b>Distribuidor:</b>
+              <b>Empresa:</b>
             </div>
             <div class="col-md-5">
               <b>Plazas:</b>
@@ -140,7 +140,7 @@
               </select>
             </div>
             <div class="col-md-2">
-              <button type="button" ng-disabled="$ctrl.IdUser === 0" class="btn btn-success btn-xs" ng-click="$ctrl.agregaRelacion()" title="Agregar Relación Plaza-Usuario"><i class="fa fa-plus"></i> Agregar</button>
+              <button type="button" ng-disabled="$ctrl.IdUser === 0" class="btn btn-success btn-xs" ng-click="$ctrl.agregaRelacion()" title="Agregar Relación Región-Usuario"><i class="fa fa-plus"></i> Agregar</button>
             </div>
           </div>
           <div class="col-md-12">
@@ -149,22 +149,22 @@
           </div>
           <div class="col-md-12">
             <div class="col-md-12">
-              <h4 class="text-danger text-center">Relación Distribuidor-Usuario</h4>
+              <h4 class="text-danger text-center">Relación Empresa-Usuario</h4>
             </div>
           </div>
           <div class="col-md-12">
             <div class="col-md-12">
               <table class="table">
                 <thead>
-                  <th width="40%">Distribuidor</th>
-                  <th width="40%">Plaza</th>
+                  <th width="40%">Empresa</th>
+                  <th width="40%">Región</th>
                   <th width="20%">Opciones</th>
                 </thead>
                 <tbody>
                   <tr ng-repeat=" x in $ctrl.relaciones">
                     <td>{{x.nombre}}</td>
                     <td>{{x.razon_social}}</td>
-                    <td><button type="button" ng-click="$ctrl.eliminarelacion(x)" class="btn btn-xs btn-danger" title="Eliminar Relación Plaza-Usuario"><i class="fa fa-trash"></i> Eliminar</button></td>
+                    <td><button type="button" ng-click="$ctrl.eliminarelacion(x)" class="btn btn-xs btn-danger" title="Eliminar Relación Región-Usuario"><i class="fa fa-trash"></i> Eliminar</button></td>
                   </tr>
                 </tbody>
               </table>

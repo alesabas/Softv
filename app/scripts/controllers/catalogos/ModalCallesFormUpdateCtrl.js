@@ -16,6 +16,7 @@ angular
                 var Calle = data.GetDeepCalles_NewResult;
                 vm.IdCalle = Calle.Clv_Calle;
                 vm.Calle = Calle.NOMBRE;
+                vm.Titulo = 'Editar Registro - '+vm.Calle;
                 GetRelCalle();
             });
         }
@@ -147,7 +148,7 @@ angular
         }
 
         var vm = this;
-        vm.Titulo = 'Editar Registro - ';
+        
         vm.Icono = 'fa fa-pencil-square-o';
         vm.Show = false;
         vm.View = false;

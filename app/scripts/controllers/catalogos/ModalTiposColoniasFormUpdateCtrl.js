@@ -9,6 +9,7 @@ angular
                 var TipoColoniaResult = data.GetDeepTipo_Colonias1_NewResult;
                 vm.IdTipoColonia = TipoColoniaResult.Clave;
                 vm.TipoColonia = TipoColoniaResult.Concepto;
+                vm.Titulo = 'Editar Tipo de Colonia - '+ vm.TipoColonia;
             });
         }
 
@@ -18,7 +19,7 @@ angular
                 'Concepto': vm.TipoColonia
             }
             CatalogosFactory.UpdateTipo_Colonias1_New(objTipo_Colonias1_New).then(function(data){
-                if(data.UpdateTipo_Colonias1_NewResult == -1){
+                if(data.UpdateTipo_Colonias1_NewResult === -1){
                     ngNotify.set('CORRECTO, se guardó el tipo de colonia.', 'success');
 				    cancel();
                 }else{
@@ -33,7 +34,7 @@ angular
         }
 
         var vm = this;
-        vm.Titulo = 'Editar Tipo de Colonia - ';
+        
         vm.Icono = 'fa fa-pencil-square-o';
         vm.View = false;
         vm.SaveTipoColonia = SaveTipoColonia;

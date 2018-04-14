@@ -17,7 +17,7 @@
             </small>
       </header>
       <div class="tools">
-        <button type="submit" class="btn btn-primary btn-sm" ng-disabled="$ctrl.block" title="Guardar Plaza" ng-show="!$ctrl.block"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
+        <button type="submit" class="btn btn-primary btn-sm" ng-disabled="$ctrl.block" title="Guardar Región" ng-show="!$ctrl.block"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
         <button type="button" class="btn btn-default-bright btn-sm" ui-sref="home.catalogos.plazas" title="Cancelar cambios"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
       </div>
     </div>
@@ -25,17 +25,17 @@
       <fieldset ng-disabled="$ctrl.block">
         <div class="col-md-12">
           <div class="col-md-6">
-            <h4 class="text-primary text-center"><b>Datos de la plaza</b></h4>
+            <h4 class="text-primary text-center"><b>Datos de la Región</b></h4>
             <div class="col-md-12">
               <div class="col-md-6">
-                <b><small>Distribuidor:</small></b>
+                <b><small>Empresa:</small></b>
                 <select name="SltDistribuidor" class="form-control input-sm" ng-model="$ctrl.distribuidor" ng-options="item as item.Nombre for item in $ctrl.distribuidores track by item.Clv_Plaza"
                   validate-on="dirty" required required-message="'Obligatorio'">
                 <option value="">Selecciona</option>
               </select>
               </div>
               <div class="col-md-6">
-                <b><small>Nombre de la Plaza:</small></b>
+                <b><small>Nombre de la Región:</small></b>
                 <input name="InpPlaza" type="text" class="form-control input-sm" ng-model="$ctrl.detplaza.Razonsocial" validate-on="dirty" required required-message="'Obligatorio'">
               </div>
             </div>
@@ -113,6 +113,11 @@
               <div class="col-md-6">
                 <b><small>Email:</small></b>
                 <input name="InpEmail" type="email" class="form-control input-sm" ng-model="$ctrl.detplaza.Email" validate-on="dirty" ng-pattern="/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/" required required-message="'Obligatorio'" invalid-message="'Inválido.'">
+              </div>
+              <div class="col-md-6">
+                <label class="checkbox-inline checkbox-styled">
+                  <input type="checkbox" ng-model="$ctrl.detplaza.ivaFrontera" ><span>Iva fronterizo</span>
+                </label>
               </div>
             </div>
           </div>

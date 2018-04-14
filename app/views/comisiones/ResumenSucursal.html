@@ -61,7 +61,7 @@
         <div class="dualmultiselect">
           <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 text">
-              <h5 class="text-center">Distribuidores disponibles</h5>
+              <h5 class="text-center">Empresas disponibles</h5>
               <div class="pool">
                 <ul>
                   <li ng-repeat="item in $ctrl.objDistribuidores.items" ng-click="$ctrl.transfer($ctrl.objDistribuidores.items, $ctrl.objDistribuidores.selectedItems, $ctrl.objDistribuidores.items.indexOf(item))">
@@ -74,7 +74,7 @@
             </div>
 
             <div class="col-lg-6 col-md-6 col-sm-6">
-              <h5 class="text-center">Distribuidores seleccionados</h5>
+              <h5 class="text-center">Empresas seleccionadas</h5>
               <div class="pool">
                 <ul>
                   <li ng-repeat="item in $ctrl.objDistribuidores.selectedItems" ng-click="$ctrl.transfer($ctrl.objDistribuidores.selectedItems, $ctrl.objDistribuidores.items, $ctrl.objDistribuidores.selectedItems.indexOf(item))">

@@ -17,7 +17,7 @@ angular
                    vm.distribuidor=item;
                 }
               });
-              vm.Titulo = 'Editar plaza - ' + vm.detplaza.Razonsocial;
+              vm.Titulo = 'Editar Región - ' + vm.detplaza.Razonsocial;
               plazaFactory.GetMuestraEstadosFrmCompania($stateParams.id)
                 .then(function (data) {
                   vm.estados = data.GetMuestraEstadosFrmCompaniaResult;
@@ -61,7 +61,7 @@ angular
       plazaFactory.EditPlaza(vm.detplaza)
         .then(function (result) {
           $state.go('home.catalogos.plazas');
-          ngNotify.set('La plaza se ha editado correctamente ', 'success');
+          ngNotify.set('La región se ha editado correctamente ', 'success');
         });
     }
 

@@ -1,12 +1,19 @@
-'use strict';
+"use strict";
 angular
-  .module('softvApp')
-  .controller('generalesSistemaCtrl', function ($state, $uibModal, ngNotify,globalService, generalesSistemaFactory, FileUploader) {
-
+  .module("softvApp")
+  .controller("generalesSistemaCtrl", function(
+    $state,
+    $uibModal,
+    ngNotify,
+    globalService,
+    generalesSistemaFactory,
+    FileUploader
+    
+  ) {
     var vm = this;
     init();
-    detallePreferencia();
-    Getlogos();
+    //detallePreferencia();
+    //Getlogos();
     vm.Guardarperiodo = Guardarperiodo;
     vm.GuardarImpuestos = GuardarImpuestos;
     vm.Guardarcobro = Guardarcobro;
@@ -15,35 +22,31 @@ angular
     vm.guardaLogo = guardaLogo;
     vm.hexPicker = {};
 
-
-
     vm.uploader = new FileUploader({
-      filters: [{
-        name: "yourName1",
-        fn: function (item) {
-          var count = 0;
-          vm.uploader.queue.forEach(function (f) {
-            alert(f._file.idtipo);
-            alert(item.idtipo);
-            console.log(f);
-            count += f._file.idtipo === item.idtipo ? 1 : 0;
-          });
-          if (count > 0) {
-            ngNotify.set(
-              "Un archivo con ese mismo nombre ya fue seleccionado",
-              "warn"
-            );
-            return false;
-          } else {
-            return true;
+      filters: [
+        {
+          name: "yourName1",
+          fn: function(item) {
+            var count = 0;
+            vm.uploader.queue.forEach(function(f) {             
+              console.log(f);
+              count += f._file.idtipo === item.idtipo ? 1 : 0;
+            });
+            if (count > 0) {
+              ngNotify.set(
+                "Un archivo con ese mismo nombre ya fue seleccionado",
+                "warn"
+              );
+              return false;
+            } else {
+              return true;
+            }
           }
         }
-      }]
+      ]
     });
 
-
-
-    vm.uploader.onAfterAddingFile = function (fileItem) {
+    vm.uploader.onAfterAddingFile = function(fileItem) {
       console.log(fileItem);
       fileItem.file.idtipo = vm.tipoimagen.Idtipo;
       fileItem.file.tipo = vm.tipoimagen.Nombre;
@@ -51,68 +54,62 @@ angular
       fileItem._file.tipo = vm.tipoimagen.Nombre;
     };
 
-
-
     function init() {
+      generalesSistemaFactory.GetPeriodoscorte(0, 1).then(function(response) {       
+        vm.periodos = response.GetPeriodoscorteResult;
+        vm.Periodo = vm.periodos[0];
 
+          generalesSistemaFactory
+            .GetCONSULTAGENERALESDESC(vm.Periodo.Clv_periodo, 1)
+            .then(function(data) {           
+              vm.periodoCorte = data.GetCONSULTAGENERALESDESCResult;   
 
+                  generalesSistemaFactory
+                    .GetImpuestos(1, 1)
+                    .then(function(data) {
+                    console.log(data);
+                      vm.impuestos = data.GetImpuestosResult;
 
-      generalesSistemaFactory.GetPeriodoscorte(0, 1)
-        .then(function (response) {
-          console.log(response);
-          vm.periodos = response.GetPeriodoscorteResult;
-          vm.Periodo = vm.periodos[0];
-
-          generalesSistemaFactory.GetGeneralesPrincipal()
-            .then(function (data) {
-              vm.GetGeneralesPrincipal = data.GetGeneralesPrincipalResult;
-              console.log(data);
-
-              generalesSistemaFactory.GetCONSULTAGENERALESDESC(vm.Periodo.Clv_periodo, 1)
-                .then(function (data) {
-                  console.log(data);
-                  vm.periodoCorte = data.GetCONSULTAGENERALESDESCResult;
-
-                  generalesSistemaFactory.GetspConsultaRangosCobroMaterial(1)
-                    .then(function (data) {
-                      console.log(data.GetspConsultaRangosCobroMaterialResult);
-                      vm.rangos = data.GetspConsultaRangosCobroMaterialResult;
-
-                      generalesSistemaFactory.GetImpuestos(1, 1)
-                        .then(function (data) {
-                          console.log(data);
-                          vm.impuestos = data.GetImpuestosResult;
-                        });
-
-
+                      generalesSistemaFactory
+                      .GetspConsultaRangosCobroMaterial(1)
+                      .then(function(data) {
+                       
+                        vm.rangos = data.GetspConsultaRangosCobroMaterialResult;
                     });
-
                 });
-
-
-
             });
 
-
-        });
-
+      });
     }
 
-    function Guardarperiodo() {
-
-    }
+    function Guardarperiodo() {}
 
     function GuardarImpuestos() {
-
+      var Parametros = {
+        Id: 1,
+        IVA: (vm.impuestos.IVA)?vm.impuestos.IVA:0,
+        IEPS: (vm.impuestos.IEPS)?vm.impuestos.IEPS:0,
+        siIEPS:vm.impuestos.siIEPS,
+        Cta_IEPS: 0,
+        Calculo1: vm.IVAIEPS,
+        idcompania: 1,
+        ivaFrontera: (vm.impuestos.ivaFrontera)?vm.impuestos.ivaFrontera:0
+      };
+      console.log(Parametros);      
+      generalesSistemaFactory
+        .GetNueTabla_Impuestos(Parametros)
+        .then(function(result) {
+          ngNotify.set("Los conceptos de inpuestos se  guardaron correctamente", "success");
+          console.log(result);
+        });
     }
 
     function guardaLogo() {
-
       var file_options = [];
       var files = [];
       var tipos = [];
       var count = 0;
-      vm.uploader.queue.forEach(function (f) {
+      vm.uploader.queue.forEach(function(f) {
         var options = {
           IdImagen: 0,
           Tipo: f._file.idtipo,
@@ -123,54 +120,60 @@ angular
         files.push(f._file);
       });
       if (count > 1) {
-        ngNotify.set("El número de imagenes con el mismo tipo se ha sobrepasado maximo 2", "error");
+        ngNotify.set(
+          "El número de imagenes con el mismo tipo se ha sobrepasado maximo 2",
+          "error"
+        );
         return;
       }
 
-      generalesSistemaFactory.GuardaLogos(files, file_options, []).then(function (result) {
-        console.log(result);
-        ngNotify.set('Se guardo correctamente', 'success');
-        Getlogos();
-      });
-
-    }
-
-    function Getlogos() {
-      generalesSistemaFactory.Getlogos()
-        .then(function (result) {
+      generalesSistemaFactory
+        .GuardaLogos(files, file_options, [])
+        .then(function(result) {
           console.log(result);
-          result.forEach(function(item){ item.Valor=globalService.getUrllogos()+'/'+item.Valor});
-          vm.tiposimg = result;
-
+          ngNotify.set("Se guardo correctamente", "success");
+          Getlogos();
         });
     }
 
+    function Getlogos() {
+      generalesSistemaFactory.Getlogos().then(function(result) {
+        console.log(result);
+        result.forEach(function(item) {
+          item.Valor = globalService.getUrllogos() + "/" + item.Valor;
+        });
+        vm.tiposimg = result;
+      });
+    }
 
     function eliminarango(id) {
-      generalesSistemaFactory.GetspEliminaRangosCobroMaterial(id)
-        .then(function (result) {
-          ngNotify.set('El rango se ha eliminado correctamente', 'warn');
+      generalesSistemaFactory
+        .GetspEliminaRangosCobroMaterial(id)
+        .then(function(result) {
+          ngNotify.set("El rango se ha eliminado correctamente", "warn");
         });
     }
 
     function Guardarcobro() {
       var obj = {
-        'id': 0,
-        'inicio': vm.rangoinicial,
-        'final': vm.rangofinal,
-        'maximo': vm.pagosdiferidos,
-        'idcompania': 1
+        id: 0,
+        inicio: vm.rangoinicial,
+        final: vm.rangofinal,
+        maximo: vm.pagosdiferidos,
+        idcompania: 1
       };
-      generalesSistemaFactory.GetspAgregaRangosCobroMaterial(obj)
-        .then(function (data) {
+      generalesSistemaFactory
+        .GetspAgregaRangosCobroMaterial(obj)
+        .then(function(data) {
           console.log(data);
-          ngNotify.set('El rango se ha guardado correctamente', 'success');
+          ngNotify.set("El rango se ha guardado correctamente", "success");
         });
     }
 
     function detalleperiodo() {
-      generalesSistemaFactory.GetCONSULTAGENERALESDESC(vm.Periodo.Clv_periodo, 1)
-        .then(function (data) {
+      generalesSistemaFactory
+        .GetCONSULTAGENERALESDESC(vm.Periodo.Clv_periodo, 1)
+        .then(function(data) {
           console.log(data);
           vm.periodoCorte = data.GetCONSULTAGENERALESDESCResult;
         });
@@ -178,22 +181,22 @@ angular
 
     function guardarPreferencias() {
       var obj = {
-        'NombreSistema': vm.nombresistema,
-        'TituloNav': vm.titulomenu,
-        'ColorMenu': vm.hexPicker.colormenu,
-        'ColorMenuLetra': vm.hexPicker.colormenuletra,
-        'ColorNav': vm.hexPicker.colornavegacion,
-        'ColorNavLetra': vm.hexPicker.colornavegacionletra,
-        'MensajeHome': vm.mensajeinicio,
-        'ColorFondo': vm.hexPicker.colorfondo
-      }
-      generalesSistemaFactory.GetguardaPreferencia(obj).then(function (result) {
-        ngNotify.set('Se guardo correctamente', 'success');
+        NombreSistema: vm.nombresistema,
+        TituloNav: vm.titulomenu,
+        ColorMenu: vm.hexPicker.colormenu,
+        ColorMenuLetra: vm.hexPicker.colormenuletra,
+        ColorNav: vm.hexPicker.colornavegacion,
+        ColorNavLetra: vm.hexPicker.colornavegacionletra,
+        MensajeHome: vm.mensajeinicio,
+        ColorFondo: vm.hexPicker.colorfondo
+      };
+      generalesSistemaFactory.GetguardaPreferencia(obj).then(function(result) {
+        ngNotify.set("Se guardo correctamente", "success");
       });
     }
 
     function detallePreferencia() {
-      generalesSistemaFactory.GetDetallePreferencias().then(function (result) {
+      generalesSistemaFactory.GetDetallePreferencias().then(function(result) {
         var detalle = result.GetDetallePreferenciasResult;
         console.log(detalle);
         vm.nombresistema = detalle.NombreSistema;
@@ -207,10 +210,4 @@ angular
         vm.hexPicker.colorfondo = detalle.ColorFondo;
       });
     }
-
-
-
-
-
-
   });

@@ -52,9 +52,9 @@
           <table class="table">
             <thead>
               <tr>
-                <th width="10%" style="text-align:center"><b>Clave</b></th>
-                <th width="70%" style="text-align:center"><b>Motivo de Cancelación</b></th>
-                <th width="20%" colspan="3"><b>Acciones</b></th>
+                <th><b>Clave</b></th>
+                <th><b>Motivo de Cancelación</b></th>
+                <th  colspan="2"><b>Acciones</b></th>
               </tr>
             </thead>
             <tbody>
@@ -63,7 +63,6 @@
                 <td>{{ X.Descripcion }}</td>
                 <td><button type="button" class="btn btn-info btn-xs" ng-click="$ctrl.DetalleMotivo(X.Clv_motivo)" title="Consultar Motivo de Cancelación"><i class="fa fa-eye"></i> CONSULTA</button></td>
                 <td><button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.UpdateMotivo(X.Clv_motivo)" title="Editar Motivo de Cancelación"><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
-                <td><button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.EliminaMotivo(X.Clv_motivo)" title="Elimina Motivo de Cancelación"><i class="fa fa-trash"></i> ELIMINAR</button></td>
               </tr>
             </tbody>
           </table>

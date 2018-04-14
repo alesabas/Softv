@@ -83,7 +83,7 @@
                          <uib-tabset active="$ctrl.TabActive">
                             <uib-tab index="0" ng-if="$ctrl.BlockTab1">
                                 <uib-tab-heading>
-                                    Distribuidor
+                                    Empresa
                                 </uib-tab-heading>
                                 <br>
                                 <div class="row">
@@ -99,7 +99,7 @@
                                                                     <b>{{ DD.Nombre }}</b>
                                                                 </div>
                                                                 <div class="col-md-3">
-                                                                    <button type="button" class="btn ink-reaction btn-xs btn-info" ng-click="$ctrl.UpdateRelRedDistribuidor(3, DD.Clv_Plaza);" title="Agregar Distribuidor"><i class="md-chevron-right"></i></button>
+                                                                    <button type="button" class="btn ink-reaction btn-xs btn-info" ng-click="$ctrl.UpdateRelRedDistribuidor(3, DD.Clv_Plaza);" title="Agregar Empresa"><i class="md-chevron-right"></i></button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -109,15 +109,15 @@
                                                         <br>
                                                         <br>
                                                         <br>
-                                                        <button type="button" class="btn btn-success btn-xs btn-block" ng-click="$ctrl.UpdateRelRedDistribuidor(1, 0);" title="Agregar todos los Distribuidores" ng-disabled="$ctrl.BlockDistribuidorDis">Agregar Todos <i class="fa fa-angle-double-right"></i></button>
-                                                        <button type="button" class="btn btn-danger btn-xs btn-block" ng-click="$ctrl.UpdateRelRedDistribuidor(2, 0);" title="Quitar todos los Distribuidores" ng-disabled="$ctrl.BlockDistribuidorInc"><i class="fa fa-angle-double-left"></i> Quitar Todos</button>
+                                                        <button type="button" class="btn btn-success btn-xs btn-block" ng-click="$ctrl.UpdateRelRedDistribuidor(1, 0);" title="Agregar todos los Empresa" ng-disabled="$ctrl.BlockDistribuidorDis">Agregar Todos <i class="fa fa-angle-double-right"></i></button>
+                                                        <button type="button" class="btn btn-danger btn-xs btn-block" ng-click="$ctrl.UpdateRelRedDistribuidor(2, 0);" title="Quitar todos los Empresa" ng-disabled="$ctrl.BlockDistribuidorInc"><i class="fa fa-angle-double-left"></i> Quitar Todos</button>
                                                     </div>
                                                     <div class="col-lg-5 col-md-5 col-sm-5">
                                                         <h4 class="text-center"><b>Incluidos</b></h4>                
                                                         <div class="pool">
                                                             <div class="col-md-12" ng-repeat="DI in $ctrl.RelRedDistribuidorIncList" style="border-bottom: dashed #c2c2c2 0.5px; font-size:11px;">
                                                                 <div class="col-md-3">
-                                                                    <button type="button" class="btn ink-reaction btn-xs btn-warning" ng-click="$ctrl.UpdateRelRedDistribuidor(4, DI.ClvPlaza);" title="Quitar Distribuidor"><i class="md-chevron-left"></i></button> 
+                                                                    <button type="button" class="btn ink-reaction btn-xs btn-warning" ng-click="$ctrl.UpdateRelRedDistribuidor(4, DI.ClvPlaza);" title="Quitar Empresa"><i class="md-chevron-left"></i></button> 
                                                                 </div>
                                                                 <div class="col-md-9 text-right" style="padding-top: 3%;">
                                                                     <strong><b>{{ DI.Nombre }}</b></strong>
@@ -136,7 +136,7 @@
                             </uib-tab>
                             <uib-tab index="1" ng-if="$ctrl.BlockTab2">
                                 <uib-tab-heading>
-                                    Plaza
+                                    Región
                                 </uib-tab-heading>
                                 <br>
                                 <div class="row">
@@ -152,7 +152,7 @@
                                                                     <b>{{ PD.razon_social }}</b>
                                                                 </div>
                                                                 <div class="col-md-3">
-                                                                    <button type="button" class="btn ink-reaction btn-xs btn-info" ng-click="$ctrl.UpdateRelRedPlaza(3, PD.IdCompania);" title="Agregar Plaza"><i class="md-chevron-right"></i></button>
+                                                                    <button type="button" class="btn ink-reaction btn-xs btn-info" ng-click="$ctrl.UpdateRelRedPlaza(3, PD.IdCompania);" title="Agregar Región"><i class="md-chevron-right"></i></button>
                                                                 </div>
                                                             </div>
                                                             <!--
@@ -175,7 +175,7 @@
                                                         <div class="pool">
                                                             <div class="col-md-12" ng-repeat="PI in $ctrl.RelRedPlazaIncList" style="border-bottom: dashed #c2c2c2 0.5px; font-size:11px;">
                                                                 <div class="col-md-3">
-                                                                    <button type="button" class="btn ink-reaction btn-xs btn-warning" ng-click="$ctrl.UpdateRelRedPlaza(4, PI.IdCompania);" title="Quitar Plaza"><i class="md-chevron-left"></i></button> 
+                                                                    <button type="button" class="btn ink-reaction btn-xs btn-warning" ng-click="$ctrl.UpdateRelRedPlaza(4, PI.IdCompania);" title="Quitar Región"><i class="md-chevron-left"></i></button> 
                                                                 </div>
                                                                 <div class="col-md-9 text-right" style="padding-top: 3%;">
                                                                     <strong><b>{{ PI.razon_social }}</b></strong>

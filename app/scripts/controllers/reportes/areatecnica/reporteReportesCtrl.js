@@ -65,6 +65,7 @@ angular
 	 console.log(obj);
 	
 	 reportesFactory.GetReporteQuejas(obj).then(function(result){
+		vm.rptpanel=true;
 		vm.url = $sce.trustAsResourceUrl(globalService.getUrlReportes() + '/Reportes/' + result.GetReporteQuejasResult);
 	 });
 
@@ -98,6 +99,7 @@ angular
 	  vm.calles=[];
 	  vm.responseparams={};
 	  vm.showfilters=false;
+	  vm.rptpanel=false;
 	  vm.GetReport=GetReport;
 	  getTipoServicios();
 	  getProblemas();

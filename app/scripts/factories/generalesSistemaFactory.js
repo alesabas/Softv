@@ -77,6 +77,7 @@ angular
           'MacAddress':obj.MacAddress,
           'fecha_habilitar':obj.fecha_habilitar,
           'contratocompuesto':obj.contratocompuesto,
+          'IdMedio':obj.IdMedio,
           'Op':obj.Op
         }
       };
@@ -632,7 +633,8 @@ angular
           'siIEPS': obj.siIEPS,
           'Cta_IEPS': obj.Cta_IEPS,
           'Calculo1': obj.Calculo1,
-          'idcompania': obj.idcompania
+          'idcompania': obj.idcompania,
+          'ivaFrontera':obj.ivaFrontera
         }
 
       };
