@@ -50,16 +50,16 @@
           <table class="table">
             <thead>
               <tr>
-                <th width="10%" style="text-align:center"><b>Clave</b></th>
-                <th width="60%" style="text-align:center"><b>Descripción</b></th>
-                <th width="30%" colspan="3"><b>Acciones</b></th>
+                <th ><b>Clave</b></th>
+                <th ><b>Descripción</b></th>
+                <th colspan="2"><b>Acciones</b></th>
               </tr>
             </thead>
             <tbody>
               <tr dir-paginate="X in $ctrl.MotivoReimpresionFList|itemsPerPage:7">
                 <td>{{ X.Clv_motivo}}</td>
                 <td>{{ X.Descripcion }}</td>
-                <td><button type="button" class="btn btn-info btn-xs" ng-click="$ctrl.DetalleMotivoReimpFact(X.Clv_motivo)" title="Consultar Motivo de Reimpresión de Factura"><i class="fa fa-eye"></i> CONSULTAR</button></td>
+               
                 <td><button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.UpdateMotivoReimpFact(X.Clv_motivo)" title="Editar Motivo de Reimpresión de Factura"><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
                 <td><button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.EliminarMotivoReimpFact(X.Clv_motivo)" title="Elimina Motivo de Reimpresión de Factura"><i class="fa fa-trash"></i> ELIMINAR</button></td>
               </tr>

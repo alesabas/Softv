@@ -31,6 +31,7 @@ angular
         Clv_usuario: 4
       };
       reportesFactory.GetReporteOrdenes(params).then(function(result) {		
+        vm.rptpanel=true;
         vm.url = $sce.trustAsResourceUrl(
           globalService.getUrlReportes() +
             "/Reportes/" +
@@ -63,6 +64,7 @@ angular
     vm.calles = [];
     vm.responseparams = {};
     vm.showfilters = false;
+    vm.rptpanel=false;
 	vm.GetReport = GetReport;
 	vm.estatus='P';
 	vm.tipoImpresion='0';

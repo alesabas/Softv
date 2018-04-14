@@ -1,7 +1,7 @@
 'use strict';
 angular
   .module('softvApp')
-  .controller('nuevoUsuarioCtrl', function ($state, usuarioFactory, globalService,ngNotify ,$uibModal, $filter, rolFactory, encuestasFactory) {
+  .controller('nuevoUsuarioCtrl', function ($state, usuarioFactory, globalService,ngNotify ,$uibModal, $filter, rolFactory, encuestasFactory, $localStorage) {
 
     this.$onInit = function () {
       rolFactory.GetRolList().then(function (data) {
@@ -10,6 +10,14 @@ angular
           vm.Indentificaciones = result.GetConsultaIdentificacionUsuarioResult;
           encuestasFactory.GetMuestra_DistribuidoresEncList().then(function (data) {
             vm.distribuidores = data.GetMuestra_DistribuidoresEncListResult;
+            var ObjGrupoVenta = {
+              'Clv_Grupo': 0,
+              'Op': 1,
+              'Clv_Usuario': $localStorage.currentUser.idUsuario
+            };
+            usuarioFactory.GetConGrupoVentas(ObjGrupoVenta).then(function(data){
+              vm.GrupoVentaList = data.GetConGrupoVentasResult;
+            });
           });
         });
       });
@@ -17,7 +25,6 @@ angular
 
     function muestraplazas() {
       encuestasFactory.Muestra_PlazaEnc(vm.distribuidor.Clv_Plaza).then(function (data) {
-        console.log(data.GetMuestra_PlazaEncListResult);
         vm.plazas = data.GetMuestra_PlazaEncListResult;
       });
 
@@ -47,10 +54,7 @@ angular
         });
     }
 
-
-
     function Guardar() {
-
       var Parametros = {
         'Clave': 0,
         'Clv_Usuario': vm.Clave,
@@ -67,7 +71,6 @@ angular
         'Mizar_AN': 0,
         'RecibeMensaje': vm.recibemensaje,
         'NotaDeCredito': 0,
-        'Clv_IdentificacionUsuario': vm.identificacion.Clave,
         'RecibeMensajeDocumentos': 0,
         'Nombre': vm.Nombre
       };
@@ -77,11 +80,18 @@ angular
         vm.blockForm=true;
         vm.blockrelaciones=false;
         vm.blocksave = true;
-
-        ngNotify.set('El usuario se ha guardado correctamente ,ahora puedes asignar el acesso a distribuidores/plazas','success');
+        usuarioFactory.GetSoftvweb_GetUsuarioSoftvbyId(vm.IdUser).then(function (data) {
+          vm.ClvUsuarioR = data.GetSoftvweb_GetUsuarioSoftvbyIdResult.Clv_Usuario
+          var ObjGrupoVentaRel = {
+            'Clv_Usuario': vm.ClvUsuarioR,
+            'Clv_Grupo': vm.GrupoVenta.Clv_Grupo
+          };
+          usuarioFactory.GetNueRelUsuarioGrupoVentas(ObjGrupoVentaRel).then(function(data){
+            ngNotify.set('El usuario se ha guardado correctamente ,ahora puedes asignar el acesso a distribuidores/plazas','success');
+          });
+        });
       });
     }
-
 
     var vm = this;
     vm.Guardar = Guardar;

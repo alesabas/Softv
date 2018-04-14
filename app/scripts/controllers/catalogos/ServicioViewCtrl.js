@@ -198,6 +198,7 @@ angular
             CatalogosFactory.GetDeepServicios_New(Clv_Servicio).then(function(data){
                 var Servicio = data.GetDeepServicios_NewResult;
                 if(Servicio != null){
+                    vm.Titulo = 'Servicio - '+Servicio.Clv_Txt +' '+Servicio.Descripcion;
                     vm.Clv_Servicio = Servicio.Clv_Servicio;
                     vm.Clv_TipSer = Servicio.Clv_TipSer;
                     vm.Descripcion = Servicio.Descripcion;
@@ -386,6 +387,27 @@ angular
             });
         }
 
+        function OpenClvEquivalente(){
+            var Clv_Servicio = vm.Clv_Servicio;
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'views/catalogos/ModalClvEquivalenteForm.html',
+                controller: 'ModalClvEquivalenteViewCtrl',
+                controllerAs: 'ctrl',
+                backdrop: 'static',
+                keyboard: false,
+                class: 'modal-backdrop fade',
+                size: 'md',
+                resolve: {
+                    Clv_Servicio: function () {
+                        return Clv_Servicio;
+                    }
+                }
+            });
+        }
+
         $rootScope.$on('LoadConceptos', function(e, Clv_Servicio){
             GetTarifa(Clv_Servicio);
         });
@@ -435,8 +457,7 @@ angular
             }
         }
 
-        var vm = this;
-        vm.Titulo = 'Servicio - ';
+        var vm = this;        
         var Clv_Servicio = $stateParams.id
         vm.ShowCobroMensual = false;
         vm.HideCobroMensual = true;
@@ -449,6 +470,7 @@ angular
         vm.ShowClaveEquivalenteNet = false;
         vm.SetTipoCobro = SetTipoCobro;
         vm.SetOrden = SetOrden;
+        vm.OpenClvEquivalente = OpenClvEquivalente;
         vm.OpenAddConcepto = OpenAddConcepto;
         vm.OpenUpdateConcepto = OpenUpdateConcepto;
         vm.OpenDeleteConcepto = OpenDeleteConcepto;

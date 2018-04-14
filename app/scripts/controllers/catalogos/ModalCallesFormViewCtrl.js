@@ -16,6 +16,7 @@ angular
                 var Calle = data.GetDeepCalles_NewResult;
                 vm.IdCalle = Calle.Clv_Calle;
                 vm.Calle = Calle.NOMBRE;
+                vm.Titulo = 'Detalle Registro - '+vm.Calle;
                 GetRelCalle();
             });
         }
@@ -64,7 +65,7 @@ angular
         }
 
         var vm = this;
-        vm.Titulo = 'Detalle Registro - ';
+       
         vm.Icono = 'fa fa-pencil-square-o';
         vm.Show = false;
         vm.View = true;

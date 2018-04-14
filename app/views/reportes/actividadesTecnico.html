@@ -12,9 +12,69 @@
     
       <div class="card-body">
 
-          <div class="col-md-5" ng-show="$ctrl.showfilters">
+          <pageslide ps-open="$ctrl.rptpanel" ps-size="1000px" >
+              <iframe src="{{$ctrl.url}}" width="1000px;" height="800px;" ps-zindex="9999"></iframe>
+          </pageslide>
+ 
+          <div class="row">
+            
+              <div class="col-md-7 col-md-offset-3" ng-show="!$ctrl.showfilters">
+                  <filtros-reporte report="$ctrl.report" order="$ctrl.order" responseparams="$ctrl.responseparams" showfilters="$ctrl.showfilters">
+                  </filtros-reporte>
+            
+                </div>
+
+              <div class="col-md-7 col-md-offset-3" ng-show="$ctrl.showfilters" >
+                  <form angular-validator-submit="$ctrl.GetReport()" name="contratoForm" novalidate angular-validator>
+                      <div class="col-md-12">
+                          <div class="alert alert-info" role="alert">
+                              <strong>Atencion !</strong> Selecciona un rango de fechas para el reporte.
+                            </div>
+                    
+                            <div class="col-md-6">
+                                <label><i class="md md-today"></i> Fecha Inicial:</label>
+                                <div class="input-group">                            
+                                  <input class="form-control input-sm" type="date" placeholder="Fecha de inicio" validate-on="dirty" required required-message="'Este campo es obligatorio.'"
+                                    ng-model="$ctrl.fechainicio" >
+                                </div>
+                            </div>
+                    
+                          <div class="col-md-6">
+                              <label> <i class="md md-today"></i> Fecha final:</label>
+                              <div class="input-group">                           
+                                <input class="form-control input-sm" type="date" placeholder="Fecha de inicio" validate-on="dirty" required required-message="'Este campo es obligatorio.'"
+                                  ng-model="$ctrl.fechafin" >
+                              </div>
+                              
+                          </div>   
+                      </div>
+                     
+                      <div class="col-md-12">
+                        <br>
+                          <label><b>Tipo de Reporte</b></label><br>
+                          <label class="radio-inline radio-styled">
+                          <input type="radio" name="inlineRadioOptions" ng-model="$ctrl.tiporeporte" value="1"><span>Detalle</span>
+                          </label>
+                          <label class="radio-inline radio-styled">
+                            <input type="radio" name="inlineRadioOptions"  ng-model="$ctrl.tiporeporte"  value="2"><span>Resumen</span>
+                          </label>
+                      </div>
+                   
+                    <div class="col-md-12">
+                      <br>
+                      <br>
+                      <div class="col-md-6">
+                          <button class="btn btn-warning btn-block"><i class="fa fa-line-chart" aria-hidden="true"></i> Generar Reporte</button>
+                      </div>
+                      <div class="col-md-6">
+                          <button class="btn btn-default btn-block" type="button" onclick="location.reload();" ><i class="fa fa-repeat" aria-hidden="true"></i> Volver Elegir</button>
+                      </div>
+                  </form>
+              </div>
+          </div>
+          <!-- <div class="col-md-7 col-md-offset-3" ng-show="$ctrl.showfilters" >
               <form angular-validator-submit="$ctrl.GetReport()" name="contratoForm" novalidate angular-validator>
-                  <div class="col-md-12">
+                     <div class="col-md-12">
                       <div class="alert alert-info" role="alert">
                           <strong>Atencion !</strong> Selecciona un rango de fechas para el reporte.
                         </div>
@@ -33,6 +93,7 @@
                             <input class="form-control input-sm" type="date" placeholder="Fecha de inicio" validate-on="dirty" required required-message="'Este campo es obligatorio.'"
                               ng-model="$ctrl.fechafin" >
                           </div>
+                          
                       </div>   
                   </div>
                  
@@ -58,19 +119,13 @@
                   </div>
         
               </form>
-            </div>
-        
-            <div class="col-md-5" ng-show="!$ctrl.showfilters">
-              <filtros-reporte report="$ctrl.report" order="$ctrl.order" responseparams="$ctrl.responseparams" showfilters="$ctrl.showfilters">
-              </filtros-reporte>
-        
-            </div>
-            <div class="col-md-7">
-              <a href="{{$ctrl.url}}" target="_blank" class="btn btn-default-bright btn-block">
-                <i class="fa fa-external-link-square" aria-hidden="true"></i> Ver reporte en pantalla completa </a>
-              <iframe src="{{$ctrl.url}}" width="700px;" height="500px;"></iframe>
-            </div>
+            </div> -->
+         
+          
+           
           
    
       </div>
+</div>
+
 </div>

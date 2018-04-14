@@ -17,6 +17,7 @@ angular
                 var LocalidadResult = data.GetDeepLocalidades_NewResult;
                 vm.IdLocalidad = LocalidadResult.Clv_Localidad;
                 vm.Localidad = LocalidadResult.Nombre;
+                vm.Titulo = 'Editar Localidad - '+ vm.Localidad;
                 GetRelLocalidad();
             });
 
@@ -127,7 +128,7 @@ angular
         }
 
         var vm = this;
-        vm.Titulo = 'Editar Localidad - ';
+       
         vm.Icono = 'fa fa-pencil-square-o';
         vm.BtnCanTitulo = 'Salir';
         vm.ShowUpdate = false;

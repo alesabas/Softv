@@ -1,3 +1,9 @@
+<style type="text/css">
+    .table-scroll {
+        height:250px;
+        overflow:auto;
+    }
+</style>
 <div class="card animated fadeIn" style="margin-top:20px;">
     <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
         <header>
@@ -13,57 +19,104 @@
         </div>
     </div>
     <div class="card-body">
-        <form name="FormGrupo" angular-validator-submit="$ctrl.SaveGrupo()" novalidate angular-validator autocomplete="off">
         <div class="row">
             <div class="col-md-6">
-                <div class="col-md-offset-2 col-md-8">
+                <div class="col-md-offset-1 col-md-10">
+                    <div class="col-md-12">
+                        <h4 class="text-primary">Grupo de Venta</h4>
+                    </div>
+                </div>
+                <div class="col-md-offset-1 col-md-10">
                     <div class="col-md-3">
                         <b>Clave:</b>
                     </div>
                     <div class="col-md-9">
-                        <input name="InpClave" class="form-control input-sm" ng-model="$ctrl.Clave" ng-disabled="true">
+                        {{ $ctrl.Clave}}
                     </div>
                 </div>
-                <div class="col-md-offset-2 col-md-8">
-                    <br>
-                </div>
-                <div class="col-md-offset-2 col-md-8">
+                <form name="FormGrupo" angular-validator-submit="$ctrl.SaveGrupo()" novalidate angular-validator autocomplete="off">
+                <div class="col-md-offset-1 col-md-10">
                     <div class="col-md-3">
                         <b>Grupo:</b>
                     </div>
-                    <div class="col-md-9">
-                        <input name="InpGrupo" class="form-control input-sm" ng-model="$ctrl.Grupo" validate-on="dirty" ng-required="$ctrl.ReqGrupo" required-message="'Obligatorio'" invalid-message="'Invalido.'" ng-disabled="$ctrl.DisGrupo">
+                    <div class="col-md-6">
+                        <input name="InpGrupo" class="form-control input-sm" ng-model="$ctrl.Grupo" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Invalido.'" ng-disabled="$ctrl.DisGrupo">
+                    </div>
+                    <div class="col-md-3">
+                        <button type="submit" class="btn btn-success btn-block btn-xs" title="Guardar Grupo de Venta" ng-disabled="$ctrl.DisGrupo"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
                     </div>
                 </div>
-                <div class="col-md-offset-2 col-md-8">
+                 <div class="col-md-offset-1 col-md-10">
+                    <div class="col-md-offset-9 col-md-3">
+                        <button type="button" class="btn btn-default btn-block btn-xs" ng-click="$ctrl.OpenFormGrupo(1)" title="Cancelar" ng-if="$ctrl.DisBtnCancelar"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
+                    </div>
+                </div>
+                </form>
+                <div class="col-md-offset-1 col-md-10">
                     <br>
                 </div>
-                <div class="col-md-offset-2 col-md-8">
-                    <div class="col-md-3">
-                        <b>Plaza:</b>
+                <div class="col-md-offset-1 col-md-10">
+                    <div class="col-md-12">
+                        <h4 class="text-primary">Relación con las Regiones</h4>
                     </div>
-                    <div class="col-md-9">
+                </div>
+                <form name="FormRelGrupoPlaza" angular-validator-submit="$ctrl.RelPlaza(1)" novalidate angular-validator autocomplete="off">
+                <div class="col-md-offset-1 col-md-10">
+                    <div class="col-md-3">
+                        <b>Región:</b>
+                    </div>
+                    <div class="col-md-6">
                         <select name="SlcPlaza" class="form-control input-sm" ng-model="$ctrl.Plaza" ng-options="P.razon_social for P in $ctrl.PlazaList track by P.id_compania" ng-change="$ctrl.GetGrupoList()" ng-disabled="$ctrl.DisPlaza" validate-on="dirty" required required-message="'Obligatorio'">
                             <option value="">Selecciona</option>
                         </select>
                     </div>
-                </div>
-                <div class="col-md-offset-2 col-md-8">
-                    <br>
-                </div>
-                <div class="col-md-offset-2 col-md-8">
-                    <div class="col-md-4">
-                        <button type="button" class="btn btn-primary btn-block btn-xs" ng-click="$ctrl.OpenFormGrupo(1, '')" title="Consultar Rango" ng-if="$ctrl.DisBtnNuevo"><i class="fa fa-plus"></i> Nuevo</button>
+                    <div class="col-md-3">
+                        <button type="submit" class="btn btn-success btn-block btn-xs" title="Agregar Región" ng-disabled="$ctrl.DisPlaza"><i class="fa fa-plus"></i> Agregar</button>
                     </div>
-                    <div class="col-md-4">
-                        <button type="submit" class="btn btn-success btn-block btn-xs" title="Consultar Rango" ng-if="$ctrl.DisBtnGuardar"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
-                    </div>
-                    <div class="col-md-4">
-                        <button type="button" class="btn btn-default btn-block btn-xs" ng-click="$ctrl.OpenFormGrupo(0)" title="Consultar Rango" ng-if="$ctrl.DisBtnCancelar"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
+                </div>
+                </form>
+                <div class="col-md-offset-1 col-md-10">
+                    <div class="col-md-12 table-scroll">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th width="80%"><b>Región</b></th>
+                                    <th width="20%"><b></b></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-show="!$ctrl.ViewPList">
+                                    <td class="text-center" colspan="2">SIN REGISTROS</td>
+                                </tr>
+                                <tr ng-repeat="X in $ctrl.RelPlazaList" ng-show="$ctrl.ViewPList">
+                                    <td>{{ X.razon_social }}</td>
+                                    <td><button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.RelPlaza(2, X.id_compania)" title="Editar Rango"><i class="fa fa-trash"></i> Eliminar</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
+                <div class="col-md-offset-1 col-md-10">
+                    <div class="col-md-12">
+                        <div class="col-md-12">
+                            <h4 class="text-primary">Busqueda Grupo de Venta</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-offset-1 col-md-10">
+                    <div class="col-md-12">
+                        <div class="col-md-3">
+                            <b>Región:</b>
+                        </div>
+                        <div class="col-md-9">
+                            <select name="SlcPlazaB" class="form-control input-sm" ng-model="$ctrl.PlazaB" ng-options="P.razon_social for P in $ctrl.PlazaList track by P.id_compania" ng-change="$ctrl.GetGrupoList()" validate-on="dirty" required required-message="'Obligatorio'">
+                                <option value="">Selecciona</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-md-offset-1 col-md-10">
                     <div class="col-md-12">
                         <table class="table">
@@ -78,21 +131,20 @@
                                 <tr ng-show="!$ctrl.ViewList">
                                     <td class="text-center" colspan="3">SIN REGISTROS</td>
                                 </tr>
-                                <tr dir-paginate="X in $ctrl.GrupoList|itemsPerPage:7" ng-show="$ctrl.ViewList">
+                                <tr dir-paginate="X in $ctrl.GrupoList|itemsPerPage:8" ng-show="$ctrl.ViewList">
                                     <td>{{ X.Clv_Grupo }}</td>
                                     <td>{{ X.Grupo }}</td>
-                                    <td><button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.OpenFormGrupo(2, X)" title="Editar Rango" ng-disabled="$ctrl.DisBtnEditar"><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
+                                    <td><button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.OpenFormGrupo(3, X)" title="Editar Rango" ng-disabled="$ctrl.DisBtnEditar"><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
                                 </tr>
                             </tbody>
                         </table>
                         <div style="margin-top:-40px;">
-                            <dir-pagination-controls max-size="7" direction-links="true" boundary-links="true" ng-if="$ctrl.GrupoList.length > 0">
+                            <dir-pagination-controls max-size="8" direction-links="true" boundary-links="true" ng-if="$ctrl.GrupoList.length > 0">
                             </dir-pagination-controls>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        </form>
     </div>
 </div>

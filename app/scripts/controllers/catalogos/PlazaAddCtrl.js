@@ -5,7 +5,7 @@ angular
   .controller('PlazaAddCtrl', function (CatalogosFactory, ngNotify, $rootScope, $state, distribuidorFactory, plazaFactory) {
 
     function initData() {
-      vm.Titulo = 'Nueva Plaza';
+      vm.Titulo = 'Nueva Región';
       distribuidorFactory.Getplaza(0, '')
         .then(function (data) {
           vm.distribuidores = data.GetPlaza_DistribuidoresNewResult;
@@ -51,7 +51,7 @@ angular
         .then(function (result) {
           vm.Clv_plaza=result.AddPlazaResult;
           vm.block = false;
-          ngNotify.set('La plaza se ha guardado correctamente, ahora puede asignar relaciones con estados y ciudades', 'success');
+          ngNotify.set('La región se ha guardado correctamente, ahora puede asignar relaciones con estados y ciudades', 'success');
         });
     }
 

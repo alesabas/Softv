@@ -62,6 +62,7 @@ angular
        };
        console.log(obj);
        reportesFactory.GetReporteAtencion(obj).then(function(result){
+        vm.rptpanel=true;
         vm.url = $sce.trustAsResourceUrl(globalService.getUrlReportes() + '/Reportes/' + result.GetReporteAtencionResult);
        });
       
@@ -74,6 +75,7 @@ angular
     vm.responseparams = {};
     vm.showfilters = false;
     vm.tiporeporteord="0";
+    vm.rptpanel=false;
     getUsuarios();
     getTipoServicios();
     vm.order=[

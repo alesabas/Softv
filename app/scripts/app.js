@@ -23,7 +23,9 @@ angular
     'colorpicker.module',
     'moment-picker',
 		'angularMoment',
-    'angularFileUpload'
+    'angularFileUpload',
+    'pageslide-directive',
+    'ng-percent'
      ])
   .config(['$provide','$urlRouterProvider', '$httpProvider' ,'cfpLoadingBarProvider', '$qProvider', 'blockUIConfig', function ($provide, $urlRouterProvider, $httpProvider ,cfpLoadingBarProvider, $qProvider, blockUIConfig) {
     $urlRouterProvider.otherwise(function ($injector) {

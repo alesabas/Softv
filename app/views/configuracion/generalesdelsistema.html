@@ -182,20 +182,34 @@
             <i class="glyphicon glyphicon-usd"></i> Impuestos
           </uib-tab-heading>
           <form angular-validator-submit="$ctrl.GuardarImpuestos()" name="ImpuestoForm" novalidate angular-validator>
-            <div class="col-md-12">
-              <div class="col-md-5 col-md-offset-3">
-
-                <!-- <h4 class="text-danger text-center">Impuestos</h4>
+            <div class="col-md-12" style="padding:30px;">
+              <div class="col-md-5 col-md-offset-1">             
                 <div class="col-md-12">
                   <br>
                   <div class="col-md-6">
-                    <label>I.V.A %</label>
+                    <h5>I.V.A %</h5>
                   </div>
                   <div class="col-md-6">
-                    <input type="number" class="form-control input-sm" name="iva" ng-model="$ctrl.impuestos.IVA">
+                    <input type="text" class="form-control " name="iva" ng-model="$ctrl.impuestos.IVA" ng-percent>
 
                   </div>
                 </div>
+                <div class="col-md-12">
+                  <br>
+                  <div class="col-md-6">
+                    <h5>I.V.A Fronterizo %</h5>
+                  </div>
+                  <div class="col-md-6">
+                    <input type="text" class="form-control " name="iva" ng-model="$ctrl.impuestos.ivaFrontera" ng-percent>
+
+                  </div>
+                </div>
+
+                
+               
+
+              </div>
+              <div class="col-md-5">
 
                 <div class="col-md-12">
                   <br>
@@ -206,7 +220,7 @@
                   </div>
                   <div class="col-md-6">
                     <label class="checkbox-inline checkbox-styled checkbox-info">
-														<input type="checkbox" name="ivaieps" ng-model="$ctrl.IVAIEPS" checked=""><span>Calcular IVA incluyendo  IEPS</span>
+														<input type="checkbox" name="ivaieps" ng-model="$ctrl.impuestos.IVAIEPS" checked=""><span>Calcular IVA incluyendo  IEPS</span>
 													</label>
 
                   </div>
@@ -214,24 +228,15 @@
                 <div class="col-md-12">
                   <br>
                   <div class="col-md-6">
-                    IEPS %<input type="number" name="ieps" ng-model="" class="form-control input-sm">
+                    IEPS %<input type="text" name="ieps" ng-model="$ctrl.impuestos.IEPS" class="form-control " ng-percent>
                   </div>
                   <div class="col-md-6">
                     <br>
-                    <input type="text" name="totalieps" ng-disabled="true" ng-model="$ctrl.impuestos.IEPS" class="form-control input-sm">
+                   {{$ctrl.impuestos.IEPS}}
                   </div>
 
                 </div>
-                <div class="col-md-12">
-                  <br>
-                  <div class="col-md-6">
-                    Cta.IEPS
-                  </div>
-                  <div class="col-md-6">
-                    <input type="text" name="ctaieps" ng-model="$ctrl.impuestos.Cta_IEPS" class="form-control input-sm">
-                  </div>
-                </div> -->
-
+                 
               </div>
               <div class="col-md-12 text-right">
 
@@ -310,7 +315,7 @@
 
         </uib-tab>
 
-        <uib-tab index="3" heading="">
+       <!--  <uib-tab index="3" heading="">
 
           <uib-tab-heading>
             <i class="glyphicon glyphicon-home"></i> Datos de la empresa
@@ -455,7 +460,7 @@
             </div>
           </form>
 
-        </uib-tab>
+        </uib-tab> -->
         <uib-tab index="4" heading="">
           <uib-tab-heading>
             <i class="glyphicon glyphicon-wrench"></i> Preferencias

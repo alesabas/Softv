@@ -9,15 +9,15 @@
 <div class="card animated fadeIn" style="margin-top:20px;">
   <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
     <header>
-      <strong style="font-weight:bold; border:none; margin-left:10px;">Catálogo Plazas</strong>
+      <strong style="font-weight:bold; border:none; margin-left:10px;">Catálogo Regiones</strong>
       <br>
       <small class="text-muted" style="font-size:14px; margin-left:10px;">
-          <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">Catálogo Plazas</a>
+          <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">Catálogos</a>
       </small>
     </header>
     <div class="tools">
       <div class="btn-group">
-        <button type="button" class="btn btn-primary btn-sm" ui-sref="home.catalogos.plaza_nueva" title="Crear una plaza nueva"><i class="fa fa-plus"></i> NUEVA PLAZA</button>
+        <button type="button" class="btn btn-primary btn-sm" ui-sref="home.catalogos.plaza_nueva" title="Crear una Región nueva"><i class="fa fa-plus"></i> NUEVA Región</button>
       </div>
     </div>
   </div>
@@ -26,12 +26,12 @@
       <div class="col-md-12">
         <div class="col-md-3" style="text-align:right">
           <select class="form-control input-sm" name="dis" ng-model="$ctrl.distribuidor" ng-options="item as item.Nombre for item in $ctrl.distribuidores track by item.Clv_Plaza">
-            <option value="">Selecciona distribuidor</option>
+            <option value="">Selecciona Empresa</option>
           </select>
         </div>
         <div class="col-md-3" style="text-align:right">
           <div class="input-group">
-            <input type="text" name="InpSearchPlaza" class="form-control input-sm" ng-model="$ctrl.SearchPlaza" placeholder="Buscar Plaza">
+            <input type="text" name="InpSearchPlaza" class="form-control input-sm" ng-model="$ctrl.SearchPlaza" placeholder="Buscar Región">
             <span class="input-group-addon"><i class="fa fa-search"></i></span>
           </div>
         </div>
@@ -48,7 +48,7 @@
           <thead>
             <tr>
               <th width="10%"><b>Id</b></th>
-              <th width="70%"><b>Nombre de la plaza</b></th>
+              <th width="70%"><b>Nombre de la Región</b></th>
               <th width="20%" colspan="2"><b>Acciones</b></th>
             </tr>
           </thead>
@@ -56,8 +56,8 @@
             <tr dir-paginate="X in $ctrl.plazas|filter:$ctrl.SearchPlaza|itemsPerPage:7">
               <td>{{ X.id_compania }}</td>
               <td>{{ X.razon_social }}</td>
-              <td><button type="button" class="btn btn-info btn-xs" ui-sref="home.catalogos.plaza_detalle({ id:X.id_compania })" title="Consultar Plaza"><i class="fa fa-eye"></i> CONSULTAR</button></td>
-              <td><button type="button" class="btn btn-warning btn-xs" ui-sref="home.catalogos.plaza_editar({ id:X.id_compania })" title="Editar Plaza"><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
+              <td><button type="button" class="btn btn-info btn-xs" ui-sref="home.catalogos.plaza_detalle({ id:X.id_compania })" title="Consultar Región"><i class="fa fa-eye"></i> CONSULTAR</button></td>
+              <td><button type="button" class="btn btn-warning btn-xs" ui-sref="home.catalogos.plaza_editar({ id:X.id_compania })" title="Editar Región"><i class="fa fa-pencil-square-o"></i> EDITAR</button></td>
             </tr>
           </tbody>
         </table>
