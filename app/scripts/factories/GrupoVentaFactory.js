@@ -13,10 +13,10 @@ angular
             GetAddRelGrupoVentaPlaza: '/GrupoVentas/GetAddRelGrupoVentaPlaza'
         };
 
-        factory.GetGrupoVentaIdCompaniaList = function(IdCompania){
+        factory.GetGrupoVentaIdCompaniaList = function(Obj){
             var deferred = $q.defer();
             var config = {headers: {'Authorization': $localStorage.currentUser.token}};
-            var Parametros = {'IdCompania': IdCompania};
+            var Parametros = Obj;
             $http.post(globalService.getUrl() + paths.GetGrupoVentaIdCompaniaList, JSON.stringify(Parametros), config).then(function(response){
                 deferred.resolve(response.data);
             }).catch(function(response){

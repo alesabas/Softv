@@ -7,14 +7,18 @@ angular
         function initData(){
             SeriesFactory.GetMuestra_Compania_RelUsuarioList($localStorage.currentUser.idUsuario).then(function(data){
                 vm.PlazaList = data.GetMuestra_Compania_RelUsuarioListResult;
-                vm.PlazaB = vm.PlazaList[0];
                 OpenFormGrupo(vm.Op);
                 GetGrupoList();
             });
         }
 
         function GetGrupoList(){
-            GrupoVentaFactory.GetGrupoVentaIdCompaniaList(vm.PlazaB.id_compania).then(function(data){
+            var Obj = {
+                'IdCompania': (vm.PlazaB != undefined)? vm.PlazaB.id_compania:null,
+                'Clv_Usuario': $localStorage.currentUser.idUsuario,
+                'Op': (vm.PlazaB != undefined)? 1:0
+            };
+            GrupoVentaFactory.GetGrupoVentaIdCompaniaList(Obj).then(function(data){
                 vm.GrupoList = data.GetGrupoVentaIdCompaniaListResult;
                 vm.ViewList = (vm.GrupoList.length > 0)? true:false;
             });
