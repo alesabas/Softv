@@ -54,16 +54,16 @@ angular
       fileItem._file.tipo = vm.tipoimagen.Nombre;
     };
 
+    vm.BonificacionDis = true;
+
     function init() {
       generalesSistemaFactory.GetPeriodoscorte(0, 1).then(function(response) {       
         vm.periodos = response.GetPeriodoscorteResult;
         vm.Periodo = vm.periodos[0];
-
           generalesSistemaFactory
             .GetCONSULTAGENERALESDESC(vm.Periodo.Clv_periodo, 1)
             .then(function(data) {           
               vm.periodoCorte = data.GetCONSULTAGENERALESDESCResult;   
-
                   generalesSistemaFactory
                     .GetImpuestos(1, 1)
                     .then(function(data) {
@@ -78,7 +78,7 @@ angular
                     });
                 });
             });
-
+            GetBonificacion();
       });
     }
 
@@ -126,7 +126,6 @@ angular
         );
         return;
       }
-
       generalesSistemaFactory
         .GuardaLogos(files, file_options, [])
         .then(function(result) {
@@ -206,8 +205,15 @@ angular
         vm.hexPicker.colormenuletra = detalle.ColorMenuLetra;
         vm.hexPicker.colornavegacion = detalle.ColorNav;
         vm.hexPicker.colornavegacionletra = detalle.ColorNavLetra;
-
         vm.hexPicker.colorfondo = detalle.ColorFondo;
       });
     }
+
+    function GetBonificacion(){
+      generalesSistemaFactory.GetConsultaBonficacion().then(function(data){
+        console.log(data);
+        vm.Bonificacion = data.GetConsultaBonficacionResult.Bonificacion
+      });
+    }
+
   });
