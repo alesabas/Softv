@@ -36,7 +36,12 @@ angular
       GetGuardalogos: '/Configuracion/GetGuardalogos',
       GetFILTROSINTERFAZ_CABLEMODEMS: '/Configuracion/GetFILTROSINTERFAZ_CABLEMODEMS',
       GetConsultaBonficacion: '/configuracion/GetConsultaBonficacion',
-      GetBonificacionTipoUsarioDisList: '/configuracion/GetBonificacionTipoUsarioDisList'
+      GetBonificacionTipoUsarioDisList: '/configuracion/GetBonificacionTipoUsarioDisList',
+      GetBonificacionTipoUsarioList: '/configuracion/GetBonificacionTipoUsarioList',
+      GetBonificacionAutorizaTipoUsarioList: '/configuracion/GetBonificacionAutorizaTipoUsarioList',
+      GetAddBonficacion: '/configuracion/GetAddBonficacion',
+      GetAddBonTipoUsuario: '/configuracion/GetAddBonTipoUsuario',
+      GetAddBonTipoUsuarioAutoriza: '/configuracion/GetAddBonTipoUsuarioAutoriza'
     };
 
     /* factory.GetguardaPreferencia = function (file, options, eliminadas) {
@@ -182,13 +187,11 @@ angular
         'op': 0,
         'ip': $localStorage.currentUser.maquina
       };
-      console.log($localStorage.currentUser);
       var config = {
         headers: {
           'Authorization': $localStorage.currentUser.token
         }
       };
-      console.log(Parametros);
       $http.post(globalService.getUrl() + paths.GetvalidaAccesoFacturacion, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
@@ -293,7 +296,6 @@ angular
           'Authorization': $localStorage.currentUser.token
         }
       };
-      console.log(Parametros);
       $http.post(globalService.getUrl() + paths.GetNueRelOrdenesTecnicos, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
@@ -329,7 +331,6 @@ angular
         'op': op,
         'idcompania': idcompania
       };
-      console.log(Parametros);
       var config = {
         headers: {
           'Authorization': $localStorage.currentUser.token
@@ -753,6 +754,64 @@ angular
       var deferred = $q.defer();
       var config = {headers: {'Authorization': $localStorage.currentUser.token}};
       $http.get(globalService.getUrl() + paths.GetBonificacionTipoUsarioDisList, config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response.data);
+      });
+      return deferred.promise;
+    };
+
+    factory.GetBonificacionTipoUsarioList = function () {
+      var deferred = $q.defer();
+      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+      $http.get(globalService.getUrl() + paths.GetBonificacionTipoUsarioList, config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response.data);
+      });
+      return deferred.promise;
+    };
+
+    factory.GetBonificacionAutorizaTipoUsarioList = function () {
+      var deferred = $q.defer();
+      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+      $http.get(globalService.getUrl() + paths.GetBonificacionAutorizaTipoUsarioList, config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response.data);
+      });
+      return deferred.promise;
+    };
+
+    factory.GetAddBonficacion = function (ObjBonificacion) {
+      var deferred = $q.defer();
+      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+      var Parametros = {'ObjBonificacion': ObjBonificacion};
+      $http.post(globalService.getUrl() + paths.GetAddBonficacion, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response.data);
+      });
+      return deferred.promise;
+    };
+
+    factory.GetAddBonTipoUsuario = function (ObjBonificacion) {
+      var deferred = $q.defer();
+      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+      var Parametros = {'ObjBonificacion': ObjBonificacion};
+      $http.post(globalService.getUrl() + paths.GetAddBonTipoUsuario, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response.data);
+      });
+      return deferred.promise;
+    };
+
+    factory.GetAddBonTipoUsuarioAutoriza = function (ObjBonificacion) {
+      var deferred = $q.defer();
+      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+      var Parametros = {'ObjBonificacion': ObjBonificacion};
+      $http.post(globalService.getUrl() + paths.GetAddBonTipoUsuarioAutoriza, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
         deferred.reject(response.data);

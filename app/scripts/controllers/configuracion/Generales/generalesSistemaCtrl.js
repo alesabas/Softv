@@ -29,7 +29,6 @@ angular
           fn: function(item) {
             var count = 0;
             vm.uploader.queue.forEach(function(f) {             
-              console.log(f);
               count += f._file.idtipo === item.idtipo ? 1 : 0;
             });
             if (count > 0) {
@@ -47,7 +46,6 @@ angular
     });
 
     vm.uploader.onAfterAddingFile = function(fileItem) {
-      console.log(fileItem);
       fileItem.file.idtipo = vm.tipoimagen.Idtipo;
       fileItem.file.tipo = vm.tipoimagen.Nombre;
       fileItem._file.idtipo = vm.tipoimagen.Idtipo;
@@ -55,6 +53,8 @@ angular
     };
 
     vm.BonificacionDis = true;
+    vm.AddGenBonTipoUsuario = AddGenBonTipoUsuario;
+    vm.AddAutBonTipoUsuario = AddAutBonTipoUsuario;
 
     function init() {
       generalesSistemaFactory.GetPeriodoscorte(0, 1).then(function(response) {       
@@ -67,7 +67,6 @@ angular
                   generalesSistemaFactory
                     .GetImpuestos(1, 1)
                     .then(function(data) {
-                    console.log(data);
                       vm.impuestos = data.GetImpuestosResult;
 
                       generalesSistemaFactory
@@ -79,6 +78,9 @@ angular
                 });
             });
             GetBonificacion();
+            GetTipoUsuarioList();
+            GetBonGenTipoUsuarioList();
+            GetBonAutTipoUsuario();
       });
     }
 
@@ -95,12 +97,10 @@ angular
         idcompania: 1,
         ivaFrontera: (vm.impuestos.ivaFrontera)?vm.impuestos.ivaFrontera:0
       };
-      console.log(Parametros);      
       generalesSistemaFactory
         .GetNueTabla_Impuestos(Parametros)
         .then(function(result) {
           ngNotify.set("Los conceptos de inpuestos se  guardaron correctamente", "success");
-          console.log(result);
         });
     }
 
@@ -129,7 +129,6 @@ angular
       generalesSistemaFactory
         .GuardaLogos(files, file_options, [])
         .then(function(result) {
-          console.log(result);
           ngNotify.set("Se guardo correctamente", "success");
           Getlogos();
         });
@@ -137,7 +136,6 @@ angular
 
     function Getlogos() {
       generalesSistemaFactory.Getlogos().then(function(result) {
-        console.log(result);
         result.forEach(function(item) {
           item.Valor = globalService.getUrllogos() + "/" + item.Valor;
         });
@@ -164,7 +162,6 @@ angular
       generalesSistemaFactory
         .GetspAgregaRangosCobroMaterial(obj)
         .then(function(data) {
-          console.log(data);
           ngNotify.set("El rango se ha guardado correctamente", "success");
         });
     }
@@ -173,7 +170,6 @@ angular
       generalesSistemaFactory
         .GetCONSULTAGENERALESDESC(vm.Periodo.Clv_periodo, 1)
         .then(function(data) {
-          console.log(data);
           vm.periodoCorte = data.GetCONSULTAGENERALESDESCResult;
         });
     }
@@ -197,7 +193,6 @@ angular
     function detallePreferencia() {
       generalesSistemaFactory.GetDetallePreferencias().then(function(result) {
         var detalle = result.GetDetallePreferenciasResult;
-        console.log(detalle);
         vm.nombresistema = detalle.NombreSistema;
         vm.mensajeinicio = detalle.MensajeHome;
         vm.titulomenu = detalle.TituloNav;
@@ -211,9 +206,62 @@ angular
 
     function GetBonificacion(){
       generalesSistemaFactory.GetConsultaBonficacion().then(function(data){
-        console.log(data);
         vm.Bonificacion = data.GetConsultaBonficacionResult.Bonificacion
       });
+    }
+
+    function GetTipoUsuarioList(){
+      generalesSistemaFactory.GetBonificacionTipoUsarioDisList().then(function(data){
+        vm.TipoUsuarioList = data.GetBonificacionTipoUsarioDisListResult;
+      });
+    }
+
+    function GetBonGenTipoUsuarioList(){
+      generalesSistemaFactory.GetBonificacionTipoUsarioList().then(function(data){
+        vm.TipoBonGenTipoUsuarioList = data.GetBonificacionTipoUsarioListResult;
+      });
+    }
+
+    function GetBonAutTipoUsuario(){
+      generalesSistemaFactory.GetBonificacionAutorizaTipoUsarioList().then(function(data){
+        vm.BonAutTipoUsuarioList = data.GetBonificacionAutorizaTipoUsarioListResult;
+      });
+    }
+
+    function AddGenBonTipoUsuario(Op, Clv){
+      if((Op == 1 && vm.TipoUsuario != undefined) || (Op == 2 && Clv != undefined)){
+        var ObjBonificacion = {
+          'Clv_TipoUsuario': (Op == 1)? vm.TipoUsuario.Clv_TipoUsuario:Clv,
+          'Op': Op
+        };
+        generalesSistemaFactory.GetAddBonTipoUsuario(ObjBonificacion).then(function(data){
+          var Msj = (Op == 1)? 'Se agregó Tipo de Usuario':'Se eliminó Tipo de Usuario';
+          ngNotify.set("Correcto, " + Msj, "success");
+          GetTipoUsuarioList();
+          GetBonGenTipoUsuarioList();
+          GetBonAutTipoUsuario();
+        });
+      }else{
+        ngNotify.set("Error, Tiene que ingresar un usuario", "warn");
+      }
+    }
+
+    function AddAutBonTipoUsuario(Op, Clv){
+      if((Op == 1 && vm.TipoUsuario != undefined) || (Op == 2 && Clv != undefined)){
+        var ObjBonificacion = {
+          'Clv_TipoUsuario': (Op == 1)? vm.TipoUsuario.Clv_TipoUsuario:Clv,
+          'Op': Op
+        };
+        generalesSistemaFactory.GetAddBonTipoUsuarioAutoriza(ObjBonificacion).then(function(data){
+          var Msj = (Op == 1)? 'Se agregó Tipo de Usuario':'Se eliminó Tipo de Usuario';
+          ngNotify.set("Correcto, " + Msj, "success");
+          GetTipoUsuarioList();
+          GetBonGenTipoUsuarioList();
+          GetBonAutTipoUsuario();
+        });
+      }else{
+        ngNotify.set("Error, Tiene que ingresar un usuario", "warn");
+      }
     }
 
   });

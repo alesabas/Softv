@@ -119,7 +119,7 @@
           <form angular-validator-submit="$ctrl.Guardarperiodo()" name="PeriodoForm" novalidate angular-validator>
             <div class="col-md-12">
               <h4 class="text-danger text-center">Periodo de corte</h4>
-              <div class="col-md-4 col-md-offset-2">
+              <div class="col-md-5 col-md-offset-1">
                 <div class="col-md-12">
                   <br>
                   <b>Periodo:</b>
@@ -156,32 +156,32 @@
                 </div>
               </div>
 
-              <div class="col-md-4 ">
+              <div class="col-md-5">
                 <br>
                 <div class="col-md-12">
-                  <div class="col-md-6">
+                  <div class="col-md-8">
                     <b>Proceso de desconexión :</b>
                   </div>
-                  <div class="col-md-6">
+                  <div class="col-md-4">
                     <input type="number" class="form-control input-sm" ng-model="$ctrl.periodoCorte.diaCorte" name="desconexion">
                   </div>
                 </div>
 
                 <div class="col-md-12">
-                  <div class="col-md-6">
-                    <b>Dias limite para puntos :</b>
+                  <div class="col-md-8">
+                    <b>Dias limite para puntos de proto pago:</b>
                   </div>
-                  <div class="col-md-6">
+                  <div class="col-md-4">
                     <input type="number" class="form-control input-sm" ng-model="$ctrl.periodoCorte.diasPPP" name="prontopago">
                   </div>
 
                 </div>
 
                 <div class="col-md-12">
-                  <div class="col-md-6">
+                  <div class="col-md-8">
                     <b>Dias limite para puntos de antiguedad:</b>
                   </div>
-                  <div class="col-md-6">
+                  <div class="col-md-4">
                     <input type="number" class="form-control input-sm" ng-model="$ctrl.periodoCorte.diasPA" name="prontopagoantiguedad">
                   </div>
 
@@ -511,7 +511,7 @@
             </div>
             <div class="col-md-12">
               <div class="col-md-offset-4 col-md-4">
-                <select name="SlcTipoUsuario" class="form-control input-sm" ng-model="$ctrl.TipoUsuario">
+                <select name="SlcTipoUsuario" class="form-control input-sm" ng-model="$ctrl.TipoUsuario" ng-options="TU as TU.Nombre for TU in $ctrl.TipoUsuarioList track by TU.Clv_TipoUsuario">
                   <option value="">Selecciona</option>
                 </select>
               </div>
@@ -523,38 +523,38 @@
             </div>
             <div class="col-md-12">
               <div class="col-md-offset-4 col-md-2">
-                <button type="button" class="btn btn-success btn-block btn-xs">Genera</button>
+                <button type="button" class="btn btn-success btn-block btn-xs" ng-click="$ctrl.AddGenBonTipoUsuario(1)" title="Agregar Tipo de Usuario a ofrecer bonificación"><i class="fa fa-plus"></i> Ofrece</button>
               </div>
               <div class="col-md-2">
-                <button type="button" class="btn btn-primary btn-block btn-xs">Autoriza</button>
+                <button type="button" class="btn btn-primary btn-block btn-xs" ng-click="$ctrl.AddAutBonTipoUsuario(1)" title="Agregar Tipo de Usuario a autorizar bonificación"><i class="fa fa-plus"></i> Autoriza</button>
               </div>
             </div>
             <div class="col-md-12">
               <div class="col-md-12">
                 <div class="dualmultiselect">
                   <div class="row">
-                    <div class="col-md-offset-1 col-md-5">
-                      <h4 class="text-center"><b>Tipos de Usuario Generan Bonificación</b></h4>
+                    <div class="col-md-offset-2 col-md-4">
+                      <h4 class="text-center"><b>Tipos de Usuario Ofrecen Bonificación</b></h4>
                       <div class="pool">
-                        <div class="col-md-12" ng-repeat="ED in $ctrl.RelRedEstadoDisList" style="border-bottom: dashed #c2c2c2 0.5px; font-size:11px;" ng-show="!$ctrl.BlockEstadoDis">
-                          <div class="col-md-9" style="padding-top: 3%;">
-                            <b>{{ ED.Nombre }}</b>
+                        <div class="col-md-12" ng-repeat="TUG in $ctrl.TipoBonGenTipoUsuarioList" style="border-bottom: dashed #c2c2c2 0.5px; font-size:12px;">
+                          <div class="col-md-10" style="padding-top: 3%;">
+                            <b>{{ TUG.Nombre }}</b>
                           </div>
-                          <div class="col-md-3">
-                            <button type="button" class="btn ink-reaction btn-xs btn-info" ng-click="$ctrl.UpdateRelRedEstado(3, ED.Clv_Estado);" title="Agregar Estado"><i class="md-chevron-right"></i></button>
+                          <div class="col-md-2">
+                            <button type="button" class="btn ink-reaction btn-xs btn-danger" ng-click="$ctrl.AddGenBonTipoUsuario(2, TUG.Clv_TipoUsuario);" title="Remover Tipo de Usuario"><i class="fa fa-trash"></i></button>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-4">
                       <h4 class="text-center"><b>Tipos de Usuario Autoriza Bonificación</b></h4>                
                       <div class="pool">
-                        <div class="col-md-12" ng-repeat="EI in $ctrl.RelRedEstadoIncList" style="border-bottom: dashed #c2c2c2 0.5px; font-size:11px;">
-                          <div class="col-md-3">
-                            <button type="button" class="btn ink-reaction btn-xs btn-warning" ng-click="$ctrl.UpdateRelRedEstado(4, EI.Clv_Estado);" title="Quitar Estado"><i class="md-chevron-left"></i></button> 
+                        <div class="col-md-12" ng-repeat="TUA in $ctrl.BonAutTipoUsuarioList" style="border-bottom: dashed #c2c2c2 0.5px; font-size:12px;">
+                          <div class="col-md-2">
+                            <button type="button" class="btn ink-reaction btn-xs btn-danger" ng-click="$ctrl.AddAutBonTipoUsuario(2, TUA.Clv_TipoUsuario);" title="Remover Tipo de Usuario"><i class="fa fa-trash"></i></button> 
                           </div>
-                          <div class="col-md-9 text-right" style="padding-top: 3%;">
-                            <strong><b>{{ EI.Nombre }}</b></strong>
+                          <div class="col-md-10 text-right" style="padding-top: 3%;">
+                            <strong><b>{{ TUA.Nombre }}</b></strong>
                           </div>
                         </div>
                       </div>
