@@ -25,7 +25,7 @@
     <div class="row">
       <div class="col-md-12">
         <div class="col-md-3" style="text-align:right">
-          <select class="form-control input-sm" name="dis" ng-model="$ctrl.distribuidor" ng-options="item as item.Nombre for item in $ctrl.distribuidores track by item.Clv_Plaza">
+          <select class="form-control input-sm" name="dis" ng-model="$ctrl.distribuidor" ng-options="item as item.Nombre for item in $ctrl.distribuidores track by item.Clv_Plaza" ng-change="$ctrl.obtenPlazas(3)">
             <option value="">Selecciona Empresa</option>
           </select>
         </div>
