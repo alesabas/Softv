@@ -177,7 +177,7 @@ angular
 													controllerAs: 'ctrl',
 													backdrop: 'static',
 													keyboard: false,
-													size: 'sm',
+													size: 'lg',
 													resolve: {
 														factura: function() {
 															return vm.Clv_Factura;

@@ -206,7 +206,28 @@ angular
     }
 
     function openPay(tipo) {
-      cajasFactory.dameSucursalCompa(vm.Cliente.Contrato).then(function (data) {
+      console.log('X');
+      var Clv_Factura = 210221;
+      var modalInstance = $uibModal.open({
+        animation: true,
+        ariaLabelledBy: 'modal-title',
+        ariaDescribedBy: 'modal-body',
+        templateUrl: 'views/facturacion/modalSingleTicket.html',
+        controller: 'ModalSingleTicketCtrl',
+        controllerAs: 'ctrl',
+        backdrop: 'static',
+        keyboard: false,
+        size: 'lg',
+        resolve: {
+          factura: function() {
+            return Clv_Factura;
+          },
+          imprimir: function() {
+            return true;
+          }
+        }
+      });
+      /*cajasFactory.dameSucursalCompa(vm.Cliente.Contrato).then(function (data) {
         if (data.GetDeepDameRelSucursalCompaResult.Id == 0) {
           ngNotify.set('La caja no tiene asignados folios para esta plaza.', 'error');
         } else {
@@ -272,7 +293,7 @@ angular
             }
           });
         }
-      });
+      });*/
     }
 
     $rootScope.$on('ocultarPagar', function () {
