@@ -32,8 +32,8 @@ angular
       GetvalidaAccesoFacturacion: '/Configuracion/GetvalidaAccesoFacturacion',
       GetguardaPreferencia: '/Configuracion/GetguardaPreferencia',
       GetDetallePreferencias: '/Configuracion/GetDetallePreferencias',
-      Getlogos: '/Configuracion/Getlogos',
-      GetGuardalogos: '/Configuracion/GetGuardalogos',
+      Getlogos: '/Sistema/Getlogos',
+      GetGuardalogos: '/Sistema/Guardalogos',
       GetFILTROSINTERFAZ_CABLEMODEMS: '/Configuracion/GetFILTROSINTERFAZ_CABLEMODEMS'
     };
 
@@ -103,12 +103,11 @@ angular
 
 
       var config = {
-        headers: {
-          'Authorization': $localStorage.currentUser.token
+        headers: {         
         }
       };
 
-      $http.get(globalService.getUrl() + paths.Getlogos, config).then(function (response) {
+      $http.get(globalService.getUrlinfoSistema() + paths.Getlogos, config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
         deferred.reject(response);
@@ -138,22 +137,21 @@ angular
 
 
 
-    factory.GuardaLogos = function (file, options, eliminadas) {
+    factory.GuardaLogos = function (file, tipo) {
+      console.log(file);
+      console.log(tipo);
+      
       var deferred = $q.defer();
-      var data = new FormData();
-      for (var i = 0; i < file.length; i++) {
-        data.append('file' + i, file[i]);
-      }
-      data.append('options', JSON.stringify(options));
-      data.append('eliminadas', JSON.stringify(eliminadas));
+      var data = new FormData();     
+      data.append('file', file[0]);      
+      data.append('tipo',tipo);      
       var config = {
         headers: {
           'Authorization': $localStorage.currentUser.token,
           'Content-Type': undefined
         }
       };
-
-      $http.post(globalService.getUrl() + paths.GetGuardalogos, data, config).then(function (response) {
+      $http.post(globalService.getUrlinfoSistema() + paths.GetGuardalogos, data, config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
         deferred.reject(response);

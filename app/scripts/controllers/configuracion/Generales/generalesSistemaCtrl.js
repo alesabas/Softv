@@ -6,79 +6,42 @@ angular
     $uibModal,
     ngNotify,
     globalService,
-    generalesSistemaFactory,
-    FileUploader
-    
+    generalesSistemaFactory
   ) {
     var vm = this;
     init();
     //detallePreferencia();
-    //Getlogos();
+    Getlogos();
     vm.Guardarperiodo = Guardarperiodo;
     vm.GuardarImpuestos = GuardarImpuestos;
     vm.Guardarcobro = Guardarcobro;
     vm.detalleperiodo = detalleperiodo;
     vm.guardarPreferencias = guardarPreferencias;
-    vm.guardaLogo = guardaLogo;
+   
+    vm.eligeLogo=eligeLogo;
     vm.hexPicker = {};
 
-    vm.uploader = new FileUploader({
-      filters: [
-        {
-          name: "yourName1",
-          fn: function(item) {
-            var count = 0;
-            vm.uploader.queue.forEach(function(f) {             
-              console.log(f);
-              count += f._file.idtipo === item.idtipo ? 1 : 0;
-            });
-            if (count > 0) {
-              ngNotify.set(
-                "Un archivo con ese mismo nombre ya fue seleccionado",
-                "warn"
-              );
-              return false;
-            } else {
-              return true;
-            }
-          }
-        }
-      ]
-    });
-
-    vm.uploader.onAfterAddingFile = function(fileItem) {
-      console.log(fileItem);
-      fileItem.file.idtipo = vm.tipoimagen.Idtipo;
-      fileItem.file.tipo = vm.tipoimagen.Nombre;
-      fileItem._file.idtipo = vm.tipoimagen.Idtipo;
-      fileItem._file.tipo = vm.tipoimagen.Nombre;
-    };
-
     function init() {
-      generalesSistemaFactory.GetPeriodoscorte(0, 1).then(function(response) {       
+      generalesSistemaFactory.GetPeriodoscorte(0, 1).then(function(response) {
         vm.periodos = response.GetPeriodoscorteResult;
         vm.Periodo = vm.periodos[0];
 
-          generalesSistemaFactory
-            .GetCONSULTAGENERALESDESC(vm.Periodo.Clv_periodo, 1)
-            .then(function(data) {           
-              vm.periodoCorte = data.GetCONSULTAGENERALESDESCResult;   
+        generalesSistemaFactory
+          .GetCONSULTAGENERALESDESC(vm.Periodo.Clv_periodo, 1)
+          .then(function(data) {
+            vm.periodoCorte = data.GetCONSULTAGENERALESDESCResult;
 
-                  generalesSistemaFactory
-                    .GetImpuestos(1, 1)
-                    .then(function(data) {
-                    console.log(data);
-                      vm.impuestos = data.GetImpuestosResult;
+            generalesSistemaFactory.GetImpuestos(1, 1).then(function(data) {
+              console.log(data);
+              vm.impuestos = data.GetImpuestosResult;
 
-                      generalesSistemaFactory
-                      .GetspConsultaRangosCobroMaterial(1)
-                      .then(function(data) {
-                       
-                        vm.rangos = data.GetspConsultaRangosCobroMaterialResult;
-                    });
+              generalesSistemaFactory
+                .GetspConsultaRangosCobroMaterial(1)
+                .then(function(data) {
+                  vm.rangos = data.GetspConsultaRangosCobroMaterialResult;
                 });
             });
-
+          });
       });
     }
 
@@ -87,62 +50,38 @@ angular
     function GuardarImpuestos() {
       var Parametros = {
         Id: 1,
-        IVA: (vm.impuestos.IVA)?vm.impuestos.IVA:0,
-        IEPS: (vm.impuestos.IEPS)?vm.impuestos.IEPS:0,
-        siIEPS:vm.impuestos.siIEPS,
+        IVA: vm.impuestos.IVA ? vm.impuestos.IVA : 0,
+        IEPS: vm.impuestos.IEPS ? vm.impuestos.IEPS : 0,
+        siIEPS: vm.impuestos.siIEPS,
         Cta_IEPS: 0,
         Calculo1: vm.IVAIEPS,
         idcompania: 1,
-        ivaFrontera: (vm.impuestos.ivaFrontera)?vm.impuestos.ivaFrontera:0
+        ivaFrontera: vm.impuestos.ivaFrontera ? vm.impuestos.ivaFrontera : 0
       };
-      console.log(Parametros);      
+      console.log(Parametros);
       generalesSistemaFactory
         .GetNueTabla_Impuestos(Parametros)
         .then(function(result) {
-          ngNotify.set("Los conceptos de inpuestos se  guardaron correctamente", "success");
+          ngNotify.set(
+            "Los conceptos de inpuestos se  guardaron correctamente",
+            "success"
+          );
           console.log(result);
         });
     }
 
-    function guardaLogo() {
-      var file_options = [];
-      var files = [];
-      var tipos = [];
-      var count = 0;
-      vm.uploader.queue.forEach(function(f) {
-        var options = {
-          IdImagen: 0,
-          Tipo: f._file.idtipo,
-          Nombre: f._file.name
-        };
-        file_options.push(options);
-        tipos.push(f._file.idtipo);
-        files.push(f._file);
-      });
-      if (count > 1) {
-        ngNotify.set(
-          "El número de imagenes con el mismo tipo se ha sobrepasado maximo 2",
-          "error"
-        );
-        return;
-      }
-
-      generalesSistemaFactory
-        .GuardaLogos(files, file_options, [])
-        .then(function(result) {
-          console.log(result);
-          ngNotify.set("Se guardo correctamente", "success");
-          Getlogos();
-        });
-    }
+    
 
     function Getlogos() {
       generalesSistemaFactory.Getlogos().then(function(result) {
+
         console.log(result);
-        result.forEach(function(item) {
-          item.Valor = globalService.getUrllogos() + "/" + item.Valor;
-        });
-        vm.tiposimg = result;
+        console.log(globalService.getUrllogos() + "/" + result.GetlogosResult[0].Valor);
+        vm.logo1=globalService.getUrllogos() + "/" + result.GetlogosResult[0].Valor;
+        vm.logo2=globalService.getUrllogos() + "/" + result.GetlogosResult[1].Valor;
+        vm.logo3=globalService.getUrllogos() + "/" + result.GetlogosResult[2].Valor;
+        vm.logo4=globalService.getUrllogos() + "/" + result.GetlogosResult[3].Valor;
+       
       });
     }
 
@@ -210,4 +149,29 @@ angular
         vm.hexPicker.colorfondo = detalle.ColorFondo;
       });
     }
+
+    function eligeLogo(op){
+      var modalInstance = $uibModal.open({
+        animation: true,
+        ariaLabelledBy: 'modal-title',
+        ariaDescribedBy: 'modal-body',
+        templateUrl: 'views/configuracion/modalEligeLogo.html',
+        controller: 'modalEligeLogoCtrl',
+        controllerAs: 'ctrl',
+        backdrop: 'static',
+        keyboard: false,
+        class: 'modal-backdrop fade',
+        size: 'md',
+        resolve: {
+          tipo: function () {
+              return op;
+          }
+      }
+      });
+      modalInstance.result.then(function () {
+        Getlogos();
+      });
+    }
+
+
   });
