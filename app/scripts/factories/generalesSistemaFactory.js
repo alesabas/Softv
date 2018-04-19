@@ -34,8 +34,8 @@ angular
       GetDetallePreferencias: '/Configuracion/GetDetallePreferencias',
       Getlogos: '/Sistema/Getlogos',
       GetGuardalogos: '/Sistema/Guardalogos',
-      GetFILTROSINTERFAZ_CABLEMODEMS: '/Configuracion/GetFILTROSINTERFAZ_CABLEMODEMS'
       GetFILTROSINTERFAZ_CABLEMODEMS: '/Configuracion/GetFILTROSINTERFAZ_CABLEMODEMS',
+     
       GetConsultaBonficacion: '/configuracion/GetConsultaBonficacion',
       GetBonificacionTipoUsarioDisList: '/configuracion/GetBonificacionTipoUsarioDisList',
       GetBonificacionTipoUsarioList: '/configuracion/GetBonificacionTipoUsarioList',

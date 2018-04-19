@@ -79,7 +79,7 @@ angular
             GetBonGenTipoUsuarioList();
             GetBonAutTipoUsuario();
       });
-    }
+    })
 
     function Guardarperiodo() {}
 
@@ -260,5 +260,5 @@ angular
         ngNotify.set("Error, Tiene que ingresar un usuario", "warn");
       }
     }
-
+  }
   });
