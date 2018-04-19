@@ -1,7 +1,7 @@
 'use strict';
 angular
 	.module('softvApp')
-	.controller('ModalPagarCtrl', function($uibModalInstance, $uibModal, items, cajasFactory, $state, $rootScope, ngNotify) {
+	.controller('ModalPagarCtrl', function($uibModalInstance, $uibModal, items, cajasFactory, $state, $rootScope, ngNotify, globalService, $sce, ticketsFactory) {
 
 		function initialData() {
 			vm.monto = items.monto;
@@ -168,7 +168,32 @@ angular
 
 												});
 											} else {
-												var modalInstance = $uibModal.open({
+												console.log('pag');
+												cajasFactory.dameTicket(vm.Clv_Factura).then(function(data) {
+													console.log(data);
+													var Name = data.GetCrearTicketTableListResult;
+													var FileName = globalService.getUrlReportes() + '/Reportes/' + Name;
+													console.log(FileName);
+													vm.FileName = $sce.trustAsResourceUrl(FileName);
+													console.log(vm.FileName);
+													ticketsFactory.defprinter().then(function(data){
+														console.log(data);
+														var PrinterName = data.printers;
+														console.log(PrinterName);
+														var ObjPrint = {
+															'printer': PrinterName,
+															'filename': FileName
+														}
+														ticketsFactory.printfile(ObjPrint).then(function(data){
+															console.log(data);
+														});
+														/*cajasFactory.GetDeleteTicket(FileName).then(function(data){
+															console.log(data);
+														});*/
+													});
+													/*vm.datosTicket = data.GetCrearTicketTableListResult[0];*/
+												});
+												/*var modalInstance = $uibModal.open({
 													animation: true,
 													ariaLabelledBy: 'modal-title',
 													ariaDescribedBy: 'modal-body',
@@ -177,7 +202,7 @@ angular
 													controllerAs: 'ctrl',
 													backdrop: 'static',
 													keyboard: false,
-													size: 'sm',
+													size: 'lg',
 													resolve: {
 														factura: function() {
 															return vm.Clv_Factura;
@@ -186,7 +211,8 @@ angular
 															return true;
 														}
 													}
-												});
+												});*/
+
 											}
 										});
 									});
