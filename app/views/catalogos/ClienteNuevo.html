@@ -386,7 +386,7 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="col-md-3">
-                                    <input type="text" name="InpClaveElector" class="form-control input-sm" ng-model="$ctrl.ClaveElector" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" ui-options="$ctrl.maskOptions" ui-mask="AAAAAA99999999A999" placeholder="@@@@@@########@###" validate-on="dirty" required required-message="'Obligatorio, ej. AAAAAA11111111A111A'" invalid-message="'Inválido, ej. AAAAAA11111111A111.'">
+                                    <input type="text" name="InpClaveElector" class="form-control input-sm" ng-model="$ctrl.ClaveElector" ui-options="$ctrl.maskOptions" ui-mask-placeholder="" ui-mask="AAAAAA99999999A999" validate-on="dirty" required required-message="'Obligatorio, ej. AAAAAA11111111A111A'" invalid-message="'Inválido, ej. AAAAAA11111111A111.'">
                                     <!--
                                     <input type="text" name="InpClaveElector" class="form-control input-sm" ng-model="$ctrl.ClaveElector" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" maxlength="18" ng-pattern="/^[A-Z]{6}\d{8}[A-Z]{1}\d{3}$/" placeholder="AAAAAA11111111A111" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, ej. AAAAAA11111111A111.'">
                                     -->

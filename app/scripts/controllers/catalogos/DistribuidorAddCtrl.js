@@ -75,6 +75,11 @@ angular
     vm.block = false;
     vm.ValidateRFC = /^[A-Z]{4}\d{6}[A-Z]{3}$|^[A-Z]{4}\d{6}\d{3}$|^[A-Z]{4}\d{6}[A-Z]{2}\d{1}$|^[A-Z]{4}\d{6}[A-Z]{1}\d{2}$|^[A-Z]{4}\d{6}\d{2}[A-Z]{1}$|^[A-Z]{4}\d{6}\d{1}[A-Z]{2}$|^[A-Z]{4}\d{6}\d{1}[A-Z]{1}\d{1}$|^[A-Z]{4}\d{6}[A-Z]{1}\d{1}[A-Z]{1}$/;
     vm.SaveDistribuidor = SaveDistribuidor;
-    vm.ValidateNum = ValidateNum
+    vm.ValidateNum = ValidateNum;
+    vm.maskOptions = {
+      maskDefinitions:{'A': /[A-Z]/, '9': /[0-9]/, '*': /[A-Z0-9]/},
+      clearOnBlur: false,
+      eventsToHandle:['input', 'keyup', 'click']
+    };
 
   });

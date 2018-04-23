@@ -35,7 +35,7 @@
                             <input name="InpNombre" type="text" class="form-control input-sm" ng-model="$ctrl.Nombre" validate-on="dirty" required required-message="'Obligatorio'">
                         </div>
                         <div class="col-md-6">
-                            <input name="InpRFC" type="text" class="form-control input-sm" ng-model="$ctrl.RFC" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" maxlength="13" ng-pattern="$ctrl.ValidateRFC" placeholder="AAAA1111111AAA" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Error, Ingresa RFC válido.'">
+                            <input name="InpRFC" type="text" class="form-control input-sm" ng-model="$ctrl.RFC" ui-options="$ctrl.maskOptions" ui-mask="AAAA999999***" maxlength="13" ng-pattern="$ctrl.ValidateRFC" placeholder="" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Error, Ingresa RFC válido.'">
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -75,7 +75,10 @@
                             <b><small>Código Postal:</small></b>
                         </div>
                         <div class="col-md-6">
+                            <b><small>Colonia:</small></b>
+                            <!--
                             <b><small>Importe Pagaré:</small></b>
+                            -->
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -83,71 +86,72 @@
                             <input name="InpCP" type="text" class="form-control input-sm" ng-model="$ctrl.CP" maxlength="5" ng-pattern="/^\d{5}$/" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa 5 dígitos.'">
                         </div>
                         <div class="col-md-6">
+                            <input name="InpColonia" type="text" class="form-control input-sm" ng-model="$ctrl.Colonia" validate-on="dirty" required required-message="'Obligatorio'">
+                            <!--
                             <input name="InpPagare" type="text" class="form-control input-sm" ng-model="$ctrl.Pagare" ng-pattern="/^\d{1,9}.\d{1,9}$|\d{1,9}$/" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa (123.54).'">
+                            -->
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <div class="col-md-6">
-                            <b><small>Colonia:</small></b>
-                        </div>
                         <div class="col-md-6">
                             <b><small>Localidad:</small></b>
                         </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="col-md-6">
-                            <input name="InpColonia" type="text" class="form-control input-sm" ng-model="$ctrl.Colonia" validate-on="dirty" required required-message="'Obligatorio'">
-                        </div>
-                        <div class="col-md-6">
-                            <input name="InpLocalidad" type="text" class="form-control input-sm" ng-model="$ctrl.Localidad" validate-on="dirty" required required-message="'Obligatorio'">
-                        </div>
-                    </div>
-                    <div class="col-md-12">
                         <div class="col-md-6">
                             <b><small>País:</small></b>
                         </div>
-                        <div class="col-md-6">
-                            <b><small>Municipio:</small></b>
-                        </div>
                     </div>
                     <div class="col-md-12">
+                        <div class="col-md-6">
+                            <input name="InpLocalidad" type="text" class="form-control input-sm" ng-model="$ctrl.Localidad" validate-on="dirty" required required-message="'Obligatorio'">
+                        </div>
                         <div class="col-md-6">
                             <input name="InpPais" type="text" class="form-control input-sm" ng-model="$ctrl.Pais" validate-on="dirty" required required-message="'Obligatorio'">
                         </div>
-                        <div class="col-md-6">
-                            <input name="InpMunicipio" type="text" class="form-control input-sm" ng-model="$ctrl.Municipio" validate-on="dirty" required required-message="'Obligatorio'">
-                        </div>
                     </div>
                     <div class="col-md-12">
+                        <div class="col-md-6">
+                            <b><small>Municipio:</small></b>
+                        </div>
                         <div class="col-md-6">
                             <b><small>Estado:</small></b>
                         </div>
-                        <div class="col-md-6">
-                            <b><small>Teléfono 1:</small></b>
-                        </div>
                     </div>
                     <div class="col-md-12">
+                        <div class="col-md-6">
+                            <input name="InpMunicipio" type="text" class="form-control input-sm" ng-model="$ctrl.Municipio" validate-on="dirty" required required-message="'Obligatorio'">
+                        </div>
                         <div class="col-md-6">
                             <input name="InpEstado" type="text" class="form-control input-sm" ng-model="$ctrl.Estado" validate-on="dirty" required required-message="'Obligatorio'">
                         </div>
-                        <div class="col-md-6">
-                            <input name="InpTelefono" type="text" class="form-control input-sm" ng-model="$ctrl.Telefono" maxlength="10" ng-pattern="/^\d{10}$/" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa 10 dígitos.'">
-                        </div>
                     </div>
                     <div class="col-md-12">
+                        <div class="col-md-6">
+                            <b><small>Teléfono 1:</small></b>
+                        </div>
                         <div class="col-md-6">
                             <b><small>Teléfono 2:</small></b>
                         </div>
+                    </div>
+                    <div class="col-md-12">
                         <div class="col-md-6">
-                            <b><small>Email:</small></b>
+                            <input name="InpTelefono" type="text" class="form-control input-sm" ui-mask="(999)999-9999" ui-mask-placeholder="" ng-model="$ctrl.Telefono" maxlength="10" ng-pattern="/^\d{10}$/" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa 10 dígitos.'">
+                        </div>
+                        <div class="col-md-6">
+                            <input name="InpTelefono2" type="text" class="form-control input-sm" ui-mask="(999)999-9999" ui-mask-placeholder="" ng-model="$ctrl.Telefono2" maxlength="10" ng-pattern="/^\d{10}$/" invalid-message="'Inválido, Ingresa 10 dígitos.'">
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="col-md-6">
-                            <input name="InpTelefono2" type="text" class="form-control input-sm" ng-model="$ctrl.Telefono2" maxlength="10" ng-pattern="/^\d{10}$/" invalid-message="'Inválido, Ingresa 10 dígitos.'">
+                            <b><small>Email:</small></b>
                         </div>
                         <div class="col-md-6">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-6">
                             <input name="InpEmail" type="email" class="form-control input-sm" ng-model="$ctrl.Email" ng-pattern="/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa un correo válido.'">
+                        </div>
+                        <div class="col-md-6">
                         </div>
                     </div>
                 </div>
