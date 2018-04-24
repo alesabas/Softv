@@ -168,30 +168,10 @@ angular
 
 												});
 											} else {
-												console.log('pag');
-												cajasFactory.dameTicket(vm.Clv_Factura).then(function(data) {
-													console.log(data);
+												
+												cajasFactory.dameTicket(vm.Clv_Factura).then(function(data) {													
 													var Name = data.GetCrearTicketTableListResult;
 													var FileName = globalService.getUrlReportes() + '/Reportes/' + Name;
-													console.log(FileName);
-													vm.FileName = $sce.trustAsResourceUrl(FileName);
-													console.log(vm.FileName);
-													ticketsFactory.defprinter().then(function(data){
-														console.log(data);
-														var PrinterName = data.printers;
-														console.log(PrinterName);
-														var ObjPrint = {
-															'printer': PrinterName,
-															'filename': FileName
-														}
-														ticketsFactory.printfile(ObjPrint).then(function(data){
-															console.log(data);
-														});
-														/*cajasFactory.GetDeleteTicket(FileName).then(function(data){
-															console.log(data);
-														});*/
-													});
-													/*vm.datosTicket = data.GetCrearTicketTableListResult[0];*/
 												});
 												/*var modalInstance = $uibModal.open({
 													animation: true,
