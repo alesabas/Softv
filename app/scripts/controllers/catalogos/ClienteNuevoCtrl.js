@@ -157,7 +157,7 @@ angular
         vm.Title = 'Cliente Nuevo';
         vm.View = false;
         vm.maskOptions = {
-            maskDefinitions:{'A': /[a-zA-Z]/, '9': /[0-9]/, '*': /[a-zA-Z0-9]/},
+            maskDefinitions:{'A': /[A-Z]/, '9': /[0-9]/, '*': /[A-Z0-9]/},
             clearOnBlur: false,
             eventsToHandle:['input', 'keyup', 'click']
         };

@@ -22,7 +22,7 @@
             </div>
             <div class="col-md-12">
                 <div class="col-md-12">
-                    <input type="text" name="InpTelefonoRef" class="form-control input-sm" ng-model="ctrl.TelefonoRef" maxlength="10" ng-pattern="/^\d{10}$/" validate-on="dirty" validator="ctrl.TelefonoRef > 0" required required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa minimo 10 dígitos.'">
+                    <input type="text" name="InpTelefonoRef" class="form-control input-sm" ng-model="ctrl.TelefonoRef" ui-mask="(999)999-9999" validate-on="dirty" validator="ctrl.TelefonoRef > 0" required required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa minimo 10 dígitos.'">
                 </div>
             </div>
             <div class="col-md-12">

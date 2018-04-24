@@ -16,18 +16,21 @@ angular
     }
 
     function obtenPlazas(op) {
-
-      plazaFactory.GetBrwMuestraCompanias(0, '', 0)
-        .then(function (result) {
-          vm.plazas=  result.GetBrwMuestraCompaniasResult;
-          console.log(result);
-        });
+      console.log(op, vm.distribuidor);
+      var ObjPlaza = {
+        'opcion': (op == 3 && (vm.distribuidor == undefined || vm.distribuidor == null))? 0:op,
+        'razon': '',
+        'idcompania': ((op == 3 && (vm.distribuidor == undefined || vm.distribuidor == null)) || op == 0)? 0:vm.distribuidor.Clv_Plaza
+      };
+      console.log(ObjPlaza);
+      plazaFactory.GetBrwMuestraCompanias(ObjPlaza).then(function (result) {
+        vm.plazas =  result.GetBrwMuestraCompaniasResult;
+        console.log(result);
+      });
     }
 
-
-
     var vm = this;
-
+    vm.obtenPlazas = obtenPlazas;
     initData();
 
   });
