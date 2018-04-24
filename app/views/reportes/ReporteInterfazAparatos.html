@@ -1,0 +1,103 @@
+<div class="card animated fadeIn" style="margin-top:20px;">
+    <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+        <header>
+            <strong style="font-weight:bold; border:none; margin-left:10px;">Reportes Interfaz de Aparatos</strong>
+			<br>
+            <small class="text-muted" style="font-size:14px; margin-left:10px;">
+                <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">Reportes</a>
+            </small>
+        </header>
+        <div class="tools">
+			<div class="btn-group">
+				<button type="button" class="btn btn-primary btn-sm" ui-sref="home.catalogos.cliente_nuevo" title="Crear un cliente nuevo"><i class="fa fa-plus"></i> nuevo cliente</button>
+			</div>
+		</div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-3">
+                    <b>Empresa:</b>
+                </div>
+                <div class="col-md-3">
+                    <b>Región:</b>
+                </div>
+                <div class="col-md-3">
+                    <b>Tipo de Servicio:</b>
+                </div>
+                <div class="col-md-3">
+                    <b>Tecnología:</b>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-3">
+                    <select class="form-control input-sm" ng-model="$ctrl.distribuidor" ng-change="$ctrl.GetPlazaList()" ng-options="item as item.Nombre for item in $ctrl.Distribuidores track by item.Clv_Plaza">
+                        <option value="">Selecciona</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-control input-sm" ng-model="$ctrl.plaza" ng-change="$ctrl.filtrar(1)" ng-options="item as item.razon_social for item in $ctrl.Plazas track by item.id_compania">
+                        <option value="">Selecciona</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-control input-sm" ng-change="$ctrl.filtrar(1)" ng-model="$ctrl.servicio" ng-options="item as item.Concepto for item in $ctrl.Servicios track by item.Clv_TipSer">
+                        <option value="">Selecciona</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-control input-sm" ng-change="$ctrl.filtrar(1)" ng-model="$ctrl.tecnologia" ng-options="item as item.Descripcion for item in $ctrl.tecnologias track by item.IdMedio">
+                        <option value="">Selecciona tipo tecnologia</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <br>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-3">
+                    <b></b>
+                </div>
+                <div class="col-md-3">
+                    <b></b>
+                </div>
+                <div class="col-md-3">
+                    <b></b>
+                </div>
+                <div class="col-md-3">
+                    <b></b>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-3">
+                    <input type="text" class="form-control input-sm" ng-model="$ctrl.contrato">
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control input-sm" ng-model="$ctrl.clvorden">
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control input-sm" ng-model="$ctrl.mac">
+                </div>
+                <div class="col-md-3">
+                    <input type="date" class="form-control input-sm" ng-model="$ctrl.fechasolicitud">
+                </div>
+                <!--
+                <div class="col-md-1">
+                    <button type="button" class="btn btn-primary btn-xs btn-block">Generar Reporte</button>
+                </div>
+                <div class="col-md-3">
+                    <b></b>
+                </div>
+                <div class="col-md-3">
+                    <b></b>
+                </div>
+                <div class="col-md-3">
+                    <b></b>
+                </div>
+                -->
+            </div>
+        </div>
+    </div>
+</div>

@@ -262,10 +262,23 @@ angular
 				templateUrl: 'views/reportes/reporteAtencionTelefonica.html',
 				controller: 'reporteAtencionTelefonicaCtrl',
 				controllerAs: '$ctrl'
+			},
+			{
+				name: 'home.reportes.InterfazAparatos',
+				data: {
+					pageTitle: 'SAC | Inertfaz de Aparatos',
+					permissions: {
+						only: ['reportesvariosSelect'],
+						options: {
+							reload: false
+						}
+					}
+				},
+				url: '/reportes/interfazaparatos',
+				templateUrl: 'views/reportes/ReporteInterfazAparatos.html',
+				controller: 'ReporteInterfazAparatosCtrl',
+				controllerAs: '$ctrl'
 			}
-
-
-			
 		];
 		states.forEach(function(state) {
 			$stateProvider.state(state);
