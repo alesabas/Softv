@@ -4,14 +4,11 @@
     overflow: auto;
     overflow-x: hidden;
   }
-
-
   .fileUpload {
     position: relative;
     overflow: hidden;
     margin: 10px;
   }
-
   .fileUpload input.upload {
     position: absolute;
     top: 0;
@@ -23,33 +20,27 @@
     opacity: 0;
     filter: alpha(opacity=0);
   }
-
   .form-group>label,
   .form-group .control-label {
     font-size: 12px !important;
     opacity: 0.9;
     margin-bottom: 0 !important;
   }
-
-
   .my-drop-zone {
     border: dotted 3px lightgray;
   }
-
   .nv-file-over {
     border: dotted 3px red;
   }
-  /* Default class applied to drop zones on over */
 
+  /* Default class applied to drop zones on over */
   .another-file-over-class {
     border: dotted 3px green;
   }
-
   html,
   body {
     height: 100%;
   }
-
   canvas {
     background-color: #f3f3f3;
     -webkit-box-shadow: 3px 3px 3px 0 #e3e3e3;
@@ -70,7 +61,35 @@
     font-weight: 500;
     text-transform: uppercase;
   }
-
+  .dualmultiselect label {
+      margin: 10px;
+  }
+  .dualmultiselect .btn-info {
+      margin: 5px;
+  }
+  .dualmultiselect .btn-warning {
+      margin: 5px;
+  }
+  .dualmultiselect .pool {
+      border: 1px solid #c2c2c2;
+      border-radius: 4px;
+      padding: 10px;
+      margin: 5px;
+      height: 200px;
+      overflow-y: scroll;
+  }
+  .dualmultiselect .pool ul {
+      list-style: none;
+      padding-left: 0px;
+  }
+  .dualmultiselect .pool ul li {
+      width: 100%;
+      padding: 4px 8px 4px 4px;
+      border-bottom: 1px dotted #CFCFCF;
+  }
+  .dualmultiselect .pool ul li a:hover {
+      text-decoration: none;
+  }
 </style>
 
 <div class="card animated fadeIn fast" style="margin-top:20px;">
@@ -94,14 +113,71 @@
     <div class="col-md-12">
 
       <uib-tabset active="activeJustified">
-        <uib-tab index="0" heading=" ">
+          <uib-tab index="0" heading="">
+              <uib-tab-heading>
+                <i class="fa fa-picture-o" aria-hidden="true"></i> Logos
+              </uib-tab-heading>
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="col-md-12">
+                    <h3>Logo Menú</h3>
+                    <img src="{{$ctrl.logo1}}" style="width: 100px; height: 100px;" />
+    
+                  </div>
+                  <div class="col-md-12">
+                      <h5>Cambiar Logo:</h5>
+                      <button class="btn btn-success btn-sm" ng-click="$ctrl.eligeLogo(1)">Elegir Logo</button>
+                  </div>
+                  
+                </div>
+                <div class="col-md-3">
+                  <div class="col-md-12">
+                    <h3>Logo login</h3>
+                    <img src="{{$ctrl.logo2}}" style="width: 100px; height: 100px;" />
+    
+                  </div>
+                  <div class="col-md-12">
+                      <h5>Cambiar Logo:</h5>
+                      <button class="btn btn-success btn-sm" ng-click="$ctrl.eligeLogo(2)">Elegir Logo</button>
+                  </div>
+                 
+                </div>
+                <div class="col-md-3">
+                  <div class="col-md-12">
+                    <h3>Logo Home</h3>
+                    <img src="{{$ctrl.logo3}}" style="width: 100px; height: 100px;" />
+    
+                  </div>
+                  <div class="col-md-12">
+                    <h5>Cambiar Logo:</h5>
+                    <button class="btn btn-success btn-sm" ng-click="$ctrl.eligeLogo(3)">Elegir Logo</button>
+                  </div>
+                  
+                </div>
+                <div class="col-md-3">
+                  <div class="col-md-12">
+                    <h3>Logo Reportes</h3>
+                    <img src="{{$ctrl.logo4}}" style="width: 100px; height: 100px;" />
+    
+                  </div>
+                  <div class="col-md-12">
+                    <h5>Cambiar Logo:</h5>
+                    <button class="btn btn-success btn-sm" ng-click="$ctrl.eligeLogo(4)">Elegir Logo</button>
+                  </div>
+                 
+                </div>
+              </div>
+    
+    
+            </uib-tab>
+        <uib-tab index="5" heading=" ">
           <uib-tab-heading>
             <i class="glyphicon glyphicon-calendar"></i> Periodo de corte
           </uib-tab-heading>
           <form angular-validator-submit="$ctrl.Guardarperiodo()" name="PeriodoForm" novalidate angular-validator>
             <div class="col-md-12">
               <h4 class="text-danger text-center">Periodo de corte</h4>
-              <div class="col-md-4 col-md-offset-2">
+              <div class="col-md-5 col-md-offset-1">
                 <div class="col-md-12">
                   <br>
                   <b>Periodo:</b>
@@ -138,32 +214,32 @@
                 </div>
               </div>
 
-              <div class="col-md-4 ">
+              <div class="col-md-5">
                 <br>
                 <div class="col-md-12">
-                  <div class="col-md-6">
+                  <div class="col-md-8">
                     <b>Proceso de desconexión :</b>
                   </div>
-                  <div class="col-md-6">
+                  <div class="col-md-4">
                     <input type="number" class="form-control input-sm" ng-model="$ctrl.periodoCorte.diaCorte" name="desconexion">
                   </div>
                 </div>
 
                 <div class="col-md-12">
-                  <div class="col-md-6">
-                    <b>Dias limite para puntos :</b>
+                  <div class="col-md-8">
+                    <b>Dias limite para puntos de proto pago:</b>
                   </div>
-                  <div class="col-md-6">
+                  <div class="col-md-4">
                     <input type="number" class="form-control input-sm" ng-model="$ctrl.periodoCorte.diasPPP" name="prontopago">
                   </div>
 
                 </div>
 
                 <div class="col-md-12">
-                  <div class="col-md-6">
+                  <div class="col-md-8">
                     <b>Dias limite para puntos de antiguedad:</b>
                   </div>
-                  <div class="col-md-6">
+                  <div class="col-md-4">
                     <input type="number" class="form-control input-sm" ng-model="$ctrl.periodoCorte.diasPA" name="prontopagoantiguedad">
                   </div>
 
@@ -183,7 +259,7 @@
           </uib-tab-heading>
           <form angular-validator-submit="$ctrl.GuardarImpuestos()" name="ImpuestoForm" novalidate angular-validator>
             <div class="col-md-12" style="padding:30px;">
-              <div class="col-md-5 col-md-offset-1">             
+              <div class="col-md-5 col-md-offset-1">
                 <div class="col-md-12">
                   <br>
                   <div class="col-md-6">
@@ -205,8 +281,8 @@
                   </div>
                 </div>
 
-                
-               
+
+
 
               </div>
               <div class="col-md-5">
@@ -215,28 +291,30 @@
                   <br>
                   <div class="col-md-6">
                     <label class="checkbox-inline checkbox-styled checkbox-info">
-														<input type="checkbox"  ng-model="$ctrl.impuestos.siIEPS"><span>Habilitar IEPS</span>
-													</label>
+                      <input type="checkbox" ng-model="$ctrl.impuestos.siIEPS">
+                      <span>Habilitar IEPS</span>
+                    </label>
                   </div>
                   <div class="col-md-6">
                     <label class="checkbox-inline checkbox-styled checkbox-info">
-														<input type="checkbox" name="ivaieps" ng-model="$ctrl.impuestos.IVAIEPS" checked=""><span>Calcular IVA incluyendo  IEPS</span>
-													</label>
+                      <input type="checkbox" name="ivaieps" ng-model="$ctrl.impuestos.IVAIEPS" checked="">
+                      <span>Calcular IVA incluyendo IEPS</span>
+                    </label>
 
                   </div>
                 </div>
                 <div class="col-md-12">
                   <br>
                   <div class="col-md-6">
-                    IEPS %<input type="text" name="ieps" ng-model="$ctrl.impuestos.IEPS" class="form-control " ng-percent>
+                    IEPS %
+                    <input type="text" name="ieps" ng-model="$ctrl.impuestos.IEPS" class="form-control " ng-percent>
                   </div>
                   <div class="col-md-6">
-                    <br>
-                   {{$ctrl.impuestos.IEPS}}
+                    <br> {{$ctrl.impuestos.IEPS}}
                   </div>
 
                 </div>
-                 
+
               </div>
               <div class="col-md-12 text-right">
 
@@ -315,7 +393,7 @@
 
         </uib-tab>
 
-       <!--  <uib-tab index="3" heading="">
+        <!--  <uib-tab index="3" heading="">
 
           <uib-tab-heading>
             <i class="glyphicon glyphicon-home"></i> Datos de la empresa
@@ -461,6 +539,93 @@
           </form>
 
         </uib-tab> -->
+        <uib-tab index="6" heading="">
+          <uib-tab-heading>
+            <i class="fa fa-plus-square"></i> Bonificaciones
+          </uib-tab-heading>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="col-md-12">
+                <br>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="col-md-offset-4 col-md-4">
+                <b>Bonificacion:</b>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="col-md-offset-4 col-md-4">
+                <input type="number" name="InpBonificacion" class="form-control input-sm" ng-model="$ctrl.Bonificacion" ng-disabled="$ctrl.BonificacionDis">
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="col-md-12">
+                <br>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="col-md-offset-4 col-md-4">
+                <b>Tipo Usuario:</b>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="col-md-offset-4 col-md-4">
+                <select name="SlcTipoUsuario" class="form-control input-sm" ng-model="$ctrl.TipoUsuario" ng-options="TU as TU.Nombre for TU in $ctrl.TipoUsuarioList track by TU.Clv_TipoUsuario">
+                  <option value="">Selecciona</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="col-md-12">
+                <br>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="col-md-offset-4 col-md-2">
+                <button type="button" class="btn btn-success btn-block btn-xs" ng-click="$ctrl.AddGenBonTipoUsuario(1)" title="Agregar Tipo de Usuario a ofrecer bonificación"><i class="fa fa-plus"></i> Ofrece</button>
+              </div>
+              <div class="col-md-2">
+                <button type="button" class="btn btn-primary btn-block btn-xs" ng-click="$ctrl.AddAutBonTipoUsuario(1)" title="Agregar Tipo de Usuario a autorizar bonificación"><i class="fa fa-plus"></i> Autoriza</button>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="col-md-12">
+                <div class="dualmultiselect">
+                  <div class="row">
+                    <div class="col-md-offset-2 col-md-4">
+                      <h4 class="text-center"><b>Tipos de Usuario Ofrecen Bonificación</b></h4>
+                      <div class="pool">
+                        <div class="col-md-12" ng-repeat="TUG in $ctrl.TipoBonGenTipoUsuarioList" style="border-bottom: dashed #c2c2c2 0.5px; font-size:12px;">
+                          <div class="col-md-10" style="padding-top: 3%;">
+                            <b>{{ TUG.Nombre }}</b>
+                          </div>
+                          <div class="col-md-2">
+                            <button type="button" class="btn ink-reaction btn-xs btn-danger" ng-click="$ctrl.AddGenBonTipoUsuario(2, TUG.Clv_TipoUsuario);" title="Remover Tipo de Usuario"><i class="fa fa-trash"></i></button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <h4 class="text-center"><b>Tipos de Usuario Autoriza Bonificación</b></h4>                
+                      <div class="pool">
+                        <div class="col-md-12" ng-repeat="TUA in $ctrl.BonAutTipoUsuarioList" style="border-bottom: dashed #c2c2c2 0.5px; font-size:12px;">
+                          <div class="col-md-2">
+                            <button type="button" class="btn ink-reaction btn-xs btn-danger" ng-click="$ctrl.AddAutBonTipoUsuario(2, TUA.Clv_TipoUsuario);" title="Remover Tipo de Usuario"><i class="fa fa-trash"></i></button> 
+                          </div>
+                          <div class="col-md-10 text-right" style="padding-top: 3%;">
+                            <strong><b>{{ TUA.Nombre }}</b></strong>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </uib-tab>
+
         <uib-tab index="4" heading="">
           <uib-tab-heading>
             <i class="glyphicon glyphicon-wrench"></i> Preferencias
@@ -555,94 +720,8 @@
           </div>
 
 
-        </uib-tab>
-        <uib-tab index="5" heading="">
-          <uib-tab-heading>
-            <i class="fa fa-picture-o" aria-hidden="true"></i> Logos
-          </uib-tab-heading>
-
-
-          <div class="col-md-6">
-            <p class="text-primary">Selecciona el tipo de imagen</p>
-            <select ng-model="$ctrl.tipoimagen" class="form-control input-sm" ng-options="item as item.Nombre for item in $ctrl.tiposimg track by item.Idtipo">
-              <option value="">Selecciona el tipo </option>
-            </select>
-          </div>
-
-          <div class="col-md-6">
-            <br>
-            <div class="fileUpload btn btn-sm btn-primary">
-              <span>Elegir archivos</span>
-              <input type="file" ng-disabled="$ctrl.tipoimagen===''||$ctrl.tipoimagen===null" multiple="multiple" id="file" nv-file-select
-                uploader="$ctrl.uploader" class="upload" />
-            </div>
-
-
-          </div>
-
-          <div class="col-md-6" style="overflow-y: scroll; max-height: 350px;">
-            <table class="table">
-              <thead>
-                <tr>
-
-                  <th style="width:30%">Nombre</th>
-
-                  <th style="width:50%">Preview</th>
-
-                  <th style="width:20%"Eliminar</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr ng-repeat="item in $ctrl.uploader.queue">
-                  <td>
-                    <p>{{ item.file.name }} | {{ item.file.tipo }} </p>
-                   
-                   <!--  <p>{{ item.file.size/1024/1024|number:2 }} MB</p>
-                  
-                    <p>{{ item.file.tipo }}</p> -->
-                  </td>
-                  <td>
-                    <div ng-thumb="{ file: item._file, width: 150, height: 100 }"></div>
-                  </td>
-
-                  <td>
-
-                    <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
-                      <span class="glyphicon glyphicon-trash"></span> Eliminar
-                    </button>
-                  </td>
-
-
-
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="col-md-6" style="overflow-y: scroll; max-height: 350px;">
-
-            <table class="table">
-              <thead>
-                <tr>Descripcion</tr>
-                <tr>Imagen</tr>
-              </thead>
-              <tbody>
-                <tr ng-repeat="x in $ctrl.tiposimg">
-                  <td>{{x.Nombre}}</td>
-                  <td>
-                    <img class="img" ng-src="{{x.Valor}}" style="width:150px;" height="100px">
-                  </td>
-                </tr>
-              </tbody>
-
-            </table>
-
-          </div>
-          <div class="col-md-12 text-right">
-            <br>
-            <button class="btn btn-success btn-sm" ng-click="$ctrl.guardaLogo()">GUARDAR </button>
-          </div>
-
-        </uib-tab>
+        </uib-tab> -->
+        
       </uib-tabset>
 
 
@@ -652,3 +731,4 @@
 
   </div>
 </div>
+

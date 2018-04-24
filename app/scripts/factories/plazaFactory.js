@@ -102,19 +102,10 @@ angular
 
 
 
-    factory.GetBrwMuestraCompanias = function (opcion, razon, idcompania) {
+    factory.GetBrwMuestraCompanias = function (ObjPlaza) {
       var deferred = $q.defer();
-
-      var Parametros = {
-        'opcion': opcion,
-        'razon': razon,
-        'idcompania': idcompania
-      };
-      var config = {
-        headers: {
-          'Authorization': $localStorage.currentUser.token
-        }
-      };
+      var Parametros = ObjPlaza;
+      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
       $http.post(globalService.getUrl() + paths.GetBrwMuestraCompanias, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {

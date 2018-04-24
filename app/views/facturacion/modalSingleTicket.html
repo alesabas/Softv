@@ -1,8 +1,11 @@
 <div class="modal-header">
     <button class="close" aria-label="Close" type="button" ng-click="ctrl.cancel()">×</button>
     <a href="" ng-click="ctrl.printDiv('printTicket')" style="color:#2196f3;" ng-show="ctrl.mostrarImprimir"><i class="fa fa-print" aria-hidden="true"></i> Imprimir</a>
+	<h4 class="modal-title"> Ticket</h4>
 </div>
 <div class="modal-body" style="padding-top:20px;">
+	<iframe ng-src="{{ ctrl.FileName }}" style="width: 100%; height: 550px;" ng-disabled="true"></iframe>
+	<!--
 	<div class="row" id="printTicket">
 		<div class="col-md-12">
 			<p class="text-center"><strong>{{ ctrl.datosTicket.NombreEncabezado }}<br>
@@ -32,7 +35,6 @@
                 <p style="margin-top: -15px; color:red;" class="text-right" ng-if="x.PeriodoPagado != '' ">{{ x.PeriodoPagado }}</p>
                 <p class="text-center" style="margin-top: -15px;" ng-if="x.PuntosCombo > 0"><strong>Puntos Combo: </strong><span>{{ x.PuntosCombo | currency }}</span></p>
             </div>
-			<!-- <p style="margin-top: -15px; color:red;" class="text-right"> Periodo Pagado: {{ ctrl.datosTicket.PeriodoPagado }}</p> -->
 			<p style="margin-top: -15px;" class="text-right"><strong>Periodo Por Pronto Pago:</strong> -{{ ctrl.datosTicket.PuntosDescuento | currency }}</p>
 			<hr>
 			<hr>
@@ -52,6 +54,7 @@
             <p style="margin-top: -15px;" class="text-center">Copia</p>
 		</div>
 	</div>
+	-->
 </div>
 <div class="modal-footer">
     <button class="btn btn-default btn-sm" type="button" ng-click="ctrl.cancel()">Cancelar</button>

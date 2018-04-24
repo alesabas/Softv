@@ -26,7 +26,6 @@ angular
           vm.Telefono = Distribuidor.Telefono;
           vm.Email = Distribuidor.Email;
           vm.Telefono2 = Distribuidor.Telefono2;
-          vm.Pagare = Distribuidor.ImportePagare;
 
           distribuidorFactory.Getdatoscomerciales($stateParams.id)
             .then(function (data) {
