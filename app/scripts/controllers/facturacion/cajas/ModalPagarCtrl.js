@@ -1,7 +1,7 @@
 'use strict';
 angular
 	.module('softvApp')
-	.controller('ModalPagarCtrl', function($uibModalInstance, $uibModal, items, cajasFactory, $state, $rootScope, ngNotify) {
+	.controller('ModalPagarCtrl', function($uibModalInstance, $uibModal, items, cajasFactory, $state, $rootScope, ngNotify, globalService, $sce, ticketsFactory) {
 
 		function initialData() {
 			vm.monto = items.monto;
@@ -168,7 +168,12 @@ angular
 
 												});
 											} else {
-												var modalInstance = $uibModal.open({
+												
+												cajasFactory.dameTicket(vm.Clv_Factura).then(function(data) {													
+													var Name = data.GetCrearTicketTableListResult;
+													var FileName = globalService.getUrlReportes() + '/Reportes/' + Name;
+												});
+												/*var modalInstance = $uibModal.open({
 													animation: true,
 													ariaLabelledBy: 'modal-title',
 													ariaDescribedBy: 'modal-body',
@@ -177,7 +182,7 @@ angular
 													controllerAs: 'ctrl',
 													backdrop: 'static',
 													keyboard: false,
-													size: 'sm',
+													size: 'lg',
 													resolve: {
 														factura: function() {
 															return vm.Clv_Factura;
@@ -186,7 +191,8 @@ angular
 															return true;
 														}
 													}
-												});
+												});*/
+
 											}
 										});
 									});

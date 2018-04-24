@@ -15,7 +15,9 @@ angular.module('softvApp')
 			addBitacora: '/Bitacora/AddBitacoraTickets',
 			validaEspecial: '/ValidaFacturaFiscal/GetValidaFacturaFiscal',
 			canEspeceiales: '/CANCELACIONFACTURAS/GetCANCELACIONFACTURASList',
-			getOptionsTickets: '/TblFacturasOpciones/AddTblFacturasOpciones'
+			getOptionsTickets: '/TblFacturasOpciones/AddTblFacturasOpciones',
+			defprinter: '/defprinter',
+			printfile: '/printfile'
 
 		};
 
@@ -267,6 +269,31 @@ angular.module('softvApp')
 				}
 			};
 			$http.post(globalService.getUrl() + paths.canEspeceiales, JSON.stringify(Parametros), config).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(response) {
+				deferred.reject(response);
+			});
+			return deferred.promise;
+		};
+
+		factory.defprinter = function() {
+			var deferred = $q.defer();
+			var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+			$http.get(globalService.getUrlPrinters() + paths.defprinter, config).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(response) {
+				deferred.reject(response);
+			});
+			return deferred.promise;
+		};
+
+		factory.printfile = function(ObjPrint) {
+			var deferred = $q.defer();
+			var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+			var Parametros = ObjPrint;
+			console.log(Parametros);
+			console.log(JSON.stringify(Parametros));
+			$http.post(globalService.getUrlPrinters() + paths.printfile, JSON.stringify(Parametros), config).then(function(response) {
 				deferred.resolve(response.data);
 			}).catch(function(response) {
 				deferred.reject(response);

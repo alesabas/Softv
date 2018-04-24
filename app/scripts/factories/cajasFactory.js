@@ -87,7 +87,8 @@ angular
 			EnviaCorreoEstadoCuenta: '/ObtieneInformacionEnvioCorreo/GetObtieneInformacionEnvioCorreoList',
 			btnconsultaReporte: '/ReporteEstadoCuentaNuevo/GetReporteEstadoCuentaNuevo2List',
 			getContratoAdeudo: '/ConsultaContratoNetCAdeudo/GetConsultaContratoNetCAdeudo',
-			GetValidaServioPaqueteAdic: '/CobraAdeudo/GetValidaServioPaqueteAdic'
+			GetValidaServioPaqueteAdic: '/CobraAdeudo/GetValidaServioPaqueteAdic',
+			GetDeleteTicket: '/CrearTicketTable/GetDeleteTicket'
 		};
 
 		factory.getContratoAdeudo = function (clv, aparato) {
@@ -1853,6 +1854,18 @@ angular
 			var Parametros = {'Clv_UnicaNet': Clv_UnicaNet};
 			var config = {headers: {'Authorization': $localStorage.currentUser.token}};
 			$http.post(globalService.getUrl() + paths.GetValidaServioPaqueteAdic, JSON.stringify(Parametros), config).then(function (response) {
+				deferred.resolve(response.data);
+			}).catch(function (response) {
+				deferred.reject(response);
+			});
+			return deferred.promise;
+		};
+
+		factory.GetDeleteTicket = function (Ticket) {
+			var deferred = $q.defer();
+			var Parametros = {'Ticket': Ticket};
+			var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+			$http.post(globalService.getUrl() + paths.GetDeleteTicket, JSON.stringify(Parametros), config).then(function (response) {
 				deferred.resolve(response.data);
 			}).catch(function (response) {
 				deferred.reject(response);
