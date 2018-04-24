@@ -35,7 +35,7 @@
                             <input name="InpNombre" type="text" class="form-control input-sm" ng-model="$ctrl.Nombre" validate-on="dirty" required required-message="'Obligatorio'">
                         </div>
                         <div class="col-md-6">
-                            <input name="InpRFC" type="text" class="form-control input-sm" ng-model="$ctrl.RFC" ui-options="$ctrl.maskOptions" ui-mask="AAAA999999***" maxlength="13" ng-pattern="$ctrl.ValidateRFC" placeholder="" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Error, Ingresa RFC válido.'">
+                            <input name="InpRFC" type="text" class="form-control input-sm" ng-model="$ctrl.RFC" ui-options="$ctrl.maskOptions" ui-mask="AAAA999999***" maxlength="13" ng-pattern="$ctrl.ValidateRFC" placeholder="@@@@######@@@" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Error, Ingresa RFC válido.'">
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -134,10 +134,10 @@
                     </div>
                     <div class="col-md-12">
                         <div class="col-md-6">
-                            <input name="InpTelefono" type="text" class="form-control input-sm" ui-mask="(999)999-9999" ui-mask-placeholder="" ng-model="$ctrl.Telefono" maxlength="10" ng-pattern="/^\d{10}$/" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa 10 dígitos.'">
+                            <input name="InpTelefono" type="text" class="form-control input-sm" ui-mask="(999)999-9999" ui-mask-placeholder="" ng-model="$ctrl.Telefono" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa 10 dígitos.'">
                         </div>
                         <div class="col-md-6">
-                            <input name="InpTelefono2" type="text" class="form-control input-sm" ui-mask="(999)999-9999" ui-mask-placeholder="" ng-model="$ctrl.Telefono2" maxlength="10" ng-pattern="/^\d{10}$/" invalid-message="'Inválido, Ingresa 10 dígitos.'">
+                            <input name="InpTelefono2" type="text" class="form-control input-sm" ui-mask="(999)999-9999" ui-mask-placeholder="" ng-model="$ctrl.Telefono2" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa 10 dígitos.'">
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -260,7 +260,7 @@
                             ($ctrl.resatencont != null && $ctrl.resatencont != '')">
                         </div>
                         <div class="col-md-6">
-                            <input name="InpTelefonoRG" type="text" class="form-control input-sm" ng-model="$ctrl.telefonocont" validate-on="dirty" validator="$ctrl.ValidateNum(0)" maxlength="10" required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa 10 dígitos.'"
+                            <input name="InpTelefonoRG" type="text" class="form-control input-sm" ng-model="$ctrl.telefonocont" ui-mask="(999)999-9999" validate-on="dirty" validator="$ctrl.ValidateNum(0)" maxlength="10" required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa 10 dígitos.'"
                             ng-required="($ctrl.emailcont != null && $ctrl.emailcont != '') ||
                             ($ctrl.celularcont != null && $ctrl.celularcont != '') ||
                             ($ctrl.nombrecont != null && $ctrl.nombrecont != '') ||
@@ -279,7 +279,7 @@
                     </div>
                     <div class="col-md-12">
                         <div class="col-md-6">
-                            <input name="InpCelularRG" type="text" class="form-control input-sm" ng-model="$ctrl.celularcont" validate-on="dirty" validator="$ctrl.ValidateNum(1)" maxlength="10" required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa 10 dígitos.'"
+                            <input name="InpCelularRG" type="text" class="form-control input-sm" ng-model="$ctrl.celularcont" ui-mask="(999)999-9999" validate-on="dirty" ng-pattern="/^\d{10}$/" maxlength="10" required-message="'Obligatorio'" invalid-message="'Inválido, Ingresa 10 dígitos.'"
                             ng-required="($ctrl.emailcont != null && $ctrl.emailcont != '') ||
                             ($ctrl.nombrecont != null && $ctrl.nombrecont != '') ||
                             ($ctrl.telefonocont != null && $ctrl.telefonocont != '') ||
