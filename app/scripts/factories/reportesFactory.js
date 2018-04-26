@@ -54,7 +54,8 @@ angular
 			GetReportePendientesAreaTecnica:'/Reportes/GetReportePendientesAreaTecnica',
 			GetReporteOrdenes:'/Reportes/GetReporteOrdenes',
 			GetReporteQuejas:'/Reportes/GetReporteQuejas',
-			GetReporteAtencion:'/Reportes/GetReporteAtencion'
+			GetReporteAtencion:'/Reportes/GetReporteAtencion',
+			GetReporteInterfazAparatos: '/Reportes/GetReporteInterfazAparatos'
 		};
 
 		factory.GetReporteAtencion = function(obj) {
@@ -1306,6 +1307,20 @@ angular
 				}
 			};
 			$http.post(globalService.getUrl() + paths.reporteFacturasFiscales, JSON.stringify(Parametros), config).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(response) {
+				deferred.reject(response.data);
+			});
+
+			return deferred.promise;
+		};
+
+		factory.GetReporteInterfazAparatos = function(ObjReporte) {
+			var user = $localStorage.currentUser.idUsuario;
+			var deferred = $q.defer();
+			var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+			var Parametros = {'ObjReporte': ObjReporte};
+			$http.post(globalService.getUrl() + paths.GetReporteInterfazAparatos, JSON.stringify(Parametros), config).then(function(response) {
 				deferred.resolve(response.data);
 			}).catch(function(response) {
 				deferred.reject(response.data);

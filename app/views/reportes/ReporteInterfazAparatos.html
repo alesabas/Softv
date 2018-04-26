@@ -9,94 +9,104 @@
         </header>
         <div class="tools">
 			<div class="btn-group">
-				<button type="button" class="btn btn-primary btn-sm" ui-sref="home.catalogos.cliente_nuevo" title="Crear un cliente nuevo"><i class="fa fa-plus"></i> nuevo cliente</button>
 			</div>
 		</div>
     </div>
     <div class="card-body">
+        <pageslide ps-open="$ctrl.OpenReporte" ps-size="1000px" >
+            <iframe src="{{$ctrl.FileName}}" width="1000px;" height="800px;" ps-zindex="9999"></iframe>
+        </pageslide>
         <div class="row">
-            <div class="col-md-12">
-                <div class="col-md-3">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="col-md-6">
                     <b>Empresa:</b>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-6">
                     <b>Región:</b>
                 </div>
-                <div class="col-md-3">
-                    <b>Tipo de Servicio:</b>
-                </div>
-                <div class="col-md-3">
-                    <b>Tecnología:</b>
-                </div>
             </div>
-            <div class="col-md-12">
-                <div class="col-md-3">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="col-md-6">
                     <select class="form-control input-sm" ng-model="$ctrl.distribuidor" ng-change="$ctrl.GetPlazaList()" ng-options="item as item.Nombre for item in $ctrl.Distribuidores track by item.Clv_Plaza">
                         <option value="">Selecciona</option>
                     </select>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-6">
                     <select class="form-control input-sm" ng-model="$ctrl.plaza" ng-change="$ctrl.filtrar(1)" ng-options="item as item.razon_social for item in $ctrl.Plazas track by item.id_compania">
                         <option value="">Selecciona</option>
                     </select>
                 </div>
-                <div class="col-md-3">
+            </div>
+            <div class="col-md-6 col-md-offset-3">
+                <br>
+            </div>
+            <div class="col-md-6 col-md-offset-3">
+                <div class="col-md-6">
+                    <b>Tipo de Servicio:</b>
+                </div>
+                <div class="col-md-6">
+                    <b>Tecnología:</b>
+                </div>
+            </div>
+            <div class="col-md-6 col-md-offset-3">
+                <div class="col-md-6">
                     <select class="form-control input-sm" ng-change="$ctrl.filtrar(1)" ng-model="$ctrl.servicio" ng-options="item as item.Concepto for item in $ctrl.Servicios track by item.Clv_TipSer">
                         <option value="">Selecciona</option>
                     </select>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-6">
                     <select class="form-control input-sm" ng-change="$ctrl.filtrar(1)" ng-model="$ctrl.tecnologia" ng-options="item as item.Descripcion for item in $ctrl.tecnologias track by item.IdMedio">
                         <option value="">Selecciona tipo tecnologia</option>
                     </select>
                 </div>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-6 col-md-offset-3">
+                <br>
+            </div>
+            <div class="col-md-6 col-md-offset-3">
+                <div class="col-md-6">
+                    <b>Contrato:</b>
+                </div>
+                <div class="col-md-6">
+                    <b>Orden:</b>
+                </div>
+            </div>
+            <div class="col-md-6 col-md-offset-3">
+                <div class="col-md-6">
+                    <input type="text" class="form-control input-sm" ng-model="$ctrl.contrato">
+                </div>
+                <div class="col-md-6">
+                    <input type="text" class="form-control input-sm" ng-model="$ctrl.clvorden">
+                </div>
+            </div>
+            <div class="col-md-6 col-md-offset-3">
+                <br>
+            </div>
+            <div class="col-md-6 col-md-offset-3">
+                <div class="col-md-6">
+                    <b>MAC Address:</b>
+                </div>
+                <div class="col-md-6">
+                    <b>Fecha Solicitud:</b>
+                </div>
+            </div>
+            <div class="col-md-6 col-md-offset-3">
+                <div class="col-md-6">
+                    <input type="text" class="form-control input-sm" ng-model="$ctrl.mac">
+                </div>
+                <div class="col-md-6">
+                    <input type="date" class="form-control input-sm" ng-model="$ctrl.fechasolicitud">
+                </div>
+            </div>
+            <div class="col-md-6 col-md-offset-3">
                 <div class="col-md-12">
                     <br>
                 </div>
             </div>
-            <div class="col-md-12">
-                <div class="col-md-3">
-                    <b></b>
+            <div class="col-md-6 col-md-offset-3">
+                <div class="col-md-12 text-center">
+                    <button class="btn btn-primary btn-sm" ng-click="$ctrl.GetReprote()">Generar Reporte</button>
                 </div>
-                <div class="col-md-3">
-                    <b></b>
-                </div>
-                <div class="col-md-3">
-                    <b></b>
-                </div>
-                <div class="col-md-3">
-                    <b></b>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="col-md-3">
-                    <input type="text" class="form-control input-sm" ng-model="$ctrl.contrato">
-                </div>
-                <div class="col-md-3">
-                    <input type="text" class="form-control input-sm" ng-model="$ctrl.clvorden">
-                </div>
-                <div class="col-md-3">
-                    <input type="text" class="form-control input-sm" ng-model="$ctrl.mac">
-                </div>
-                <div class="col-md-3">
-                    <input type="date" class="form-control input-sm" ng-model="$ctrl.fechasolicitud">
-                </div>
-                <!--
-                <div class="col-md-1">
-                    <button type="button" class="btn btn-primary btn-xs btn-block">Generar Reporte</button>
-                </div>
-                <div class="col-md-3">
-                    <b></b>
-                </div>
-                <div class="col-md-3">
-                    <b></b>
-                </div>
-                <div class="col-md-3">
-                    <b></b>
-                </div>
-                -->
             </div>
         </div>
     </div>
