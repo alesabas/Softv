@@ -103,7 +103,6 @@ angular
       options.clvProblema = (vm.Problema == undefined || vm.Problema == null) ? 0 : vm.Problema.clvProblema;
       options.clv_queja = 0;
 
-      console.log(options);
       var modalInstance = $uibModal.open({
         animation: true,
         ariaLabelledBy: 'modal-title',
@@ -303,9 +302,7 @@ angular
       param.contrato = vm.contratoSelected;
       param.servicio = vm.selectedServicio.Clv_TipSerPrincipal;
       param.op = 0;
-      console.log(param);
       atencionFactory.buscarCliente(param).then(function (data) {
-        console.log(data);
         if (data.GetuspBuscaContratoSeparado2ListResult.length == 0) {
           ngNotify.set('El cliente no tiene contratado el servicio, seleccione otro tipo por favor.', 'error');
 
@@ -317,7 +314,6 @@ angular
         var contrato = detalle.ContratoBueno;
         vm.GlobalContrato = contrato;
         atencionFactory.ValidaContrato(vm.GlobalContrato, vm.selectedServicio.Clv_TipSerPrincipal).then(function (data) {
-          console.log(data);
           if (data.GetuspContratoServListResult[0].Pasa == true) {
 
             vm.NombreCliente = detalle.Nombre + detalle.Apellido_Paterno + " " + detalle.Apellido_Materno;
@@ -429,16 +425,13 @@ angular
     }
 
     function DetalleLlamada(llamada) {
-      console.log(llamada)
       atencionFactory.ConsultaLLamada(llamada).then(function (data) {
-        console.log(data);
       });
     }
 
     function ValidaOrdenQuejas() {
       atencionFactory.ValidaOrdenQuejas(vm.GlobalContrato, vm.selectedServicio.Clv_TipSerPrincipal)
         .then(function (data) {
-          console.log(data);
           if (data.GetDeepVALIDAOrdenQuejaResult.Msg == null) {
             abrirAgenda();
           } else {

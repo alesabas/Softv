@@ -121,6 +121,7 @@ angular
         };
         usuarioFactory.GetNueRelUsuarioGrupoVentas(ObjGrupoVentaRel).then(function(data){
           ngNotify.set('El usuario se ha editado correctamente','success');
+          $state.go('home.configuracion.usuarios');
         });
       });
     }
