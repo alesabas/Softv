@@ -60,7 +60,7 @@ angular
 				data: {
 					pageTitle: 'SAC | REPORTES VARIOS',
 					permissions: {
-						only: ['reportesvariosSelect'],
+						only: [''],
 						options: {
 							reload: false
 						}
@@ -76,7 +76,7 @@ angular
 				data: {
 					pageTitle: 'SAC | REPORTE DE PERMANENCIA',
 					permissions: {
-						only: ['reportesvariosSelect'],
+						only: [''],
 						options: {
 							reload: false
 						}
@@ -92,7 +92,7 @@ angular
 				data: {
 					pageTitle: 'SAC | REPORTE DE SUSCRIPTORES',
 					permissions: {
-						only: ['reportesvariosSelect'],
+						only: [''],
 						options: {
 							reload: false
 						}
@@ -107,12 +107,12 @@ angular
 				name: 'home.reportes.documentos',
 				data: {
 					pageTitle: 'SAC | REPORTE DE CLIENTES SIN DOCUMENTOS',
-					permissions: {
-						only: ['reportesvariosSelect'],
+				/* 	permissions: {
+						only: [''],
 						options: {
 							reload: false
 						}
-					}
+					} */
 				},
 				url: '/reportes/clientesdocumentos',
 				templateUrl: 'views/reportes/clientesDocumentos.html',
@@ -123,12 +123,12 @@ angular
 				name: 'home.reportes.prospectos',
 				data: {
 					pageTitle: 'SAC | REPORTE DE PROSPECTOS',
-					permissions: {
-						only: ['reportesvariosSelect'],
+				/* 	permissions: {
+						only: [''],
 						options: {
 							reload: false
 						}
-					}
+					} */
 				},
 				url: '/reportes/prospectos',
 				templateUrl: 'views/reportes/prospectos.html',
@@ -139,12 +139,12 @@ angular
 				name: 'home.reportes.hoteles',
 				data: {
 					pageTitle: 'SAC | REPORTE DE HOTELES',
-					permissions: {
-						only: ['reportesvariosSelect'],
+					/* permissions: {
+						only: [''],
 						options: {
 							reload: false
 						}
-					}
+					} */
 				},
 				url: '/reportes/hoteles',
 				templateUrl: 'views/reportes/hoteles.html',
@@ -155,12 +155,12 @@ angular
 				name: 'home.reportes.ordenesservicio',
 				data: {
 					pageTitle: 'SAC | REPORTE DE ORDENES DE SERVICIO',
-					permissions: {
-						only: ['reportesvariosSelect'],
+				/* 	permissions: {
+						only: [''],
 						options: {
 							reload: false
 						}
-					}
+					} */
 				},
 				url: '/reportes/ordenenesdeservicio',
 				templateUrl: 'views/reportes/reporteordenesServicio.html',
@@ -171,12 +171,12 @@ angular
 				name: 'home.reportes.reportes',
 				data: {
 					pageTitle: 'SAC | REPORTES AREA TECNICA',
-					permissions: {
-						only: ['reportesvariosSelect'],
+				/* 	permissions: {
+						only: [''],
 						options: {
 							reload: false
 						}
-					}
+					} */
 				},
 				url: '/reportes/reportesareatecnica',
 				templateUrl: 'views/reportes/reportes.html',
@@ -187,12 +187,12 @@ angular
 				name: 'home.reportes.actividadestecnico',
 				data: {
 					pageTitle: 'SAC | REPORTES ACTIVIDADES DE TECNICO',
-					permissions: {
-						only: ['reportesvariosSelect'],
+					/* permissions: {
+						only: [''],
 						options: {
 							reload: false
 						}
-					}
+					} */
 				},
 				url: '/reportes/actividadestecnico',
 				templateUrl: 'views/reportes/actividadesTecnico.html',
@@ -203,12 +203,12 @@ angular
 				name: 'home.reportes.agendatecnico',
 				data: {
 					pageTitle: 'SAC | AGENDA ACTIVIDADES DE TECNICO',
-					permissions: {
-						only: ['reportesvariosSelect'],
+				/* 	permissions: {
+						only: [''],
 						options: {
 							reload: false
 						}
-					}
+					} */
 				},
 				url: '/reportes/agendatecnico',
 				templateUrl: 'views/reportes/agendaTecnico.html',
@@ -219,12 +219,12 @@ angular
 				name: 'home.reportes.devolucionalmacen',
 				data: {
 					pageTitle: 'SAC | DEVOLUCION DE APARATOS AL ALMACEN',
-					permissions: {
-						only: ['reportesvariosSelect'],
+					/* permissions: {
+						only: [''],
 						options: {
 							reload: false
 						}
-					}
+					} */
 				},
 				url: '/reportes/devolucionalmacen',
 				templateUrl: 'views/reportes/devolucionAlmacen.html',
@@ -235,12 +235,12 @@ angular
 				name: 'home.reportes.pendientesrealizar',
 				data: {
 					pageTitle: 'SAC | PENDIENTES A REALIZAR',
-					permissions: {
-						only: ['reportesvariosSelect'],
+				/* 	permissions: {
+						only: [''],
 						options: {
 							reload: false
 						}
-					}
+					} */
 				},
 				url: '/reportes/pendientesrealizar',
 				templateUrl: 'views/reportes/reportePendientesRealizar.html',
@@ -251,12 +251,12 @@ angular
 				name: 'home.reportes.atenciotelefonica',
 				data: {
 					pageTitle: 'SAC | ATENCION TELEFONICA',
-					permissions: {
-						only: ['reportesvariosSelect'],
+				/* 	permissions: {
+						only: [''],
 						options: {
 							reload: false
 						}
-					}
+					} */
 				},
 				url: '/reportes/atenciontelefonica',
 				templateUrl: 'views/reportes/reporteAtencionTelefonica.html',

@@ -1,7 +1,7 @@
 'use strict';
 angular
 	.module('softvApp')
-	.controller('ModalPagarCtrl', function($uibModalInstance, $uibModal, items, cajasFactory, $state, $rootScope, ngNotify, globalService, $sce, ticketsFactory) {
+	.controller('ModalPagarCtrl', function($uibModalInstance, $uibModal, items, cajasFactory, $state, $rootScope, ngNotify, globalService, $sce, ticketsFactory,$http) {
 
 		function initialData() {
 			vm.monto = items.monto;
@@ -172,6 +172,9 @@ angular
 												cajasFactory.dameTicket(vm.Clv_Factura).then(function(data) {													
 													var Name = data.GetCrearTicketTableListResult;
 													var FileName = globalService.getUrlReportes() + '/Reportes/' + Name;
+													var xmlhttp = new XMLHttpRequest();
+													xmlhttp.open("GET",'http://localhost:8080?q='+FileName,true);
+													xmlhttp.send();													
 												});
 												/*var modalInstance = $uibModal.open({
 													animation: true,

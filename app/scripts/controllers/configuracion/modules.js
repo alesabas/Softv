@@ -44,7 +44,7 @@ angular
         data: {
           pageTitle: 'SAC | GENERALES DEL SISTEMA',
           permissions: {
-            only: ['generalesdeldistribuidorSelect'],
+            only: [],
             options: {
               reload: false
             }

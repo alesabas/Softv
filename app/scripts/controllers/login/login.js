@@ -26,7 +26,9 @@ angular
           authFactory
             .obtenNombreComputadora()
             .then(function(result) {
-              $localStorage.currentUser.maquina = result;
+              console.log(result);
+              var maquina=result.split('|')[0];
+              $localStorage.currentUser.maquina = maquina;
               authFactory
                 .obtensucursalIp(
                   $localStorage.currentUser.token,

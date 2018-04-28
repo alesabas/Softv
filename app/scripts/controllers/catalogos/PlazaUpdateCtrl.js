@@ -36,7 +36,7 @@ angular
     }
 
     function ObtenCiudades() {
-      plazaFactory.GetMuestra_Ciudad_RelCompania($stateParams.id, vm.estadoselect.Clv_Estado)
+      plazaFactory.GetMuestra_Ciudad_RelCompania($stateParams.id, vm.estado2select.Clv_Estado)
         .then(function (data) {        
           vm.ciudades = data.GetMuestra_Ciudad_RelCompaniaResult;         
         });

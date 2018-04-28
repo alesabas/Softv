@@ -9,41 +9,7 @@ angular.module('softvApp')
       GetClaveCajaPorIp:'/SessionWeb/GetClaveCajaPorIp'
     };
 
-    /* factory.getAuthentication = function (token) {
-      var deferred = $q.defer();
-      var Parametros = {
-        'Id': 0,
-        'Codigo': token
-      };
-      var config = {
-        headers: {
-          'Authorization': token
-        }
-      };
-      $http.post(globalService.getUrl() + paths.getAuthentication, JSON.stringify(Parametros), config).then(function (response) {
-        console.log(response);
-        if (response.data.GetDameSessionWListResult.Codigo) {
-          $localStorage.currentUser = {
-            token: response.data.GetDameSessionWListResult.Codigo,
-            token1: token,
-            usuario: response.data.GetDameSessionWListResult.Usuario,
-            sucursal: response.data.GetDameSessionWListResult.IdSucursal,
-            idUsuario: response.data.GetDameSessionWListResult.IdUsuario,
-            maquina: response.data.GetDameSessionWListResult.IpMaquina,
-            tipoUsuario: response.data.GetDameSessionWListResult.TipoUser,
-            Menu: response.data.GetDameSessionWListResult.Menu
-          };
-          $window.location.reload();
-        } else {
-          $location.path('/auth/');
-        }
-      }).catch(function (data) {
-        deferred.reject(data);
-      });
-
-      return deferred.promise;
-    };
- */
+   
    
    
 
@@ -72,10 +38,10 @@ angular.module('softvApp')
 
     
     factory.obtenNombreComputadora =function() {
-      var deferred = $q.defer();
-      $http.get(globalService.getUrlPrinters() + "/computersname").then(function (response) {
+      var deferred = $q.defer();       
+      $http.get("http://localhost:8040").then(function (response) {
         console.log(response);
-        deferred.resolve(response.data.name);
+        deferred.resolve(response.data);
       }).catch(function (result) {
         deferred.reject('');
       });
