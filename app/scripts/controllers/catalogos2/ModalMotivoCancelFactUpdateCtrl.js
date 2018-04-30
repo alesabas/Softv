@@ -1,6 +1,6 @@
 angular
   .module('softvApp')
-  .controller('ModalMotivoCancelFactUpdateCtrl', function (CatalogosFactory, $uibModalInstance, ngNotify, $state, Clv_motivo) {
+  .controller('ModalMotivoCancelFactUpdateCtrl', function (CatalogosFactory, $uibModalInstance, logFactory, ngNotify, $state, Clv_motivo) {
    
     function initData(){
       var ObjMotivo = {
@@ -24,6 +24,15 @@ angular
         };
         CatalogosFactory.GetMODMOTIVOSFACTURACANCELACION(ObjMotivo).then(function(data){
             if(data.GetMODMOTIVOSFACTURACANCELACIONResult == 1){    
+
+              var log={
+                'Modulo':'home.catalogos',
+                'Submodulo':'home.motivos.CancelacionFactura',
+                'Observaciones':'Se editó motivo de cancelación factura ',
+                'Comando':JSON.stringify(ObjMotivo),
+                'Clv_afectada':vm.Clave
+            };    
+            logFactory.AddMovSist(log).then(function(result){ console.log('add'); });
                 ngNotify.set('CORRECTO, se guardó un motivo de cancelación de factura.', 'success');
                 cancel();
             }else{

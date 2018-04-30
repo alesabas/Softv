@@ -2,7 +2,7 @@
 
 angular
     .module('softvApp')
-    .controller('ModalLocalidadFormAddCtrl', function(CatalogosFactory, $uibModalInstance, $uibModal, ngNotify, $state, $localStorage){
+    .controller('ModalLocalidadFormAddCtrl', function(CatalogosFactory, $uibModalInstance, $uibModal, ngNotify, $state,logFactory){
 
         function initData(){
             var ObjCiudad = {
@@ -36,6 +36,14 @@ angular
                             vm.Titulo = 'Nueva Localidad - ';
                             vm.BtnCanTitulo = 'Salir';
                             GetRelLocalidad();
+                            var log={
+                                'Submodulo':'home.catalogos.localidades',
+                                'Modulo':'home.catalogos',
+                                'Observaciones':'Se agregó localidad',
+                                'Comando':JSON.stringify(objLocalidades_New),
+                                'Clv_afectada': IdLocalidad
+                            };
+                            logFactory.AddMovSist(log).then(function(result){ console.log('add'); });    
                         }else{
                             ngNotify.set('ERROR, al añadir una localidad nueva.', 'warn');
                             cancel();

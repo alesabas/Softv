@@ -2,7 +2,7 @@
 
 angular
     .module('softvApp')
-    .controller('ModalCiudadFormAddCtrl', function(CatalogosFactory, $uibModalInstance, $uibModal, ngNotify, $state){
+    .controller('ModalCiudadFormAddCtrl', function(CatalogosFactory, $uibModalInstance, $uibModal,logFactory, ngNotify, $state){
 
         function SaveCiudad(){
             var ObjCiudad = {
@@ -15,6 +15,19 @@ angular
                     ngNotify.set('CORRECTO, se añadió una ciudad nueva, ahora puedes comenzar a agregar relaciones', 'success');
                     vm.ShowEdit = false;
                     vm.ShowAdd = true;
+
+                    var log={
+                        'Modulo':'home.catalogos',
+                        'Submodulo':'home.catalogos.ciudades',
+                        'Observaciones':'Se registró una nueva ciudad',
+                        'Comando':JSON.stringify(ObjCiudad),
+                        'Clv_afectada':vm.IdCiudad
+                    };
+
+                    logFactory.AddMovSist(log).then(function(result){ console.log('add'); });
+
+                    
+
                     GetEstadoList(vm.IdCiudad);
                 }else if(data.GetAddCiudadesResult[0].mismoNombre == 1){
                     ngNotify.set('ERROR, Ya existe una ciudad con el mismo nombre.', 'warn');
@@ -48,7 +61,9 @@ angular
                 'Op': 1
             };
             CatalogosFactory.AddRelEstadoCiudad_New(objRelEstadoCiudad_New).then(function(data){
-                if(data.AddRelEstadoCiudad_NewResult == -1){
+                if(data.AddRelEstadoCiudad_NewResult == -1){              
+                  
+
                     ngNotify.set('CORRECTO, se agregó la relación.', 'success');
                     GetRelEstMun(vm.IdCiudad);
                     GetEstadoList(vm.IdCiudad);

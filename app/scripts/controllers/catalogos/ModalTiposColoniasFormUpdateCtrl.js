@@ -2,7 +2,7 @@
 
 angular
     .module('softvApp')
-    .controller('ModalTiposColoniasFormUpdateCtrl', function(CatalogosFactory, $uibModalInstance, ngNotify, $state, Clave){
+    .controller('ModalTiposColoniasFormUpdateCtrl', function(CatalogosFactory, logFactory, $uibModalInstance, ngNotify, $state, Clave){
 
         function initData(){
             CatalogosFactory.GetDeepTipo_Colonias1_New(Clave).then(function(data){
@@ -19,7 +19,17 @@ angular
                 'Concepto': vm.TipoColonia
             }
             CatalogosFactory.UpdateTipo_Colonias1_New(objTipo_Colonias1_New).then(function(data){
-                if(data.UpdateTipo_Colonias1_NewResult === -1){
+                if(data.UpdateTipo_Colonias1_NewResult == -1){
+
+                    var log={
+                        'Modulo':'home.catalogos',
+                        'Submodulo':'home.catalogos.tipos_colonias',
+                        'Observaciones':'Se editó tipo de colonia ',
+                        'Comando':JSON.stringify(objTipo_Colonias1_New),
+                        'Clv_afectada':vm.IdTipoColonia
+                    };
+
+                    logFactory.AddMovSist(log).then(function(result){ console.log('add'); });
                     ngNotify.set('CORRECTO, se guardó el tipo de colonia.', 'success');
 				    cancel();
                 }else{

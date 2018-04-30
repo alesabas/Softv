@@ -2,7 +2,7 @@
 
 angular
     .module('softvApp')
-    .controller('ModalCalleFormUpdateCtrl', function(CatalogosFactory, $uibModalInstance, ngNotify, $state, IdCalle){
+    .controller('ModalCalleFormUpdateCtrl', function(CatalogosFactory, $uibModalInstance, ngNotify, $state, IdCalle,logFactory){
 
         function initData(){
             CatalogosFactory.GetMuestraEstados_RelColList().then(function(data){
@@ -71,6 +71,14 @@ angular
             CatalogosFactory.AddRelColoniasCalles_New(objRelColoniasCalles_New).then(function(data){
                 if(data.AddRelColoniasCalles_NewResult == 0){
                     ngNotify.set('CORRECTO, se guardó la relación con la colonia.', 'success');
+                    var log={
+                        'Modulo':'home.catalogos',
+                        'Submodulo':'home.catalogos.calles',
+                        'Observaciones':'Se agrego relación  calle-colonia ',
+                        'Comando':JSON.stringify(objRelColoniasCalles_New),
+                        'Clv_afectada':vm.IdCalle
+                    };        
+                    logFactory.AddMovSist(log).then(function(result){ console.log('add'); });
                     GetRelCalle();
                     ClearInput();
                 }else{
@@ -98,6 +106,14 @@ angular
                     CatalogosFactory.DeleteRelColoniasCalles_New(ObjRelCalleD).then(function(data){
                         if(data.DeleteRelColoniasCalles_NewResult == -1){
                             ngNotify.set('CORRECTO, se eliminó la relación con la colonia.', 'success');
+                            var log={
+                                'Modulo':'home.catalogos',
+                                'Submodulo':'home.catalogos.calles',
+                                'Observaciones':'Se eliminó relación  calle-colonia ',
+                                'Comando':JSON.stringify(ObjRelCalleD),
+                                'Clv_afectada':vm.IdCalle
+                            };        
+                            logFactory.AddMovSist(log).then(function(result){ console.log('add'); });
                             GetRelCalle();
                         }else{
                             ngNotify.set('ERROR, al eliminar la relación con la colonia.', 'warn');
@@ -123,6 +139,8 @@ angular
                     };
                     CatalogosFactory.UpdateCalles_New(objCalles_New).then(function(data){
                         if(data.UpdateCalles_NewResult = -1){
+                              
+
                             ngNotify.set('CORRECTO, se guardó la calle.', 'success');
                             GetCalle();
                         }else{

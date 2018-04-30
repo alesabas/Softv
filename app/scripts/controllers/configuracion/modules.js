@@ -183,7 +183,25 @@ angular
         templateUrl: 'views/configuracion/interfazCablemodems.html',
         controller: 'interfazCablemodemsCtrl',
         controllerAs: '$ctrl'
+      },
+      {
+        name: 'home.configuracion.registro',
+        data: {
+          pageTitle: 'SAC | REGISTRO',
+          permissions: {
+           
+            options: {
+              reload: false
+            }
+          }
+        },
+        url: '/configuracion/registrosistema',
+        templateUrl: 'views/configuracion/registroSistema.html',
+        controller: 'registroSistemaCtrl',
+        controllerAs: '$ctrl'
       }
+
+      
 
 
 

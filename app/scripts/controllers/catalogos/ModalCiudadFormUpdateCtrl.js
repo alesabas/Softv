@@ -2,7 +2,7 @@
 
 angular
     .module('softvApp')
-    .controller('ModalCiudadFormUpdateCtrl', function(CatalogosFactory, $uibModalInstance, ngNotify, $state, IdMunicipio){
+    .controller('ModalCiudadFormUpdateCtrl', function(CatalogosFactory, $uibModalInstance, ngNotify,logFactory, $state, IdMunicipio){
 
         function initData(){
             CatalogosFactory.GetMuestraCiudadById(IdMunicipio).then(function(data){
@@ -38,8 +38,19 @@ angular
                 'Op': 1
             };
             CatalogosFactory.AddRelEstadoCiudad_New(objRelEstadoCiudad_New).then(function(data){
-                if(data.AddRelEstadoCiudad_NewResult == -1){
+                if(data.AddRelEstadoCiudad_NewResult == -1){                   
+
                     ngNotify.set('CORRECTO, se agregó la relación.', 'success');
+                    var log={
+                        'Modulo':'home.catalogos',
+                        'Submodulo':'home.catalogos.ciudades',
+                        'Observaciones':'Se registró una relación ciudad-estado',
+                        'Comando':JSON.stringify(objRelEstadoCiudad_New),
+                        'Clv_afectada':vm.IdCiudad
+                    };
+
+                    logFactory.AddMovSist(log).then(function(result){ console.log('add'); });
+
                     GetRelEstMun(vm.IdCiudad);
                     GetEstadoList(vm.IdCiudad);
                 }else{
@@ -61,6 +72,17 @@ angular
                     ngNotify.set('CORRECTO, se eliminó la relación.', 'success');
                     GetRelEstMun(vm.IdCiudad);
                     GetEstadoList(vm.IdCiudad);
+
+                    var log={
+                        'Modulo':'home.catalogos',
+                        'Submodulo':'home.catalogos.ciudades',
+                        'Observaciones':'Se eliminó relacion estado-ciudad',
+                        'Comando':JSON.stringify(ObjMunicipio),
+                        'Clv_afectada':vm.IdCiudad
+                    };
+
+                    logFactory.AddMovSist(log).then(function(result){ console.log('add'); });
+
                 }else{
                     GetRelEstMun(vm.IdCiudad);
                     ngNotify.set('ERROR, al eliminar la relación.', 'warn');
@@ -78,6 +100,17 @@ angular
             CatalogosFactory.UpdateCiudades_New(objCiudades_New).then(function(data){
                 if(data.UpdateCiudades_NewResult == -1){
                     ngNotify.set('CORRECTO, se guardó la ciudad.', 'success');
+                    var log={
+                        'Modulo':'home.catalogos',
+                        'Submodulo':'home.catalogos.ciudades',
+                        'Observaciones':'Se editó ciudad',
+                        'Comando':JSON.stringify(objCiudades_New),
+                        'Clv_afectada':vm.IdCiudad
+                    };
+
+                    logFactory.AddMovSist(log).then(function(result){ console.log('add'); });
+
+                    $state.reload('home.catalogos.ciudades');
                     cancel();
                 }else{
                     GetRelEstMun(vm.IdCiudad);

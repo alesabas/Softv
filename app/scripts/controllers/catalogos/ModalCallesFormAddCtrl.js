@@ -2,7 +2,7 @@
 
 angular
     .module('softvApp')
-    .controller('ModalCalleFormAddCtrl', function(CatalogosFactory, $uibModal, $uibModalInstance, ngNotify, $state){
+    .controller('ModalCalleFormAddCtrl', function(CatalogosFactory, $uibModal, $uibModalInstance, ngNotify, $state,logFactory){
 
         function initData(){
             CatalogosFactory.GetMuestraEstados_RelColList().then(function(data){
@@ -23,6 +23,16 @@ angular
                     CatalogosFactory.AddCalles_New(objCalles_New).then(function(data){
                         vm.Clv_Calle = data.AddCalles_NewResult;
                         if(vm.Clv_Calle > 0){
+                            var log={
+                                'Modulo':'home.catalogos',
+                                'Submodulo':'home.catalogos.calles',
+                                'Observaciones':'Se registró nueva calle ',
+                                'Comando':JSON.stringify(objCalles_New),
+                                'Clv_afectada':vm.Clv_Calle
+                            };
+        
+                            logFactory.AddMovSist(log).then(function(result){ console.log('add'); });
+
                             ngNotify.set('CORRECTO, se añadió una calle nueva, ahora puedes comenzar a agregar relaciones', 'success');
                             vm.Disable = false;
                             vm.DisableAdd = true;

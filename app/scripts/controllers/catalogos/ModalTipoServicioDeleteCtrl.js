@@ -15,6 +15,16 @@ angular
         function DeleteTipoServicio(){
             CatalogosFactory.DeleteTipServ_New(vm.IdTipoServicio).then(function(data){
                 if(data.DeleteTipServ_NewResult == -1){
+                    var log={
+                        'Modulo':'home.catalogos',
+                        'Submodulo':'home.catalogos.tipos_servicios',
+                        'Observaciones':'Se eliminó tipo de servicio ',
+                        'Comando':'',
+                        'Clv_afectada':vm.IdTipoServicio
+                    };
+
+                    logFactory.AddMovSist(log).then(function(result){ console.log('add'); });
+
                     ngNotify.set('CORRECTO, se eliminó el tipo de servicio.', 'success');
 				    cancel();
                 }else{

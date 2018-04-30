@@ -20,6 +20,15 @@ angular
             }
             CatalogosFactory.UpdateTipServ_New(objTipServ_New).then(function(data){
                 if(data.UpdateTipServ_NewResult == -1){
+                    var log={
+                        'Modulo':'home.catalogos',
+                        'Submodulo':'home.catalogos.tipos_servicios',
+                        'Observaciones':'Se registró nuevo tipo de servicio ',
+                        'Comando':JSON.stringify(objTipServ_New),
+                        'Clv_afectada':vm.IdTipoServicio
+                    };
+
+                    logFactory.AddMovSist(log).then(function(result){ console.log('add'); });
                     ngNotify.set('CORRECTO, se añadió un tipo de servicio nuevo.', 'success');
 				    cancel();
                 }else{

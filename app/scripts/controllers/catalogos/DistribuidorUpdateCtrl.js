@@ -2,7 +2,7 @@
 
 angular
   .module('softvApp')
-  .controller('DistribuidorUpdateCtrl', function (CatalogosFactory, distribuidorFactory, ngNotify, $state, $stateParams) {
+  .controller('DistribuidorUpdateCtrl', function (CatalogosFactory, distribuidorFactory, ngNotify, $state, $stateParams,logFactory) {
 
     function initData() {
 

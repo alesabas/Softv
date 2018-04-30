@@ -113,7 +113,7 @@ angular
         vm.GetMotivoReimpresionFList = GetMotivoReimpresionFList;
         vm.AddMotivoReimpFact = AddMotivoReimpFact;
         vm.UpdateMotivoReimpFact = UpdateMotivoReimpFact;
-        vm.DetalleMotivoReimpFact = DetalleMotivoReimpFact;
+       
         vm.EliminarMotivoReimpFact = EliminarMotivoReimpFact;
         initData();
 

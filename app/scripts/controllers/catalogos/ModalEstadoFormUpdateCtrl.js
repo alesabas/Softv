@@ -2,7 +2,7 @@
 
 angular
     .module('softvApp')
-    .controller('ModalEstadoFormUpdateCtrl', function(CatalogosFactory, $uibModalInstance, ngNotify, $state, Clv_Estado){
+    .controller('ModalEstadoFormUpdateCtrl', function(CatalogosFactory, $uibModalInstance,logFactory, ngNotify, $state, Clv_Estado){
         
         function initData(){
             CatalogosFactory.GetDeepEstados_New(Clv_Estado).then(function(data){
@@ -40,6 +40,16 @@ angular
             };
             CatalogosFactory.UpdateEstados_New(objEstados_New).then(function(data){
                 if(data.UpdateEstados_NewResult == -1){
+                    var log={
+                        'Modulo':'home.catalogos',
+                        'Submodulo':'home.catalogos.estados',
+                        'Observaciones':'Se editó  estado ',
+                        'Comando':JSON.stringify(objEstados_New),
+                        'Clv_afectada':vm.IdEstado
+                    };
+
+                    logFactory.AddMovSist(log).then(function(result){ console.log('add'); });
+
                     ngNotify.set('CORRECTO, se guardó el estado.', 'success');
                     cancel();
                 }else{

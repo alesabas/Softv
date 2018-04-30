@@ -7,6 +7,15 @@ angular
         function DeleteCalle(){
             CatalogosFactory.DeleteCalle(vm.IdCalle).then(function(data){
                 if(data.DeleteCalleResult > 1){
+                    var log={
+                        'Modulo':'home.catalogos',
+                        'Submodulo':'home.catalogos.calles',
+                        'Observaciones':'Se eliminó calle ',
+                        'Comando':'',
+                        'Clv_afectada':vm.IdCalle
+                    };
+
+                    logFactory.AddMovSist(log).then(function(result){ console.log('add'); });
                     ngNotify.set('CORRECTO, se eliminó la calle.', 'success');
                     $state.reload('home.catalogos.calles');
 				    cancel();

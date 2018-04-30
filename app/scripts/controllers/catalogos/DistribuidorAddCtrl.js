@@ -2,7 +2,7 @@
 
 angular
   .module('softvApp')
-  .controller('DistribuidorAddCtrl', function (CatalogosFactory, distribuidorFactory, ngNotify, $state) {
+  .controller('DistribuidorAddCtrl', function (CatalogosFactory, distribuidorFactory, ngNotify,logFactory, $state) {
 
     function SaveDistribuidor() {      
       var Parametros = {

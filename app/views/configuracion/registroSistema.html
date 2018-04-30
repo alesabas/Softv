@@ -1,0 +1,116 @@
+<div class="card animated fadeIn fast" style="margin-top:20px;">
+  <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+    <header>
+      <strong style="font-weight:bold; border:none; margin-left:10px;">Registro del sistema</strong>
+      <br />
+      <small class="text-muted" style="font-size:14px; margin-left:10px;">
+        <a href="#">
+          <i class="fa fa-home" aria-hidden="true"></i> Configuración</a>
+      </small>
+
+    </header>
+    <div class="tools">
+
+    </div>
+  </div>
+  <div class="card-body">
+
+    <div class="col-md-4" >     
+     <br><br>
+      <div class="col-md-12">
+        <div class="col-md-8">
+          <label>Usuario</label>
+          <select ng-options="item as item.Nombre for item in $ctrl.usuarios track by item.Clave" 
+          class="form-control input-sm"
+          name="usuario" ng-model="$ctrl.usuario">
+                <option value="">Selecciona usuario</option>
+          </select>
+        
+        </div>
+        <div class="col-md-4">
+          <br>
+          <button class="btn btn-sm btn-default" ng-click="$ctrl.Getfiltros(1)">
+            <i class="fa fa-search"></i> Buscar</button>
+
+        </div>
+
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-8">
+          <label>Fecha</label>
+          <input class="form-control" name="fecha" ng-model="$ctrl.fecha">
+
+        </div>
+        <div class="col-md-4">
+          <br>
+          <button class="btn btn-sm btn-default" ng-click="$ctrl.Getfiltros(2)">
+            <i class="fa fa-search"></i> Buscar</button>
+        </div>
+
+
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-8">
+          <label>Hora</label>
+          <input class="form-control" name="hora" ng-model="$ctrl.hora">
+
+        </div>
+        <div class="col-md-4">
+          <br>
+          <button class="btn btn-sm btn-default" ng-click="$ctrl.Getfiltros(3)">
+            <i class="fa fa-search"></i> Buscar</button>
+        </div>
+
+      </div>
+
+      <div class="col-md-12">
+            <div class="col-md-8">
+              <label>Clave</label>
+              <input class="form-control" name="clave" ng-model="$ctrl.clave">
+    
+            </div>
+            <div class="col-md-4">
+              <br>
+              <button class="btn btn-sm btn-default" ng-click="$ctrl.Getfiltros()">
+                <i class="fa fa-search"></i> Buscar</button>
+            </div>
+    
+          </div>
+
+    </div>
+    <div class="col-md-8">
+
+      <table class="table" style="font-size:11px;">
+        <thead>
+          <th>ID</th>
+          <th>FECHA</th>
+          <th>HORA</th>
+          <th>USUARIO</th>
+          <th>MODULO</th>
+          <th>SUBMODULO</th>
+          <th>OBSERVACIONES</th>
+          <th>CLAVE</th>
+        </thead>
+        <tbody>
+                <tr dir-paginate="x in $ctrl.registros|orderBy:$ctrl.sortKey:reverse|filter:$ctrl.search|itemsPerPage:10">
+                    <td>{{x.id}}</td>
+                    <td>{{x.fecha}}</td>
+                    <td>{{x.hora}}</td>
+                    <td>{{x.Usuario}}</td>
+                    <td>{{x.Modulo}}</td>
+                    <td>{{x.Submodulo}}</td>
+                    <td>{{x.Observaciones}}</td>
+                    <td>{{x.Clv_afectada}}</td>
+                </tr>
+
+        </tbody>
+      </table>
+        <div style="padding-left: 20px;">
+        <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true">
+        </dir-pagination-controls>
+      </div>
+    </div>
+
+
+  </div>
+</div>

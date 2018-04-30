@@ -1,6 +1,6 @@
 angular
 .module('softvApp')
-.controller('ModalMotivoAddCtrl', function(CatalogosFactory, $uibModalInstance, ngNotify, $state){
+.controller('ModalMotivoAddCtrl', function(CatalogosFactory, $uibModalInstance, ngNotify,logFactory, $state){
 
     function SaveMotivo(){
         var ObjMotivo = {
@@ -10,6 +10,16 @@ angular
         CatalogosFactory.GetNUEMotivoCancelacion(ObjMotivo).then(function(data){
             if(data.GetNUEMotivoCancelacionResult == 1){
                 ngNotify.set('CORRECTO, se añadió un motivo de cancelación nuevo.', 'success');
+                $state.reload('home.motivos.MotivosDeCancelacion');
+                var log={
+                    'Modulo':'home.catalogos',
+                    'Submodulo':'home.motivos.MotivosDeCancelacion',
+                    'Observaciones':'Se agregó motivo de cancelación ',
+                    'Comando':JSON.stringify(ObjMotivo),
+                    'Clv_afectada':0
+                };
+
+                logFactory.AddMovSist(log).then(function(result){ console.log('add'); });
                 cancel();
             }else{
                 ngNotify.set('ERROR, al añadir un motivo de cancelación nuevo.', 'warn');

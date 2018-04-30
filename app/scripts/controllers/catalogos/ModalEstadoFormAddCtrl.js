@@ -2,7 +2,7 @@
 
 angular
     .module('softvApp')
-    .controller('ModalEstadoFormAddCtrl', function(CatalogosFactory, $uibModalInstance, ngNotify, $state){
+    .controller('ModalEstadoFormAddCtrl', function(CatalogosFactory, $uibModalInstance, ngNotify, $state,logFactory){
 
         function SaveEstado(){
             var ObjEstado = {
@@ -20,6 +20,17 @@ angular
                         if(data.AddEstados_NewResult > 0){
                             ngNotify.set('CORRECTO, se añadió un estado nuevo.', 'success');
                             cancel();
+
+                            var log={
+                                'Modulo':'home.catalogos',
+                                'Submodulo':'home.catalogos.estados',
+                                'Observaciones':'Se registró nuevo estado ',
+                                'Comando':JSON.stringify(objEstados_New),
+                                'Clv_afectada':0
+                            };
+        
+                            logFactory.AddMovSist(log).then(function(result){ console.log('add'); });
+
                         }else{
                             ngNotify.set('ERROR, al añadir un estado nuevo.', 'warn');
                             cancel();

@@ -47,6 +47,17 @@ angular
                     };
                     CatalogosFactory.UpdateColonias_New(objColonias_New).then(function(data){
                         if(data.UpdateColonias_NewResult == -1){
+
+                            var log={
+                                'Modulo':'home.catalogos',
+                                'Submodulo':'home.catalogos.colonias',
+                                'Observaciones':'Se editó colonia ',
+                                'Comando':JSON.stringify(objColonias_New),
+                                'Clv_afectada':vm.Clv_Colonia
+                            };
+        
+                            logFactory.AddMovSist(log).then(function(result){ console.log('add'); });
+
                             ngNotify.set('CORRECTO, se guardó la colonia.', 'success');
                             $state.go('home.catalogos.colonia_editar', { id:Clv_Colonia });
                             GetColonia();
@@ -102,6 +113,16 @@ angular
             };
             CatalogosFactory.AddInsertaRelColoniaLocalidad(objInsertaRelColoniaLocalidad).then(function(data){
                 if(data.AddInsertaRelColoniaLocalidadResult == -1){
+                    var log={
+                        'Modulo':'home.catalogos',
+                        'Submodulo':'home.catalogos.colonias',
+                        'Observaciones':'Se agrego relación  colonia-ciudad-estado ',
+                        'Comando':JSON.stringify(objInsertaRelColoniaLocalidad),
+                        'Clv_afectada':vm.Clv_Colonia
+                    };
+
+                    logFactory.AddMovSist(log).then(function(result){ console.log('add'); });
+
                     ngNotify.set('CORRECTO, se agregó la relación.', 'success');
                     GetRelLocColList();
                     GetCiudadList();
@@ -133,6 +154,16 @@ angular
                     };
                     CatalogosFactory.DeleteInsertaRelColoniaLocalidad(ObjRelLocCol).then(function(data){
                         if(data.DeleteInsertaRelColoniaLocalidadResult == -1){
+                            var log={
+                                'Modulo':'home.catalogos',
+                                'Submodulo':'home.catalogos.colonias',
+                                'Observaciones':'Se elininó relación  colonia-ciudad-estado ',
+                                'Comando':JSON.stringify(ObjRelLocCol),
+                                'Clv_afectada': ObjRelLocCol.Clv_Colonia
+                            };
+        
+                            logFactory.AddMovSist(log).then(function(result){ console.log('add'); });
+
                             ngNotify.set('CORRECTO, se eliminó la relación.', 'success');
                             GetRelLocColList();
                             GetCiudadList();
