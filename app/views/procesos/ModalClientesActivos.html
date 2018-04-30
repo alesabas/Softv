@@ -1,114 +1,86 @@
 <div class="modal-header">
     <button class="close" aria-label="Close" type="button" ng-click="ctrl.cancel()">×</button>
     <h4 class="modal-title">Busca Cliente</h4>
-  </div>
-  <div class="modal-body" style="padding-top:20px;">
-  
-    <div class="panel-group" id="accordion3">
-      <div class="card panel">
-        <div class="card-head card-head-xs collapsed " data-toggle="collapse" data-parent="#accordion3" data-target="#accordion3-1"
-          aria-expanded="false">
-          <header><i class="fa fa-search"></i> Buscar cliente</header>
-          <div class="tools">
-            <a class="btn btn-icon-toggle"><i class="fa fa-angle-down"></i></a>
-          </div>
-        </div>
-        <div id="accordion3-1" class="collapse buscarContrato" aria-expanded="false" style="height: 0px;">
-          <div class="panel-body">
-          <div class="row">
-            <div class="col-md-4">
-                <label class="col-md-3 control-label blod">Contrato:</label>
-                <div class="col-md-6" >
-                  <input class="form-control input-sm" name="contrato"  placeholder="EJEMPLO: 1-1" ng-model="ctrl.contrato"                    
-                    required>
-                       
-                </div>
-                <div class="col-md-3">
-                    <button class="btn btn-xs btn-info" ng-click="ctrl.buscar(0)"><i class="fa fa-search"></i>Buscar </button>
-                </div>
-              </div>
-
-              <div class="col-md-8">
-                <label class="col-md-3 control-label blod">Nombre:</label>
-                <div class="col-md-6" >
-                    <input class="form-control input-sm" name="nombre"  placeholder="Ingresa el nombre completo" ng-model="ctrl.nombre"                    
-                    required>
-                </div>
-                <div class="col-md-3">
-                    <button class="btn btn-xs btn-info" ng-click="ctrl.buscar(1)"><i class="fa fa-search"></i>Buscar </button>
-                </div>
-              </div>
-
-          </div>
-            
-           <div class="row">
-          <hr>
-
-            <div class="col-md-4">
-                <label class="col-md-4 control-label blod">Calle:</label>
-                <div class="col-md-8">
-                    <input class="form-control input-sm" name="calle"  placeholder=" " ng-model="ctrl.calle"                    
-                    required>
-                </div>               
-              </div>
-
-              <div class="col-md-3">
-                <label class="col-md-4 control-label blod">Numero:</label>
-                <div class="col-md-8">
-                    <input class="form-control input-sm" name="numero"  placeholder="#" ng-model="ctrl.numero"                    
-                    required>
-                </div>               
-              </div>              
-
-              <div class="col-md-3">
-                <label class="col-md-4 control-label blod">Ciudad:</label>
-                <div class="col-md-8">
-                    <input class="form-control input-sm" name="ciudad"  placeholder="" ng-model="ctrl.ciudad"                    
-                    required>
-                </div>               
-              </div>
-              <div class="col-md-2">
-                    <button class="btn btn-xs btn-info" ng-click="ctrl.buscar(2)"><i class="fa fa-search"></i>Buscar </button>
-                </div>
-
-           </div>
-             
-             <div class="row">
-                 <hr>
-                <div class="col-md-6">
-                    <label class="col-md-4 control-label blod">Colonia:</label>
-                    <div class="col-md-8">
-                        <input class="form-control input-sm" name="colonia"  ng-model="ctrl.colonia"                    
-                        required>
-                    </div>               
-                  </div>
-    
-                  <div class="col-md-6">
-                    <label class="col-md-3 control-label blod">SetTopBox:</label>
-                    <div class="col-md-6">
-                        <input class="form-control input-sm" name="stb"  placeholder="serie " ng-model="ctrl.stb"                    
-                        required>
-                    </div>
-                    <div class="col-md-3">
-                        <button class="btn btn-xs btn-info" ng-click="ctrl.buscar(6)"><i class="fa fa-search"></i>Buscar </button>
-                    </div>
-                  </div>
-
-             </div>
-              
-           
-             
-           
-               
-                 
-  
-          </div>
+</div>
+<div class="modal-body" style="padding-top:20px;">
+  <div class="panel-group" id="accordion3">
+    <div class="card panel">
+      <div class="card-head card-head-xs collapsed " data-toggle="collapse" data-parent="#accordion3" data-target="#accordion3-1"
+        aria-expanded="false">
+        <header><i class="fa fa-search"></i> Buscar cliente</header>
+        <div class="tools">
+          <a class="btn btn-icon-toggle"><i class="fa fa-angle-down"></i></a>
         </div>
       </div>
+      <div id="accordion3-1" class="collapse buscarContrato" aria-expanded="false" style="height: 0px;">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-4">
+              <label class="col-md-3 control-label blod"><b>Contrato:</b></label>
+              <div class="col-md-6" >
+                <input class="form-control input-sm" name="contrato"  placeholder="EJEMPLO: 1-1" ng-model="ctrl.contrato" required>       
+              </div>
+              <div class="col-md-3">
+                <button class="btn btn-xs btn-info" ng-click="ctrl.buscar(0)"><i class="fa fa-search"></i> Buscar</button>
+              </div>
+            </div>
+            <div class="col-md-offset-1 col-md-7">
+              <label class="col-md-2 control-label blod"><b>Nombre:</b></label>
+              <div class="col-md-7" >
+                <input class="form-control input-sm" name="nombre"  placeholder="Ingresa el nombre completo" ng-model="ctrl.nombre" required>
+              </div>
+              <div class="col-md-3 text-right">
+                <button class="btn btn-xs btn-info" ng-click="ctrl.buscar(1)"><i class="fa fa-search"></i> Buscar</button>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <hr>
+            <div class="col-md-10">
+              <label class="col-md-1 control-label blod"><b>Calle:</b></label>
+              <div class="col-md-3">
+                <input class="form-control input-sm" name="calle"  placeholder="" ng-model="ctrl.calle" required>
+              </div>               
+              <label class="col-md-1 control-label blod"><b>Numero:</b></label>
+              <div class="col-md-3">
+                <input class="form-control input-sm" name="numero"  placeholder="#" ng-model="ctrl.numero" required>
+              </div>               
+              <label class="col-md-1 control-label blod"><b>Ciudad:</b></label>
+              <div class="col-md-3">
+                <input class="form-control input-sm" name="ciudad"  placeholder="" ng-model="ctrl.ciudad" required>
+              </div>               
+            </div>
+            <div class="col-md-2 text-right">
+              <div class="col-md-12">
+                <button class="btn btn-xs btn-info" ng-click="ctrl.buscar(2)"><i class="fa fa-search"></i> Buscar</button>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <hr>
+            <div class="col-md-10">
+              <label class="col-md-2 control-label blod"><b>Colonia:</b></label>
+              <div class="col-md-4">
+                <input class="form-control input-sm" name="colonia"  ng-model="ctrl.colonia" required>
+              </div>
+              <label class="col-md-2 control-label blod"><b>SetTopBox:</b></label>
+              <div class="col-md-4">
+                  <input class="form-control input-sm" name="stb"  placeholder="serie " ng-model="ctrl.stb" required>
+              </div>
+            </div>
+            <div class="col-md-2 text-right">
+              <div class="col-md-12">
+                  <button class="btn btn-xs btn-info" ng-click="ctrl.buscar(6)"><i class="fa fa-search"></i>Buscar </button>
+              </div>
+            </div>
+          </div>
+        </div><!-- body -->
+      </div>
     </div>
-    <div class="row">
-  
-      <table class="table" style="    font-size: 10px;">
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table" style="font-size: 10px;">
         <thead>
           <tr>
             <th>Contrato</th>
@@ -116,18 +88,17 @@
             <th>Calle</th>
             <th>Numero</th>
             <th>Ciudad</th>
-            <th>Acciones</th>
+            <th>Seleccionar</th>
           </tr>
         </thead>
         <tbody>
-          
           <tr dir-paginate="x in ctrl.Clientes|itemsPerPage:8" >
             <td>{{ x.ContratoCom }}</td>
             <td>{{ x.Nombre }}</td>
             <td>{{ x.Calle }}</td>
             <td>{{ x.NUMERO }}</td>
             <td>{{ x.Cd_Mun }}</td>
-            <td><button title="Seleccionar cliente" class="btn btn-success btn-xs" ng-click="ctrl.ok(x)">Selecciona</button></td>
+            <td><button title="Seleccionar cliente" class="btn btn-warning btn-xs" ng-click="ctrl.ok(x)"><i class="fa fa-check"></i></button></td>
           </tr>
         </tbody>
       </table>
@@ -135,12 +106,10 @@
         <dir-pagination-controls max-size="7" direction-links="true" boundary-links="true" ng-if="ctrl.Clientes.length > 0">
         </dir-pagination-controls>
       </div>
-  
     </div>
-  
   </div>
-  </div>
-  <div class="modal-footer">
-    <button class="btn btn-default btn-sm" type="button" ng-click="ctrl.cancel()">Cerrar</button>
-  </div>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-default btn-sm" type="button" ng-click="ctrl.cancel()"><i class="glyphicon glyphicon-log-out"></i> Cerrar</button>
+</div>
   
