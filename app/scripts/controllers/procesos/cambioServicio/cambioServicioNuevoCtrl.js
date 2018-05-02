@@ -81,7 +81,7 @@ angular
     function DetalleContrato() {
       vm.serviciosCliente=[];
       vm.serviciosPosibles=[];
-      if ((vm.contratoSelected != null && vm.contratoSelected != undefined != vm.contratoSelected != '') &&
+      if ((vm.contratoSelected != null && vm.contratoSelected != undefined && vm.contratoSelected != '') &&
          (/^\d{1,9}-\d{1,9}$/.test(vm.contratoSelected))) {
         var Parametros = {
           'contrato': vm.contratoSelected.split('-')[0],

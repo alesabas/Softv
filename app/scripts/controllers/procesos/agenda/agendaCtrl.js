@@ -39,7 +39,7 @@ angular
         'SetUpBox': (Opc == 3 && vm.SetUpBox != undefined)? vm.SetUpBox : '',
         'FECHA': (Opc == 4 && vm.Dia != undefined)? ToDate(vm.Dia) : '',
         'Turno': (Opc == 5 && vm.Turno != undefined)? vm.Turno.TURNO : ''
-      }
+      };
       agendaFactory.GetDesplegarAgenda(ObjAgenda).then(function(data){
         vm.AgendaList = data.GetDesplegarAgendaResult;
         if(vm.AgendaList.length > 0){

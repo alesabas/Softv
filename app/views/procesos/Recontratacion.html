@@ -24,8 +24,9 @@
         <div class="row">
             <div class="col-md-offset-1 col-md-10">
                 <div class="card" style="padding: 10px;">
-                    <div class="col-md-12">
-                        <form name="FormBuscarContrato" angular-validator-submit="ctrl.SetCliente()" novalidate angular-validator autocomplete="off">
+                    
+                    <form name="FormBuscarContrato" angular-validator-submit="ctrl.SetCliente()" novalidate angular-validator autocomplete="off">
+                        <div class="col-md-12">
                             <div class="col-md-1">
                                 <b>Contrato:</b>
                             </div>
@@ -35,8 +36,15 @@
                             <div class="col-md-offset-1 col-md-1">
                                 <button type="button" class="btn ink-reaction btn-floating-action btn-sm btn-default" ng-click="$ctrl.OpenSearchCliente()" title="Buscar Cliente"><i class="fa fa-search"></i></button>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-offset-1 col-md-3 has-error" ng-if="FormBuscarContrato.InpContrato.$valid && $ctrl.CheckNull == true && ($ctrl.Cliente.ContratoCom == null || $ctrl.Cliente.ContratoCom == undefined || $ctrl.Cliente.ContratoCom == '')">
+                                <label class="control-label has-error validationMessage" ng-if="FormBuscarContrato.InpContrato.$valid && $ctrl.CheckNull == true && ($ctrl.Cliente.ContratoCom == null || $ctrl.Cliente.ContratoCom == undefined || $ctrl.Cliente.ContratoCom == '')">
+                                    Ingresa un Contrato.
+                                </label>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
