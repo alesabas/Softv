@@ -9,10 +9,6 @@ angular
       vm.Titulo = (OP === 1) ? 'Editar Poste - ' + CLAVE : 'Editar OLT - ' + CLAVE;
     }
 
-    function cancel() {
-      $uibModalInstance.dismiss('cancel');
-    }
-
     function AddPoste() {
       var Parametros = {
         'clave': CLAVE,
@@ -25,19 +21,28 @@ angular
           cancel();
         });
       } else {
-        areaTecnicaFactory.GetInsertaNueDescOlt(vm.ID, vm.descripcion).then(function (result) {
-          ngNotify.set('OLT agregada editada correctamente', 'success');
-          cancel();
-          $state.reload('home.areatecnica.olt');
-
+        areaTecnicaFactory.GetValidaNueDescOLT(vm.ID, vm.descripcion).then(function(data){
+          if(data.GetValidaNueDescOLTResult == 0){
+            areaTecnicaFactory.GetInsertaNueDescOlt(vm.ID, vm.descripcion).then(function (result) {
+              ngNotify.set('OLT agregada editada correctamente', 'success');
+              cancel();
+            });
+          }else{
+            ngNotify.set('Error, La Descripción que ingresó ya existe', 'warn');
+          }
         });
       }
-
     }
+
+    function cancel() {
+      $uibModalInstance.close();
+    }
+
     var vm = this;
     initData();
 
     vm.Icono = 'fa fa-pencil-square-o';
     vm.AddPoste = AddPoste;
     vm.cancel = cancel;
+
   });
