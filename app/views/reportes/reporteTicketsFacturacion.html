@@ -1,0 +1,90 @@
+<div class="card animated fadeIn" style="margin-top:20px;">
+
+  <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+    <header>
+      <strong style="font-weight:bold; border:none; margin-left:10px; font-size: 16px;">Reporte de cancelación y reimpresion de tickets</strong>
+      <br />
+      <small class="text-muted" style="font-size:14px; margin-left:10px;">
+        <i class="fa fa-home" aria-hidden="true"></i> Reportes</small>
+    </header>
+    <div class="tools">
+
+    </div>
+  </div>
+
+  <div class="card-body">
+
+    <div class="row">
+      <div class="col-md-4 ">
+        <div class="col-md-12">
+          <label class="text-primary">
+            <b>Selecciona Región</b>
+          </label>
+          <select class="form-control" ng-options="v.razon_social for v in $ctrl.regiones track by v.id_compania" ng-model="$ctrl.region">
+            <option value="">Selecciona</option>
+          </select>
+        </div>
+
+        <div class="col-md-12">
+            <br>
+          <div class="col-md-12">
+            <label class="text-primary">
+              <b>Tickets con</b>
+            </label>
+          </div>
+          <div class="col-md-6">
+            <label class="radio-inline radio-styled">
+              <input type="radio" name="checkordtiporep" ng-model="$ctrl.tiporeporte" value="C">
+              <span> Cancelación</span>
+            </label>
+          </div>
+          <div class="col-md-6">
+            <label class="radio-inline radio-styled">
+              <input type="radio" name="checkordtiporep" ng-model="$ctrl.tiporeporte" value="R">
+              <span>Reimpresión</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <br>
+          <div class="col-md-6">
+            <label class="text-primary">
+              <b>Fecha Inicial:</b>
+            </label>
+            <input type="date" class="form-control" ng-model="$ctrl.fechainicio">
+          </div>
+          <div class="col-md-6">
+            <label class="text-primary">
+              <b>Fecha Final:</b>
+            </label>
+            <input type="date" class="form-control" ng-model="$ctrl.fechafin">
+          </div>
+        </div>
+        <div class="col-md-12">
+          <br>
+          <label class="text-primary">Selecciona Usuario</label>
+          <select class="form-control" ng-options="v.Nombre for v in $ctrl.usuarios track by v.Clv_Usuario" ng-model="$ctrl.usuario">
+            <option value="">Selecciona</option>
+          </select>
+        </div>
+
+        <div class="col-md-10">
+          <br>
+          <button class="btn btn-warning btn-sm">Aceptar
+            <i class="fa fa-arrow-right" aria-hidden="true"></i>
+          </button>
+        </div>
+
+      </div>
+      <div class="col-md-8">
+        <div class="row">
+          <div style="padding-left:20px; padding-right:20px; padding-top:10px; height:500px;">
+            <iframe id="reporteID" style="width:100%; height:100%;"></iframe>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

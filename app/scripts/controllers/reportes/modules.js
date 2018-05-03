@@ -40,6 +40,54 @@ angular
 				controllerAs: '$ctrl'
 			},
 			{
+				name: 'home.reportes.entregasparciales',
+				data: {
+					pageTitle: 'SAC | REPORTES DE ENTREGAS PARCIALES',
+					permissions: {
+						only: ['cortesSelect'],
+						options: {
+							reload: false
+						}
+					}
+				},
+				url: '/reportes/entregasparciales',
+				templateUrl: 'views/reportes/reporteEntregaParcial.html',
+				controller: 'reporteEntregaParcialCtrl',
+				controllerAs: '$ctrl'
+			},
+			{
+				name: 'home.reportes.ticketsfacturacion',
+				data: {
+					pageTitle: 'SAC | REPORTES DE TICKETS',
+					permissions: {
+						only: ['cortesSelect'],
+						options: {
+							reload: false
+						}
+					}
+				},
+				url: '/reportes/ticketsfacturacion',
+				templateUrl: 'views/reportes/reporteTicketsFacturacion.html',
+				controller: 'reporteTicketsFacturacionCtrl',
+				controllerAs: '$ctrl'
+			},
+			{
+				name: 'home.reportes.relacioningreso',
+				data: {
+					pageTitle: 'SAC | RELACION DE INGRESOS POR CONCEPTO',
+					permissions: {
+						only: ['cortesSelect'],
+						options: {
+							reload: false
+						}
+					}
+				},
+				url: '/reportes/relacioningreso',
+				templateUrl: 'views/reportes/reporteRelacionIngresos.html',
+				controller: 'reporteRelacionIngresosCtrl',
+				controllerAs: '$ctrl'
+			},
+			{
 				name: 'home.reportes.especiales',
 				data: {
 					pageTitle: 'SAC | REPORTES DE CORTES ESPECIALES',

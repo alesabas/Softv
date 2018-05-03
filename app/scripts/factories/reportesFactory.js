@@ -35,6 +35,8 @@ angular
 			reportesSucursalFisResumen: '/ReporteFacFis/GetReporteCortesSucFacFisResumenList',
 			reportesCajeroPuntosResumen: '/ReporteCortesFac/GetReporteCortesCajeroConPuntosResumenList',
 			reportesPlazaResumen: '/ReportesCortesPlaza/GetReporteCortesPlazaResumenList',
+			GetMUESTRAUSUARIOSEntregaParciales: '/Reportes/GetMUESTRAUSUARIOSConEntregasParciales',
+			GetMuestraUsuariosQuecancelaronImprimieron :'/Reportes/GetMuestraUsuariosQuecancelaronImprimieron',
 			//sucursales especiales
 			muestraSucursalesEspeciales: '/SucursalesEspeciales/GetSucursalesEspecialesList',
 			getOptionsEspeciales: '/OpcionesCortesFacturas/GetOpcionesCortesEspecialesFacList',
@@ -174,6 +176,50 @@ angular
 
 			return deferred.promise;
 		};
+ 
+
+		factory.GetMUESTRAUSUARIOSEntregaParciales= function() {
+			var deferred = $q.defer();
+			var Parametros = {				
+				'OP':	0,
+				'ClvUsuario': $localStorage.currentUser.idUsuario	
+			};
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			$http.post(globalService.getUrl() + paths.GetMUESTRAUSUARIOSEntregaParciales, JSON.stringify(Parametros), config).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(response) {
+				deferred.reject(response.data);
+			});
+
+			return deferred.promise;
+		};
+
+		factory.GetMuestraUsuariosQuecancelaronImprimieron= function() {
+			var deferred = $q.defer();
+			var Parametros = {				
+				'bandera':	0,
+				'idcompania': 2	
+			};
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			$http.post(globalService.getUrl() + paths.GetMuestraUsuariosQuecancelaronImprimieron, JSON.stringify(Parametros), config).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(response) {
+				deferred.reject(response.data);
+			});
+
+			return deferred.promise;
+		};
+
+
+		
 
 
 		factory.GetReportePendientesAreaTecnica = function(obj) {
