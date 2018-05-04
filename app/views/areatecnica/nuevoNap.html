@@ -1,34 +1,163 @@
-<style type="text/css">
-  .table-scroll {
-    height: 150px;
-    overflow: auto;
-    margin-top: 20px;
-  }
-
-</style>
-
+<form name="FormNAP" angular-validator-submit="ctrl.SaveNAP()" novalidate angular-validator autocomplete="off">
+  <div class="modal-header">
+    <button class="close" type="button" aria-label="close" ng-click="ctrl.Close()">x</button>
+    <h4 class="modal-title"><i ng-class="ctrl.Icono"></i> {{ ctrl.Titulo }}</h4>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="col-md-12">
+          <h4 class="text-center text-primary">Clave Técnica</h4>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-12">
+          <label><b>Clave Técnica:</b> {{ ctrl.Clavetecnica }}</label>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-6">
+          <label><b>HUB:</b></label>
+        </div>
+        <div class="col-md-6">
+          <label><b>OLT:</b></label>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-6">
+          <select name="SlcHUB" class="form-control input-sm" ng-model="ctrl.HUB" ng-options="H.Descripcion for H in ctrl.HUBList track by H.Clv_Sector" validate-on="dirty" required required-message="'Obligatorio'">
+            <option value="">Selecciona</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <select name="SlcOLT" class="form-control input-sm" ng-model="ctrl.OLT" ng-options="O.Descripcion for O in ctrl.OLTList track by O.id" validate-on="dirty" required required-message="'Obligatorio'">
+            <option value="">Selecciona</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-12">
+          <br>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-4">
+          <label><b>NAP / Número de NAP:</b></label>
+        </div>
+        <div class="col-md-4">
+          <input type="number" name="InpIngenieria" class="form-control input-sm" ng-model="ctrl.Ingenieria" min="0" ng-pattern="/^\d{1,10}$/" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Invalido'">
+        </div>
+        <div class="col-md-4">
+          <input type="number" name="InpSalidas" class="form-control input-sm" ng-model="ctrl.Salidas" min="0" ng-pattern="/^\d{1,10}$/" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Invalido'">
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <fieldset ng-disabled="!ctrl.AfterSave">
+        <div class="col-md-12">
+          <div class="col-md-12">
+            <h4 class="text-center text-primary">Datos del NAP</h4>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="col-md-6">
+            <label><b>Colonia(s):</b></label>
+          </div>
+          <div class="col-md-6">
+            <label><b>Calle(s):</b></label>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="col-md-6">
+            <select name="SlcColonia" class="form-control input-sm" ng-model="ctrl.Colonia" ng-options="C.Nombre for C in ctrl.ColoniaList track by C.Clv_Ciudad" validate-on="dirty" validator="!ctrl.AfterSave" invalid-message="'Obligatorio'">
+            </select>
+          </div>
+          <div class="col-md-6">
+            <select name="SlcCalle" class="form-control input-sm" ng-model="ctrl.Calle" ng-options="CL.Nombre for CL in ctrl.CalleList track by CL.Clv_Ciudad" validate-on="dirty" validator="!ctrl.AfterSave" invalid-message="'Obligatorio'">
+            </select>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="col-md-12">
+            <br>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="col-md-3">
+            <label><b># de Casas:</b></label>
+          </div>
+          <div class="col-md-3">
+            <input type="number" name="InpNCasas" class="form-control input-sm" ng-model="ctrl.NCasas">
+          </div>
+          <div class="col-md-3">
+            <label><b># de Negocios:</b></label>
+          </div>
+          <div class="col-md-3">
+            <input type="number" name="InpNNegocios" class="form-control input-sm" ng-model="ctrl.NNegocios">
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="col-md-3">
+            <label><b># de Lotes:</b></label>
+          </div>
+          <div class="col-md-3">
+            <input type="number" name="InpNLotes" class="form-control input-sm" ng-model="ctrl.NLotes">
+          </div>
+          <div class="col-md-3">
+            <label><b># de Servicios:</b></label>
+          </div>
+          <div class="col-md-3">
+            <input type="number" name="InpNServicios" class="form-control input-sm" ng-model="ctrl.NServicios">
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="col-md-3">
+            <label><b>Frente al Número:</b></label>
+          </div>
+          <div class="col-md-3">
+            <input type="text" name="InpFrenteN" class="form-control input-sm" ng-model="ctrl.FrenteN">
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-primary btn-sm" ng-show="!ctrl.ShowSave" title="Guardar NAP"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
+    <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.Close()" title="Salir"><i class="glyphicon glyphicon-log-out"></i> {{ ctrl.BtnClose }}</button>
+  </div>
+</form>
+<!--
 <form name="FormTap" angular-validator-submit="$ctrl.SaveTap()" novalidate angular-validator autocomplete="off">
   <div class="card" style="margin-top:10px;">
     <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
       <header>
         <strong style="font-weight:bold; border:none; margin-left:10px;">{{$ctrl.Titulo}}</strong>
-        <br /><small class="text-muted" style="font-size:14px; margin-left:10px;"> <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">Nuevo Taps</a></small>
-
+        <br /><small class="text-muted" style="font-size:14px; margin-left:10px;"> <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">Catálogo de Naps </a></small>
       </header>
       <div class="tools">
-
-        <button title="Guardar encuesta" class="btn btn-primary btn-sm" type="submit" ng-disabled="$ctrl.blocksave"><i class="fa fa-save" aria-hidden="true"></i> Guardar</button>
-        <button title="Cancelar cambios" class="btn btn-default btn-sm" type="button" ui-sref="home.areatecnica.nap">Cancelar</button>
-
+        <button title="Guardar NAP" class="btn btn-primary btn-sm" type="submit" ng-disabled="$ctrl.blocksave"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
+        <button title="Cancelar cambios" class="btn btn-default btn-sm" type="button" ui-sref="home.areatecnica.nap"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
       </div>
     </div>
-
     <div class="card-body">
-   <fieldset ng-disabled="$ctrl.blockForm">
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="col-md-12">
+            <h4 class="text-center text-primary">Clave Técnica</h4>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="col-md-12">
+            <h4 class="text-center text-primary">Datos del Tap</h4>
+          </div>
+        </div>
+      </div>
+
       <div class="col-md-12">
         <div class="col-md-6">
           <h4 class="text-center text-primary">Clave técnica</h4>
-
           <div class="col-md-12">
             <b><small>Cluster:</small></b>
             <select class="form-control input-sm" name="cluster" 
@@ -39,26 +168,19 @@
           </div>
           <div class="col-md-12">
             <b><small>Sector:</small></b>
-
             <select class="form-control input-sm" name="sector" validate-on="dirty" ng-model="$ctrl.sector" ng-options="item as item.Descripcion for item in $ctrl.sectores track by item.Clv_Sector"
               ng-change="$ctrl.getcolonias()" ng-disabled="$ctrl.block" required-message="'Este campo es obligatorio.'" required>
                 <option value="">selecciona</option>
               </select>
-
           </div>
-
           <div class="col-md-12">
             <b><small>Poste:</small></b>
             <select class="form-control input-sm" name="poste" validate-on="dirty" ng-model="$ctrl.poste" ng-options="item as item.Descripcion for item in $ctrl.postes track by item.id"
               ng-disabled="$ctrl.block" required-message="'Este campo es obligatorio.'" required>
              <option value="">selecciona</option>
             </select>
-
           </div>
-
           <div class="col-md-12">
-
-
             <div class="col-md-6">
               <b><small>Tap:</small></b>
               <input type="text" name="tap" class="form-control input-sm" ng-model="$ctrl.tap" placeholder="tap">
@@ -68,11 +190,7 @@
               <input type="text" name="salida" class="form-control input-sm" ng-model="$ctrl.salida" placeholder="salida">
             </div>
           </div>
-
-
-
         </div>
-
         <div class="col-md-6">
           <h4 class="text-center text-primary">Datos del Tap</h4>
           <div class="col-md-12">
@@ -83,9 +201,7 @@
               ng-change="$ctrl.getcalles()" ng-disabled="$ctrl.block" >
                <option value="">selecciona Colonia</option>
             </select>
-
           </div>
-
           <div class="col-md-12">
             <b><small>Calle:</small></b>
             <select class="form-control input-sm" name="calle" validate-on="dirty" ng-model="$ctrl.calle" ng-options="v.Nombre for v in $ctrl.calles track by v.IdCalle"
@@ -93,7 +209,6 @@
             <option value="">selecciona Calle</option>
                 </select>
           </div>
-
           <div class="col-md-6">
             <b><small>No. Casas:</small></b>
             <input type="number" name="casas" class="form-control input-sm" 
@@ -105,35 +220,29 @@
             <input type="number" name="negocios" 
             validate-on="dirty" required-message="'Este campo es obligatorio.'" required
             class="form-control input-sm" ng-model="$ctrl.negocios" placeholder="# ">
-
           </div>
-
           <div class="col-md-6">
             <b><small>No. Lotes:</small></b>
             <input type="number" name="Lotes"
             validate-on="dirty" required-message="'Este campo es obligatorio.'" required
              class="form-control input-sm" ng-model="$ctrl.lotes" placeholder="# ">
-
           </div>
-
           <div class="col-md-6">
             <b><small>No. servicios:</small></b>
             <input type="number" name="servicios"
             validate-on="dirty" required-message="'Este campo es obligatorio.'" required
              class="form-control input-sm" ng-model="$ctrl.servicios" placeholder="# ">
-
           </div>
-
           <div class="col-md-6">
             <b><small>Frente al número:</small></b>
             <input type="text" name="frente" 
             validate-on="dirty" required-message="'Este campo es obligatorio.'" required
             class="form-control input-sm" ng-model="$ctrl.frente" placeholder="# ">
           </div>
-
         </div>
-
       </div>
-      </fieldset>
+
     </div>
+  </div>
 </form>
+-->

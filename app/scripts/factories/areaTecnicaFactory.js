@@ -16,13 +16,17 @@ angular
       GetConHub: '/AreaTecnica/GetConHub',
       GetNueHub: '/AreaTecnica/GetNueHub',
       GetMuestraColoniaHub: '/AreaTecnica/GetMuestraColoniaHub',
+      GetMuestraCalleHub: '/AreaTecnica/GetMuestraCalleHub',
       GetConRelHubColonia: '/AreaTecnica/GetConRelHubColonia',
       GetNueRelHubColonia: '/AreaTecnica/GetNueRelHubColonia',
       GetModHub: '/AreaTecnica/GetModHub',
       GetBorHub: '/AreaTecnica/GetBorHub',
       GetMuestraDescOlt: '/AreaTecnica/GetMuestraDescOlt',
       GetInsertaNueDescOlt: '/AreaTecnica/GetInsertaNueDescOlt',
-      GetCONSULTAnap:'/AreaTecnica/GetCONSULTAnap'
+      GetValidaNueDescOLT: '/AreaTecnica/GetValidaNueDescOLT',
+      GetCONSULTAnap:'/AreaTecnica/GetCONSULTAnap',
+      GetMUESTRAOlt: '/AreaTecnica/GetMUESTRAOlt',
+      GetINSERTAnap: '/AreaTecnica/GetINSERTAnap'
     };
     var factory = {};
     
@@ -183,7 +187,6 @@ angular
         'Clv_Colonia': Clv_Colonia,
         'Clv_Sector': Clv_Sector,
         'Op': Op,
-
       };
       $http.post(globalService.getUrl() + paths.GetMuestraColoniaHub, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
@@ -193,6 +196,17 @@ angular
       return deferred.promise;
     };
 
+    factory.GetMuestraCalleHub = function (ObjCalle) {
+      var deferred = $q.defer();
+      var config = {headers:{'Authorization': $localStorage.currentUser.token}};
+      var Parametros = ObjCalle;
+      $http.post(globalService.getUrl() + paths.GetMuestraCalleHub, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
 
     factory.GetNueHub = function (op, Clv_Txt, Descripcion) {
       var deferred = $q.defer();
@@ -202,10 +216,10 @@ angular
         }
       };
       var Parametros = {
+        'Clv_Sector': Clv_Sector,
         'op': op,
         'Clv_Txt': Clv_Txt,
         'Descripcion': Descripcion,
-
       };
       $http.post(globalService.getUrl() + paths.GetNueHub, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
@@ -228,6 +242,7 @@ angular
         'Descripcion': Descripcion,
         'Op': Op
       };
+      console.log(Parametros);
       $http.post(globalService.getUrl() + paths.GetConHub, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
@@ -473,8 +488,48 @@ angular
       return deferred.promise;
     };
 
+    factory.GetValidaNueDescOLT = function (Clave, Descripcion) {
+      var deferred = $q.defer();
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      var Parametros = {
+        'Clave': Clave,
+        'Descripcion': Descripcion
+      };
+      $http.post(globalService.getUrl() + paths.GetValidaNueDescOLT, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
 
+    factory.GetMUESTRAOlt = function (Id) {
+      var deferred = $q.defer();
+      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+      var Parametros = {'Id': Id};
+      $http.post(globalService.getUrl() + paths.GetMUESTRAOlt, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
 
+    factory.GetINSERTAnap = function (ObjNAP) {
+      var deferred = $q.defer();
+      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+      var Parametros = {'ObjNAP': ObjNAP};
+      $http.post(globalService.getUrl() + paths.GetINSERTAnap, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
 
     return factory;
   });
