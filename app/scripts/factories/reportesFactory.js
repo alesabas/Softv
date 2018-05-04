@@ -56,7 +56,57 @@ angular
 			GetReportePendientesAreaTecnica:'/Reportes/GetReportePendientesAreaTecnica',
 			GetReporteOrdenes:'/Reportes/GetReporteOrdenes',
 			GetReporteQuejas:'/Reportes/GetReporteQuejas',
-			GetReporteAtencion:'/Reportes/GetReporteAtencion'
+			GetReporteAtencion:'/Reportes/GetReporteAtencion',
+			GetReporteEntregasParciales:'/Reportes/GetReporteEntregasParciales',
+			GetReporteTickets:'/Reportes/GetReporteTickets'
+		};
+
+		factory.GetReporteTickets = function(op,fechaInicio,fechaFin,clv_usuario,idcompania,clvciudad) {
+			var deferred = $q.defer();
+			var user = $localStorage.currentUser.idUsuario;
+			var Parametros = {
+				op: op,
+				fechaInicio:fechaInicio,
+				fechaFin:fechaFin,
+				clv_usuario:clv_usuario,
+				idcompania:idcompania,
+				clvciudad:clvciudad
+			};
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			$http.post(globalService.getUrl() + paths.GetReporteTickets, JSON.stringify(Parametros), config).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(response) {
+				deferred.reject(response.data);
+			});
+
+			return deferred.promise;
+		};
+
+		factory.GetReporteEntregasParciales = function(fechaInicio,fechaFin,usuarios) {
+			var deferred = $q.defer();
+			var user = $localStorage.currentUser.idUsuario;
+			var Parametros = {
+				op: 0,
+				fechaInicio:fechaInicio,
+				fechaFin:fechaFin,
+				usuarios:usuarios
+			};
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			$http.post(globalService.getUrl() + paths.GetReporteEntregasParciales, JSON.stringify(Parametros), config).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(response) {
+				deferred.reject(response.data);
+			});
+
+			return deferred.promise;
 		};
 
 		factory.GetReporteAtencion = function(obj) {

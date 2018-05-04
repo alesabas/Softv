@@ -11,9 +11,9 @@
       </div>
     
       <div class="card-body">
-          <pageslide ps-open="$ctrl.rptpanel" ps-size="1000px" >
-              <iframe src="{{$ctrl.url}}" width="1000px;" height="800px;" ps-zindex="9999"></iframe>
-          </pageslide>           
+        <pageslide ps-open="$ctrl.rptpanel" ps-size="1000px" >
+            <iframe src="{{$ctrl.url}}" width="1000px;" height="800px;" ps-zindex="9999"></iframe>
+        </pageslide>          
           <div class="row">
             <div class="col-md-8 col-md-offset-2">
                <div class="col-md-12">
@@ -32,8 +32,8 @@
 					<multi-select options="$ctrl.cajerosObj"> </multi-select>
 					<br/>
 					<p class="text-right">
-						<button class="btn btn-default btn-sm" ng-click="$ctrl.cancelarPanel()">Cancelar</button>
-						<button class="btn btn-primary btn-sm" ng-click="$ctrl.okDistribuidores()">Aceptar <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+						
+						<button class="btn btn-primary btn-sm" ng-click="$ctrl.aceptar()">Aceptar <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
 					</p>
                 </div>
 
