@@ -22,7 +22,6 @@ angular
 
 		function BusquedaporContrato() {
 			if (!(/^\d{1,9}-\d{1,9}$/.test(vm.BUcontrato))) {
-				console.log(false);
 				ngNotify.set('El número de contrato está formado por 2 grupos de números con un guion intermedio p.e. (1234-1)', 'primary');
 			} else {
 				var obje = {};
@@ -32,6 +31,7 @@ angular
 				obje.op = 0;
 				atencionFactory.buscarCliente(obje).then(function (data) {
 					vm.Clientes = data.GetuspBuscaContratoSeparado2ListResult;
+					vm.BUcontrato = null;
 					if (vm.Clientes.length == 0) {
 						vm.sinRegistros = true;
 						vm.conRegistros = false;
@@ -53,6 +53,9 @@ angular
 			obje.op = 1;
 			atencionFactory.buscarCliente(obje).then(function (data) {
 				vm.Clientes = data.GetuspBuscaContratoSeparado2ListResult;
+				vm.BUnombre = null;
+				vm.BUapaterno = null;
+				vm.BUamaterno = null;
 				if (vm.Clientes.length == 0) {
 					vm.sinRegistros = true;
 					vm.conRegistros = false;
@@ -73,6 +76,8 @@ angular
 			obje.op = 2;
 			atencionFactory.buscarCliente(obje).then(function (data) {
 				vm.Clientes = data.GetuspBuscaContratoSeparado2ListResult;
+				vm.BUcalle = null;
+				vm.BUnumero = null;
 				if (vm.Clientes.length == 0) {
 					vm.sinRegistros = true;
 					vm.conRegistros = false;

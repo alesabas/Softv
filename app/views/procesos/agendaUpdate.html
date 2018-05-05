@@ -21,194 +21,210 @@
             <small class="text-muted" style="font-size:14px; margin-left:10px;"> <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">Editar Agenda</a></small>
         </header>
         <div class="tools">
-            <button type="submit" class="btn btn-primary btn-sm" title="Guardar Cambios" ng-show="!$ctrl.DisForm"> GUARDAR</button>
-            <button type="button" class="btn btn-danger btn-sm" ng-click="$ctrl.DeleteCita();" title="Eliminar Registro" ng-show="!$ctrl.DisForm"> ELIMINAR</button>
-            <button type="button" class="btn btn-default btn-sm" ui-sref="home.procesos.agenda" title="Cancelar"> CANCELAR</button>
+            <button type="submit" class="btn btn-primary btn-sm" title="Guardar Cambios" ng-show="!$ctrl.DisForm"><i class="glyphicon glyphicon-floppy-disk"></i> GUARDAR</button>
+            <button type="button" class="btn btn-danger btn-sm" ng-click="$ctrl.DeleteCita();" title="Eliminar Registro" ng-show="!$ctrl.DisForm"><i class="fa fa-trash"></i> ELIMINAR</button>
+            <button type="button" class="btn btn-default-bright btn-sm" ui-sref="home.procesos.agenda" title="Cancelar"><i class="glyphicon glyphicon-log-out"></i> CANCELAR</button>
         </div>
     </div>
-    <br>
     <div class="card-body">
-        <div class="col-md-12">
-            <div class="col-md-3">
-            <fieldset ng-disabled="$ctrl.DisForm">
-                <div class="col-md-12">
-                    <div class="col-md-12" style="font-size:14px;">
-                        <h4><i class="fa fa-book"></i> Datos de la Cita</h4>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="col-md-4 text-danger">
-                        <b>#Cita:</b>
-                    </div>
-                    <div class="col-md-8">
-                        {{ $ctrl.ClvCita }}
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="col-md-4">
-                        <b>Tecnico:</b>
-                    </div>
-                    <div class="col-md-8">
-                        <select name="SlcTecnico" class="form-control input-sm" ng-model="$ctrl.Tecnico" ng-options="T as T.tecnico for T in $ctrl.TecnicoList track by T.clv_tecnico" ng-change="$ctrl.OpenTecnicoTrabajo()">
-                            <option value="">Selecciona</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="col-md-4">
-                        <b>Fecha:</b>
-                    </div>
-                    <div class="col-md-8">
-                        <input type="date" name="InpFecha" class="form-control input-sm" ng-model="$ctrl.FechaCita" validator="$ctrl.ValidateFecha()" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, la fecha no puede ser menor a {{ $ctrl.HoyD + '/' + $ctrl.HoyM + '/' + $ctrl.HoyY }}'">
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="col-md-4">
-                        <b>Turno:</b>
-                    </div>
-                    <div class="col-md-8">
-                        <select name="SlcTurno" class="form-control input-sm" ng-model="$ctrl.Turno" ng-options="TR as TR.TURNO for TR in $ctrl.TurnoList track by TR.ID">
-                            <option value="" ng-disabled="true">Selecciona</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-offset-1 col-md-10">
+                <div class="col-md-6">
+                    <fieldset ng-disabled="$ctrl.DisForm">
                     <div class="col-md-12">
-                        <b>Comentarios:</b>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="col-md-12">
-                        <textarea name="TxaCometario" rows="3" class="form-control input-sm" ng-model="$ctrl.Comentario"></textarea>
-                    </div>
-                </div>
-            </fieldset>
-            </div>
-            <div class="col-md-3">
-                <div class="col-md-12">
-                    <div class="col-md-12" style="font-size:14px;">
-                        <h4><i class="fa fa-user"></i> Datos del Cliente</h4>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="col-md-4 text-danger">
-                        <b>#Contrato:</b>
-                    </div>
-                    <div class="col-md-8">
-                        {{ $ctrl.Contrato }}
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="col-md-12">
-                        <b>Nombre:</b> {{$ctrl.NombreCliente}}
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="col-md-12">
-                        <b>Direccion:</b> {{$ctrl.Calle}} #{{$ctrl.Numero}} Col.{{$ctrl.Colonia}} {{$ctrl.Ciudad}}
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="col-md-6">
-                        <label class="radio-inline radio-styled radio-warning">
-                            <input type="radio" name="atencion" ng-model="$ctrl.tipoAtencion" value="T" ng-disabled="true"><span><small>Solo Internet</small></span>
-                        </label>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="radio-inline radio-styled radio-warning">
-                            <input type="radio" name="atencion" ng-model="$ctrl.tipoAtencion" value="S" ng-disabled="true"><span><small>Es Hotel</small></span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="col-md-12">
-                    <div class="col-md-12 text-center" style="font-size:14px;">
-                        <h4><i class="md md-settings-remote"></i> Servicios Asignados</h4>
+                        <div class="col-md-12" style="font-size:14px;">
+                            <h4 class="text-primary"><i class="fa fa-book"></i> Datos de la Cita</h4>
+                        </div>
                     </div>
                     <div class="col-md-12">
-                        <treecontrol class="tree-light" tree-model="$ctrl.ServicioList" expanded-nodes="$ctrl.expandedNodes" on-selection="$ctrl.DetalleConcepto(node)"> 
-                            <span ng-switch="" on="node.Type">
-                                <span style="color:#2196f3" ng-switch-when="folder" class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
-                                <span style="color:#2196f3" ng-switch-when="pic" class="glyphicon glyphicon-picture" aria-hidden="true"></span>
-                                <span style="color:#2196f3" ng-switch-when="doc" class="glyphicon glyphicon-file" aria-hidden="true"></span>
-                                <span style="color:#2196f3" ng-switch-when="file" class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
-                                <span style="color:#2196f3" ng-switch-when="movie" class="glyphicon glyphicon-film" aria-hidden="true"></span>
-                                <span style="color:#2196f3" ng-switch-when="email" class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
-                                <span style="color:#2196f3" ng-switch-when="home" class="glyphicon glyphicon-home" aria-hidden="true"></span>
-                                <span style="color:#2196f3" ng-switch-when="trash" class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                            </span>
-                            <a class="text-info" style="font-size:11px" ng-if="node.Tipo == 'A'">{{node.Nombre}} ({{node.Detalle}})</a>
-                            <a class="text-info" style="font-size:11px" ng-if="node.status == 'C'">{{node.Nombre}} (Contratado)</a>
-                            <a class="text-info" style="font-size:11px" ng-if="node.status == 'I'">{{node.Nombre}} (Instalado)</a>
-                            <a class="text-info" style="font-size:11px" ng-if="node.status == 'D'">{{node.Nombre}} (Desconectado)</a>
-                            <a class="text-info" style="font-size:11px" ng-if="node.status == 'S'">{{node.Nombre}} (Suspendido)</a>
-                            <a class="text-info" style="font-size:11px" ng-if="node.status == 'T'">{{node.Nombre}} (Suspención Temporal)</a>
-                            <a class="text-info" style="font-size:11px" ng-if="node.status == 'F'">{{node.Nombre}} (Fuera de Area)</a>
-                            <a class="text-info" style="font-size:11px" ng-if="node.status == 'B'">{{node.Nombre}} (Baja)</a>
-                        </treecontrol>
+                        <div class="col-md-3 text-danger">
+                            <b>#Cita:</b>
+                        </div>
+                        <div class="col-md-9">
+                            {{ $ctrl.ClvCita }}
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-3">
+                            <b>Tecnico:</b>
+                        </div>
+                        <div class="col-md-9">
+                            <select name="SlcTecnico" class="form-control input-sm" ng-model="$ctrl.Tecnico" ng-options="T as T.tecnico for T in $ctrl.TecnicoList track by T.clv_tecnico" ng-change="$ctrl.OpenTecnicoTrabajo()">
+                                <option value="">Selecciona</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-3">
+                            <b>Fecha:</b>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="date" name="InpFecha" class="form-control input-sm" ng-model="$ctrl.FechaCita" validator="$ctrl.ValidateFecha()" validate-on="dirty" required required-message="'Obligatorio'" invalid-message="'Inválido, la fecha no puede ser menor a {{ $ctrl.HoyD + '/' + $ctrl.HoyM + '/' + $ctrl.HoyY }}'">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-3">
+                            <b>Turno:</b>
+                        </div>
+                        <div class="col-md-9">
+                            <select name="SlcTurno" class="form-control input-sm" ng-model="$ctrl.Turno" ng-options="TR as TR.TURNO for TR in $ctrl.TurnoList track by TR.ID">
+                                <option value="" ng-disabled="true">Selecciona</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-12">
+                            <b>Comentarios:</b>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-12">
+                            <textarea name="TxaCometario" rows="2" class="form-control input-sm" ng-model="$ctrl.Comentario"></textarea>
+                        </div>
+                    </div>
+                    </fieldset>
+                </div>
+                <div class="col-md-6">
+                    <div class="col-md-12">
+                        <div class="col-md-12" style="font-size:14px;">
+                            <h4 class="text-primary"><i class="fa fa-user"></i> Datos del Cliente</h4>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-3 text-danger">
+                            <b>#Contrato:</b>
+                        </div>
+                        <div class="col-md-9">
+                            {{ $ctrl.Contrato }}
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-3">
+                            <b>Nombre:</b>
+                        </div>
+                        <div class="col-md-9">
+                            {{$ctrl.NombreCliente}}
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-3">
+                            <b>Direccion:</b>
+                        </div>
+                        <div class="col-md-9">
+                            {{$ctrl.Calle}} #{{$ctrl.Numero}} Col.{{$ctrl.Colonia}} {{$ctrl.Ciudad}}
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <label class="radio-inline radio-styled radio-warning">
+                                <input type="radio" name="atencion" ng-model="$ctrl.tipoAtencion" value="T" ng-disabled="true"><span><small>Solo Internet</small></span>
+                            </label>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="radio-inline radio-styled radio-warning">
+                                <input type="radio" name="atencion" ng-model="$ctrl.tipoAtencion" value="S" ng-disabled="true"><span><small>Es Hotel</small></span>
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3" ng-show="$ctrl.ShowOrden">
+            <div class="col-md-offset-1 col-md-10">
                 <div class="col-md-12">
-                    <div class="col-md-12" style="font-size:14px;">
-                        <h4><i class="md md-receipt"></i> Datos de la Orden</h4>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="col-md-4 text-danger">
-                        <b>#Orden:</b>
-                    </div>
-                    <div class="col-md-8">
-                        {{ $ctrl.ClvOrden }}
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="col-md-12" style="font-size:14px;">
-                        <b>Detalle:</b>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="col-md-12">
-                        <ul>
-                            <li ng-repeat="DS in $ctrl.DetalleServicio">{{ DS.Descripcion }}</li>
-                        </ul>
-                    </div>
+                    <br>
                 </div>
             </div>
-            <div class="col-md-3" ng-show="$ctrl.ShowQueja">
-                <div class="col-md-12">
-                    <div class="col-md-12" style="font-size:14px;">
-                        <h4><i class="md md-receipt"></i> Datos de la Queja</h4>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="col-md-4 text-danger">
-                        <b>#Reporte:</b>
-                    </div>
-                    <div class="col-md-8">
-                        {{ $ctrl.ClvReporte }}
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="col-md-12" style="font-size:14px;">
-                        <b>Problema:</b>
-                    </div>
-                </div>
-                <div class="col-md-12">
+            <div class="col-md-offset-1 col-md-10">
+                <div class="col-md-6">
                     <div class="col-md-12">
-                        <textarea name="TxaProblemaReporte" rows="3" class="form-control input-sm" ng-model="$ctrl.ProblemaReporte" ng-disabled="true"></textarea>
+                        <div class="col-md-12" style="font-size:14px;">
+                            <h4 class="text-primary"><i class="md md-settings-remote"></i> Servicios Asignados</h4>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="col-md-12" style="font-size:14px;">
-                        <b>Observaciones:</b>
-                    </div>
-                </div>
-                <div class="col-md-12">
                     <div class="col-md-12">
-                        <textarea name="TxaObservacionesReporte" rows="4" class="form-control input-sm" ng-model="$ctrl.ObservacionesReporte" ng-disabled="true"></textarea>
+                        <div class="col-md-12">
+                            <treecontrol class="tree-light" tree-model="$ctrl.ServicioList" expanded-nodes="$ctrl.expandedNodes" on-selection="$ctrl.DetalleConcepto(node)"> 
+                                <span ng-switch="" on="node.Type">
+                                    <span style="color:#2196f3" ng-switch-when="folder" class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
+                                    <span style="color:#2196f3" ng-switch-when="pic" class="glyphicon glyphicon-picture" aria-hidden="true"></span>
+                                    <span style="color:#2196f3" ng-switch-when="doc" class="glyphicon glyphicon-file" aria-hidden="true"></span>
+                                    <span style="color:#2196f3" ng-switch-when="file" class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+                                    <span style="color:#2196f3" ng-switch-when="movie" class="glyphicon glyphicon-film" aria-hidden="true"></span>
+                                    <span style="color:#2196f3" ng-switch-when="email" class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+                                    <span style="color:#2196f3" ng-switch-when="home" class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                                    <span style="color:#2196f3" ng-switch-when="trash" class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                </span>
+                                <a class="text-info" style="font-size:11px" ng-if="node.Tipo == 'A'">{{node.Nombre}} ({{node.Detalle}})</a>
+                                <a class="text-info" style="font-size:11px" ng-if="node.status == 'C'">{{node.Nombre}} (Contratado)</a>
+                                <a class="text-info" style="font-size:11px" ng-if="node.status == 'I'">{{node.Nombre}} (Instalado)</a>
+                                <a class="text-info" style="font-size:11px" ng-if="node.status == 'D'">{{node.Nombre}} (Desconectado)</a>
+                                <a class="text-info" style="font-size:11px" ng-if="node.status == 'S'">{{node.Nombre}} (Suspendido)</a>
+                                <a class="text-info" style="font-size:11px" ng-if="node.status == 'T'">{{node.Nombre}} (Suspención Temporal)</a>
+                                <a class="text-info" style="font-size:11px" ng-if="node.status == 'F'">{{node.Nombre}} (Fuera de Area)</a>
+                                <a class="text-info" style="font-size:11px" ng-if="node.status == 'B'">{{node.Nombre}} (Baja)</a>
+                            </treecontrol>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6" ng-show="$ctrl.ShowOrden">
+                    <div class="col-md-12">
+                        <div class="col-md-12" style="font-size:14px;">
+                            <h4 class="text-primary"><i class="md md-receipt"></i> Datos de la Orden</h4>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-3 text-danger">
+                            <b>#Orden:</b>
+                        </div>
+                        <div class="col-md-9">
+                            {{ $ctrl.ClvOrden }}
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-12" style="font-size:14px;">
+                            <b>Detalle:</b>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-12">
+                            <ul>
+                                <li ng-repeat="DS in $ctrl.DetalleServicio">{{ DS.Descripcion }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6" ng-show="$ctrl.ShowQueja">
+                    <div class="col-md-12">
+                        <div class="col-md-12" style="font-size:14px;">
+                            <h4 class="text-primary"><i class="md md-receipt"></i> Datos de la Queja</h4>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-3 text-danger">
+                            <b>#Reporte:</b>
+                        </div>
+                        <div class="col-md-9">
+                            {{ $ctrl.ClvReporte }}
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-12" style="font-size:14px;">
+                            <b>Problema:</b>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-12">
+                            <textarea name="TxaProblemaReporte" rows="2" class="form-control input-sm" ng-model="$ctrl.ProblemaReporte" ng-disabled="true"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-12" style="font-size:14px;">
+                            <b>Observaciones:</b>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-12">
+                            <textarea name="TxaObservacionesReporte" rows="2" class="form-control input-sm" ng-model="$ctrl.ObservacionesReporte" ng-disabled="true"></textarea>
+                        </div>
                     </div>
                 </div>
             </div>

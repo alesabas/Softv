@@ -26,10 +26,16 @@ angular
         }
 
         function SetCliente(){
+            if(vm.Cliente != undefined){
             if (event.keyCode === 13) {
                 event.preventDefault();
                 GetCliente(1, 0, vm.Cliente.ContratoCom);
             }
+            }else{
+                vm.CheckNull = true;
+            }
+
+            vm.CheckNull = ((vm.Cliente.ContratoCom != null && vm.Cliente.ContratoCom != undefined && vm.Cliente.ContratoCom != '') &&(/^\d{1,9}-\d{1,9}$/.test(vm.Cliente.ContratoCom)))? true:vm.CheckNull;
         }
 
         function GetCliente(Op, IdContrato, ContratoCompuesto){
@@ -41,6 +47,7 @@ angular
             }
             RecontratacionFactory.GetInfoContratoEnBaja(ObjCliente).then(function(data){
                 var ClienteResult = data.GetInfoContratoEnBajaResult;
+                vm.CheckNull = false;
                 if(ClienteResult.CONTRATO != null){
                     vm.Cliente = ClienteResult;
                     vm.IdContrato = vm.Cliente.CONTRATO;
@@ -55,6 +62,7 @@ angular
                 }else{
                     ngNotify.set('ERROR, no se encontró algún resultado con este contrato o aun no le han instalado servicios.', 'warn');
                     ResetMod();
+                    vm.CheckNull = true;
                 }
             });
         }
@@ -180,6 +188,7 @@ angular
         vm.ServicioList = [];
         vm.IdRecon = 0;
         vm.ShowServicios = false;
+        vm.CheckNull = false;
         vm.OpenSearchCliente = OpenSearchCliente;
         vm.SetCliente = SetCliente;
         vm.OpenAddServicioRecontratacion = OpenAddServicioRecontratacion;

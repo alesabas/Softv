@@ -29,10 +29,10 @@
 
     </header>
     <div class="tools">
-      <button title="Guardar atención telefónica" class="btn btn-primary btn-sm" ng-show="$ctrl.MostrarGuardar" ng-click="$ctrl.GuardarLlamada()">Guardar</button>
-      <button title="Guardar cambios" class="btn btn-primary btn-sm" ng-disabled="$ctrl.clv_queja >0" ng-show="$ctrl.MostrarEditar" ng-click="$ctrl.EditaLlamada()">Editar llamada</button>
-      <button title="Cancelar cambios" type="button" ui-sref="home.procesos.atencion" class="btn btn-default-bright btn-sm" name="button" ng-show="$ctrl.ShowDetalle">Cancelar</button>
-      <button title="Regresar a atenciones telefónicas" type="button" ui-sref="home.procesos.atencion" class="btn btn-default-bright btn-sm" name="button" ng-show="$ctrl.ShowDetalleOnly">Salir</button>
+      <button title="Guardar atención telefónica" class="btn btn-primary btn-sm" ng-show="$ctrl.MostrarGuardar" ng-click="$ctrl.GuardarLlamada()"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
+      <button title="Guardar cambios" class="btn btn-primary btn-sm" ng-disabled="$ctrl.clv_queja >0" ng-show="$ctrl.MostrarEditar" ng-click="$ctrl.EditaLlamada()"><i class="glyphicon glyphicon-floppy-disk"></i> Editar llamada</button>
+      <button title="Cancelar cambios" type="button" ui-sref="home.procesos.atencion" class="btn btn-default-bright btn-sm" name="button" ng-show="$ctrl.ShowDetalle"><i class="glyphicon glyphicon-log-out"></i> Cancelar</button>
+      <button title="Regresar a atenciones telefónicas" type="button" ui-sref="home.procesos.atencion" class="btn btn-default-bright btn-sm" name="button" ng-show="$ctrl.ShowDetalleOnly"><i class="glyphicon glyphicon-log-out"></i> Salir</button>
     </div>
   </div>
   <div class="card-body">
@@ -63,8 +63,6 @@
             </div>
           </div>
         </div>
-
-
       </div>
       <div class="col-md-3">
         <div class="form-group">

@@ -33,33 +33,29 @@ angular
         vm.serviciosCliente=[];
         vm.serviciosPosibles=[];
         vm.datosCliente = selectedItem;
+        vm.CheckNull = false;
         ServiciosActuales();
       }, function () {});
     }
 
 
     function ServiciosActuales() {
-
       var Parametros = {
         'contrato': vm.datosCliente.CONTRATO,
         'clv_servicio': vm.selectedServicio.Clv_TipSerPrincipal
       };
       procesoFactory.GetServiciosClienteActuales(Parametros).then(function (result) {
-        console.log(result.GetServiciosClienteActualesResult);
         if (result.GetServiciosClienteActualesResult.ServiciosCliente.length > 0) {
           vm.serviciosCliente = result.GetServiciosClienteActualesResult.ServiciosCliente;
           vm.muestraServCliente == true;
-
         } else {
           ngNotify.set(result.GetServiciosClienteActualesResult.mensaje, 'warn');
           vm.muestraServCliente == false;
         }
-
       });
     }
 
     function verOpciones(item) {
-      console.log(item);
       vm.servicioActual=item;
       vm.muestraServPosibles = true;
       var Parametros = {
@@ -72,7 +68,6 @@ angular
         'Clv_Session': vm.clvsession
       };
       procesoFactory.GetServiciosClientePosibles(Parametros).then(function (result) {
-        console.log(result);
         vm.serviciosPosibles = result.GetServiciosClientePosiblesResult.ServiciosCliente;
       });
     }
@@ -86,7 +81,8 @@ angular
     function DetalleContrato() {
       vm.serviciosCliente=[];
       vm.serviciosPosibles=[];
-      if (vm.contratoSelected) {
+      if ((vm.contratoSelected != null && vm.contratoSelected != undefined && vm.contratoSelected != '') &&
+         (/^\d{1,9}-\d{1,9}$/.test(vm.contratoSelected))) {
         var Parametros = {
           'contrato': vm.contratoSelected.split('-')[0],
           'nombre': '',
@@ -103,16 +99,15 @@ angular
         procesoFactory.GetuspDameClientesActivos(Parametros).then(function (result) {
           if (result.GetuspDameClientesActivosResult.length > 0) {
             vm.datosCliente = result.GetuspDameClientesActivosResult[0];
-           
             ServiciosActuales(vm.datosCliente,'datos cliente');
+            vm.CheckNull = true;
           } else {
-            ngNotify.set('ingresa un contrato válido', 'danger');
+            ngNotify.set('Error, no se encontró algún resultado con este contrato', 'danger');
           }
         });
       } else {
-        ngNotify.set('ingresa un contrato válido', 'danger');
+        vm.CheckNull = true;
       }
-
     }
 
     function EnterContrato(event) {
@@ -122,7 +117,6 @@ angular
           return;
         }
         DetalleContrato();
-
       }
     }
 
@@ -137,17 +131,15 @@ angular
         'Clv_Session':  vm.clvsession,
         'Id':item.id
       };
-      console.log(Parametros);
-    procesoFactory.GetCambiaServCliente(Parametros).then(function(result){
-      $state.go('home.procesos.cambioservicio');
-     
+      procesoFactory.GetCambiaServCliente(Parametros).then(function(result){
+        $state.go('home.procesos.cambioservicio');
         ngNotify.set('El cambio de servicio se guardo correctamemnte','success');
       });
-     
     }
 
     var vm = this;
     initData();
+    vm.CheckNull = false;
     vm.servicioActual={};
     vm.ModalClientes = ModalClientes;
     vm.verOpciones = verOpciones;
@@ -156,4 +148,5 @@ angular
     vm.CambioServicio = CambioServicio;
     vm.EnterContrato = EnterContrato;
     vm.CambiarServicio=CambiarServicio;
+    
   });

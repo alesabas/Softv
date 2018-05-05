@@ -30,7 +30,6 @@
     font-weight: bold;
     color: #252d46;
   }
-
 </style>
 
 <div class="card" style="margin-top:20px; padding-bottom:30px;">
@@ -43,73 +42,76 @@
           <i class="fa fa-home" aria-hidden="true"></i> Inicio</a>>
         <a href="#" class="paginaActiva">procesos</a>
       </small>
-
     </header>
     <div class="tools">
-    <button title="Regresar " type="button" ui-sref="home.procesos.cambioservicio" class="btn btn-default-bright btn-sm" name="button">Salir</button>
+    <button title="Regresar " type="button" ui-sref="home.procesos.cambioservicio" class="btn btn-default-bright btn-sm" name="button"><i class="glyphicon glyphicon-log-out"></i> Salir</button>
   </div>
   </div>
   <div class="card-body">
-    <div class="card col-md-12 " style="padding: 5px;     background-color: #f9f9f9;">
-
-
-      <div class="col-md-4">
-        <div class="form-group">
-          <div class="input-group">
-            <div class="input-group-content">
-              <label for="Firstname5" class="col-sm-4 ">Contrato</label>
-              <div class="col-sm-8">
-                <input type="text" ng-model="$ctrl.contratoSelected" class="form-control input-sm" placeholder="Ingresa contrato" ng-keyup="$ctrl.EnterContrato($event)">
-
+    <div class="card col-md-12" style="padding: 5px; background-color: #f9f9f9;">
+      <div class="col-md-offset-1 col-md-4">
+        <div class="col-md-12">
+          <div class="col-md-3">
+            <b>Servicio: </b>
+          </div>
+          <div class="col-md-9">
+            <select class="form-control input-sm" ng-model="$ctrl.selectedServicio" ng-change="$ctrl.CambioServicio()" ng-options="v.Concepto for v in $ctrl.servicios track by v.Clv_TipSerPrincipal">
+            </select>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <br>
+        </div>
+        <div class="col-md-12">
+          <div class="col-md-3">
+            <b>Contrato:</b>
+          </div>
+          <div class="col-md-9">
+              <div class="input-group">
+                <form name="FormBuscar" angular-validator-submit="ctrl.SaveEstado()" novalidate angular-validator autocomplete="off">
+                  <input type="text" name="InpcontratoSelected" ng-model="$ctrl.contratoSelected" class="form-control input-sm" placeholder="Ingresa contrato" ng-pattern="/^\d{1,9}-\d{1,9}$/" validate-on="dirty" ng-keyup="$ctrl.EnterContrato($event)" invalid-message="'Ej. (123-456).'">
+                </form>
+                <div class="input-group-btn">
+                  <button type="button" title="Buscar cliente" ng-click="$ctrl.ModalClientes()" class="btn ink-reaction btn-floating-action btn-sm btn-default"><i class="fa fa-search"></i></button>
+                </div>
               </div>
-            </div>
-            <div class="input-group-btn">
-              <button title="Buscar cliente" ng-click="$ctrl.ModalClientes()" class="btn ink-reaction btn-sm btn-default">Buscar cliente ...</button>
-            </div>
           </div>
         </div>
-
-        <div class="form-group">
-          <label for="Firstname5" class="col-sm-4">Servicio</label>
-          <div class="col-sm-8">
-            <select class="form-control input-sm" ng-model="$ctrl.selectedServicio" ng-change="$ctrl.CambioServicio()"
-             ng-options="v.Concepto for v in $ctrl.servicios track by v.Clv_TipSerPrincipal"></select>
+        <div class="col-md-12">
+          <div class="col-md-offset-3 col-md-9 has-error" ng-if="FormBuscar.InpcontratoSelected.$valid && $ctrl.CheckNull == true && ($ctrl.contratoSelected == null || $ctrl.contratoSelected == undefined || $ctrl.contratoSelected == '')">
+              <label class="control-label has-error validationMessage" ng-if="FormBuscar.InpcontratoSelected.$valid && $ctrl.CheckNull == true && ($ctrl.contratoSelected == null || $ctrl.contratoSelected == undefined || $ctrl.contratoSelected == '')">
+                  Ingresa un Contrato.
+              </label>
           </div>
         </div>
       </div>
-      <div class="col-md-3">
-        <label>
-          <b>Contrato: </b>{{$ctrl.datosCliente.ContratoCom}} </label>
-        <br>
-        <label>
-          <b>Nombre:</b> {{$ctrl.datosCliente.Nombre}} </label>
-        <br>
-        <label>
-          <b>Calle y número:</b> {{$ctrl.datosCliente.Calle}} #{{$ctrl.datosCliente.NUMERO}} </label>
-        <br>
-      
+      <div class="col-md-6">
+        <div class="col-md-6">
+          <div class="col-md-12">
+            <b>Contrato: </b>{{$ctrl.datosCliente.ContratoCom}}
+          </div>
+          <div class="col-md-12">
+            <b>Nombre:</b> {{$ctrl.datosCliente.Nombre}}
+          </div>
+          <div class="col-md-12">
+            <b>Calle y número:</b> {{$ctrl.datosCliente.Calle}} #{{$ctrl.datosCliente.NUMERO}}
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="col-md-12">
+            <b>Colonia:</b> {{$ctrl.datosCliente.Col}}
+          </div>
+          <div class="col-md-12">
+            <b>Ciudad:</b> {{$ctrl.datosCliente.Cd_Mun}}
+          </div>
+        </div>
       </div>
-      <div class="col-md-3">
-        <label>
-          <b>Colonia:</b> {{$ctrl.datosCliente.Col}} </label>
-        <br>
-        <label>
-          <b>Ciudad:</b> {{$ctrl.datosCliente.Cd_Mun}} </label>
-         
-     
-      </div>
-    
     </div>
 
-
-
     <div class="col-md-12">
-
       <div class="col-md-12"  ng-show="$ctrl.muestraServCliente">
-        <h4>
-          <b>Servicios actuales del cliente</b>
-        </h4>
-        <table class="table" style="font-size: 14px; color:#0c0c0c;">
+        <h4><b>Servicios actuales del cliente</b></h4>
+        <table class="table" style="font-size: 11px; color:#0c0c0c;">
           <thead>
             <tr>
               <td>Servicio</td>
@@ -123,7 +125,7 @@
           </thead>
           <tbody>
             <tr ng-repeat="x in $ctrl.serviciosCliente">
-              <td class="text-primary"><b><h4>{{x.servicio}}</h4></b></td>
+              <td class="text-primary"><b>{{x.servicio}}</b></td>
               <td>{{x.aparato}}</td>
               <td>{{x.fechaUltimoPago}}</td>
               <td>{{x.mensualidad |currency}}</td>
@@ -160,13 +162,7 @@
             </tr>
           </tbody>
         </table>
-
       </div>
     </div>
   </div>
 </div>
-</div>
-</div>
-<!--end cardbody-->
-</div>
-<!--end card-->

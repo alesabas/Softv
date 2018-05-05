@@ -19,17 +19,15 @@
     </header>
     <div class="tools">
 			<div class="btn-group">
-				<a class="btn btn-primary btn-sm" ui-sref="home.procesos.cambioservicionuevo" title="Crear una nuevo cambio de servicio"> nuevo proceso</a>
+				<a class="btn btn-primary btn-sm" ui-sref="home.procesos.cambioservicionuevo" title="Crear una nuevo cambio de servicio"><i class="fa fa-plus"></i> nuevo proceso</a>
 			</div>
 		</div>
   </div>
   <div class="card-body">
     <div class="row">
-
       <div class="col-md-12">
-
         <div class="col-md-4">
-          <label>Región</label>
+          <label><b>Región:</b></label>
           <select id="idplaza" 
           ng-change="$ctrl.filtros(4)" 
           class="form-control input-sm" 
@@ -39,19 +37,14 @@
           <option value="">Selecciona</option>
         </select>
         </div>
-       
         <div class="col-md-2">
-          <label>Buscar Contrato</label>
+          <label><b>Buscar Contrato:</b></label>
           <input type="text" name="InpSearchAparato2" placeholder="Ingresa contrato" class="form-control input-sm" ng-model="$ctrl.contrato">
         </div>          
-
       </div>
-
     </div>
   </div>
-
   <div class="col-md-12">
-
     <table class="table">
       <thead>
         <tr>
@@ -67,7 +60,6 @@
         </tr>
       </thead>
       <tbody>
-
         <tr dir-paginate="x in $ctrl.cambios|filter:$ctrl.contrato|itemsPerPage:7">
           <td>{{x.NumContrato}}</td>
           <td>{{x.Nombre}}</td>
@@ -90,7 +82,6 @@
       </dir-pagination-controls>
     </div>
     <br>
-
   </div>
 </div>
 </div>

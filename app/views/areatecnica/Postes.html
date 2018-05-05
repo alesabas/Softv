@@ -4,7 +4,6 @@
     overflow: auto;
     overflow-x: hidden;
   }
-
 </style>
 <div class="card animated fadeIn" style="margin-top:20px;">
   <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
@@ -12,8 +11,8 @@
       <strong style="font-weight:bold; border:none; margin-left:10px;">{{$ctrl.titulo}}</strong>
       <br>
       <small class="text-muted" style="font-size:14px; margin-left:10px;">
-                    <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a> > <a href="#" class="paginaActiva">Area técnica</a>
-                </small>
+        <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a> > <a href="#" class="paginaActiva">Area técnica</a>
+      </small>
     </header>
     <div class="tools">
     </div>
@@ -21,57 +20,50 @@
   <div class="card-body">
     <div class="col-md-8 col-md-offset-2">
       <div class="col-md-12">
-        <div class="col-md-2 col-md-offset-2" style="text-align:right">
-          <small> <b>Descripcion:</b> </small>
-        </div>
-        <div class="col-md-3" style="text-align:right">
-          <input type="text" name="InpDescripcion" class="form-control input-sm" ng-model="$ctrl.descripcion" placeholder="Descripcion">
-        </div>
-        <div class="col-md-2" style="text-align:right">
-          <button type="button" class="btn btn-primary btn-sm" ng-click="$ctrl.Add()" title="Nuevo Poste "><i class="fa fa-plus"></i> AGREGAR</button>
-        </div>
-        <br>
-        <br>
-
+        <form name="FormOlt" angular-validator-submit="$ctrl.Add()" novalidate angular-validator autocomplete="off">
+          <div class="col-md-2 col-md-offset-2" style="text-align:right">
+            <label><small><b>Descripción:</b></small></label>
+          </div>
+          <div class="col-md-3">
+            <input type="text" name="InpDescripcion" class="form-control input-sm" ng-model="$ctrl.descripcion" placeholder="Descripción" validate-on="dirty" required required-message="'Obligatorio'">
+          </div>
+          <div class="col-md-2" style="text-align:right">
+            <button type="submit" class="btn btn-primary btn-sm" title="Nuevo Poste "><i class="fa fa-plus"></i> AGREGAR</button>
+          </div>
+        </form>
       </div>
-
+      <div class="col-md-12">
+        <div class="col-md-12">
+          <br>
+          <br>
+        </div>
+      </div>
       <div class="col-md-12">
         <table class="table">
           <thead>
             <tr>
               <th width="10%" style="text-align:center"><b>Clave</b></th>
-              <th width="20%" style="text-align:center"><b>Descripcion</b></th>
+              <th width="20%" style="text-align:center"><b>Descripción</b></th>
               <th width="20%" colspan="1" style="text-align:center"><b>Acciones</b></th>
             </tr>
           </thead>
           <tbody>
-
             <tr dir-paginate="X in $ctrl.postes|itemsPerPage:5">
               <td style="text-align:center">{{ X.id}}</td>
               <td style="text-align:center">{{ X.Descripcion }}</td>
               <td style="text-align:center">
                 <button type="button" class="btn btn-warning btn-xs" ng-click="$ctrl.Update(X.id,X.Descripcion )" title="Editar Poste "><i class="fa fa-pencil-square-o"></i> EDITAR</button>
               </td>
-
             </tr>
-
           </tbody>
         </table>
-
+        <br>
         <div style="margin-top:-40px;">
           <dir-pagination-controls max-size="7" direction-links="true" boundary-links="true">
           </dir-pagination-controls>
         </div>
-
       </div>
-
     </div>
-
-
-
-
   </div>
-  <br>
-
 </div>
 </div>

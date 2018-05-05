@@ -88,6 +88,7 @@ angular
           };
           usuarioFactory.GetNueRelUsuarioGrupoVentas(ObjGrupoVentaRel).then(function(data){
             ngNotify.set('El usuario se ha guardado correctamente ,ahora puedes asignar el acesso a distribuidores/plazas','success');
+            $state.go('home.configuracion.usuarios');
           });
         });
       });

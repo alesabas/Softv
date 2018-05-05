@@ -19,78 +19,83 @@ angular
           vm.FechaCitaDB = toDateD(Cita.Fecha);
           vm.Clv_Tecnico = Cita.Clv_Tecnico;
           vm.QuejaOrden = Cita.QuejaOrden;
-          if(vm.ClvCita != null && ContratoReal == vm.IdContrato){
-            vm.Contrato = $stateParams.cliente;
-            var ObjCliente = {
-              'CONTRATO': vm.IdContrato,
-              'NOMBRE': '',
-              'CALLE': '',
-              'NUMERO': '',
-              'CIUDAD': '',
-              'Telefono': '',
-              'OP': 0
-            };
-            agendaFactory.GetBUSCLIPORCONTRATO2(ObjCliente).then(function(data){
-              var DatosCliente =  data.GetBUSCLIPORCONTRATO2Result;
-              vm.NombreCliente = DatosCliente.NomCompleto;
-              vm.Calle = DatosCliente.Calle_;
-              vm.Numero = DatosCliente.NumExt;
-              vm.Colonia = DatosCliente.Colonia_;
-              vm.Ciudad = DatosCliente.Ciudad_;
-              vm.tipoAtencion = (DatosCliente.SoloInternet == true)? 'T' : 'S';
-            });
-            agendaFactory.GetCONSULTARREL_CITAS(vm.ClvCita).then(function(data){
-              vm.Comentario = data.GetCONSULTARREL_CITASResult;
-            });
-            agendaFactory.GetMuestra_Tecnicos_Almacen(vm.IdContrato).then(function(data){
-              vm.TecnicoList = data.GetMuestra_Tecnicos_AlmacenResult;
-              for(var i = 0; vm.TecnicoList.length > i; i ++){
-                if(vm.TecnicoList[i].clv_tecnico == vm.Clv_Tecnico){
-                  vm.Tecnico = vm.TecnicoList[i];
-                }
-              }
-            });
-            agendaFactory.GetBUSCADetCitas(vm.ClvCita).then(function(data){
-              var DetalleCita = data.GetBUSCADetCitasResult;
-              var Clv_Hora = DetalleCita.Clv_Hora;
-              agendaFactory.GetspConsultaTurnosList().then(function(data){
-                vm.TurnoList = data.GetspConsultaTurnosListResult;
-                for(var i = 0; vm.TurnoList.length > i; i ++){
-                  if(vm.TurnoList[i].ID == Clv_Hora){
-                    vm.Turno = vm.TurnoList[i];
+          if(vm.Clv_Tecnico == 0){
+            if(vm.ClvCita != null && ContratoReal == vm.IdContrato){
+              vm.Contrato = $stateParams.cliente;
+              var ObjCliente = {
+                'CONTRATO': vm.IdContrato,
+                'NOMBRE': '',
+                'CALLE': '',
+                'NUMERO': '',
+                'CIUDAD': '',
+                'Telefono': '',
+                'OP': 0
+              };
+              agendaFactory.GetBUSCLIPORCONTRATO2(ObjCliente).then(function(data){
+                var DatosCliente =  data.GetBUSCLIPORCONTRATO2Result;
+                vm.NombreCliente = DatosCliente.NomCompleto;
+                vm.Calle = DatosCliente.Calle_;
+                vm.Numero = DatosCliente.NumExt;
+                vm.Colonia = DatosCliente.Colonia_;
+                vm.Ciudad = DatosCliente.Ciudad_;
+                vm.tipoAtencion = (DatosCliente.SoloInternet == true)? 'T' : 'S';
+              });
+              agendaFactory.GetCONSULTARREL_CITAS(vm.ClvCita).then(function(data){
+                vm.Comentario = data.GetCONSULTARREL_CITASResult;
+              });
+              agendaFactory.GetMuestra_Tecnicos_Almacen(vm.IdContrato).then(function(data){
+                vm.TecnicoList = data.GetMuestra_Tecnicos_AlmacenResult;
+                for(var i = 0; vm.TecnicoList.length > i; i ++){
+                  if(vm.TecnicoList[i].clv_tecnico == vm.Clv_Tecnico){
+                    vm.Tecnico = vm.TecnicoList[i];
                   }
                 }
               });
-            });
-            agendaFactory.GetMuestraArbolServicios_ClientesList(vm.IdContrato).then(function(data){
-              vm.ServicioList = data.GetMuestraArbolServicios_ClientesListResult;
-              vm.expandedNodes=[];
-              angular.forEach(vm.ServicioList, function(value, key) {
-                  vm.expandedNodes.push(value);
-              });
-            });
-            if(vm.QuejaOrden == 'O'){
-              vm.ShowOrden = true;
-              vm.ShowQueja = false;
-              agendaFactory.GetVERORDENES_CITAS(vm.ClvCita).then(function(data){
-                var OrdenCita = data.GetVERORDENES_CITASResult;
-                vm.ClvOrden = OrdenCita.Clv_ORDEN;
-                agendaFactory.GetDame_DetOrdSer(vm.ClvOrden).then(function(data){
-                  vm.DetalleServicio = data.GetDame_DetOrdSerResult;
+              agendaFactory.GetBUSCADetCitas(vm.ClvCita).then(function(data){
+                var DetalleCita = data.GetBUSCADetCitasResult;
+                var Clv_Hora = DetalleCita.Clv_Hora;
+                agendaFactory.GetspConsultaTurnosList().then(function(data){
+                  vm.TurnoList = data.GetspConsultaTurnosListResult;
+                  for(var i = 0; vm.TurnoList.length > i; i ++){
+                    if(vm.TurnoList[i].ID == Clv_Hora){
+                      vm.Turno = vm.TurnoList[i];
+                    }
+                  }
                 });
               });
-            }else if(vm.QuejaOrden = 'Q'){
-              vm.ShowOrden = false;
-              vm.ShowQueja = true;
-              agendaFactory.GetVERQUEJAS_CITAS(vm.ClvCita).then(function(data){
-                var QuejaCita = data.GetVERQUEJAS_CITASResult;
-                vm.ClvReporte = QuejaCita.Clv_Queja;
-                vm.ProblemaReporte = QuejaCita.Problema;
-                vm.ObservacionesReporte = QuejaCita.Observaciones;
+              agendaFactory.GetMuestraArbolServicios_ClientesList(vm.IdContrato).then(function(data){
+                vm.ServicioList = data.GetMuestraArbolServicios_ClientesListResult;
+                vm.expandedNodes=[];
+                angular.forEach(vm.ServicioList, function(value, key) {
+                    vm.expandedNodes.push(value);
+                });
               });
+              if(vm.QuejaOrden == 'O'){
+                vm.ShowOrden = true;
+                vm.ShowQueja = false;
+                agendaFactory.GetVERORDENES_CITAS(vm.ClvCita).then(function(data){
+                  var OrdenCita = data.GetVERORDENES_CITASResult;
+                  vm.ClvOrden = OrdenCita.Clv_ORDEN;
+                  agendaFactory.GetDame_DetOrdSer(vm.ClvOrden).then(function(data){
+                    vm.DetalleServicio = data.GetDame_DetOrdSerResult;
+                  });
+                });
+              }else if(vm.QuejaOrden = 'Q'){
+                vm.ShowOrden = false;
+                vm.ShowQueja = true;
+                agendaFactory.GetVERQUEJAS_CITAS(vm.ClvCita).then(function(data){
+                  var QuejaCita = data.GetVERQUEJAS_CITASResult;
+                  vm.ClvReporte = QuejaCita.Clv_Queja;
+                  vm.ProblemaReporte = QuejaCita.Problema;
+                  vm.ObservacionesReporte = QuejaCita.Observaciones;
+                });
+              }
+            }else{
+              ngNotify.set('ERROR, No se encontró la cita que ingresó.', 'warn');
+              $state.go('home.procesos.agenda');
             }
           }else{
-            ngNotify.set('ERROR, no se encontró la cita que ingresó.', 'warn');
+            ngNotify.set('ERROR, Esta cita ya ha sido agendada.', 'warn');
             $state.go('home.procesos.agenda');
           }
         });

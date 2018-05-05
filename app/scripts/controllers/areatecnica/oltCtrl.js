@@ -1,5 +1,4 @@
 'use strict';
-
 angular
   .module('softvApp')
   .controller('oltCtrl', function (areaTecnicaFactory, trabajosFactory, ngNotify,$uibModal,$scope) {
@@ -13,17 +12,19 @@ angular
       });
     }
 
-   
-   
-
-  
     function Add() {
-      areaTecnicaFactory.GetInsertaNueDescOlt(0, vm.descripcion).then(function (result) {
-        ngNotify.set('OLT agregada correctamente', 'success');
-        getolt();
+      areaTecnicaFactory.GetValidaNueDescOLT(0, vm.descripcion).then(function(data){
+        if(data.GetValidaNueDescOLTResult == 0){
+          areaTecnicaFactory.GetInsertaNueDescOlt(0, vm.descripcion).then(function (result) {
+            ngNotify.set('Correcto, Se guardo OLT', 'success');
+            getolt();
+          });
+        }else{
+          ngNotify.set('Error, La Descripción que ingresó ya existe', 'warn');
+          getolt();
+        }
       });
     }
-
 
     function Update(CLAVE,DESCRIPCION) {
       var CLAVE = CLAVE;
@@ -39,7 +40,7 @@ angular
         backdrop: 'static',
         keyboard: false,
         class: 'modal-backdrop fade',
-        size: 'md',
+        size: 'sm',
         resolve: {          
           CLAVE: function () {
             return CLAVE;
@@ -53,13 +54,15 @@ angular
           }                
         }
       });
+      modalInstance.result.then(function () {
+        getolt();
+      });
     }
 
     var vm = this;
     initData();    
     vm.Add = Add;
     vm.Update = Update;
-
     vm.titulo = 'Catálogo de OLT';
 
   });
