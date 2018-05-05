@@ -25,8 +25,7 @@
       </div>
       <div class="col-md-12">
         <div class="col-md-6">
-          <select name="SlcHUB" class="form-control input-sm" ng-model="ctrl.HUB" ng-options="H.Descripcion for H in ctrl.HUBList track by H.Clv_Sector" validate-on="dirty" required required-message="'Obligatorio'">
-            <option value="">Selecciona</option>
+          <select name="SlcHUB" class="form-control input-sm" ng-model="ctrl.HUB" ng-options="H.Descripcion for H in ctrl.HUBList track by H.Clv_Sector" validate-on="dirty" validator="ctrl.HUB.Clv_Sector > 0" required required-message="'Obligatorio'" invalid-message="'Obligatorio'">
           </select>
         </div>
         <div class="col-md-6">
@@ -70,11 +69,11 @@
         </div>
         <div class="col-md-12">
           <div class="col-md-6">
-            <select name="SlcColonia" class="form-control input-sm" ng-model="ctrl.Colonia" ng-options="C.Nombre for C in ctrl.ColoniaList track by C.Clv_Ciudad" validate-on="dirty" validator="!ctrl.AfterSave" invalid-message="'Obligatorio'">
+            <select name="SlcColonia" class="form-control input-sm" ng-model="ctrl.Colonia" ng-options="C.Nombre for C in ctrl.ColoniaList track by C.IdColonia" validate-on="dirty" validator="!ctrl.AfterSave || ctrl.Colonia.IdColonia > 0" invalid-message="'Obligatorio'" ng-change="ctrl.GetCalleList(0)">
             </select>
           </div>
           <div class="col-md-6">
-            <select name="SlcCalle" class="form-control input-sm" ng-model="ctrl.Calle" ng-options="CL.Nombre for CL in ctrl.CalleList track by CL.Clv_Ciudad" validate-on="dirty" validator="!ctrl.AfterSave" invalid-message="'Obligatorio'">
+            <select name="SlcCalle" class="form-control input-sm" ng-model="ctrl.Calle" ng-options="CL.Nombre for CL in ctrl.CalleList track by CL.IdCalle" validate-on="dirty" validator="!ctrl.AfterSave || ctrl.Calle.IdCalle > 0" invalid-message="'Obligatorio'">
             </select>
           </div>
         </div>

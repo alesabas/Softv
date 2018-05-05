@@ -26,7 +26,8 @@ angular
       GetValidaNueDescOLT: '/AreaTecnica/GetValidaNueDescOLT',
       GetCONSULTAnap:'/AreaTecnica/GetCONSULTAnap',
       GetMUESTRAOlt: '/AreaTecnica/GetMUESTRAOlt',
-      GetINSERTAnap: '/AreaTecnica/GetINSERTAnap'
+      GetINSERTAnap: '/AreaTecnica/GetINSERTAnap',
+      GetMODIFICAnap: '/AreaTecnica/GetMODIFICAnap'
     };
     var factory = {};
     
@@ -524,6 +525,18 @@ angular
       var config = {headers: {'Authorization': $localStorage.currentUser.token}};
       var Parametros = {'ObjNAP': ObjNAP};
       $http.post(globalService.getUrl() + paths.GetINSERTAnap, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    };
+
+    factory.GetMODIFICAnap = function (ObjNAP) {
+      var deferred = $q.defer();
+      var config = {headers: {'Authorization': $localStorage.currentUser.token}};
+      var Parametros = {'ObjNAP': ObjNAP};
+      $http.post(globalService.getUrl() + paths.GetMODIFICAnap, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
         deferred.reject(response);

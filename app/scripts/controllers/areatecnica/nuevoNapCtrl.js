@@ -4,44 +4,59 @@ angular
   .controller('nuevoNapCtrl', function (areaTecnicaFactory, $uibModalInstance, ngNotify) {
 
     function init(){
-      GetHUBList(4, 0, 0, 0);
-      GetOLTList(0);
+      GetHUBList(4);
+      GetOLTList();
     }
 
-    function GetHUBList(op, Clv_Txt, Descripcion, Clv_Sector){
-      console.log(op, Clv_Txt, Descripcion, Clv_Sector);
-      areaTecnicaFactory.GetConHub(Clv_Sector, Clv_Txt,  Descripcion, op).then(function(data){
+    function GetHUBList(op){
+      console.log(op);
+      areaTecnicaFactory.GetConHub(vm.clv_sector, vm.clv_sector,  vm.clv_sector, op).then(function(data){
         console.log(data);
         vm.HUBList = data.GetConHubResult;
+        vm.HUB = vm.HUBList[0];
       });
     }
 
-    function GetOLTList(Id){
-      areaTecnicaFactory.GetMUESTRAOlt(Id).then(function(data){
+    function GetOLTList(){
+      areaTecnicaFactory.GetMUESTRAOlt(vm.clv_poste).then(function(data){
         console.log(data);
         vm.OLTList = data.GetMUESTRAOltResult;
       });
     }
 
-    function GetColoniaList(Clv_Colonia, Clv_Sector, Op){
-      areaTecnicaFactory.GetMuestraColoniaHub(Clv_Colonia, Clv_Sector, Op).then(function(data){
+    function GetColoniaList(Clv_Colonia, Op){
+      areaTecnicaFactory.GetMuestraColoniaHub(Clv_Colonia, vm.clv_sector, Op).then(function(data){
         console.log(data);
+        vm.ColoniaList = data.GetMuestraColoniaHubResult;
+        vm.Colonia = vm.ColoniaList[0];
+        GetCalleList(0);
       });
     }
 
-    function GetCalleList(){
+    function GetCalleList(op){
       var ObjCalle = {
-        'Clv_Sector': 0,
-        'Clv_Colonia': 0,
+        'Clv_Sector': vm.clv_sector,
+        'Clv_Colonia': (vm.Colonia.IdColonia != undefined && vm.Colonia.IdColonia != null)? vm.Colonia.IdColonia:0,
         'Clv_Calle': 0,
-        'Op': 0
+        'Op': op
       };
-      areaTecnicaFactory.GetMuestraCalleHub().then(function(data){
+      console.log(ObjCalle);
+      areaTecnicaFactory.GetMuestraCalleHub(ObjCalle).then(function(data){
         console.log(data);
+        vm.CalleList = data.GetMuestraCalleHubResult;
+        vm.Calle = vm.CalleList[0];
       });
     }
 
     function SaveNAP(){
+      if(vm.Clavetecnica == null){
+        AddNap();
+      }else{
+        UpdateNap();
+      }
+    }
+
+    function AddNap(){
       var ObjNAP = {
         'clv_sector': vm.HUB.Clv_Sector,
         'clv_colonia': 0,
@@ -70,6 +85,26 @@ angular
       });
     }
 
+    function UpdateNap(){
+      var ObjNAP = {
+        'clv_sector': vm.HUB.Clv_Sector,
+        'clv_colonia': 0,
+        'clv_calle': 0,
+        'clv_poste': vm.OLT.id,
+        'Ingenieria': (vm.Ingenieria > 0)? vm.Ingenieria:0,
+        'Salidas': (vm.Salidas)? vm.Salidas:0,
+        'Clavetecnica': '',
+        'NoCasas': 0,
+        'NoNegocios': 0,
+        'NoLotes': 0,
+        'NoServicios': 0,
+        'FrenteANumero': ''
+      };
+      areaTecnicaFactory.GetMODIFICAnap(ObjNAP).then(function(data){
+        console.log(data);
+      });
+    }
+
     function GetNAP(){
       var Parametros = {
         'Op': 6,
@@ -87,10 +122,11 @@ angular
         vm.Ingenieria = NAP.Ingenieria;
         vm.SaveNAP = NAP.Salidas;
         vm.clv_sector = NAP.clv_sector;
-        var clv_poste = NAP.clv_poste;
-        GetHUBList(3, clv_sector, clv_sector, clv_sector);/* here */
-        GetOLTList(clv_poste);
-        GetColoniaList(0, clv_sector, 1);
+        vm.clv_poste = NAP.clv_poste;
+        GetHUBList(3);/* here */
+        GetOLTList();
+        GetColoniaList(0, 1);
+        GetCalleList(0);
         /*vm.NAPList = data.GetCONSULTAnapResult;*/
       });
     }
@@ -103,8 +139,12 @@ angular
     vm.Titulo = 'Nuevo NAP';
     vm.Icono = 'fa fa-plus';
     vm.BtnClose = 'Cancelar';
+    vm.Clavetecnica = null;
+    vm.clv_sector = 0;
+    vm.clv_poste = 0;
     vm.AfterSave = false;
     vm.SaveNAP = SaveNAP;
+    vm.GetCalleList = GetCalleList;
     vm.Close = Close;
     init();
 

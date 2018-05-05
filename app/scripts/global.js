@@ -15,13 +15,13 @@ angular
     };
 
     svc.getUrlinfoSistema = function () {
-     // return 'http://localhost:64481/AppWCFService.svc';
-      return 'http://192.168.50.33:7000/ConfigSistema/AppWCFService.svc';     
+     //return 'http://localhost:64481/AppWCFService.svc';
+      return 'http://192.168.50.200:7000/ConfigSistema/AppWCFService.svc';     
     };
 
     svc.getUrllogos = function () {
      //return 'http://localhost:64481/logos';
-      return 'http://192.168.50.33:7000/ConfigSistema/logos';
+    return 'http://192.168.50.200:7000/ConfigSistema/logos';
     }; 
 
     return svc;
